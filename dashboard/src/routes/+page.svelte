@@ -51,6 +51,8 @@
     toggleDebugMode,
     topologyOnlyMode,
     toggleTopologyOnlyMode,
+    allowMemoryOverride,
+    toggleAllowMemoryOverride,
     chatSidebarVisible,
     toggleChatSidebarVisible,
     mobileChatSidebarOpen,
@@ -88,6 +90,7 @@
   const loadingPreviews = $derived(isLoadingPreviews());
   const debugEnabled = $derived(debugMode());
   const topologyOnlyEnabled = $derived(topologyOnlyMode());
+  const memoryOverrideEnabled = $derived(allowMemoryOverride());
   const sidebarVisible = $derived(chatSidebarVisible());
   const mobileChatOpen = $derived(mobileChatSidebarOpen());
   const mobileRightOpen = $derived(mobileRightSidebarOpen());
@@ -705,7 +708,11 @@
     const instanceType = nodeCount <= 1 ? "MlxRing" : selectedInstanceType;
     try {
       const placementResponse = await fetch(
-        `/instance/placement?model_id=${encodeURIComponent(modelId)}&sharding=${sharding}&instance_meta=${instanceType}&min_nodes=1`,
+        `/instance/placement?model_id=${encodeURIComponent(
+          modelId,
+        )}&sharding=${sharding}&instance_meta=${instanceType}&min_nodes=1${
+          memoryOverrideEnabled ? "&force_override=true" : ""
+        }`,
       );
       if (!placementResponse.ok) {
         const errorText = await placementResponse.text();
@@ -717,7 +724,10 @@
       const response = await fetch("/instance", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ instance: instanceData }),
+        body: JSON.stringify({
+          instance: instanceData,
+          force_override: memoryOverrideEnabled,
+        }),
       });
       if (!response.ok) {
         const errorText = await response.text();
@@ -1228,6 +1238,9 @@
     name?: string;
     storage_size_megabytes?: number;
   }): boolean {
+    // With the memory override enabled, don't block any model — the user
+    // explicitly opted into attempting oversized loads.
+    if (memoryOverrideEnabled) return true;
     return getModelMemoryFitStatus(model) === "fits_now";
   }
 
@@ -1416,9 +1429,19 @@
     isModelPickerOpen = false;
   }
 
+  // Toggle the memory override and refresh placement previews so the UI
+  // reflects the new blocking behavior immediately.
+  function handleToggleMemoryOverride() {
+    toggleAllowMemoryOverride();
+    if (selectedModelId) {
+      selectPreviewModel(selectedModelId);
+    }
+  }
+
   async function launchInstance(
     modelId: string,
     specificPreview?: PlacementPreview | null,
+    force = false,
   ) {
     if (!modelId || launchingModelId) return;
 
@@ -1427,6 +1450,9 @@
     try {
       // Use the specific preview if provided, otherwise fall back to filtered preview
       const preview = specificPreview ?? filteredPreview();
+      // Explicit "load anyway" (force) or global override setting both bypass
+      // the memory-sufficiency checks on the backend.
+      const forceOverride = force || memoryOverrideEnabled;
 
       let response: Response;
       if (preview?.instance) {
@@ -1434,7 +1460,34 @@
         response = await fetch("/instance", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ instance: preview.instance }),
+          body: JSON.stringify({
+            instance: preview.instance,
+            force_override: forceOverride,
+          }),
+        });
+      } else if (forceOverride) {
+        // No valid placement (model exceeds available memory) — ask the server
+        // to place it anyway, ignoring the memory checks.
+        const placementRes = await fetch(
+          `/instance/placement?model_id=${encodeURIComponent(
+            modelId,
+          )}&force_override=true`,
+        );
+        if (!placementRes.ok) {
+          const errorText = await placementRes.text();
+          console.error("Failed to get forced placement:", errorText);
+          addToast({
+            type: "error",
+            message: `Failed to place model: ${errorText}`,
+          });
+          launchingModelId = null;
+          return;
+        }
+        const instance = await placementRes.json();
+        response = await fetch("/instance", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ instance, force_override: true }),
         });
       } else {
         // No preview available — use place_instance to let server decide placement
@@ -2802,7 +2855,10 @@
       const launchRes = await fetch("/instance", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ instance: placement.instance }),
+        body: JSON.stringify({
+          instance: placement.instance,
+          force_override: memoryOverrideEnabled,
+        }),
       });
       if (!launchRes.ok) {
         addToast({
@@ -2938,7 +2994,10 @@
       const launchRes = await fetch("/instance", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ instance: placement.instance }),
+        body: JSON.stringify({
+          instance: placement.instance,
+          force_override: memoryOverrideEnabled,
+        }),
       });
       if (!launchRes.ok) {
         addToast({
@@ -4693,6 +4752,8 @@
         onDeleteModel={deleteCustomModel}
         totalMemoryGB={clusterMemory().total / (1024 * 1024 * 1024)}
         usedMemoryGB={clusterMemory().used / (1024 * 1024 * 1024)}
+        allowMemoryOverride={memoryOverrideEnabled}
+        onToggleAllowMemoryOverride={handleToggleMemoryOverride}
         {downloadsData}
         topologyNodes={data?.nodes}
       />
@@ -5945,6 +6006,8 @@
                           runtime={apiPreview.instance_meta}
                           onLaunch={() =>
                             launchInstance(selectedModel.id, apiPreview)}
+                          onForceLaunch={() =>
+                            launchInstance(selectedModel.id, apiPreview, true)}
                           {tags}
                           {apiPreview}
                           modelIdOverride={apiPreview.model_id}
@@ -6769,6 +6832,8 @@
     onDeleteModel={deleteCustomModel}
     totalMemoryGB={clusterMemory().total / (1024 * 1024 * 1024)}
     usedMemoryGB={clusterMemory().used / (1024 * 1024 * 1024)}
+    allowMemoryOverride={memoryOverrideEnabled}
+    onToggleAllowMemoryOverride={handleToggleMemoryOverride}
     {downloadsData}
     topologyNodes={data?.nodes}
     instanceStatuses={modelInstanceStatuses}

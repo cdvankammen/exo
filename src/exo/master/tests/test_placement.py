@@ -277,6 +277,38 @@ def test_get_instance_placements_one_node_not_fit() -> None:
         )
 
 
+def test_get_instance_placements_one_node_force_override() -> None:
+    """force_override=True should bypass the memory-sufficiency check and still
+    produce a placement for a model that exceeds available memory."""
+    topology = Topology()
+    node_id = NodeId()
+    topology.add_node(node_id)
+    node_memory = {node_id: create_node_memory(1000 * 1024)}
+    node_network = {node_id: create_node_network()}
+    cic = place_instance_command(
+        model_card=ModelCard(
+            model_id=ModelId("test-model"),
+            storage_size=Memory.from_kb(1001),
+            n_layers=10,
+            hidden_size=1000,
+            supports_tensor=True,
+            tasks=[ModelTask.TextGeneration],
+            backends=[Backend.MlxMetal],
+        ),
+    )
+    cic = cic.model_copy(update={"force_override": True})
+
+    placements = place_instance(
+        cic, topology, {}, node_memory, node_network, _metal_only(node_memory)
+    )
+
+    assert len(placements) == 1
+    instance_id = list(placements.keys())[0]
+    instance = placements[instance_id]
+    assert instance.shard_assignments.model_id == "test-model"
+    assert len(instance.shard_assignments.node_to_runner) == 1
+
+
 def test_get_transition_events_no_change(instance: Instance):
     # arrange
     instance_id = InstanceId()

@@ -93,6 +93,41 @@ def test_filter_cycles_by_insufficient_memory():
     assert len(filtered_cycles) == 0
 
 
+def test_filter_cycles_by_memory_force_override():
+    """force_override=True should keep cycles even when total available memory
+    is below the required memory."""
+    # arrange
+    node1_id = NodeId()
+    node2_id = NodeId()
+    connection1 = Connection(
+        source=node1_id, sink=node2_id, edge=create_socket_connection(1)
+    )
+    connection2 = Connection(
+        source=node2_id, sink=node1_id, edge=create_socket_connection(2)
+    )
+
+    node1_mem = create_node_memory(1000 * 1024)
+    node2_mem = create_node_memory(1000 * 1024)
+    node_memory = {node1_id: node1_mem, node2_id: node2_mem}
+
+    topology = Topology()
+    topology.add_node(node1_id)
+    topology.add_node(node2_id)
+    topology.add_connection(connection1)
+    topology.add_connection(connection2)
+
+    # act
+    filtered_cycles = filter_cycles_by_memory(
+        topology.get_cycles(),
+        node_memory,
+        Memory.from_kb(2001),
+        force_override=True,
+    )
+
+    # assert
+    assert len(filtered_cycles) >= 1
+
+
 def test_filter_multiple_cycles_by_memory():
     # arrange
     node_a_id = NodeId()
@@ -495,6 +530,70 @@ def test_get_shard_assignments_insufficient_memory_raises():
         get_shard_assignments(
             model_card, selected_cycle, Sharding.Pipeline, node_memory
         )
+
+
+def test_get_shard_assignments_insufficient_memory_force_override():
+    """force_override=True should skip the per-node layer memory validation and
+    still allocate layers for a model that exceeds available memory."""
+    node_a_id = NodeId()
+    node_b_id = NodeId()
+    node_c_id = NodeId()
+    topology = Topology()
+
+    # Node C has only 10 KB but would need 50 KB for 1 layer (1000 KB / 20 layers)
+    node_a_mem = create_node_memory(900 * 1024)
+    node_b_mem = create_node_memory(50 * 1024)
+    node_c_mem = create_node_memory(10 * 1024)  # Insufficient memory
+
+    topology.add_node(node_a_id)
+    topology.add_node(node_b_id)
+    topology.add_node(node_c_id)
+
+    conn_a_b = Connection(
+        source=node_a_id, sink=node_b_id, edge=create_socket_connection(1)
+    )
+    conn_b_c = Connection(
+        source=node_b_id, sink=node_c_id, edge=create_socket_connection(2)
+    )
+    conn_c_a = Connection(
+        source=node_c_id, sink=node_a_id, edge=create_socket_connection(3)
+    )
+    conn_b_a = Connection(
+        source=node_b_id, sink=node_a_id, edge=create_socket_connection(3)
+    )
+    topology.add_connection(conn_a_b)
+    topology.add_connection(conn_b_c)
+    topology.add_connection(conn_c_a)
+    topology.add_connection(conn_b_a)
+
+    node_memory = {
+        node_a_id: node_a_mem,
+        node_b_id: node_b_mem,
+        node_c_id: node_c_mem,
+    }
+
+    model_card = ModelCard(
+        model_id=ModelId("test-model"),
+        n_layers=20,
+        storage_size=Memory.from_kb(1000),
+        hidden_size=1000,
+        supports_tensor=True,
+        tasks=[ModelTask.TextGeneration],
+        backends=[Backend.MlxMetal],
+    )
+    cycles = topology.get_cycles()
+    selected_cycle = cycles[0]
+
+    shard_assignments = get_shard_assignments(
+        model_card,
+        selected_cycle,
+        Sharding.Pipeline,
+        node_memory,
+        force_override=True,
+    )
+
+    assert shard_assignments.model_id == "test-model"
+    assert len(shard_assignments.runner_to_shard) == 3
 
 
 class TestCfgParallelPlacement:

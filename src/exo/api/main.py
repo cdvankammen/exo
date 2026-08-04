@@ -432,6 +432,7 @@ class API:
             sharding=payload.sharding,
             instance_meta=payload.instance_meta,
             min_nodes=payload.min_nodes,
+            force_override=payload.force_override,
         )
         await self._send(command)
 
@@ -449,7 +450,7 @@ class API:
         required_memory = model_card.storage_size
         available_memory = self._calculate_total_available_memory()
 
-        if required_memory > available_memory:
+        if not payload.force_override and required_memory > available_memory:
             raise HTTPException(
                 status_code=400,
                 detail=f"Insufficient memory to create instance. Required: {required_memory.in_gb:.1f}GB, Available: {available_memory.in_gb:.1f}GB",
@@ -472,6 +473,7 @@ class API:
         sharding: Sharding = Sharding.Pipeline,
         instance_meta: InstanceMeta = InstanceMeta.MlxRing,
         min_nodes: int = 1,
+        force_override: bool = Query(default=False),
     ) -> Instance:
         model_card = await ModelCard.load(model_id)
 
@@ -482,6 +484,7 @@ class API:
                     sharding=sharding,
                     instance_meta=instance_meta,
                     min_nodes=min_nodes,
+                    force_override=force_override,
                 ),
                 node_memory=self.state.node_memory,
                 node_network=self.state.node_network,
@@ -510,6 +513,7 @@ class API:
         self,
         model_id: ModelId,
         node_ids: Annotated[list[NodeId] | None, Query()] = None,
+        force_override: bool = Query(default=False),
     ) -> PlacementPreviewResponse:
         seen: set[tuple[ModelId, Sharding, InstanceMeta, int]] = set()
         previews: list[PlacementPreview] = []
@@ -546,6 +550,7 @@ class API:
                         sharding=sharding,
                         instance_meta=instance_meta,
                         min_nodes=min_nodes,
+                        force_override=force_override,
                     ),
                     node_memory=self.state.node_memory,
                     node_network=self.state.node_network,

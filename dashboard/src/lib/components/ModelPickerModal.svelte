@@ -74,6 +74,9 @@
     onDeleteModel: (modelId: string) => Promise<void>;
     totalMemoryGB: number;
     usedMemoryGB: number;
+    /** When true, models that exceed available memory are not blocked. */
+    allowMemoryOverride?: boolean;
+    onToggleAllowMemoryOverride?: () => void;
     downloadsData?: Record<string, unknown[]>;
     topologyNodes?: Record<
       string,
@@ -103,6 +106,8 @@
     onDeleteModel,
     totalMemoryGB,
     usedMemoryGB,
+    allowMemoryOverride = false,
+    onToggleAllowMemoryOverride,
     downloadsData,
     topologyNodes,
     instanceStatuses = {},
@@ -738,6 +743,26 @@
           ><span class="text-white/40">/{Math.round(totalMemoryGB)}GB</span
           ></span
         >
+        <!-- Allow memory override toggle -->
+        {#if onToggleAllowMemoryOverride}
+          <button
+            type="button"
+            class="flex items-center gap-1.5 px-2 py-1 rounded border transition-colors flex-shrink-0 cursor-pointer {allowMemoryOverride
+              ? 'border-amber-400/50 bg-amber-500/10 text-amber-300'
+              : 'border-white/10 text-white/40 hover:text-white/60'}"
+            onclick={onToggleAllowMemoryOverride}
+            title="Allow loading models that exceed available memory (load anyway). May slow down or destabilize the machine."
+          >
+            <span
+              class="w-3 h-3 rounded-full {allowMemoryOverride
+                ? 'bg-amber-400'
+                : 'bg-white/20'}"
+            ></span>
+            <span class="text-[10px] font-mono uppercase tracking-wider">
+              {allowMemoryOverride ? "Override on" : "Memory guard"}
+            </span>
+          </button>
+        {/if}
         <!-- Filter button -->
         <div class="relative filter-toggle">
           <button

@@ -39,10 +39,17 @@ class PlaceInstance(BaseCommand):
     sharding: Sharding
     instance_meta: InstanceMeta
     min_nodes: int
+    # When True, skip memory-sufficiency checks (cycles/layers). Intended for
+    # users who explicitly want to attempt loading a model that exceeds the
+    # reported available memory ("load the model anyway").
+    force_override: bool = False
 
 
 class CreateInstance(BaseCommand):
     instance: Instance
+    # When True, skip the API-level total-available-memory check for this
+    # instance creation ("load the model anyway").
+    force_override: bool = False
 
 
 class DeleteInstance(BaseCommand):

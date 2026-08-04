@@ -271,10 +271,16 @@ class PlaceInstanceParams(BaseModel):
     sharding: Sharding = Sharding.Pipeline
     instance_meta: InstanceMeta = InstanceMeta.MlxRing
     min_nodes: int = 1
+    # When True, bypass memory-sufficiency checks and attempt to place/load
+    # the model anyway.
+    force_override: bool = False
 
 
 class CreateInstanceParams(BaseModel):
     instance: Instance
+    # When True, bypass the total-available-memory check when creating this
+    # instance ("load the model anyway").
+    force_override: bool = False
 
 
 class PlacementPreview(BaseModel):

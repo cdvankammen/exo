@@ -589,6 +589,9 @@ class AppStore {
   isSidebarOpen = $state(false); // Hidden by default, shown when in chat mode
   debugMode = $state(false);
   topologyOnlyMode = $state(false);
+  /** When true, models that exceed available memory are not blocked — placement
+   *  previews are fetched with force_override so oversized models can be loaded. */
+  allowMemoryOverride = $state(false);
   chatSidebarVisible = $state(true); // Shown by default
   mobileChatSidebarOpen = $state(false); // Mobile drawer state
   mobileRightSidebarOpen = $state(false); // Mobile right drawer state
@@ -618,6 +621,7 @@ class AppStore {
       this.loadConversationsFromStorage();
       this.loadDebugModeFromStorage();
       this.loadTopologyOnlyModeFromStorage();
+      this.loadAllowMemoryOverrideFromStorage();
       this.loadChatSidebarVisibleFromStorage();
       this.loadImageGenerationParamsFromStorage();
     }
@@ -697,6 +701,28 @@ class AppStore {
       }
     } catch (error) {
       console.error("Failed to load topology only mode:", error);
+    }
+  }
+
+  private loadAllowMemoryOverrideFromStorage() {
+    try {
+      const stored = localStorage.getItem("exo-allow-memory-override");
+      if (stored !== null) {
+        this.allowMemoryOverride = stored === "true";
+      }
+    } catch (error) {
+      console.error("Failed to load allow memory override:", error);
+    }
+  }
+
+  private saveAllowMemoryOverrideToStorage() {
+    try {
+      localStorage.setItem(
+        "exo-allow-memory-override",
+        this.allowMemoryOverride ? "true" : "false",
+      );
+    } catch (error) {
+      console.error("Failed to save allow memory override:", error);
     }
   }
 
@@ -1243,6 +1269,20 @@ class AppStore {
     this.saveTopologyOnlyModeToStorage();
   }
 
+  getAllowMemoryOverride(): boolean {
+    return this.allowMemoryOverride;
+  }
+
+  setAllowMemoryOverride(enabled: boolean) {
+    this.allowMemoryOverride = enabled;
+    this.saveAllowMemoryOverrideToStorage();
+  }
+
+  toggleAllowMemoryOverride() {
+    this.allowMemoryOverride = !this.allowMemoryOverride;
+    this.saveAllowMemoryOverrideToStorage();
+  }
+
   getChatSidebarVisible(): boolean {
     return this.chatSidebarVisible;
   }
@@ -1379,6 +1419,11 @@ class AppStore {
 
     try {
       let url = `/instance/previews?model_id=${encodeURIComponent(modelId)}`;
+      // When override is enabled, request placements that skip memory checks
+      // so oversized models are not blocked in the UI.
+      if (this.allowMemoryOverride) {
+        url += `&force_override=true`;
+      }
       // Add node filter if active
       if (this.previewNodeFilter.size > 0) {
         for (const nodeId of this.previewNodeFilter) {
@@ -3585,6 +3630,11 @@ export const setDebugMode = (enabled: boolean) =>
 export const toggleTopologyOnlyMode = () => appStore.toggleTopologyOnlyMode();
 export const setTopologyOnlyMode = (enabled: boolean) =>
   appStore.setTopologyOnlyMode(enabled);
+export const allowMemoryOverride = () => appStore.allowMemoryOverride;
+export const toggleAllowMemoryOverride = () =>
+  appStore.toggleAllowMemoryOverride();
+export const setAllowMemoryOverride = (enabled: boolean) =>
+  appStore.setAllowMemoryOverride(enabled);
 export const toggleChatSidebarVisible = () =>
   appStore.toggleChatSidebarVisible();
 export const setChatSidebarVisible = (visible: boolean) =>

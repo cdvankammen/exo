@@ -22,6 +22,7 @@ def filter_cycles_by_memory(
     cycles: list[Cycle],
     node_memory: Mapping[NodeId, MemoryUsage],
     required_memory: Memory,
+    force_override: bool = False,
 ) -> list[Cycle]:
     filtered_cycles: list[Cycle] = []
     for cycle in cycles:
@@ -32,7 +33,7 @@ def filter_cycles_by_memory(
             (node_memory[node_id].ram_available for node_id in cycle.node_ids),
             start=Memory(),
         )
-        if total_mem >= required_memory:
+        if force_override or total_mem >= required_memory:
             filtered_cycles.append(cycle)
     return filtered_cycles
 
@@ -98,6 +99,7 @@ def _allocate_and_validate_layers(
     node_memory: Mapping[NodeId, MemoryUsage],
     total_memory: Memory,
     model_card: ModelCard,
+    force_override: bool = False,
 ) -> list[int]:
     layer_allocations = allocate_layers_proportionally(
         total_layers=model_card.n_layers,
@@ -112,7 +114,7 @@ def _allocate_and_validate_layers(
         node_layers = layer_allocations[i]
         required_memory = (total_storage * node_layers) // total_layers
         available_memory = node_memory[node_id].ram_available
-        if required_memory > available_memory:
+        if not force_override and required_memory > available_memory:
             raise ValueError(
                 f"Node {i} ({node_id}) has insufficient memory: "
                 f"requires {required_memory.in_gb:.2f} GB for {node_layers} layers, "
@@ -126,21 +128,27 @@ def get_shard_assignments_for_pipeline_parallel(
     model_card: ModelCard,
     cycle: Cycle,
     node_memory: Mapping[NodeId, MemoryUsage],
+    force_override: bool = False,
 ) -> ShardAssignments:
     """Create shard assignments for pipeline parallel execution."""
     world_size = len(cycle)
     use_cfg_parallel = model_card.uses_cfg and world_size >= 2 and world_size % 2 == 0
 
     if use_cfg_parallel:
-        return _get_shard_assignments_for_cfg_parallel(model_card, cycle, node_memory)
+        return _get_shard_assignments_for_cfg_parallel(
+            model_card, cycle, node_memory, force_override
+        )
     else:
-        return _get_shard_assignments_for_pure_pipeline(model_card, cycle, node_memory)
+        return _get_shard_assignments_for_pure_pipeline(
+            model_card, cycle, node_memory, force_override
+        )
 
 
 def _get_shard_assignments_for_cfg_parallel(
     model_card: ModelCard,
     cycle: Cycle,
     node_memory: Mapping[NodeId, MemoryUsage],
+    force_override: bool = False,
 ) -> ShardAssignments:
     """Create shard assignments for CFG parallel execution.
 
@@ -159,7 +167,7 @@ def _get_shard_assignments_for_cfg_parallel(
     pipeline_node_ids = cycle.node_ids[:pipeline_world_size]
     pipeline_memory = _compute_total_memory(pipeline_node_ids, node_memory)
     layer_allocations = _allocate_and_validate_layers(
-        pipeline_node_ids, node_memory, pipeline_memory, model_card
+        pipeline_node_ids, node_memory, pipeline_memory, model_card, force_override
     )
 
     # Ring topology: group 0 ascending [0,1,2,...], group 1 descending [...,2,1,0]
@@ -204,13 +212,14 @@ def _get_shard_assignments_for_pure_pipeline(
     model_card: ModelCard,
     cycle: Cycle,
     node_memory: Mapping[NodeId, MemoryUsage],
+    force_override: bool = False,
 ) -> ShardAssignments:
     """Create shard assignments for pure pipeline execution."""
     _validate_cycle(cycle)
     total_memory = _compute_total_memory(cycle.node_ids, node_memory)
 
     layer_allocations = _allocate_and_validate_layers(
-        cycle.node_ids, node_memory, total_memory, model_card
+        cycle.node_ids, node_memory, total_memory, model_card, force_override
     )
 
     runner_to_shard: dict[RunnerId, ShardMetadata] = {}
@@ -278,6 +287,7 @@ def get_shard_assignments(
     cycle: Cycle,
     sharding: Sharding,
     node_memory: Mapping[NodeId, MemoryUsage],
+    force_override: bool = False,
 ) -> ShardAssignments:
     match sharding:
         case Sharding.Pipeline:
@@ -285,6 +295,7 @@ def get_shard_assignments(
                 model_card=model_card,
                 cycle=cycle,
                 node_memory=node_memory,
+                force_override=force_override,
             )
         case Sharding.Tensor:
             return get_shard_assignments_for_tensor_parallel(

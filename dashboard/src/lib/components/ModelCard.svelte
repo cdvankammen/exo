@@ -25,6 +25,9 @@
     sharding?: "Pipeline" | "Tensor";
     runtime?: "MlxRing" | "MlxJaccl";
     onLaunch?: () => void;
+    /** Called when the user explicitly chooses to load a model that does not
+     *  fit in available memory ("load the model anyway"). */
+    onForceLaunch?: () => void;
     tags?: string[];
     apiPreview?: PlacementPreview | null;
     modelIdOverride?: string | null;
@@ -38,6 +41,7 @@
     sharding = "Pipeline",
     runtime = "MlxRing",
     onLaunch,
+    onForceLaunch,
     tags = [],
     apiPreview = null,
     modelIdOverride = null,
@@ -1031,29 +1035,48 @@
     {/if}
 
     <!-- Launch Button -->
-    <button
-      onclick={onLaunch}
-      disabled={isLaunching || !canFit}
-      class="w-full py-2 text-sm font-mono tracking-wider uppercase border transition-all duration-200
-				{isLaunching
-        ? 'bg-transparent text-exo-yellow border-exo-yellow/50 cursor-wait'
-        : !canFit
-          ? 'bg-red-500/10 text-red-400/70 border-red-500/30 cursor-not-allowed'
-          : 'bg-transparent text-exo-light-gray border-exo-light-gray/40 hover:text-exo-yellow hover:border-exo-yellow/50 cursor-pointer'}"
-    >
-      {#if isLaunching}
+    {#if isLaunching}
+      <button
+        disabled
+        class="w-full py-2 text-sm font-mono tracking-wider uppercase border transition-all duration-200 bg-transparent text-exo-yellow border-exo-yellow/50 cursor-wait"
+      >
         <span class="flex items-center justify-center gap-1.5">
           <span
             class="w-2 h-2 border border-exo-yellow border-t-transparent rounded-full animate-spin"
           ></span>
           LAUNCHING...
         </span>
-      {:else if !canFit}
-        INSUFFICIENT MEMORY
-      {:else}
+      </button>
+    {:else if !canFit}
+      <div class="flex flex-col gap-2">
+        <button
+          disabled
+          class="w-full py-2 text-sm font-mono tracking-wider uppercase border transition-all duration-200 bg-red-500/10 text-red-400/70 border-red-500/30 cursor-not-allowed"
+        >
+          INSUFFICIENT MEMORY
+        </button>
+        {#if onForceLaunch}
+          <button
+            onclick={onForceLaunch}
+            class="w-full py-2 text-sm font-mono tracking-wider uppercase border transition-all duration-200 bg-amber-500/10 text-amber-400/90 border-amber-500/40 hover:text-amber-300 hover:border-amber-400/60 hover:bg-amber-500/15 cursor-pointer"
+          >
+            ▸ LOAD ANYWAY
+          </button>
+          <p class="text-[10px] text-white/40 font-mono text-center leading-tight">
+            Model exceeds reported available memory. Loading may slow down or
+            destabilize your device.
+          </p>
+        {/if}
+      </div>
+    {:else}
+      <button
+        onclick={onLaunch}
+        disabled={isLaunching}
+        class="w-full py-2 text-sm font-mono tracking-wider uppercase border transition-all duration-200 bg-transparent text-exo-light-gray border-exo-light-gray/40 hover:text-exo-yellow hover:border-exo-yellow/50 cursor-pointer"
+      >
         ▸ LAUNCH
-      {/if}
-    </button>
+      </button>
+    {/if}
   </div>
 </div>
 
