@@ -67,7 +67,8 @@ class FakeShardDownloader(ShardDownloader):
     async def ensure_shard(
         self,
         shard: ShardMetadata,
-        config_only: bool = False,  # noqa: ARG002
+        config_only: bool = False,
+        force_override: bool = False,
     ) -> Path:
         # Simulate a completed download by firing the progress callback
         progress = RepoDownloadProgress(

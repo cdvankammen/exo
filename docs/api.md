@@ -61,9 +61,18 @@ Creates a new model instance in the cluster.
   "instance": {
     "model_id": "llama-3.2-1b",
     "placement": { }
-  }
+  },
+  "force_override": false
 }
 ```
+
+**Request body fields:**
+
+* `instance`: object, required — the instance configuration to create.
+* `force_override`: boolean, optional, default `false` — when `true`, bypasses
+  the memory-sufficiency check and attempts to load the model anyway. Use with
+  caution: loading a model that exceeds available memory may slow down or
+  destabilize the machine.
 
 **Response:**
 Command acknowledgement. Instance creation is asynchronous; clients should wait
@@ -130,6 +139,9 @@ Returns possible placement previews for a given model.
 **Query parameters:**
 
 * `model_id`: string, required
+* `force_override`: boolean, optional, default `false` — when `true`, bypasses
+  the memory-sufficiency check so oversized models are not blocked. Use with
+  caution.
 
 **Response:**
 Array of placement preview objects.
@@ -146,6 +158,9 @@ Computes a placement for a potential instance without creating it.
 * `sharding`: string or config
 * `instance_meta`: JSON-encoded metadata
 * `min_nodes`: integer
+* `force_override`: boolean, optional, default `false` — when `true`, bypasses
+  the memory-sufficiency check so oversized models are not blocked. Use with
+  caution.
 
 **Response:**
 JSON object describing the proposed placement / instance configuration.
@@ -158,6 +173,16 @@ Places an instance for a model using the server's placement logic.
 
 **Request body:**
 JSON describing the instance to be placed.
+
+**Request body fields:**
+
+* `model_id`: string, required
+* `sharding`: string, optional
+* `instance_meta`: string, optional
+* `min_nodes`: integer, optional
+* `force_override`: boolean, optional, default `false` — when `true`, bypasses
+  the memory-sufficiency check and attempts to place the model anyway. Use with
+  caution.
 
 **Response:**
 Command acknowledgement. The instance may not be ready immediately; wait for it

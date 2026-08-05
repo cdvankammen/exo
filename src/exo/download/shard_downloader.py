@@ -19,7 +19,7 @@ from exo.shared.types.worker.shards import (
 class ShardDownloader(ABC):
     @abstractmethod
     async def ensure_shard(
-        self, shard: ShardMetadata, config_only: bool = False
+        self, shard: ShardMetadata, config_only: bool = False, force_override: bool = False
     ) -> Path:
         """
         Ensures that the shard is downloaded.
@@ -29,6 +29,8 @@ class ShardDownloader(ABC):
 
         Args:
             shard (Shard): The shard to download.
+            force_override (bool): When True, bypass the disk-space sufficiency
+                check and download anyway.
         """
 
     @abstractmethod
@@ -57,7 +59,7 @@ class ShardDownloader(ABC):
 
 class NoopShardDownloader(ShardDownloader):
     async def ensure_shard(
-        self, shard: ShardMetadata, config_only: bool = False
+        self, shard: ShardMetadata, config_only: bool = False, force_override: bool = False
     ) -> Path:
         return Path("/tmp/noop_shard")
 

@@ -153,17 +153,11 @@
 
 <div
   data-model-ids={group.variants.map((v) => v.id).join(" ")}
-  class="border-b border-white/5 last:border-b-0 {!anyVariantFits &&
-  !anyVariantHasInstance
-    ? 'opacity-50'
-    : ''} {isHighlighted ? 'model-just-added' : ''}"
+  class="border-b border-white/5 last:border-b-0 {isHighlighted ? 'model-just-added' : ''}"
 >
   <!-- Main row -->
   <div
-    class="flex items-center gap-2 px-3 py-2.5 transition-colors {anyVariantFits ||
-    anyVariantHasInstance
-      ? 'hover:bg-white/5 cursor-pointer'
-      : 'cursor-not-allowed'} {isMainSelected
+    class="flex items-center gap-2 px-3 py-2.5 transition-colors hover:bg-white/5 cursor-pointer {isMainSelected
       ? 'bg-exo-yellow/10 border-l-2 border-exo-yellow'
       : 'border-l-2 border-transparent'}"
     onclick={() => {
@@ -171,7 +165,7 @@
         onToggleExpand();
       } else {
         const modelId = group.variants[0]?.id;
-        if (modelId && (canModelFit(modelId) || instanceStatuses[modelId])) {
+        if (modelId) {
           onSelectModel(modelId);
         }
       }
@@ -185,7 +179,7 @@
           onToggleExpand();
         } else {
           const modelId = group.variants[0]?.id;
-          if (modelId && (canModelFit(modelId) || instanceStatuses[modelId])) {
+          if (modelId) {
             onSelectModel(modelId);
           }
         }
@@ -494,25 +488,18 @@
         {@const variantHasInstance = instanceStatuses[variant.id] != null}
         {@const isSelected = selectedModelId === variant.id}
         <div
-          class="w-full flex items-center gap-3 px-3 py-2 pl-10 hover:bg-white/5 transition-colors text-left {!modelCanFit &&
-          !variantHasInstance
-            ? 'opacity-50 cursor-not-allowed'
-            : 'cursor-pointer'} {isSelected
+          class="w-full flex items-center gap-3 px-3 py-2 pl-10 hover:bg-white/5 transition-colors text-left cursor-pointer {isSelected
             ? 'bg-exo-yellow/10 border-l-2 border-exo-yellow'
             : 'border-l-2 border-transparent'}"
           role="button"
           tabindex="0"
           onclick={() => {
-            if (modelCanFit || variantHasInstance) {
-              onSelectModel(variant.id);
-            }
+            onSelectModel(variant.id);
           }}
           onkeydown={(e) => {
             if (e.key === "Enter" || e.key === " ") {
               e.preventDefault();
-              if (modelCanFit) {
-                onSelectModel(variant.id);
-              }
+              onSelectModel(variant.id);
             }
           }}
         >

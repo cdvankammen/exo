@@ -1049,12 +1049,6 @@
       </button>
     {:else if !canFit}
       <div class="flex flex-col gap-2">
-        <button
-          disabled
-          class="w-full py-2 text-sm font-mono tracking-wider uppercase border transition-all duration-200 bg-red-500/10 text-red-400/70 border-red-500/30 cursor-not-allowed"
-        >
-          INSUFFICIENT MEMORY
-        </button>
         {#if onForceLaunch}
           <button
             onclick={onForceLaunch}
@@ -1066,6 +1060,13 @@
             Model exceeds reported available memory. Loading may slow down or
             destabilize your device.
           </p>
+        {:else}
+          <button
+            onclick={onLaunch}
+            class="w-full py-2 text-sm font-mono tracking-wider uppercase border transition-all duration-200 bg-transparent text-exo-light-gray border-exo-light-gray/40 hover:text-exo-yellow hover:border-exo-yellow/50 cursor-pointer"
+          >
+            ▸ LAUNCH
+          </button>
         {/if}
       </div>
     {:else}

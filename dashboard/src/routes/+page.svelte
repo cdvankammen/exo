@@ -571,7 +571,7 @@
   const onboardingModels = $derived.by(() => {
     if (models.length === 0) return [];
     const sorted = [...models]
-      .filter((m) => hasEnoughMemory(m) && getModelSizeGB(m) > 0)
+      .filter((m) => getModelSizeGB(m) > 0)
       .sort((a, b) => getModelSizeGB(b) - getModelSizeGB(a));
     if (sorted.length <= 6) return sorted;
 
@@ -1161,21 +1161,10 @@
       : runtime === "MlxJaccl";
 
   // Helper to check if a model can be launched (has valid placement with >= minNodes)
+  // Always returns true — no models are ever blocked or greyed out.
+  // The user can attempt to launch any model regardless of placement previews.
   function canModelFit(modelId: string): boolean {
-    // Find previews matching the model, sharding, and instance type
-    const matchingPreviews = previewsData.filter(
-      (p: PlacementPreview) =>
-        p.model_id === modelId &&
-        p.sharding === selectedSharding &&
-        matchesSelectedRuntime(p.instance_meta) &&
-        p.error === null &&
-        p.memory_delta_by_node !== null,
-    );
-
-    // Check if any preview has node count >= selectedMinNodes
-    return matchingPreviews.some(
-      (p: PlacementPreview) => getPreviewNodeCount(p) >= selectedMinNodes,
-    );
+    return true;
   }
 
   // Helper to get model size in GB (from megabytes)
@@ -1233,15 +1222,14 @@
   }
 
   // Check if a model has enough memory to run
+  // Always returns true — no models are ever blocked or greyed out.
+  // The user can attempt to load any model regardless of reported memory.
   function hasEnoughMemory(model: {
     id: string;
     name?: string;
     storage_size_megabytes?: number;
   }): boolean {
-    // With the memory override enabled, don't block any model — the user
-    // explicitly opted into attempting oversized loads.
-    if (memoryOverrideEnabled) return true;
-    return getModelMemoryFitStatus(model) === "fits_now";
+    return true;
   }
 
   // Sorted models for dropdown - biggest first, unrunnable at the end
@@ -2918,7 +2906,11 @@
       family: m.family ?? "",
       quantization: m.quantization ?? "",
     }));
-    const autoModel = pickAutoModel(modelInfos, totalMem);
+    const autoModel = pickAutoModel(
+      modelInfos,
+      totalMem,
+      memoryOverrideEnabled,
+    );
 
     // Prefer running model unless auto-pick is a strictly better tier
     if (bestRunning) {

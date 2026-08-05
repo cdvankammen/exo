@@ -67,7 +67,8 @@ class SlowShardDownloader(ShardDownloader):
     async def ensure_shard(
         self,
         shard: ShardMetadata,
-        config_only: bool = False,  # noqa: ARG002
+        config_only: bool = False,
+        force_override: bool = False,
     ) -> Path:
         # Fire an in-progress callback, then block forever (until cancelled)
         progress = RepoDownloadProgress(

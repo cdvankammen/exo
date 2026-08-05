@@ -68,6 +68,10 @@
   const downloadsData = $derived(downloads());
   const nodeDiskData = $derived(nodeDisk());
 
+  // When true, downloads bypass the disk-space sufficiency check
+  // ("download the model anyway").
+  let downloadAnyway = $state(false);
+
   function getNodeLabel(nodeId: string): string {
     const node = data?.nodes?.[nodeId];
     if (!node) return nodeId.slice(0, 8);
@@ -420,6 +424,16 @@
       <div class="flex items-center gap-3">
         <button
           type="button"
+          class="text-xs font-mono uppercase border px-2 py-1 rounded transition-colors cursor-pointer {downloadAnyway
+            ? 'border-amber-400/50 bg-amber-500/10 text-amber-300'
+            : 'border-exo-medium-gray/40 text-exo-light-gray hover:text-exo-yellow'}"
+          onclick={() => (downloadAnyway = !downloadAnyway)}
+          title="When on, downloads bypass the disk-space check (download anyway). May fill your disk."
+        >
+          {downloadAnyway ? "Override on" : "Disk guard"}
+        </button>
+        <button
+          type="button"
           class="text-xs font-mono text-exo-light-gray hover:text-exo-yellow transition-colors uppercase border border-exo-medium-gray/40 px-2 py-1 rounded"
           onclick={() => refreshState()}
           title="Force refresh from /state"
@@ -610,7 +624,11 @@
                                 type="button"
                                 class="text-white/50 hover:text-exo-yellow transition-colors cursor-pointer"
                                 onclick={() =>
-                                  startDownload(col.nodeId, row.shardMetadata!)}
+                                  startDownload(
+                                    col.nodeId,
+                                    row.shardMetadata!,
+                                    downloadAnyway,
+                                  )}
                                 title="Resume download on this node"
                               >
                                 {@render downloadIcon()}
@@ -627,7 +645,11 @@
                             type="button"
                             class="text-white/50 hover:text-exo-yellow transition-colors cursor-pointer"
                             onclick={() =>
-                              startDownload(col.nodeId, row.shardMetadata!)}
+                              startDownload(
+                                col.nodeId,
+                                row.shardMetadata!,
+                                downloadAnyway,
+                              )}
                             title="Start download on this node"
                           >
                             {@render downloadIcon("w-6 h-6")}
@@ -658,7 +680,11 @@
                               type="button"
                               class="text-white/50 hover:text-exo-yellow transition-colors cursor-pointer"
                               onclick={() =>
-                                startDownload(col.nodeId, row.shardMetadata!)}
+                                startDownload(
+                                  col.nodeId,
+                                  row.shardMetadata!,
+                                  downloadAnyway,
+                                )}
                               title="Retry download on this node"
                             >
                               {@render downloadIcon()}
@@ -680,7 +706,11 @@
                             type="button"
                             class="text-white/50 hover:text-exo-yellow transition-colors mt-0.5 opacity-0 group-hover:opacity-100 cursor-pointer"
                             onclick={() =>
-                              startDownload(col.nodeId, row.shardMetadata!)}
+                              startDownload(
+                                col.nodeId,
+                                row.shardMetadata!,
+                                downloadAnyway,
+                              )}
                             title="Download to this node"
                           >
                             {@render downloadIcon()}

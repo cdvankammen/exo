@@ -84,12 +84,13 @@ def _validate_cycle(cycle: Cycle) -> None:
 def _compute_total_memory(
     node_ids: list[NodeId],
     node_memory: Mapping[NodeId, MemoryUsage],
+    force_override: bool = False,
 ) -> Memory:
     total_memory = sum(
         (node_memory[node_id].ram_available for node_id in node_ids),
         start=Memory(),
     )
-    if total_memory.in_bytes == 0:
+    if not force_override and total_memory.in_bytes == 0:
         raise ValueError("Cannot create shard assignments: total available memory is 0")
     return total_memory
 
@@ -165,7 +166,9 @@ def _get_shard_assignments_for_cfg_parallel(
 
     # Allocate layers for one pipeline group (both groups run the same layers)
     pipeline_node_ids = cycle.node_ids[:pipeline_world_size]
-    pipeline_memory = _compute_total_memory(pipeline_node_ids, node_memory)
+    pipeline_memory = _compute_total_memory(
+        pipeline_node_ids, node_memory, force_override
+    )
     layer_allocations = _allocate_and_validate_layers(
         pipeline_node_ids, node_memory, pipeline_memory, model_card, force_override
     )
@@ -216,7 +219,9 @@ def _get_shard_assignments_for_pure_pipeline(
 ) -> ShardAssignments:
     """Create shard assignments for pure pipeline execution."""
     _validate_cycle(cycle)
-    total_memory = _compute_total_memory(cycle.node_ids, node_memory)
+    total_memory = _compute_total_memory(
+        cycle.node_ids, node_memory, force_override
+    )
 
     layer_allocations = _allocate_and_validate_layers(
         cycle.node_ids, node_memory, total_memory, model_card, force_override

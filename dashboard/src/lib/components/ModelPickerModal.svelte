@@ -614,17 +614,9 @@
     );
   });
 
-  // Split filtered groups into recommended (fits_now) and others for visual separation
-  const recommendedGroups = $derived(
-    filteredGroups.filter((g) =>
-      g.variants.some((v) => getModelFitStatus(v.id) === "fits_now"),
-    ),
-  );
-  const otherGroups = $derived(
-    filteredGroups.filter(
-      (g) => !g.variants.some((v) => getModelFitStatus(v.id) === "fits_now"),
-    ),
-  );
+  // All groups are "recommended" — no models are ever hidden or separated out.
+  const recommendedGroups = $derived(filteredGroups);
+  const otherGroups = $derived([] as ModelGroup[]);
 
   function toggleGroupExpanded(groupId: string) {
     const next = new Set(expandedGroups);

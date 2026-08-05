@@ -178,17 +178,19 @@ def build_model_path(model_id: ModelId) -> Path:
     return EXO_DEFAULT_MODELS_DIR / model_id.normalize()
 
 
-def select_download_dir(required_bytes: int) -> Path:
+def select_download_dir(required_bytes: int, force_override: bool = False) -> Path:
     """Pick the first writable model directory with enough free space.
 
-    Raises ``InsufficientDiskSpaceError`` if none have enough space.
+    Raises ``InsufficientDiskSpaceError`` if none have enough space (unless
+    ``force_override`` is True, in which case the first writable directory is
+    returned regardless of free space).
     """
     for candidate_dir in EXO_MODELS_DIRS:
         if not candidate_dir.exists():
             continue
         try:
             usage = shutil.disk_usage(candidate_dir)
-            if usage.free >= required_bytes:
+            if force_override or usage.free >= required_bytes:
                 return candidate_dir
         except OSError:
             continue
@@ -202,6 +204,7 @@ async def select_download_dir_for_shard(
     model_id: ModelId,
     filtered_file_list: list[FileListEntry],
     total_size: int,
+    force_override: bool = False,
 ) -> Path:
     for candidate_dir in EXO_MODELS_DIRS:
         if not candidate_dir.exists():
@@ -214,11 +217,11 @@ async def select_download_dir_for_shard(
             existing_bytes += await get_downloaded_size(sub / file_entry.path)
         remaining = max(total_size - existing_bytes, 0)
         try:
-            if shutil.disk_usage(candidate_dir).free >= remaining:
+            if force_override or shutil.disk_usage(candidate_dir).free >= remaining:
                 return candidate_dir
         except OSError:
             continue
-    return select_download_dir(total_size)
+    return select_download_dir(total_size, force_override=force_override)
 
 
 async def resolve_model_dir(model_id: ModelId) -> Path:
@@ -873,6 +876,7 @@ async def download_shard(
     skip_internet: bool = False,
     allow_patterns: list[str] | None = None,
     on_connection_lost: Callable[[], None] = lambda: None,
+    force_override: bool = False,
 ) -> tuple[Path, RepoDownloadProgress]:
     if not skip_download:
         logger.debug(f"Downloading {shard.model_card.model_id=}")
@@ -940,7 +944,7 @@ async def download_shard(
         )
     else:
         models_dir = await select_download_dir_for_shard(
-            model_id, filtered_file_list, total_size
+            model_id, filtered_file_list, total_size, force_override=force_override
         )
         target_dir = models_dir / model_id.normalize()
         await aios.makedirs(target_dir, exist_ok=True)

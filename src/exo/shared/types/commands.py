@@ -47,9 +47,6 @@ class PlaceInstance(BaseCommand):
 
 class CreateInstance(BaseCommand):
     instance: Instance
-    # When True, skip the API-level total-available-memory check for this
-    # instance creation ("load the model anyway").
-    force_override: bool = False
 
 
 class DeleteInstance(BaseCommand):
@@ -77,6 +74,9 @@ class RequestEventLog(BaseCommand):
 class StartDownload(BaseCommand):
     target_node_id: NodeId
     shard_metadata: ShardMetadata
+    # When True, bypass the disk-space sufficiency check and attempt to
+    # download the model anyway ("download the model anyway").
+    force_override: bool = False
 
 
 class DeleteDownload(BaseCommand):

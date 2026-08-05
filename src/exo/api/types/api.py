@@ -464,6 +464,9 @@ class ImageListResponse(BaseModel, frozen=True):
 class StartDownloadParams(FrozenModel):
     target_node_id: NodeId
     shard_metadata: ShardMetadata
+    # When True, bypass the disk-space sufficiency check and attempt to
+    # download the model anyway ("download the model anyway").
+    force_override: bool = False
 
 
 class StartDownloadResponse(FrozenModel):

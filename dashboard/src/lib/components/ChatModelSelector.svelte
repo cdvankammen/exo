@@ -53,6 +53,7 @@
   export function pickAutoModel(
     modelList: ChatModelInfo[],
     memoryGB: number,
+    allowOverride = false,
   ): ChatModelInfo | null {
     for (const tier of AUTO_TIERS) {
       const candidates: ChatModelInfo[] = [];
@@ -61,7 +62,8 @@
           .filter(
             (m) =>
               m.base_model === baseModel &&
-              (m.storage_size_megabytes || 0) / 1024 <= memoryGB &&
+              (allowOverride ||
+                (m.storage_size_megabytes || 0) / 1024 <= memoryGB) &&
               (m.storage_size_megabytes || 0) > 0,
           )
           .sort(
@@ -156,7 +158,8 @@
   }
 
   function fitsInMemory(m: ChatModelInfo): boolean {
-    return getModelSizeGB(m) <= totalMemoryGB && getModelSizeGB(m) > 0;
+    // Always returns true — no models are ever filtered out by size.
+    return (m.storage_size_megabytes || 0) > 0;
   }
 
   /** For a given base_model name, find the biggest quant variant that fits in memory. */
@@ -333,9 +336,9 @@
           </div>
         </button>
       {:else}
-        <!-- No model fits for this category -->
+        <!-- No model available for this category -->
         <div
-          class="flex flex-col items-start gap-2 p-4 rounded-lg border border-exo-medium-gray/30 bg-exo-dark-gray/30 opacity-50"
+          class="flex flex-col items-start gap-2 p-4 rounded-lg border border-exo-medium-gray/30 bg-exo-dark-gray/30"
         >
           <div class="flex items-center gap-2">
             <svg

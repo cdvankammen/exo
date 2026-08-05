@@ -165,8 +165,8 @@ class DownloadCoordinator:
                     continue
 
                 match cmd.command:
-                    case StartDownload(shard_metadata=shard):
-                        await self._start_download(shard)
+                    case StartDownload(shard_metadata=shard, force_override=force_override):
+                        await self._start_download(shard, force_override=force_override)
                     case DeleteDownload(model_id=model_id):
                         await self._delete_download(model_id)
                     case CancelDownload(model_id=model_id):
@@ -194,7 +194,9 @@ class DownloadCoordinator:
                 NodeDownloadProgress(download_progress=pending)
             )
 
-    async def _start_download(self, shard: ShardMetadata) -> None:
+    async def _start_download(
+        self, shard: ShardMetadata, force_override: bool = False
+    ) -> None:
         model_id = shard.model_card.model_id
 
         # Check if already downloading, complete, or recently failed
@@ -271,10 +273,13 @@ class DownloadCoordinator:
             return
 
         # Start actual download
-        self._start_download_task(shard, initial_progress)
+        self._start_download_task(shard, initial_progress, force_override=force_override)
 
     def _start_download_task(
-        self, shard: ShardMetadata, initial_progress: RepoDownloadProgress
+        self,
+        shard: ShardMetadata,
+        initial_progress: RepoDownloadProgress,
+        force_override: bool = False,
     ) -> None:
         model_id = shard.model_card.model_id
 
@@ -293,7 +298,9 @@ class DownloadCoordinator:
         async def download_wrapper(cancel_scope: anyio.CancelScope) -> None:
             try:
                 with cancel_scope:
-                    await self.shard_downloader.ensure_shard(shard)
+                    await self.shard_downloader.ensure_shard(
+                        shard, force_override=force_override
+                    )
             except Exception as e:
                 logger.error(f"Download failed for {model_id}: {e}")
                 failed = DownloadFailed(

@@ -3336,7 +3336,11 @@ class AppStore {
   /**
    * Start a download on a specific node
    */
-  async startDownload(nodeId: string, shardMetadata: object): Promise<void> {
+  async startDownload(
+    nodeId: string,
+    shardMetadata: object,
+    forceOverride = false,
+  ): Promise<void> {
     try {
       const response = await fetch("/download/start", {
         method: "POST",
@@ -3344,6 +3348,7 @@ class AppStore {
         body: JSON.stringify({
           targetNodeId: nodeId,
           shardMetadata: shardMetadata,
+          force_override: forceOverride,
         }),
       });
       if (!response.ok) {
@@ -3674,8 +3679,11 @@ export const resetImageGenerationParams = () =>
   appStore.resetImageGenerationParams();
 
 // Download actions
-export const startDownload = (nodeId: string, shardMetadata: object) =>
-  appStore.startDownload(nodeId, shardMetadata);
+export const startDownload = (
+  nodeId: string,
+  shardMetadata: object,
+  forceOverride = false,
+) => appStore.startDownload(nodeId, shardMetadata, forceOverride);
 export const cancelDownload = (nodeId: string, modelId: string) =>
   appStore.cancelDownload(nodeId, modelId);
 export const deleteDownload = (nodeId: string, modelId: string) =>

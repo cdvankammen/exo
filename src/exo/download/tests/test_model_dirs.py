@@ -223,6 +223,41 @@ class TestSelectDownloadDir:
         ):
             assert select_download_dir(1) == dir2
 
+    def test_force_override_returns_first_dir_even_without_space(
+        self, tmp_path: Path
+    ) -> None:
+        """force_override=True should return the first writable dir even when
+        free space is below the required bytes (download anyway)."""
+        dir1 = tmp_path / "dir1"
+        dir1.mkdir()
+
+        real_disk_usage = shutil.disk_usage
+
+        def mock_disk_usage(path: str | Path) -> object:
+            real = real_disk_usage(path)
+            return shutil._ntuple_diskusage(real.total, real.total, 0)  # pyright: ignore[reportPrivateUsage]
+
+        with (
+            patch("exo.download.download_utils.EXO_MODELS_DIRS", (dir1,)),
+            patch("shutil.disk_usage", side_effect=mock_disk_usage),
+        ):
+            # Without override: raises
+            with pytest.raises(InsufficientDiskSpaceError):
+                select_download_dir(1024)
+            # With override: returns dir1 despite no free space
+            assert select_download_dir(1024, force_override=True) == dir1
+
+    def test_force_override_still_raises_if_no_writable_dir(
+        self, tmp_path: Path
+    ) -> None:
+        """force_override=True should still raise if no writable dir exists at all."""
+        nonexistent = tmp_path / "does-not-exist"
+        with (
+            patch("exo.download.download_utils.EXO_MODELS_DIRS", (nonexistent,)),
+            pytest.raises(InsufficientDiskSpaceError),
+        ):
+            select_download_dir(1, force_override=True)
+
 
 # ---------------------------------------------------------------------------
 # delete_model

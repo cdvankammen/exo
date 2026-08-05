@@ -2062,6 +2062,7 @@ class API:
         command = StartDownload(
             target_node_id=payload.target_node_id,
             shard_metadata=payload.shard_metadata,
+            force_override=payload.force_override,
         )
         await self._send_download(command)
         return StartDownloadResponse(command_id=command.command_id)
