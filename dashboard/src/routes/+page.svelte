@@ -39,6 +39,7 @@
     clearPreviewNodeFilter,
     previewNodeFilter,
     createConversation,
+    deleteDownload,
     setSelectedChatModel,
     selectedChatModel,
     sendMessage,
@@ -967,6 +968,41 @@
   let selectedMinNodes = $state<number>(1);
   let minNodesInitialized = $state(false);
   let launchingModelId = $state<string | null>(null);
+
+  // ── Manual peer connection state ──
+  let peerHost = $state("");
+  let peerPort = $state("52414");
+  let peerConnecting = $state(false);
+  let peerResult = $state<string | null>(null);
+
+  async function addPeer() {
+    if (!peerHost.trim() || peerConnecting) return;
+    peerConnecting = true;
+    peerResult = null;
+    try {
+      const res = await fetch("/peers", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          host: peerHost.trim(),
+          zenoh_port: parseInt(peerPort || "52414", 10),
+        }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        peerResult = `✗ ${data.detail || "Failed to connect"}`;
+      } else if (data.connected) {
+        peerResult = `✓ Connected to ${data.host}`;
+        addToast({ type: "info", message: `Connected to ${data.host}` });
+      } else {
+        peerResult = `✓ Already connected to ${data.host}`;
+      }
+    } catch (e) {
+      peerResult = `✗ ${e}`;
+    } finally {
+      peerConnecting = false;
+    }
+  }
   let instanceDownloadExpandedNodes = $state<Set<string>>(new Set());
 
   // Model picker modal state
@@ -2019,11 +2055,23 @@
     return 0;
   }
 
-  async function deleteInstance(instanceId: string) {
-    if (!confirm(`Delete instance ${instanceId.slice(0, 8)}...?`)) return;
+  // Get the node IDs an instance is running on, from its shard assignments
+  function getInstanceNodeIds(instanceWrapped: unknown): string[] {
+    const [, instance] = getTagged(instanceWrapped);
+    if (!instance || typeof instance !== "object") return [];
+    const inst = instance as {
+      shardAssignments?: { nodeToRunner?: Record<string, string> };
+    };
+    return Object.keys(inst.shardAssignments?.nodeToRunner ?? {});
+  }
 
-    // Get the model ID of the instance being deleted before we delete it
-    const deletedInstanceModelId = getInstanceModelId(instanceData[instanceId]);
+  async function ejectInstance(instanceId: string) {
+    if (!confirm(`Eject instance ${instanceId.slice(0, 8)}...?`)) return;
+
+    // Get the model ID and node IDs of the instance before we delete it
+    const wrappedInstance = instanceData[instanceId];
+    const deletedInstanceModelId = getInstanceModelId(wrappedInstance);
+    const nodeIds = getInstanceNodeIds(wrappedInstance);
     const wasSelected = selectedChatModel() === deletedInstanceModelId;
 
     try {
@@ -2034,8 +2082,36 @@
 
       if (!response.ok) {
         console.error("Failed to delete instance:", response.status);
-        addToast({ type: "error", message: "Failed to delete instance" });
-      } else if (wasSelected) {
+        addToast({ type: "error", message: "Failed to eject instance" });
+        return;
+      }
+
+      if (
+        deletedInstanceModelId &&
+        deletedInstanceModelId !== "Unknown" &&
+        deletedInstanceModelId !== "Unknown Model" &&
+        nodeIds.length > 0 &&
+        confirm(
+          `Also delete the downloaded weights for ${deletedInstanceModelId} from disk to free storage?`,
+        )
+      ) {
+        await Promise.all(
+          nodeIds.map((nodeId) =>
+            deleteDownload(nodeId, deletedInstanceModelId).catch((error) => {
+              console.error(
+                `Failed to delete weights on node ${nodeId}:`,
+                error,
+              );
+              addToast({
+                type: "error",
+                message: `Failed to delete weights on node ${nodeId.slice(0, 8)}...`,
+              });
+            }),
+          ),
+        );
+      }
+
+      if (wasSelected) {
         // If we deleted the currently selected model, switch to another available model
         // Find another instance that isn't the one we just deleted
         const remainingInstances = Object.entries(instanceData).filter(
@@ -5275,10 +5351,10 @@
                           >
                         </div>
                         <button
-                          onclick={() => deleteInstance(id)}
+                          onclick={() => ejectInstance(id)}
                           class="text-xs px-2 py-1 font-mono tracking-wider uppercase border border-red-500/30 text-red-400 hover:bg-red-500/20 hover:text-red-400 hover:border-red-500/50 transition-all duration-200 cursor-pointer"
                         >
-                          DELETE
+                          EJECT
                         </button>
                       </div>
                       <div class="pl-2">
@@ -6017,6 +6093,52 @@
               {/if}
             </div>
           </div>
+
+          <!-- Manual Peer Connection Panel -->
+          <div class="p-4 border-t border-white/5 flex-shrink-0">
+            <div class="flex items-center gap-2 mb-3">
+              <h3
+                class="text-xs text-exo-yellow font-mono tracking-[0.2em] uppercase"
+              >
+                Add Node Manually
+              </h3>
+              <div
+                class="flex-1 h-px bg-gradient-to-r from-exo-yellow/30 to-transparent"
+              ></div>
+            </div>
+            <p class="text-[11px] text-white/50 mb-2 leading-relaxed">
+              Connect a node by hostname or IP (e.g. Tailscale name) even when
+              auto-discovery isn't working.
+            </p>
+            <div class="flex gap-2">
+              <input
+                type="text"
+                placeholder="hostname or IP"
+                bind:value={peerHost}
+                class="flex-1 bg-exo-black/60 border border-exo-medium-gray/40 rounded px-2 py-1.5 text-xs font-mono text-white placeholder-white/30 focus:outline-none focus:border-exo-yellow/50 min-w-0"
+              />
+              <input
+                type="number"
+                placeholder="port"
+                bind:value={peerPort}
+                title="Zenoh port (default 52414)"
+                class="w-20 bg-exo-black/60 border border-exo-medium-gray/40 rounded px-2 py-1.5 text-xs font-mono text-white placeholder-white/30 focus:outline-none focus:border-exo-yellow/50"
+              />
+              <button
+                type="button"
+                onclick={addPeer}
+                disabled={peerConnecting || !peerHost.trim()}
+                class="px-3 py-1.5 text-xs font-mono uppercase tracking-wider rounded border transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed bg-exo-yellow/15 text-exo-yellow border-exo-yellow/40 hover:bg-exo-yellow/25 flex-shrink-0"
+              >
+                {peerConnecting ? "Connecting…" : "Add"}
+              </button>
+            </div>
+            {#if peerResult}
+              <p class="text-[11px] font-mono mt-2 break-words text-white/70">
+                {peerResult}
+              </p>
+            {/if}
+          </div>
         {/snippet}
       </div>
     {:else}
@@ -6412,10 +6534,10 @@
                             >
                           </div>
                           <button
-                            onclick={() => deleteInstance(id)}
+                            onclick={() => ejectInstance(id)}
                             class="text-xs px-2 py-1 font-mono tracking-wider uppercase border border-red-500/30 text-red-400 hover:bg-red-500/20 hover:text-red-400 hover:border-red-500/50 transition-all duration-200 cursor-pointer"
                           >
-                            DELETE
+                            EJECT
                           </button>
                         </div>
                         <div class="pl-2">
