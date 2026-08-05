@@ -131,16 +131,26 @@ def _allocate_and_validate_layers(
     model_card: ModelCard,
     force_override: bool = False,
 ) -> list[int]:
+    # NOTE (memory-override feature, coordinated with RDMA multi-link commit):
+    # The RDMA commit added `max_layers_per_node` caps (per-node memory limits
+    # that raise if a node can't hold even 1 layer). When force_override=True
+    # (user chose "load the model anyway"), we pass caps=None to bypass those
+    # caps so an oversized model can still be allocated. Without this, the caps
+    # ValueError fires BEFORE the per-node check below, blocking the override.
     layer_allocations = allocate_layers_proportionally(
         total_layers=model_card.n_layers,
         memory_fractions=[
             node_memory[node_id].ram_available / total_memory for node_id in node_ids
         ],
-        max_layers_per_node=[
-            (node_memory[node_id].ram_available.in_bytes * model_card.n_layers)
-            // model_card.storage_size.in_bytes
-            for node_id in node_ids
-        ],
+        max_layers_per_node=(
+            None
+            if force_override
+            else [
+                (node_memory[node_id].ram_available.in_bytes * model_card.n_layers)
+                // model_card.storage_size.in_bytes
+                for node_id in node_ids
+            ]
+        ),
     )
 
     total_storage = model_card.storage_size
