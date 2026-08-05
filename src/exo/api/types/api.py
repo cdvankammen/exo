@@ -301,6 +301,20 @@ class DeleteInstanceTaskParams(BaseModel):
     instance_id: str
 
 
+class AddPeerParams(BaseModel):
+    """Parameters for manually adding a peer node by hostname/IP."""
+
+    host: str
+    # Port of the target's zenoh TCP listener (default 52414).
+    zenoh_port: int = 52414
+
+
+class AddPeerResponse(BaseModel):
+    host: str
+    port: int
+    connected: bool
+
+
 class CreateInstanceResponse(BaseModel):
     message: str
     command_id: CommandId

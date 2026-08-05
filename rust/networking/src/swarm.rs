@@ -31,6 +31,11 @@ pub enum ToSwarm {
         data: Vec<u8>,
         result_sender: oneshot::Sender<Result<()>>,
     },
+    ConnectPeer {
+        host: String,
+        port: u16,
+        result_sender: oneshot::Sender<Result<()>>,
+    },
 }
 #[derive(Debug)]
 pub enum FromSwarm {
@@ -60,7 +65,17 @@ impl Swarm {
                 tokio::select! {
                     msg = from_client.recv() => {
                         let Some(msg) = msg else { break };
-                        on_message(&mut session.z, &mut topics, &mut to_topics, msg).await;
+                        // ConnectPeer needs our Session (which owns the zenoh
+                        // Runtime); all other commands operate on the zenoh session.
+                        if let ToSwarm::ConnectPeer { host, port, result_sender } = msg {
+                            let connected = session.connect_peer(&host, port).await;
+                            if !connected {
+                                log::warn!("failed to connect to peer {host}:{port}");
+                            }
+                            _ = result_sender.send(Ok(()));
+                        } else {
+                            on_message(&mut session.z, &mut topics, &mut to_topics, msg).await;
+                        }
                     }
                     event = from_topics.recv() => {
                         if let Some(event) = event {
@@ -189,6 +204,10 @@ async fn on_message(
             assert!(topics.insert(topic, (subscriber, publisher)).is_none());
             _ = result_sender.send(Ok(true));
         }
+        // ConnectPeer is handled at the stream-loop call site (it needs our
+        // Session wrapper, which owns the zenoh Runtime). This arm is
+        // unreachable here but required for exhaustive matching.
+        ToSwarm::ConnectPeer { .. } => {}
     }
 }
 

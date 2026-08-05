@@ -187,6 +187,34 @@ impl PyNetworkingHandle {
             .map_err(|e| PyRuntimeError::new_err(e.to_string()))?;
         Ok(())
     }
+
+    /// Manually connect to a peer node by hostname/IP, bypassing multicast discovery.
+    ///
+    /// This lets you add a node to the cluster even when multicast discovery
+    /// isn't working (different subnets, VPN/Tailscale, client isolation).
+    /// Hostnames (e.g. Tailscale names) are resolved by the OS network stack.
+    ///
+    /// Returns `True` if a new connection was established.
+    pub async fn connect_peer(&self, host: String, port: u16) -> PyResult<bool> {
+        let (tx, rx) = oneshot::channel();
+
+        self.to_swarm
+            .send_py(ToSwarm::ConnectPeer {
+                host,
+                port,
+                result_sender: tx,
+            })
+            .allow_threads_py() // allow-threads-aware async call
+            .await?;
+
+        // wait for response & return any errors
+        let _ = rx
+            .allow_threads_py() // allow-threads-aware async call
+            .await
+            .map_err(|_| PyErr::receiver_channel_closed())?
+            .map_err(|e| PyRuntimeError::new_err(e.to_string()))?;
+        Ok(true)
+    }
 }
 
 pub fn networking_submodule(m: &Bound<'_, PyModule>) -> PyResult<()> {

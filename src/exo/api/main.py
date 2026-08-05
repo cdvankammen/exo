@@ -246,6 +246,7 @@ class API:
         download_command_sender: Sender[ForwarderDownloadCommand],
         # This lets us pause the API if an election is running
         election_receiver: Receiver[ElectionMessage],
+        router: "Router | None" = None,
     ) -> None:
         self.state = State()
         self._event_log = DiskEventLog(_API_EVENT_LOG_DIR)
@@ -254,6 +255,7 @@ class API:
         self.download_command_sender = download_command_sender
         self.event_receiver = event_receiver
         self.election_receiver = election_receiver
+        self.router = router
         self.node_id: NodeId = node_id
         self.last_completed_election: int = 0
         self.port = port
@@ -342,6 +344,7 @@ class API:
 
     def _setup_routes(self) -> None:
         self.app.get("/node_id")(lambda: self.node_id)
+        self.app.post("/peers")(self.add_peer)
         self.app.post("/instance")(self.create_instance)
         self.app.post("/place_instance")(self.place_instance)
         self.app.get("/instance/placement")(self.get_placement)

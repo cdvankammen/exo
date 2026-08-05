@@ -73,33 +73,36 @@ pub async fn open(
     runtime.start().await?;
     let mut discovery =
         Discovery::new(z.zid(), namespace, listen_port, discovery_service_port).await?;
-    let _jh = Arc::new(AbortOnDrop(tokio::task::spawn(async move {
-        loop {
-            let Ok(discovered) = discovery.next().await.inspect_err(|e| {
-                log::warn!("discovery error {e}");
-            }) else {
-                continue;
-            };
+    let _jh = Arc::new(AbortOnDrop(tokio::task::spawn({
+        let runtime = runtime.clone();
+        async move {
+            loop {
+                let Ok(discovered) = discovery.next().await.inspect_err(|e| {
+                    log::warn!("discovery error {e}");
+                }) else {
+                    continue;
+                };
 
-            if discovered.zid > runtime.zid() {
-                log::debug!("not connecting to peer with greater zid");
-                continue;
+                if discovered.zid > runtime.zid() {
+                    log::debug!("not connecting to peer with greater zid");
+                    continue;
+                }
+
+                let Ok(locator) =
+                    Locator::new("tcp", discovered.addr.to_string(), "").inspect_err(|e| {
+                        log::warn!("failed to parse locator from addr: {e}");
+                    })
+                else {
+                    continue;
+                };
+
+                runtime
+                    .connect_peer(&discovered.zid.into(), &[locator])
+                    .await;
             }
-
-            let Ok(locator) =
-                Locator::new("tcp", discovered.addr.to_string(), "").inspect_err(|e| {
-                    log::warn!("failed to parse locator from addr: {e}");
-                })
-            else {
-                continue;
-            };
-
-            runtime
-                .connect_peer(&discovered.zid.into(), &[locator])
-                .await;
         }
     })));
-    Ok(Session { z, _jh })
+    Ok(Session { z, runtime, _jh })
 }
 
 struct AbortOnDrop(JoinHandle<()>);
@@ -112,5 +115,23 @@ impl Drop for AbortOnDrop {
 #[derive(Clone)]
 pub struct Session {
     pub z: ZSession,
+    runtime: zenoh::internal::runtime::Runtime,
     _jh: Arc<AbortOnDrop>,
+}
+
+impl Session {
+    /// Manually connect to a peer by hostname/IP, bypassing multicast discovery.
+    ///
+    /// The peer must be running exo with its zenoh TCP port (default 52414)
+    /// reachable from this machine. Hostnames (e.g. Tailscale names) are
+    /// resolved by the OS network stack — no manual interface selection needed.
+    ///
+    /// Returns `true` if a new connection was established, `false` if the peer
+    /// was already connected (mirrors zenoh's `connect_peer`).
+    pub async fn connect_peer(&self, host: &str, port: u16) -> bool {
+        let Ok(locator) = Locator::new("tcp", format!("{host}:{port}"), "") else {
+            return false;
+        };
+        self.runtime.connect_peer(&self.z.zid().into(), &[locator]).await
+    }
 }

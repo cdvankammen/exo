@@ -179,6 +179,17 @@ class Router:
         await self._net.gossipsub_subscribe(topic)
         logger.info(f"Subscribed to {topic}")
 
+    async def connect_peer(self, host: str, port: int = 52414) -> bool:
+        """Manually connect to a peer node by hostname/IP.
+
+        Bypasses multicast discovery. Hostnames (e.g. Tailscale names) are
+        resolved by the OS network stack. Returns True if a new connection was
+        established.
+        """
+        connected = await self._net.connect_peer(host, port)
+        logger.info(f"Manual peer connect {host}:{port} -> connected={connected}")
+        return connected
+
     async def _networking_unsubscribe(self, topic: str):
         await self._net.gossipsub_unsubscribe(topic)
         logger.info(f"Unsubscribed from {topic}")
