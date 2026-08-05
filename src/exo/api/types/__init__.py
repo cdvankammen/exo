@@ -1,4 +1,6 @@
 from .api import AddCustomModelParams as AddCustomModelParams
+from .api import AddPeerParams as AddPeerParams
+from .api import AddPeerResponse as AddPeerResponse
 from .api import AdvancedImageParams as AdvancedImageParams
 from .api import AwaitInstanceReadyMessage as AwaitInstanceReadyMessage
 from .api import AwaitInstanceTimeoutMessage as AwaitInstanceTimeoutMessage

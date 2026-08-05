@@ -972,13 +972,16 @@
   // ── Manual peer connection state ──
   let peerHost = $state("");
   let peerPort = $state("52414");
+  let peerApiPort = $state("52415");
   let peerConnecting = $state(false);
   let peerResult = $state<string | null>(null);
+  let peerResultIsError = $state(false);
 
   async function addPeer() {
     if (!peerHost.trim() || peerConnecting) return;
     peerConnecting = true;
     peerResult = null;
+    peerResultIsError = false;
     try {
       const res = await fetch("/peers", {
         method: "POST",
@@ -986,19 +989,26 @@
         body: JSON.stringify({
           host: peerHost.trim(),
           zenoh_port: parseInt(peerPort || "52414", 10),
+          api_port: parseInt(peerApiPort || "52415", 10),
         }),
       });
       const data = await res.json();
       if (!res.ok) {
         peerResult = `✗ ${data.detail || "Failed to connect"}`;
+        peerResultIsError = true;
       } else if (data.connected) {
-        peerResult = `✓ Connected to ${data.host}`;
+        peerResult = `✓ Connected to ${data.host} (node ${data.node_id || "?"})`;
         addToast({ type: "info", message: `Connected to ${data.host}` });
+      } else if (data.error) {
+        peerResult = `✗ ${data.error}`;
+        peerResultIsError = true;
       } else {
-        peerResult = `✓ Already connected to ${data.host}`;
+        peerResult = `✗ Not connected to ${data.host}`;
+        peerResultIsError = true;
       }
     } catch (e) {
       peerResult = `✗ ${e}`;
+      peerResultIsError = true;
     } finally {
       peerConnecting = false;
     }
@@ -6119,10 +6129,17 @@
               />
               <input
                 type="number"
-                placeholder="port"
+                placeholder="zenoh"
                 bind:value={peerPort}
                 title="Zenoh port (default 52414)"
-                class="w-20 bg-exo-black/60 border border-exo-medium-gray/40 rounded px-2 py-1.5 text-xs font-mono text-white placeholder-white/30 focus:outline-none focus:border-exo-yellow/50"
+                class="w-16 bg-exo-black/60 border border-exo-medium-gray/40 rounded px-2 py-1.5 text-xs font-mono text-white placeholder-white/30 focus:outline-none focus:border-exo-yellow/50"
+              />
+              <input
+                type="number"
+                placeholder="api"
+                bind:value={peerApiPort}
+                title="API port (default 52415)"
+                class="w-16 bg-exo-black/60 border border-exo-medium-gray/40 rounded px-2 py-1.5 text-xs font-mono text-white placeholder-white/30 focus:outline-none focus:border-exo-yellow/50"
               />
               <button
                 type="button"
@@ -6134,7 +6151,11 @@
               </button>
             </div>
             {#if peerResult}
-              <p class="text-[11px] font-mono mt-2 break-words text-white/70">
+              <p
+                class="text-[11px] font-mono mt-2 break-words {peerResultIsError
+                  ? 'text-red-400/90'
+                  : 'text-green-400/90'}"
+              >
                 {peerResult}
               </p>
             {/if}

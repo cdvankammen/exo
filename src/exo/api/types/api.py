@@ -150,6 +150,15 @@ class ChatCompletionChoice(BaseModel):
     finish_reason: FinishReason | None = None
 
 
+class GenerationStats(BaseModel):
+    prompt_tps: float
+    generation_tps: float
+    prompt_tokens: int
+    generation_tokens: int
+    peak_memory_usage: Memory
+    prefix_cache_hit: Literal["none", "partial", "exact"] = "none"
+
+
 class ChatCompletionResponse(BaseModel):
     id: str
     object: Literal["chat.completion"] = "chat.completion"
@@ -158,15 +167,7 @@ class ChatCompletionResponse(BaseModel):
     choices: list[ChatCompletionChoice | StreamingChoiceResponse]
     usage: Usage | None = None
     service_tier: str | None = None
-
-
-class GenerationStats(BaseModel):
-    prompt_tps: float
-    generation_tps: float
-    prompt_tokens: int
-    generation_tokens: int
-    peak_memory_usage: Memory
-    prefix_cache_hit: Literal["none", "partial", "exact"] = "none"
+    generation_stats: GenerationStats | None = None
 
 
 class ImageGenerationStats(BaseModel):
@@ -212,7 +213,6 @@ class PowerUsage(BaseModel, frozen=True):
 
 
 class BenchChatCompletionResponse(ChatCompletionResponse):
-    generation_stats: GenerationStats | None = None
     power_usage: PowerUsage | None = None
 
 
@@ -307,12 +307,22 @@ class AddPeerParams(BaseModel):
     host: str
     # Port of the target's zenoh TCP listener (default 52414).
     zenoh_port: int = 52414
+    # Port of the target's HTTP API (default 52415). Used to verify the peer
+    # is genuinely reachable and to fetch its node id.
+    # NOTE (manual-peer-join): this exists because topology edges are built
+    # from HTTP pings to the API port (see _poll_connection_updates), not from
+    # the zenoh dial. Verifying it here is what makes "connected" truthful.
+    api_port: int = 52415
 
 
 class AddPeerResponse(BaseModel):
     host: str
     port: int
     connected: bool
+    # Node id of the peer, if it was verified reachable.
+    node_id: str | None = None
+    # Error detail if the peer could not be verified.
+    error: str | None = None
 
 
 class CreateInstanceResponse(BaseModel):

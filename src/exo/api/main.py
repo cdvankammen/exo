@@ -49,6 +49,8 @@ from exo.api.adapters.responses import (
 from exo.api.keepalive import with_sse_keepalive
 from exo.api.types import (
     AddCustomModelParams,
+    AddPeerParams,
+    AddPeerResponse,
     AdvancedImageParams,
     AwaitInstanceReadyMessage,
     AwaitInstanceTimeoutMessage,
@@ -125,6 +127,7 @@ from exo.api.types.openai_responses import (
 )
 from exo.master.image_store import ImageStore
 from exo.master.placement import place_instance as get_instance_placements
+from exo.routing.router import Router
 from exo.shared.apply import apply
 from exo.shared.constants import (
     DASHBOARD_DIR,
@@ -246,7 +249,7 @@ class API:
         download_command_sender: Sender[ForwarderDownloadCommand],
         # This lets us pause the API if an election is running
         election_receiver: Receiver[ElectionMessage],
-        router: "Router | None" = None,
+        router: Router | None = None,
     ) -> None:
         self.state = State()
         self._event_log = DiskEventLog(_API_EVENT_LOG_DIR)
@@ -358,7 +361,7 @@ class API:
         self.app.delete("/v1/instance-links/{link_id}")(self.delete_instance_link)
         self.app.get("/v1/feature-flags")(self.get_feature_flags)
         self.app.get("/models")(self.get_models)
-        self.app.get("/v1/models")(self.get_models)
+        self.app.get("/v1/models")(self.get_v1_models)
         self.app.post("/models/add")(self.add_custom_model)
         self.app.delete("/models/custom/{model_id:path}")(self.delete_custom_model)
         self.app.get("/models/search")(self.search_models)
@@ -1791,6 +1794,19 @@ class API:
 
         return total_available
 
+    async def get_v1_models(
+        self, status: str | None = Query(default="downloaded")
+    ) -> ModelList:
+        """OpenAI-compatible model list, used by external clients/agents.
+
+        Defaults to only models already downloaded to this cluster, so
+        agents aren't advertised models that don't exist yet on disk and
+        would 404 on first use. Pass ?status=all to see every known model
+        card (matches the dashboard's own /models browser, which lists
+        everything by default so users can find models to download).
+        """
+        return await self.get_models(status=status)
+
     async def get_models(self, status: str | None = Query(default=None)) -> ModelList:
         """Returns list of available models, optionally filtered by being downloaded."""
         cards = await model_cards.card_cache.list_all()
@@ -1856,6 +1872,64 @@ class API:
             supports_tensor=card.supports_tensor,
             tasks=[task.value for task in card.tasks],
             is_custom=True,
+        )
+
+    async def add_peer(self, payload: AddPeerParams) -> AddPeerResponse:
+        """Manually connect to a peer node by hostname/IP.
+
+        Bypasses multicast discovery, so it works across subnets, VPNs
+        (Tailscale), and networks with client isolation. Hostnames are
+        resolved by the OS network stack.
+
+        The peer is verified by hitting its HTTP API (default port 52415)
+        before and after the zenoh dial — `connected: true` is only returned
+        if the node is genuinely reachable.
+        """
+        if self.router is None:
+            raise HTTPException(
+                status_code=503,
+                detail="Peer connection is unavailable on this node",
+            )
+
+        # 1. Verify the peer's HTTP API is reachable (this is what actually
+        #    builds topology via _poll_connection_updates / check_reachable).
+        # NOTE (manual-peer-join feature): zenoh's connect_peer() returns
+        # "dial attempted", NOT "connected". A node only appears in the UI
+        # topology when its HTTP API (port 52415) is reachable, because
+        # _poll_connection_updates builds edges from HTTP pings, not zenoh.
+        # So we MUST verify the API first — otherwise we'd report success for
+        # an unreachable host (exactly what the earlier "✓ Connected" bug did).
+        peer_node_id: str | None = None
+        try:
+            import httpx
+
+            async with httpx.AsyncClient(timeout=5.0) as client:
+                resp = await client.get(f"http://{payload.host}:{payload.api_port}/node_id")
+                resp.raise_for_status()
+                peer_node_id = resp.text.strip() or None
+        except Exception as exc:
+            return AddPeerResponse(
+                host=payload.host,
+                port=payload.zenoh_port,
+                connected=False,
+                node_id=None,
+                error=f"Peer not reachable on API port {payload.api_port}: {exc}",
+            )
+
+        # 2. Dial the zenoh TCP port.
+        try:
+            connected = await self.router.connect_peer(payload.host, payload.zenoh_port)
+        except Exception as exc:
+            raise HTTPException(
+                status_code=400, detail=f"Failed to connect to peer: {exc}"
+            ) from exc
+
+        return AddPeerResponse(
+            host=payload.host,
+            port=payload.zenoh_port,
+            connected=connected and peer_node_id is not None,
+            node_id=peer_node_id,
+            error=None if connected else "Zenoh dial reported no new connection",
         )
 
     async def delete_custom_model(self, model_id: ModelId) -> JSONResponse:

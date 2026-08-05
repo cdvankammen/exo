@@ -54,6 +54,16 @@ class NetworkingHandle:
         
         If no peers are found that subscribe to this topic, throws `NoPeersSubscribedToTopicError` exception.
         """
+    async def connect_peer(self, host: builtins.str, port: builtins.int) -> builtins.bool:
+        r"""
+        Manually connect to a peer node by hostname/IP, bypassing multicast discovery.
+        
+        This lets you add a node to the cluster even when multicast discovery
+        isn't working (different subnets, VPN/Tailscale, client isolation).
+        Hostnames (e.g. Tailscale names) are resolved by the OS network stack.
+        
+        Returns `True` if a new connection was established.
+        """
 
 @typing.final
 class Pidfile:
