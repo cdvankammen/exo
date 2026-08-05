@@ -118,7 +118,7 @@ Then restart the Nix daemon: `sudo launchctl kickstart -k system/org.nixos.nix-d
     --force
   ```
 
-Clone the repo, build the dashboard, and run exo:
+Clone the repo, build the dashboard, install the dependencies, and run exo:
 
 ```bash
 # Clone exo
@@ -126,6 +126,9 @@ git clone https://github.com/exo-explore/exo
 
 # Build dashboard
 cd exo/dashboard && npm install && npm run build && cd ..
+
+# Install Python dependencies, including the MLX backend
+uv sync --extra mlx
 
 # Run exo
 uv run exo
@@ -176,7 +179,7 @@ rustup toolchain install nightly
 
 **Note:** The `macmon` package is macOS-only and not required for Linux.
 
-Clone the repo, build the dashboard, and run exo:
+Clone the repo, build the dashboard, install the dependencies, and run exo:
 
 ```bash
 # Clone exo
@@ -184,6 +187,10 @@ git clone https://github.com/exo-explore/exo
 
 # Build dashboard
 cd exo/dashboard && npm install && npm run build && cd ..
+
+# Install Python dependencies with the MLX backend for your hardware
+# (NVIDIA: --extra mlx-cuda13 or --extra mlx-cuda12)
+uv sync --extra mlx-cpu
 
 # Run exo
 uv run exo
@@ -585,3 +592,117 @@ On macOS, exo uses the GPU. On Linux, exo currently runs on CPU. We are working 
 ## Contributing
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on how to contribute to exo.
+
+---
+
+## Building the macOS App (from this repo)
+
+> **Section added from real build experience** (verified 2026-08-05, macOS 26.6 arm64, Python 3.13.13, PyInstaller 6.17.0). These are the exact commands that work — not hypotheticals.
+
+### ⚡ The Easy Steps (just work)
+
+If you already have the prerequisites (`uv`, `node`, Xcode, Rust, macmon), this is the whole build:
+
+```bash
+# 1. Install the macOS-only MLX extra (REQUIRED — pyinstaller refuses to build without it)
+uv sync --extra mlx
+
+# 2. Rebuild the Rust bindings (required after any rust/ change)
+uv sync --reinstall-package exo_rs
+
+# 3. Build the dashboard (required after any dashboard/src change)
+cd dashboard && npm install && npm run build && cd ..
+
+# 4. Package the Python backend + dashboard into a bundle
+uv run pyinstaller packaging/pyinstaller/exo.spec
+
+# 5. Build the .app shell (Release, unsigned)
+cd app/EXO && xcodebuild clean build -scheme EXO -configuration Release \
+  -derivedDataPath build \
+  MARKETING_VERSION="0.3.70" CURRENT_PROJECT_VERSION="1" \
+  EXO_BUILD_TAG="0.3.70" \
+  EXO_BUILD_COMMIT="$(git -C /Users/chris/Documents/GitHub/exo rev-parse --short HEAD)" \
+  SPARKLE_FEED_URL="https://assets.exolabs.net/appcast.xml" \
+  SPARKLE_ED25519_PUBLIC="" \
+  CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO
+
+# 6. Install into /Applications (replaces the existing app; requires sudo)
+sudo rm -rf /Applications/EXO.app
+sudo cp -R app/EXO/build/Build/Products/Release/EXO.app /Applications/EXO.app
+
+# 7. Launch
+open /Applications/EXO.app
+```
+
+**Verify it's the new build** (after ~15s for the API to start):
+
+```bash
+curl -s http://localhost:52415/node_id        # should return a node id
+curl -s -X POST http://localhost:52415/peers -H "Content-Type: application/json" \
+  -d '{"host":"your-node-hostname"}'          # should return JSON, not "Method Not Allowed"
+```
+
+If `/peers` returns `405 Method Not Allowed`, you're running a **stale bundle** — the Python backend predates the endpoint. Repeat steps 4–6.
+
+---
+
+### 🧱 The Detailed Build Process (how it actually works)
+
+#### Why these steps exist
+
+The EXO.app is **two things glued together**:
+
+1. **The Python backend + dashboard** — packaged by **PyInstaller** into a self-contained `exo` binary (the `dist/exo` folder, ~76MB `exo` executable + `_internal/` with all Python, MLX, and the dashboard HTML/JS).
+2. **The native macOS shell** — a SwiftUI menu-bar app built by **Xcode** (`app/EXO/EXO.xcodeproj`). Its "Copy Bundle Resources" phase embeds the PyInstaller `dist/exo` into `EXO.app/Contents/Resources/exo/`.
+
+So a "rebuild" is really: **rebuild the dashboard → repackage with PyInstaller → rebuild the Xcode shell → replace /Applications**.
+
+#### Step-by-step explanation
+
+| Step | Command | What it does | Why it's needed |
+|---|---|---|---|
+| **0. Prereqs** | `brew install uv node`, Xcode, `rustup toolchain install nightly`, `cargo install ... macmon` | Toolchain | pyinstaller spec hard-fails without `mlx` and `macmon` |
+| **1. mlx extra** | `uv sync --extra mlx` | Installs `mlx==0.32.0`, `mlx-lm`, `mlx-vlm` | The spec's `_module_directory("mlx")` **raises** if mlx is absent — the build silently stops at "Module 'mlx' is not available" |
+| **2. Rust bindings** | `uv sync --reinstall-package exo_rs` | Rebuilds the PyO3 `exo_rs` extension (`connect_peer`, gossipsub, etc.) | Any `rust/` change (e.g. the manual-peer-join feature) needs this or the running code uses the stale binding |
+| **3. Dashboard** | `cd dashboard && npm run build` | SvelteKit → static `dashboard/build/` | The spec copies `dashboard/build` into the bundle as `dashboard/` |
+| **4. PyInstaller** | `uv run pyinstaller packaging/pyinstaller/exo.spec` | Bundles Python + MLX + dashboard into `dist/exo` | This is the actual "backend" of the app |
+| **5. Xcode** | `xcodebuild clean build ... -configuration Release` | Builds the SwiftUI shell, embeds `dist/exo` | The app icon, menu bar, Settings UI, and process management |
+| **6. Install** | `sudo rm -rf /Applications/EXO.app && sudo cp -R ...` | Replaces the installed app | `/Applications/EXO.app` is **root-owned** — a plain `cp` fails silently |
+| **7. Launch** | `open /Applications/EXO.app` | Start it | |
+
+#### Gotchas we hit (real, from this build)
+
+1. **`Module 'mlx' is not available in the current environment.`** — The spec hard-requires mlx. If you see this, you skipped step 1 (`uv sync --extra mlx`). The build exits at that line.
+
+2. **`macmon binary not found in PATH`** — The spec checks `shutil.which("macmon")` on macOS. Install the pinned fork:
+   ```bash
+   cargo install --git https://github.com/vladkens/macmon \
+     --rev a1cd06b6cc0d5e61db24fd8832e74cd992097a7d macmon --force
+   ```
+
+3. **`cp` to /Applications fails silently** — The installed app is `root:admin`. You **must** use `sudo` (step 6). If you skip it, the old app stays and you'll see stale behavior (e.g. `/peers` → 405).
+
+4. **"Method Not Allowed" on `/peers`** — Your running app is a stale bundle. The Python backend in `_internal/` predates the route. Re-run steps 4–6.
+
+5. **Unsigned app / Gatekeeper** — The build uses `CODE_SIGNING_ALLOWED=NO`. First launch may need right-click → Open, or:
+   ```bash
+   xattr -dr com.apple.quarantine /Applications/EXO.app
+   ```
+
+6. **The `just build-app` alias** — `justfile` has `build-app: rust-rebuild sync-clean package` but requires the `just` CLI (`brew install just`). Without `just`, run the commands above directly.
+
+#### Why the dashboard sometimes looks "old" even after rebuild
+
+The dashboard is served from the **bundled** `_internal/dashboard/` (inside the .app), NOT from `dashboard/build` in the repo. If you only ran `npm run build` but not steps 4–6, the app still serves the old embedded copy. The repo build and the app bundle are **different copies** — always re-run pyinstaller + install after dashboard changes.
+
+#### Dev mode (no rebuild needed for UI work)
+
+For iterating on the dashboard without rebuilding the app:
+
+```bash
+# Terminal 1: run exo normally (the app, or `uv run exo`)
+# Terminal 2: Svelte dev server with hot reload
+cd dashboard && npm run dev
+```
+
+The dev server proxies to the running backend. Every `.svelte` edit appears instantly. This is how to see all features in the DOM without rebuilding.
