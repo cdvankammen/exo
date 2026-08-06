@@ -1,3 +1,4 @@
+import os
 from abc import ABC, abstractmethod
 from collections.abc import Callable, Generator
 from functools import partial
@@ -923,6 +924,143 @@ def _shard_v4_attention_heads(
     attn.n_heads = o_groups * hpg_per_rank
 
 
+# Opt-in fused MoE gate+up dispatch for DSv4 (port of PR #1999, fused part
+# only). Off by default: saves one Metal dispatch per decoder layer per
+# decode token (43 per forward) at ~100-200 us each on M4 Max. Enable with
+# EXO_DSV4_FUSED_MOE=1.
+_DSV4_FUSED_MOE: bool = os.environ.get("EXO_DSV4_FUSED_MOE", "0") == "1"
+
+
+class _FusedSwitchGLU(nn.Module):
+    """Drop-in SwitchGLU replacement that fuses gate_proj + up_proj into a
+    single ``mx.gather_qmm`` dispatch.
+
+    SwitchGLU's stock ``__call__`` runs two ``gather_qmm``s for gate and up
+    (plus one for down). At DSv4's 43 decoder layers that's 43 extra
+    Metal dispatches per decode token - each with ~100-200 us of dispatch
+    + sync overhead on the RDMA cluster. Concatenating gate and up
+    weights along the output axis lets a single ``gather_qmm`` produce
+    both halves; we split, apply the original ``self.activation`` (so
+    custom activations like DSv4's ``_DSV4SwiGLU(swiglu_limit)`` are
+    preserved), then run down_proj unchanged.
+
+    Uses ``__class__ = _FusedSwitchGLU`` rebind (preserves all attributes
+    of the pre-quantized / post-sharded SwitchGLU instance - we only
+    override ``__call__``).
+
+    Concat order in the fused weight is ``[up, gate]`` to match
+    SwitchGLU's call sequence ``self.activation(x_up, x_gate)``.
+    """
+
+    sort_threshold: int = 8
+    # Set by _install_fused_switch_glu after sharding; declared here so
+    # pyright knows their types after the __class__ rebind.
+    _fused_w_gu: mx.array
+    _fused_s_gu: mx.array
+    _fused_b_gu: mx.array | None
+    _fused_n_inter: int
+    _fused_group_size: int
+    _fused_bits: int
+    _fused_mode: str
+    activation: Callable[[mx.array, mx.array], mx.array]
+    down_proj: nn.Module
+
+    def __call__(self, x: mx.array, indices: mx.array) -> mx.array:
+        x = mx.expand_dims(x, (-2, -3))
+        do_sort = indices.size >= self.sort_threshold
+        idx: mx.array = indices
+        inv_order: mx.array | None = None
+        if do_sort:
+            flat_indices = indices.flatten()
+            order = mx.argsort(flat_indices)
+            inv_order = mx.argsort(order)
+            x = x.flatten(0, -3)[order // indices.shape[-1]]
+            idx = flat_indices[order]
+
+        gu: mx.array = mx.gather_qmm(
+            x,
+            self._fused_w_gu,
+            self._fused_s_gu,
+            self._fused_b_gu,
+            rhs_indices=idx,
+            transpose=True,
+            group_size=self._fused_group_size,
+            bits=self._fused_bits,
+            mode=self._fused_mode,
+            sorted_indices=do_sort,
+        )
+        n: int = self._fused_n_inter
+        x_up = gu[..., :n]
+        x_gate = gu[..., n:]
+        x = self.activation(x_up, x_gate)
+        x = self.down_proj(x, idx, sorted_indices=do_sort)
+        if do_sort:
+            assert inv_order is not None
+            x = x[inv_order]
+            x = mx.unflatten(x, 0, indices.shape[:-1])
+        return x.squeeze(-2)
+
+
+def _install_fused_switch_glu(switch_mlp: nn.Module) -> None:
+    """Pre-concatenate up_proj + gate_proj weights on `switch_mlp` for a
+    single ``gather_qmm`` at forward time. Rebinds the instance to
+    :class:`_FusedSwitchGLU` so its ``__call__`` uses the fused path.
+
+    Must be called after tensor-parallel sharding of gate_proj/up_proj -
+    output-dim axis is already ``moe_intermediate_size / N`` per rank.
+    Concat is along that (local) output axis.
+    """
+    gp_bits = getattr(switch_mlp.gate_proj, "bits", None)  # type: ignore
+    up_bits = getattr(switch_mlp.up_proj, "bits", None)  # type: ignore
+    gp_group = getattr(switch_mlp.gate_proj, "group_size", None)  # type: ignore
+    up_group = getattr(switch_mlp.up_proj, "group_size", None)  # type: ignore
+    assert gp_bits is not None and gp_bits == up_bits, (
+        f"gate/up bits mismatch: {gp_bits} vs {up_bits}"
+    )
+    assert gp_group is not None and gp_group == up_group, (
+        f"gate/up group_size mismatch: {gp_group} vs {up_group}"
+    )
+    gp_mode = getattr(switch_mlp.gate_proj, "mode", "affine")  # type: ignore
+    up_mode = getattr(switch_mlp.up_proj, "mode", "affine")  # type: ignore
+    assert gp_mode == up_mode, f"gate/up mode mismatch: {gp_mode} vs {up_mode}"
+
+    gp: object = switch_mlp.gate_proj  # type: ignore
+    up: object = switch_mlp.up_proj  # type: ignore
+    gp_w: mx.array = cast(object, gp["weight"])  # type: ignore
+    gp_s: mx.array = cast(object, gp["scales"])  # type: ignore
+    up_w: mx.array = cast(object, up["weight"])  # type: ignore
+    up_s: mx.array = cast(object, up["scales"])  # type: ignore
+    gp_b = getattr(gp, "biases", None)  # type: ignore
+    up_b = getattr(up, "biases", None)  # type: ignore
+
+    fused_w: mx.array = mx.concatenate([up_w, gp_w], axis=1)
+    fused_s: mx.array = mx.concatenate([up_s, gp_s], axis=1)
+    fused_b: mx.array | None = (
+        mx.concatenate([up_b, gp_b], axis=1)
+        if gp_b is not None and up_b is not None
+        else None
+    )
+    mx.eval(fused_w, fused_s)
+    if fused_b is not None:
+        mx.eval(fused_b)
+
+    switch_mlp._fused_w_gu = fused_w
+    switch_mlp._fused_s_gu = fused_s
+    switch_mlp._fused_b_gu = fused_b
+    switch_mlp._fused_n_inter = int(up_w.shape[1])
+    switch_mlp._fused_group_size = int(gp_group)  # type: ignore
+    switch_mlp._fused_bits = int(gp_bits)  # type: ignore
+    switch_mlp._fused_mode = gp_mode
+
+    # Free the now-redundant originals - gate_proj + up_proj + fused
+    # together would triple the MoE weight footprint per layer. After
+    # the __class__ rebind _FusedSwitchGLU only references self.down_proj.
+    switch_mlp.gate_proj = nn.Module()
+    switch_mlp.up_proj = nn.Module()
+
+    switch_mlp.__class__ = _FusedSwitchGLU
+
+
 class DeepseekV4ShardingStrategy(TensorParallelShardingStrategy):
     def shard_model(
         self,
@@ -947,6 +1085,13 @@ class DeepseekV4ShardingStrategy(TensorParallelShardingStrategy):
             self.all_to_sharded_linear_in_place(ffn.switch_mlp.gate_proj)
             self.sharded_to_all_linear_in_place(ffn.switch_mlp.down_proj)
             self.all_to_sharded_linear_in_place(ffn.switch_mlp.up_proj)
+
+            # Optionally fuse gate+up into a single gather_qmm dispatch.
+            # Saves 43 dispatches per decode token; off by default until
+            # opted in via EXO_DSV4_FUSED_MOE=1 (port of PR #1999).
+            if _DSV4_FUSED_MOE:
+                _install_fused_switch_glu(ffn.switch_mlp)
+
             wrapped = ShardedMoEV4(ffn)
             wrapped.sharding_group = self.group
             layer.ffn = wrapped  # type: ignore
