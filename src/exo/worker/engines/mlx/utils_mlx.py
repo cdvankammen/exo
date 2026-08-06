@@ -154,11 +154,26 @@ def mlx_distributed_init(
                         f"(up to {max_links} links per peer)"
                     )
 
-                group = mx.distributed.init(backend="jaccl", strict=True)
+                # Absorb the startup race where the worker engine isn't
+                # registered yet when JACCL init fires. Retry with backoff.
+                max_jaccl_attempts = 8
+                for attempt in range(1, max_jaccl_attempts + 1):
+                    try:
+                        group = mx.distributed.init(backend="jaccl", strict=True)
+                        break
+                    except (RuntimeError, ValueError) as exc:
+                        if attempt == max_jaccl_attempts:
+                            raise
+                        backoff = min(2.0 * attempt, 10.0)
+                        logger.warning(
+                            f"rank {rank} JACCL init attempt {attempt}/{max_jaccl_attempts} "
+                            f"failed ({exc}), retrying in {backoff:.0f}s"
+                        )
+                        time.sleep(backoff)
 
         logger.info(f"Rank {rank} mlx distributed initialization complete")
 
-        return group
+        return group  # pyright: ignore[reportPossiblyUnboundVariable]
 
 
 def initialize_mlx(
