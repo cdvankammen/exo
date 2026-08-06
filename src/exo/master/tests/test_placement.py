@@ -3,6 +3,7 @@ from collections.abc import Mapping
 import pytest
 
 from exo.master.placement import (
+    _rotate_metal_to_middle,  # type: ignore[reportPrivateUsage]
     get_transition_events,
     place_instance,
 )
@@ -36,7 +37,12 @@ from exo.shared.types.text_generation import (
     InputMessageContent,
     TextGenerationTaskParams,
 )
-from exo.shared.types.topology import Connection, RDMAConnection, SocketConnection
+from exo.shared.types.topology import (
+    Connection,
+    Cycle,
+    RDMAConnection,
+    SocketConnection,
+)
 from exo.shared.types.worker.downloads import (
     DownloadCompleted,
     DownloadFailed,
@@ -1515,3 +1521,64 @@ def test_mlx_jaccl_rejects_cuda_only_cycle(model_card: ModelCard):
             node_backends,
             node_rdma_ctl=node_rdma_ctl,
         )
+
+
+def test_rotate_metal_to_middle_three_nodes_metal_first() -> None:
+    """3-node Metal+CUDA+CUDA cycle rotates Metal into the middle rank."""
+    cycle = Cycle(node_ids=[NodeId("metal_node"), NodeId("cuda_node_1"), NodeId("cuda_node_2")])
+    node_backends: Mapping[NodeId, list[Backend]] = {
+        NodeId("metal_node"): [Backend.MlxMetal],
+        NodeId("cuda_node_1"): [Backend.MlxCuda],
+        NodeId("cuda_node_2"): [Backend.MlxCuda],
+    }
+    rotated = _rotate_metal_to_middle(cycle, node_backends)
+    # Rotation preserves the ring order — the metal node ends up in the middle.
+    assert rotated.node_ids[1] == NodeId("metal_node")
+    assert set(rotated.node_ids) == set(cycle.node_ids)
+
+
+def test_rotate_metal_to_middle_three_nodes_metal_last() -> None:
+    """3-node CUDA+CUDA+Metal cycle rotates Metal into the middle rank."""
+    cycle = Cycle(node_ids=[NodeId("cuda_node_1"), NodeId("cuda_node_2"), NodeId("metal_node")])
+    node_backends: Mapping[NodeId, list[Backend]] = {
+        NodeId("cuda_node_1"): [Backend.MlxCuda],
+        NodeId("cuda_node_2"): [Backend.MlxCuda],
+        NodeId("metal_node"): [Backend.MlxMetal],
+    }
+    rotated = _rotate_metal_to_middle(cycle, node_backends)
+    assert rotated.node_ids[1] == NodeId("metal_node")
+    assert set(rotated.node_ids) == set(cycle.node_ids)
+
+
+def test_rotate_metal_to_middle_all_metal_unchanged() -> None:
+    """All-Metal cycles are left untouched."""
+    cycle = Cycle(node_ids=[NodeId("metal_1"), NodeId("metal_2"), NodeId("metal_3")])
+    node_backends: Mapping[NodeId, list[Backend]] = {
+        node_id: [Backend.MlxMetal] for node_id in cycle
+    }
+    assert _rotate_metal_to_middle(cycle, node_backends).node_ids == [
+        NodeId("metal_1"),
+        NodeId("metal_2"),
+        NodeId("metal_3"),
+    ]
+
+
+def test_rotate_metal_to_middle_already_centered_unchanged() -> None:
+    """Metal already in the middle rank is a no-op."""
+    cycle = Cycle(node_ids=[NodeId("cuda_node_1"), NodeId("metal_node"), NodeId("cuda_node_2")])
+    node_backends: Mapping[NodeId, list[Backend]] = {
+        NodeId("cuda_node_1"): [Backend.MlxCuda],
+        NodeId("metal_node"): [Backend.MlxMetal],
+        NodeId("cuda_node_2"): [Backend.MlxCuda],
+    }
+    assert _rotate_metal_to_middle(cycle, node_backends).node_ids == list(cycle.node_ids)
+
+
+def test_rotate_metal_to_middle_two_nodes_unchanged() -> None:
+    """Cycles under 3 nodes are never rotated."""
+    cycle = Cycle(node_ids=[NodeId("cuda_node_1"), NodeId("metal_node")])
+    node_backends: Mapping[NodeId, list[Backend]] = {
+        NodeId("cuda_node_1"): [Backend.MlxCuda],
+        NodeId("metal_node"): [Backend.MlxMetal],
+    }
+    assert _rotate_metal_to_middle(cycle, node_backends).node_ids == list(cycle.node_ids)
