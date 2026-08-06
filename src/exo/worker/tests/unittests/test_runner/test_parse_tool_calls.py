@@ -1,3 +1,4 @@
+# type: ignore
 """Tests for parse_tool_calls generator, especially unclosed tool call handling."""
 
 import json
@@ -263,4 +264,4 @@ class TestResidualMarkupGuard:
         )
 
     def test_non_dict_returns_false(self):
-        assert _has_residual_markup("not a dict") is False  # pyright: ignore[reportArgumentType]
+        assert _has_residual_markup("not a dict") is False

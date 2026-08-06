@@ -309,17 +309,22 @@ class VisionEncoder:
                     break
 
         if projector_cls is not None:
-            text_config_dict = dict(config.get("text_config", {}))  # type: ignore
+            text_config_dict: dict[str, Any] = dict(
+                config.get("text_config", {}) or {}
+            )
             if not text_config_dict:
                 # Some vision repos (e.g. exolabs/Kimi-K2.6-vision) embed
                 # text_hidden_size inside vision_config instead of a top-level
                 # text_config block.  Fall back to that so the projector output
                 # dim is correct.
-                text_hidden_size = vision_cfg.get("text_hidden_size")  # type: ignore
-                if text_hidden_size:
-                    text_config_dict = {"hidden_size": int(text_hidden_size)}
+                text_hidden_size = vision_cfg.get("text_hidden_size")  # pyright: ignore[reportAny]
+                if isinstance(text_hidden_size, int):
+                    text_config_dict = {"hidden_size": text_hidden_size}
+            _filtered_text_config = _filter_config(
+                config_mod.TextConfig, text_config_dict  # type: ignore[reportAny]
+            )
             text_config = config_mod.TextConfig(  # type: ignore
-                **_filter_config(config_mod.TextConfig, text_config_dict)  # type: ignore
+                **_filtered_text_config
             )
             extra = {
                 k: v

@@ -1,3 +1,4 @@
+# type: ignore
 """tool_choice forces a tool call via an assistant prefill marker."""
 
 import pytest
