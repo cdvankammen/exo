@@ -17,6 +17,7 @@ from exo.shared.topology import Topology
 from exo.shared.types.backends import Backend
 from exo.shared.types.common import NodeId
 from exo.shared.types.memory import Memory
+from exo.shared.types.multiaddr import Multiaddr
 from exo.shared.types.profiling import (
     NetworkInterfaceInfo,
     NodeNetworkInfo,
@@ -788,3 +789,97 @@ class TestCfgParallelPlacement:
         # First shard starts at 0, last shard ends at 57
         assert layer_ranges[0][0] == 0
         assert layer_ranges[-1][1] == 57
+
+
+def test_find_ip_prioritised_prefers_measured_latency_for_ring() -> None:
+    """Ring host selection should prefer the lowest measured probe latency,
+    falling back to interface type and RFC1918 preference."""
+    node_a = NodeId()
+    node_b = NodeId()
+    topology = Topology()
+    topology.add_node(node_a)
+    topology.add_node(node_b)
+    topology.add_connection(
+        Connection(
+            source=node_a,
+            sink=node_b,
+            edge=SocketConnection(
+                sink_multiaddr=Multiaddr(address="/ip4/10.0.0.1/tcp/52415"),
+                latency_ms=25.0,
+            ),
+        )
+    )
+    topology.add_connection(
+        Connection(
+            source=node_a,
+            sink=node_b,
+            edge=SocketConnection(
+                sink_multiaddr=Multiaddr(address="/ip4/192.168.1.1/tcp/52415"),
+                latency_ms=2.0,
+            ),
+        )
+    )
+    node_network = {
+        node_b: NodeNetworkInfo(
+            interfaces=[
+                NetworkInterfaceInfo(
+                    name="en0", ip_address="10.0.0.1", interface_type="ethernet"
+                ),
+                NetworkInterfaceInfo(
+                    name="en1", ip_address="192.168.1.1", interface_type="ethernet"
+                ),
+            ]
+        )
+    }
+
+    from exo.master.placement_utils import find_ip_prioritised
+
+    result = find_ip_prioritised(node_a, node_b, topology, node_network, ring=True)
+    # The 192.168.1.1 address has lower measured latency -> preferred.
+    assert result == "192.168.1.1"
+
+
+def test_find_ip_prioritised_unmeasured_falls_back_to_type_and_rfc1918() -> None:
+    """Without latency data, ring selection falls back to type priority then
+    RFC1918 LAN over Tailscale CGNAT."""
+    node_a = NodeId()
+    node_b = NodeId()
+    topology = Topology()
+    topology.add_node(node_a)
+    topology.add_node(node_b)
+    # Same interface type (ethernet) for both; 192.168.x should win over 100.64.x
+    topology.add_connection(
+        Connection(
+            source=node_a,
+            sink=node_b,
+            edge=SocketConnection(
+                sink_multiaddr=Multiaddr(address="/ip4/100.64.0.1/tcp/52415")
+            ),
+        )
+    )
+    topology.add_connection(
+        Connection(
+            source=node_a,
+            sink=node_b,
+            edge=SocketConnection(
+                sink_multiaddr=Multiaddr(address="/ip4/192.168.1.1/tcp/52415")
+            ),
+        )
+    )
+    node_network = {
+        node_b: NodeNetworkInfo(
+            interfaces=[
+                NetworkInterfaceInfo(
+                    name="utun0", ip_address="100.64.0.1", interface_type="ethernet"
+                ),
+                NetworkInterfaceInfo(
+                    name="en1", ip_address="192.168.1.1", interface_type="ethernet"
+                ),
+            ]
+        )
+    }
+
+    from exo.master.placement_utils import find_ip_prioritised
+
+    result = find_ip_prioritised(node_a, node_b, topology, node_network, ring=True)
+    assert result == "192.168.1.1"

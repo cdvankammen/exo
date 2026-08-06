@@ -264,9 +264,7 @@ def _get_shard_assignments_for_pure_pipeline(
 ) -> ShardAssignments:
     """Create shard assignments for pure pipeline execution."""
     _validate_cycle(cycle)
-    total_memory = _compute_total_memory(
-        cycle.node_ids, node_memory, force_override
-    )
+    total_memory = _compute_total_memory(cycle.node_ids, node_memory, force_override)
 
     layer_allocations = _allocate_and_validate_layers(
         cycle.node_ids, node_memory, total_memory, model_card, force_override
@@ -406,11 +404,11 @@ def _find_connection_ip(
     node_i: NodeId,
     node_j: NodeId,
     cycle_digraph: Topology,
-) -> Generator[str, None, None]:
-    """Find all IP addresses that connect node i to node j."""
+) -> Generator[SocketConnection, None, None]:
+    """Find all socket connections from node i to node j."""
     for connection in cycle_digraph.get_all_connections_between(node_i, node_j):
         if isinstance(connection, SocketConnection):
-            yield connection.sink_multiaddr.ip_address
+            yield connection
 
 
 def find_ip_prioritised(
@@ -422,22 +420,29 @@ def find_ip_prioritised(
 ) -> str | None:
     """Find an IP address between nodes with prioritization.
 
-    Interface type drives the primary preference (TB first for ring, ethernet
-    first for the RDMA coordinator). Address class is only a tiebreaker that
-    keeps RFC1918 LAN ahead of CGNAT-class addresses (e.g. Tailscale 100.64/10)
-    when a peer advertises multiple socket-reachable IPs of the same type.
+    Ring links prefer the lowest measured probe latency (falling back to
+    interface type: TB first), then RFC1918 LAN over CGNAT/Tailscale as a
+    final tiebreak. RDMA coordinator selection prefers ethernet, then
+    RFC1918 LAN.
     """
-    ips = list(_find_connection_ip(node_id, other_node_id, cycle_digraph))
-    if not ips:
+    connections = list(_find_connection_ip(node_id, other_node_id, cycle_digraph))
+    if not connections:
         return None
+
+    latency_by_ip: dict[str, float] = {}
+    for connection in connections:
+        ip_address = connection.sink_multiaddr.ip_address
+        if connection.latency_ms is None:
+            continue
+        known = latency_by_ip.get(ip_address)
+        if known is None or connection.latency_ms < known:
+            latency_by_ip[ip_address] = connection.latency_ms
 
     other_network = node_network.get(other_node_id, NodeNetworkInfo())
     ip_to_type = {
         iface.ip_address: iface.interface_type for iface in other_network.interfaces
     }
 
-    # Ring should prioritise fastest connection. As a best-effort, we prioritise TB.
-    # TODO: Profile and get actual connection speeds.
     if ring:
         type_priority = {
             "thunderbolt": 0,
@@ -446,19 +451,25 @@ def find_ip_prioritised(
             "wifi": 3,
             "unknown": 4,
         }
+        return min(
+            {connection.sink_multiaddr.ip_address for connection in connections},
+            key=lambda ip: (
+                latency_by_ip.get(ip, float("inf")),
+                type_priority.get(ip_to_type.get(ip, "unknown"), 5),
+                _address_priority(ip),
+            ),
+        )
 
     # RDMA prefers ethernet coordinator
-    else:
-        type_priority = {
-            "ethernet": 0,
-            "maybe_ethernet": 1,
-            "wifi": 2,
-            "unknown": 3,
-            "thunderbolt": 4,
-        }
-
+    type_priority = {
+        "ethernet": 0,
+        "maybe_ethernet": 1,
+        "wifi": 2,
+        "unknown": 3,
+        "thunderbolt": 4,
+    }
     return min(
-        ips,
+        {connection.sink_multiaddr.ip_address for connection in connections},
         key=lambda ip: (
             type_priority.get(ip_to_type.get(ip, "unknown"), 5),
             _address_priority(ip),
