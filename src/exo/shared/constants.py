@@ -54,7 +54,18 @@ EXO_MODELS_DIRS: tuple[Path, ...] = tuple(
     for d in (EXO_DEFAULT_MODELS_DIR, *_EXO_MODELS_DIRS_ENV)
     if d not in _read_only_set
 )
-EXO_MODELS_READ_ONLY_DIRS: tuple[Path, ...] = _EXO_MODELS_READ_ONLY_DIRS_ENV
+
+# Well-known read-only model roots auto-appended to the read-only search path.
+# HuggingFace Hub cache lets exo reuse models downloaded by other tools
+# (HF CLI, transformers, LM Studio, etc.) without re-downloading.
+_WELL_KNOWN_MODEL_PATHS: tuple[Path, ...] = tuple(
+    p for p in (Path.home() / ".cache" / "huggingface" / "hub",) if p.is_dir()
+)
+
+EXO_MODELS_READ_ONLY_DIRS: tuple[Path, ...] = (
+    *_EXO_MODELS_READ_ONLY_DIRS_ENV,
+    *(p for p in _WELL_KNOWN_MODEL_PATHS if p not in _read_only_set),
+)
 
 _RESOURCES_DIR_ENV = os.environ.get("EXO_RESOURCES_DIR", None)
 RESOURCES_DIR = (

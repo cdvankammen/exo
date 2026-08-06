@@ -149,6 +149,34 @@ class InsufficientDiskSpaceError(Exception):
     """Raised when no writable model directory has enough free space."""
 
 
+def _resolve_hf_hub_model(search_dir: Path, normalized: str) -> Path | None:
+    """Try to find a model in HuggingFace Hub cache format.
+
+    HF Hub stores models as ``models--<org>--<name>/snapshots/<commit>/``
+    with symlinks to ``../../blobs/``. The active commit is read from
+    ``refs/main``.
+    """
+    hf_model_dir = search_dir / f"models--{normalized}"
+    if not hf_model_dir.is_dir():
+        return None
+    # Resolve ref -> snapshot
+    ref_file = hf_model_dir / "refs" / "main"
+    if ref_file.is_file():
+        commit_hash = ref_file.read_text().strip()
+        snapshot = hf_model_dir / "snapshots" / commit_hash
+        if snapshot.is_dir():
+            return snapshot
+    # Fallback: use latest snapshot by mtime
+    snapshots_dir = hf_model_dir / "snapshots"
+    if snapshots_dir.is_dir():
+        snapshots = sorted(
+            snapshots_dir.iterdir(), key=lambda p: p.stat().st_mtime, reverse=True
+        )
+        if snapshots:
+            return snapshots[0]
+    return None
+
+
 def resolve_existing_model(
     model_id: ModelId, card: ModelCard | None = None
 ) -> Path | None:
@@ -163,6 +191,10 @@ def resolve_existing_model(
         candidate = search_dir / normalized
         if candidate.is_dir() and is_model_directory_complete(candidate, card):
             return candidate
+        # Try HuggingFace Hub cache format (models--org--name/snapshots/<commit>)
+        hf_candidate = _resolve_hf_hub_model(search_dir, normalized)
+        if hf_candidate is not None and is_model_directory_complete(hf_candidate, card):
+            return hf_candidate
     return None
 
 

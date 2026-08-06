@@ -197,7 +197,8 @@ def test_overlap_between_dirs_and_read_only_dirs():
 
 
 def test_empty_read_only_dirs_when_unset():
-    """Test that EXO_MODELS_READ_ONLY_DIRS is empty when env var is not set."""
+    """Test that EXO_MODELS_READ_ONLY_DIRS contains only well-known paths
+    when env var is not set (e.g. HF Hub cache, when present)."""
     env = {
         k: v
         for k, v in os.environ.items()
@@ -210,4 +211,6 @@ def test_empty_read_only_dirs_when_unset():
 
         importlib.reload(constants)
 
-        assert constants.EXO_MODELS_READ_ONLY_DIRS == ()
+        # Auto-appended well-known paths are the only permitted entries.
+        well_known = {Path.home() / ".cache" / "huggingface" / "hub"}
+        assert set(constants.EXO_MODELS_READ_ONLY_DIRS) <= well_known
