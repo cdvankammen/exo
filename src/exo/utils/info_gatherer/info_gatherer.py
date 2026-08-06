@@ -545,7 +545,7 @@ class InfoGatherer:
                 if report_vram:
                     usage = MemoryUsage.from_cuda(override_memory=override_memory)
                 if usage is None:
-                    usage = MemoryUsage.from_psutil(override_memory=override_memory)
+                    usage = MemoryUsage.from_system(override_memory=override_memory)
                 await self.info_sender.send(usage)
             except Exception as e:
                 logger.opt(exception=e).warning("Error gathering memory usage")
