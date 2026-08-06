@@ -14,3 +14,4 @@ export { default as ModelPickerGroup } from "./ModelPickerGroup.svelte";
 export { default as ModelPickerModal } from "./ModelPickerModal.svelte";
 export { default as ChatModelSelector } from "./ChatModelSelector.svelte";
 export { default as IntegrationCard } from "./IntegrationCard.svelte";
+export { default as EjectButton } from "./EjectButton.svelte";

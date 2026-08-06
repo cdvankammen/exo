@@ -8,6 +8,7 @@
     ModelPickerModal,
     ChatModelSelector,
   } from "$lib/components";
+  import EjectButton from "$lib/components/EjectButton.svelte";
   import {
     pickAutoModel,
     getAutoTierIndex,
@@ -2081,8 +2082,6 @@
   }
 
   async function ejectInstance(instanceId: string) {
-    if (!confirm(`Eject instance ${instanceId.slice(0, 8)}...?`)) return;
-
     // Get the model ID and node IDs of the instance before we delete it
     const wrappedInstance = instanceData[instanceId];
     const deletedInstanceModelId = getInstanceModelId(wrappedInstance);
@@ -2101,14 +2100,12 @@
         return;
       }
 
+      // Delete the downloaded weights automatically — no extra confirmation.
       if (
         deletedInstanceModelId &&
         deletedInstanceModelId !== "Unknown" &&
         deletedInstanceModelId !== "Unknown Model" &&
-        nodeIds.length > 0 &&
-        confirm(
-          `Also delete the downloaded weights for ${deletedInstanceModelId} from disk to free storage?`,
-        )
+        nodeIds.length > 0
       ) {
         await Promise.all(
           nodeIds.map((nodeId) =>
@@ -5365,12 +5362,7 @@
                             >{id.slice(0, 8).toUpperCase()}</span
                           >
                         </div>
-                        <button
-                          onclick={() => ejectInstance(id)}
-                          class="text-xs px-2 py-1 font-mono tracking-wider uppercase border border-red-500/30 text-red-400 hover:bg-red-500/20 hover:text-red-400 hover:border-red-500/50 transition-all duration-200 cursor-pointer"
-                        >
-                          EJECT
-                        </button>
+                        <EjectButton {id} onConfirm={ejectInstance} />
                       </div>
                       <div class="pl-2">
                         <div
@@ -6559,12 +6551,7 @@
                               >{id.slice(0, 8).toUpperCase()}</span
                             >
                           </div>
-                          <button
-                            onclick={() => ejectInstance(id)}
-                            class="text-xs px-2 py-1 font-mono tracking-wider uppercase border border-red-500/30 text-red-400 hover:bg-red-500/20 hover:text-red-400 hover:border-red-500/50 transition-all duration-200 cursor-pointer"
-                          >
-                            EJECT
-                          </button>
+                          <EjectButton {id} onConfirm={ejectInstance} />
                         </div>
                         <div class="pl-2">
                           <div
