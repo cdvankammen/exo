@@ -247,6 +247,11 @@ class ChatCompletionRequest(BaseModel):
     tool_choice: str | dict[str, Any] | None = None
     parallel_tool_calls: bool | None = None
     user: str | None = None
+    # Whether this request may use the shared KV prefix cache. Defaults to True.
+    # Set to False to run a full prefill+decode on a fresh per-request cache that
+    # is discarded afterwards, for one-off or throwaway requests that should not
+    # evict other clients' cached prefixes or leave a cache entry behind.
+    use_prefix_cache: bool = True
 
 
 class BenchChatCompletionRequest(ChatCompletionRequest):

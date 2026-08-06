@@ -573,8 +573,9 @@ def mlx_generate(
     media_regions: list[MediaRegion] = vision.media_regions if vision else []
 
     # Do not use the prefix cache if we are trying to do benchmarks.
-    is_bench = task.bench
-    if is_bench and not task.use_prefix_cache:
+    # Skip the prefix cache when the request opts out (use_prefix_cache=False),
+    # e.g. benchmarks or one-off requests that must leave no cache trace.
+    if not task.use_prefix_cache:
         kv_prefix_cache = None
 
     # Use prefix cache if available, otherwise create fresh cache
@@ -606,7 +607,7 @@ def mlx_generate(
             frequency_penalty=task.frequency_penalty,
         )
     )
-    if is_bench:
+    if task.bench:
         # Only sample length eos tokens
         eos_ids = eos_ids_from_tokenizer(tokenizer)
         logits_processors = [ban_token_ids(eos_ids)] + logits_processors

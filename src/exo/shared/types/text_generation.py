@@ -116,7 +116,10 @@ class TextGenerationTaskParams(BaseModel, frozen=True):
     tools: list[dict[str, Any]] | None = None
     tool_choice: str | dict[str, Any] | None = None
     bench: bool = False
-    use_prefix_cache: bool = False
+    # Whether to use the shared KV prefix cache. When False, run prefill+decode
+    # on a fresh per-request cache and store nothing (for one-off/throwaway
+    # requests). Defaults to True so normal generation caches as usual.
+    use_prefix_cache: bool = True
     top_k: int | None = None
     stop: str | list[str] | None = None
     seed: int | None = None
