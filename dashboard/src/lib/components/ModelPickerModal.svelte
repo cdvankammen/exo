@@ -484,6 +484,8 @@
     // Filter by family
     if (selectedFamily === "favorites") {
       result = result.filter((g) => favorites.has(g.id));
+    } else if (selectedFamily === "running") {
+      result = result.filter((g) => groupIsReady(g));
     } else if (
       selectedFamily &&
       selectedFamily !== "huggingface" &&
@@ -615,8 +617,23 @@
   });
 
   // All groups are "recommended" — no models are ever hidden or separated out.
-  const recommendedGroups = $derived(filteredGroups);
-  const otherGroups = $derived([] as ModelGroup[]);
+  function groupIsReady(group: ModelGroup): boolean {
+    return group.variants.some((v) => {
+      const s = instanceStatuses[v.id];
+      return s && s.statusClass === "ready";
+    });
+  }
+
+  // Split the "All" view: groups with a live (ready) instance float to the
+  // top under "READY NOW"; everything else goes under "Other models".
+  const readyGroups = $derived.by((): ModelGroup[] => {
+    if (selectedFamily !== null) return filteredGroups;
+    return filteredGroups.filter((g) => groupIsReady(g));
+  });
+  const otherGroups = $derived.by((): ModelGroup[] => {
+    if (selectedFamily !== null) return [];
+    return filteredGroups.filter((g) => !groupIsReady(g));
+  });
 
   function toggleGroupExpanded(groupId: string) {
     const next = new Set(expandedGroups);
@@ -975,8 +992,8 @@
             {/if}
           </div>
         {:else}
-          <!-- Recommended for your cluster -->
-          {#if recommendedGroups.length > 0 && otherGroups.length > 0 && !searchQuery.trim()}
+          <!-- Ready now — models loaded as instances -->
+          {#if selectedFamily === null && readyGroups.length > 0 && otherGroups.length > 0 && !searchQuery.trim()}
             <div
               class="sticky top-0 z-10 flex items-center gap-2 px-3 py-2 bg-green-950/60 border-b border-green-500/20 backdrop-blur-sm"
             >
@@ -995,14 +1012,14 @@
               </svg>
               <span
                 class="text-xs font-mono text-green-400 tracking-wider uppercase"
-                >Recommended for your cluster</span
+                >Ready now</span
               >
               <span class="text-xs font-mono text-green-400/50"
-                >— fits in available memory</span
+                >— loaded on your cluster</span
               >
             </div>
           {/if}
-          {#each recommendedGroups as group}
+          {#each readyGroups as group}
             <ModelPickerGroup
               {group}
               isExpanded={expandedGroups.has(group.id)}
@@ -1021,7 +1038,7 @@
             />
           {/each}
           <!-- Other models -->
-          {#if otherGroups.length > 0 && recommendedGroups.length > 0 && !searchQuery.trim()}
+          {#if selectedFamily === null && otherGroups.length > 0 && readyGroups.length > 0 && !searchQuery.trim()}
             <div
               class="sticky top-0 z-10 flex items-center gap-2 px-3 py-2 bg-exo-dark-gray/80 border-y border-exo-medium-gray/20 backdrop-blur-sm"
             >

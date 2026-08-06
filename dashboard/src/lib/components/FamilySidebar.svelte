@@ -21,6 +21,7 @@
   const familyNames: Record<string, string> = {
     favorites: "Favorites",
     recents: "Recent",
+    running: "Running",
     huggingface: "Hub",
     llama: "Meta",
     qwen: "Qwen",
@@ -111,6 +112,34 @@
       >
     </button>
   {/if}
+
+  <!-- Running (models loaded as instances) -->
+  <button
+    type="button"
+    onclick={() => onSelect("running")}
+    class="group flex flex-col items-center justify-center p-2 rounded transition-all duration-200 cursor-pointer {selectedFamily ===
+    'running'
+      ? 'bg-green-500/20 border-l-2 border-green-400'
+      : 'hover:bg-white/5 border-l-2 border-transparent'}"
+    title="Show models loaded and ready to chat"
+  >
+    <svg
+      class="w-6 h-6 {selectedFamily === 'running'
+        ? 'text-green-400'
+        : 'text-white/50 group-hover:text-green-400/70'}"
+      viewBox="0 0 24 24"
+      fill="currentColor"
+    >
+      <path
+        d="M13 2 3 14h7l-1 8 10-12h-7l1-8z"
+      />
+    </svg>
+    <span
+      class="text-[11px] font-mono mt-0.5 {selectedFamily === 'running'
+        ? 'text-green-400'
+        : 'text-white/40 group-hover:text-white/60'}">Running</span
+    >
+  </button>
 
   <!-- HuggingFace Hub -->
   <button
