@@ -159,6 +159,7 @@ final class ExoProcessController: ObservableObject {
     private var process: Process?
     private var runtimeDirectoryURL: URL?
     private var pendingLaunchTask: Task<Void, Never>?
+    private var stderrTail = ""  // last ~8KB of child stderr for failure diagnosis
 
     func launchIfNeeded() {
         guard process?.isRunning != true else { return }
@@ -171,6 +172,7 @@ final class ExoProcessController: ObservableObject {
             cancelPendingLaunch()
             status = .starting
             lastError = nil
+            stderrTail = ""
             let runtimeURL = try resolveRuntimeDirectory()
             runtimeDirectoryURL = runtimeURL
 
@@ -185,8 +187,12 @@ final class ExoProcessController: ObservableObject {
             child.currentDirectoryURL = exoHomeURL
             child.environment = makeEnvironment(for: runtimeURL)
 
+            // Capture stderr so startup failures can explain themselves.
+            // (exo also writes structured logs to ~/.exo/exo_log/exo.log.)
+            let stderrPipe = Pipe()
+            child.standardError = stderrPipe
+            readStderr(stderrPipe)
             child.standardOutput = FileHandle.nullDevice
-            child.standardError = FileHandle.nullDevice
 
             child.terminationHandler = { [weak self] proc in
                 Task { @MainActor in
@@ -198,10 +204,11 @@ final class ExoProcessController: ObservableObject {
                     case .failed:
                         break
                     default:
-                        self.status = .failed(
-                            message: "Exited with code \(proc.terminationStatus)"
+                        let reason = self.extractStartupFailureReason(
+                            exitCode: proc.terminationStatus
                         )
-                        self.lastError = "Process exited with code \(proc.terminationStatus)"
+                        self.status = .failed(message: reason)
+                        self.lastError = reason
                     }
                 }
             }
@@ -217,6 +224,71 @@ final class ExoProcessController: ObservableObject {
             status = .failed(message: "Launch error")
             lastError = error.localizedDescription
         }
+    }
+
+    /// Asynchronously drains the child's stderr into `stderrTail` (ring buffer).
+    private func readStderr(_ pipe: Pipe) {
+        let handle = pipe.fileHandleForReading
+        handle.readabilityHandler = { [weak self] handle in
+            let data = handle.availableData
+            guard !data.isEmpty, let self else { return }
+            guard let text = String(data: data, encoding: .utf8) else { return }
+            Task { @MainActor in
+                self.stderrTail = String((self.stderrTail + text).suffix(8192))
+            }
+        }
+    }
+
+    /// Read the tail of a file (exo's structured log) capped at `maxBytes`.
+    private func lastLogTail(_ url: URL, maxBytes: Int = 8192) -> String {
+        guard let handle = try? FileHandle(forReadingFrom: url) else { return "" }
+        defer { try? handle.close() }
+        let size = (try? handle.seekToEnd()) ?? 0
+        let start = size > UInt64(maxBytes) ? size - UInt64(maxBytes) : 0
+        try? handle.seek(toOffset: start)
+        let data = handle.readDataToEndOfFile()
+        return String(data: data, encoding: .utf8) ?? ""
+    }
+
+    /// Build a human-readable reason for an unexpected exit, replacing the
+    /// bare "Exited with code N" with the actual cause when recognizable.
+    private func extractStartupFailureReason(exitCode: Int32) -> String {
+        let logTail = lastLogTail(
+            Self.exoDirectoryURL.appendingPathComponent("exo_log/exo.log")
+        )
+        let combined = stderrTail + "\n" + logTail
+
+        // Recognizable startup failures (most specific first).
+        let patterns: [(pattern: String, reason: String)] = [
+            ("Address already in use",
+             "Port already in use — another exo instance may be running"),
+            ("address already in use",
+             "Port already in use — another exo instance may be running"),
+            ("No space left on device", "No disk space left"),
+            ("cannot open shared object file",
+             "Missing native library (see exo log for details)"),
+            ("ModuleNotFoundError", "Missing Python module — reinstall the app"),
+            ("Can not find locations of CUDA headers",
+             "CUDA headers missing — install the CUDA toolkit"),
+            ("cudaMallocManaged", "GPU error — CUDA driver/library mismatch"),
+            ("ImportError", "Import error (see exo log for details)"),
+        ]
+        for (pattern, reason) in patterns {
+            if combined.range(of: pattern, options: .regularExpression) != nil {
+                return reason
+            }
+        }
+
+        // Fall back to the most relevant line of the exo log.
+        let logLines = logTail.split(separator: "\n")
+        if let last = logLines.last(where: {
+            $0.contains("ERROR") || $0.contains("Traceback")
+                || $0.contains("Fatal")
+        }) {
+            return String(last.prefix(300))
+        }
+
+        return "Process exited with code \(exitCode)"
     }
 
     func stop() {
