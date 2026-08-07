@@ -40,7 +40,6 @@
     clearPreviewNodeFilter,
     previewNodeFilter,
     createConversation,
-    deleteDownload,
     setSelectedChatModel,
     selectedChatModel,
     sendMessage,
@@ -2071,16 +2070,6 @@
     return 0;
   }
 
-  // Get the node IDs an instance is running on, from its shard assignments
-  function getInstanceNodeIds(instanceWrapped: unknown): string[] {
-    const [, instance] = getTagged(instanceWrapped);
-    if (!instance || typeof instance !== "object") return [];
-    const inst = instance as {
-      shardAssignments?: { nodeToRunner?: Record<string, string> };
-    };
-    return Object.keys(inst.shardAssignments?.nodeToRunner ?? {});
-  }
-
   // Extract the failure reason from an instance's failed runner(s), if any.
   // RunnerFailed carries error_message + diagnostics[] (e.g. GPU timeout,
   // ring transport errors); this surfaces them on the FAILED card.
@@ -2115,10 +2104,9 @@
   }
 
   async function ejectInstance(instanceId: string) {
-    // Get the model ID and node IDs of the instance before we delete it
+    // Get the model ID before we delete the instance (for the selected-model check)
     const wrappedInstance = instanceData[instanceId];
     const deletedInstanceModelId = getInstanceModelId(wrappedInstance);
-    const nodeIds = getInstanceNodeIds(wrappedInstance);
     const wasSelected = selectedChatModel() === deletedInstanceModelId;
 
     try {
@@ -2133,28 +2121,8 @@
         return;
       }
 
-      // Delete the downloaded weights automatically — no extra confirmation.
-      if (
-        deletedInstanceModelId &&
-        deletedInstanceModelId !== "Unknown" &&
-        deletedInstanceModelId !== "Unknown Model" &&
-        nodeIds.length > 0
-      ) {
-        await Promise.all(
-          nodeIds.map((nodeId) =>
-            deleteDownload(nodeId, deletedInstanceModelId).catch((error) => {
-              console.error(
-                `Failed to delete weights on node ${nodeId}:`,
-                error,
-              );
-              addToast({
-                type: "error",
-                message: `Failed to delete weights on node ${nodeId.slice(0, 8)}...`,
-              });
-            }),
-          ),
-        );
-      }
+      // NOTE: Eject only stops the instance. Weights are NEVER deleted
+      // automatically — the user deletes them manually from the Downloads page.
 
       if (wasSelected) {
         // If we deleted the currently selected model, switch to another available model
