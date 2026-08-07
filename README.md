@@ -188,9 +188,10 @@ git clone https://github.com/exo-explore/exo
 # Build dashboard
 cd exo/dashboard && npm install && npm run build && cd ..
 
-# Install Python dependencies with the MLX backend for your hardware
-# (NVIDIA: --extra mlx-cuda13 or --extra mlx-cuda12)
-uv sync --extra mlx-cpu
+# Install Python dependencies with the MLX backend for your hardware:
+#   NVIDIA GPU  → --extra mlx-cuda13 (CUDA 13) or --extra mlx-cuda12 (CUDA 12)
+#   CPU only    → --extra mlx-cpu
+uv sync --extra mlx-cuda12
 
 # Run exo
 uv run exo
@@ -198,7 +199,20 @@ uv run exo
 
 This starts the exo dashboard and API at http://localhost:52415/
 
-**Important note for Linux users:** Currently, exo runs on CPU on Linux. GPU support for Linux platforms is under development. If you'd like to see support for your specific Linux hardware, please [search for existing feature requests](https://github.com/exo-explore/exo/issues) or create a new one.
+**Important note for Linux users:** exo supports **NVIDIA GPU inference via MLX CUDA** (see the `mlx-cuda12` / `mlx-cuda13` extras above). A node with a working NVIDIA driver advertises the `MlxCuda` backend and reports GPU VRAM as its memory — and can join a heterogeneous cluster alongside Apple Silicon (Metal) nodes. To verify your GPU is detected:
+
+```bash
+# CUDA backend + VRAM reporting are active when you see this in the log:
+#   "CUDA MLX backend detected; reporting GPU VRAM as node memory"
+# and the node advertises MlxCuda in the cluster topology.
+```
+
+**Troubleshooting GPU detection on Linux:**
+
+- **Driver version mismatch** — `nvidia-smi` failing with `Driver/library version mismatch` means the kernel module and userspace don't match. Match them exactly (e.g. install the exact driver version from NVIDIA's `.run`).
+- **`nvidia-smi` not found or version-suffixed** — exo tolerates a version-suffixed binary (e.g. `nvidia-smi-595.58`), but it's simplest to symlink it to the expected name: `ln -sf /usr/bin/nvidia-smi-595.58 /usr/bin/nvidia-smi`.
+- **CUDA headers at runtime** — if the runner crashes with "Can not find locations of CUDA headers", install `nvidia-cuda-toolkit` and set `CUDA_HOME` / `CUDA_PATH`.
+- **CPU-only fallback** — if no NVIDIA GPU is present or pynvml can't detect one, exo falls back to `MlxCpu` (system RAM as memory). That's expected for CPU-only boxes.
 
 **Configuration Options:**
 
