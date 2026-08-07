@@ -377,7 +377,7 @@ class NodeBackends(TaggedModel):
         backends: list[Backend] = [Backend.MlxCpu]
         if IS_DARWIN:
             backends.append(Backend.MlxMetal)
-        if await to_thread.run_sync(_has_nvml_cuda):
+        if await to_thread.run_sync(_has_nvml_cuda) or _mlx_uses_cuda_gpu():
             backends.append(Backend.MlxCuda)
             backends.append(Backend.Vllm)
         return cls(backends=backends)
