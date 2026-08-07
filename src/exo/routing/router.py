@@ -291,32 +291,23 @@ def get_node_zid(
     path: Path = EXO_NODE_ZID,
 ) -> NodeId:
     """
-    Obtains the :class:`Keypair` associated with this node-ID.
-    Obtain the :class:`PeerId` by from it.
+    Obtains the stable node-ID for this node.
+
+    The ID is generated once and persisted to ``path`` (under a cross-process
+    file lock) so that restarts keep the same identity — T22 (stable node
+    identity / keypair persistence). Concurrent processes on the same machine
+    always observe the same ID; deleting the file rotates to a new one.
     """
-    # TODO(evan): bring back node id persistence once we figure out how to deal with duplicates
-    return NodeId(os.urandom(16).hex().lstrip("0"))
+    from filelock import FileLock
 
-    """
-    def lock_path(path: str | bytes | PathLike[str] | PathLike[bytes]) -> Path:
-        return Path(str(path) + ".lock")
+    lock_path = Path(str(path) + ".lock")
+    with FileLock(lock_path):
+        if path.exists():
+            persisted = path.read_text().strip()
+            if persisted:
+                return NodeId(persisted)
 
-    # operate with cross-process lock to avoid race conditions
-    with FileLock(lock_path(path)):
-        with open(path, "a+b") as f:  # opens in append-mode => starts at EOF
-            # if non-zero EOF, then file exists => use to get node-ID
-            if f.tell() != 0:
-                f.seek(0)  # go to start & read protobuf-encoded bytes
-                protobuf_encoded = f.read()
-
-                try:  # if decoded successfully, save & return
-                    return Keypair.from_bytes(protobuf_encoded)
-                except ValueError as e:  # on runtime error, assume corrupt file
-                    logger.warning(f"Encountered error when trying to get keypair: {e}")
-
-        # if no valid credentials, create new ones and persist
-        with open(path, "w+b") as f:
-            keypair = Keypair.generate()
-            f.write(keypair.to_bytes())
-            return keypair
-    """
+        node_id = NodeId(os.urandom(16).hex().lstrip("0") or "0")
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(str(node_id))
+        return node_id
