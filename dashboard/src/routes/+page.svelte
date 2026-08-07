@@ -50,6 +50,7 @@
     messages,
     debugMode,
     toggleDebugMode,
+    devMode,
     topologyOnlyMode,
     toggleTopologyOnlyMode,
     allowMemoryOverride,
@@ -91,6 +92,7 @@
   const selectedModelId = $derived(selectedPreviewModelId());
   const loadingPreviews = $derived(isLoadingPreviews());
   const debugEnabled = $derived(debugMode());
+  const devModeEnabled = $derived(devMode());
   const topologyOnlyEnabled = $derived(topologyOnlyMode());
   const memoryOverrideEnabled = $derived(allowMemoryOverride());
   const sidebarVisible = $derived(chatSidebarVisible());
@@ -6181,18 +6183,19 @@
             </div>
           </div>
 
-          <!-- Manual Peer Connection Panel -->
-          <div class="p-4 border-t border-white/5 flex-shrink-0">
-            <div class="flex items-center gap-2 mb-3">
-              <h3
-                class="text-xs text-exo-yellow font-mono tracking-[0.2em] uppercase"
-              >
-                Add Node Manually
-              </h3>
-              <div
-                class="flex-1 h-px bg-gradient-to-r from-exo-yellow/30 to-transparent"
-              ></div>
-            </div>
+          <!-- Manual Peer Connection Panel (T44: dev-mode gated) -->
+          {#if devModeEnabled}
+            <div class="p-4 border-t border-white/5 flex-shrink-0">
+              <div class="flex items-center gap-2 mb-3">
+                <h3
+                  class="text-xs text-exo-yellow font-mono tracking-[0.2em] uppercase"
+                >
+                  Add Node Manually
+                </h3>
+                <div
+                  class="flex-1 h-px bg-gradient-to-r from-exo-yellow/30 to-transparent"
+                ></div>
+              </div>
             <p class="text-[11px] text-white/50 mb-2 leading-relaxed">
               Connect a node by hostname or IP (e.g. Tailscale name) even when
               auto-discovery isn't working.
@@ -6236,7 +6239,8 @@
                 {peerResult}
               </p>
             {/if}
-          </div>
+            </div>
+          {/if}
         {/snippet}
       </div>
     {:else}

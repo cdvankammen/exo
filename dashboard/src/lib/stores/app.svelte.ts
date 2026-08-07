@@ -677,6 +677,11 @@ class AppStore {
   isSidebarOpen = $state(false); // Hidden by default, shown when in chat mode
   debugMode = $state(false);
   topologyOnlyMode = $state(false);
+  // Dev mode (T44): local UI preference (persisted) that reveals advanced
+  // surfaces — Add Node Manually panel, advanced settings sections, and the
+  // Logs/Downloads nav. Distinct from debugMode (extra debugging info) and
+  // featureFlags (backend-driven capabilities).
+  devMode = $state(false);
   /** When true, models that exceed available memory are not blocked — placement
    *  previews are fetched with force_override so oversized models can be loaded. */
   allowMemoryOverride = $state(false);
@@ -709,6 +714,7 @@ class AppStore {
       this.startPolling();
       this.loadConversationsFromStorage();
       this.loadDebugModeFromStorage();
+      this.loadDevModeFromStorage();
       this.loadTopologyOnlyModeFromStorage();
       this.loadAllowMemoryOverrideFromStorage();
       this.loadChatSidebarVisibleFromStorage();
@@ -779,6 +785,25 @@ class AppStore {
       localStorage.setItem("exo-debug-mode", this.debugMode ? "true" : "false");
     } catch (error) {
       console.error("Failed to save debug mode:", error);
+    }
+  }
+
+  private loadDevModeFromStorage() {
+    try {
+      const stored = localStorage.getItem("exo-dev-mode");
+      if (stored !== null) {
+        this.devMode = stored === "true";
+      }
+    } catch (error) {
+      console.error("Failed to load dev mode:", error);
+    }
+  }
+
+  private saveDevModeToStorage() {
+    try {
+      localStorage.setItem("exo-dev-mode", this.devMode ? "true" : "false");
+    } catch (error) {
+      console.error("Failed to save dev mode:", error);
     }
   }
 
@@ -1342,6 +1367,20 @@ class AppStore {
   toggleDebugMode() {
     this.debugMode = !this.debugMode;
     this.saveDebugModeToStorage();
+  }
+
+  getDevMode(): boolean {
+    return this.devMode;
+  }
+
+  setDevMode(enabled: boolean) {
+    this.devMode = enabled;
+    this.saveDevModeToStorage();
+  }
+
+  toggleDevMode() {
+    this.devMode = !this.devMode;
+    this.saveDevModeToStorage();
   }
 
   getTopologyOnlyMode(): boolean {
@@ -3851,6 +3890,7 @@ export const isTopologyMinimized = () => appStore.isTopologyMinimized;
 export const selectedChatModel = () => appStore.selectedChatModel;
 export const thinkingEnabled = () => appStore.thinkingEnabled;
 export const debugMode = () => appStore.getDebugMode();
+export const devMode = () => appStore.getDevMode();
 export const topologyOnlyMode = () => appStore.getTopologyOnlyMode();
 export const chatSidebarVisible = () => appStore.getChatSidebarVisible();
 
@@ -3937,6 +3977,8 @@ export const toggleSidebar = () => appStore.toggleSidebar();
 export const toggleDebugMode = () => appStore.toggleDebugMode();
 export const setDebugMode = (enabled: boolean) =>
   appStore.setDebugMode(enabled);
+export const toggleDevMode = () => appStore.toggleDevMode();
+export const setDevMode = (enabled: boolean) => appStore.setDevMode(enabled);
 export const toggleTopologyOnlyMode = () => appStore.toggleTopologyOnlyMode();
 export const setTopologyOnlyMode = (enabled: boolean) =>
   appStore.setTopologyOnlyMode(enabled);

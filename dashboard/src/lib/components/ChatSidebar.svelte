@@ -10,6 +10,8 @@
     instances,
     debugMode,
     toggleDebugMode,
+    devMode,
+    toggleDevMode,
     topologyOnlyMode,
     toggleTopologyOnlyMode,
   } from "$lib/stores/app.svelte";
@@ -36,6 +38,7 @@
   const activeId = $derived(activeConversationId());
   const instanceData = $derived(instances());
   const debugEnabled = $derived(debugMode());
+  const devModeEnabled = $derived(devMode());
   const topologyOnlyEnabled = $derived(topologyOnlyMode());
 
   let searchQuery = $state("");
@@ -568,6 +571,26 @@
         >
           <path
             d="M19 8h-1.81A6.002 6.002 0 0 0 12 2a6.002 6.002 0 0 0-5.19 3H5a1 1 0 0 0 0 2h1v2H5a1 1 0 0 0 0 2h1v2H5a1 1 0 0 0 0 2h1.81A6.002 6.002 0 0 0 12 22a6.002 6.002 0 0 0 5.19-3H19a1 1 0 0 0 0-2h-1v-2h1a1 1 0 0 0 0-2h-1v-2h1a1 1 0 1 0 0-2Zm-5 10.32V19a1 1 0 1 1-2 0v-.68a3.999 3.999 0 0 1-3-3.83V9.32a3.999 3.999 0 0 1 3-3.83V5a1 1 0 0 1 2 0v.49a3.999 3.999 0 0 1 3 3.83v5.17a3.999 3.999 0 0 1-3 3.83Z"
+          />
+        </svg>
+      </button>
+      <!-- T44: Dev Mode toggle — reveals advanced surfaces (Add Node panel,
+           advanced settings, Logs/Downloads nav). Local persisted preference. -->
+      <button
+        type="button"
+        onclick={toggleDevMode}
+        class="p-1.5 rounded border border-exo-medium-gray/40 hover:border-exo-yellow/50 transition-colors cursor-pointer"
+        title="Toggle dev mode — show advanced features (add node, logs, advanced settings)"
+      >
+        <svg
+          class="w-4 h-4 {devModeEnabled
+            ? 'text-exo-yellow'
+            : 'text-exo-medium-gray'}"
+          fill="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            d="M20 4h-6l-1.5 2H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1V5a1 1 0 0 0-1-1Zm-1 12H5V8h12.17l.83-1.11V16ZM7 13h10v-2H7v2Z"
           />
         </svg>
       </button>
