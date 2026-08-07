@@ -68,6 +68,7 @@
     nodeThunderboltBridge,
     nodeIdentities,
     isConnected,
+    warnings,
     type DownloadProgress,
     type PlacementPreview,
   } from "$lib/stores/app.svelte";
@@ -165,6 +166,11 @@
     return tb5NodeIds.some((id) => rdmaCtl[id]?.enabled !== true);
   });
   let tb5InfoDismissed = $state(false);
+
+  // Malformed events dropped by the router (used to crash the whole process).
+  // Warnings come from GET /v1/warnings (bounded ring buffer on the node).
+  const malformedEvents = $derived(warnings()?.malformed_events ?? []);
+  let malformedEventsDismissed = $state(false);
 
   // Detect Mac Studio nodes using RDMA on en2 (the port next to ethernet — RDMA doesn't work there)
   const macStudioEn2RdmaWarning = $derived.by(() => {
@@ -3403,7 +3409,7 @@
 </script>
 
 {#snippet clusterWarnings()}
-  {#if tbBridgeCycles.length > 0 || macosVersionMismatch || (tb5WithoutRdma && !tb5InfoDismissed) || (macStudioEn2RdmaWarning && !macStudioEn2Dismissed)}
+  {#if tbBridgeCycles.length > 0 || macosVersionMismatch || (tb5WithoutRdma && !tb5InfoDismissed) || (macStudioEn2RdmaWarning && !macStudioEn2Dismissed) || (malformedEvents.length > 0 && !malformedEventsDismissed)}
     <div class="absolute top-4 left-4 flex flex-col gap-2 z-40">
       {#if tbBridgeCycles.length > 0}
         {@const cycle = tbBridgeCycles[0]}
@@ -3853,7 +3859,7 @@
 {/snippet}
 
 {#snippet clusterWarningsCompact()}
-  {#if tbBridgeCycles.length > 0 || macosVersionMismatch || (tb5WithoutRdma && !tb5InfoDismissed) || (macStudioEn2RdmaWarning && !macStudioEn2Dismissed)}
+  {#if tbBridgeCycles.length > 0 || macosVersionMismatch || (tb5WithoutRdma && !tb5InfoDismissed) || (macStudioEn2RdmaWarning && !macStudioEn2Dismissed) || (malformedEvents.length > 0 && !malformedEventsDismissed)}
     <div class="absolute top-2 left-2 flex flex-col gap-1">
       {#if tbBridgeCycles.length > 0}
         <div
@@ -3941,6 +3947,56 @@
             />
           </svg>
           <span class="text-[10px] font-mono text-red-200">BAD RDMA PORT</span>
+        </div>
+      {/if}
+      {#if malformedEvents.length > 0 && !malformedEventsDismissed}
+        <div class="group relative" role="alert">
+          <div
+            class="flex items-center gap-1.5 px-2 py-1 rounded border border-yellow-500/50 bg-yellow-500/10 backdrop-blur-sm cursor-help"
+            title="Malformed events from another node were dropped (they used to crash the server)"
+          >
+            <svg
+              class="w-3.5 h-3.5 text-yellow-400"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d={warningIconPath}
+              />
+            </svg>
+            <span class="text-[10px] font-mono text-yellow-200"
+              >MALFORMED EVENTS ({malformedEvents.length})</span
+            >
+            <button
+              type="button"
+              class="text-yellow-200/50 hover:text-yellow-200 ml-1 cursor-pointer"
+              onclick={() => (malformedEventsDismissed = true)}
+              title="Dismiss"
+            >
+              ✕
+            </button>
+          </div>
+          <!-- Tooltip with details -->
+          <div
+            class="absolute top-full left-0 mt-2 w-80 p-3 rounded border border-yellow-500/30 bg-exo-dark-gray/95 backdrop-blur-sm opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 shadow-lg"
+          >
+            <p class="text-xs text-white/80 mb-2">
+              Dropped {malformedEvents.length} malformed event(s) from the
+              network. A node running a different exo version can send events
+              this node can't parse.
+            </p>
+            <div class="max-h-32 overflow-y-auto space-y-1">
+              {#each malformedEvents as ev}
+                <div class="text-[10px] font-mono text-yellow-200/70 break-words">
+                  <span class="text-white/50">{ev.topic}:</span> {ev.error}
+                </div>
+              {/each}
+            </div>
+          </div>
         </div>
       {/if}
     </div>

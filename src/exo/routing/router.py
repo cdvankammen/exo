@@ -26,6 +26,27 @@ from exo.utils.task_group import TaskGroup
 from .connection_message import ConnectionMessage
 from .topics import CONNECTION_MESSAGES, PublishPolicy, TypedTopic
 
+# Bounded record of dropped malformed events, for the dashboard warning chip.
+# Each entry: {"topic": str, "error": str, "time": float}.
+_MALFORMED_EVENT_LOG: list[dict[str, str | float]] = []
+_MALFORMED_EVENT_LOG_MAX = 20
+
+
+def record_malformed_event(topic: str, error: str) -> None:
+    """Record a dropped malformed event (bounded ring buffer)."""
+    import time
+
+    _MALFORMED_EVENT_LOG.append(
+        {"topic": topic, "error": error, "time": time.time()}
+    )
+    if len(_MALFORMED_EVENT_LOG) > _MALFORMED_EVENT_LOG_MAX:
+        del _MALFORMED_EVENT_LOG[0]
+
+
+def malformed_event_log() -> list[dict[str, str | float]]:
+    """Return a copy of the dropped-event log for API/UI consumption."""
+    return list(_MALFORMED_EVENT_LOG)
+
 
 # A significant current limitation of the TopicRouter is that it is not capable
 # of preventing feedback, as it does not ask for a system id so cannot tell
@@ -84,7 +105,16 @@ class TopicRouter[T: FrozenModel]:
         self.senders -= to_clear
 
     async def publish_bytes(self, data: bytes):
-        await self.publish(self.topic.deserialize(data))
+        try:
+            await self.publish(self.topic.deserialize(data))
+        except Exception as e:
+            # A malformed/desynced event (e.g. an old bundle sending a schema
+            # this version can't parse) must never kill the whole process.
+            # Log it, record it for the UI warning, and drop just this event.
+            logger.warning(
+                f"Dropping malformed event on {self.topic.topic}: {e}"
+            )
+            record_malformed_event(self.topic.topic, repr(e))
 
     def new_sender(self) -> Sender[T]:
         return self._sender.clone()

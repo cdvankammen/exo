@@ -131,7 +131,7 @@ from exo.api.types.openai_responses import (
 )
 from exo.master.image_store import ImageStore
 from exo.master.placement import place_instance as get_instance_placements
-from exo.routing.router import Router
+from exo.routing.router import Router, malformed_event_log
 from exo.shared.apply import apply
 from exo.shared.constants import (
     DASHBOARD_DIR,
@@ -424,6 +424,7 @@ class API:
         self.app.put("/v1/instance-links/{link_id}")(self.update_instance_link)
         self.app.delete("/v1/instance-links/{link_id}")(self.delete_instance_link)
         self.app.get("/v1/feature-flags")(self.get_feature_flags)
+        self.app.get("/v1/warnings")(self.get_warnings)
         self.app.get("/models")(self.get_models)
         self.app.get("/v1/models")(self.get_v1_models)
         self.app.post("/models/add")(self.add_custom_model)
@@ -786,6 +787,17 @@ class API:
 
     async def get_feature_flags(self) -> dict[str, bool]:
         return {"disaggregation": ENABLE_DISAGGREGATION}
+
+    async def get_warnings(self) -> dict[str, object]:
+        """Cluster health warnings for the dashboard warning chips.
+
+        Currently reports malformed events dropped by the router (which used
+        to crash the whole process); the list is a bounded ring buffer.
+        """
+        return {
+            "malformed_events": malformed_event_log(),
+            "malformed_event_count": len(malformed_event_log()),
+        }
 
     async def list_instance_links(self) -> list[InstanceLink]:
         if not ENABLE_DISAGGREGATION:

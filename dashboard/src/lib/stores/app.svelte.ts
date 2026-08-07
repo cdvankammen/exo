@@ -572,6 +572,10 @@ class AppStore {
   runners = $state<Record<string, unknown>>({});
   instanceLinks = $state<Record<string, RawInstanceLink>>({});
   featureFlags = $state<Record<string, boolean>>({});
+  warnings = $state<{
+    malformed_events: Array<{ topic: string; error: string; time: number }>;
+    malformed_event_count: number;
+  }>({ malformed_events: [], malformed_event_count: 0 });
   downloads = $state<Record<string, unknown[]>>({});
   nodeDisk = $state<
     Record<
@@ -633,6 +637,7 @@ class AppStore {
   private static readonly CONNECTION_LOST_THRESHOLD = 3;
 
   private fetchInterval: ReturnType<typeof setInterval> | null = null;
+  private warningsInterval: ReturnType<typeof setInterval> | null = null;
   private previewsInterval: ReturnType<typeof setInterval> | null = null;
   private lastConversationPersistTs = 0;
   private previousNodeIds: Set<string> = new Set();
@@ -1346,13 +1351,19 @@ class AppStore {
   startPolling() {
     this.fetchState();
     this.fetchFeatureFlags();
+    this.fetchWarnings();
     this.fetchInterval = setInterval(() => this.fetchState(), 1000);
+    this.warningsInterval = setInterval(() => this.fetchWarnings(), 5000);
   }
 
   stopPolling() {
     if (this.fetchInterval) {
       clearInterval(this.fetchInterval);
       this.fetchInterval = null;
+    }
+    if (this.warningsInterval) {
+      clearInterval(this.warningsInterval);
+      this.warningsInterval = null;
     }
     this.stopPreviewsPolling();
   }
@@ -1364,6 +1375,16 @@ class AppStore {
       this.featureFlags = await response.json();
     } catch {
       // Silently ignore — defaults to all-disabled.
+    }
+  }
+
+  async fetchWarnings() {
+    try {
+      const response = await fetch("/v1/warnings");
+      if (!response.ok) return;
+      this.warnings = await response.json();
+    } catch {
+      // Silently ignore — no warnings to show.
     }
   }
 
@@ -3648,6 +3669,7 @@ export const instances = () => appStore.instances;
 export const runners = () => appStore.runners;
 export const instanceLinks = () => appStore.instanceLinks;
 export const featureFlags = () => appStore.featureFlags;
+export const warnings = () => appStore.warnings;
 export const createInstanceLink = (
   prefillInstances: string[],
   decodeInstances: string[],
