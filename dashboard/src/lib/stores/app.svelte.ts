@@ -9,6 +9,32 @@
 
 import { browser } from "$app/environment";
 
+// T27: sampling params persistence key + loader
+const SAMPLING_PARAMS_KEY = "exo-sampling-params-v1";
+function loadSamplingParams(): {
+  temperature: number | null;
+  topP: number | null;
+  topK: number | null;
+  seed: number | null;
+  maxTokens: number | null;
+} {
+  const defaults = {
+    temperature: null,
+    topP: null,
+    topK: null,
+    seed: null,
+    maxTokens: null,
+  };
+  if (!browser) return defaults;
+  try {
+    const raw = localStorage.getItem(SAMPLING_PARAMS_KEY);
+    if (!raw) return defaults;
+    return { ...defaults, ...JSON.parse(raw) };
+  } catch {
+    return defaults;
+  }
+}
+
 // UUID generation fallback for browsers without crypto.randomUUID
 function generateUUID(): string {
   if (
@@ -558,6 +584,16 @@ class AppStore {
   // uses this instead of isLoading so several queued messages can stream at
   // once (each targeting its own assistant message by id).
   activeGenerations = $state(0);
+
+  // T27: text chat sampling controls (temperature/top_p/top_k/seed/max_tokens).
+  // null = use the model card default. Persisted to localStorage.
+  samplingParams = $state<{
+    temperature: number | null;
+    topP: number | null;
+    topK: number | null;
+    seed: number | null;
+    maxTokens: number | null;
+  }>(loadSamplingParams());
 
   // Message queue: messages sent while one is generating are parked here and
   // drained FIFO when the current generation finishes. The backend already
@@ -2695,7 +2731,21 @@ class AppStore {
         body: JSON.stringify({
           model: modelToUse,
           messages: apiMessages,
-          temperature: 0.7,
+          // T27: user sampling controls (null = model default); fall back to
+          // the historical 0.7 default for temperature when unset.
+          temperature: this.samplingParams.temperature ?? 0.7,
+          ...(this.samplingParams.topP !== null && {
+            top_p: this.samplingParams.topP,
+          }),
+          ...(this.samplingParams.topK !== null && {
+            top_k: this.samplingParams.topK,
+          }),
+          ...(this.samplingParams.seed !== null && {
+            seed: this.samplingParams.seed,
+          }),
+          ...(this.samplingParams.maxTokens !== null && {
+            max_tokens: this.samplingParams.maxTokens,
+          }),
           stream: true,
           logprobs: true,
           top_logprobs: 5,
@@ -2950,6 +3000,24 @@ class AppStore {
     const [item] = queue.splice(fromIndex, 1);
     queue.splice(toIndex, 0, item);
     this.pendingQueue = queue;
+  }
+
+  /** T27: update a sampling param (null = use model default), persist. */
+  setSamplingParam<K extends keyof AppStore["samplingParams"]>(
+    key: K,
+    value: AppStore["samplingParams"][K],
+  ): void {
+    this.samplingParams = { ...this.samplingParams, [key]: value };
+    if (browser) {
+      try {
+        localStorage.setItem(
+          SAMPLING_PARAMS_KEY,
+          JSON.stringify(this.samplingParams),
+        );
+      } catch {
+        // ignore persistence errors
+      }
+    }
   }
 
   stopGeneration(): void {
@@ -3811,6 +3879,13 @@ export const updateQueuedMessage = (queueId: string, content: string) =>
 export const moveQueuedMessage = (fromIndex: number, delta: number) =>
   appStore.moveQueuedMessage(fromIndex, delta);
 export const clearQueue = () => appStore.clearQueue();
+
+// T27: sampling controls
+export const samplingParams = () => appStore.samplingParams;
+export const setSamplingParam = <K extends keyof AppStore["samplingParams"]>(
+  key: K,
+  value: AppStore["samplingParams"][K],
+) => appStore.setSamplingParam(key, value);
 export const generateImage = (prompt: string, modelId?: string) =>
   appStore.generateImage(prompt, modelId);
 export const editImage = (

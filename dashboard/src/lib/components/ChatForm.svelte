@@ -14,6 +14,8 @@
     removeFromQueue,
     updateQueuedMessage,
     moveQueuedMessage,
+    samplingParams,
+    setSamplingParam,
   } from "$lib/stores/app.svelte";
   import ChatAttachments from "./ChatAttachments.svelte";
   import ImageParamsPanel from "./ImageParamsPanel.svelte";
@@ -64,6 +66,8 @@
   let isDragOver = $state(false);
   // T24b: which queued message is being edited (its id), or null.
   let editingQueueId = $state<string | null>(null);
+  // T27: whether the sampling controls popover is open.
+  let samplingOpen = $state(false);
   const thinkingEnabled = $derived(thinkingEnabledStore());
   let loading = $derived(isLoading());
   const currentModel = $derived(selectedChatModel());
@@ -567,6 +571,69 @@
           {/each}
         </div>
       {/if}
+
+      <!-- T27: sampling controls (temperature/top_p/top_k/seed/max_tokens).
+           null = use the model card default; persisted across sessions. -->
+      <div class="relative">
+        <button
+          type="button"
+          onclick={() => (samplingOpen = !samplingOpen)}
+          class="px-2 py-1 rounded border border-exo-light-gray/20 text-exo-light-gray hover:border-exo-yellow/50 hover:text-exo-yellow text-[11px] font-mono tracking-wider transition-all duration-200 cursor-pointer"
+          title="Sampling controls"
+          aria-label="Toggle sampling controls"
+        >
+          ⚙ SAMPLING
+        </button>
+        {#if samplingOpen}
+          <div
+            class="absolute right-0 bottom-full mb-2 w-64 p-3 rounded border border-exo-yellow/30 bg-exo-black/95 shadow-xl z-50 flex flex-col gap-2"
+          >
+            {#each [
+              ["Temperature", "temperature", 0, 2, 0.1],
+              ["Top P", "topP", 0, 1, 0.05],
+              ["Top K", "topK", 1, 100, 1],
+              ["Max tokens", "maxTokens", 1, 4096, 1],
+            ] as [label, key, min, max, step] (label)}
+              <label
+                class="flex items-center justify-between gap-2 text-[11px] font-mono text-exo-light-gray"
+              >
+                <span>{label}</span>
+                <input
+                  type="number"
+                  value={samplingParams()[key as "temperature"] ?? ""}
+                  min={min}
+                  max={max}
+                  step={step}
+                  placeholder="default"
+                  oninput={(e) => {
+                    const v = (e.currentTarget as HTMLInputElement).value;
+                    setSamplingParam(
+                      key as "temperature",
+                      v === "" ? null : Number(v),
+                    );
+                  }}
+                  class="w-24 bg-exo-medium-gray/60 border border-exo-light-gray/20 rounded px-1.5 py-0.5 text-right text-exo-yellow focus:outline-none focus:border-exo-yellow/60"
+                />
+              </label>
+            {/each}
+            <label
+              class="flex items-center justify-between gap-2 text-[11px] font-mono text-exo-light-gray"
+            >
+              <span>Seed</span>
+              <input
+                type="number"
+                value={samplingParams().seed ?? ""}
+                placeholder="random"
+                oninput={(e) => {
+                  const v = (e.currentTarget as HTMLInputElement).value;
+                  setSamplingParam("seed", v === "" ? null : Number(v));
+                }}
+                class="w-24 bg-exo-medium-gray/60 border border-exo-light-gray/20 rounded px-1.5 py-0.5 text-right text-exo-yellow focus:outline-none focus:border-exo-yellow/60"
+              />
+            </label>
+          </div>
+        {/if}
+      </div>
 
       {#if loading}
         <button
