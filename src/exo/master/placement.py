@@ -288,9 +288,18 @@ def place_instance(
         )
     ]
     if not smallest_cycles:
+        # Build an actionable message: which nodes are candidates, and what
+        # backends each actually advertises vs. what the model requires. A
+        # bare "No cycle..." left users (and the log) guessing why — e.g. a
+        # Linux node silently advertising only MlxCpu.
+        node_backend_desc = ", ".join(
+            f"{node_id[:8]}={sorted(b.value for b in node_backends.get(node_id, []))}"
+            for node_id in sorted(set(node_backends.keys()))
+        )
         raise ValueError(
             f"No cycle where every node supports a backend in "
-            f"{sorted(b.value for b in required_backends)} for {command.model_card.model_id}"
+            f"{sorted(b.value for b in required_backends)} for {command.model_card.model_id}. "
+            f"Node backends: {node_backend_desc or 'none reported'}"
         )
 
     rdma_ctl_status = node_rdma_ctl or {}
