@@ -4,6 +4,7 @@ from typing import Sequence
 
 from exo.master.placement_utils import (
     Cycle,
+    assign_shard_backends,
     filter_cycles_by_memory,
     get_mlx_jaccl_coordinators,
     get_mlx_jaccl_devices_matrix,
@@ -379,6 +380,15 @@ def place_instance(
         node_memory,
         force_override=command.force_override,
         node_identities=node_identities,
+    )
+
+    preferred_backends = [
+        backend
+        for backend in INSTANCE_META_BACKENDS[command.instance_meta]
+        if backend in command.model_card.backends
+    ]
+    shard_assignments = assign_shard_backends(
+        shard_assignments, node_backends, preferred_backends
     )
 
     cycle_digraph: Topology = topology.get_subgraph_from_nodes(selected_cycle.node_ids)
