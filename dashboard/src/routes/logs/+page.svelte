@@ -24,6 +24,11 @@
   let autoRefresh = $state(true);
 
   let refreshTimer: ReturnType<typeof setInterval> | undefined;
+  // Auto-scroll: start at the bottom, stay at the bottom while the user is
+  // at the bottom, and re-engage when they scroll back down. Manual scroll
+  // up pauses it.
+  let logViewerEl = $state<HTMLPreElement | null>(null);
+  let stickToBottom = $state(true);
 
   function labelFor(name: string): string {
     return LOG_LABELS[name] ?? name;
@@ -72,7 +77,23 @@
       error = e instanceof Error ? e.message : "Failed to load log content";
     } finally {
       loadingContent = false;
+      // Keep the view pinned to the newest lines if the user is at (or near)
+      // the bottom (or hasn't scrolled up yet). If they've scrolled up to
+      // read history, leave their position alone.
+      if (stickToBottom && logViewerEl) {
+        logViewerEl.scrollTop = logViewerEl.scrollHeight;
+      }
     }
+  }
+
+  function onLogScroll() {
+    if (!logViewerEl) return;
+    // "At the bottom" = within 40px of the bottom. Scrolling up (reading
+    // history) turns stickToBottom off; scrolling back down re-enables it.
+    const atBottom =
+      logViewerEl.scrollHeight - logViewerEl.scrollTop - logViewerEl.clientHeight <
+      40;
+    stickToBottom = atBottom;
   }
 
   function selectLog(name: string) {
@@ -204,6 +225,8 @@
       {/if}
 
       <pre
+        bind:this={logViewerEl}
+        onscroll={onLogScroll}
         class="rounded border border-exo-medium-gray/30 bg-exo-black/50 p-4 text-xs font-mono text-exo-light-gray whitespace-pre-wrap break-words overflow-y-auto max-h-[70vh]">{content ||
           (loadingContent ? "Loading..." : "No content.")}</pre>
     {/if}
