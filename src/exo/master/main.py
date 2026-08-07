@@ -527,14 +527,17 @@ class Master:
                         )
                         break
                 else:
-                    # Also clean up instances where any runner has failed.
-                    # After a crash the node stays connected (EXO process alive)
-                    # but the runners are dead - without this, the instance
-                    # persists as a zombie that can never serve requests.
+                    # Keep instances with failed runners visible so users can
+                    # read the error (RunnerFailed carries error_message +
+                    # diagnostics and the dashboard renders it on FAILED
+                    # cards). The runner process is already dead, so the
+                    # instance is harmless — the user ejects it explicitly.
                     for rid in instance.shard_assignments.node_to_runner.values():
-                        if isinstance(self.state.runners.get(rid), RunnerFailed):
-                            await self.event_sender.send(
-                                InstanceDeleted(instance_id=instance_id)
+                        failed = self.state.runners.get(rid)
+                        if isinstance(failed, RunnerFailed):
+                            logger.warning(
+                                f"Instance {instance_id} runner {rid} failed: "
+                                f"{failed.error_message}"
                             )
                             break
 

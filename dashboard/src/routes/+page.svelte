@@ -2081,6 +2081,39 @@
     return Object.keys(inst.shardAssignments?.nodeToRunner ?? {});
   }
 
+  // Extract the failure reason from an instance's failed runner(s), if any.
+  // RunnerFailed carries error_message + diagnostics[] (e.g. GPU timeout,
+  // ring transport errors); this surfaces them on the FAILED card.
+  function getInstanceRunnerError(instanceWrapped: unknown): {
+    errorMessage: string | null;
+    diagnostics: string[];
+  } {
+    const [, instance] = getTagged(instanceWrapped);
+    if (!instance || typeof instance !== "object") {
+      return { errorMessage: null, diagnostics: [] };
+    }
+    const inst = instance as {
+      shardAssignments?: { runnerToShard?: Record<string, unknown> };
+    };
+    const runnerIds = Object.keys(inst.shardAssignments?.runnerToShard ?? {});
+    for (const rid of runnerIds) {
+      const r = runnersData[rid];
+      if (!r) continue;
+      const [kind, runner] = getTagged(r);
+      if (kind !== "RunnerFailed") continue;
+      if (!runner || typeof runner !== "object") continue;
+      const rf = runner as {
+        error_message?: string | null;
+        diagnostics?: unknown;
+      };
+      const diags = Array.isArray(rf.diagnostics)
+        ? rf.diagnostics.map(String)
+        : [];
+      return { errorMessage: rf.error_message ?? null, diagnostics: diags };
+    }
+    return { errorMessage: null, diagnostics: [] };
+  }
+
   async function ejectInstance(instanceId: string) {
     // Get the model ID and node IDs of the instance before we delete it
     const wrappedInstance = instanceData[instanceId];
@@ -5253,6 +5286,9 @@
                   {@const isReady =
                     statusText === "READY" || statusText === "LOADED"}
                   {@const isRunning = statusText === "RUNNING"}
+                  {@const instanceRunnerError = getInstanceRunnerError(
+                    instance,
+                  )}
                   <!-- Instance Card -->
                   {@const instanceModelId = getInstanceModelId(instance)}
                   {@const instanceInfo = getInstanceInfo(instance)}
@@ -5437,6 +5473,26 @@
                                 >
                               </div>
                             {/each}
+                          </div>
+                        {/if}
+
+                        <!-- Runner failure reason (stays visible until ejected) -->
+                        {#if isFailed && instanceRunnerError.errorMessage}
+                          <div
+                            class="mt-2 rounded border border-red-500/40 bg-red-500/10 p-2"
+                          >
+                            <div
+                              class="text-[11px] font-mono text-red-300 break-words leading-snug"
+                            >
+                              {instanceRunnerError.errorMessage}
+                            </div>
+                            {#if instanceRunnerError.diagnostics.length > 0}
+                              <div
+                                class="mt-1.5 text-[10px] font-mono text-red-300/60 leading-snug"
+                              >
+                                {instanceRunnerError.diagnostics.join(" • ")}
+                              </div>
+                            {/if}
                           </div>
                         {/if}
 
@@ -6442,6 +6498,9 @@
                       statusText === "WARMING UP" || statusText === "WAITING"}
                     {@const isReady =
                       statusText === "READY" || statusText === "LOADED"}
+                    {@const instanceRunnerError = getInstanceRunnerError(
+                      instance,
+                    )}
                     {@const isRunning = statusText === "RUNNING"}
                     <!-- Instance Card -->
                     {@const instanceModelId = getInstanceModelId(instance)}
@@ -6628,6 +6687,26 @@
                                   >
                                 </div>
                               {/each}
+                            </div>
+                          {/if}
+
+                          <!-- Runner failure reason (stays visible until ejected) -->
+                          {#if isFailed && instanceRunnerError.errorMessage}
+                            <div
+                              class="mt-2 rounded border border-red-500/40 bg-red-500/10 p-2"
+                            >
+                              <div
+                                class="text-[11px] font-mono text-red-300 break-words leading-snug"
+                              >
+                                {instanceRunnerError.errorMessage}
+                              </div>
+                              {#if instanceRunnerError.diagnostics.length > 0}
+                                <div
+                                  class="mt-1.5 text-[10px] font-mono text-red-300/60 leading-snug"
+                                >
+                                  {instanceRunnerError.diagnostics.join(" • ")}
+                                </div>
+                              {/if}
                             </div>
                           {/if}
 
