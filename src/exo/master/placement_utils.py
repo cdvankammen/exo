@@ -534,6 +534,18 @@ def _find_connection_ip(
             yield connection
 
 
+# Nominal link speeds (Mb/s) used when the OS does not report a negotiated
+# speed. Ordering preserves the previous ring preference:
+# thunderbolt > maybe_ethernet > ethernet > wifi > unknown.
+_NOMINAL_LINK_SPEED_MEGABITS: dict[str, int] = {
+    "thunderbolt": 40_000,
+    "maybe_ethernet": 10_000,
+    "ethernet": 1_000,
+    "wifi": 300,
+    "unknown": 100,
+}
+
+
 def find_ip_prioritised(
     node_id: NodeId,
     other_node_id: NodeId,
@@ -543,10 +555,10 @@ def find_ip_prioritised(
 ) -> str | None:
     """Find an IP address between nodes with prioritization.
 
-    Ring links prefer the lowest measured probe latency (falling back to
-    interface type: TB first), then RFC1918 LAN over CGNAT/Tailscale as a
-    final tiebreak. RDMA coordinator selection prefers ethernet, then
-    RFC1918 LAN.
+    Ring links prefer the fastest interface: lowest measured probe latency
+    first, then the negotiated link speed when the node reports one (Linux
+    sysfs), otherwise a nominal per-type speed, then RFC1918 LAN as a final
+    tiebreak. RDMA coordinators prefer ethernet, then RFC1918 LAN.
     """
     connections = list(_find_connection_ip(node_id, other_node_id, cycle_digraph))
     if not connections:
@@ -562,24 +574,25 @@ def find_ip_prioritised(
             latency_by_ip[ip_address] = connection.latency_ms
 
     other_network = node_network.get(other_node_id, NodeNetworkInfo())
-    ip_to_type = {
-        iface.ip_address: iface.interface_type for iface in other_network.interfaces
-    }
+    ip_to_interface = {iface.ip_address: iface for iface in other_network.interfaces}
 
     if ring:
-        type_priority = {
-            "thunderbolt": 0,
-            "maybe_ethernet": 1,
-            "ethernet": 2,
-            "wifi": 3,
-            "unknown": 4,
-        }
-        return min(
+        def effective_link_speed_megabits(ip: str) -> int:
+            interface = ip_to_interface.get(ip)
+            if interface is None:
+                return _NOMINAL_LINK_SPEED_MEGABITS["unknown"]
+            if interface.link_speed_megabits is not None:
+                return interface.link_speed_megabits
+            return _NOMINAL_LINK_SPEED_MEGABITS.get(
+                interface.interface_type, _NOMINAL_LINK_SPEED_MEGABITS["unknown"]
+            )
+
+        return max(
             {connection.sink_multiaddr.ip_address for connection in connections},
             key=lambda ip: (
-                latency_by_ip.get(ip, float("inf")),
-                type_priority.get(ip_to_type.get(ip, "unknown"), 5),
-                _address_priority(ip),
+                -latency_by_ip.get(ip, float("inf")),
+                effective_link_speed_megabits(ip),
+                -_address_priority(ip),
             ),
         )
 
@@ -591,10 +604,15 @@ def find_ip_prioritised(
         "unknown": 3,
         "thunderbolt": 4,
     }
+
+    def interface_type_for_ip(ip: str) -> str:
+        interface = ip_to_interface.get(ip)
+        return interface.interface_type if interface is not None else "unknown"
+
     return min(
         {connection.sink_multiaddr.ip_address for connection in connections},
         key=lambda ip: (
-            type_priority.get(ip_to_type.get(ip, "unknown"), 5),
+            type_priority.get(interface_type_for_ip(ip), 5),
             _address_priority(ip),
         ),
     )

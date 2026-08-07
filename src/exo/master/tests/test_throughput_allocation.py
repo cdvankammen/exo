@@ -10,8 +10,19 @@ import pytest
 from exo.master.placement_utils import (
     allocate_layers_by_throughput,
     estimate_memory_bandwidth_gigabytes_per_second,
+    find_ip_prioritised,
 )
-from exo.shared.types.profiling import NodeIdentity
+from exo.master.tests.conftest import (
+    create_socket_connection,
+)
+from exo.shared.topology import Topology
+from exo.shared.types.common import NodeId
+from exo.shared.types.profiling import (
+    NetworkInterfaceInfo,
+    NodeIdentity,
+    NodeNetworkInfo,
+)
+from exo.shared.types.topology import Connection
 
 
 def test_allocate_layers_by_throughput_fills_fastest_first() -> None:
@@ -67,3 +78,79 @@ def test_estimate_memory_bandwidth_matches_known_chips() -> None:
         )
         is None
     )
+
+
+def _two_node_topology_with_two_links(
+    thunderbolt_ip: str, ethernet_ip: str
+) -> tuple[Topology, NodeId, NodeId]:
+    node_a, node_b = NodeId(), NodeId()
+    topology = Topology()
+    topology.add_node(node_a)
+    topology.add_node(node_b)
+    for ip in (thunderbolt_ip, ethernet_ip):
+        last_octet = int(ip.rsplit(".", 1)[1])
+        topology.add_connection(
+            Connection(
+                source=node_a,
+                sink=node_b,
+                edge=create_socket_connection(last_octet),
+            )
+        )
+    return topology, node_a, node_b
+
+
+def test_find_ip_prioritised_prefers_measured_link_speed_for_ring() -> None:
+    thunderbolt_ip, ethernet_ip = "169.254.0.8", "169.254.0.9"
+    topology, node_a, node_b = _two_node_topology_with_two_links(
+        thunderbolt_ip, ethernet_ip
+    )
+    node_network = {
+        node_b: NodeNetworkInfo(
+            interfaces=[
+                NetworkInterfaceInfo(
+                    name="en5",
+                    ip_address=thunderbolt_ip,
+                    interface_type="thunderbolt",
+                ),
+                NetworkInterfaceInfo(
+                    name="enp1s0f0",
+                    ip_address=ethernet_ip,
+                    interface_type="ethernet",
+                    link_speed_megabits=200_000,
+                ),
+            ]
+        )
+    }
+
+    selected_ip = find_ip_prioritised(node_a, node_b, topology, node_network, ring=True)
+
+    # 200 GbE with a measured speed beats thunderbolt's nominal 40 Gb/s.
+    assert selected_ip == ethernet_ip
+
+
+def test_find_ip_prioritised_falls_back_to_nominal_speeds_for_ring() -> None:
+    thunderbolt_ip, ethernet_ip = "169.254.0.8", "169.254.0.9"
+    topology, node_a, node_b = _two_node_topology_with_two_links(
+        thunderbolt_ip, ethernet_ip
+    )
+    node_network = {
+        node_b: NodeNetworkInfo(
+            interfaces=[
+                NetworkInterfaceInfo(
+                    name="en5",
+                    ip_address=thunderbolt_ip,
+                    interface_type="thunderbolt",
+                ),
+                NetworkInterfaceInfo(
+                    name="en0",
+                    ip_address=ethernet_ip,
+                    interface_type="ethernet",
+                ),
+            ]
+        )
+    }
+
+    selected_ip = find_ip_prioritised(node_a, node_b, topology, node_network, ring=True)
+
+    # Without measured speeds the previous type preference is preserved.
+    assert selected_ip == thunderbolt_ip
