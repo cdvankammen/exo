@@ -13,6 +13,7 @@
     pendingQueue,
     removeFromQueue,
     updateQueuedMessage,
+    moveQueuedMessage,
   } from "$lib/stores/app.svelte";
   import ChatAttachments from "./ChatAttachments.svelte";
   import ImageParamsPanel from "./ImageParamsPanel.svelte";
@@ -502,8 +503,30 @@
               >{pendingQueue().length} queued</span
             >
           </div>
-          {#each pendingQueue() as q (q.id)}
+          {#each pendingQueue() as q, qi (q.id)}
             <div class="flex items-center gap-1 group">
+              <div class="flex flex-col">
+                <button
+                  type="button"
+                  onclick={() => moveQueuedMessage(qi, -1)}
+                  class="text-exo-light-gray/60 hover:text-exo-yellow transition-colors cursor-pointer leading-none"
+                  title="Move up (send sooner)"
+                  aria-label="Move queued message up"
+                  disabled={qi === 0}
+                >
+                  ▲
+                </button>
+                <button
+                  type="button"
+                  onclick={() => moveQueuedMessage(qi, 1)}
+                  class="text-exo-light-gray/60 hover:text-exo-yellow transition-colors cursor-pointer leading-none"
+                  title="Move down (send later)"
+                  aria-label="Move queued message down"
+                  disabled={qi === pendingQueue().length - 1}
+                >
+                  ▼
+                </button>
+              </div>
               <button
                 type="button"
                 onclick={() => {

@@ -2924,6 +2924,20 @@ class AppStore {
     this.pendingQueue = [];
   }
 
+  /**
+   * Reorder the queue (T25): move the message at `fromIndex` by `delta`
+   * (-1 = toward front, +1 = toward back). Clamped to valid bounds.
+   */
+  moveQueuedMessage(fromIndex: number, delta: number): void {
+    const queue = [...this.pendingQueue];
+    const toIndex = fromIndex + delta;
+    if (fromIndex < 0 || fromIndex >= queue.length) return;
+    if (toIndex < 0 || toIndex >= queue.length) return;
+    const [item] = queue.splice(fromIndex, 1);
+    queue.splice(toIndex, 0, item);
+    this.pendingQueue = queue;
+  }
+
   stopGeneration(): void {
     this.currentAbortController?.abort();
     this.currentAbortController = null;
@@ -3780,6 +3794,8 @@ export const removeFromQueue = (queueId: string) =>
   appStore.removeFromQueue(queueId);
 export const updateQueuedMessage = (queueId: string, content: string) =>
   appStore.updateQueuedMessage(queueId, content);
+export const moveQueuedMessage = (fromIndex: number, delta: number) =>
+  appStore.moveQueuedMessage(fromIndex, delta);
 export const clearQueue = () => appStore.clearQueue();
 export const generateImage = (prompt: string, modelId?: string) =>
   appStore.generateImage(prompt, modelId);
