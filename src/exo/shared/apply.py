@@ -469,13 +469,17 @@ def apply_node_gathered_info(event: NodeGatheredInfo, state: State) -> State:
         case RdmaCtlStatus():
             update["node_rdma_ctl"] = {
                 **state.node_rdma_ctl,
-                event.node_id: NodeRdmaCtlStatus(enabled=info.enabled),
+                event.node_id: NodeRdmaCtlStatus(
+                    enabled=info.enabled, has_verbs_device=info.has_verbs_device
+                ),
             }
-            # If RDMA just got disabled on this node, drop any RDMA edges touching it
-            # so placement / topology consumers cannot pick a disabled node for an
-            # RDMA-backed instance. (Edges will repopulate on the next
-            # MacThunderboltConnections poll once both endpoints are enabled again.)
-            if not info.enabled:
+            # If RDMA just got disabled on this node (or no verbs device is
+            # enumerated — rdma_ctl enabled but ibv_devices empty crashes jaccl,
+            # ml-explore/mlx#3777), drop any RDMA edges touching it so placement /
+            # topology consumers cannot pick it for an RDMA-backed instance.
+            # (Edges will repopulate on the next MacThunderboltConnections poll
+            # once both endpoints are RDMA-capable again.)
+            if not info.enabled or not info.has_verbs_device:
                 topology.remove_all_rdma_connections_touching(event.node_id)
         case NodeBackends():
             update["node_backends"] = {

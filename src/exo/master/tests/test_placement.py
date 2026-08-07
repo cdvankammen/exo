@@ -751,6 +751,97 @@ def test_place_mlx_jaccl_rejects_when_node_rdma_ctl_missing(model_card: ModelCar
         )
 
 
+def test_place_mlx_jaccl_rejects_when_rdma_ctl_enabled_but_no_verbs_device(
+    model_card: ModelCard,
+):
+    """rdma_ctl enabled but no verbs device must reject jaccl placement.
+
+    ``rdma_ctl`` can report enabled while ``ibv_devices`` enumerates nothing;
+    jaccl segfaults on the NULL protection domain in that state
+    (ml-explore/mlx#3777). Placement must fail cleanly instead.
+    """
+    # arrange
+    model_card = model_card.model_copy(
+        update={"n_layers": 12, "storage_size": Memory.from_bytes(1500)}
+    )
+    topology, node_a, node_b, node_c, node_network = _build_three_node_rdma_topology()
+    node_memory = {
+        node_a: create_node_memory(500),
+        node_b: create_node_memory(500),
+        node_c: create_node_memory(500),
+    }
+    # All nodes have rdma_ctl enabled, but NONE enumerates a verbs device.
+    node_rdma_ctl = {
+        node_a: NodeRdmaCtlStatus(enabled=True, has_verbs_device=False),
+        node_b: NodeRdmaCtlStatus(enabled=True, has_verbs_device=False),
+        node_c: NodeRdmaCtlStatus(enabled=True, has_verbs_device=False),
+    }
+    cic = PlaceInstance(
+        sharding=Sharding.Tensor,
+        instance_meta=InstanceMeta.MlxJaccl,
+        command_id=CommandId(),
+        model_card=model_card,
+        min_nodes=3,
+    )
+
+    # act / assert
+    with pytest.raises(
+        ValueError, match="Requested RDMA \\(MlxJaccl\\) but no RDMA-connected cycles"
+    ):
+        place_instance(
+            cic,
+            topology,
+            {},
+            node_memory,
+            node_network,
+            _metal_only(node_memory),
+            node_rdma_ctl=node_rdma_ctl,
+        )
+
+
+def test_place_mlx_jaccl_rejects_when_mixed_verbs_device_availability(
+    model_card: ModelCard,
+):
+    """A single node without a verbs device must veto the whole jaccl cycle."""
+    # arrange
+    model_card = model_card.model_copy(
+        update={"n_layers": 12, "storage_size": Memory.from_bytes(1500)}
+    )
+    topology, node_a, node_b, node_c, node_network = _build_three_node_rdma_topology()
+    node_memory = {
+        node_a: create_node_memory(500),
+        node_b: create_node_memory(500),
+        node_c: create_node_memory(500),
+    }
+    # node_c: rdma_ctl enabled but no verbs device — the exact #3777 state.
+    node_rdma_ctl = {
+        node_a: NodeRdmaCtlStatus(enabled=True, has_verbs_device=True),
+        node_b: NodeRdmaCtlStatus(enabled=True, has_verbs_device=True),
+        node_c: NodeRdmaCtlStatus(enabled=True, has_verbs_device=False),
+    }
+    cic = PlaceInstance(
+        sharding=Sharding.Tensor,
+        instance_meta=InstanceMeta.MlxJaccl,
+        command_id=CommandId(),
+        model_card=model_card,
+        min_nodes=3,
+    )
+
+    # act / assert
+    with pytest.raises(
+        ValueError, match="Requested RDMA \\(MlxJaccl\\) but no RDMA-connected cycles"
+    ):
+        place_instance(
+            cic,
+            topology,
+            {},
+            node_memory,
+            node_network,
+            _metal_only(node_memory),
+            node_rdma_ctl=node_rdma_ctl,
+        )
+
+
 def test_ring_placement_prefers_lan_ip_over_tailscale_ip(
     model_card: ModelCard,
 ) -> None:

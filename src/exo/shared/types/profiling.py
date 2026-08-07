@@ -280,9 +280,18 @@ class NodeThunderboltInfo(FrozenModel):
 
 
 class NodeRdmaCtlStatus(FrozenModel):
-    """Whether RDMA is enabled on this node (via rdma_ctl)."""
+    """Whether RDMA is enabled on this node (via rdma_ctl).
+
+    ``has_verbs_device`` additionally requires that an RDMA verbs device is
+    actually enumerated (``ibv_devices``). ``rdma_ctl`` can report "enabled"
+    while no verbs device exists (e.g. Thunderbolt RDMA not provisioned), which
+    makes jaccl crash with a NULL protection-domain dereference at init time
+    (ml-explore/mlx#3777). Treating that state as RDMA-incapable turns the
+    segfault into a clean placement error.
+    """
 
     enabled: bool
+    has_verbs_device: bool = True
 
 
 class ThunderboltBridgeStatus(FrozenModel):

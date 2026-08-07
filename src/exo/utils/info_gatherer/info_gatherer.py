@@ -1,4 +1,5 @@
 import os
+import re
 import shutil
 import sys
 import tomllib
@@ -210,8 +211,12 @@ class MacThunderboltConnections(TaggedModel):
     conns: Sequence[ThunderboltConnection]
 
 
+_IBV_DEVICE_LINE = re.compile(r"^\s*(\S+)\s+([0-9a-fA-F]{16})\s*$")
+
+
 class RdmaCtlStatus(TaggedModel):
     enabled: bool
+    has_verbs_device: bool = True
 
     @classmethod
     async def gather(cls) -> Self | None:
@@ -225,11 +230,34 @@ class RdmaCtlStatus(TaggedModel):
         if proc.returncode != 0:
             return None
         output = proc.stdout.decode("utf-8").lower().strip()
-        if "enabled" in output:
-            return cls(enabled=True)
-        if "disabled" in output:
-            return cls(enabled=False)
-        return None
+        if "enabled" not in output and "disabled" not in output:
+            return None
+        return cls(
+            enabled="enabled" in output,
+            has_verbs_device=await cls._gather_has_verbs_device(),
+        )
+
+    @staticmethod
+    async def _gather_has_verbs_device() -> bool:
+        """True if `ibv_devices` enumerates at least one RDMA verbs device.
+
+        `rdma_ctl status` can report "enabled" while no verbs device is exposed
+        (Apple gating / unprovisioned Thunderbolt RDMA). jaccl then crashes with
+        a NULL protection-domain dereference instead of failing cleanly
+        (ml-explore/mlx#3777). Surface that state so placement can reject
+        RDMA-backed instances up front.
+        """
+        if not IS_DARWIN or shutil.which("ibv_devices") is None:
+            return False
+        try:
+            with anyio.fail_after(5):
+                proc = await anyio.run_process(["ibv_devices"], check=False)
+        except (TimeoutError, OSError):
+            return False
+        if proc.returncode != 0:
+            return False
+        output = proc.stdout.decode("utf-8", errors="replace")
+        return any(_IBV_DEVICE_LINE.match(line) for line in output.splitlines())
 
 
 class ThunderboltBridgeInfo(TaggedModel):

@@ -197,6 +197,63 @@ def test_rdma_ctl_status_disabled_purges_existing_rdma_edges():
     assert state.node_rdma_ctl[node_a].enabled is False
 
 
+def test_rdma_ctl_enabled_but_no_verbs_device_purges_existing_rdma_edges():
+    """rdma_ctl enabled with NO verbs device must not keep RDMA edges.
+
+    jaccl segfaults on a NULL protection domain when rdma_ctl reports enabled
+    but ``ibv_devices`` enumerates nothing (ml-explore/mlx#3777). The state
+    must be treated as RDMA-incapable so placement rejects it cleanly.
+    """
+    node_a = NodeId()
+    node_b = NodeId()
+
+    state = _make_state_with_thunderbolt_idents(
+        (node_a, "uuid-a", "rdma_en1"),
+        (node_b, "uuid-b", "rdma_en1"),
+        rdma_ctl={
+            node_a: NodeRdmaCtlStatus(enabled=True, has_verbs_device=True),
+            node_b: NodeRdmaCtlStatus(enabled=True, has_verbs_device=True),
+        },
+    )
+    state = apply_node_gathered_info(
+        NodeGatheredInfo(
+            node_id=node_a,
+            when=_now(),
+            info=MacThunderboltConnections(
+                conns=[ThunderboltConnection(source_uuid="uuid-a", sink_uuid="uuid-b")]
+            ),
+        ),
+        state,
+    )
+    state = apply_node_gathered_info(
+        NodeGatheredInfo(
+            node_id=node_b,
+            when=_now(),
+            info=MacThunderboltConnections(
+                conns=[ThunderboltConnection(source_uuid="uuid-b", sink_uuid="uuid-a")]
+            ),
+        ),
+        state,
+    )
+    assert _has_rdma_edge(state.topology, node_a, node_b)
+    assert _has_rdma_edge(state.topology, node_b, node_a)
+
+    # node_b re-gathers: rdma_ctl still enabled, but no verbs device enumerated.
+    state = apply_node_gathered_info(
+        NodeGatheredInfo(
+            node_id=node_b,
+            when=_now(),
+            info=RdmaCtlStatus(enabled=True, has_verbs_device=False),
+        ),
+        state,
+    )
+
+    assert not _has_rdma_edge(state.topology, node_a, node_b)
+    assert not _has_rdma_edge(state.topology, node_b, node_a)
+    assert state.node_rdma_ctl[node_b].enabled is True
+    assert state.node_rdma_ctl[node_b].has_verbs_device is False
+
+
 def test_topology_remove_all_rdma_connections_touching_keeps_socket_edges():
     """Purging RDMA edges for a disabled node must not affect non-RDMA edges."""
     from exo.shared.types.multiaddr import Multiaddr

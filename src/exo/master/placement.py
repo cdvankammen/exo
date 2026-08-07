@@ -305,8 +305,15 @@ def place_instance(
     rdma_ctl_status = node_rdma_ctl or {}
 
     def _all_rdma_ctl_enabled(cycle: Cycle) -> bool:
+        # ``rdma_ctl`` may report enabled while no verbs device is enumerated;
+        # jaccl segfaults on the NULL protection domain in that state
+        # (ml-explore/mlx#3777), so both flags are required.
         return all(
-            ((status := rdma_ctl_status.get(node_id)) is not None and status.enabled)
+            (
+                (status := rdma_ctl_status.get(node_id)) is not None
+                and status.enabled
+                and status.has_verbs_device
+            )
             for node_id in cycle
         )
 
