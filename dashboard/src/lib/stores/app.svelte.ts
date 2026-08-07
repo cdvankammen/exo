@@ -2909,6 +2909,16 @@ class AppStore {
     this.pendingQueue = this.pendingQueue.filter((m) => m.id !== queueId);
   }
 
+  /**
+   * Edit a queued message's content in place (T24b). The queue holds object
+   * references, so updating here means the drain loop sends the CURRENT text.
+   */
+  updateQueuedMessage(queueId: string, content: string): void {
+    this.pendingQueue = this.pendingQueue.map((m) =>
+      m.id === queueId ? { ...m, content } : m,
+    );
+  }
+
   /** Clear all queued messages. */
   clearQueue(): void {
     this.pendingQueue = [];
@@ -3768,6 +3778,8 @@ export const sendMessage = (
 export const pendingQueue = () => appStore.pendingQueue;
 export const removeFromQueue = (queueId: string) =>
   appStore.removeFromQueue(queueId);
+export const updateQueuedMessage = (queueId: string, content: string) =>
+  appStore.updateQueuedMessage(queueId, content);
 export const clearQueue = () => appStore.clearQueue();
 export const generateImage = (prompt: string, modelId?: string) =>
   appStore.generateImage(prompt, modelId);

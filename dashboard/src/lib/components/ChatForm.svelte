@@ -12,6 +12,7 @@
     stopGeneration,
     pendingQueue,
     removeFromQueue,
+    updateQueuedMessage,
   } from "$lib/stores/app.svelte";
   import ChatAttachments from "./ChatAttachments.svelte";
   import ImageParamsPanel from "./ImageParamsPanel.svelte";
@@ -60,6 +61,8 @@
   let fileInputRef: HTMLInputElement | undefined = $state();
   let uploadedFiles = $state<ChatUploadedFile[]>([]);
   let isDragOver = $state(false);
+  // T24b: which queued message is being edited (its id), or null.
+  let editingQueueId = $state<string | null>(null);
   const thinkingEnabled = $derived(thinkingEnabledStore());
   let loading = $derived(isLoading());
   const currentModel = $derived(selectedChatModel());
@@ -483,25 +486,62 @@
         style="min-height: 28px; max-height: 150px;"
       ></textarea>
 
-      <!-- Message queue indicator (T24): shows pending messages and lets the
-           user cancel them. Messages sent while generating are parked here
-           and sent automatically when the current one finishes. -->
+      <!-- Message queue panel (T24/T24b): pending messages are listed; each
+           can be edited in place (content updates before it's sent) or
+           removed. Messages sent while generating are parked here and sent
+           automatically when the current one finishes. -->
       {#if pendingQueue().length > 0}
         <div
-          class="flex items-center gap-1.5 px-2 py-1 rounded border border-exo-yellow/30 bg-exo-medium-gray/40 text-exo-yellow text-[11px] font-mono tracking-wider whitespace-nowrap"
-          title="Messages queued — sent automatically when the current response finishes"
+          class="flex flex-col gap-1 px-2 py-1.5 rounded border border-exo-yellow/30 bg-exo-medium-gray/40 text-exo-yellow text-[11px] font-mono tracking-wider max-w-[260px]"
         >
-          <span class="inline-block w-1.5 h-1.5 rounded-full bg-exo-yellow animate-pulse"></span>
-          <span>{pendingQueue().length} queued</span>
-          <button
-            type="button"
-            onclick={() => removeFromQueue(pendingQueue()[pendingQueue().length - 1].id)}
-            class="ml-1 text-exo-light-gray hover:text-red-400 transition-colors cursor-pointer"
-            title="Remove last queued message"
-            aria-label="Remove last queued message"
-          >
-            ✕
-          </button>
+          <div class="flex items-center gap-1.5">
+            <span
+              class="inline-block w-1.5 h-1.5 rounded-full bg-exo-yellow animate-pulse"
+            ></span>
+            <span class="whitespace-nowrap"
+              >{pendingQueue().length} queued</span
+            >
+          </div>
+          {#each pendingQueue() as q (q.id)}
+            <div class="flex items-center gap-1 group">
+              <button
+                type="button"
+                onclick={() => {
+                  const item = pendingQueue().find((m) => m.id === q.id);
+                  if (item) {
+                    message = item.content;
+                    editingQueueId = q.id;
+                  }
+                }}
+                class="flex-1 text-left truncate text-exo-light-gray hover:text-exo-yellow transition-colors cursor-pointer"
+                title="Edit queued message"
+              >
+                {q.content}
+              </button>
+              {#if editingQueueId === q.id}
+                <button
+                  type="button"
+                  onclick={() => {
+                    updateQueuedMessage(q.id, message);
+                    editingQueueId = null;
+                  }}
+                  class="text-exo-yellow hover:text-white transition-colors cursor-pointer flex-shrink-0"
+                  title="Save edited message"
+                >
+                  💾
+                </button>
+              {/if}
+              <button
+                type="button"
+                onclick={() => removeFromQueue(q.id)}
+                class="text-exo-light-gray hover:text-red-400 transition-colors cursor-pointer flex-shrink-0"
+                title="Remove queued message"
+                aria-label="Remove queued message"
+              >
+                ✕
+              </button>
+            </div>
+          {/each}
         </div>
       {/if}
 
