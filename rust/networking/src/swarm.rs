@@ -69,10 +69,16 @@ impl Swarm {
                         // Runtime); all other commands operate on the zenoh session.
                         if let ToSwarm::ConnectPeer { host, port, result_sender } = msg {
                             let connected = session.connect_peer(&host, port).await;
-                            if !connected {
-                                log::warn!("failed to connect to peer {host}:{port}");
-                            }
-                            _ = result_sender.send(Ok(()));
+                            // Propagate failure so the caller can log truthfully
+                            // and retry (cross-subnet bootstrap relies on it).
+                            _ = result_sender.send(if connected {
+                                Ok(())
+                            } else {
+                                Err(Box::new(std::io::Error::new(
+                                    std::io::ErrorKind::ConnectionRefused,
+                                    format!("failed to connect to peer {host}:{port}"),
+                                )))
+                            });
                         } else {
                             on_message(&mut session.z, &mut topics, &mut to_topics, msg).await;
                         }

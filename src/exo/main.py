@@ -46,6 +46,7 @@ class Node:
 
     node_id: NodeId
     offline: bool
+    bootstrap_peers: list[str]
     _api_port: int
     _tg: TaskGroup = field(init=False, default_factory=TaskGroup)
 
@@ -66,24 +67,9 @@ class Node:
         await router.register_topic(topics.CONNECTION_MESSAGES)
         await router.register_topic(topics.DOWNLOAD_COMMANDS)
 
-        # T21: dial bootstrap peers at startup (cross-subnet clusters).
-        # Each peer is "host[:zenoh_port]" (default 52414). These are
-        # fire-and-forget — a peer that's unreachable now may come up later
-        # and be discovered via the normal topology liveness path.
-        for peer in args.bootstrap_peers:
-            host, _, port_str = peer.partition(":")
-            try:
-                port = int(port_str) if port_str else 52414
-            except ValueError:
-                logger.warning(
-                    f"Invalid bootstrap peer '{peer}' (expected host[:port]) — skipping"
-                )
-                continue
-            try:
-                connected = await router.connect_peer(host, port)
-                logger.info(f"Bootstrap dial {host}:{port} -> connected={connected}")
-            except Exception as e:
-                logger.warning(f"Bootstrap dial {host}:{port} failed: {e}")
+        # T21: bootstrap peers are dialed by a background retry loop (see
+        # ``_bootstrap_peers_loop``), because multicast discovery is disabled in
+        # cross-subnet setups and a single startup dial would never be retried.
 
         event_router = EventRouter(
             session_id,
@@ -170,8 +156,49 @@ class Node:
             api,
             node_id,
             args.offline,
+            args.bootstrap_peers,
             args.api_port,
         )
+
+    async def _bootstrap_peers_loop(self) -> None:
+        """Dial configured bootstrap peers, retrying until each connects.
+
+        Cross-subnet clusters run with multicast discovery unreachable, so a
+        peer that fails to dial at startup (node still booting, transient
+        network) would otherwise never join the topology. Retry every 30s
+        until every configured peer has connected once; a peer that restarts
+        later reconnects through its own bootstrap dial.
+        """
+        pending = dict.fromkeys(self.bootstrap_peers)
+        if not pending:
+            return
+        logger.info(
+            f"Bootstrap peers configured: {', '.join(pending)} — dialing with retry"
+        )
+        while pending:
+            for peer in list(pending):
+                host, _, port_str = peer.partition(":")
+                try:
+                    port = int(port_str) if port_str else 52414
+                except ValueError:
+                    logger.warning(
+                        f"Invalid bootstrap peer '{peer}' (expected host[:port]) — dropping"
+                    )
+                    del pending[peer]
+                    continue
+                try:
+                    connected = await self.router.connect_peer(host, port)
+                    if connected:
+                        logger.info(f"Bootstrap peer {host}:{port} connected")
+                        del pending[peer]
+                    else:
+                        logger.warning(
+                            f"Bootstrap peer {host}:{port} already connected or failed — retrying"
+                        )
+                except Exception as e:
+                    logger.warning(f"Bootstrap peer {host}:{port} unreachable ({e}) — retrying")
+            if pending:
+                await anyio.sleep(30)
 
     async def run(self):
         async with self._tg as tg:
@@ -180,6 +207,7 @@ class Node:
             tg.start_soon(self.router.run)
             tg.start_soon(self.event_router.run)
             tg.start_soon(self.election.run)
+            tg.start_soon(self._bootstrap_peers_loop)
             if self.download_coordinator:
                 tg.start_soon(self.download_coordinator.run)
             if self.worker:
