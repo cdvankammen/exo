@@ -1,3 +1,4 @@
+import json
 import os
 from copy import copy
 from itertools import count
@@ -16,6 +17,7 @@ from exo_rs import (
     NetworkingHandle,
 )
 from loguru import logger
+from pydantic import ValidationError
 
 from exo.shared.constants import EXO_NODE_ZID
 from exo.shared.types.common import NodeId
@@ -229,30 +231,45 @@ class Router:
             while True:
                 from_swarm = await self._net.recv()
                 logger.debug(from_swarm)
-                match from_swarm:
-                    case FromSwarm.Message(topic, data):
-                        logger.trace(f"Received message on {topic} with payload {data}")
-                        if topic not in self.topic_routers:
-                            logger.warning(
-                                f"Received message on unknown or inactive topic {topic}"
+                try:
+                    match from_swarm:
+                        case FromSwarm.Message(topic, data):
+                            logger.trace(
+                                f"Received message on {topic} with payload {data}"
                             )
-                            continue
-                        router = self.topic_routers[topic]
-                        await router.publish_bytes(data)
-                    case FromSwarm.Connection():
-                        message = ConnectionMessage.from_update(from_swarm)
-                        logger.trace(
-                            f"Received message on connection_messages with payload {message}"
-                        )
-                        if CONNECTION_MESSAGES.topic in self.topic_routers:
-                            router = self.topic_routers[CONNECTION_MESSAGES.topic]
-                            assert router.topic.model_type == ConnectionMessage
-                            router = cast(TopicRouter[ConnectionMessage], router)
-                            await router.publish(message)
-                    case _:
-                        logger.critical(
-                            "failed to exhaustively check FromSwarm messages - logic error"
-                        )
+                            if topic not in self.topic_routers:
+                                logger.warning(
+                                    f"Received message on unknown or inactive topic {topic}"
+                                )
+                                continue
+                            router = self.topic_routers[topic]
+                            await router.publish_bytes(data)
+                        case FromSwarm.Connection():
+                            message = ConnectionMessage.from_update(from_swarm)
+                            logger.trace(
+                                f"Received message on connection_messages with payload {message}"
+                            )
+                            if CONNECTION_MESSAGES.topic in self.topic_routers:
+                                router = self.topic_routers[CONNECTION_MESSAGES.topic]
+                                assert router.topic.model_type == ConnectionMessage
+                                router = cast(TopicRouter[ConnectionMessage], router)
+                                await router.publish(message)
+                        case _:
+                            logger.critical(
+                                "failed to exhaustively check FromSwarm messages - logic error"
+                            )
+                except (
+                    ValidationError,
+                    UnicodeDecodeError,
+                    json.JSONDecodeError,
+                ) as e:
+                    # A malformed/desynced event must never kill the receive
+                    # loop (which would crash the whole process). Log it,
+                    # record it for the UI warning, and drop just this message.
+                    # Resource-closed errors are deliberately NOT caught here —
+                    # they are legitimate shutdown signals.
+                    logger.warning(f"Dropping malformed message: {e}")
+                    record_malformed_event("networking_recv", repr(e))
         except Exception as exception:
             logger.opt(exception=exception).error(
                 "Gossipsub receive loop terminated unexpectedly"
