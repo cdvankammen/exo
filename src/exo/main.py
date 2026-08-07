@@ -65,6 +65,26 @@ class Node:
         await router.register_topic(topics.ELECTION_MESSAGES)
         await router.register_topic(topics.CONNECTION_MESSAGES)
         await router.register_topic(topics.DOWNLOAD_COMMANDS)
+
+        # T21: dial bootstrap peers at startup (cross-subnet clusters).
+        # Each peer is "host[:zenoh_port]" (default 52414). These are
+        # fire-and-forget — a peer that's unreachable now may come up later
+        # and be discovered via the normal topology liveness path.
+        for peer in args.bootstrap_peers:
+            host, _, port_str = peer.partition(":")
+            try:
+                port = int(port_str) if port_str else 52414
+            except ValueError:
+                logger.warning(
+                    f"Invalid bootstrap peer '{peer}' (expected host[:port]) — skipping"
+                )
+                continue
+            try:
+                connected = await router.connect_peer(host, port)
+                logger.info(f"Bootstrap dial {host}:{port} -> connected={connected}")
+            except Exception as e:
+                logger.warning(f"Bootstrap dial {host}:{port} failed: {e}")
+
         event_router = EventRouter(
             session_id,
             command_sender=router.sender(topics.COMMANDS),
@@ -350,9 +370,6 @@ def main_inner(args: "Args"):
     if args.offline:
         logger.info("Running in OFFLINE mode — no internet checks, local models only")
 
-    if args.bootstrap_peers:
-        raise ValueError("Bootstrap peers has been temporarily removed")
-
     if args.no_batch:
         os.environ["EXO_NO_BATCH"] = "1"
         logger.info("Continuous batching disabled (--no-batch)")
@@ -463,7 +480,8 @@ class Args(FrozenModel):
             if os.getenv("EXO_BOOTSTRAP_PEERS")
             else [],
             dest="bootstrap_peers",
-            help="Comma-separated libp2p multiaddrs to dial on startup (env: EXO_BOOTSTRAP_PEERS)",
+            help="Comma-separated peers to dial on startup: host[:zenoh_port] (default port 52414). "
+            "Env: EXO_BOOTSTRAP_PEERS. For cross-subnet clusters where multicast discovery can't reach.",
         )
         parser.add_argument(
             "--namespace",
