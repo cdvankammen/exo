@@ -46,7 +46,7 @@ class TestQueryCudaVramBytes:
     def test_nvidia_smi_path_returns_bytes(
         self, monkeypatch: pytest.MonkeyPatch
     ) -> None:
-        """MiB output from nvidia-smi is converted to bytes."""
+        """MiB output from nvidia-smi is converted to bytes (single GPU)."""
         fake = "/fake/bin/nvidia-smi"
 
         class _FakeCompleted:
@@ -63,32 +63,75 @@ class TestQueryCudaVramBytes:
         assert total == 16311 * 1024 * 1024
         assert free == 12345 * 1024 * 1024
 
+    def test_nvidia_smi_sums_all_gpus(
+        self, monkeypatch: pytest.MonkeyPatch
+    ) -> None:
+        """Multi-GPU boxes sum every GPU's VRAM (adaptive to GPU count)."""
+        fake = "/fake/bin/nvidia-smi"
+
+        class _FakeCompleted:
+            # Two GPUs: 16GB + 16GB total, 14GB + 15GB free
+            stdout = "16311, 14276\n16311, 15697\n"
+
+        monkeypatch.setattr(profiling, "_find_nvidia_smi_binary", lambda: fake)
+        monkeypatch.setattr(
+            profiling.subprocess,
+            "run",
+            lambda *_a, **_k: _FakeCompleted(),
+        )
+
+        total, free = profiling._query_cuda_vram_bytes()
+        assert total == 32622 * 1024 * 1024  # 16311 + 16311
+        assert free == 29973 * 1024 * 1024  # 14276 + 15697
+
+    def test_nvidia_smi_sums_four_gpus(
+        self, monkeypatch: pytest.MonkeyPatch
+    ) -> None:
+        """4-GPU boxes (DGX-style) sum correctly too."""
+        fake = "/fake/bin/nvidia-smi"
+
+        class _FakeCompleted:
+            stdout = "8192, 7000\n8192, 7000\n8192, 7000\n8192, 7000\n"
+
+        monkeypatch.setattr(profiling, "_find_nvidia_smi_binary", lambda: fake)
+        monkeypatch.setattr(
+            profiling.subprocess,
+            "run",
+            lambda *_a, **_k: _FakeCompleted(),
+        )
+
+        total, free = profiling._query_cuda_vram_bytes()
+        assert total == 32768 * 1024 * 1024
+        assert free == 28000 * 1024 * 1024
+
     def test_nvml_fallback_when_no_binary(
         self, monkeypatch: pytest.MonkeyPatch
     ) -> None:
-        """No nvidia-smi anywhere → NVML ctypes fallback returns bytes."""
+        """No nvidia-smi anywhere → NVML ctypes fallback returns bytes (2 GPUs)."""
         monkeypatch.setattr(profiling, "_find_nvidia_smi_binary", lambda: None)
 
         class _FakeLib:
             def __init__(self) -> None:
                 self._count = 2
-                self._total = 17_000_000_000
-                self._free = 9_000_000_000
+                # Per-device totals (2 × 8.5GB) = 17GB total
+                self._totals = [8_500_000_000, 8_500_000_000]
+                self._frees = [4_000_000_000, 5_000_000_000]
 
             def nvmlInit_v2(self) -> int:  # noqa: N802
                 return 0
 
             def nvmlDeviceGetCount_v2(self, out) -> int:  # noqa: N802
-                out._obj.value = self._count  # byref wraps the real c_uint
+                out._obj.value = self._count
                 return 0
 
-            def nvmlDeviceGetHandleByIndex_v2(self, _i, _handle) -> int:  # noqa: N802
+            def nvmlDeviceGetHandleByIndex_v2(self, i, _handle) -> int:  # noqa: N802
+                self._current_index = i
                 return 0
 
             def nvmlDeviceGetMemoryInfo(self, _handle, mem) -> int:  # noqa: N802
-                mem._obj.total = self._total
-                mem._obj.free = self._free
-                mem._obj.used = self._total - self._free
+                mem._obj.total = self._totals[self._current_index]
+                mem._obj.free = self._frees[self._current_index]
+                mem._obj.used = mem._obj.total - mem._obj.free
                 return 0
 
             def nvmlShutdown(self) -> int:  # noqa: N802
@@ -97,10 +140,52 @@ class TestQueryCudaVramBytes:
         monkeypatch.setattr(profiling.ctypes, "CDLL", lambda _name: _FakeLib())
 
         total, free = profiling._query_cuda_vram_bytes()
-        assert total == 17_000_000_000
-        assert free == 9_000_000_000
+        assert total == 17_000_000_000  # 8.5e9 + 8.5e9
+        assert free == 9_000_000_000  # 4e9 + 5e9
 
-    def test_all_paths_fail_returns_none(self, monkeypatch: pytest.MonkeyPatch) -> None:
+    def test_nvml_one_bad_device_skips_it(
+        self, monkeypatch: pytest.MonkeyPatch
+    ) -> None:
+        """A device that fails its memory query is skipped, others still sum."""
+        monkeypatch.setattr(profiling, "_find_nvidia_smi_binary", lambda: None)
+
+        class _FakeLib:
+            def __init__(self) -> None:
+                self._count = 2
+                self._totals = [8_000_000_000, 8_000_000_000]
+                self._frees = [4_000_000_000, 4_000_000_000]
+
+            def nvmlInit_v2(self) -> int:  # noqa: N802
+                return 0
+
+            def nvmlDeviceGetCount_v2(self, out) -> int:  # noqa: N802
+                out._obj.value = self._count
+                return 0
+
+            def nvmlDeviceGetHandleByIndex_v2(self, i, _handle) -> int:  # noqa: N802
+                self._current_index = i
+                return 0
+
+            def nvmlDeviceGetMemoryInfo(self, _handle, mem) -> int:  # noqa: N802
+                if self._current_index == 1:
+                    return 1  # fail device 1
+                mem._obj.total = self._totals[0]
+                mem._obj.free = self._frees[0]
+                mem._obj.used = mem._obj.total - mem._obj.free
+                return 0
+
+            def nvmlShutdown(self) -> int:  # noqa: N802
+                return 0
+
+        monkeypatch.setattr(profiling.ctypes, "CDLL", lambda _name: _FakeLib())
+
+        total, free = profiling._query_cuda_vram_bytes()
+        assert total == 8_000_000_000  # only device 0 counted
+        assert free == 4_000_000_000
+
+    def test_all_paths_fail_returns_none(
+        self, monkeypatch: pytest.MonkeyPatch
+    ) -> None:
         """No binary AND no NVML lib → None (safe system-RAM fallback)."""
         monkeypatch.setattr(profiling, "_find_nvidia_smi_binary", lambda: None)
         monkeypatch.setattr(

@@ -113,12 +113,13 @@ def _find_nvidia_smi_binary() -> str | None:
 
 
 def _query_cuda_vram_bytes() -> tuple[int, int] | None:
-    """Total and free VRAM in bytes for the first CUDA GPU.
+    """Total and free VRAM in bytes across ALL CUDA GPUs.
 
-    Tries ``nvidia-smi`` first (tolerating version-suffixed binary names),
-    then the NVML driver library directly. Returns None when neither is
-    available or the output cannot be parsed, so callers fall back to
-    system RAM.
+    Sums every GPU's VRAM so multi-GPU boxes (2×, 4×, 8×…) advertise their
+    full capacity — MLX CUDA can span all devices. Tries ``nvidia-smi``
+    first (tolerating version-suffixed binary names), then the NVML driver
+    library directly. Returns None when neither is available or the output
+    cannot be parsed, so callers fall back to system RAM.
     """
     nvidia_smi = _find_nvidia_smi_binary()
     if nvidia_smi is not None:
@@ -138,20 +139,23 @@ def _query_cuda_vram_bytes() -> tuple[int, int] | None:
             pass
         else:
             lines = completed.stdout.strip().splitlines()
-            if lines:
-                fields = lines[0].split(",")
-                if len(fields) == 2:
-                    try:
-                        total_mebibytes = int(fields[0].strip())
-                        free_mebibytes = int(fields[1].strip())
-                    except ValueError:
-                        pass
-                    else:
-                        mebibyte = 1024 * 1024
-                        return (
-                            total_mebibytes * mebibyte,
-                            free_mebibytes * mebibyte,
-                        )
+            total_mebibytes = 0
+            free_mebibytes = 0
+            for line in lines:
+                fields = line.split(",")
+                if len(fields) != 2:
+                    return _query_cuda_vram_bytes_nvml()
+                try:
+                    total_mebibytes += int(fields[0].strip())
+                    free_mebibytes += int(fields[1].strip())
+                except ValueError:
+                    return _query_cuda_vram_bytes_nvml()
+            if total_mebibytes > 0:
+                mebibyte = 1024 * 1024
+                return (
+                    total_mebibytes * mebibyte,
+                    free_mebibytes * mebibyte,
+                )
     return _query_cuda_vram_bytes_nvml()
 
 
@@ -161,6 +165,7 @@ def _query_cuda_vram_bytes_nvml() -> tuple[int, int] | None:
     Fallback used when no ``nvidia-smi`` binary is on PATH. The driver
     library ships with every NVIDIA driver (including minimal/container
     installs), so this removes the binary-name dependency entirely.
+    Sums VRAM across ALL devices (adaptive to GPU count).
     Returns None on any error — never raises.
     """
     try:
@@ -177,13 +182,27 @@ def _query_cuda_vram_bytes_nvml() -> tuple[int, int] | None:
                 or device_count.value == 0
             ):
                 return None
-            handle = ctypes.c_void_p()
-            if lib.nvmlDeviceGetHandleByIndex_v2(0, ctypes.byref(handle)) != 0:
+            total_bytes = 0
+            free_bytes = 0
+            for index in range(device_count.value):
+                handle = ctypes.c_void_p()
+                if (
+                    lib.nvmlDeviceGetHandleByIndex_v2(
+                        index, ctypes.byref(handle)
+                    )
+                    != 0
+                ):
+                    continue
+                memory = _NvmlMemory()
+                if lib.nvmlDeviceGetMemoryInfo(
+                    handle, ctypes.byref(memory)
+                ) != 0:
+                    continue
+                total_bytes += cast(int, memory.total)
+                free_bytes += cast(int, memory.free)
+            if total_bytes == 0:
                 return None
-            memory = _NvmlMemory()
-            if lib.nvmlDeviceGetMemoryInfo(handle, ctypes.byref(memory)) != 0:
-                return None
-            return cast(int, memory.total), cast(int, memory.free)
+            return total_bytes, free_bytes
         finally:
             lib.nvmlShutdown()
     except (AttributeError, OSError):
