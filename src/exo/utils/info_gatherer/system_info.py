@@ -137,13 +137,39 @@ async def get_network_interfaces() -> list[NetworkInterfaceInfo]:
     return interfaces_info
 
 
+async def _get_cuda_gpu_name() -> str | None:
+    """Name of the first CUDA GPU via nvidia-smi (e.g. "NVIDIA GeForce RTX 3090").
+
+    Returns None when nvidia-smi is unavailable or fails.
+    """
+    try:
+        process = await run_process(
+            ["nvidia-smi", "--query-gpu=name", "--format=csv,noheader"],
+            check=False,
+        )
+    except (CalledProcessError, OSError):
+        return None
+    if process.returncode != 0:
+        return None
+    first_line = process.stdout.decode("utf-8", errors="replace").strip().splitlines()
+    return first_line[0].strip() if first_line else None
+
+
 async def get_model_and_chip() -> tuple[str, str]:
-    """Get Mac system information using system_profiler."""
+    """Get system model and chip information.
+
+    On macOS this uses system_profiler. On other platforms the chip is the
+    CUDA GPU name when one is present (it identifies the accelerator that
+    actually runs inference, which placement uses to estimate memory
+    bandwidth).
+    """
     model = "Unknown Model"
     chip = "Unknown Chip"
 
-    # TODO: better non mac support
     if sys.platform != "darwin":
+        gpu_name = await _get_cuda_gpu_name()
+        if gpu_name is not None:
+            chip = gpu_name
         return (model, chip)
 
     try:

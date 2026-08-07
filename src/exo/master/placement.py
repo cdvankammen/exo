@@ -29,7 +29,12 @@ from exo.shared.types.events import (
     TaskStatusUpdated,
 )
 from exo.shared.types.memory import Memory
-from exo.shared.types.profiling import MemoryUsage, NodeNetworkInfo, NodeRdmaCtlStatus
+from exo.shared.types.profiling import (
+    MemoryUsage,
+    NodeIdentity,
+    NodeNetworkInfo,
+    NodeRdmaCtlStatus,
+)
 from exo.shared.types.tasks import Task, TaskId, TaskStatus
 from exo.shared.types.topology import SocketConnection
 from exo.shared.types.worker.downloads import (
@@ -200,6 +205,7 @@ def place_instance(
     required_nodes: set[NodeId] | None = None,
     download_status: Mapping[NodeId, Sequence[DownloadProgress]] | None = None,
     node_rdma_ctl: Mapping[NodeId, NodeRdmaCtlStatus] | None = None,
+    node_identities: Mapping[NodeId, NodeIdentity] | None = None,
 ) -> dict[InstanceId, Instance]:
     cycles = topology.get_cycles()
     candidate_cycles = list(filter(lambda it: len(it) >= command.min_nodes, cycles))
@@ -356,6 +362,7 @@ def place_instance(
         command.sharding,
         node_memory,
         force_override=command.force_override,
+        node_identities=node_identities,
     )
 
     cycle_digraph: Topology = topology.get_subgraph_from_nodes(selected_cycle.node_ids)

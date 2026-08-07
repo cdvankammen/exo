@@ -6,7 +6,7 @@ from exo.shared.models.model_cards import ModelCard
 from exo.shared.topology import Topology
 from exo.shared.types.common import Host, NodeId
 from exo.shared.types.memory import Memory
-from exo.shared.types.profiling import MemoryUsage, NodeNetworkInfo
+from exo.shared.types.profiling import MemoryUsage, NodeIdentity, NodeNetworkInfo
 from exo.shared.types.topology import Cycle, RDMAConnection, SocketConnection
 from exo.shared.types.worker.runners import RunnerId, ShardAssignments
 from exo.shared.types.worker.shards import (
@@ -43,6 +43,93 @@ def get_smallest_cycles(
 ) -> list[Cycle]:
     min_nodes = min(len(cycle) for cycle in cycles)
     return [cycle for cycle in cycles if len(cycle) == min_nodes]
+
+
+# Approximate GPU memory bandwidth (GB/s) by chip/GPU name substring. Decode
+# is memory-bandwidth bound, so pipeline stage time is proportional to the
+# bytes of weights a node reads per token divided by its bandwidth. Substring
+# order matters: more specific names (e.g. "M3 Ultra") must precede less
+# specific ones (e.g. "M3").
+_MEMORY_BANDWIDTH_GBPS_BY_CHIP_SUBSTRING: tuple[tuple[str, float], ...] = (
+    ("M4 Ultra", 1092.0),
+    ("M3 Ultra", 819.0),
+    ("M2 Ultra", 800.0),
+    ("M1 Ultra", 800.0),
+    ("M4 Max", 546.0),
+    ("M3 Max", 400.0),
+    ("M2 Max", 400.0),
+    ("M1 Max", 400.0),
+    ("M4 Pro", 273.0),
+    ("M3 Pro", 150.0),
+    ("M2 Pro", 200.0),
+    ("M1 Pro", 200.0),
+    ("M4", 120.0),
+    ("M3", 100.0),
+    ("M2", 100.0),
+    ("M1", 68.0),
+    ("GB10", 273.0),  # NVIDIA DGX Spark
+    ("RTX 5090", 1792.0),
+    ("RTX 5080", 960.0),
+    ("RTX 4090", 1008.0),
+    ("RTX 4080", 717.0),
+    ("RTX 3090", 936.0),
+    ("RTX 3080", 760.0),
+)
+
+
+def estimate_memory_bandwidth_gigabytes_per_second(
+    node_identity: NodeIdentity,
+) -> float | None:
+    """Estimated GPU memory bandwidth for a node, or None when unrecognised."""
+    chip_name = node_identity.chip_id.lower()
+    for chip_substring, bandwidth in _MEMORY_BANDWIDTH_GBPS_BY_CHIP_SUBSTRING:
+        if chip_substring.lower() in chip_name:
+            return bandwidth
+    return None
+
+
+def allocate_layers_by_throughput(
+    total_layers: int,
+    node_throughputs: list[float],
+    max_layers_per_node: list[int],
+) -> list[int]:
+    """Split layers to minimise summed per-stage decode time.
+
+    Per-token pipeline decode latency is the sum of every stage's compute
+    time, and stage time is (layers on node) / (node throughput), so the sum
+    is minimised by loading the fastest nodes to their memory capacity first.
+    Every node keeps at least one layer (a pipeline stage cannot be empty).
+    Raises ValueError when allocation is impossible; handled by the placement
+    caller (``place_instance``) which surfaces it to the API.
+    """
+    n = len(node_throughputs)
+    if n == 0:
+        raise ValueError("Cannot allocate layers to an empty node list")
+    if total_layers < n:
+        raise ValueError(
+            f"Cannot distribute {total_layers} layers across {n} nodes "
+            "(need at least 1 layer per node)"
+        )
+    if any(cap < 1 for cap in max_layers_per_node):
+        raise ValueError(
+            "Every pipeline node must have memory capacity for at least one layer"
+        )
+    if sum(max_layers_per_node) < total_layers:
+        raise ValueError(
+            f"Selected nodes only have capacity for {sum(max_layers_per_node)} of "
+            f"{total_layers} layers"
+        )
+
+    result = [1] * n
+    remaining = total_layers - n
+    for i in sorted(range(n), key=lambda i: node_throughputs[i], reverse=True):
+        take = min(max_layers_per_node[i] - result[i], remaining)
+        result[i] += take
+        remaining -= take
+        if remaining == 0:
+            break
+    assert remaining == 0
+    return result
 
 
 def allocate_layers_proportionally(
@@ -130,6 +217,7 @@ def _allocate_and_validate_layers(
     total_memory: Memory,
     model_card: ModelCard,
     force_override: bool = False,
+    node_identities: Mapping[NodeId, NodeIdentity] | None = None,
 ) -> list[int]:
     # NOTE (memory-override feature, coordinated with RDMA multi-link commit):
     # The RDMA commit added `max_layers_per_node` caps (per-node memory limits
@@ -137,21 +225,47 @@ def _allocate_and_validate_layers(
     # (user chose "load the model anyway"), we pass caps=None to bypass those
     # caps so an oversized model can still be allocated. Without this, the caps
     # ValueError fires BEFORE the per-node check below, blocking the override.
-    layer_allocations = allocate_layers_proportionally(
-        total_layers=model_card.n_layers,
-        memory_fractions=[
-            node_memory[node_id].ram_available / total_memory for node_id in node_ids
-        ],
-        max_layers_per_node=(
-            None
-            if force_override
-            else [
-                (node_memory[node_id].ram_available.in_bytes * model_card.n_layers)
-                // model_card.storage_size.in_bytes
-                for node_id in node_ids
-            ]
-        ),
+    caps = (
+        None
+        if force_override
+        else [
+            (node_memory[node_id].ram_available.in_bytes * model_card.n_layers)
+            // model_card.storage_size.in_bytes
+            for node_id in node_ids
+        ]
     )
+
+    node_bandwidths = [
+        estimate_memory_bandwidth_gigabytes_per_second(
+            (node_identities or {}).get(node_id, NodeIdentity())
+        )
+        for node_id in node_ids
+    ]
+
+    if not force_override and all(
+        bandwidth is not None for bandwidth in node_bandwidths
+    ):
+        # Decode throughput is bounded by the sum of per-stage times, so load
+        # the highest-bandwidth nodes first (capped by their memory).
+        assert caps is not None  # force_override is False in this branch
+        layer_allocations = allocate_layers_by_throughput(
+            total_layers=model_card.n_layers,
+            node_throughputs=[
+                bandwidth for bandwidth in node_bandwidths if bandwidth is not None
+            ],
+            max_layers_per_node=caps,
+        )
+    else:
+        # Unknown hardware (or force_override): fall back to memory-proportional
+        # allocation.
+        layer_allocations = allocate_layers_proportionally(
+            total_layers=model_card.n_layers,
+            memory_fractions=[
+                node_memory[node_id].ram_available / total_memory
+                for node_id in node_ids
+            ],
+            max_layers_per_node=caps,
+        )
 
     total_storage = model_card.storage_size
     total_layers = model_card.n_layers
@@ -175,6 +289,7 @@ def get_shard_assignments_for_pipeline_parallel(
     cycle: Cycle,
     node_memory: Mapping[NodeId, MemoryUsage],
     force_override: bool = False,
+    node_identities: Mapping[NodeId, NodeIdentity] | None = None,
 ) -> ShardAssignments:
     """Create shard assignments for pipeline parallel execution."""
     world_size = len(cycle)
@@ -186,7 +301,7 @@ def get_shard_assignments_for_pipeline_parallel(
         )
     else:
         return _get_shard_assignments_for_pure_pipeline(
-            model_card, cycle, node_memory, force_override
+            model_card, cycle, node_memory, force_override, node_identities
         )
 
 
@@ -261,13 +376,19 @@ def _get_shard_assignments_for_pure_pipeline(
     cycle: Cycle,
     node_memory: Mapping[NodeId, MemoryUsage],
     force_override: bool = False,
+    node_identities: Mapping[NodeId, NodeIdentity] | None = None,
 ) -> ShardAssignments:
     """Create shard assignments for pure pipeline execution."""
     _validate_cycle(cycle)
     total_memory = _compute_total_memory(cycle.node_ids, node_memory, force_override)
 
     layer_allocations = _allocate_and_validate_layers(
-        cycle.node_ids, node_memory, total_memory, model_card, force_override
+        cycle.node_ids,
+        node_memory,
+        total_memory,
+        model_card,
+        force_override,
+        node_identities,
     )
 
     runner_to_shard: dict[RunnerId, ShardMetadata] = {}
@@ -336,6 +457,7 @@ def get_shard_assignments(
     sharding: Sharding,
     node_memory: Mapping[NodeId, MemoryUsage],
     force_override: bool = False,
+    node_identities: Mapping[NodeId, NodeIdentity] | None = None,
 ) -> ShardAssignments:
     match sharding:
         case Sharding.Pipeline:
@@ -344,6 +466,7 @@ def get_shard_assignments(
                 cycle=cycle,
                 node_memory=node_memory,
                 force_override=force_override,
+                node_identities=node_identities,
             )
         case Sharding.Tensor:
             return get_shard_assignments_for_tensor_parallel(
