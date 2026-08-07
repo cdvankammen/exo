@@ -553,6 +553,11 @@ class AppStore {
   messages = $state<Message[]>([]);
   currentResponse = $state("");
   isLoading = $state(false);
+  // T26: number of generations currently in flight (parallel drain). The
+  // backend batches up to EXO_MAX_CONCURRENT_REQUESTS (8); the queue gate
+  // uses this instead of isLoading so several queued messages can stream at
+  // once (each targeting its own assistant message by id).
+  activeGenerations = $state(0);
 
   // Message queue: messages sent while one is generating are parked here and
   // drained FIFO when the current generation finishes. The backend already
@@ -2442,10 +2447,13 @@ class AppStore {
   ): Promise<void> {
     if (!content.trim() && (!files || files.length === 0)) return;
 
-    // If a generation is already running, queue this message instead of
-    // dropping it. It will be sent automatically when the current one
-    // finishes (see the drain in the finally block below).
-    if (this.isLoading) {
+    // If the backend is saturated, queue this message instead of dropping it.
+    // It will be sent automatically when a slot frees up (see the drain in
+    // the finally block below). EXO_MAX_CONCURRENT_REQUESTS caps the backend;
+    // we mirror a small concurrency limit here so parallel streams don't
+    // overwhelm the machine.
+    const MAX_PARALLEL = 2;
+    if (this.activeGenerations >= MAX_PARALLEL) {
       this.pendingQueue = [
         ...this.pendingQueue,
         {
@@ -2467,6 +2475,7 @@ class AppStore {
     if (!targetConversationId) return;
 
     this.isLoading = true;
+    this.activeGenerations += 1; // T26: parallel drain counter
     this.currentResponse = "";
     this.ttftMs = null;
     this.tps = null;
@@ -2540,6 +2549,7 @@ class AppStore {
     );
     if (!targetConversation) {
       this.isLoading = false;
+      this.activeGenerations = Math.max(0, this.activeGenerations - 1);
       return;
     }
     targetConversation.messages.push(userMessage);
@@ -2552,6 +2562,7 @@ class AppStore {
     );
     if (!assistantMessage) {
       this.isLoading = false;
+      this.activeGenerations = Math.max(0, this.activeGenerations - 1);
       return;
     }
 
@@ -2894,11 +2905,14 @@ class AppStore {
       this.currentResponse = "";
       this.saveConversationsToStorage();
 
-      // Drain the queue: send the next pending message, if any.
-      const next = this.pendingQueue.shift();
-      if (next) {
-        this.pendingQueue = this.pendingQueue;
-        // Defer so isLoading is observably false before the next send starts.
+      // T26: decrement the in-flight counter, then drain as many queued
+      // messages as there are free parallel slots (up to MAX_PARALLEL).
+      this.activeGenerations = Math.max(0, this.activeGenerations - 1);
+      while (this.pendingQueue.length > 0 && this.activeGenerations < 2) {
+        const next = this.pendingQueue.shift();
+        if (!next) break;
+        // Defer so activeGenerations is observably decremented before the
+        // next send starts.
         void this.sendMessage(next.content, next.files, next.enableThinking);
       }
     }
