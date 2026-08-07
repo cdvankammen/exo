@@ -9,6 +9,109 @@
   }>({ nodeBackends: {}, nodeMemory: {}, topologyNodes: [] });
   let loadError = $state<string | null>(null);
 
+  // ── Editable EXO_* overrides (GET/PUT /v1/settings) ───────────────────────
+  type SettingEntry = {
+    var: string;
+    description: string;
+    type: "bool" | "int" | "float" | "str";
+    requires_restart: boolean;
+    has_override: boolean;
+    source: string | null;
+    value?: string | number | boolean | null;
+    raw_value?: string | null;
+    invalid?: boolean;
+  };
+
+  let settings: SettingEntry[] = $state([]);
+  let settingsError: string | null = $state(null);
+  let savingVar: string | null = $state(null);
+  let savedMsg: { var: string; ok: boolean; text: string } | null = $state(null);
+  let drafts: Record<string, string> = $state({});
+
+  async function loadSettings() {
+    try {
+      const resp = await fetch("/v1/settings");
+      if (!resp.ok) throw new Error(`settings ${resp.status}`);
+      settings = await resp.json();
+      settingsError = null;
+    } catch (e) {
+      settingsError = String(e);
+    }
+  }
+
+  async function saveSetting(entry: SettingEntry, raw: string) {
+    savingVar = entry.var;
+    savedMsg = null;
+    try {
+      const resp = await fetch("/v1/settings", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ var: entry.var, value: raw }),
+      });
+      if (!resp.ok) {
+        const body = await resp.json().catch(() => null);
+        throw new Error(body?.error?.message ?? `PUT ${resp.status}`);
+      }
+      delete drafts[entry.var];
+      savedMsg = { var: entry.var, ok: true, text: "Saved" };
+      await loadSettings();
+    } catch (e) {
+      savedMsg = { var: entry.var, ok: false, text: String(e) };
+    } finally {
+      savingVar = null;
+    }
+  }
+
+  async function clearSetting(entry: SettingEntry) {
+    savingVar = entry.var;
+    savedMsg = null;
+    try {
+      const resp = await fetch("/v1/settings", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ var: entry.var, value: null }),
+      });
+      if (!resp.ok) throw new Error(`PUT ${resp.status}`);
+      delete drafts[entry.var];
+      savedMsg = { var: entry.var, ok: true, text: "Cleared (env/default now apply)" };
+      await loadSettings();
+    } catch (e) {
+      savedMsg = { var: entry.var, ok: false, text: String(e) };
+    } finally {
+      savingVar = null;
+    }
+  }
+
+  function sourceBadgeClass(source: string | null): string {
+    switch (source) {
+      case "override":
+        return "border-exo-yellow/40 text-exo-yellow";
+      case "env":
+        return "border-blue-400/40 text-blue-400";
+      case "default":
+        return "border-white/20 text-white/40";
+      default:
+        return "border-white/20 text-white/40";
+    }
+  }
+
+  function draftFor(entry: SettingEntry): string {
+    return drafts[entry.var] ?? entry.raw_value ?? "";
+  }
+
+  function boolChecked(entry: SettingEntry): boolean {
+    const raw = draftFor(entry);
+    return raw === "1" || raw.toLowerCase() === "true";
+  }
+
+  function toggleBool(entry: SettingEntry) {
+    drafts[entry.var] = boolChecked(entry) ? "0" : "1";
+  }
+
+  function boolValueLabel(raw: string): string {
+    return raw === "1" || raw.toLowerCase() === "true" ? "on" : "off";
+  }
+
   async function loadState() {
     try {
       const resp = await fetch("/state");
@@ -29,6 +132,7 @@
 
   onMount(() => {
     loadState();
+    loadSettings();
     const t = setInterval(loadState, 5000);
     return () => clearInterval(t);
   });
@@ -78,9 +182,10 @@
 <div class="p-6 max-w-5xl mx-auto">
   <h1 class="text-2xl font-mono tracking-wider text-exo-light-gray mb-1">SETTINGS</h1>
   <p class="text-white/50 text-sm mb-6">
-    Live cluster detection + launch environment reference. Env vars are set at process
-    launch (edit the launch script / app config) — this page shows what each node
-    actually advertises and how to change the knobs.
+    Live cluster detection, editable <code class="font-mono">EXO_*</code> overrides and launch
+    environment reference. Overrides persist to
+    <code class="font-mono">~/.exo/settings.json</code> and take precedence over launch env
+    vars (which still override built-in defaults).
   </p>
 
   {#if loadError}
@@ -128,6 +233,95 @@
         <p class="text-white/40 text-sm col-span-full">Waiting for cluster state…</p>
       {/if}
     </div>
+  </section>
+
+  <!-- ═══ Editable EXO_* overrides ═══ -->
+  <section class="mb-8">
+    <h2 class="text-exo-yellow font-mono text-sm tracking-wider mb-3">ENVIRONMENT OVERRIDES</h2>
+    {#if settingsError}
+      <div class="border border-red-500/30 text-red-400 p-3 rounded text-sm mb-4">
+        Failed to load settings: {settingsError}
+      </div>
+    {:else if settings.length === 0}
+      <p class="text-white/40 text-sm">Loading settings…</p>
+    {:else}
+      <div class="border border-white/10 rounded-lg overflow-hidden">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="text-left text-white/50 text-xs uppercase tracking-wider border-b border-white/10">
+              <th class="px-4 py-2 font-mono">Variable</th>
+              <th class="px-4 py-2">Meaning</th>
+              <th class="px-4 py-2">Source</th>
+              <th class="px-4 py-2">Value</th>
+              <th class="px-4 py-2">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {#each settings as entry (entry.var)}
+              <tr class="border-b border-white/5 last:border-0 hover:bg-white/[0.02]">
+                <td class="px-4 py-2 font-mono text-exo-light-gray whitespace-nowrap">
+                  {entry.var}
+                  {#if entry.requires_restart}
+                    <span
+                      class="ml-1 text-[9px] px-1.5 py-0.5 rounded border border-white/15 text-white/40 uppercase"
+                      title="Takes effect on the next node/runner start">restart</span>
+                  {/if}
+                </td>
+                <td class="px-4 py-2 text-white/70">{entry.description}</td>
+                <td class="px-4 py-2">
+                  <span class="text-[10px] px-2 py-0.5 rounded border uppercase tracking-wider {sourceBadgeClass(entry.source)}">
+                    {entry.source ?? "unset"}
+                  </span>
+                </td>
+                <td class="px-4 py-2">
+                  {#if entry.type === "bool"}
+                    <button
+                      class="px-3 py-1 rounded border text-xs font-mono {boolChecked(entry)
+                        ? 'border-green-500/40 text-green-400 bg-green-500/10'
+                        : 'border-white/20 text-white/40'}"
+                      onclick={() => toggleBool(entry)}>{boolValueLabel(draftFor(entry))}</button>
+                  {:else}
+                    <input
+                      type="text"
+                      value={draftFor(entry)}
+                      placeholder={entry.type === "int" ? "integer" : "text"}
+                      class="bg-white/[0.04] border border-white/15 rounded px-2 py-1 text-xs font-mono text-exo-light-gray w-48 focus:outline-none focus:border-exo-yellow/50"
+                      oninput={(e) => (drafts[entry.var] = (e.currentTarget as HTMLInputElement).value)}
+                    />
+                  {/if}
+                  {#if entry.invalid}
+                    <span class="text-[10px] text-red-400 ml-1">invalid current value</span>
+                  {/if}
+                </td>
+                <td class="px-4 py-2 whitespace-nowrap">
+                  <button
+                    class="px-2.5 py-1 rounded border border-exo-yellow/40 text-exo-yellow text-xs hover:bg-exo-yellow/10 disabled:opacity-40"
+                    disabled={savingVar === entry.var}
+                    onclick={() => saveSetting(entry, draftFor(entry))}>Set</button>
+                  {#if entry.has_override}
+                    <button
+                      class="ml-1 px-2.5 py-1 rounded border border-white/20 text-white/50 text-xs hover:bg-white/5 disabled:opacity-40"
+                      disabled={savingVar === entry.var}
+                      onclick={() => clearSetting(entry)}>Clear</button>
+                  {/if}
+                </td>
+              </tr>
+              {#if savedMsg && savedMsg.var === entry.var}
+                <tr class="border-b border-white/5">
+                  <td colspan="5" class="px-4 py-1 text-xs {savedMsg.ok ? 'text-green-400' : 'text-red-400'}">
+                    {savedMsg.text}
+                  </td>
+                </tr>
+              {/if}
+            {/each}
+          </tbody>
+        </table>
+      </div>
+      <p class="text-[11px] text-white/35 mt-2">
+        Precedence: override (this page) &gt; launch env var &gt; built-in default. Most knobs apply to
+        new runners — restart the node for a full effect.
+      </p>
+    {/if}
   </section>
 
   <!-- ═══ Launch env reference ═══ -->

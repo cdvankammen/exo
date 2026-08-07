@@ -45,6 +45,16 @@ class ErrorResponse(BaseModel):
     error: ErrorInfo
 
 
+class SettingsUpdateParams(BaseModel):
+    """Body for PUT /v1/settings.
+
+    ``value=None`` clears a persisted override, falling back to env/default.
+    """
+
+    var: str
+    value: str | None = None
+
+
 class ModelListModel(BaseModel):
     id: str
     object: str = "model"

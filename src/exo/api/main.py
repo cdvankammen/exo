@@ -96,6 +96,7 @@ from exo.api.types import (
     PlaceInstanceParams,
     PlacementPreview,
     PlacementPreviewResponse,
+    SettingsUpdateParams,
     StartDownloadParams,
     StartDownloadResponse,
     ToolCall,
@@ -217,6 +218,7 @@ from exo.utils.banner import print_startup_banner
 from exo.utils.channels import Receiver, Sender, channel
 from exo.utils.disk_event_log import DiskEventLog
 from exo.utils.power_sampler import PowerSampler
+from exo.utils.settings import get_settings_manager
 from exo.utils.task_group import TaskGroup
 
 _API_EVENT_LOG_DIR = EXO_EVENT_LOG_DIR / "api"
@@ -429,6 +431,8 @@ class API:
         self.app.put("/v1/instance-links/{link_id}")(self.update_instance_link)
         self.app.delete("/v1/instance-links/{link_id}")(self.delete_instance_link)
         self.app.get("/v1/feature-flags")(self.get_feature_flags)
+        self.app.get("/v1/settings")(self.get_settings)
+        self.app.put("/v1/settings")(self.update_settings)
         self.app.get("/v1/warnings")(self.get_warnings)
         self.app.get("/models")(self.get_models)
         self.app.get("/v1/models")(self.get_v1_models)
@@ -794,6 +798,22 @@ class API:
 
     async def get_feature_flags(self) -> dict[str, bool]:
         return {"disaggregation": ENABLE_DISAGGREGATION}
+
+    async def get_settings(self) -> list[dict[str, object]]:
+        """Catalog of editable EXO_* settings with resolved values/sources."""
+        return get_settings_manager().snapshot()
+
+    async def update_settings(self, payload: SettingsUpdateParams) -> dict[str, object]:
+        """Persist (or clear, with value=None) an EXO_* override."""
+        try:
+            get_settings_manager().apply_override(payload.var, payload.value)
+        except ValueError as exc:
+            raise ApiError(
+                status_code=400,
+                detail=str(exc),
+                error_code="INVALID_REQUEST",
+            ) from exc
+        return {"var": payload.var, "value": payload.value}
 
     async def get_warnings(self) -> dict[str, object]:
         """Cluster health warnings for the dashboard warning chips.
