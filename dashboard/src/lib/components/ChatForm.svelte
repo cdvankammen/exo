@@ -10,6 +10,8 @@
     thinkingEnabled as thinkingEnabledStore,
     setConversationThinking,
     stopGeneration,
+    pendingQueue,
+    removeFromQueue,
   } from "$lib/stores/app.svelte";
   import ChatAttachments from "./ChatAttachments.svelte";
   import ImageParamsPanel from "./ImageParamsPanel.svelte";
@@ -203,7 +205,7 @@
   }
 
   function handleSubmit() {
-    if ((!message.trim() && uploadedFiles.length === 0) || loading) return;
+    if (!message.trim() && uploadedFiles.length === 0) return;
     if (isEditOnlyWithoutImage) return;
 
     const content = message.trim();
@@ -480,6 +482,28 @@
         class="flex-1 resize-none bg-transparent text-foreground placeholder:text-exo-light-gray/60 placeholder:text-sm placeholder:tracking-[0.15em] placeholder:leading-7 focus:outline-none focus:ring-0 focus:border-none text-sm leading-7 font-mono"
         style="min-height: 28px; max-height: 150px;"
       ></textarea>
+
+      <!-- Message queue indicator (T24): shows pending messages and lets the
+           user cancel them. Messages sent while generating are parked here
+           and sent automatically when the current one finishes. -->
+      {#if pendingQueue().length > 0}
+        <div
+          class="flex items-center gap-1.5 px-2 py-1 rounded border border-exo-yellow/30 bg-exo-medium-gray/40 text-exo-yellow text-[11px] font-mono tracking-wider whitespace-nowrap"
+          title="Messages queued — sent automatically when the current response finishes"
+        >
+          <span class="inline-block w-1.5 h-1.5 rounded-full bg-exo-yellow animate-pulse"></span>
+          <span>{pendingQueue().length} queued</span>
+          <button
+            type="button"
+            onclick={() => removeFromQueue(pendingQueue()[pendingQueue().length - 1].id)}
+            class="ml-1 text-exo-light-gray hover:text-red-400 transition-colors cursor-pointer"
+            title="Remove last queued message"
+            aria-label="Remove last queued message"
+          >
+            ✕
+          </button>
+        </div>
+      {/if}
 
       {#if loading}
         <button

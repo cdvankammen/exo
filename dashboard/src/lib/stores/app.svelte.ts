@@ -554,6 +554,27 @@ class AppStore {
   currentResponse = $state("");
   isLoading = $state(false);
 
+  // Message queue: messages sent while one is generating are parked here and
+  // drained FIFO when the current generation finishes. The backend already
+  // batches up to EXO_MAX_CONCURRENT_REQUESTS (8), so this is purely a
+  // frontend UX queue — it lets offline-model users fire several prompts and
+  // walk away instead of being blocked by the disabled input.
+  pendingQueue = $state<
+    {
+      id: string;
+      content: string;
+      files?: {
+        id: string;
+        name: string;
+        type: string;
+        textContent?: string;
+        preview?: string;
+        pageImages?: string[];
+      }[];
+      enableThinking?: boolean | null;
+    }[]
+  >([]);
+
   // Performance metrics
   ttftMs = $state<number | null>(null); // Time to first token in ms
   tps = $state<number | null>(null); // Tokens per second
@@ -2419,8 +2440,23 @@ class AppStore {
     }[],
     enableThinking?: boolean | null,
   ): Promise<void> {
-    if ((!content.trim() && (!files || files.length === 0)) || this.isLoading)
+    if (!content.trim() && (!files || files.length === 0)) return;
+
+    // If a generation is already running, queue this message instead of
+    // dropping it. It will be sent automatically when the current one
+    // finishes (see the drain in the finally block below).
+    if (this.isLoading) {
+      this.pendingQueue = [
+        ...this.pendingQueue,
+        {
+          id: generateUUID(),
+          content,
+          files,
+          enableThinking,
+        },
+      ];
       return;
+    }
 
     if (!this.hasStartedChat) {
       this.startChat();
@@ -2857,7 +2893,25 @@ class AppStore {
       this.isLoading = false;
       this.currentResponse = "";
       this.saveConversationsToStorage();
+
+      // Drain the queue: send the next pending message, if any.
+      const next = this.pendingQueue.shift();
+      if (next) {
+        this.pendingQueue = this.pendingQueue;
+        // Defer so isLoading is observably false before the next send starts.
+        void this.sendMessage(next.content, next.files, next.enableThinking);
+      }
     }
+  }
+
+  /** Remove a queued message by id (cancel). */
+  removeFromQueue(queueId: string): void {
+    this.pendingQueue = this.pendingQueue.filter((m) => m.id !== queueId);
+  }
+
+  /** Clear all queued messages. */
+  clearQueue(): void {
+    this.pendingQueue = [];
   }
 
   stopGeneration(): void {
@@ -3709,6 +3763,12 @@ export const sendMessage = (
   }[],
   enableThinking?: boolean | null,
 ) => appStore.sendMessage(content, files, enableThinking);
+
+// Message queue (T24): pending messages + cancel/clear
+export const pendingQueue = () => appStore.pendingQueue;
+export const removeFromQueue = (queueId: string) =>
+  appStore.removeFromQueue(queueId);
+export const clearQueue = () => appStore.clearQueue();
 export const generateImage = (prompt: string, modelId?: string) =>
   appStore.generateImage(prompt, modelId);
 export const editImage = (
