@@ -1485,8 +1485,16 @@ def test_placement_rejects_when_only_some_nodes_support_backend(
         )
     )
 
-    with pytest.raises(ValueError, match="No cycle where every node supports"):
+    with pytest.raises(ValueError) as excinfo:
         place_instance(cic, topology, {}, node_memory, node_network, node_backends)
+    # The actionable message lists every node's advertised backends so the
+    # log/API error shows WHICH node lacks the required backend (e.g. a Linux
+    # node silently advertising MlxCpu only).
+    message = str(excinfo.value)
+    assert "No cycle where every node supports" in message
+    assert "Node backends:" in message
+    assert node_a[:8] in message  # node IDs are included (truncated)
+    assert "MlxCuda" in message  # node_c's CUDA-only backend is listed
 
 
 def test_mlx_jaccl_rejects_cuda_only_cycle(model_card: ModelCard):
