@@ -1,0 +1,110 @@
+# type: ignore[reportPrivateUsage]
+"""Tests for CUDA VRAM querying robustness (T2 fix).
+
+Verifies the nvidia-smi binary lookup tolerates version-suffixed names
+(e.g. ``nvidia-smi-595.58`` from manual driver installs) and that the
+NVML ctypes fallback works when no binary is on PATH at all.
+"""
+
+import shutil
+from pathlib import Path
+
+import pytest
+
+import exo.shared.types.profiling as profiling
+
+
+class TestFindNvidiaSmiBinary:
+    def test_plain_name_found_first(self, monkeypatch: pytest.MonkeyPatch) -> None:
+        """Plain ``nvidia-smi`` on PATH wins (standard installs)."""
+        fake = Path("/fake/bin/nvidia-smi")
+        monkeypatch.setattr(shutil, "which", lambda _name: str(fake))
+        assert profiling._find_nvidia_smi_binary() == str(fake)
+
+    def test_version_suffixed_name_found_via_glob(
+        self, monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+    ) -> None:
+        """No plain name but ``nvidia-smi-595.58`` exists → found via glob."""
+        monkeypatch.setattr(shutil, "which", lambda _name: None)
+        bin_dir = tmp_path / "bin"
+        bin_dir.mkdir()
+        suffixed = bin_dir / "nvidia-smi-595.58"
+        suffixed.write_text("#!/bin/sh\n")
+        suffixed.chmod(0o755)
+        monkeypatch.setenv("PATH", str(bin_dir))
+
+        assert profiling._find_nvidia_smi_binary() == str(suffixed)
+
+    def test_no_binary_returns_none(self, monkeypatch: pytest.MonkeyPatch) -> None:
+        """Empty PATH → None (caller falls back to system RAM)."""
+        monkeypatch.setattr(shutil, "which", lambda _name: None)
+        monkeypatch.setenv("PATH", "")
+        assert profiling._find_nvidia_smi_binary() is None
+
+
+class TestQueryCudaVramBytes:
+    def test_nvidia_smi_path_returns_bytes(
+        self, monkeypatch: pytest.MonkeyPatch
+    ) -> None:
+        """MiB output from nvidia-smi is converted to bytes."""
+        fake = "/fake/bin/nvidia-smi"
+
+        class _FakeCompleted:
+            stdout = "16311, 12345\n"
+
+        monkeypatch.setattr(profiling, "_find_nvidia_smi_binary", lambda: fake)
+        monkeypatch.setattr(
+            profiling.subprocess,
+            "run",
+            lambda *_a, **_k: _FakeCompleted(),
+        )
+
+        total, free = profiling._query_cuda_vram_bytes()
+        assert total == 16311 * 1024 * 1024
+        assert free == 12345 * 1024 * 1024
+
+    def test_nvml_fallback_when_no_binary(
+        self, monkeypatch: pytest.MonkeyPatch
+    ) -> None:
+        """No nvidia-smi anywhere → NVML ctypes fallback returns bytes."""
+        monkeypatch.setattr(profiling, "_find_nvidia_smi_binary", lambda: None)
+
+        class _FakeLib:
+            def __init__(self) -> None:
+                self._count = 2
+                self._total = 17_000_000_000
+                self._free = 9_000_000_000
+
+            def nvmlInit_v2(self) -> int:  # noqa: N802
+                return 0
+
+            def nvmlDeviceGetCount_v2(self, out) -> int:  # noqa: N802
+                out._obj.value = self._count  # byref wraps the real c_uint
+                return 0
+
+            def nvmlDeviceGetHandleByIndex_v2(self, _i, _handle) -> int:  # noqa: N802
+                return 0
+
+            def nvmlDeviceGetMemoryInfo(self, _handle, mem) -> int:  # noqa: N802
+                mem._obj.total = self._total
+                mem._obj.free = self._free
+                mem._obj.used = self._total - self._free
+                return 0
+
+            def nvmlShutdown(self) -> int:  # noqa: N802
+                return 0
+
+        monkeypatch.setattr(profiling.ctypes, "CDLL", lambda _name: _FakeLib())
+
+        total, free = profiling._query_cuda_vram_bytes()
+        assert total == 17_000_000_000
+        assert free == 9_000_000_000
+
+    def test_all_paths_fail_returns_none(self, monkeypatch: pytest.MonkeyPatch) -> None:
+        """No binary AND no NVML lib → None (safe system-RAM fallback)."""
+        monkeypatch.setattr(profiling, "_find_nvidia_smi_binary", lambda: None)
+        monkeypatch.setattr(
+            profiling.ctypes, "CDLL", lambda _name: (_ for _ in ()).throw(OSError())
+        )
+
+        assert profiling._query_cuda_vram_bytes() is None

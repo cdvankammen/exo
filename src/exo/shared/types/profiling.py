@@ -1,8 +1,11 @@
+import ctypes
+import glob
+import os
 import shutil
 import subprocess
 from collections.abc import Sequence
 from pathlib import Path
-from typing import Literal, Self
+from typing import Literal, Self, cast
 
 from exo.shared.types.memory import Memory
 from exo.shared.types.thunderbolt import ThunderboltIdentifier
@@ -83,43 +86,118 @@ class MemoryUsage(FrozenModel):
         )
 
 
-def _query_cuda_vram_bytes() -> tuple[int, int] | None:
-    """Total and free VRAM in bytes for the first CUDA GPU via ``nvidia-smi``.
+def _find_nvidia_smi_binary() -> str | None:
+    """Locate the ``nvidia-smi`` binary, tolerating version-suffixed names.
 
-    Returns None if ``nvidia-smi`` is absent or its output cannot be parsed.
+    Standard NVIDIA driver installs put ``nvidia-smi`` on PATH. Manual
+    driver installs (e.g. extracting NVIDIA's ``.run`` to match a kernel
+    module version) can leave version-suffixed binaries such as
+    ``nvidia-smi-595.58`` — which ``shutil.which`` would miss. As a
+    fallback, scan PATH directories for executables matching
+    ``nvidia-smi*`` (sorted, so plain ``nvidia-smi`` wins when both exist).
     """
     nvidia_smi = shutil.which("nvidia-smi")
-    if nvidia_smi is None:
+    if nvidia_smi is not None:
+        return nvidia_smi
+    for directory in os.environ.get("PATH", "").split(os.pathsep):
+        if not directory:
+            continue
+        try:
+            candidates = sorted(glob.glob(os.path.join(directory, "nvidia-smi*")))
+        except OSError:
+            continue
+        for candidate in candidates:
+            if os.path.isfile(candidate) and os.access(candidate, os.X_OK):
+                return candidate
+    return None
+
+
+def _query_cuda_vram_bytes() -> tuple[int, int] | None:
+    """Total and free VRAM in bytes for the first CUDA GPU.
+
+    Tries ``nvidia-smi`` first (tolerating version-suffixed binary names),
+    then the NVML driver library directly. Returns None when neither is
+    available or the output cannot be parsed, so callers fall back to
+    system RAM.
+    """
+    nvidia_smi = _find_nvidia_smi_binary()
+    if nvidia_smi is not None:
+        try:
+            completed = subprocess.run(
+                [
+                    nvidia_smi,
+                    "--query-gpu=memory.total,memory.free",
+                    "--format=csv,noheader,nounits",
+                ],
+                capture_output=True,
+                text=True,
+                timeout=5,
+                check=True,
+            )
+        except (subprocess.SubprocessError, OSError):
+            pass
+        else:
+            lines = completed.stdout.strip().splitlines()
+            if lines:
+                fields = lines[0].split(",")
+                if len(fields) == 2:
+                    try:
+                        total_mebibytes = int(fields[0].strip())
+                        free_mebibytes = int(fields[1].strip())
+                    except ValueError:
+                        pass
+                    else:
+                        mebibyte = 1024 * 1024
+                        return (
+                            total_mebibytes * mebibyte,
+                            free_mebibytes * mebibyte,
+                        )
+    return _query_cuda_vram_bytes_nvml()
+
+
+def _query_cuda_vram_bytes_nvml() -> tuple[int, int] | None:
+    """Query VRAM via the NVML driver library (``libnvidia-ml.so.1``).
+
+    Fallback used when no ``nvidia-smi`` binary is on PATH. The driver
+    library ships with every NVIDIA driver (including minimal/container
+    installs), so this removes the binary-name dependency entirely.
+    Returns None on any error — never raises.
+    """
+    try:
+        lib = ctypes.CDLL("libnvidia-ml.so.1")
+    except OSError:
         return None
     try:
-        completed = subprocess.run(
-            [
-                nvidia_smi,
-                "--query-gpu=memory.total,memory.free",
-                "--format=csv,noheader,nounits",
-            ],
-            capture_output=True,
-            text=True,
-            timeout=5,
-            check=True,
-        )
-    except (subprocess.SubprocessError, OSError):
+        if lib.nvmlInit_v2() != 0:
+            return None
+        try:
+            device_count = ctypes.c_uint()
+            if (
+                lib.nvmlDeviceGetCount_v2(ctypes.byref(device_count)) != 0
+                or device_count.value == 0
+            ):
+                return None
+            handle = ctypes.c_void_p()
+            if lib.nvmlDeviceGetHandleByIndex_v2(0, ctypes.byref(handle)) != 0:
+                return None
+            memory = _NvmlMemory()
+            if lib.nvmlDeviceGetMemoryInfo(handle, ctypes.byref(memory)) != 0:
+                return None
+            return cast(int, memory.total), cast(int, memory.free)
+        finally:
+            lib.nvmlShutdown()
+    except (AttributeError, OSError):
         return None
 
-    lines = completed.stdout.strip().splitlines()
-    if not lines:
-        return None
-    fields = lines[0].split(",")
-    if len(fields) != 2:
-        return None
-    try:
-        total_mebibytes = int(fields[0].strip())
-        free_mebibytes = int(fields[1].strip())
-    except ValueError:
-        return None
 
-    mebibyte = 1024 * 1024
-    return total_mebibytes * mebibyte, free_mebibytes * mebibyte
+class _NvmlMemory(ctypes.Structure):
+    """``nvmlMemory_t``: total/free/used bytes for a device."""
+
+    _fields_ = [
+        ("total", ctypes.c_ulonglong),
+        ("free", ctypes.c_ulonglong),
+        ("used", ctypes.c_ulonglong),
+    ]
 
 
 class DiskUsage(FrozenModel):
