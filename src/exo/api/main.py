@@ -46,6 +46,7 @@ from exo.api.adapters.responses import (
     generate_responses_stream,
     responses_request_to_text_generation,
 )
+from exo.api.auth import api_token_auth_middleware
 from exo.api.keepalive import with_sse_keepalive
 from exo.api.types import (
     AddCustomModelParams,
@@ -136,6 +137,7 @@ from exo.shared.apply import apply
 from exo.shared.constants import (
     DASHBOARD_DIR,
     ENABLE_DISAGGREGATION,
+    EXO_API_TOKEN,
     EXO_CACHE_HOME,
     EXO_EVENT_LOG_DIR,
     EXO_IMAGE_CACHE_DIR,
@@ -339,6 +341,9 @@ class API:
         ) -> StreamingResponse:
             logger.debug(f"API request: {request.method} {request.url.path}")
             return await call_next(request)
+
+        if EXO_API_TOKEN is not None:
+            self.app.middleware("http")(api_token_auth_middleware(EXO_API_TOKEN))
 
         self._setup_exception_handlers()
         self._setup_cors()

@@ -117,3 +117,7 @@ ENABLE_DISAGGREGATION = os.getenv("ENABLE_DISAGGREGATION", "false").lower() == "
 EXO_MAX_CONCURRENT_REQUESTS = int(os.getenv("EXO_MAX_CONCURRENT_REQUESTS", "8"))
 
 EXO_MAX_INSTANCE_RETRIES = 5
+
+# Optional API bearer token (T23). When set, all API routes except the
+# dashboard static assets require `Authorization: Bearer <EXO_API_TOKEN>`.
+EXO_API_TOKEN: str | None = os.getenv("EXO_API_TOKEN", None)
