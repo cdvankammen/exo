@@ -71,6 +71,7 @@ from exo.api.types import (
     DeleteInstanceResponse,
     DeleteTracesRequest,
     DeleteTracesResponse,
+    ErrorCode,
     ErrorInfo,
     ErrorResponse,
     FinishReason,
@@ -255,6 +256,40 @@ def _ensure_seed(params: AdvancedImageParams | None) -> AdvancedImageParams:
     return params
 
 
+class ApiError(HTTPException):
+    """HTTPException carrying a stable machine-readable error code.
+
+    The dashboard/clients can branch on ``error_code`` without parsing the
+    human message. ``detail`` stays human-readable and ``status_code`` stays
+    the HTTP status for backward compatibility.
+    """
+
+    def __init__(
+        self,
+        status_code: int,
+        detail: str,
+        error_code: ErrorCode = "INTERNAL_ERROR",
+    ) -> None:
+        super().__init__(status_code=status_code, detail=detail)
+        self.error_code = error_code
+
+
+def _error_code_for(exc: HTTPException) -> ErrorCode:
+    """Resolve the stable error code for an exception.
+
+    Explicit ``ApiError.error_code`` wins; otherwise derive from the HTTP
+    status so every response carries a code.
+    """
+    explicit = getattr(exc, "error_code", None)
+    if explicit is not None:
+        return cast(ErrorCode, explicit)
+    if exc.status_code == 404:
+        return "NOT_FOUND"
+    if exc.status_code in (400, 422):
+        return "INVALID_REQUEST"
+    return "INTERNAL_ERROR"
+
+
 def _require_disaggregation_enabled() -> None:
     if not ENABLE_DISAGGREGATION:
         raise HTTPException(
@@ -360,6 +395,7 @@ class API:
                 message=exc.detail,
                 type=HTTPStatus(exc.status_code).phrase,
                 code=exc.status_code,
+                error_code=_error_code_for(exc),
             )
         )
         return JSONResponse(err.model_dump(), status_code=exc.status_code)
@@ -488,9 +524,10 @@ class API:
         available_memory = self._calculate_total_available_memory()
 
         if not payload.force_override and required_memory > available_memory:
-            raise HTTPException(
+            raise ApiError(
                 status_code=400,
                 detail=f"Insufficient memory to create instance. Required: {required_memory.in_gb:.1f}GB, Available: {available_memory.in_gb:.1f}GB",
+                error_code="INSUFFICIENT_MEMORY",
             )
 
         command = CreateInstance(
@@ -532,16 +569,19 @@ class API:
                 node_rdma_ctl=self.state.node_rdma_ctl,
             )
         except ValueError as exc:
-            raise HTTPException(status_code=400, detail=str(exc)) from exc
+            raise ApiError(
+                status_code=400, detail=str(exc), error_code="PLACEMENT_FAILED"
+            ) from exc
 
         current_ids = set(self.state.instances.keys())
         new_ids = [
             instance_id for instance_id in placements if instance_id not in current_ids
         ]
         if len(new_ids) != 1:
-            raise HTTPException(
+            raise ApiError(
                 status_code=500,
                 detail="Expected exactly one new instance from placement",
+                error_code="PLACEMENT_FAILED",
             )
 
         return placements[new_ids[0]]
@@ -562,8 +602,10 @@ class API:
         try:
             model_card = await ModelCard.load(model_id)
         except Exception as exc:
-            raise HTTPException(
-                status_code=400, detail=f"Failed to load model card: {exc}"
+            raise ApiError(
+                status_code=400,
+                detail=f"Failed to load model card: {exc}",
+                error_code="MODEL_NOT_FOUND",
             ) from exc
         instance_combinations: list[tuple[Sharding, InstanceMeta, int]] = []
         for sharding in (Sharding.Pipeline, Sharding.Tensor):
@@ -675,7 +717,11 @@ class API:
 
     def get_instance(self, instance_id: InstanceId) -> Instance:
         if instance_id not in self.state.instances:
-            raise HTTPException(status_code=404, detail="Instance not found")
+            raise ApiError(
+                status_code=404,
+                detail="Instance not found",
+                error_code="INSTANCE_NOT_FOUND",
+            )
         return self.state.instances[instance_id]
 
     async def await_instance(
@@ -722,7 +768,11 @@ class API:
 
     async def delete_instance(self, instance_id: InstanceId) -> DeleteInstanceResponse:
         if instance_id not in self.state.instances:
-            raise HTTPException(status_code=404, detail="Instance not found")
+            raise ApiError(
+                status_code=404,
+                detail="Instance not found",
+                error_code="INSTANCE_NOT_FOUND",
+            )
 
         command = DeleteInstance(
             instance_id=instance_id,
@@ -1064,8 +1114,10 @@ class API:
             for instance in self.state.instances.values()
         ):
             await self._trigger_notify_user_to_download_model(resolved_model)
-            raise HTTPException(
-                status_code=404, detail=f"No instance found for model {resolved_model}"
+            raise ApiError(
+                status_code=404,
+                detail=f"No instance found for model {resolved_model}",
+                error_code="MODEL_NOT_FOUND",
             )
         return resolved_model
 
@@ -2002,7 +2054,11 @@ class API:
         """Delete a user-added custom model card and sync deletion across the cluster."""
         card = model_cards.card_cache.get(model_id)
         if card is None or not card.is_custom:
-            raise HTTPException(status_code=404, detail="Custom model card not found")
+            raise ApiError(
+                status_code=404,
+                detail="Custom model card not found",
+                error_code="MODEL_NOT_FOUND",
+            )
 
         await self.command_sender.send(
             ForwarderCommand(

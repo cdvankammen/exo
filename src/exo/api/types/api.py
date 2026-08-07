@@ -17,12 +17,28 @@ FinishReason = Literal[
     "stop", "length", "tool_calls", "content_filter", "function_call", "error"
 ]
 
+# Stable, machine-readable error codes. Clients can branch on these without
+# parsing the human message; `ErrorInfo.type` keeps the HTTP status phrase and
+# `code` keeps the HTTP status code for backward compatibility.
+ErrorCode = Literal[
+    "INVALID_REQUEST",
+    "INSUFFICIENT_MEMORY",
+    "PLACEMENT_FAILED",
+    "MODEL_NOT_FOUND",
+    "INSTANCE_NOT_FOUND",
+    "IMAGE_NOT_FOUND",
+    "PEER_UNREACHABLE",
+    "NOT_FOUND",
+    "INTERNAL_ERROR",
+]
+
 
 class ErrorInfo(BaseModel):
     message: str
     type: str
     param: str | None = None
     code: int
+    error_code: ErrorCode = "INTERNAL_ERROR"
 
 
 class ErrorResponse(BaseModel):
