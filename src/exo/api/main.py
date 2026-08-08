@@ -3,6 +3,7 @@ import contextlib
 import hashlib
 import json
 import random
+import re
 import time
 from collections.abc import AsyncGenerator, Awaitable, Callable, Iterable
 from datetime import datetime, timezone
@@ -88,6 +89,8 @@ from exo.api.types import (
     ImageSize,
     InstanceLinkBody,
     InstanceLinkResponse,
+    LogErrorEntry,
+    LogErrorsResponse,
     LogFileListItem,
     LogFileListResponse,
     LogTailResponse,
@@ -246,6 +249,55 @@ def _tail_file(path: Path, max_lines: int) -> tuple[str, bool]:
     truncated = read_size < size or len(lines) > max_lines
     tail_lines = lines[-max_lines:] if max_lines > 0 else []
     return "\n".join(tail_lines), truncated
+
+
+# Loguru line format (both the 1-line stderr form and the file form):
+#   [ 2026-08-08 06:03:28.551 | INFO  | module:func:86 ] message
+#   [ 2026-08-08 06:03:28.551 | INFO     | exo.worker... ] message
+_LOG_LINE_RE = re.compile(
+    r"^\s*\[\s*([\d\- :.]+)\s*\|\s*([A-Z]+)\s*\|\s*([^\]]+?)\s*\]\s*(.*)$"
+)
+_LOG_ERROR_LEVELS = frozenset({"WARNING", "ERROR", "CRITICAL"})
+
+
+def _parse_log_errors(content: str, source_log: str) -> list[LogErrorEntry]:
+    """Parse WARNING/ERROR/CRITICAL lines from a log tail into structured entries.
+
+    Skips continuation lines (tracebacks etc.) so each entry is the primary
+    log line. Multi-line tracebacks are collapsed: the message is the first
+    line, and a following non-matching line is appended only when it looks
+    like an exception message (no leading whitespace-only frame text).
+    """
+    entries: list[LogErrorEntry] = []
+    lines = content.splitlines()
+    i = 0
+    while i < len(lines):
+        m = _LOG_LINE_RE.match(lines[i])
+        if m is None:
+            i += 1
+            continue
+        timestamp, level, source, message = m.groups()
+        if level not in _LOG_ERROR_LEVELS:
+            i += 1
+            continue
+        # Collapse the next line if it's a short non-log line (exception tail)
+        j = i + 1
+        while j < len(lines) and _LOG_LINE_RE.match(lines[j]) is None:
+            extra = lines[j].strip()
+            if extra and not extra.startswith(("File \"", "  ", "Traceback")):
+                message = f"{message} {extra}"
+            j += 1
+        entries.append(
+            LogErrorEntry(
+                timestamp=timestamp.strip(),
+                level=level,
+                source=source.strip(),
+                message=message.strip(),
+                source_log=source_log,
+            )
+        )
+        i = j
+    return entries
 
 
 def _format_to_content_type(image_format: Literal["png", "jpeg", "webp"] | None) -> str:
@@ -490,6 +542,7 @@ class API:
         self.app.get("/v1/logs")(self.list_logs)
         self.app.get("/v1/logs/{name}")(self.get_log_tail)
         self.app.get("/v1/logs/{name}/raw")(self.get_log_raw)
+        self.app.get("/v1/logs/errors")(self.get_log_errors)
         self.app.get("/onboarding")(self.get_onboarding)
         self.app.post("/onboarding")(self.complete_onboarding)
 
@@ -2515,6 +2568,37 @@ class API:
             raise HTTPException(status_code=404, detail=f"Log file not found: {name}")
 
         return FileResponse(path=path, media_type="text/plain", filename=path.name)
+
+    async def get_log_errors(
+        self,
+        level: str = Query(default=""),
+        lines: int = Query(default=2000, ge=1, le=20000),
+    ) -> LogErrorsResponse:
+        """Parse WARNING/ERROR/CRITICAL lines across all log files.
+
+        ``level`` filters to a single level (e.g. ``ERROR``). Entries are
+        newest-first, merged across the main / runner logs so operators can
+        see every problem at a glance without digging through tails.
+        """
+        wanted = {level.upper()} if level else set(_LOG_ERROR_LEVELS)
+        wanted = wanted & _LOG_ERROR_LEVELS
+        if not wanted:
+            raise HTTPException(status_code=400, detail=f"Invalid level: {level}")
+
+        entries: list[LogErrorEntry] = []
+        any_truncated = False
+        for name, path in _LOG_FILES.items():
+            if not path.exists():
+                continue
+            content, truncated = _tail_file(path, max_lines=lines)
+            any_truncated = any_truncated or truncated
+            entries.extend(
+                e for e in _parse_log_errors(content, source_log=name) if e.level in wanted
+            )
+
+        # Newest-first (log lines are oldest-first within a file).
+        entries.sort(key=lambda e: e.timestamp, reverse=True)
+        return LogErrorsResponse(errors=entries, truncated=any_truncated)
 
     async def get_onboarding(self) -> JSONResponse:
         return JSONResponse({"completed": ONBOARDING_COMPLETE_FILE.exists()})

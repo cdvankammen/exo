@@ -41,6 +41,8 @@ from .api import ImageListResponse as ImageListResponse
 from .api import ImageSize as ImageSize
 from .api import InstanceLinkBody as InstanceLinkBody
 from .api import InstanceLinkResponse as InstanceLinkResponse
+from .api import LogErrorEntry as LogErrorEntry
+from .api import LogErrorsResponse as LogErrorsResponse
 from .api import LogFileListItem as LogFileListItem
 from .api import LogFileListResponse as LogFileListResponse
 from .api import Logprobs as Logprobs
@@ -53,6 +55,7 @@ from .api import PlaceInstanceParams as PlaceInstanceParams
 from .api import PlacementPreview as PlacementPreview
 from .api import PlacementPreviewResponse as PlacementPreviewResponse
 from .api import PowerUsage as PowerUsage
+from .api import PromoteMasterResponse as PromoteMasterResponse
 from .api import PromptTokensDetails as PromptTokensDetails
 from .api import SettingsUpdateParams as SettingsUpdateParams
 from .api import StartDownloadParams as StartDownloadParams

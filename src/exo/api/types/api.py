@@ -28,6 +28,8 @@ ErrorCode = Literal[
     "INSTANCE_NOT_FOUND",
     "IMAGE_NOT_FOUND",
     "PEER_UNREACHABLE",
+    "NODE_NOT_FOUND",
+    "INSTANCES_RUNNING",
     "NOT_FOUND",
     "INTERNAL_ERROR",
 ]
@@ -369,6 +371,12 @@ class DeleteInstanceResponse(BaseModel):
     instance_id: InstanceId
 
 
+class PromoteMasterResponse(BaseModel):
+    message: str
+    command_id: CommandId
+    target_node_id: NodeId
+
+
 class AwaitInstanceReadyMessage(BaseModel):
     type: Literal["ready"] = "ready"
     instance: Instance
@@ -606,4 +614,19 @@ class LogFileListResponse(FrozenModel):
 class LogTailResponse(FrozenModel):
     name: str
     content: str
+    truncated: bool
+
+
+class LogErrorEntry(FrozenModel):
+    """A single WARNING/ERROR/CRITICAL line parsed from a log file."""
+
+    timestamp: str
+    level: str
+    source: str
+    message: str
+    source_log: str
+
+
+class LogErrorsResponse(FrozenModel):
+    errors: list[LogErrorEntry]
     truncated: bool
