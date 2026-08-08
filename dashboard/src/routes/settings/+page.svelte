@@ -1,5 +1,6 @@
 <script lang="ts">
   import { onMount } from "svelte";
+  import HeaderNav from "$lib/components/HeaderNav.svelte";
 
   // ── Live cluster state (detected values — read-only) ──────────────────────
   let state = $state<{
@@ -179,7 +180,9 @@
   <title>EXO · Settings</title>
 </svelte:head>
 
-<div class="p-6 max-w-5xl mx-auto">
+<div class="min-h-screen bg-exo-dark-gray text-white">
+  <HeaderNav showHome={true} />
+  <div class="p-6 max-w-5xl mx-auto">
   <h1 class="text-2xl font-mono tracking-wider text-exo-light-gray mb-1">SETTINGS</h1>
   <p class="text-white/50 text-sm mb-6">
     Live cluster detection, editable <code class="font-mono">EXO_*</code> overrides and launch
@@ -353,4 +356,5 @@
       Linux GPU troubleshooting: <code class="font-mono">scripts/setup_linux_gpu.sh</code>.
     </p>
   </section>
+  </div>
 </div>
