@@ -545,19 +545,39 @@ def make_constrained_processor(
     schema: object = task.response_format
     if isinstance(schema, str):
         try:
-            schema = cast(object, json.loads(schema))
+            parsed = cast("object", json.loads(schema))
         except ValueError:
             logger.warning(
                 "Constrained decoding: invalid JSON schema string — ignoring"
             )
             return None
-    if not isinstance(schema, dict):
+        if not isinstance(parsed, dict):
+            logger.warning(
+                "Constrained decoding: response_format must be a JSON Schema object — ignoring"
+            )
+            return None
+        schema = cast("dict[str, object]", parsed)
+    if not isinstance(schema, dict):  # type: ignore[reportUnnecessaryIsInstance]  # runtime guard (test bypasses pydantic)
         logger.warning(
             "Constrained decoding: response_format must be a JSON Schema object — ignoring"
         )
         return None
+    schema_dict = cast("dict[str, Any]", schema)
+    # OpenAI-style wrapper: {"type": "json_object", "schema": {...}}.
+    # The actual JSON Schema lives under the "schema" key; without this
+    # unwrap the wrapper dict would be compiled as a "string"-typed value
+    # (unknown type -> _string_fsm) and the output would start with '"'.
+    inner_schema: object = schema_dict.get("schema")
+    if isinstance(inner_schema, dict):
+        schema_dict = cast("dict[str, Any]", inner_schema)
+    elif isinstance(schema_dict.get("json_schema"), dict):
+        # OpenAI structured outputs: {"type": "json_schema", "json_schema": {"schema": {...}}}
+        inner = cast("dict[str, Any]", schema_dict["json_schema"])
+        inner_schema = inner.get("schema")
+        if isinstance(inner_schema, dict):
+            schema_dict = cast("dict[str, Any]", inner_schema)
     try:
-        return ConstrainedDecodingProcessor(tokenizer, cast("dict[str, Any]", schema))
+        return ConstrainedDecodingProcessor(tokenizer, schema_dict)
     except ValueError:
         logger.warning(
             "Constrained decoding: unsupported schema keywords — ignoring (request "

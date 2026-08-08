@@ -260,15 +260,22 @@ def _star(inner: _FSM) -> _FSM:
 
 
 def _string_fsm() -> _FSM:
-    """A JSON string: " (escapes allowed) ... " — byte-level (handles multi-byte)."""
+    """A JSON string: " (escapes allowed) ... " — byte-level (handles multi-byte).
+
+    Standard n+1 construction: state 0 is the start, state 1 is inside the
+    string, 2 = after backslash, 3 = after \\u (4 hex digits), and state 4 is
+    the DEDICATED accept state reached by the closing quote. The accept state
+    has no outgoing transitions, so ``_sequence`` chaining decides what may
+    follow (e.g. ``,`` or ``}`` after an object value) — never another quote.
+    """
     # 0 = start (before opening quote), 1 = inside string, 2 = after backslash,
-    # 3 = after \u (4 hex digits)
-    transitions: list[dict[int, int]] = [{} for _ in range(4)]
-    accept = [False] * 4
+    # 3 = after \u (4 hex digits), 4 = accept (after closing quote)
+    transitions: list[dict[int, int]] = [{} for _ in range(5)]
+    accept = [False] * 5
     transitions[0][_QUOTE] = 1
     for b in range(256):
         if b == _QUOTE:
-            transitions[1][b] = 0  # closing quote -> back to start (accept)
+            transitions[1][b] = 4  # closing quote -> dedicated accept
             transitions[2][_QUOTE] = 1
         elif b == _BACKSLASH:
             transitions[1][b] = 2
@@ -282,8 +289,8 @@ def _string_fsm() -> _FSM:
     for b in range(256):
         if chr(b) in "0123456789abcdefABCDEF":
             transitions[3][b] = 1
-    accept[0] = True
-    return _FSM(4, transitions, accept)
+    accept[4] = True
+    return _FSM(5, transitions, accept)
 
 
 def _number_fsm() -> _FSM:
