@@ -27,6 +27,8 @@ class SocketConnection(FrozenModel):
     # Most recent reachability-probe round-trip time. Excluded from identity so
     # jitter does not make otherwise-identical edges unequal.
     latency_ms: float | None = None
+    # Most recent HTTP bandwidth probe (MiB/s). Same identity-exclusion rule.
+    bandwidth_mbps: float | None = None
 
     def __eq__(self, other: object) -> bool:
         if not isinstance(other, SocketConnection):

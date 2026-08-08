@@ -15,7 +15,7 @@ import anyio
 from anyio import BrokenResourceError, ClosedResourceError
 from fastapi import FastAPI, File, Form, HTTPException, Query, Request, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import FileResponse, JSONResponse, StreamingResponse
+from fastapi.responses import FileResponse, JSONResponse, Response, StreamingResponse
 from fastapi.staticfiles import StaticFiles
 from hypercorn.asyncio import serve  # pyright: ignore[reportUnknownVariableType]
 from hypercorn.config import Config
@@ -476,6 +476,7 @@ class API:
 
         self.app.get("/state")(self.get_state)
         self.app.get("/state/{path:path}")(self.get_state)
+        self.app.get("/v1/bandwidth-probe")(self.get_bandwidth_probe)
         self.app.get("/events")(self.stream_events)
         self.app.post("/download/start")(self.start_download)
         self.app.delete("/download/{node_id}/{model_id:path}")(self.delete_download)
@@ -508,6 +509,20 @@ class API:
                 status_code=404,
                 detail=f"unable to find path '{path.replace('/', '.')}' in state json",
             ) from e
+
+    async def get_bandwidth_probe(
+        self, size_bytes: int = Query(default=1_048_576)
+    ) -> Response:
+        """Return a fixed-size payload so peers can measure link throughput.
+
+        Used by the info gatherer's bandwidth probe (TODO #4/#5): transfer
+        time of this body over the socket link gives an end-to-end throughput
+        estimate. Size is clamped to [64 KiB, 8 MiB].
+        """
+        clamped = max(64 * 1024, min(size_bytes, 8 * 1024 * 1024))
+        return Response(
+            content=b"\0" * clamped, media_type="application/octet-stream"
+        )
 
     async def place_instance(self, payload: PlaceInstanceParams):
         command = PlaceInstance(

@@ -56,6 +56,8 @@ from exo.shared.types.worker.runners import RunnerId
 from exo.utils.channels import Receiver, Sender, channel
 from exo.utils.info_gatherer.info_gatherer import GatheredInfo, InfoGatherer
 from exo.utils.info_gatherer.net_profile import (
+    bandwidth_changed_materially,
+    check_bandwidth,
     check_reachable,
     latency_changed_materially,
 )
@@ -115,6 +117,7 @@ class Worker:
                 tg.start_soon(self.plan_step)
                 tg.start_soon(self._event_applier)
                 tg.start_soon(self._poll_connection_updates)
+                tg.start_soon(self._poll_bandwidth_updates)
                 tg.start_soon(self._reconcile_custom_cards)
         except* (EventRouterBrokenResourceError, EventRouterClosedResourceError):
             # Event router has been closed (try-star syntax handles error groups)
@@ -464,4 +467,50 @@ class Worker:
                     logger.debug(f"ping failed to discover {conn=}")
                     await self.event_sender.send(TopologyEdgeDeleted(conn=conn))
 
+            await anyio.sleep(poll_interval_seconds)
+
+    async def _poll_bandwidth_updates(self):
+        """Re-measure throughput on existing socket edges and republish on change.
+
+        Runs far less often than the latency poll (bandwidth probes transfer a
+        payload over the link). Only interfaces known to the network info are
+        probed; edges whose measured throughput changed materially are
+        replaced so consumers see fresh per-link bandwidth.
+        """
+        poll_interval_seconds = 30.0
+
+        while True:
+            existing_edges: dict[SocketConnection, Connection] = {
+                conn.edge: conn
+                for conn in self.state.topology.out_edges(self.node_id)
+                if isinstance(conn.edge, SocketConnection)
+            }
+            async for ip, nid, mbps in check_bandwidth(
+                self.state.topology,
+                self.node_id,
+                self.state.node_network,
+                api_port=self.api_port,
+            ):
+                edge = SocketConnection(
+                    sink_multiaddr=Multiaddr(address=f"/ip4/{ip}/tcp/{self.api_port}")
+                    if "." in ip
+                    else Multiaddr(address=f"/ip6/{ip}/tcp/{self.api_port}"),
+                    bandwidth_mbps=mbps,
+                )
+                old_conn = existing_edges.get(edge)
+                if old_conn is None:
+                    continue
+                if not isinstance(old_conn.edge, SocketConnection):
+                    continue
+                old_mbps = old_conn.edge.bandwidth_mbps
+                if bandwidth_changed_materially(old_mbps, mbps):
+                    logger.debug(
+                        f"bandwidth changed {old_mbps}MiB/s -> {mbps}MiB/s for {edge=}"
+                    )
+                    await self.event_sender.send(TopologyEdgeDeleted(conn=old_conn))
+                    await self.event_sender.send(
+                        TopologyEdgeCreated(
+                            conn=Connection(source=self.node_id, sink=nid, edge=edge)
+                        )
+                    )
             await anyio.sleep(poll_interval_seconds)
