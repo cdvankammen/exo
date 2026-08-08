@@ -738,6 +738,7 @@ def mlx_generate(
     constrained = make_constrained_processor(task, tokenizer)
     if constrained is not None:
         logits_processors = [constrained] + logits_processors
+        logger.info(f"T28 constrained decoding ACTIVE for {task.model}")
 
     sampler = make_sampler(
         temp=task.temperature if task.temperature is not None else 0.7,
