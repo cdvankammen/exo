@@ -415,8 +415,21 @@ def is_model_directory_complete(model_dir: Path, card: ModelCard | None = None) 
     Also checks for sibling weights repo.
     """
     file_list = _scan_model_directory(model_dir, recursive=True)
-    if file_list is None or not all(f.size is not None for f in file_list):
-        return False
+    if file_list is not None:
+        if not all(f.size is not None for f in file_list):
+            return False
+    else:
+        # No *.safetensors.index.json to verify against (GGUF models,
+        # single-file safetensors, tarball extractions, offline copies).
+        # Fall back to the offline-copy heuristic: a non-empty directory
+        # with no in-progress (.partial) files and at least one model
+        # marker is treated as complete. This is what lets a model folder
+        # be copied onto a new device and used WITHOUT exo ever needing an
+        # internet connection to check download completeness.
+        if any(p.is_file() for p in model_dir.rglob("*.partial")):
+            return False
+        if not _looks_like_model_dir(model_dir):
+            return False
     if (
         card is not None
         and card.vision is not None

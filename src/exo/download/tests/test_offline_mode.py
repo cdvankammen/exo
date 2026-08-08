@@ -14,6 +14,8 @@ from exo.download.download_utils import (
     _download_file,  # pyright: ignore[reportPrivateUsage]
     download_file_with_retry,
     fetch_file_list_with_cache,
+    is_model_directory_complete,
+    resolve_existing_model,
 )
 from exo.shared.types.common import ModelId
 from exo.shared.types.worker.downloads import FileListEntry
@@ -294,3 +296,77 @@ class TestFileListCacheTTL:
 
         assert result == fresh_list
         mock_fetch.assert_called_once()
+
+
+class TestModelDirectoryCompleteness:
+    """is_model_directory_complete offline-copy heuristics (TODO #8)."""
+
+    def test_complete_without_index_when_markers_present(self, tmp_path: Path) -> None:
+        """A copied GGUF-style folder (no safetensors index) with model
+        markers and no .partial files counts as complete."""
+        model_dir = tmp_path / "models--org--gguf"
+        model_dir.mkdir()
+        (model_dir / "config.json").write_text("{}")
+        (model_dir / "model.gguf").write_bytes(b"weights")
+
+        assert is_model_directory_complete(model_dir)
+
+    def test_complete_with_single_safetensors_without_index(
+        self, tmp_path: Path
+    ) -> None:
+        """Single-file safetensors model without an index is complete."""
+        model_dir = tmp_path / "single"
+        model_dir.mkdir()
+        (model_dir / "config.json").write_text("{}")
+        (model_dir / "model.safetensors").write_bytes(b"weights")
+
+        assert is_model_directory_complete(model_dir)
+
+    def test_incomplete_when_partial_files_present(self, tmp_path: Path) -> None:
+        """A .partial file anywhere means an in-progress download — not complete."""
+        model_dir = tmp_path / "partial"
+        model_dir.mkdir()
+        (model_dir / "config.json").write_text("{}")
+        (model_dir / "model.safetensors.partial").write_bytes(b"half")
+
+        assert not is_model_directory_complete(model_dir)
+
+    def test_incomplete_when_not_a_model_dir(self, tmp_path: Path) -> None:
+        """Empty or junk-only directories must not be treated as complete."""
+        empty_dir = tmp_path / "empty"
+        empty_dir.mkdir()
+
+        assert not is_model_directory_complete(empty_dir)
+
+        junk_dir = tmp_path / "junk"
+        junk_dir.mkdir()
+        (junk_dir / "notes.txt").write_text("not a model")
+
+        assert not is_model_directory_complete(junk_dir)
+
+    def test_index_based_check_still_strict(self, tmp_path: Path) -> None:
+        """When a safetensors index exists, missing weights must still fail."""
+        model_dir = tmp_path / "indexed"
+        model_dir.mkdir()
+        (model_dir / "config.json").write_text("{}")
+        (model_dir / "model.safetensors.index.json").write_text(
+            '{"metadata": {"total_size": 100}, "weight_map": '
+            '{"a": "model-00001-of-00002.safetensors", '
+            '"b": "model-00002-of-00002.safetensors"}}'
+        )
+        (model_dir / "model-00001-of-00002.safetensors").write_bytes(b"one")
+
+        assert not is_model_directory_complete(model_dir)
+
+    async def test_resolve_existing_model_finds_copied_gguf(
+        self, model_id: ModelId, temp_models_dir: Path
+    ) -> None:
+        """resolve_existing_model returns a copied GGUF folder without internet."""
+        model_dir = temp_models_dir / model_id.normalize()
+        model_dir.mkdir()
+        (model_dir / "config.json").write_text("{}")
+        (model_dir / "model.gguf").write_bytes(b"weights")
+
+        found = resolve_existing_model(model_id)
+
+        assert found == model_dir
