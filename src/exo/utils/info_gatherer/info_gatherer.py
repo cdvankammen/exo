@@ -213,6 +213,16 @@ class MacThunderboltConnections(TaggedModel):
 
 _IBV_DEVICE_LINE = re.compile(r"^\s*(\S+)\s+([0-9a-fA-F]{16})\s*$")
 
+# ibv_devinfo prints one section per device with a per-port state line, e.g.
+# "port 1: state: ACTIVE (4)" or "state ACTIVE". Treat any of these as a
+# usable (link-up) port.
+_IBV_ACTIVE_STATE_PATTERNS = (
+    "state: ACTIVE",
+    "state ACTIVE",
+    "PORT_ACTIVE",
+    "state ACTIVE (4)",
+)
+
 
 class RdmaCtlStatus(TaggedModel):
     enabled: bool
@@ -239,13 +249,15 @@ class RdmaCtlStatus(TaggedModel):
 
     @staticmethod
     async def _gather_has_verbs_device() -> bool:
-        """True if `ibv_devices` enumerates at least one RDMA verbs device.
+        """True if `ibv_devices` enumerates at least one RDMA verbs device
+        AND `ibv_devinfo` reports an active port.
 
         `rdma_ctl status` can report "enabled" while no verbs device is exposed
         (Apple gating / unprovisioned Thunderbolt RDMA). jaccl then crashes with
         a NULL protection-domain dereference instead of failing cleanly
-        (ml-explore/mlx#3777). Surface that state so placement can reject
-        RDMA-backed instances up front.
+        (ml-explore/mlx#3777). A device can also be enumerated but its port not
+        yet link-up — `ibv_devinfo` validates the port state, so placement can
+        reject RDMA-backed instances until RDMA is actually usable.
         """
         if not IS_DARWIN or shutil.which("ibv_devices") is None:
             return False
@@ -257,7 +269,24 @@ class RdmaCtlStatus(TaggedModel):
         if proc.returncode != 0:
             return False
         output = proc.stdout.decode("utf-8", errors="replace")
-        return any(_IBV_DEVICE_LINE.match(line) for line in output.splitlines())
+        if not any(_IBV_DEVICE_LINE.match(line) for line in output.splitlines()):
+            return False
+        # Devices are enumerated — confirm at least one port is ACTIVE via
+        # ibv_devinfo. Fail open if ibv_devinfo is missing or itself errors:
+        # the ibv_devices enumeration is still authoritative for device
+        # presence, and we don't want a validator regression to re-enable
+        # placement on a device that never existed.
+        if shutil.which("ibv_devinfo") is None:
+            return True
+        try:
+            with anyio.fail_after(5):
+                dev_proc = await anyio.run_process(["ibv_devinfo"], check=False)
+        except (TimeoutError, OSError):
+            return True
+        if dev_proc.returncode != 0:
+            return True
+        dev_output = dev_proc.stdout.decode("utf-8", errors="replace")
+        return any(pattern in dev_output for pattern in _IBV_ACTIVE_STATE_PATTERNS)
 
 
 class ThunderboltBridgeInfo(TaggedModel):
