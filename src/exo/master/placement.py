@@ -225,6 +225,20 @@ def place_instance(
     cycles = topology.get_cycles()
     candidate_cycles = list(filter(lambda it: len(it) >= command.min_nodes, cycles))
 
+    if command.node_layers is not None:
+        if command.sharding != Sharding.Pipeline:
+            raise ValueError("Manual layer allocation requires Pipeline sharding")
+        requested_nodes = set(command.node_layers)
+        candidate_cycles = [
+            cycle
+            for cycle in candidate_cycles
+            if set(cycle.node_ids) == requested_nodes
+        ]
+        if not candidate_cycles:
+            raise ValueError(
+                "No connected cycle exactly matches the manual layer allocation nodes"
+            )
+
     # Filter to cycles containing all required nodes (subset matching)
     if required_nodes:
         candidate_cycles = [
@@ -403,6 +417,7 @@ def place_instance(
         node_memory,
         force_override=command.force_override,
         node_identities=node_identities,
+        node_layers=command.node_layers,
     )
 
     preferred_backends = [

@@ -588,6 +588,7 @@ class API:
             instance_meta=payload.instance_meta,
             min_nodes=payload.min_nodes,
             force_override=payload.force_override,
+            node_layers=payload.node_layers,
         )
         await self._send(command)
 

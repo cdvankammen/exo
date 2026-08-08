@@ -39,6 +39,7 @@ class PlaceInstance(BaseCommand):
     sharding: Sharding
     instance_meta: InstanceMeta
     min_nodes: int
+    node_layers: dict[NodeId, int] | None = None
     # When True, skip memory-sufficiency checks (cycles/layers). Intended for
     # users who explicitly want to attempt loading a model that exceeds the
     # reported available memory ("load the model anyway").

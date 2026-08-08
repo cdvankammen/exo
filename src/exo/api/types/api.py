@@ -11,6 +11,7 @@ from exo.shared.types.memory import Memory
 from exo.shared.types.text_generation import ReasoningDialect, ReasoningEffort
 from exo.shared.types.worker.instances import Instance, InstanceId, InstanceMeta
 from exo.shared.types.worker.shards import Sharding, ShardMetadata
+from exo.utils.extra_fields_warner import WarnExtraModel
 from exo.utils.pydantic_ext import FrozenModel
 
 FinishReason = Literal[
@@ -249,7 +250,7 @@ class StreamOptions(BaseModel):
     include_usage: bool = False
 
 
-class ChatCompletionRequest(BaseModel):
+class ChatCompletionRequest(WarnExtraModel):
     model: ModelId
     frequency_penalty: float | None = None
     messages: list[ChatCompletionMessage]
@@ -287,7 +288,7 @@ class BenchChatCompletionRequest(ChatCompletionRequest):
     use_prefix_cache: bool = False
 
 
-class AddCustomModelParams(BaseModel):
+class AddCustomModelParams(WarnExtraModel):
     model_id: ModelId
 
 
@@ -300,7 +301,7 @@ class HuggingFaceSearchResult(BaseModel):
     tags: list[str] = Field(default_factory=list)
 
 
-class PlaceInstanceParams(BaseModel):
+class PlaceInstanceParams(WarnExtraModel):
     model_id: ModelId
     sharding: Sharding = Sharding.Pipeline
     instance_meta: InstanceMeta = InstanceMeta.MlxRing
@@ -308,9 +309,13 @@ class PlaceInstanceParams(BaseModel):
     # When True, bypass memory-sufficiency checks and attempt to place/load
     # the model anyway.
     force_override: bool = False
+    # Optional explicit per-node layer allocation (Pipeline sharding only).
+    # Keys must exactly match a connected pipeline cycle and sum to the
+    # model's layer count.
+    node_layers: dict[NodeId, int] | None = None
 
 
-class CreateInstanceParams(BaseModel):
+class CreateInstanceParams(WarnExtraModel):
     instance: Instance
     # When True, bypass the total-available-memory check when creating this
     # instance ("load the model anyway").
@@ -331,7 +336,7 @@ class PlacementPreviewResponse(BaseModel):
     previews: list[PlacementPreview]
 
 
-class DeleteInstanceTaskParams(BaseModel):
+class DeleteInstanceTaskParams(WarnExtraModel):
     instance_id: str
 
 
@@ -392,7 +397,7 @@ class CancelCommandResponse(BaseModel):
     command_id: CommandId
 
 
-class InstanceLinkBody(BaseModel):
+class InstanceLinkBody(WarnExtraModel):
     prefill_instances: list[InstanceId]
     decode_instances: list[InstanceId]
 
@@ -431,7 +436,7 @@ class AdvancedImageParams(BaseModel):
     num_sync_steps: Annotated[int, Field(ge=1, le=100)] | None = None
 
 
-class ImageGenerationTaskParams(BaseModel):
+class ImageGenerationTaskParams(WarnExtraModel):
     prompt: str
     background: str | None = None
     model: str
@@ -460,7 +465,7 @@ class BenchImageGenerationTaskParams(ImageGenerationTaskParams):
     bench: bool = True
 
 
-class ImageEditsTaskParams(BaseModel):
+class ImageEditsTaskParams(WarnExtraModel):
     """Internal task params for image-editing requests."""
 
     image_data: str = ""  # Base64-encoded image (empty when using chunked transfer)
