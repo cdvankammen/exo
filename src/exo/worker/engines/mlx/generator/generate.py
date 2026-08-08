@@ -53,8 +53,10 @@ from exo.worker.engines.mlx.cache import (
 )
 from exo.worker.engines.mlx.constants import (
     DEFAULT_TOP_LOGPROBS,
+    KEEP_KV_SIZE,
     KV_CACHE_BITS,
     KV_CACHE_GROUP_SIZE,
+    MAX_KV_SIZE,
     MAX_TOKENS,
 )
 from exo.worker.engines.mlx.generator.remote_prefill import remote_prefill
@@ -626,7 +628,9 @@ def mlx_generate(
     matched_index: int | None = None
     is_exact_hit = False
     if kv_prefix_cache is None:
-        caches = make_kv_cache(model=model)
+        caches = make_kv_cache(
+            model=model, max_kv_size=MAX_KV_SIZE, keep=KEEP_KV_SIZE or 0
+        )
         prompt_tokens = all_prompt_tokens
     else:
         caches, prompt_tokens, matched_index, is_exact_hit = (
@@ -642,7 +646,9 @@ def mlx_generate(
                 "KV prefix cache hit lengths diverge across pipeline ranks; "
                 "discarding the hit to keep prefill in lockstep"
             )
-            caches = make_kv_cache(model=model)
+            caches = make_kv_cache(
+                model=model, max_kv_size=MAX_KV_SIZE, keep=KEEP_KV_SIZE or 0
+            )
             prompt_tokens = all_prompt_tokens
             prefix_hit_length = 0
             matched_index = None

@@ -36,7 +36,12 @@ from exo.worker.engines.mlx.cache import (
     encode_prompt,
     make_kv_cache,
 )
-from exo.worker.engines.mlx.constants import DEFAULT_TOP_LOGPROBS, MAX_TOKENS
+from exo.worker.engines.mlx.constants import (
+    DEFAULT_TOP_LOGPROBS,
+    KEEP_KV_SIZE,
+    MAX_KV_SIZE,
+    MAX_TOKENS,
+)
 from exo.worker.engines.mlx.generator.generate import (
     ban_token_ids,
     eos_ids_from_tokenizer,
@@ -188,7 +193,11 @@ class ExoBatchGenerator:
                     "KV prefix cache hit lengths diverge across pipeline ranks; "
                     "discarding the hit to keep prefill in lockstep"
                 )
-                cache = make_kv_cache(self.model)
+                cache = make_kv_cache(
+                    self.model,
+                    max_kv_size=MAX_KV_SIZE,
+                    keep=KEEP_KV_SIZE or 0,
+                )
                 prefix_hit_length = 0
                 matched_index = None
                 is_exact_hit = False
@@ -199,7 +208,9 @@ class ExoBatchGenerator:
                 )
                 prompt_tokens = remaining_tokens
         else:
-            cache = make_kv_cache(self.model)
+            cache = make_kv_cache(
+                self.model, max_kv_size=MAX_KV_SIZE, keep=KEEP_KV_SIZE or 0
+            )
 
         seed = task_params.seed if task_params.seed is not None else 42
         mx.random.seed(seed)

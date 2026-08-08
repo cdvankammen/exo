@@ -5,8 +5,14 @@ import os
 
 ATTENTION_KV_BITS: int | None = 4
 MAX_TOKENS: int = 32168
-MAX_KV_SIZE: int | None = 3200
-KEEP_KV_SIZE: int | None = 1600
+# T9 (#1860): RotatingKVCache cap. Previously a dead constant (3200) that was
+# never wired into the generator, so long conversations grew the KV cache
+# until OOM. Now used by make_kv_cache; default 16384 (4x the old cap, still
+# bounded) is safer than the PR's 131072 under 8-way parallel batches.
+# Power users can raise it via EXO_MAX_KV_SIZE (matches EXO_KV_CACHE_BITS
+# knob philosophy).
+MAX_KV_SIZE: int | None = int(os.getenv("EXO_MAX_KV_SIZE", "16384"))
+KEEP_KV_SIZE: int | None = int(os.getenv("EXO_KEEP_KV_SIZE", "8000"))
 QUANTIZE_MODEL_MODE: str | None = "affine"
 
 # Number of bits to quantize the KV cache to (mlx_lm's QuantizedKVCache, e.g.
