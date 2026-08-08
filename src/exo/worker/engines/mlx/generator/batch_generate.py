@@ -2,7 +2,7 @@ import contextlib
 import time
 import uuid
 from dataclasses import dataclass, field
-from typing import Callable, Literal, cast
+from typing import Any, Callable, Literal, cast
 
 import mlx.core as mx
 from mlx_lm.generate import (
@@ -103,6 +103,31 @@ class _EngineTask:
     last_gen_token_time: float | None = None
 
 
+def can_defer_prefill(
+    group: mx.distributed.Group | None,
+    has_prefix_cache: bool,
+    use_prefix_cache: bool,
+    has_vision: bool,
+    is_bench: bool,
+) -> bool:
+    """Whether a prompt can skip eager prefill and use the chunked deferred path.
+
+    TODO #7: the eager prefill in ``submit`` runs the WHOLE prompt synchronously
+    on the GPU before inserting into the batch generator, which stalls the
+    current batch's decode. The deferred path hands the full prompt to mlx-lm's
+    BatchGenerator, which decodes the current batch first and prefills new
+    prompts in chunks gated by batch capacity. Only safe when nothing needs the
+    eager prefill's side effects: no distributed pipeline sync, no prefix-cache
+    save/restore, no vision embedding patching, no bench timing.
+    """
+    return (
+        group is None
+        and (not has_prefix_cache or not use_prefix_cache)
+        and not has_vision
+        and not is_bench
+    )
+
+
 @dataclass(eq=False)
 class ExoBatchGenerator:
     model: Model
@@ -172,6 +197,21 @@ class ExoBatchGenerator:
             media_regions = vision.media_regions
 
         is_bench = task_params.bench
+
+        # TODO #7: when this prompt needs nothing beyond a plain KV cache
+        # (single node, no prefix cache, no vision, no bench), defer prefill to
+        # mlx-lm's BatchGenerator: it decodes the current batch FIRST and
+        # prefills new prompts in chunks gated by batch capacity, so a long new
+        # prompt never blocks the current batch's decode. The eager path below
+        # (distributed pipeline sync, prefix-cache save, remote prefill) stays
+        # for the cases that need it.
+        defer_prefill = can_defer_prefill(
+            group=self.group,
+            has_prefix_cache=self.kv_prefix_cache is not None,
+            use_prefix_cache=task_params.use_prefix_cache,
+            has_vision=vision is not None,
+            is_bench=task_params.bench,
+        )
 
         prefix_hit_length = 0
         matched_index: int | None = None
@@ -250,35 +290,36 @@ class ExoBatchGenerator:
         _prefill_tokens: int = 0
         cache_snapshots: list[CacheSnapshot] = []
         remote_prefilled = False
-        with vision_ctx:
-            if use_remote and task_params.prefill_endpoint is not None:
-                try:
-                    _prefill_tps, _prefill_tokens, cache_snapshots = remote_prefill(
+        if not defer_prefill:
+            with vision_ctx:
+                if use_remote and task_params.prefill_endpoint is not None:
+                    try:
+                        _prefill_tps, _prefill_tokens, cache_snapshots = remote_prefill(
+                            prompt_tokens[:-1],
+                            cache,
+                            on_prefill_progress,
+                            endpoint=task_params.prefill_endpoint,
+                            request_id=str(uuid.uuid4()),
+                            model_id=str(task_params.model),
+                            start_pos=prefix_hit_length,
+                        )
+                        remote_prefilled = True
+                    except Exception:
+                        logger.opt(exception=True).warning(
+                            "Remote prefill failed, falling back to local prefill"
+                        )
+
+                if not remote_prefilled:
+                    _prefill_tps, _prefill_tokens, cache_snapshots = prefill(
+                        self.model,
+                        self.tokenizer,
+                        sampler,
                         prompt_tokens[:-1],
                         cache,
+                        self.group,
                         on_prefill_progress,
-                        endpoint=task_params.prefill_endpoint,
-                        request_id=str(uuid.uuid4()),
-                        model_id=str(task_params.model),
-                        start_pos=prefix_hit_length,
+                        distributed_prompt_progress_callback,
                     )
-                    remote_prefilled = True
-                except Exception:
-                    logger.opt(exception=True).warning(
-                        "Remote prefill failed, falling back to local prefill"
-                    )
-
-            if not remote_prefilled:
-                _prefill_tps, _prefill_tokens, cache_snapshots = prefill(
-                    self.model,
-                    self.tokenizer,
-                    sampler,
-                    prompt_tokens[:-1],
-                    cache,
-                    self.group,
-                    on_prefill_progress,
-                    distributed_prompt_progress_callback,
-                )
 
         prefix_cache_hit: Literal["none", "partial", "exact"] = "none"
         if matched_index is not None and prefix_hit_length > 0:
@@ -302,7 +343,7 @@ class ExoBatchGenerator:
                 c.values = c._trim(trim_size, c.values)
                 c._idx = c.max_size
 
-        if task_params.use_prefix_cache:
+        if task_params.use_prefix_cache and not defer_prefill:
             min_prefix_hit_length = max(
                 1000, system_prompt_token_count(task_params, self.tokenizer)
             )
@@ -347,10 +388,27 @@ class ExoBatchGenerator:
 
         max_tokens = task_params.max_output_tokens or MAX_TOKENS
 
+        if defer_prefill:
+            # Deferred path: hand the FULL prompt to the BatchGenerator with an
+            # empty cache — its chunked PromptProcessingBatch prefills it in
+            # prefill_step_size chunks, decode-first, gated by batch capacity.
+            insert_tokens = all_prompt_tokens
+            insert_caches: list[list[Any] | None] = [None]
+        else:
+            last_tokens = (
+                prompt_tokens[-1:]
+                if uses_ring_sequence_parallel_prefill(
+                    self.model, len(prompt_tokens) - 1, self.group
+                )
+                else prompt_tokens[-2:]
+            )
+            insert_tokens = last_tokens
+            insert_caches = [list(cache)]
+
         uids = self._mlx_gen.insert(
-            prompts=[cast(list[int], last_tokens.tolist())],
+            prompts=[cast(list[int], insert_tokens.tolist())],
             max_tokens=[max_tokens],
-            caches=[list(cache)],
+            caches=cast(list[list[Any]] | None, insert_caches),
             samplers=[sampler],
             logits_processors=[logits_processors],
         )
