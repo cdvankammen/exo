@@ -510,7 +510,16 @@ class Master:
         while True:
             # Garbage-collect downloads left behind by node IDs that disappeared
             # before the master observed a last-seen timeout for them.
+            # A node that is actively heartbeating (recent last_seen) but has
+            # stale download entries is REJOINING, not retired — don't send
+            # NodeTimedOut for it or it will be removed from topology again
+            # the instant it re-announces (stable node IDs + one-shot
+            # announcements make this a real race, seen live 08-07).
+            now = datetime.now(tz=timezone.utc)
             for node_id in orphaned_download_node_ids(self.state):
+                last = self.state.last_seen.get(node_id)
+                if last is not None and now - last < node_inactivity_timeout:
+                    continue
                 logger.info(f"Removing downloads belonging to retired node {node_id}")
                 await self.event_sender.send(NodeTimedOut(node_id=node_id))
 
