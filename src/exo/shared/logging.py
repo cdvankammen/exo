@@ -1,7 +1,9 @@
 import logging
+import os
 import sys
 from collections.abc import Iterator
 from pathlib import Path
+from typing import Protocol, cast
 
 import zstandard
 from hypercorn import Config
@@ -9,6 +11,108 @@ from hypercorn.logging import Logger as HypercornLogger
 from loguru import logger
 
 _MAX_LOG_ARCHIVES = 5
+
+
+class _LogLevel(Protocol):
+    """Loguru's record['level'] object (has ``.no``)."""
+
+    no: int
+
+# TODO #27: per-module log filters. Loguru handler levels are checked before
+# the filter runs, so the handler level is pinned to TRACE and the filter does
+# the per-record threshold decision.
+_LEVEL_NO: dict[str, int] = {
+    "TRACE": 5,
+    "DEBUG": 10,
+    "INFO": 20,
+    "WARNING": 30,
+    "ERROR": 40,
+    "CRITICAL": 50,
+}
+
+_LOG_LEVELS_ENV = "EXO_LOG_LEVEL"
+_MODULE_LEVELS_ENV = "EXO_LOG_LEVELS"
+
+
+def parse_module_levels(raw: str | None) -> dict[str, str]:
+    """Parse the EXO_LOG_LEVELS spec: "module=LEVEL,module=LEVEL".
+
+    Module names are prefixes: "exo.master" also applies to "exo.master.main".
+    Invalid entries are skipped so a typo never breaks startup.
+    """
+    overrides: dict[str, str] = {}
+    if not raw:
+        return overrides
+    for part in raw.split(","):
+        part = part.strip()
+        if not part or "=" not in part:
+            continue
+        module, _, level = part.partition("=")
+        module = module.strip()
+        level = level.strip().upper()
+        if module and level in _LEVEL_NO:
+            overrides[module] = level
+    return overrides
+
+
+def make_module_filter(
+    overrides: dict[str, str], base_level: str
+) -> object:
+    """Return a loguru filter applying per-module levels over a base level.
+
+    The most specific (longest) matching module prefix wins; modules without
+    an override use ``base_level``.
+    """
+    base_no = _LEVEL_NO[base_level.upper()]
+    sorted_prefixes = sorted(overrides, key=len, reverse=True)
+
+    def _filter(record: dict[str, object]) -> bool:
+        name = str(record.get("name") or "")
+        threshold = base_no
+        for prefix in sorted_prefixes:
+            if name == prefix or name.startswith(prefix + "."):
+                threshold = _LEVEL_NO[overrides[prefix]]
+                break
+        level = cast("_LogLevel", record.get("level"))
+        return level.no >= threshold
+
+    return _filter
+
+
+class _ModuleLevelFilter:
+    """Picklable per-module log-level filter.
+
+    loguru is configured with ``enqueue=True``, which serializes log
+    messages (and the filter) across threads/processes. A local closure
+    (``make_module_filter.<locals>._filter``) cannot be pickled and crashed
+    runner multiprocessing spawns with:
+      AttributeError: Can't get local object 'make_module_filter.<locals>._filter'
+    This class is module-level (hence picklable) and applies the same
+    most-specific-prefix-wins logic.
+    """
+
+    def __init__(self, overrides: dict[str, str], base_level: str):
+        self._base_no = _LEVEL_NO[base_level.upper()]
+        self._sorted_prefixes = sorted(overrides, key=len, reverse=True)
+        self._overrides = dict(overrides)
+
+    def __call__(self, record: dict[str, object]) -> bool:
+        name = str(record.get("name") or "")
+        threshold = self._base_no
+        for prefix in self._sorted_prefixes:
+            if name == prefix or name.startswith(prefix + "."):
+                threshold = _LEVEL_NO[self._overrides[prefix]]
+                break
+        level = cast("_LogLevel", record.get("level"))
+        return level.no >= threshold
+
+
+def resolve_base_level(verbosity: int) -> str:
+    """Base log level: EXO_LOG_LEVEL env wins, else DEBUG at verbosity > 0."""
+    env_level = os.environ.get(_LOG_LEVELS_ENV)
+    if env_level and env_level.strip().upper() in _LEVEL_NO:
+        return env_level.strip().upper()
+    return "DEBUG" if verbosity > 0 else "INFO"
 
 
 def _zstd_compress(filepath: str) -> None:
@@ -56,35 +160,42 @@ def logger_setup(log_file: Path | None, verbosity: int = 0):
     # replace all stdlib loggers with _InterceptHandlers that log to loguru
     logging.basicConfig(handlers=[_InterceptHandler()], level=0)
 
+    # TODO #27: per-module log filters. Base level: EXO_LOG_LEVEL env >
+    # verbosity flag. EXO_LOG_LEVELS="exo.master=DEBUG,exo.worker=WARNING"
+    # overrides individual modules. The handler level is pinned to TRACE and
+    # the filter does the threshold decision (loguru checks level before
+    # filter).
+    base_level = resolve_base_level(verbosity)
+    module_levels = parse_module_levels(os.environ.get(_MODULE_LEVELS_ENV))
+    log_filter = _ModuleLevelFilter(module_levels, base_level)
+
     # diagnose=False everywhere: loguru's variable inspection calls repr() on
     # every local in the traceback, and repr of MLX device objects can crash
     # the process mid-log (observed as an opaque SIGSEGV replacing the actual
     # runner exception on the CUDA backend).
 
-    if verbosity == 0:
-        logger.add(
-            sys.__stderr__,  # type: ignore
-            format="[ {time:hh:mm:ss.SSSSA} | <level>{level: <8}</level>] <level>{message}</level>",
-            level="INFO",
-            colorize=True,
-            enqueue=True,
-            diagnose=False,
-        )
-    else:
-        logger.add(
-            sys.__stderr__,  # type: ignore
-            format="[ {time:YYYY-MM-DD HH:mm:ss.SSS} | <level>{level: <8}</level> | {name}:{function}:{line} ] <level>{message}</level>",
-            level="DEBUG",
-            colorize=True,
-            enqueue=True,
-            diagnose=False,
-        )
+    logger.add(
+        sys.__stderr__,  # type: ignore
+        format=(
+            "[ {time:hh:mm:ss.SSSSA} | <level>{level: <8}</level>] <level>{message}</level>"
+            if verbosity == 0
+            else "[ {time:YYYY-MM-DD HH:mm:ss.SSS} | <level>{level: <8}</level> | {name}:{function}:{line} ] <level>{message}</level>"
+        ),
+        level=0,  # filter decides
+        # mypy/pyright: loguru's FilterFunction is Callable[[Dict[str, Any]], bool];
+        # our picklable _ModuleLevelFilter matches structurally.
+        filter=log_filter,  # type: ignore[reportArgumentType]
+        colorize=True,
+        enqueue=True,
+        diagnose=False,
+    )
     if log_file:
         rotate_once = _once_then_never()
         logger.add(
             log_file,
             format="[ {time:YYYY-MM-DD HH:mm:ss.SSS} | {level: <8} | {name}:{function}:{line} ] {message}",
-            level="DEBUG" if verbosity > 0 else "INFO",
+            level=0,  # filter decides
+            filter=log_filter,  # type: ignore[reportArgumentType] — picklable filter, see above.
             colorize=False,
             enqueue=True,
             diagnose=False,
