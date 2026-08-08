@@ -12,8 +12,13 @@ final class FirstLaunchPopout {
     /// Called when the user completes onboarding (clicks Open Dashboard or dismisses).
     var onComplete: (() -> Void)?
 
-    func show() {
+    /// Whether the countdown should auto-open the dashboard. Default true for
+    /// backward compatibility; EXOApp passes the user preference (default OFF).
+    private var autoOpenDashboard = true
+
+    func show(autoOpenDashboard: Bool = true) {
         guard popover == nil else { return }
+        self.autoOpenDashboard = autoOpenDashboard
 
         // The status bar button may not exist yet on first launch; retry generously.
         showWithRetry(attemptsRemaining: 15)
@@ -21,8 +26,11 @@ final class FirstLaunchPopout {
 
     private func showWithRetry(attemptsRemaining: Int) {
         guard attemptsRemaining > 0 else {
-            // Exhausted retries — fall back to just opening the dashboard directly.
-            openDashboard()
+            // Exhausted retries — only open the dashboard if the user opted in;
+            // otherwise just finish silently (popout stays hidden).
+            if autoOpenDashboard {
+                openDashboard()
+            }
             onComplete?()
             return
         }
@@ -56,11 +64,13 @@ final class FirstLaunchPopout {
         self.popover = pop
         pop.show(relativeTo: button.bounds, of: button, preferredEdge: .minY)
 
-        // Auto-open dashboard after 10s then dismiss
+        // Auto-open dashboard after 10s then dismiss (only if user opted in).
         countdownTask = Task {
             try? await Task.sleep(nanoseconds: 10_000_000_000)
             if !Task.isCancelled {
-                openDashboard()
+                if autoOpenDashboard {
+                    openDashboard()
+                }
                 onComplete?()
                 dismiss()
             }

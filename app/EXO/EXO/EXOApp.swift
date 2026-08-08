@@ -77,7 +77,9 @@ struct EXOApp: App {
                             self.firstLaunchPopout.onComplete = { [weak controller] in
                                 controller?.markOnboardingCompleted()
                             }
-                            self.firstLaunchPopout.show()
+                            self.firstLaunchPopout.show(
+                                autoOpenDashboard: controller?.openDashboardOnLaunch ?? false
+                            )
                         }
                     }
                 }

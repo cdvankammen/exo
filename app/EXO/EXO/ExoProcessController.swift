@@ -9,6 +9,7 @@ private let enableImageModelsKey = "EXOEnableImageModels"
 private let offlineModeKey = "EXOOfflineMode"
 private let fastSynchEnabledKey = "EXOFastSynchEnabled"
 private let onboardingCompletedKey = "EXOOnboardingCompleted"
+private let openDashboardOnLaunchKey = "EXOOpenDashboardOnLaunch"
 private let defaultModelsDirKey = "EXODefaultModelsDir"
 private let additionalModelsDirsKey = "EXOAdditionalModelsDirs"
 private let readOnlyModelsDirsKey = "EXOReadOnlyModelsDirs"
@@ -107,6 +108,20 @@ final class ExoProcessController: ObservableObject {
     {
         didSet {
             UserDefaults.standard.set(fastSynchEnabled, forKey: fastSynchEnabledKey)
+        }
+    }
+    /// When true, the welcome popout auto-opens the web dashboard after its
+    /// countdown. Default OFF — the popout still appears, but the browser
+    /// stays closed unless the user clicks "Open" or enables this in Settings.
+    @Published var openDashboardOnLaunch: Bool = {
+        if UserDefaults.standard.object(forKey: openDashboardOnLaunchKey) == nil {
+            return false
+        }
+        return UserDefaults.standard.bool(forKey: openDashboardOnLaunchKey)
+    }()
+    {
+        didSet {
+            UserDefaults.standard.set(openDashboardOnLaunch, forKey: openDashboardOnLaunchKey)
         }
     }
     @Published var defaultModelsDir: String = {

@@ -16,6 +16,7 @@ struct SettingsView: View {
     @State private var pendingEnableImageModels = false
     @State private var pendingOfflineMode = false
     @State private var pendingFastSynchEnabled = false
+    @State private var pendingOpenDashboardOnLaunch = false
     @State private var pendingDefaultModelsDir: String = ""
     @State private var pendingAdditionalModelsDirs: String = ""
     @State private var pendingReadOnlyModelsDirs: String = ""
@@ -54,6 +55,7 @@ struct SettingsView: View {
             pendingEnableImageModels = controller.enableImageModels
             pendingOfflineMode = controller.offlineMode
             pendingFastSynchEnabled = controller.fastSynchEnabled
+            pendingOpenDashboardOnLaunch = controller.openDashboardOnLaunch
             pendingDefaultModelsDir = controller.defaultModelsDir
             pendingAdditionalModelsDirs = controller.additionalModelsDirs
             pendingReadOnlyModelsDirs = controller.readOnlyModelsDirs
@@ -102,6 +104,13 @@ struct SettingsView: View {
             Section {
                 Toggle("Offline Mode", isOn: $pendingOfflineMode)
                 Text("Skip internet checks and use only locally available models.")
+                    .font(.caption)
+                    .foregroundColor(.secondary)
+            }
+
+            Section {
+                Toggle("Open Dashboard on Launch", isOn: $pendingOpenDashboardOnLaunch)
+                Text("Automatically open the web dashboard in your browser when EXO starts.")
                     .font(.caption)
                     .foregroundColor(.secondary)
             }
@@ -603,6 +612,7 @@ struct SettingsView: View {
         pendingNamespace != controller.customNamespace || pendingHFToken != controller.hfToken
             || pendingHFEndpoint != controller.hfEndpoint
             || pendingOfflineMode != controller.offlineMode
+            || pendingOpenDashboardOnLaunch != controller.openDashboardOnLaunch
     }
 
     private var hasModelChanges: Bool {
@@ -625,6 +635,7 @@ struct SettingsView: View {
         controller.hfToken = pendingHFToken
         controller.hfEndpoint = pendingHFEndpoint
         controller.offlineMode = pendingOfflineMode
+        controller.openDashboardOnLaunch = pendingOpenDashboardOnLaunch
         restartIfRunning()
     }
 
