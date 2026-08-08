@@ -121,3 +121,7 @@ EXO_MAX_INSTANCE_RETRIES = 5
 # Optional API bearer token (T23). When set, all API routes except the
 # dashboard static assets require `Authorization: Bearer <EXO_API_TOKEN>`.
 EXO_API_TOKEN: str | None = os.getenv("EXO_API_TOKEN", None)
+
+# API bind host (T12). Default 0.0.0.0 = all interfaces (cluster behavior).
+# Set to 127.0.0.1 to expose the API only on localhost (security).
+EXO_API_HOST: str = os.getenv("EXO_API_HOST", "0.0.0.0")

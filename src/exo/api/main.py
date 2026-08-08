@@ -138,6 +138,7 @@ from exo.shared.apply import apply
 from exo.shared.constants import (
     DASHBOARD_DIR,
     ENABLE_DISAGGREGATION,
+    EXO_API_HOST,
     EXO_API_TOKEN,
     EXO_CACHE_HOME,
     EXO_EVENT_LOG_DIR,
@@ -2219,7 +2220,7 @@ class API:
 
     async def run_api(self, ev: anyio.Event):
         cfg = Config()
-        cfg.bind = [f"0.0.0.0:{self.port}"]
+        cfg.bind = [f"{EXO_API_HOST}:{self.port}"]
         # nb: shared.logging needs updating if any of this changes
         cfg.accesslog = None
         cfg.errorlog = "-"
