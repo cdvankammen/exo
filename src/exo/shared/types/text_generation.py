@@ -135,6 +135,9 @@ class TextGenerationTaskParams(BaseModel, frozen=True):
     frequency_penalty: float | None = None
     images: list[Base64Image] = Field(default_factory=list)
     image_hashes: dict[int, Base64ImageHash] = Field(default_factory=dict)
+    # T28: constrained decoding — when set to a JSON Schema (dict or JSON
+    # string), sampling is masked so output must match the schema.
+    response_format: dict[str, Any] | str | None = None
 
     prefill_endpoint: str | None = None
 

@@ -1,10 +1,11 @@
 import contextlib
 import functools
+import json
 import math
 import os
 import time
 import uuid
-from typing import Callable, Generator, cast, get_args
+from typing import Any, Callable, Generator, cast, get_args
 
 import mlx.core as mx
 from mlx_lm.generate import (
@@ -58,6 +59,9 @@ from exo.worker.engines.mlx.constants import (
     KV_CACHE_GROUP_SIZE,
     MAX_KV_SIZE,
     MAX_TOKENS,
+)
+from exo.worker.engines.mlx.generator.constrained_decoding import (
+    ConstrainedDecodingProcessor,
 )
 from exo.worker.engines.mlx.generator.remote_prefill import remote_prefill
 from exo.worker.engines.mlx.generator.stop_sequences import scan_stop_sequences
@@ -525,6 +529,43 @@ def eos_ids_from_tokenizer(tokenizer: TokenizerWrapper) -> list[int]:
     return eos
 
 
+def make_constrained_processor(
+    task: TextGenerationTaskParams,
+    tokenizer: TokenizerWrapper,
+) -> Callable[[mx.array, mx.array], mx.array] | None:
+    """Build a JSON-schema constrained logits processor, or None if not requested.
+
+    T28: when ``task.response_format`` is set, sampling is masked so the
+    output must match the JSON Schema. Unsupported/invalid schemas fail open
+    with a warning (never crash mid-generation); the API validates schemas at
+    request time for a clean 400.
+    """
+    if task.response_format is None:
+        return None
+    schema: object = task.response_format
+    if isinstance(schema, str):
+        try:
+            schema = cast(object, json.loads(schema))
+        except ValueError:
+            logger.warning(
+                "Constrained decoding: invalid JSON schema string — ignoring"
+            )
+            return None
+    if not isinstance(schema, dict):
+        logger.warning(
+            "Constrained decoding: response_format must be a JSON Schema object — ignoring"
+        )
+        return None
+    try:
+        return ConstrainedDecodingProcessor(tokenizer, cast("dict[str, Any]", schema))
+    except ValueError:
+        logger.warning(
+            "Constrained decoding: unsupported schema keywords — ignoring (request "
+            "time validation should have rejected this earlier)"
+        )
+        return None
+
+
 def extract_top_logprobs(
     logprobs: mx.array,
     tokenizer: TokenizerWrapper,
@@ -672,6 +713,11 @@ def mlx_generate(
         # Only sample length eos tokens
         eos_ids = eos_ids_from_tokenizer(tokenizer)
         logits_processors = [ban_token_ids(eos_ids)] + logits_processors
+
+    # T28: JSON-schema constrained decoding (fail-open on unsupported schemas).
+    constrained = make_constrained_processor(task, tokenizer)
+    if constrained is not None:
+        logits_processors = [constrained] + logits_processors
 
     sampler = make_sampler(
         temp=task.temperature if task.temperature is not None else 0.7,

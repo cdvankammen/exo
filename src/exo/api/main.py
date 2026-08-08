@@ -1068,6 +1068,21 @@ class API:
         self, payload: ChatCompletionRequest
     ) -> ChatCompletionResponse | StreamingResponse:
         """OpenAI Chat Completions API - adapter."""
+        # T28: validate the JSON schema at request time so unsupported schemas
+        # fail with a clean 400 instead of mid-generation.
+        if payload.response_format is not None:
+            try:
+                from exo.worker.engines.mlx.generator.constrained_decoding import (
+                    compile_json_schema,
+                )
+
+                compile_json_schema(payload.response_format)
+            except ValueError as exc:
+                raise ApiError(
+                    status_code=400,
+                    detail=str(exc),
+                    error_code="INVALID_REQUEST",
+                ) from exc
         task_params = await chat_request_to_text_generation(payload)
         validated_model = await self._validate_model_has_instance(task_params.model)
         task_params = task_params.model_copy(update={"model": validated_model})

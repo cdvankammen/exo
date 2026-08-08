@@ -46,6 +46,7 @@ from exo.worker.engines.mlx.generator.generate import (
     ban_token_ids,
     eos_ids_from_tokenizer,
     extract_top_logprobs,
+    make_constrained_processor,
     patch_embed_tokens,
     prefill,
 )
@@ -337,6 +338,11 @@ class ExoBatchGenerator:
             # Only sample length eos tokens
             eos_ids = eos_ids_from_tokenizer(self.tokenizer)
             logits_processors = [ban_token_ids(eos_ids)] + logits_processors
+
+        # T28: JSON-schema constrained decoding (fail-open on unsupported schemas).
+        constrained = make_constrained_processor(task_params, self.tokenizer)
+        if constrained is not None:
+            logits_processors = [constrained] + logits_processors
 
         max_tokens = task_params.max_output_tokens or MAX_TOKENS
 
