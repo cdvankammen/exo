@@ -5,6 +5,26 @@
 
   const items = $derived(toasts());
 
+  /** Toasts whose message is expanded past the clamp (per-toast toggle). */
+  let expandedIds = $state<Set<string>>(new Set());
+
+  /** Messages longer than this get the 4-line clamp + "Show full" affordance. */
+  const CLAMP_THRESHOLD = 160;
+
+  function isLongMessage(message: string): boolean {
+    return message.length > CLAMP_THRESHOLD;
+  }
+
+  function toggleExpanded(toastId: string): void {
+    const next = new Set(expandedIds);
+    if (next.has(toastId)) {
+      next.delete(toastId);
+    } else {
+      next.add(toastId);
+    }
+    expandedIds = next;
+  }
+
   const typeStyles: Record<
     Toast["type"],
     { border: string; icon: string; iconColor: string }
@@ -41,8 +61,10 @@
   >
     {#each items as toast (toast.id)}
       {@const style = typeStyles[toast.type]}
+      {@const long = isLongMessage(toast.message)}
+      {@const expanded = expandedIds.has(toast.id)}
       <div
-        class="pointer-events-auto max-w-sm w-80 bg-exo-dark-gray/95 backdrop-blur-sm border border-exo-medium-gray/60 border-l-[3px] {style.border} rounded shadow-lg shadow-black/40"
+        class="pointer-events-auto w-80 max-w-sm bg-exo-dark-gray/95 backdrop-blur-sm border border-exo-medium-gray/60 border-l-[3px] {style.border} rounded shadow-lg shadow-black/40"
         in:fly={{ x: 80, duration: 250 }}
         out:fade={{ duration: 150 }}
         animate:flip={{ duration: 200 }}
@@ -64,10 +86,27 @@
             />
           </svg>
 
-          <!-- Message -->
-          <p class="flex-1 text-sm text-white/90 font-mono leading-snug">
-            {toast.message}
-          </p>
+          <!-- Message: clamped to 4 lines unless expanded; long messages
+               always stay inside the toast box. -->
+          <div class="flex-1 min-w-0">
+            <p
+              class="text-sm text-white/90 font-mono leading-snug break-words {long && !expanded
+                ? 'clamped-message'
+                : ''}"
+              title={long && !expanded ? "Click 'Show full' to expand" : undefined}
+            >
+              {toast.message}
+            </p>
+            {#if long}
+              <button
+                type="button"
+                onclick={() => toggleExpanded(toast.id)}
+                class="mt-1 text-[11px] font-mono uppercase tracking-wide text-exo-yellow/80 hover:text-exo-yellow transition-colors cursor-pointer"
+              >
+                {expanded ? "Show less" : "Show full"}
+              </button>
+            {/if}
+          </div>
 
           <!-- Dismiss button -->
           <button
@@ -106,6 +145,15 @@
 {/if}
 
 <style>
+  /* Hard clamp: even a huge error message stays inside the toast box. */
+  .clamped-message {
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
   @keyframes shrink {
     from {
       width: 100%;

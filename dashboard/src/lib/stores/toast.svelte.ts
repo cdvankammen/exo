@@ -85,3 +85,67 @@ export function dismissByMessage(message: string): void {
 export function toasts(): Toast[] {
   return toastList;
 }
+
+/**
+ * Extract a short, human-readable message from a raw error body and clamp it
+ * to `maxLength` chars. Raw server error bodies can be huge (pydantic
+ * validation dumps, full Python tracebacks, JSON detail arrays) — toasts
+ * should never show that verbatim.
+ *
+ * Handles:
+ * - JSON bodies: {"detail": "..."} (FastAPI) / {"error_message": "..."}
+ * - pydantic validation arrays: {"detail": [{"loc":..., "msg": "..."}, ...]}
+ * - Python tracebacks: keeps the FINAL line (the actual exception message)
+ * - plain text: collapses whitespace + truncates
+ */
+export function truncateErrorMessage(raw: string, maxLength = 200): string {
+  if (!raw) return "Unknown error";
+  let message = raw.trim();
+  if (!message) return "Unknown error";
+
+  // JSON error bodies (FastAPI style)
+  if (message.startsWith("{") || message.startsWith("[")) {
+    try {
+      const parsed = JSON.parse(message) as {
+        detail?: unknown;
+        error_message?: unknown;
+      };
+      const detail = parsed.detail;
+      if (typeof detail === "string") {
+        message = detail;
+      } else if (Array.isArray(detail) && detail.length > 0) {
+        // pydantic-style validation errors: use the first error's msg
+        const first = detail[0] as { msg?: unknown } | null;
+        message =
+          first && typeof first.msg === "string" ? first.msg : JSON.stringify(first);
+      } else if (typeof parsed.error_message === "string") {
+        message = parsed.error_message;
+      }
+    } catch {
+      // Not valid JSON — fall through to text handling.
+    }
+  }
+
+  // Python traceback: the final line is the actual exception message.
+  if (message.includes("Traceback")) {
+    const lines = message
+      .split("\n")
+      .map((l) => l.trim())
+      .filter(Boolean);
+    const last = lines[lines.length - 1];
+    if (last) message = last;
+  }
+
+  // Cut pydantic noise that sometimes trails the real message.
+  const markerIdx = message.indexOf("For further information visit");
+  if (markerIdx > 0) message = message.slice(0, markerIdx);
+
+  // Collapse whitespace/newlines into a single line.
+  message = message.replace(/\s+/g, " ").trim();
+
+  // Clamp.
+  if (message.length > maxLength) {
+    message = message.slice(0, maxLength - 1).trimEnd() + "…";
+  }
+  return message || "Unknown error";
+}

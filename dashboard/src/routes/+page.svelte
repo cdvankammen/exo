@@ -73,7 +73,11 @@
     type DownloadProgress,
     type PlacementPreview,
   } from "$lib/stores/app.svelte";
-  import { addToast, dismissByMessage } from "$lib/stores/toast.svelte";
+  import {
+    addToast,
+    dismissByMessage,
+    truncateErrorMessage,
+  } from "$lib/stores/toast.svelte";
   import HeaderNav from "$lib/components/HeaderNav.svelte";
   import DeviceIcon from "$lib/components/DeviceIcon.svelte";
   import { fade, fly, slide } from "svelte/transition";
@@ -1542,7 +1546,7 @@
           console.error("Failed to get forced placement:", errorText);
           addToast({
             type: "error",
-            message: `Failed to place model: ${errorText}`,
+            message: `Failed to place model: ${truncateErrorMessage(errorText)}`,
           });
           launchingModelId = null;
           return;
@@ -1572,7 +1576,7 @@
         console.error("Failed to launch instance:", errorText);
         addToast({
           type: "error",
-          message: `Failed to launch model: ${errorText}`,
+          message: `Failed to launch model: ${truncateErrorMessage(errorText)}`,
         });
       } else {
         addToast({ type: "info", message: `Launching model...` });
@@ -2938,7 +2942,7 @@
       if (!res.ok) {
         addToast({
           type: "error",
-          message: `Failed to get placements: ${await res.text()}`,
+          message: `Failed to get placements: ${truncateErrorMessage(await res.text())}`,
         });
         chatLaunchState = "idle";
         return;
@@ -2966,7 +2970,7 @@
       if (!launchRes.ok) {
         addToast({
           type: "error",
-          message: `Failed to launch: ${await launchRes.text()}`,
+          message: `Failed to launch: ${truncateErrorMessage(await launchRes.text())}`,
         });
         chatLaunchState = "idle";
         return;
@@ -2977,7 +2981,10 @@
       if (!skipCreate) createConversation();
       chatLaunchState = "downloading";
     } catch (error) {
-      addToast({ type: "error", message: `Network error: ${error}` });
+      addToast({
+        type: "error",
+        message: `Network error: ${truncateErrorMessage(String(error))}`,
+      });
       chatLaunchState = "idle";
     }
   }
@@ -3085,7 +3092,7 @@
       if (!res.ok) {
         addToast({
           type: "error",
-          message: `Failed to get placements: ${await res.text()}`,
+          message: `Failed to get placements: ${truncateErrorMessage(await res.text())}`,
         });
         chatLaunchState = "idle";
         return;
@@ -3109,7 +3116,7 @@
       if (!launchRes.ok) {
         addToast({
           type: "error",
-          message: `Failed to launch: ${await launchRes.text()}`,
+          message: `Failed to launch: ${truncateErrorMessage(await launchRes.text())}`,
         });
         chatLaunchState = "idle";
         return;
@@ -3123,7 +3130,10 @@
       // Queue the message to send once model is ready
       pendingAutoMessage = { content, files };
     } catch (error) {
-      addToast({ type: "error", message: `Network error: ${error}` });
+      addToast({
+        type: "error",
+        message: `Network error: ${truncateErrorMessage(String(error))}`,
+      });
       chatLaunchState = "idle";
     }
   }
