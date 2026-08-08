@@ -8,6 +8,7 @@ from exo.worker.engines.mlx.auto_parallel import (
     get_active_relay_context,
     relay_sampled_tokens,
 )
+from exo.worker.runner.bootstrap import logger
 
 _PRECOMPUTE_TOP_K = 20
 
