@@ -27,7 +27,6 @@ from exo.shared.types.events import (
     Event,
     IndexedEvent,
     InputChunkReceived,
-    InstanceDeleted,
     NodeDownloadProgress,
     NodeGatheredInfo,
     TaskCreated,
@@ -116,6 +115,7 @@ class Worker:
                 tg.start_soon(self._forward_info, info_recv)
                 tg.start_soon(self.plan_step)
                 tg.start_soon(self._event_applier)
+                tg.start_soon(self._reconcile_instance_backoff)
                 tg.start_soon(self._poll_connection_updates)
                 tg.start_soon(self._poll_bandwidth_updates)
                 tg.start_soon(self._reconcile_custom_cards)
@@ -153,9 +153,6 @@ class Worker:
                 self.state = apply(self.state, event=event)
                 event = event.event
 
-                if isinstance(event, InstanceDeleted):
-                    self._instance_backoff.reset(event.instance_id)
-
                 if (iid := instance_to_reset_backoff(event, self.runners)) is not None:
                     self._instance_backoff.reset(iid)
 
@@ -188,6 +185,17 @@ class Worker:
                                     hashlib.sha256(img.encode("ascii")).hexdigest()
                                 )
                             ] = img
+
+    async def _reconcile_instance_backoff(self) -> None:
+        while True:
+            await anyio.sleep(1)
+            self._reconcile_instance_backoff_once()
+
+    def _reconcile_instance_backoff_once(self) -> None:
+        live_instances = set(self.state.instances)
+        for instance_id in self._instance_backoff.tracked_keys():
+            if instance_id not in live_instances:
+                self._instance_backoff.reset(instance_id)
 
     async def _reconcile_custom_cards(self) -> None:
         while True:
