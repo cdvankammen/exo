@@ -3,7 +3,7 @@ from anyio import create_task_group, fail_after, move_on_after, sleep
 
 from exo.routing.connection_message import ConnectionMessage
 from exo.shared.election import Election, ElectionMessage, ElectionResult
-from exo.shared.types.commands import ForwarderCommand, TestCommand
+from exo.shared.types.commands import ForwarderCommand, PromoteMaster, TestCommand
 from exo.shared.types.common import NodeId, SessionId, SystemId
 from exo.utils.channels import channel
 
@@ -630,3 +630,95 @@ def test_candidate_proposes_self_when_unknown():
     status = election._election_status(clock=7)  # type: ignore[reportPrivateUsage]
     assert status.proposed_session.master_node_id == me
     assert status.seniority == 5
+
+
+@pytest.mark.anyio
+async def test_promote_master_command_forces_win_over_peer() -> None:
+    """
+    A PromoteMaster command targeting us must force us to win the next round
+    even against a peer with higher observed seniority.
+    """
+    em_out_tx, _em_out_rx = channel[ElectionMessage]()
+    em_in_tx, em_in_rx = channel[ElectionMessage]()
+    er_tx, er_rx = channel[ElectionResult]()
+    cm_tx, cm_rx = channel[ConnectionMessage]()
+    co_tx, co_rx = channel[ForwarderCommand]()
+
+    election = Election(
+        node_id=NodeId("B"),
+        election_message_receiver=em_in_rx,
+        election_message_sender=em_out_tx,
+        election_result_sender=er_tx,
+        connection_message_receiver=cm_rx,
+        command_receiver=co_rx,
+        is_candidate=True,
+    )
+
+    async with create_task_group() as tg:
+        with fail_after(2):
+            tg.start_soon(election.run)
+            # Peer A campaigns at seniority 100 (observed by us)
+            await em_in_tx.send(em(clock=1, seniority=100, node_id="A"))
+            # Wait for the round to resolve
+            await er_rx.receive()
+
+            # Now send PromoteMaster targeting us
+            await co_tx.send(
+                ForwarderCommand(
+                    origin=SystemId("api"),
+                    command=PromoteMaster(target_node_id=NodeId("B")),
+                )
+            )
+
+            # We should win the next round with seniority > 100
+            result = await er_rx.receive()
+            assert result.session_id.master_node_id == NodeId("B")
+            assert election.seniority > 100
+
+            em_in_tx.close()
+            cm_tx.close()
+            co_tx.close()
+
+
+@pytest.mark.anyio
+async def test_promote_master_ignored_for_other_node() -> None:
+    """
+    A PromoteMaster targeting a different node must not force us to promote.
+    """
+    em_out_tx, _em_out_rx = channel[ElectionMessage]()
+    em_in_tx, em_in_rx = channel[ElectionMessage]()
+    er_tx, er_rx = channel[ElectionResult]()
+    cm_tx, cm_rx = channel[ConnectionMessage]()
+    co_tx, co_rx = channel[ForwarderCommand]()
+
+    election = Election(
+        node_id=NodeId("B"),
+        election_message_receiver=em_in_rx,
+        election_message_sender=em_out_tx,
+        election_result_sender=er_tx,
+        connection_message_receiver=cm_rx,
+        command_receiver=co_rx,
+        is_candidate=True,
+    )
+
+    async with create_task_group() as tg:
+        with fail_after(2):
+            tg.start_soon(election.run)
+            # Let the initial self-election round resolve (seniority becomes 1)
+            await er_rx.receive()
+            initial_clock = election.clock
+
+            # PromoteMaster targeting A (not us) must not trigger a campaign
+            await co_tx.send(
+                ForwarderCommand(
+                    origin=SystemId("api"),
+                    command=PromoteMaster(target_node_id=NodeId("A")),
+                )
+            )
+            await sleep(0.2)
+            # No new round started: clock and campaigns unchanged
+            assert election.clock == initial_clock
+
+            em_in_tx.close()
+            cm_tx.close()
+            co_tx.close()
