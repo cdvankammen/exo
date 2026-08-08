@@ -21,6 +21,21 @@ class MemoryUsage(FrozenModel):
     # TODO #13: memory pressure instead of memory used — derived at construction.
     ram_used: Memory = Memory()
     pressure: float = 0.0
+    # Dedicated accelerator memory (e.g. CUDA VRAM). None on unified-memory
+    # platforms, where system RAM is the accelerator memory.
+    accelerator_total: Memory | None = None
+    accelerator_available: Memory | None = None
+
+    @property
+    def inference_available(self) -> Memory:
+        """Memory actually available to hold model state on this node.
+
+        On discrete-GPU nodes the accelerator's free memory bounds what
+        inference can use, regardless of how much system RAM is free.
+        """
+        if self.accelerator_available is None:
+            return self.ram_available
+        return min(self.ram_available, self.accelerator_available)
 
     @classmethod
     def from_bytes(
@@ -61,14 +76,35 @@ class MemoryUsage(FrozenModel):
         """
         virtual_memory = virtual_memory_statistics()
         swap_memory = swap_memory_statistics()
+        accelerator = _query_cuda_vram_bytes()
+        used_bytes = max(
+            virtual_memory.total_bytes
+            - (
+                virtual_memory.available_bytes
+                if override_memory is None
+                else override_memory
+            ),
+            0,
+        )
+        pressure = used_bytes / virtual_memory.total_bytes if virtual_memory.total_bytes > 0 else 0.0
 
-        return cls.from_bytes(
-            ram_total=virtual_memory.total_bytes,
-            ram_available=virtual_memory.available_bytes
-            if override_memory is None
-            else override_memory,
-            swap_total=swap_memory.total_bytes,
-            swap_available=swap_memory.free_bytes,
+        return cls(
+            ram_total=Memory.from_bytes(virtual_memory.total_bytes),
+            ram_available=Memory.from_bytes(
+                virtual_memory.available_bytes
+                if override_memory is None
+                else override_memory
+            ),
+            swap_total=Memory.from_bytes(swap_memory.total_bytes),
+            swap_available=Memory.from_bytes(swap_memory.free_bytes),
+            ram_used=Memory.from_bytes(used_bytes),
+            pressure=round(min(max(pressure, 0.0), 1.0), 4),
+            accelerator_total=(
+                Memory.from_bytes(accelerator[0]) if accelerator is not None else None
+            ),
+            accelerator_available=(
+                Memory.from_bytes(accelerator[1]) if accelerator is not None else None
+            ),
         )
 
     @classmethod
@@ -85,11 +121,17 @@ class MemoryUsage(FrozenModel):
             return None
         total_vram, free_vram = vram
         sm = swap_memory_statistics()
-        return cls.from_bytes(
-            ram_total=total_vram,
-            ram_available=free_vram if override_memory is None else override_memory,
-            swap_total=sm.total_bytes,
-            swap_available=sm.free_bytes,
+        used_bytes = max(total_vram - (free_vram if override_memory is None else override_memory), 0)
+        pressure = used_bytes / total_vram if total_vram > 0 else 0.0
+        return cls(
+            ram_total=Memory.from_bytes(total_vram),
+            ram_available=Memory.from_bytes(free_vram if override_memory is None else override_memory),
+            swap_total=Memory.from_bytes(sm.total_bytes),
+            swap_available=Memory.from_bytes(sm.free_bytes),
+            ram_used=Memory.from_bytes(used_bytes),
+            pressure=round(min(max(pressure, 0.0), 1.0), 4),
+            accelerator_total=Memory.from_bytes(total_vram),
+            accelerator_available=Memory.from_bytes(free_vram),
         )
 
 

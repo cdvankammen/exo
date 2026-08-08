@@ -644,6 +644,11 @@ class API:
                         )
                     ]
                 )
+        if model_card.supports_ring:
+            instance_combinations.extend(
+                (Sharding.Ring, InstanceMeta.MlxRing, i)
+                for i in range(2, len(list(self.state.topology.list_nodes())) + 1)
+            )
         # TODO: PDD
         # instance_combinations.append((Sharding.PrefillDecodeDisaggregation, InstanceMeta.MlxRing, 1))
 
@@ -2001,6 +2006,7 @@ class API:
                     tags=[],
                     storage_size_megabytes=card.storage_size.in_mb,
                     supports_tensor=card.supports_tensor,
+                    supports_ring=card.supports_ring,
                     tasks=[task.value for task in card.tasks],
                     is_custom=card.is_custom,
                     family=card.family,
@@ -2042,6 +2048,7 @@ class API:
             tags=[],
             storage_size_megabytes=int(card.storage_size.in_mb),
             supports_tensor=card.supports_tensor,
+            supports_ring=card.supports_ring,
             tasks=[task.value for task in card.tasks],
             is_custom=True,
         )

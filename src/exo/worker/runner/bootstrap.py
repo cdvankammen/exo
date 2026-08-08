@@ -1,3 +1,4 @@
+import importlib.util
 import os
 import resource
 import sys
@@ -5,6 +6,7 @@ import threading
 import time
 import traceback
 from dataclasses import dataclass
+from pathlib import Path
 from typing import Self, cast
 
 import loguru
@@ -93,6 +95,30 @@ def _start_orphan_watchdog() -> None:
     threading.Thread(target=watch_parent, name="orphan-watchdog", daemon=True).start()
 
 
+def _ensure_cuda_home() -> None:
+    """Point MLX's CUDA backend at bundled CUDA headers when none are configured.
+
+    MLX on CUDA JIT-compiles kernels with NVRTC at runtime (the first
+    distributed send/recv triggers this) and fails with "Can not find
+    locations of CUDA headers" unless CUDA_HOME or CUDA_PATH is set. The pip
+    `nvidia-cuda-runtime` package ships the headers but nothing exports their
+    location, so resolve them from the `nvidia` namespace package.
+    """
+    if sys.platform != "linux":
+        return
+    if os.environ.get("CUDA_HOME") or os.environ.get("CUDA_PATH"):
+        return
+    specification = importlib.util.find_spec("nvidia")
+    if specification is None or not specification.submodule_search_locations:
+        return
+    for location in specification.submodule_search_locations:
+        candidate = Path(location) / "cuda_runtime"
+        if (candidate / "include").is_dir():
+            os.environ["CUDA_HOME"] = str(candidate)
+            logger.info(f"CUDA_HOME unset; using bundled CUDA headers at {candidate}")
+            return
+
+
 def entrypoint(
     bound_instance: BoundInstance,
     event_sender: MpSender[Event | RunnerTerminationError],
@@ -103,6 +129,7 @@ def entrypoint(
     global logger
     logger = _logger
 
+    _ensure_cuda_home()
     _start_orphan_watchdog()
 
     soft, hard = resource.getrlimit(resource.RLIMIT_NOFILE)

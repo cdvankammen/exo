@@ -80,6 +80,7 @@ def model_card() -> ModelCard:
         n_layers=10,
         hidden_size=30,
         supports_tensor=True,
+        supports_ring=True,
         tasks=[ModelTask.TextGeneration],
         backends=[Backend.MlxMetal],
     )
@@ -1735,3 +1736,42 @@ def test_rotate_metal_to_middle_two_nodes_unchanged() -> None:
         NodeId("metal_node"): [Backend.MlxMetal],
     }
     assert _rotate_metal_to_middle(cycle, node_backends).node_ids == list(cycle.node_ids)
+
+
+def test_ring_attention_rejects_non_ring_transport(model_card: ModelCard) -> None:
+    command = PlaceInstance(
+        command_id=CommandId(),
+        model_card=model_card,
+        sharding=Sharding.Ring,
+        instance_meta=InstanceMeta.MlxJaccl,
+        min_nodes=2,
+    )
+
+    with pytest.raises(ValueError, match="requires the MlxRing transport"):
+        place_instance(command, Topology(), {}, {}, {}, {})
+
+
+def test_ring_attention_rejects_single_node(model_card: ModelCard) -> None:
+    command = PlaceInstance(
+        command_id=CommandId(),
+        model_card=model_card,
+        sharding=Sharding.Ring,
+        instance_meta=InstanceMeta.MlxRing,
+        min_nodes=1,
+    )
+
+    with pytest.raises(ValueError, match="requires at least two nodes"):
+        place_instance(command, Topology(), {}, {}, {}, {})
+
+
+def test_ring_attention_rejects_model_without_capability(model_card: ModelCard) -> None:
+    command = PlaceInstance(
+        command_id=CommandId(),
+        model_card=model_card.model_copy(update={"supports_ring": False}),
+        sharding=Sharding.Ring,
+        instance_meta=InstanceMeta.MlxRing,
+        min_nodes=2,
+    )
+
+    with pytest.raises(ValueError, match="does not declare Ring attention support"):
+        place_instance(command, Topology(), {}, {}, {}, {})
