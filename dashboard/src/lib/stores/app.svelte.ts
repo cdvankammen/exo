@@ -261,6 +261,19 @@ export interface LogTailResponse {
   truncated: boolean;
 }
 
+export interface LogErrorEntry {
+  timestamp: string;
+  level: string;
+  source: string;
+  message: string;
+  sourceLog: string;
+}
+
+export interface LogErrorsResponse {
+  errors: LogErrorEntry[];
+  truncated: boolean;
+}
+
 interface RawStateResponse {
   topology?: RawTopology;
   instances?: Record<
@@ -3842,6 +3855,22 @@ class AppStore {
   }
 
   /**
+   * Fetch structured WARNING/ERROR/CRITICAL entries across all log files.
+   */
+  async listLogErrors(
+    level = "",
+    lines = 2000,
+  ): Promise<LogErrorsResponse> {
+    const query = new URLSearchParams({ lines: String(lines) });
+    if (level) query.set("level", level);
+    const response = await fetch(`/v1/logs/errors?${query.toString()}`);
+    if (!response.ok) {
+      throw new Error(`Failed to fetch log errors: ${response.status}`);
+    }
+    return (await response.json()) as LogErrorsResponse;
+  }
+
+  /**
    * Get the URL for downloading the full raw log file
    */
   getLogRawUrl(name: string): string {
@@ -4052,3 +4081,5 @@ export const listLogs = () => appStore.listLogs();
 export const getLogTail = (name: string, lines?: number) =>
   appStore.getLogTail(name, lines);
 export const getLogRawUrl = (name: string) => appStore.getLogRawUrl(name);
+export const listLogErrors = (level?: string, lines?: number) =>
+  appStore.listLogErrors(level, lines);

@@ -543,9 +543,9 @@ class API:
         self.app.get("/v1/traces/{task_id}/stats")(self.get_trace_stats)
         self.app.get("/v1/traces/{task_id}/raw")(self.get_trace_raw)
         self.app.get("/v1/logs")(self.list_logs)
+        self.app.get("/v1/logs/errors")(self.get_log_errors)
         self.app.get("/v1/logs/{name}")(self.get_log_tail)
         self.app.get("/v1/logs/{name}/raw")(self.get_log_raw)
-        self.app.get("/v1/logs/errors")(self.get_log_errors)
         self.app.get("/onboarding")(self.get_onboarding)
         self.app.post("/onboarding")(self.complete_onboarding)
 

@@ -4,6 +4,8 @@
     listLogs,
     getLogTail,
     getLogRawUrl,
+    listLogErrors,
+    type LogErrorEntry,
     type LogFileListItem,
   } from "$lib/stores/app.svelte";
   import HeaderNav from "$lib/components/HeaderNav.svelte";
@@ -14,6 +16,13 @@
     runner_stderr: "Runner Stderr",
   };
 
+  const ERROR_LEVELS = ["CRITICAL", "ERROR", "WARNING"] as const;
+  const LEVEL_STYLES: Record<string, string> = {
+    CRITICAL: "text-red-300 bg-red-500/20 border-red-500/40",
+    ERROR: "text-red-400 bg-red-500/10 border-red-500/30",
+    WARNING: "text-yellow-300 bg-yellow-500/10 border-yellow-500/30",
+  };
+
   let logs = $state<LogFileListItem[]>([]);
   let selectedName = $state<string | null>(null);
   let content = $state<string>("");
@@ -22,6 +31,17 @@
   let loadingContent = $state(false);
   let error = $state<string | null>(null);
   let autoRefresh = $state(true);
+
+  // Errors view
+  let viewMode = $state<"tail" | "errors">("errors");
+  let errors = $state<LogErrorEntry[]>([]);
+  let errorsTruncated = $state(false);
+  let loadingErrors = $state(false);
+  let errorLevelFilter = $state<Set<string>>(new Set(["ERROR", "CRITICAL"]));
+
+  const filteredErrors = $derived(
+    errors.filter((e) => errorLevelFilter.has(e.level)),
+  );
 
   let refreshTimer: ReturnType<typeof setInterval> | undefined;
   // Auto-scroll: start at the bottom, stay at the bottom while the user is
@@ -116,15 +136,53 @@
     autoRefresh = !autoRefresh;
   }
 
+  async function refreshErrors() {
+    loadingErrors = true;
+    error = null;
+    try {
+      const response = await listLogErrors();
+      errors = response.errors;
+      errorsTruncated = response.truncated;
+    } catch (e) {
+      error = e instanceof Error ? e.message : "Failed to load log errors";
+    } finally {
+      loadingErrors = false;
+    }
+  }
+
+  function toggleErrorLevel(level: string) {
+    const next = new Set(errorLevelFilter);
+    if (next.has(level)) {
+      next.delete(level);
+    } else {
+      next.add(level);
+    }
+    errorLevelFilter = next;
+  }
+
+  function setViewMode(mode: "tail" | "errors") {
+    viewMode = mode;
+    if (mode === "errors" && errors.length === 0) {
+      refreshErrors();
+    }
+  }
+
   $effect(() => {
     if (refreshTimer) clearInterval(refreshTimer);
     if (autoRefresh) {
-      refreshTimer = setInterval(refreshContent, 3000);
+      refreshTimer = setInterval(() => {
+        if (viewMode === "errors") {
+          refreshErrors();
+        } else {
+          refreshContent();
+        }
+      }, 3000);
     }
   });
 
   onMount(() => {
     refreshList();
+    refreshErrors();
   });
 
   onDestroy(() => {
@@ -147,6 +205,28 @@
         </div>
       </div>
       <div class="flex items-center gap-3">
+        <div class="flex rounded border border-exo-medium-gray/40 overflow-hidden">
+          <button
+            type="button"
+            class="text-xs font-mono uppercase px-3 py-1.5 transition-colors {viewMode ===
+            'errors'
+              ? 'text-exo-yellow bg-exo-yellow/10'
+              : 'text-exo-light-gray hover:text-exo-yellow'}"
+            onclick={() => setViewMode("errors")}
+          >
+            Errors
+          </button>
+          <button
+            type="button"
+            class="text-xs font-mono uppercase px-3 py-1.5 transition-colors {viewMode ===
+            'tail'
+              ? 'text-exo-yellow bg-exo-yellow/10'
+              : 'text-exo-light-gray hover:text-exo-yellow'}"
+            onclick={() => setViewMode("tail")}
+          >
+            Tail
+          </button>
+        </div>
         <button
           type="button"
           class="text-xs font-mono uppercase transition-colors border px-2 py-1 rounded {autoRefresh
@@ -159,8 +239,10 @@
         <button
           type="button"
           class="text-xs font-mono text-exo-light-gray hover:text-exo-yellow transition-colors uppercase border border-exo-medium-gray/40 px-2 py-1 rounded"
-          onclick={refreshContent}
-          disabled={loadingContent || !selectedName}
+          onclick={viewMode === "errors" ? refreshErrors : refreshContent}
+          disabled={viewMode === "errors"
+            ? loadingErrors
+            : loadingContent || !selectedName}
         >
           Refresh
         </button>
@@ -175,7 +257,94 @@
       </div>
     {/if}
 
-    {#if loadingList}
+    {#if viewMode === "errors"}
+      <!-- Level filter chips -->
+      <div class="flex items-center gap-2 flex-wrap">
+        <span class="text-xs font-mono uppercase text-exo-light-gray/70"
+          >Levels:</span
+        >
+        {#each ERROR_LEVELS as level}
+          <button
+            type="button"
+            class="text-xs font-mono uppercase border px-3 py-1 rounded transition-colors {errorLevelFilter.has(
+              level,
+            )
+              ? (LEVEL_STYLES[level] ?? 'text-exo-yellow border-exo-yellow/40')
+              : 'text-exo-light-gray/50 border-exo-medium-gray/30 hover:text-exo-light-gray'}"
+            onclick={() => toggleErrorLevel(level)}
+          >
+            {level}
+            <span class="ml-1 normal-case"
+              >({errors.filter((e) => e.level === level).length})</span
+            >
+          </button>
+        {/each}
+      </div>
+
+      {#if errorsTruncated}
+        <div class="text-xs text-exo-light-gray/70 font-mono">
+          Scanning the tail of each log file — very old entries may be missed.
+        </div>
+      {/if}
+
+      {#if loadingErrors}
+        <div
+          class="rounded border border-exo-medium-gray/30 bg-exo-black/30 p-6 text-center text-exo-light-gray"
+        >
+          <div class="text-sm">Loading errors...</div>
+        </div>
+      {:else if filteredErrors.length === 0}
+        <div
+          class="rounded border border-exo-medium-gray/30 bg-exo-black/30 p-6 text-center text-exo-light-gray"
+        >
+          <div class="text-sm">No matching WARNING/ERROR/CRITICAL entries.</div>
+        </div>
+      {:else}
+        <div class="overflow-x-auto rounded border border-exo-medium-gray/30">
+          <table class="w-full text-left text-xs font-mono">
+            <thead class="bg-exo-black/50 text-exo-light-gray/70 uppercase text-[10px]">
+              <tr>
+                <th class="px-3 py-2 font-normal">Time</th>
+                <th class="px-3 py-2 font-normal">Level</th>
+                <th class="px-3 py-2 font-normal">Source</th>
+                <th class="px-3 py-2 font-normal">Message</th>
+                <th class="px-3 py-2 font-normal">Log</th>
+              </tr>
+            </thead>
+            <tbody>
+              {#each filteredErrors as entry (entry.timestamp + entry.source + entry.message)}
+                <tr
+                  class="border-t border-exo-medium-gray/20 hover:bg-exo-yellow/5"
+                >
+                  <td
+                    class="px-3 py-1.5 whitespace-nowrap text-exo-light-gray/70"
+                    >{entry.timestamp}</td
+                  >
+                  <td class="px-3 py-1.5 whitespace-nowrap">
+                    <span
+                      class="border rounded px-1.5 py-0.5 text-[10px] uppercase {(LEVEL_STYLES[
+                        entry.level
+                      ] ?? 'text-exo-light-gray border-exo-medium-gray/40')}"
+                      >{entry.level}</span
+                    >
+                  </td>
+                  <td class="px-3 py-1.5 whitespace-nowrap text-exo-light-gray/80 max-w-[200px] truncate"
+                    title={entry.source}
+                    >{entry.source}</td
+                  >
+                  <td class="px-3 py-1.5 break-words text-white/90 max-w-[520px]"
+                    >{entry.message}</td
+                  >
+                  <td class="px-3 py-1.5 whitespace-nowrap text-exo-light-gray/60"
+                    >{labelFor(entry.sourceLog)}</td
+                  >
+                </tr>
+              {/each}
+            </tbody>
+          </table>
+        </div>
+      {/if}
+    {:else if loadingList}
       <div
         class="rounded border border-exo-medium-gray/30 bg-exo-black/30 p-6 text-center text-exo-light-gray"
       >
