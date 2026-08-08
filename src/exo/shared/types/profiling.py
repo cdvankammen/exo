@@ -18,16 +18,23 @@ class MemoryUsage(FrozenModel):
     ram_available: Memory
     swap_total: Memory
     swap_available: Memory
+    # TODO #13: memory pressure instead of memory used — derived at construction.
+    ram_used: Memory = Memory()
+    pressure: float = 0.0
 
     @classmethod
     def from_bytes(
         cls, *, ram_total: int, ram_available: int, swap_total: int, swap_available: int
     ) -> Self:
+        used_bytes = max(ram_total - ram_available, 0)
+        pressure = used_bytes / ram_total if ram_total > 0 else 0.0
         return cls(
             ram_total=Memory.from_bytes(ram_total),
             ram_available=Memory.from_bytes(ram_available),
             swap_total=Memory.from_bytes(swap_total),
             swap_available=Memory.from_bytes(swap_available),
+            ram_used=Memory.from_bytes(used_bytes),
+            pressure=round(min(max(pressure, 0.0), 1.0), 4),
         )
 
     @classmethod
