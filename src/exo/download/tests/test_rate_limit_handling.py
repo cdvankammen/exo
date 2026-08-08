@@ -353,3 +353,45 @@ class TestRateLimitAtHttpCallSites:
                 ModelId("test/model"), "main", "weights.safetensors", target_dir
             )
         assert exc_info.value.retry_after == 52.0
+
+
+@pytest.mark.asyncio
+async def test_file_meta_follows_302_redirect() -> None:
+    """A 302 with a Location header is followed to the redirected URL."""
+    from exo.download.download_utils import file_meta
+
+    # First HEAD -> 302 with a Location header pointing somewhere new.
+    first_response = MagicMock()
+    first_response.status = 302
+    first_response.headers = {"location": "/redirected/url"}
+
+    # Second HEAD (the recursive call) -> 200 with size/hash.
+    second_response = MagicMock()
+    second_response.status = 200
+    second_response.headers = {
+        "x-linked-size": "1234",
+        "x-linked-etag": '"abc123"',
+    }
+
+    responses = iter([first_response, second_response])
+
+    mock_session = MagicMock()
+    mock_session.head.return_value.__aenter__ = AsyncMock(  # pyright: ignore[reportAny]
+        side_effect=lambda: next(responses)
+    )
+    mock_session.head.return_value.__aexit__ = AsyncMock(  # pyright: ignore[reportAny]
+        return_value=None
+    )
+
+    mock_factory = MagicMock()
+    mock_factory.return_value.__aenter__ = AsyncMock(  # pyright: ignore[reportAny]
+        return_value=mock_session
+    )
+    mock_factory.return_value.__aexit__ = AsyncMock(  # pyright: ignore[reportAny]
+        return_value=None
+    )
+
+    with patch("exo.download.download_utils.create_http_session", mock_factory):
+        size, etag = await file_meta(ModelId("test/model"), "main", "weights.safetensors")
+    assert size == 1234
+    assert etag == "abc123"

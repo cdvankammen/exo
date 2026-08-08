@@ -687,6 +687,16 @@ async def file_meta(
             # Otherwise, follow the redirect to get authoritative size/hash
             redirected_location = r.headers.get("location")
             return await file_meta(model_id, revision, path, redirected_location)
+        if r.status == 302:
+            # Some repos (e.g. gated or recently-moved GLM checkpoints) return
+            # a 302 to a CDN / signed URL instead of a 307. Follow it the same
+            # way as 307 to get the authoritative size/hash.
+            redirected_location = r.headers.get("location")
+            if redirected_location:
+                return await file_meta(model_id, revision, path, redirected_location)
+            raise FileNotFoundError(
+                f"HTTP 302 fetching metadata for {model_id}/{path} without a Location header"
+            )
         if r.status in [401, 403]:
             msg = await _build_auth_error_message(r.status, model_id)
             raise HuggingFaceAuthenticationError(msg)
