@@ -26,6 +26,7 @@ from exo.api.types import (
     Usage,
 )
 from exo.download.download_utils import create_http_session
+from exo.shared.constants import tools_enabled
 from exo.shared.types.chunks import (
     ErrorChunk,
     PrefillProgressChunk,
@@ -180,6 +181,10 @@ async def chat_request_to_text_generation(
         request.reasoning_effort, request.enable_thinking
     )
 
+    # T13: server-side tool execution is opt-out via env (default ON =
+    # backward compatible). Set EXO_ENABLE_SERVERSIDE_TOOLCALLS=0 to strip
+    # tools entirely (security: a malicious prompt can't trigger tools).
+    tools = request.tools if tools_enabled() else None
     return TextGenerationTaskParams(
         model=request.model,
         input=input_messages
@@ -193,8 +198,8 @@ async def chat_request_to_text_generation(
         stop=request.stop,
         seed=request.seed,
         stream=request.stream,
-        tools=request.tools,
-        tool_choice=request.tool_choice,
+        tools=tools,
+        tool_choice=request.tool_choice if tools else None,
         reasoning_effort=resolved_effort,
         enable_thinking=resolved_thinking,
         chat_template_messages=chat_template_messages

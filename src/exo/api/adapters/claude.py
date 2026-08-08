@@ -31,6 +31,7 @@ from exo.api.types.claude_api import (
     ClaudeToolUseBlock,
     ClaudeUsage,
 )
+from exo.shared.constants import tools_enabled
 from exo.shared.logging import logger
 from exo.shared.types.chunks import (
     ErrorChunk,
@@ -219,9 +220,10 @@ async def claude_request_to_text_generation(
                 chat_msg["reasoning_content"] = reasoning_content
             chat_template_messages.append(chat_msg)
 
-    # Convert Claude tool definitions to OpenAI-style function tools
+    # Convert Claude tool definitions to OpenAI-style function tools.
+    # T13: gated by EXO_ENABLE_SERVERSIDE_TOOLCALLS (default ON).
     tools: list[dict[str, Any]] | None = None
-    if request.tools:
+    if request.tools and tools_enabled():
         tools = [
             {
                 "type": "function",

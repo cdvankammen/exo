@@ -125,3 +125,9 @@ EXO_API_TOKEN: str | None = os.getenv("EXO_API_TOKEN", None)
 # API bind host (T12). Default 0.0.0.0 = all interfaces (cluster behavior).
 # Set to 127.0.0.1 to expose the API only on localhost (security).
 EXO_API_HOST: str = os.getenv("EXO_API_HOST", "0.0.0.0")
+
+# Server-side tool execution (T13). Default ON = backward compatible.
+# Set EXO_ENABLE_SERVERSIDE_TOOLCALLS=0 to strip tools from requests
+# (security: a malicious prompt can't trigger server-side tool execution).
+def tools_enabled() -> bool:
+    return os.getenv("EXO_ENABLE_SERVERSIDE_TOOLCALLS", "1").lower() not in {"0", "false", "no", "off"}
