@@ -2616,6 +2616,10 @@ class API:
         ``level`` filters to a single level (e.g. ``ERROR``). Entries are
         newest-first, merged across the main / runner logs so operators can
         see every problem at a glance without digging through tails.
+
+        Cluster-aware: if other nodes advertise their API endpoints (via
+        NodeApiInfo), their errors are fetched and merged too, so a download
+        or load failure on a remote node (e.g. the master) shows up here.
         """
         wanted = {level.upper()} if level else set(_LOG_ERROR_LEVELS)
         wanted = wanted & _LOG_ERROR_LEVELS
@@ -2633,9 +2637,50 @@ class API:
                 e for e in _parse_log_errors(content, source_log=name) if e.level in wanted
             )
 
+        # Merge errors from other cluster nodes that advertise an API endpoint.
+        await self._merge_remote_log_errors(entries, lines=lines, wanted=frozenset(wanted))
+
         # Newest-first (log lines are oldest-first within a file).
         entries.sort(key=lambda e: e.timestamp, reverse=True)
         return LogErrorsResponse(errors=entries, truncated=any_truncated)
+
+    async def _merge_remote_log_errors(
+        self,
+        entries: list[LogErrorEntry],
+        lines: int,
+        wanted: frozenset[str],
+    ) -> None:
+        """Fetch /v1/logs/errors from every peer that advertises an API endpoint."""
+        import httpx
+
+        identities = getattr(self.state, "node_identities", {}) or {}
+        for node_id, identity in identities.items():  # pyright: ignore[reportAny]
+            host = str(getattr(identity, "api_host", "") or "")  # pyright: ignore[reportAny]
+            port = int(getattr(identity, "api_port", 0) or 0)  # pyright: ignore[reportAny]
+            if not host or not port or host == "0.0.0.0":
+                continue
+            # Skip self — we already parsed our own logs above.
+            if node_id == self.node_id:
+                continue
+            url = f"http://{host}:{port}/v1/logs/errors?lines={lines}"
+            try:
+                async with httpx.AsyncClient(timeout=5.0) as client:
+                    resp = await client.get(url)
+                    resp.raise_for_status()
+                    remote: list[dict[str, object]] = resp.json().get("errors", [])  # pyright: ignore[reportAny]
+                entries.extend(
+                    LogErrorEntry(
+                        timestamp=str(e.get("timestamp", "")),
+                        level=str(e.get("level", "ERROR")),
+                        source=str(e.get("source", "")),
+                        message=str(e.get("message", "")),
+                        source_log=f"{node_id[:8]}::{e.get('source_log', 'main')}",
+                    )
+                    for e in remote
+                    if str(e.get("level", "")).upper() in wanted
+                )
+            except Exception as exc:
+                logger.debug(f"Could not fetch errors from peer {host}:{port}: {exc}")
 
     async def get_onboarding(self) -> JSONResponse:
         return JSONResponse({"completed": ONBOARDING_COMPLETE_FILE.exists()})

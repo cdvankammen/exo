@@ -57,6 +57,7 @@ from exo.utils.info_gatherer.info_gatherer import (
     MacThunderboltIdentifiers,
     MemoryUsage,
     MiscData,
+    NodeApiInfo,
     NodeBackends,
     NodeConfig,
     NodeDiskUsage,
@@ -401,6 +402,15 @@ def apply_node_gathered_info(event: NodeGatheredInfo, state: State) -> State:
                     "os_version": info.os_version,
                     "os_build_version": info.os_build_version,
                 }
+            )
+            update["node_identities"] = {
+                **state.node_identities,
+                event.node_id: new_identity,
+            }
+        case NodeApiInfo():
+            current_identity = state.node_identities.get(event.node_id, NodeIdentity())
+            new_identity = current_identity.model_copy(
+                update={"api_host": info.api_host, "api_port": info.api_port}
             )
             update["node_identities"] = {
                 **state.node_identities,

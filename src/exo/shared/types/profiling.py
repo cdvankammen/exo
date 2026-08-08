@@ -314,6 +314,10 @@ class NodeIdentity(FrozenModel):
     friendly_name: str = "Unknown"
     os_version: str = "Unknown"
     os_build_version: str = "Unknown"
+    # Where this node's HTTP API listens, so cluster-wide views (logs, errors)
+    # can reach every node. Populated from the node's own launch args.
+    api_host: str = ""
+    api_port: int = 0
 
 
 class NodeNetworkInfo(FrozenModel):

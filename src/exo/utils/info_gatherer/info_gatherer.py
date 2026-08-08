@@ -377,6 +377,21 @@ class MiscData(TaggedModel):
         return cls(friendly_name=await get_friendly_name())
 
 
+class NodeApiInfo(TaggedModel):
+    """Where this node's HTTP API listens, so cluster-wide views (logs/errors)
+    can reach every node. Populated once at startup from the node's launch args."""
+
+    api_host: str
+    api_port: int
+
+    @classmethod
+    async def gather(cls) -> Self | None:
+        from exo.shared.constants import EXO_API_HOST
+
+        api_port = int(os.getenv("EXO_API_PORT", "52415"))
+        return cls(api_host=EXO_API_HOST, api_port=api_port)
+
+
 class NodeDiskUsage(TaggedModel):
     """Disk space information for the models directory."""
 
@@ -450,6 +465,7 @@ GatheredInfo = (
     | ThunderboltBridgeInfo
     | NodeConfig
     | MiscData
+    | NodeApiInfo
     | StaticNodeInformation
     | NodeDiskUsage
     | NodeBackends
@@ -535,6 +551,12 @@ class InfoGatherer:
             nc = await NodeConfig.gather()
             if nc is not None:
                 await self.info_sender.send(nc)
+
+            # Advertise this node's API endpoint so cluster-wide views
+            # (logs, errors) can reach it over HTTP.
+            api_info = await NodeApiInfo.gather()
+            if api_info is not None:
+                await self.info_sender.send(api_info)
 
             try:
                 await self.info_sender.send(await NodeBackends.gather())
