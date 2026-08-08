@@ -586,3 +586,47 @@ async def test_restarted_master_rejoins_cluster_deterministically() -> None:
                 await sleep(0.05)
 
             tg.cancel_scope.cancel()
+
+
+def test_non_candidate_never_proposes_self():
+    """A --no-master node (is_candidate=False) must never propose itself.
+
+    During a solo partition (no other master known), the node re-proposes the
+    last-known session instead of itself — so it can't win by default.
+    """
+    me = NodeId("worker-only")
+    other = NodeId("the-master")
+    election = Election(
+        node_id=me,
+        election_message_receiver=None,  # type: ignore[arg-type]
+        election_message_sender=None,  # type: ignore[arg-type]
+        election_result_sender=None,  # type: ignore[arg-type]
+        connection_message_receiver=None,  # type: ignore[arg-type]
+        command_receiver=None,  # type: ignore[arg-type]
+        is_candidate=False,
+        seniority=5,
+    )
+    # Node currently knows a master exists (not itself).
+    election.current_session = SessionId(master_node_id=other, election_clock=3)
+    status = election._election_status(clock=7)  # type: ignore[reportPrivateUsage]
+    assert status.proposed_session.master_node_id == other
+    assert status.proposed_session.election_clock == 3  # re-propose last known
+    assert status.seniority == -1  # non-candidate seniority
+
+
+def test_candidate_proposes_self_when_unknown():
+    """A normal candidate node still proposes itself when it doesn't know a master."""
+    me = NodeId("candidate")
+    election = Election(
+        node_id=me,
+        election_message_receiver=None,  # type: ignore[arg-type]
+        election_message_sender=None,  # type: ignore[arg-type]
+        election_result_sender=None,  # type: ignore[arg-type]
+        connection_message_receiver=None,  # type: ignore[arg-type]
+        command_receiver=None,  # type: ignore[arg-type]
+        is_candidate=True,
+        seniority=5,
+    )
+    status = election._election_status(clock=7)  # type: ignore[reportPrivateUsage]
+    assert status.proposed_session.master_node_id == me
+    assert status.seniority == 5
