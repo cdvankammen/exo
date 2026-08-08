@@ -1,7 +1,7 @@
 import logging
 import os
 import sys
-from collections.abc import Iterator
+from collections.abc import Callable, Iterator
 from pathlib import Path
 from typing import Protocol, cast
 
@@ -9,6 +9,11 @@ import zstandard
 from hypercorn import Config
 from hypercorn.logging import Logger as HypercornLogger
 from loguru import logger
+
+if False:
+    # Type-only import: `Record` exists in loguru's .pyi stub but is not a
+    # runtime symbol (older loguru versions).
+    pass  # pyright: ignore[reportUnusedImport]
 
 _MAX_LOG_ARCHIVES = 5
 
@@ -21,7 +26,7 @@ class _LogLevel(Protocol):
 # TODO #27: per-module log filters. Loguru handler levels are checked before
 # the filter runs, so the handler level is pinned to TRACE and the filter does
 # the per-record threshold decision.
-_LEVEL_NO: dict[str, int] = {
+LOG_LEVEL_NO: dict[str, int] = {
     "TRACE": 5,
     "DEBUG": 10,
     "INFO": 20,
@@ -50,30 +55,31 @@ def parse_module_levels(raw: str | None) -> dict[str, str]:
         module, _, level = part.partition("=")
         module = module.strip()
         level = level.strip().upper()
-        if module and level in _LEVEL_NO:
+        if module and level in LOG_LEVEL_NO:
             overrides[module] = level
     return overrides
 
 
 def make_module_filter(
     overrides: dict[str, str], base_level: str
-) -> object:
+) -> Callable[[object], bool]:
     """Return a loguru filter applying per-module levels over a base level.
 
     The most specific (longest) matching module prefix wins; modules without
     an override use ``base_level``.
     """
-    base_no = _LEVEL_NO[base_level.upper()]
+    base_no = LOG_LEVEL_NO[base_level.upper()]
     sorted_prefixes = sorted(overrides, key=len, reverse=True)
 
-    def _filter(record: dict[str, object]) -> bool:
-        name = str(record.get("name") or "")
+    def _filter(record: object) -> bool:
+        record_dict = cast("dict[str, object]", record)
+        name = str(record_dict.get("name") or "")
         threshold = base_no
         for prefix in sorted_prefixes:
             if name == prefix or name.startswith(prefix + "."):
-                threshold = _LEVEL_NO[overrides[prefix]]
+                threshold = LOG_LEVEL_NO[overrides[prefix]]
                 break
-        level = cast("_LogLevel", record.get("level"))
+        level = cast("_LogLevel", record_dict.get("level"))
         return level.no >= threshold
 
     return _filter
@@ -92,7 +98,7 @@ class _ModuleLevelFilter:
     """
 
     def __init__(self, overrides: dict[str, str], base_level: str):
-        self._base_no = _LEVEL_NO[base_level.upper()]
+        self._base_no = LOG_LEVEL_NO[base_level.upper()]
         self._sorted_prefixes = sorted(overrides, key=len, reverse=True)
         self._overrides = dict(overrides)
 
@@ -101,7 +107,7 @@ class _ModuleLevelFilter:
         threshold = self._base_no
         for prefix in self._sorted_prefixes:
             if name == prefix or name.startswith(prefix + "."):
-                threshold = _LEVEL_NO[self._overrides[prefix]]
+                threshold = LOG_LEVEL_NO[self._overrides[prefix]]
                 break
         level = cast("_LogLevel", record.get("level"))
         return level.no >= threshold
@@ -110,7 +116,7 @@ class _ModuleLevelFilter:
 def resolve_base_level(verbosity: int) -> str:
     """Base log level: EXO_LOG_LEVEL env wins, else DEBUG at verbosity > 0."""
     env_level = os.environ.get(_LOG_LEVELS_ENV)
-    if env_level and env_level.strip().upper() in _LEVEL_NO:
+    if env_level and env_level.strip().upper() in LOG_LEVEL_NO:
         return env_level.strip().upper()
     return "DEBUG" if verbosity > 0 else "INFO"
 
