@@ -243,7 +243,17 @@ class Router:
                                 )
                                 continue
                             router = self.topic_routers[topic]
-                            await router.publish_bytes(data)
+                            try:
+                                await router.publish_bytes(data)
+                            except ValidationError as exception:
+                                # A peer on an incompatible version (or a corrupt
+                                # packet) can produce undeserializable payloads.
+                                # Drop the message rather than killing the node.
+                                logger.warning(
+                                    f"Dropping undeserializable message on {topic}: "
+                                    f"{exception.error_count()} validation errors"
+                                )
+                                continue
                         case FromSwarm.Connection():
                             message = ConnectionMessage.from_update(from_swarm)
                             logger.trace(
