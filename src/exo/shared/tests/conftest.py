@@ -10,7 +10,11 @@ from loguru import logger
 from exo.shared.models.model_cards import ModelCard, ModelId, ModelTask
 from exo.shared.types.backends import Backend
 from exo.shared.types.memory import Memory
-from exo.shared.types.worker.shards import PipelineShardMetadata, ShardMetadata
+from exo.shared.types.worker.shards import (
+    PipelineShardMetadata,
+    ShardMetadata,
+    TensorShardMetadata,
+)
 
 
 @pytest.fixture(scope="session")
@@ -32,6 +36,27 @@ def get_pipeline_shard_metadata(
     model_id: ModelId, device_rank: int, world_size: int = 1
 ) -> ShardMetadata:
     return PipelineShardMetadata(
+        model_card=ModelCard(
+            model_id=model_id,
+            storage_size=Memory.from_mb(100000),
+            n_layers=32,
+            hidden_size=1000,
+            supports_tensor=True,
+            tasks=[ModelTask.TextGeneration],
+            backends=[Backend.MlxMetal],
+        ),
+        device_rank=device_rank,
+        world_size=world_size,
+        start_layer=0,
+        end_layer=32,
+        n_layers=32,
+    )
+
+
+def get_tensor_shard_metadata(
+    model_id: ModelId, device_rank: int, world_size: int = 1
+) -> ShardMetadata:
+    return TensorShardMetadata(
         model_card=ModelCard(
             model_id=model_id,
             storage_size=Memory.from_mb(100000),

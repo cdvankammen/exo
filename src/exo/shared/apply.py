@@ -147,9 +147,11 @@ def apply_node_download_progress(event: NodeDownloadProgress, state: State) -> S
 
     replaced = False
     for i, existing_dp in enumerate(current):
-        # TODO(ciaran): deduplicate by model_id for now. Will need to use
-        # shard_metadata again when pipeline and tensor downloads differ.
-        # For now this is fine
+        # Deduplicate by model_id (port of PR #1614): a cancelled download
+        # leaves a stale pending entry whose shard type may differ from a
+        # re-download's, so equality on shard_metadata alone would append a
+        # duplicate row instead of replacing it. Will need shard-level keys
+        # again when pipeline and tensor downloads differ per node.
         if (
             existing_dp.shard_metadata.model_card.model_id
             == dp.shard_metadata.model_card.model_id

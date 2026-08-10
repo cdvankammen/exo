@@ -180,29 +180,31 @@ class DownloadCoordinator:
                         await self._cancel_download(model_id)
 
     async def _cancel_download(self, model_id: ModelId) -> None:
-        if model_id in self.active_downloads and model_id in self.download_status:
+        if model_id in self.active_downloads:
             logger.info(f"Cancelling download for {model_id}")
-            self.active_downloads[model_id].cancel()
+            self.active_downloads.pop(model_id).cancel()
+        if model_id in self.download_status:
             current_status = self.download_status[model_id]
-            downloaded = Memory()
-            total = Memory()
             if isinstance(current_status, DownloadOngoing):
                 downloaded = current_status.download_progress.downloaded
                 total = current_status.download_progress.total
-            pending = DownloadPending(
-                shard_metadata=current_status.shard_metadata,
-                node_id=self.node_id,
-                model_directory=self._default_model_dir(model_id),
-                downloaded=downloaded,
-                total=total,
-            )
-            self.download_status[model_id] = pending
-            try:
-                await self.event_sender.send(
-                    NodeDownloadProgress(download_progress=pending)
+                pending = DownloadPending(
+                    shard_metadata=current_status.shard_metadata,
+                    node_id=self.node_id,
+                    model_directory=self._default_model_dir(model_id),
+                    downloaded=downloaded,
+                    total=total,
                 )
-            except (anyio.BrokenResourceError, anyio.ClosedResourceError):
-                return
+                with contextlib.suppress(
+                    anyio.BrokenResourceError, anyio.ClosedResourceError
+                ):
+                    await self.event_sender.send(
+                        NodeDownloadProgress(download_progress=pending)
+                    )
+            # Drop the local status so a re-download of the same model is not
+            # blocked/stuck by the stale entry (port of PR #1614).
+            del self.download_status[model_id]
+            self._last_progress_time.pop(model_id, None)
 
     async def _start_download(
         self, shard: ShardMetadata, force_override: bool = False
@@ -342,8 +344,15 @@ class DownloadCoordinator:
                 except (anyio.BrokenResourceError, anyio.ClosedResourceError):
                     return
             except anyio.get_cancelled_exc_class():
-                # ignore cancellation - let cleanup do its thing
-                pass
+                # Cancelled: clear the local status so the model is not stuck
+                # in a stale ongoing/pending state (port of PR #1614). Unlike
+                # upstream we don't re-raise: the coordinator's task group owns
+                # this wrapper and the cancellation is already contained by the
+                # cancel scope below.
+                logger.info(f"Download cancelled for {model_id}")
+                if model_id in self.download_status:
+                    del self.download_status[model_id]
+                self._last_progress_time.pop(model_id, None)
             finally:
                 self.active_downloads.pop(model_id, None)
 
