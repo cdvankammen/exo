@@ -15,6 +15,7 @@
     topologyOnlyMode,
     toggleTopologyOnlyMode,
   } from "$lib/stores/app.svelte";
+  import SidebarLogsPanel from "./SidebarLogsPanel.svelte";
 
   interface Props {
     class?: string;
@@ -505,6 +506,11 @@
         </p>
       </div>
     {/if}
+  </div>
+
+  <!-- Sidebar Logs/Errors panel (collapsible in Phase 2) -->
+  <div class="h-48 flex-shrink-0 flex flex-col min-h-0">
+    <SidebarLogsPanel />
   </div>
 
   <!-- Footer -->
