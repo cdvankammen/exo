@@ -39,6 +39,65 @@
   let loadingErrors = $state(false);
   let errorLevelFilter = $state<Set<string>>(new Set(["ERROR", "CRITICAL"]));
 
+  // --- State persistence across page navigation ---------------------------
+  // The user asked: when leaving the Logs page (Home, Settings, ...) and
+  // coming back, the page should restore the section (Errors/Tail), the
+  // selected log file, the level filter, and the scroll position. We use
+  // sessionStorage so it survives SPA navigation but resets on a fresh
+  // browser session.
+  const LOGS_STATE_KEY = "exo-logs-page-state-v1";
+
+  function saveLogsState() {
+    try {
+      sessionStorage.setItem(
+        LOGS_STATE_KEY,
+        JSON.stringify({
+          viewMode,
+          selectedName,
+          errorLevelFilter: [...errorLevelFilter],
+          stickToBottom,
+          scrollTop: logViewerEl?.scrollTop ?? 0,
+        }),
+      );
+    } catch {
+      // sessionStorage unavailable (private mode etc.) — state just won't persist.
+    }
+  }
+
+  function loadLogsState() {
+    try {
+      const raw = sessionStorage.getItem(LOGS_STATE_KEY);
+      if (!raw) return;
+      const saved = JSON.parse(raw) as {
+        viewMode?: "tail" | "errors";
+        selectedName?: string | null;
+        errorLevelFilter?: string[];
+        stickToBottom?: boolean;
+        scrollTop?: number;
+      };
+      if (saved.viewMode === "tail" || saved.viewMode === "errors") {
+        viewMode = saved.viewMode;
+      }
+      if (typeof saved.selectedName === "string") {
+        selectedName = saved.selectedName;
+      }
+      if (Array.isArray(saved.errorLevelFilter) && saved.errorLevelFilter.length > 0) {
+        errorLevelFilter = new Set(saved.errorLevelFilter);
+      }
+      if (typeof saved.stickToBottom === "boolean") {
+        stickToBottom = saved.stickToBottom;
+      }
+      if (typeof saved.scrollTop === "number" && saved.scrollTop > 0) {
+        // Restored after the log content renders (see onMount).
+        pendingScrollTop = saved.scrollTop;
+      }
+    } catch {
+      // Corrupt or unavailable storage — start fresh.
+    }
+  }
+
+  let pendingScrollTop = $state(0);
+
   const filteredErrors = $derived(
     errors.filter((e) => errorLevelFilter.has(e.level)),
   );
@@ -97,10 +156,16 @@
       error = e instanceof Error ? e.message : "Failed to load log content";
     } finally {
       loadingContent = false;
-      // Keep the view pinned to the newest lines if the user is at (or near)
-      // the bottom (or hasn't scrolled up yet). If they've scrolled up to
-      // read history, leave their position alone.
-      if (stickToBottom && logViewerEl) {
+      // Restore the scroll position saved from the previous visit to this
+      // page (only meaningful once the content has rendered).
+      if (pendingScrollTop > 0 && logViewerEl) {
+        logViewerEl.scrollTop = pendingScrollTop;
+        pendingScrollTop = 0;
+        // Pinning to the bottom would override the restored position.
+        stickToBottom = false;
+      } else if (stickToBottom && logViewerEl) {
+        // Keep the view pinned to the newest lines if the user is at (or
+        // near) the bottom (or hasn't scrolled up yet).
         logViewerEl.scrollTop = logViewerEl.scrollHeight;
       }
     }
@@ -181,12 +246,17 @@
   });
 
   onMount(() => {
+    // Restore the last section/log/filter/scroll position from the previous
+    // visit to this page (survives SPA navigation; resets on fresh session).
+    loadLogsState();
     refreshList();
     refreshErrors();
   });
 
   onDestroy(() => {
     if (refreshTimer) clearInterval(refreshTimer);
+    // Persist section/log/filter/scroll so returning to Logs restores them.
+    saveLogsState();
   });
 </script>
 
