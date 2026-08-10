@@ -93,7 +93,6 @@ class _EngineTask:
     on_generation_token: Callable[[], None] | None = None
     generated_text_parts: list[str] = field(default_factory=list)
     potential_stop_sequence_text: str = ""
-    emitted_text_len: int = 0
     completion_tokens: int = 0
     generation_start_time: float = 0.0
     prefill_tps: float = 0.0
@@ -479,11 +478,10 @@ class ExoBatchGenerator:
                 state.detokenizer.add_token(response.token)
             if response.finish_reason is not None:
                 state.detokenizer.finalize()
-            # last_segment is CUMULATIVE (full decoded text so far). Emit only
-            # the delta since the previous token, like the sequential path.
-            full_text = state.detokenizer.last_segment
-            text = full_text[state.emitted_text_len :]
-            state.emitted_text_len = len(full_text)
+            # last_segment is the DELTA since the previous access (the base
+            # StreamingDetokenizer property advances its offset on every
+            # read). Emit it as-is — like the sequential path's out.text.
+            text = state.detokenizer.last_segment
             state.completion_tokens += 1
             if state.task_params.bench:
                 delta = now - state.first_gen_token_time

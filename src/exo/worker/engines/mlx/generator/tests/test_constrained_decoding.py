@@ -258,3 +258,58 @@ class TestMakeConstrainedProcessor:
         out = proc(mx.array([1]), mx.zeros((tokenizer.vocab_size,)))
         assert out[vocab["{"]].item() > -1e8  # object start allowed
         assert out[vocab['"']].item() < -1e8  # string start blocked
+
+
+class TestEosGating:
+    """EOS must only be allowed at FINAL accept states, not intermediate ones."""
+
+    def test_eos_not_allowed_mid_object(self) -> None:
+        """Right after '{', the empty-object epsilon accept must NOT allow EOS
+        (greedy sampling would stop immediately with a partial document)."""
+        tokenizer = _fake_tokenizer()
+        vocab = tokenizer.get_vocab()
+        proc = ConstrainedDecodingProcessor(
+            tokenizer,
+            {
+                "type": "object",
+                "properties": {"name": {"type": "string"}},
+                "required": ["name"],
+            },
+        )
+        # Consume "{": the FSM is at the body-accept state. The processor
+        # mimics mlx-lm's BatchGenerator: growing full history per call, with
+        # a leading prompt token on the first call (prompt-boundary rule).
+        history = [vocab["<s>"]]  # prompt last token (not walked)
+        proc(mx.array(history), mx.zeros((tokenizer.vocab_size,)))
+        history.append(vocab["{"])
+        out = proc(mx.array(history), mx.zeros((tokenizer.vocab_size,)))
+
+        assert out[vocab["<unk>"]].item() < -1e8  # sanity: mask applied
+        assert proc.eos_token_id is not None
+        # EOS must be MASKED here (mid-object).
+        assert out[proc.eos_token_id].item() < -1e8
+
+    def test_eos_allowed_after_object_closed(self) -> None:
+        """After the full object (…"}" consumed), EOS IS allowed."""
+        tokenizer = _fake_tokenizer()
+        vocab = tokenizer.get_vocab()
+        proc = ConstrainedDecodingProcessor(
+            tokenizer,
+            {
+                "type": "object",
+                "properties": {"a": {"type": "string"}},
+                "required": ["a"],
+            },
+        )
+        # Walk: { " a " : " a " }  — the final state after the closing brace.
+        history: list[int] = [vocab["<s>"]]  # prompt last token (not walked)
+        proc(mx.array(history), mx.zeros((tokenizer.vocab_size,)))
+        for tok in ("{", '"', "a", '"', ":", '"', "a", '"', "}"):
+            history.append(vocab[tok])
+            proc(mx.array(history), mx.zeros((tokenizer.vocab_size,)))
+
+        # No new tokens: mask reflects the current (final) state.
+        final = proc(mx.array(history), mx.zeros((tokenizer.vocab_size,)))
+        assert proc._state == proc.fsm.n_states - 1  # type: ignore[reportPrivateUsage]
+        # EOS should be allowed at the terminal accept state.
+        assert final[proc.eos_token_id].item() > -1e8

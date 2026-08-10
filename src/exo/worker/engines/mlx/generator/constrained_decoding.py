@@ -469,6 +469,21 @@ class ConstrainedDecodingProcessor:
         # call, so generation starts from the schema's start state instead of
         # a state polluted by arbitrary prompt text.
         self._walked = 0
+        # States where the generated output is COMPLETE — not merely
+        # acceptably stoppable mid-structure. Sequence-built FSMs (objects,
+        # arrays, booleans, numbers) end in an accepting terminal state
+        # (n_states - 1); allowing EOS at INTERMEDIATE accept states (e.g.
+        # right after "{", where the empty-object epsilon accept fires) makes
+        # greedy sampling stop immediately with a partial/empty document.
+        self._complete_states = {
+            s
+            for s in range(self.fsm.n_states)
+            if self.fsm.accept[s] and s == self.fsm.n_states - 1
+        }
+        # Last structural byte actually consumed from a generated token —
+        # used to recognise the hand-built string FSM's "string just closed"
+        # accept (state 0 reached via a closing quote) vs its start state.
+        self._last_byte: int | None = None
 
     def reset(self) -> None:
         """Reset FSM state for a new request (keep the allowed-set cache)."""
@@ -491,7 +506,19 @@ class ConstrainedDecodingProcessor:
                     allowed.append(child.token_id)
                 stack.append((child, nxt))
         if self.eos_token_id is not None:
-            if self.fsm.accept[state] and self._allow_eos_when_complete:
+            complete = self._state in self._complete_states
+            # Hand-built string FSM: the accept is the START state reached
+            # after a closing quote — complete only if the last byte emitted
+            # was a quote (the start state at the very beginning must not
+            # terminate).
+            if (
+                not complete
+                and self.fsm.accept[self._state]
+                and self._state == self.fsm.start
+                and self._last_byte == _QUOTE
+            ):
+                complete = True
+            if complete and self._allow_eos_when_complete:
                 if self.eos_token_id not in allowed:
                     allowed.append(self.eos_token_id)
             elif not allowed:
@@ -535,6 +562,7 @@ class ConstrainedDecodingProcessor:
                         if nxt is None:
                             break
                         self._state = nxt
+                        self._last_byte = byte
         mask = self._allowed_mask(self._state)
         if mask.shape[-1] != logits.shape[-1]:
             # Vocab mismatch guard: the tokenizer's vocab (used to build the

@@ -181,6 +181,12 @@ async def chat_request_to_text_generation(
         request.reasoning_effort, request.enable_thinking
     )
 
+    # T28: constrained decoding requires the answer to BE the JSON document —
+    # a thinking preamble would be walked through the FSM as garbage. Force
+    # thinking off whenever response_format is requested.
+    if request.response_format is not None:
+        resolved_thinking = False
+
     # T13: server-side tool execution is opt-out via env (default ON =
     # backward compatible). Set EXO_ENABLE_SERVERSIDE_TOOLCALLS=0 to strip
     # tools entirely (security: a malicious prompt can't trigger tools).
