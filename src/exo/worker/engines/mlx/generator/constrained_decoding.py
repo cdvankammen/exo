@@ -462,10 +462,18 @@ class ConstrainedDecodingProcessor:
         self.eos_token_id = eos_token_id
         self._state = self.fsm.start
         self._cache: dict[int, mx.array] = {}
+        # Prompt-boundary tracking: the first invocation receives the prompt's
+        # trailing tokens (mlx_lm passes the prompt context on the first
+        # processor call, and BatchGenerator passes the full token history on
+        # every call). We only walk tokens that are NEW since the previous
+        # call, so generation starts from the schema's start state instead of
+        # a state polluted by arbitrary prompt text.
+        self._walked = 0
 
     def reset(self) -> None:
         """Reset FSM state for a new request (keep the allowed-set cache)."""
         self._state = self.fsm.start
+        self._walked = 0
 
     def _allowed_mask(self, state: int) -> mx.array:
         cached = self._cache.get(state)
@@ -502,14 +510,31 @@ class ConstrainedDecodingProcessor:
         return mask
 
     def __call__(self, tokens: mx.array, logits: mx.array) -> mx.array:
-        if tokens.shape[-1] > 0:
-            last_id = int(tokens[-1].item())  # force eval (mlx-lm #1156)
-            if last_id != self.eos_token_id:
-                for byte in self._id_to_bytes.get(last_id, b""):
-                    nxt = self.fsm.transitions[self._state].get(byte)
-                    if nxt is None:
-                        break
-                    self._state = nxt
+        n_tokens = tokens.shape[-1]
+        # Walk only tokens that are NEW since the previous call.
+        #
+        # The FIRST invocation carries the prompt context only (mlx_lm calls
+        # logits processors with the trailing prompt tokens on the first
+        # decode step; BatchGenerator re-passes the whole history every
+        # step). Walking prompt text would land the FSM in a state derived
+        # from arbitrary user input — instead, generation starts from the
+        # schema's start state and only appended (generated) tokens advance
+        # the FSM.
+        if self._walked == 0 and n_tokens > 0:
+            # First call: everything is prompt — constrain the first
+            # generated token from the start state, walk nothing.
+            self._walked = n_tokens
+        elif n_tokens > self._walked:
+            new_tokens = tokens[self._walked :]
+            self._walked = n_tokens
+            for i in range(new_tokens.shape[-1]):
+                last_id = int(new_tokens[i].item())  # force eval (mlx-lm #1156)
+                if last_id != self.eos_token_id:
+                    for byte in self._id_to_bytes.get(last_id, b""):
+                        nxt = self.fsm.transitions[self._state].get(byte)
+                        if nxt is None:
+                            break
+                        self._state = nxt
         mask = self._allowed_mask(self._state)
         if mask.shape[-1] != logits.shape[-1]:
             # Vocab mismatch guard: the tokenizer's vocab (used to build the

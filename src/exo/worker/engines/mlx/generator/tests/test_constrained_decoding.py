@@ -133,11 +133,13 @@ class TestConstrainedDecodingProcessor:
         vocab = tokenizer.get_vocab()
         proc = ConstrainedDecodingProcessor(tokenizer, {"type": "object"})
 
-        # Fresh state allows "{"...
+        # Fresh state allows "{"... (first call carries prompt context only;
+        # nothing is walked, the mask constrains the first generated token)
         fresh = proc(mx.array([1]), mx.zeros((tokenizer.vocab_size,)))
         assert fresh[vocab["{"]].item() > -1e8
-        # ...after consuming "{", another "{" must be masked (mid-object)...
-        mid = proc(mx.array([3]), mx.zeros((tokenizer.vocab_size,)))
+        # ...after consuming the generated "{", another "{" must be masked
+        # (mid-object)...
+        mid = proc(mx.array([1, 3]), mx.zeros((tokenizer.vocab_size,)))
         assert mid[vocab["{"]].item() < -1e8
         # ...and reset restores the fresh behavior.
         proc.reset()
@@ -157,13 +159,14 @@ class TestConstrainedDecodingProcessor:
             },
         )
 
-        # Start state: only "{" is structurally valid.
+        # Start state: only "{" is structurally valid. First call carries
+        # prompt context ([1]) only — nothing walked.
         out0 = proc(mx.array([1]), mx.zeros((tokenizer.vocab_size,)))
         assert out0[vocab["{"]].item() > -1e8
         assert out0[vocab["}"]].item() < -1e8
 
-        # After "{": the key must begin with a quote.
-        out1 = proc(mx.array([3]), mx.zeros((tokenizer.vocab_size,)))
+        # After the generated "{" is appended: the key must begin with a quote.
+        out1 = proc(mx.array([1, 3]), mx.zeros((tokenizer.vocab_size,)))
         assert out1[vocab['"']].item() > -1e8
         assert out1[vocab["a"]].item() < -1e8
 
@@ -181,18 +184,18 @@ class TestConstrainedDecodingProcessor:
         )
         # Feed: {"a": "x"  — after the first value closes, only ',' or '}' legal.
         # The FSM is driven byte-by-byte through tokens; simulate key/value.
-        # "{" then key "a": walk through tokens: { (3), " (4), a (11), " (4),
-        # : (5), " (4), x-token (any string char)...
-        # Simplest check: at the state after `{"a":` + string content + closing
-        # quote, ',' must be allowed.
-        proc(mx.array([3]), mx.zeros((tokenizer.vocab_size,)))  # {
-        proc(mx.array([4]), mx.zeros((tokenizer.vocab_size,)))  # "
-        proc(mx.array([11]), mx.zeros((tokenizer.vocab_size,)))  # a
-        proc(mx.array([4]), mx.zeros((tokenizer.vocab_size,)))  # "
-        proc(mx.array([5]), mx.zeros((tokenizer.vocab_size,)))  # :
-        proc(mx.array([4]), mx.zeros((tokenizer.vocab_size,)))  # "
-        proc(mx.array([11]), mx.zeros((tokenizer.vocab_size,)))  # a (string)
-        out = proc(mx.array([4]), mx.zeros((tokenizer.vocab_size,)))  # closing "
+        # First call is prompt context ([1]); each subsequent call appends one
+        # generated token: { (3), " (4), a (11), " (4), : (5), " (4), a (11),
+        # " (4).
+        proc(mx.array([1]), mx.zeros((tokenizer.vocab_size,)))  # prompt
+        proc(mx.array([1, 3]), mx.zeros((tokenizer.vocab_size,)))  # {
+        proc(mx.array([1, 3, 4]), mx.zeros((tokenizer.vocab_size,)))  # "
+        proc(mx.array([1, 3, 4, 11]), mx.zeros((tokenizer.vocab_size,)))  # a
+        proc(mx.array([1, 3, 4, 11, 4]), mx.zeros((tokenizer.vocab_size,)))  # "
+        proc(mx.array([1, 3, 4, 11, 4, 5]), mx.zeros((tokenizer.vocab_size,)))  # :
+        proc(mx.array([1, 3, 4, 11, 4, 5, 4]), mx.zeros((tokenizer.vocab_size,)))  # "
+        proc(mx.array([1, 3, 4, 11, 4, 5, 4, 11]), mx.zeros((tokenizer.vocab_size,)))  # a (string)
+        out = proc(mx.array([1, 3, 4, 11, 4, 5, 4, 11, 4]), mx.zeros((tokenizer.vocab_size,)))  # closing "
 
         assert out[vocab[","]].item() > -1e8  # comma required between properties
         assert out[vocab["}"]].item() > -1e8  # and } closes the object
