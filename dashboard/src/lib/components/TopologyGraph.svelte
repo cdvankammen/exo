@@ -302,6 +302,8 @@
       ip: string;
       ifaceLabel: string;
       missingIface: boolean;
+      latencyMs?: number | null;
+      bandwidthMbps?: number | null;
     };
     type PairEntry = {
       a: string;
@@ -358,6 +360,8 @@
         ip,
         ifaceLabel,
         missingIface,
+        latencyMs: edge.latency_ms,
+        bandwidthMbps: edge.bandwidth_mbps,
       });
       pairMap.set(key, entry);
     });
@@ -415,6 +419,29 @@
           .attr("stroke", "none")
           .attr("fill", "none")
           .attr("marker-end", "url(#arrowhead)");
+      }
+
+      // Render a latency + bandwidth label at the link midpoint when measured (TODO #4/#5).
+      const measuredLatency = entry.connections.find(
+        (c) => c.latencyMs != null,
+      )?.latencyMs;
+      const measuredBandwidth = entry.connections.find(
+        (c) => c.bandwidthMbps != null,
+      )?.bandwidthMbps;
+      if (measuredLatency != null || measuredBandwidth != null) {
+        const parts: string[] = [];
+        if (measuredLatency != null) parts.push(`${Math.round(measuredLatency)}ms`);
+        if (measuredBandwidth != null) {
+          const mb = measuredBandwidth < 100 ? measuredBandwidth.toFixed(1) : Math.round(measuredBandwidth).toString();
+          parts.push(`${mb}MB/s`);
+        }
+        linksGroup
+          .append("text")
+          .attr("x", mx + 6)
+          .attr("y", my - 6)
+          .attr("class", "graph-link-latency")
+          .attr("text-anchor", "start")
+          .text(parts.join(" "));
       }
 
       // Collect debug labels for later positioning at edges
@@ -1238,6 +1265,14 @@
     stroke-dasharray: 4, 4;
     opacity: 0.8;
     animation: flowAnimation 0.75s linear infinite;
+  }
+  :global(.graph-link-latency) {
+    fill: var(--exo-light-gray, #b3b3b3);
+    font-size: 9px;
+    font-family: SF Mono, Monaco, Consolas, monospace;
+    opacity: 0.75;
+    pointer-events: none;
+    user-select: none;
   }
   @keyframes flowAnimation {
     from {

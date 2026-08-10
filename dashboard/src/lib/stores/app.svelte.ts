@@ -85,6 +85,8 @@ export interface TopologyEdge {
   sendBackInterface?: string;
   sourceRdmaIface?: string;
   sinkRdmaIface?: string;
+  latency_ms?: number | null;
+  bandwidth_mbps?: number | null;
 }
 
 export interface TopologyData {
@@ -537,12 +539,22 @@ function transformTopology(
           let sendBackIp: string | undefined;
           let sourceRdmaIface: string | undefined;
           let sinkRdmaIface: string | undefined;
+          let latencyMs: number | null | undefined;
+          let bandwidthMbps: number | null | undefined;
           if (edge && typeof edge === "object" && "sinkMultiaddr" in edge) {
             const multiaddr = edge.sinkMultiaddr;
             if (multiaddr) {
               sendBackIp =
                 multiaddr.ip_address ||
                 extractIpFromMultiaddr(multiaddr.address);
+            }
+            // SocketConnection carries measured latency + bandwidth.
+            const raw = edge as Record<string, unknown>;
+            if (typeof raw.latency_ms === "number") {
+              latencyMs = raw.latency_ms;
+            }
+            if (typeof raw.bandwidth_mbps === "number") {
+              bandwidthMbps = raw.bandwidth_mbps;
             }
           } else if (
             edge &&
@@ -560,6 +572,8 @@ function transformTopology(
               sendBackIp,
               sourceRdmaIface,
               sinkRdmaIface,
+              latency_ms: latencyMs,
+              bandwidth_mbps: bandwidthMbps,
             });
           }
         }
