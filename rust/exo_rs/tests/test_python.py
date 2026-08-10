@@ -13,8 +13,11 @@ from exo_rs import (
 @pytest.mark.asyncio
 async def test_sleep_on_multiple_items() -> None:
     print("PYTHON: starting handle")
+    # Use high ephemeral-ish ports so the test never collides with a running
+    # cluster (which occupies 52413/52414). Port 0 is not supported by the
+    # Rust binding (panics), so pick a fixed high range.
     h = NetworkingHandle.new(
-        os.urandom(16).hex().lstrip("0"), "test", 52414, 52413
+        os.urandom(16).hex().lstrip("0"), "test", 53414, 53413
     )
     print("PYTHON: handle started")
 
