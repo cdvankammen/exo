@@ -66,6 +66,15 @@ DATAS: list[tuple[str, str]] = [
     (str(DASHBOARD_DIR), "dashboard"),
     (str(RESOURCES_DIR), "resources"),
     (str(MLX_LIB_DIR), "mlx/lib"),
+    # MLX resolves mlx.metallib *colocated with the loaded libmlx.dylib*
+    # (dladdr in mlx/backend/metal/device.cpp load_colocated_library).
+    # PyInstaller hoists libmlx.dylib to the top of _internal because it is
+    # a dependency of mlx's core extension (@rpath/libmlx.dylib), so the
+    # metallib must ship at _internal/mlx.metallib — the mlx/lib copy above
+    # is never found. Without this, every deployed bundle fails with
+    # "Failed to load the default metallib. library not found" unless the
+    # compiled-in METAL_PATH happens to exist on the machine.
+    (str(MLX_LIB_DIR / "mlx.metallib"), "."),
     (str(EXO_SHARED_MODELS_DIR), "exo/shared/models"),
 ]
 

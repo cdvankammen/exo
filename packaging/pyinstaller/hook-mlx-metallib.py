@@ -1,18 +1,20 @@
-"""PyInstaller runtime hook: make MLX find its Metal metallib.
+"""PyInstaller runtime hook: verify MLX's Metal metallib is reachable.
 
-MLX (mlx.core) locates its default Metal library (mlx.metallib) relative to
-the process working directory / compiled-in paths. In a PyInstaller bundle
-the metallib ships at ``_internal/mlx/lib/mlx.metallib`` but MLX has no
-``__file__`` (compiled extension) and no env override, so it fails with:
+MLX (mlx.core) locates its default Metal library (mlx.metallib) via
+``load_colocated_library`` (mlx/backend/metal/device.cpp): it dladdr()s the
+*loaded* libmlx.dylib and looks for ``mlx.metallib`` next to it. In a
+PyInstaller onedir bundle PyInstaller hoists libmlx.dylib to the top of
+``_internal`` (it is a dependency of mlx's core extension), so the metallib
+must ship at ``_internal/mlx.metallib`` — the spec adds it there (see
+exo.spec). cwd is irrelevant to this lookup.
 
-    RuntimeError: Failed to load the default metallib. library not found
+Previously this hook chdir()d into ``_internal`` assuming a relative
+resolution; that only masked the problem on machines where the compiled-in
+METAL_PATH (a build-machine uv cache path) still existed.
 
-Running from ``_internal`` makes MLX resolve ``mlx/lib/mlx.metallib``
-(verified live 2026-08-07: ``mx.metal.is_available() == True``). This hook
-chdir()s into the PyInstaller ``_internal`` directory before any MLX import.
-
-Discovered while diagnosing the T29 RDMA retest: every runner failed with
-"Failed to load the default metallib" even though the file was bundled.
+This hook now verifies the invariant and prints a clear diagnostic instead
+of letting mlx fail later with an opaque "Failed to load the default
+metallib" deep inside a runner.
 """
 
 import os
@@ -36,5 +38,13 @@ def _find_internal_dir() -> str | None:
     return None
 
 _internal = _find_internal_dir()
-if _internal and os.path.isfile(os.path.join(_internal, "mlx", "lib", "mlx.metallib")):
-    os.chdir(_internal)
+if _internal:
+    colocated = os.path.join(_internal, "mlx.metallib")
+    if not os.path.isfile(colocated):
+        print(
+            f"[hook-mlx-metallib] mlx.metallib missing at {colocated}; "
+            "MLX Metal will fail to load ('Failed to load the default metallib'). "
+            "Rebuild with packaging/pyinstaller/exo.spec which ships the "
+            "metallib colocated with the loaded libmlx.dylib.",
+            file=sys.stderr,
+        )
