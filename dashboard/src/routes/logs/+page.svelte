@@ -102,6 +102,26 @@
     errors.filter((e) => errorLevelFilter.has(e.level)),
   );
 
+  // Persist on every state change — hash navigation (/#/logs) does NOT
+  // unmount the page, so onDestroy never fires. Saving in an $effect that
+  // tracks the view state guarantees the last position is always stored.
+  // The first run is skipped so the effect never overwrites the state
+  // restored by loadLogsState() in onMount with the pre-restore defaults.
+  let persistenceReady = $state(false);
+  $effect(() => {
+    // Read all tracked state so the effect re-runs on any change.
+    const snapshot = {
+      viewMode,
+      selectedName,
+      errorLevelFilter: [...errorLevelFilter],
+      stickToBottom,
+    };
+    if (persistenceReady) {
+      saveLogsState();
+    }
+    void snapshot;
+  });
+
   let refreshTimer: ReturnType<typeof setInterval> | undefined;
   // Auto-scroll: start at the bottom, stay at the bottom while the user is
   // at the bottom, and re-engage when they scroll back down. Manual scroll
@@ -249,6 +269,8 @@
     // Restore the last section/log/filter/scroll position from the previous
     // visit to this page (survives SPA navigation; resets on fresh session).
     loadLogsState();
+    // Now that restored state is applied, the persistence effect may save.
+    persistenceReady = true;
     refreshList();
     refreshErrors();
   });
