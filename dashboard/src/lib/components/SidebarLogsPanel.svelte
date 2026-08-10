@@ -16,6 +16,7 @@
 
   const LEVEL_ORDER = ["CRITICAL", "ERROR", "WARNING"] as const;
   const EXPANDED_KEY = "exo-sidebar-logs-expanded";
+  const HEIGHT_KEY = "exo-sidebar-logs-height";
 
   let errors = $state<LogErrorEntry[]>([]);
   let loading = $state(true);
@@ -24,6 +25,12 @@
   let tailLoading = $state(false);
   let refreshTimer: ReturnType<typeof setInterval> | undefined;
   let expanded = $state(false);
+  // Height in px when expanded. Persisted so it survives navigation.
+  let panelHeight = $state(256);
+  let dragging = $state(false);
+  let dragStartY = $state(0);
+  let dragStartHeight = $state(0);
+  let panelEl = $state<HTMLElement | null>(null);
 
   const visibleErrors = $derived(
     errors
@@ -43,6 +50,43 @@
       // private mode — preference just won't persist
     }
     if (expanded) refreshAll();
+  }
+
+  // --- Resize (Phase 3) ------------------------------------------------
+  // Drag the handle strip to resize. Clamped so the panel never gets tiny
+  // (min 96px) and never overlaps the search bar: we measure the panel's
+  // top edge and stop the bottom edge from exceeding the sidebar's search
+  // header (found via the nearest sibling above). Because the panel sits
+  // above the footer, dragging up grows it; dragging down shrinks it.
+  function onDragStart(e: PointerEvent) {
+    dragging = true;
+    dragStartY = e.clientY;
+    dragStartHeight = panelHeight;
+    e.preventDefault();
+  }
+
+  function onDragMove(e: PointerEvent) {
+    if (!dragging || !panelEl) return;
+    const delta = dragStartY - e.clientY; // drag up → grow
+    // Upper bound: don't let the panel's top rise above the search header.
+    // Find the conversation list header (search bar) top edge.
+    const sidebar = panelEl.closest("aside");
+    const searchHeader = sidebar?.querySelector(".p-4") as HTMLElement | null;
+    const minTop = searchHeader
+      ? searchHeader.getBoundingClientRect().bottom + 8
+      : 0;
+    const panelTop = panelEl.getBoundingClientRect().top;
+    const maxHeight = Math.max(96, panelTop - minTop);
+    panelHeight = Math.min(Math.max(96, dragStartHeight + delta), maxHeight);
+  }
+
+  function onDragEnd() {
+    dragging = false;
+    try {
+      localStorage.setItem(HEIGHT_KEY, String(Math.round(panelHeight)));
+    } catch {
+      // ignore
+    }
   }
 
   async function refreshErrors() {
@@ -76,6 +120,8 @@
   onMount(() => {
     try {
       expanded = localStorage.getItem(EXPANDED_KEY) === "1";
+      const savedHeight = Number(localStorage.getItem(HEIGHT_KEY));
+      if (savedHeight >= 96 && savedHeight <= 800) panelHeight = savedHeight;
     } catch {
       // ignore
     }
@@ -112,7 +158,20 @@
     {/if}
   </button>
 {:else}
-  <div class="flex flex-col h-64 min-h-0 border-t border-exo-yellow/10 bg-exo-black/30">
+  <div
+    bind:this={panelEl}
+    class="flex flex-col min-h-0 border-t border-exo-yellow/10 bg-exo-black/30"
+    style="height: {panelHeight}px"
+  >
+    <!-- Resize handle (drag up/down to change height) -->
+    <div
+      class="h-1.5 flex-shrink-0 cursor-row-resize hover:bg-exo-yellow/30 transition-colors"
+      onpointerdown={onDragStart}
+      onpointermove={onDragMove}
+      onpointerup={onDragEnd}
+      onpointerleave={onDragEnd}
+      title="Drag to resize"
+    ></div>
     <!-- Header -->
     <div class="px-3 py-1.5 flex items-center justify-between">
       <span class="text-[10px] font-mono tracking-widest uppercase text-exo-light-gray/70">
