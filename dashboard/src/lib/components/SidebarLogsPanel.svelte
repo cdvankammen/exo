@@ -1,10 +1,10 @@
 <script lang="ts">
   // Sidebar Logs/Errors panel.
-  // Phase 1: static inline error list + log tail.
-  // Phase 2: collapsible — collapsed = slim footer-style row with toggle +
-  //          error-count badge; expanded = the full panel. Preference
-  //          persisted to localStorage (like devMode).
-  // Phase 3: resizable height.
+  // - Header bar says "Main Logs" and doubles as the drag handle: click to
+  //   collapse/expand (restoring the previous height), click-and-hold to
+  //   drag up/down to resize.
+  // - Collapsed = slim footer-style row with toggle + error-count badge.
+  // - Expanded height persisted to localStorage; expand restores it.
   import { onMount, onDestroy } from "svelte";
   import { listLogErrors, getLogTail, type LogErrorEntry } from "$lib/stores/app.svelte";
 
@@ -31,6 +31,8 @@
   let dragStartY = $state(0);
   let dragStartHeight = $state(0);
   let panelEl = $state<HTMLElement | null>(null);
+  // Distinguish a click (collapse/expand) from a drag (resize).
+  let dragMoved = $state(false);
 
   const visibleErrors = $derived(
     errors
@@ -52,22 +54,25 @@
     if (expanded) refreshAll();
   }
 
-  // --- Resize (Phase 3) ------------------------------------------------
-  // Drag the handle strip to resize. Clamped so the panel never gets tiny
-  // (min 96px) and never overlaps the search bar: we measure the panel's
-  // top edge and stop the bottom edge from exceeding the sidebar's search
-  // header (found via the nearest sibling above). Because the panel sits
-  // above the footer, dragging up grows it; dragging down shrinks it.
-  function onDragStart(e: PointerEvent) {
+  // --- Header bar: click to collapse/expand, click-and-hold to resize ----
+  // The header bar is both the collapse toggle and the drag handle. A plain
+  // click (no movement) toggles; holding and moving resizes. Move/up are
+  // bound to window so dragging past the header still tracks.
+  function onHeaderPointerDown(e: PointerEvent) {
     dragging = true;
+    dragMoved = false;
     dragStartY = e.clientY;
     dragStartHeight = panelHeight;
+    window.addEventListener("pointermove", onHeaderPointerMove);
+    window.addEventListener("pointerup", onHeaderPointerUp);
+    window.addEventListener("pointercancel", onHeaderPointerUp);
     e.preventDefault();
   }
 
-  function onDragMove(e: PointerEvent) {
+  function onHeaderPointerMove(e: PointerEvent) {
     if (!dragging || !panelEl) return;
     const delta = dragStartY - e.clientY; // drag up → grow
+    if (Math.abs(delta) > 3) dragMoved = true;
     // Upper bound: don't let the panel's top rise above the search header.
     // Find the conversation list header (search bar) top edge.
     const sidebar = panelEl.closest("aside");
@@ -80,13 +85,34 @@
     panelHeight = Math.min(Math.max(96, dragStartHeight + delta), maxHeight);
   }
 
-  function onDragEnd() {
+  function onHeaderPointerUp() {
+    const wasDragging = dragging;
     dragging = false;
-    try {
-      localStorage.setItem(HEIGHT_KEY, String(Math.round(panelHeight)));
-    } catch {
-      // ignore
+    window.removeEventListener("pointermove", onHeaderPointerMove);
+    window.removeEventListener("pointerup", onHeaderPointerUp);
+    window.removeEventListener("pointercancel", onHeaderPointerUp);
+    if (wasDragging && !dragMoved) {
+      // Plain click on the header bar → collapse/expand.
+      toggleExpanded();
+    } else if (wasDragging) {
+      // Resize finished — persist the new height.
+      try {
+        localStorage.setItem(HEIGHT_KEY, String(Math.round(panelHeight)));
+      } catch {
+        // ignore
+      }
     }
+  }
+
+  // Fallback: a native click also toggles (covers touch / synthetic events
+  // where pointerup may not fire reliably). Guarded by dragMoved so a
+  // resize drag never triggers a collapse.
+  function onHeaderClick() {
+    if (dragMoved) {
+      dragMoved = false;
+      return;
+    }
+    toggleExpanded();
   }
 
   async function refreshErrors() {
@@ -150,7 +176,7 @@
       <svg fill="currentColor" viewBox="0 0 24 24" class="w-3.5 h-3.5">
         <path d="M20 4h-6l-1.5 2H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1V5a1 1 0 0 0-1-1Zm-1 12H5V8h12.17l.83-1.11V16ZM7 13h10v-2H7v2Z"></path>
       </svg>
-      LOGS &amp; ERRORS
+      MAIN LOGS
     </span>
     {#if criticalCount > 0}
       <span class="px-1.5 py-0.5 rounded bg-red-500/20 border border-red-500/40 text-red-300 text-[9px]">
@@ -164,32 +190,22 @@
     class="flex flex-col min-h-0 border-t border-exo-yellow/10 bg-exo-black/30"
     style="height: {panelHeight}px"
   >
-    <!-- Resize handle (drag up/down to change height) -->
+    <!-- Header bar: click to collapse/expand, click-and-hold to resize -->
     <div
-      class="h-1.5 flex-shrink-0 cursor-row-resize hover:bg-exo-yellow/30 transition-colors"
-      onpointerdown={onDragStart}
-      onpointermove={onDragMove}
-      onpointerup={onDragEnd}
-      onpointerleave={onDragEnd}
-      title="Drag to resize"
-    ></div>
-    <!-- Header -->
-    <div class="px-3 py-1.5 flex items-center justify-between">
+      class="px-3 py-2 flex items-center justify-between flex-shrink-0 cursor-row-resize select-none hover:bg-exo-yellow/10 transition-colors"
+      onpointerdown={onHeaderPointerDown}
+      onclick={onHeaderClick}
+      role="button"
+      title="Click to collapse/expand — click and drag to resize"
+    >
       <span class="text-[10px] font-mono tracking-widest uppercase text-exo-light-gray/70">
-        Cluster Errors
+        Main Logs
       </span>
       <div class="flex items-center gap-2">
         {#if errors.length > 0}
           <span class="text-[10px] font-mono text-red-400">{errors.length}</span>
         {/if}
-        <button
-          type="button"
-          onclick={toggleExpanded}
-          class="text-[10px] font-mono text-exo-light-gray/60 hover:text-exo-yellow transition-colors cursor-pointer"
-          title="Collapse logs & errors panel"
-        >
-          [—]
-        </button>
+        <span class="text-[10px] font-mono text-exo-light-gray/40">⠿</span>
       </div>
     </div>
 
