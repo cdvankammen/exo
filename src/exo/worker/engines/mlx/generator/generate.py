@@ -576,6 +576,12 @@ def make_constrained_processor(
         inner_schema = inner.get("schema")
         if isinstance(inner_schema, dict):
             schema_dict = cast("dict[str, Any]", inner_schema)
+    elif schema_dict.get("type") == "json_object":
+        # OpenAI json_object mode: "any valid JSON object" — no schema is
+        # attached, so compile as a bare object instead of treating the
+        # wrapper as an unknown type (which would fall back to a string FSM
+        # and force the output to start with a quote).
+        schema_dict = {"type": "object"}
     try:
         return ConstrainedDecodingProcessor(tokenizer, schema_dict)
     except ValueError:
@@ -738,7 +744,6 @@ def mlx_generate(
     constrained = make_constrained_processor(task, tokenizer)
     if constrained is not None:
         logits_processors = [constrained] + logits_processors
-        logger.info(f"T28 constrained decoding ACTIVE for {task.model}")
 
     sampler = make_sampler(
         temp=task.temperature if task.temperature is not None else 0.7,

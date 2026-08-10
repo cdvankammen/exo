@@ -237,3 +237,21 @@ class TestMakeConstrainedProcessor:
         object.__setattr__(task, "response_format", ["not", "a", "dict"])
         proc = make_constrained_processor(task, _fake_tokenizer())
         assert proc is None
+
+    def test_json_object_wrapper_compiles_as_bare_object(self) -> None:
+        """OpenAI json_object mode (no schema) must constrain to an OBJECT.
+
+        Without the unwrap, {"type": "json_object"} compiles as an unknown
+        type and falls back to the string FSM — output would be forced to
+        start with a quote. It must start with '{' instead.
+        """
+        tokenizer = _fake_tokenizer()
+        vocab = tokenizer.get_vocab()
+        proc = make_constrained_processor(
+            self._task(response_format={"type": "json_object"}), tokenizer
+        )
+        assert proc is not None
+
+        out = proc(mx.array([1]), mx.zeros((tokenizer.vocab_size,)))
+        assert out[vocab["{"]].item() > -1e8  # object start allowed
+        assert out[vocab['"']].item() < -1e8  # string start blocked
