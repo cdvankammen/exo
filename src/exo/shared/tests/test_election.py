@@ -44,6 +44,9 @@ def em(
 @pytest.fixture(autouse=True)
 def fast_election_timeout(monkeypatch: pytest.MonkeyPatch):
     monkeypatch.setattr("exo.shared.election.DEFAULT_ELECTION_TIMEOUT", 0.1)
+    # Make the connection-message cooldown fast too, so tests that exercise
+    # connection-triggered campaigns don't wait the real 25s.
+    monkeypatch.setattr("exo.shared.election._CONNECTION_ELECTION_COOLDOWN", 0.05)
 
 
 @pytest.mark.anyio
@@ -718,6 +721,56 @@ async def test_promote_master_ignored_for_other_node() -> None:
             await sleep(0.2)
             # No new round started: clock and campaigns unchanged
             assert election.clock == initial_clock
+
+            em_in_tx.close()
+            cm_tx.close()
+            co_tx.close()
+
+
+@pytest.mark.anyio
+async def test_continuous_connection_messages_do_not_stack_campaigns() -> None:
+    """
+    A continuous trickle of connection messages must not start a new campaign
+    for every message — the _campaign_active guard collapses them into one
+    round. Without the guard, the master flapped every election timeout and
+    tore down instances (the observed 55k 'elected master' log spam).
+    """
+    em_out_tx, em_out_rx = channel[ElectionMessage]()
+    em_in_tx, em_in_rx = channel[ElectionMessage]()
+    er_tx, _er_rx = channel[ElectionResult]()
+    cm_tx, cm_rx = channel[ConnectionMessage]()
+    co_tx, co_rx = channel[ForwarderCommand]()
+
+    election = Election(
+        node_id=NodeId("ME"),
+        election_message_receiver=em_in_rx,
+        election_message_sender=em_out_tx,
+        election_result_sender=er_tx,
+        connection_message_receiver=cm_rx,
+        command_receiver=co_rx,
+        is_candidate=True,
+    )
+
+    async with create_task_group() as tg:
+        with fail_after(2):
+            tg.start_soon(election.run)
+
+            # Burst of connection messages (like re-announcements). The
+            # _campaign_active guard must collapse these into far fewer
+            # campaigns than messages — one per message would stack and flap.
+            for _ in range(5):
+                await cm_tx.send(ConnectionMessage(connected=True))
+
+            # Count distinct campaign rounds (broadcasts at distinct clocks)
+            # within a short window. 5 messages must NOT yield 5+ rounds.
+            clocks: set[int] = set()
+            with move_on_after(0.6):
+                while True:
+                    got = await em_out_rx.receive()
+                    clocks.add(got.clock)
+                    if len(clocks) >= 3:
+                        break
+            assert len(clocks) <= 3, f"too many campaigns for 5 messages: {clocks}"
 
             em_in_tx.close()
             cm_tx.close()

@@ -210,15 +210,26 @@ class Election:
                     f"Connection messages received: {first} followed by {rest}"
                 )
                 while True:
-                    logger.debug(f"Current clock: {self.clock}")
-                    # These messages are strictly peer to peer
-                    self.clock += 1
-                    logger.debug(f"New clock: {self.clock}")
-                    candidates: list[ElectionMessage] = []
-                    self._candidates = candidates
-                    logger.debug("Starting new campaign")
-                    self._start_campaign(candidates, DEFAULT_ELECTION_TIMEOUT)
-                    logger.debug("Campaign started")
+                    # Campaign on the first message immediately (a node joining
+                    # shouldn't wait for a master). Guard against stacking
+                    # campaigns: if one is already active (e.g. a continuous
+                    # trickle of re-announcements), skip starting another —
+                    # that trickle was what caused the master to flap every
+                    # DEFAULT_ELECTION_TIMEOUT and tear down instances.
+                    if self._campaign_active:
+                        logger.debug(
+                            "Campaign already active; skipping follow-up round"
+                        )
+                    else:
+                        logger.debug(f"Current clock: {self.clock}")
+                        # These messages are strictly peer to peer
+                        self.clock += 1
+                        logger.debug(f"New clock: {self.clock}")
+                        candidates: list[ElectionMessage] = []
+                        self._candidates = candidates
+                        logger.debug("Starting new campaign")
+                        self._start_campaign(candidates, DEFAULT_ELECTION_TIMEOUT)
+                        logger.debug("Campaign started")
 
                     # Cooldown: absorb the connection-message burst that
                     # accompanies topology formation instead of campaigning
