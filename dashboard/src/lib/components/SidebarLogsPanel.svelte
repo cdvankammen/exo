@@ -93,7 +93,8 @@
     loading = true;
     errorMsg = null;
     try {
-      errors = await listLogErrors();
+      const response = await listLogErrors();
+      errors = response.errors;
     } catch (e) {
       errorMsg = e instanceof Error ? e.message : "Failed to load errors";
     } finally {
