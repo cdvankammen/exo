@@ -549,12 +549,13 @@ function transformTopology(
                 extractIpFromMultiaddr(multiaddr.address);
             }
             // SocketConnection carries measured latency + bandwidth.
+            // The API serializes them camelCase: latencyMs, bandwidthMbps.
             const raw = edge as Record<string, unknown>;
-            if (typeof raw.latency_ms === "number") {
-              latencyMs = raw.latency_ms;
+            if (typeof raw.latencyMs === "number") {
+              latencyMs = raw.latencyMs;
             }
-            if (typeof raw.bandwidth_mbps === "number") {
-              bandwidthMbps = raw.bandwidth_mbps;
+            if (typeof raw.bandwidthMbps === "number") {
+              bandwidthMbps = raw.bandwidthMbps;
             }
           } else if (
             edge &&
