@@ -512,11 +512,25 @@ class ConstrainedDecodingProcessor:
                     self._state = nxt
         mask = self._allowed_mask(self._state)
         if mask.shape[-1] != logits.shape[-1]:
-            # vocab mismatch guard: fall back to no constraint (log once)
-            logger.warning(
-                "Constrained decoding: vocab size mismatch (mask %s vs logits %s) — skipping constraint",
-                mask.shape[-1],
-                logits.shape[-1],
-            )
-            return logits
+            # Vocab mismatch guard: the tokenizer's vocab (used to build the
+            # mask) can differ from the model's output head (e.g. Qwen3.5-2B
+            # has extra reserved tokens). Instead of failing open, resize the
+            # mask so the constraint still applies to the overlapping ids:
+            # - model vocab larger: pad with -inf (block unknown ids)
+            # - model vocab smaller: truncate the mask
+            if mask.shape[-1] < logits.shape[-1]:
+                # pad with -inf (block unknown ids beyond the tokenizer vocab)
+                mask = mx.concatenate(
+                    [
+                        mask,
+                        mx.full(
+                            (logits.shape[-1] - mask.shape[-1],),
+                            -1e9,
+                            dtype=mx.float32,
+                        ),
+                    ],
+                    axis=-1,
+                )
+            else:
+                mask = mask[..., : logits.shape[-1]]
         return logits + mask

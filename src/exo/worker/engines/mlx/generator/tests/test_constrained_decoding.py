@@ -89,16 +89,44 @@ class TestConstrainedDecodingProcessor:
 
         assert out.shape == logits.shape
 
-    def test_vocab_mismatch_falls_back_unconstrained(self) -> None:
+    def test_vocab_mismatch_resizes_mask(self) -> None:
+        """Logits with a larger vocab than the tokenizer's still get constrained.
+
+        The mask is padded with -inf (blocking unknown ids) so the constraint
+        applies to the overlapping ids instead of failing open.
+        """
         tokenizer = _fake_tokenizer()
         proc = ConstrainedDecodingProcessor(tokenizer, {"type": "object"})
+        vocab = tokenizer.get_vocab()
 
         tokens = mx.array([1])
-        # logits of a DIFFERENT vocab size than the processor's mask
+        # logits of a LARGER vocab size than the processor's mask
         logits = mx.zeros((tokenizer.vocab_size + 7,))
         out = proc(tokens, logits)
 
-        assert mx.sum(mx.not_equal(out, logits).astype(mx.float32)).item() == 0  # unchanged
+        # output shape must match logits
+        assert out.shape == logits.shape
+        # the constraint still applies on the overlapping ids: "{" allowed,
+        # "}" blocked at start state
+        assert out[vocab["{"]].item() > -1e8
+        assert out[vocab["}"]].item() < -1e8
+        # unknown (padded) ids are blocked
+        assert out[tokenizer.vocab_size + 3].item() < -1e8
+
+    def test_vocab_mismatch_truncates_smaller(self) -> None:
+        """Logits with a SMALLER vocab than the tokenizer's get truncated mask."""
+        tokenizer = _fake_tokenizer()
+        proc = ConstrainedDecodingProcessor(tokenizer, {"type": "object"})
+        vocab = tokenizer.get_vocab()
+
+        tokens = mx.array([1])
+        logits = mx.zeros((tokenizer.vocab_size - 5,))
+        out = proc(tokens, logits)
+
+        assert out.shape == logits.shape
+        # overlapping ids still constrained
+        assert out[vocab["{"]].item() > -1e8
+        assert out[vocab["}"]].item() < -1e8
 
     def test_reset_restores_start_state(self) -> None:
         tokenizer = _fake_tokenizer()
