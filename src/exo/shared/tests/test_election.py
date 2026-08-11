@@ -459,6 +459,64 @@ async def test_equal_clock_candidacy_without_active_campaign_starts_a_round() ->
 
 
 @pytest.mark.anyio
+async def test_equal_clock_reproposal_of_current_master_skipped() -> None:
+    """
+    Regression test: a trickle of equal-clock re-proposals of the CURRENT
+    master must not keep spinning new campaigns.
+
+    With a senior node re-broadcasting the same master every few seconds,
+    every broadcast arrived at equal clock and (with no active campaign)
+    started another campaign -- each waiting on the previous one's done
+    event and logging "Waiting for other campaign to finish" forever,
+    keeping the election loop (and worker restarts on master change) alive.
+    Re-proposals of the already-current master are now skipped.
+    """
+    em_out_tx, em_out_rx = channel[ElectionMessage]()
+    em_in_tx, em_in_rx = channel[ElectionMessage]()
+    er_tx, er_rx = channel[ElectionResult]()
+    cm_tx, cm_rx = channel[ConnectionMessage]()
+    co_tx, co_rx = channel[ForwarderCommand]()
+
+    election = Election(
+        node_id=NodeId("B"),
+        election_message_receiver=em_in_rx,
+        election_message_sender=em_out_tx,
+        election_result_sender=er_tx,
+        connection_message_receiver=cm_rx,
+        command_receiver=co_rx,
+        is_candidate=True,
+    )
+
+    async with create_task_group() as tg:
+        with fail_after(2):
+            tg.start_soon(election.run)
+
+            # Establish A as master (first round resolves with A winning)
+            await em_in_tx.send(em(clock=1, seniority=50, node_id="A"))
+            result = await er_rx.receive()
+            assert result.session_id.master_node_id == NodeId("A")
+
+            # Drain campaign broadcasts emitted for that round
+            em_out_rx.collect()
+
+            # A re-proposes itself as master at the SAME clock (no new round).
+            # With the fix, no new campaign/result should be emitted.
+            await em_in_tx.send(em(clock=1, seniority=50, node_id="A"))
+            await em_in_tx.send(em(clock=1, seniority=50, node_id="A"))
+            await em_in_tx.send(em(clock=1, seniority=50, node_id="A"))
+
+            # Give the receiver a moment to process; then assert no campaign
+            # broadcasts and no new election results arrived.
+            await sleep(0.3)
+            assert em_out_rx.collect() == []
+            assert er_rx.collect() == []
+
+            em_in_tx.close()
+            cm_tx.close()
+            co_tx.close()
+
+
+@pytest.mark.anyio
 async def test_stale_message_gets_current_status_reply() -> None:
     """
     Regression test for the wedged restarted master (issue #2197, part 1).

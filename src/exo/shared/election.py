@@ -190,6 +190,21 @@ class Election:
                 logger.debug(f"Election added candidate {message}")
                 # Now we are processing this rounds messages - including the message that triggered this round.
                 self._candidates.append(message)
+                # If an equal-clock message re-proposes the node that is
+                # ALREADY our current master, the round is already resolved —
+                # starting another campaign here would just re-broadcast the
+                # same status and (with a trickle of such re-proposals from a
+                # senior node) keep the election loop spinning forever,
+                # re-entering _campaign and logging "Waiting for other
+                # campaign" every few seconds. Skip it; the master stays.
+                if (
+                    self.current_session.master_node_id
+                    == message.proposed_session.master_node_id
+                ):
+                    logger.debug(
+                        "Equal-clock re-proposal of current master; skipping"
+                    )
+                    continue
                 # An equal-clock candidacy with no campaign running would
                 # otherwise sit in a candidate list that nothing evaluates;
                 # start a campaign so the round deterministically resolves.
