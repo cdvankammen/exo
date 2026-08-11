@@ -139,6 +139,9 @@ _COLON = ord(":")
 _QUOTE = ord('"')
 _BACKSLASH = ord("\\")
 
+# JSON insignificant whitespace (RFC 8259): space, tab, LF, CR.
+_WS_BYTES = (ord(" "), ord("\t"), ord("\n"), ord("\r"))
+
 _SUPPORTED_KEYWORDS = {
     "type",
     "properties",
@@ -204,6 +207,23 @@ def _epsilon() -> _FSM:
     return _FSM(1, [{}], [True])
 
 
+def _ws_tolerant(byte: int) -> _FSM:
+    """A structural byte preceded by optional JSON whitespace.
+
+    State 0: ws self-loops + ``byte`` -> 1; state 1: accept (with ws
+    self-loops so trailing whitespace before the next structure is legal).
+    Folding whitespace into the START state makes the zero-ws shortcut
+    inherent — ``_sequence`` chaining from the previous accept adds both the
+    ws bytes and the structural byte, so ``"a":`` and ``"a" :`` both work.
+    """
+    transitions: list[dict[int, int]] = [{}, {}]
+    for b in _WS_BYTES:
+        transitions[0][b] = 0
+        transitions[1][b] = 1
+    transitions[0][byte] = 1
+    return _FSM(2, transitions, [False, True])
+
+
 def _choice(branches: list[_FSM]) -> _FSM:
     """Union: try each branch from a common start state 0."""
     total = sum(b.n_states for b in branches) + 1
@@ -221,15 +241,28 @@ def _choice(branches: list[_FSM]) -> _FSM:
 
 
 def _sequence(steps: list[_FSM]) -> _FSM:
-    """Concatenate FSMs, chaining accept states of earlier steps to the next."""
+    """Concatenate FSMs, chaining accept states of earlier steps to the next.
+
+    Only the LAST step's accept states are accept states of the composed FSM.
+    Intermediate accept states exist solely to chain the next step's start
+    transitions — exposing them would let a suffix begin (or, after ``_choice``
+    / outer ``_sequence`` chaining, an outer continuation like ``}``) at a
+    point where the sequence is not actually complete. (This leaked
+    intermediate accepts caused JSON objects to close early, skipping
+    required properties.)
+    """
     total = sum(s.n_states for s in steps)
     transitions: list[dict[int, int]] = [{} for _ in range(total)]
     accept = [False] * total
     offset = 0
-    for s in steps:
+    for idx, s in enumerate(steps):
+        last = idx == len(steps) - 1
         for i in range(s.n_states):
-            transitions[offset + i] = {b: offset + t for b, t in s.transitions[i].items()}
-            accept[offset + i] = s.accept[i]
+            transitions[offset + i] = {
+                b: offset + t for b, t in s.transitions[i].items()
+            }
+            if last:
+                accept[offset + i] = s.accept[i]
         offset += s.n_states
     offset = 0
     for idx, s in enumerate(steps[:-1]):
@@ -369,8 +402,9 @@ def _json_value_fsm(schema: dict[str, Any]) -> _FSM:
         item_fsm = _json_value_fsm(schema.get("items", {"type": "string"}))
         open_b = _char_sequence([_OPEN_BRACKET])
         close_b = _char_sequence([_CLOSE_BRACKET])
-        comma = _char_sequence([_COMMA])
-        one_or_more = _sequence([item_fsm, _star(_sequence([comma, item_fsm]))])
+        # [ ( item (, item)* )? ] — commas are ws-tolerant; item accepts
+        # chain ',' and ']' (via the star's accepting start state).
+        one_or_more = _sequence([item_fsm, _star(_sequence([_ws_tolerant(_COMMA), item_fsm]))])
         return _sequence([open_b, _choice([one_or_more, _epsilon()]), close_b])
     if schema_type == "object":
         return _object_fsm(schema)
@@ -378,14 +412,26 @@ def _json_value_fsm(schema: dict[str, Any]) -> _FSM:
 
 
 def _object_fsm(schema: dict[str, Any]) -> _FSM:
-    """Object: { "key" : value (, "key" : value )* } — required keys first, then optional."""
+    """Object: { "key" : value (, "key" : value )* }.
+
+    Required keys come first. ``}`` (close) is legal only after ALL required
+    keys have been emitted — optional keys may be skipped, so close is also
+    legal after each optional key; it is never legal after a comma or while
+    required keys remain. ``{}`` is only valid when no key is required.
+
+    The chain is built manually (not with ``_choice`` over shared prefixes):
+    ``_choice`` merges branch starts by overwriting duplicate byte keys, so
+    branches sharing a required-key prefix (e.g. "close now" vs "continue with
+    optionals") would make the earlier branch unreachable.
+    """
     properties: dict[str, dict[str, Any]] = schema.get("properties", {})
     required: list[str] = schema.get("required", [])
     optional_keys = [k for k in properties if k not in required]
 
     open_brace = _char_sequence([_OPEN_BRACE])
     close_brace = _char_sequence([_CLOSE_BRACE])
-    colon = _char_sequence([_COLON])
+    comma = _ws_tolerant(_COMMA)
+    colon = _ws_tolerant(_COLON)
 
     def key_value(key: str, value_schema: dict[str, Any]) -> _FSM:
         return _sequence(
@@ -396,22 +442,83 @@ def _object_fsm(schema: dict[str, Any]) -> _FSM:
             ]
         )
 
-    def interleave_sep(items: list[_FSM]) -> _FSM:
-        """Sequence items separated by commas: item (, item)*."""
-        steps: list[_FSM] = []
-        for i, item in enumerate(items):
-            if i > 0:
-                steps.append(_char_sequence([_COMMA]))
-            steps.append(item)
-        return _sequence(steps)
+    required_kvs = [key_value(k, properties[k]) for k in required]
+    optional_kvs = [key_value(k, properties[k]) for k in optional_keys]
+    kvs = required_kvs + optional_kvs
 
-    kvs: list[_FSM] = [key_value(k, properties[k]) for k in required]
-    kvs += [key_value(k, properties[k]) for k in optional_keys]
     if not kvs:
-        return _sequence([open_brace, close_brace])
-    all_kvs = interleave_sep(kvs)
-    body = _choice([all_kvs, _epsilon()])
-    return _sequence([open_brace, body, close_brace])
+        # { ws } — no properties at all.
+        return _sequence([_char_sequence([_OPEN_BRACE]), _ws_tolerant(_CLOSE_BRACE)])
+
+    # Layout: [open][kv0][comma][kv1][comma]...[kvN][close]
+    pieces: list[_FSM] = [open_brace]
+    for i, kv in enumerate(kvs):
+        pieces.append(kv)
+        if i < len(kvs) - 1:
+            pieces.append(comma)
+    pieces.append(close_brace)
+
+    total = sum(p.n_states for p in pieces)
+    transitions: list[dict[int, int]] = [{} for _ in range(total)]
+    accept = [False] * total
+    offsets: list[int] = []
+    off = 0
+    for p in pieces:
+        for i in range(p.n_states):
+            transitions[off + i] = {
+                b: off + t for b, t in p.transitions[i].items()
+            }
+        offsets.append(off)
+        off += p.n_states
+
+    def piece_accepts(idx: int) -> list[int]:
+        p = pieces[idx]
+        return [offsets[idx] + s for s in range(p.n_states) if p.accept[s]]
+
+    # open_brace accept -> kv0 start, with leading-ws self-loop.
+    open_acc = offsets[0] + 1
+    for bb in _WS_BYTES:
+        transitions[open_acc][bb] = open_acc
+    for bb, t in kvs[0].transitions[0].items():
+        transitions[open_acc][bb] = offsets[1] + t
+    # Empty object is valid only when nothing is required. The '}' must chain
+    # through the close_brace's own transition so it lands on its ACCEPT
+    # state — pointing at the start state would require a phantom second '}'.
+    close_accept = offsets[-1] + 1
+    if not required_kvs:
+        transitions[open_acc][_CLOSE_BRACE] = close_accept  # "{}" with no ws
+
+    last_required = len(required_kvs) - 1
+    for i in range(len(kvs)):
+        kv_idx = 1 + 2 * i
+        kv_accs = piece_accepts(kv_idx)
+        for a in kv_accs:
+            # ws self-loop after the value (before ',' or '}').
+            for bb in _WS_BYTES:
+                transitions[a][bb] = a
+            if i < len(kvs) - 1:
+                # ',' -> the ws-tolerant comma's ACCEPT (its start state
+                # merely owns the ws self-loops + the ',' transition; we
+                # chain through that transition so one comma lands on the
+                # accept — never ',,').
+                comma_off = offsets[kv_idx + 1]
+                transitions[a][_COMMA] = comma_off + 1
+            # '}' closes once every required key has been emitted.
+            if i >= last_required:
+                transitions[a][_CLOSE_BRACE] = close_accept
+        if i < len(kvs) - 1:
+            # comma accept -> next kv start (comma accept has ws self-loops).
+            comma_acc = offsets[kv_idx + 1] + 1
+            next_kv_off = offsets[kv_idx + 2]
+            for bb, t in kvs[i + 1].transitions[0].items():
+                transitions[comma_acc][bb] = next_kv_off + t
+
+    # The real terminal: the close_brace accept (drives EOS-when-complete).
+    # Trailing insignificant whitespace keeps it complete (self-loop).
+    accept[close_accept] = True
+    for bb in _WS_BYTES:
+        transitions[close_accept][bb] = close_accept
+    return _FSM(total, transitions, accept)
 
 
 def compile_json_schema(schema: dict[str, Any]) -> _FSM:
@@ -521,7 +628,15 @@ class ConstrainedDecodingProcessor:
             if complete and self._allow_eos_when_complete:
                 if self.eos_token_id not in allowed:
                     allowed.append(self.eos_token_id)
-            elif not allowed:
+            elif self.eos_token_id in allowed:
+                # EOS must NEVER leak into the allowed set as ordinary
+                # content. Its token bytes are typically valid string content
+                # (e.g. '<|im_end|>' is just '<', '|', ... bytes), so the
+                # trie walk happily admits it mid-string; a greedy model
+                # treats it as the easiest way to stop and ends the response
+                # inside an unterminated string.
+                allowed.remove(self.eos_token_id)
+            if not allowed:
                 # empty allowed set would deadlock — fall back to EOS
                 logger.warning(
                     "Constrained decoding: no tokens allowed at FSM state %s — allowing EOS to avoid deadlock",
@@ -538,19 +653,27 @@ class ConstrainedDecodingProcessor:
 
     def __call__(self, tokens: mx.array, logits: mx.array) -> mx.array:
         n_tokens = tokens.shape[-1]
-        # Walk only tokens that are NEW since the previous call.
-        #
-        # The FIRST invocation carries the prompt context only (mlx_lm calls
-        # logits processors with the trailing prompt tokens on the first
-        # decode step; BatchGenerator re-passes the whole history every
-        # step). Walking prompt text would land the FSM in a state derived
-        # from arbitrary user input — instead, generation starts from the
-        # schema's start state and only appended (generated) tokens advance
-        # the FSM.
         if self._walked == 0 and n_tokens > 0:
-            # First call: everything is prompt — constrain the first
-            # generated token from the start state, walk nothing.
+            # First call. The batch path (GenerationBatch._step) appends the
+            # first generated token to the history BEFORE invoking processors,
+            # so the first call already contains it; the sequential path's
+            # first call is prompt-only. Walk ONLY the last token:
+            #   - batch path: that is the first generated token, which MUST
+            #     advance the FSM (skipping it lets two mutually-exclusive
+            #     continuations of the start state both be sampled — e.g.
+            #     "{" then "{" producing "{{" — the T28 doubling bug);
+            #   - sequential path: the final prompt token, which only advances
+            #     if it is a genuine structural byte (e.g. a trailing '{' that
+            #     the model should continue).
             self._walked = n_tokens
+            last_id = int(tokens[-1].item())  # force eval (mlx-lm #1156)
+            if last_id != self.eos_token_id:
+                for byte in self._id_to_bytes.get(last_id, b""):
+                    nxt = self.fsm.transitions[self._state].get(byte)
+                    if nxt is None:
+                        break
+                    self._state = nxt
+                    self._last_byte = byte
         elif n_tokens > self._walked:
             new_tokens = tokens[self._walked :]
             self._walked = n_tokens

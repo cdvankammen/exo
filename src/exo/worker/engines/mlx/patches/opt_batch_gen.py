@@ -65,6 +65,20 @@ def _patched_step(self: GenerationBatch) -> tuple[list[int], list[mx.array]]:
     inputs = self._current_tokens
     assert inputs is not None, "_step requires initialized _next_tokens"
 
+    # Materialize the current input tokens (the previous step's sample) and
+    # append them to the per-sequence history BEFORE running logits
+    # processors. Stateful processors (e.g. T28 JSON-schema constrained
+    # decoding) must see the latest sampled token when computing the mask for
+    # the next sample — otherwise they constrain against a state that lags
+    # one token behind, and two mutually-exclusive continuations of the same
+    # FSM state can both be sampled in a row (e.g. "{" then "{" producing
+    # "{{"). The upstream GenerationBatch._step feeds processors from a
+    # TokenBuffer that is updated before sampling; this patch restores that
+    # ordering for the history list.
+    token_list = cast(list[int], inputs.tolist())
+    for sti, ti in zip(self.tokens, token_list, strict=True):
+        sti.append(ti)
+
     buf = _get_buffer(self)
     buf.ready = buf.pending
     buf.pending = BatchTopKLogprobs()
@@ -128,16 +142,13 @@ def _patched_step(self: GenerationBatch) -> tuple[list[int], list[mx.array]]:
 
     current_lp = self._current_logprobs
     if isinstance(current_lp, mx.array):
-        mx.eval(inputs, current_lp)
+        mx.eval(current_lp)
     elif current_lp:
-        mx.eval(inputs, *current_lp)
-    else:
-        mx.eval(inputs)
+        mx.eval(*current_lp)
 
-    token_list = cast(list[int], inputs.tolist())
-    for sti, ti in zip(self.tokens, token_list, strict=True):
-        sti.append(ti)
-
+    # token_list was already appended to self.tokens before the processors
+    # ran (stateful processors must see the latest sampled token); the input
+    # tokens themselves are already materialized by inputs.tolist() above.
     if isinstance(current_lp, mx.array):
         current_lp = list(current_lp)
     return token_list, current_lp

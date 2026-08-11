@@ -171,7 +171,11 @@ class TestConstrainedDecodingProcessor:
         assert out1[vocab["a"]].item() < -1e8
 
     def test_multi_property_object_requires_comma(self) -> None:
-        """Two required properties must be comma-separated (regression)."""
+        """Two REQUIRED properties must be comma-separated (regression).
+
+        After the first required value closes, ``}`` must NOT be reachable —
+        closing early would skip the still-required second property.
+        """
         tokenizer = _fake_tokenizer()
         vocab = tokenizer.get_vocab()
         proc = ConstrainedDecodingProcessor(
@@ -182,7 +186,7 @@ class TestConstrainedDecodingProcessor:
                 "required": ["a", "b"],
             },
         )
-        # Feed: {"a": "x"  — after the first value closes, only ',' or '}' legal.
+        # Feed: {"a": "x"  — after the first value closes, only ',' is legal.
         # The FSM is driven byte-by-byte through tokens; simulate key/value.
         # First call is prompt context ([1]); each subsequent call appends one
         # generated token: { (3), " (4), a (11), " (4), : (5), " (4), a (11),
@@ -198,7 +202,51 @@ class TestConstrainedDecodingProcessor:
         out = proc(mx.array([1, 3, 4, 11, 4, 5, 4, 11, 4]), mx.zeros((tokenizer.vocab_size,)))  # closing "
 
         assert out[vocab[","]].item() > -1e8  # comma required between properties
-        assert out[vocab["}"]].item() > -1e8  # and } closes the object
+        assert out[vocab["}"]].item() < -1e8  # ...but early close would skip "b"
+
+    def test_optional_properties_can_close_early(self) -> None:
+        """A non-required property may be omitted: after a value, both the
+        comma (next property) and ``}`` (close) are legal."""
+        tokenizer = _fake_tokenizer()
+        vocab = tokenizer.get_vocab()
+        proc = ConstrainedDecodingProcessor(
+            tokenizer,
+            {
+                "type": "object",
+                "properties": {"a": {"type": "string"}, "b": {"type": "string"}},
+                "required": ["a"],
+            },
+        )
+        proc(mx.array([1]), mx.zeros((tokenizer.vocab_size,)))  # prompt
+        proc(mx.array([1, 3]), mx.zeros((tokenizer.vocab_size,)))  # {
+        proc(mx.array([1, 3, 4]), mx.zeros((tokenizer.vocab_size,)))  # "
+        proc(mx.array([1, 3, 4, 11]), mx.zeros((tokenizer.vocab_size,)))  # a
+        proc(mx.array([1, 3, 4, 11, 4]), mx.zeros((tokenizer.vocab_size,)))  # "
+        proc(mx.array([1, 3, 4, 11, 4, 5]), mx.zeros((tokenizer.vocab_size,)))  # :
+        proc(mx.array([1, 3, 4, 11, 4, 5, 4]), mx.zeros((tokenizer.vocab_size,)))  # "
+        proc(mx.array([1, 3, 4, 11, 4, 5, 4, 11]), mx.zeros((tokenizer.vocab_size,)))  # a (string)
+        out = proc(mx.array([1, 3, 4, 11, 4, 5, 4, 11, 4]), mx.zeros((tokenizer.vocab_size,)))  # closing "
+
+        assert out[vocab[","]].item() > -1e8  # comma -> next (optional) property
+        assert out[vocab["}"]].item() > -1e8  # } -> close with only "a" present
+
+    def test_required_object_rejects_empty_body(self) -> None:
+        """With required properties, ``{}`` is not a valid completion."""
+        tokenizer = _fake_tokenizer()
+        vocab = tokenizer.get_vocab()
+        proc = ConstrainedDecodingProcessor(
+            tokenizer,
+            {
+                "type": "object",
+                "properties": {"a": {"type": "string"}},
+                "required": ["a"],
+            },
+        )
+        # After "{", the key's opening quote is forced — "}" (empty object)
+        # must be masked since "a" is required.
+        out = proc(mx.array([1, 3]), mx.zeros((tokenizer.vocab_size,)))
+        assert out[vocab['"']].item() > -1e8
+        assert out[vocab["}"]].item() < -1e8
 
 
 class TestMakeConstrainedProcessor:
