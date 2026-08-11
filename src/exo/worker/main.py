@@ -78,6 +78,7 @@ class Worker:
         command_sender: Sender[ForwarderCommand],
         download_command_sender: Sender[ForwarderDownloadCommand],
         api_port: int,
+        no_downloads: bool = False,
     ):
         self.node_id: NodeId = node_id
         self.event_receiver = event_receiver
@@ -85,6 +86,7 @@ class Worker:
         self.command_sender = command_sender
         self.download_command_sender = download_command_sender
         self.api_port = api_port
+        self.no_downloads = no_downloads
 
         self.state: State = State()
         self.runners: dict[RunnerId, RunnerSupervisor] = {}
@@ -224,6 +226,7 @@ class Worker:
                 self.image_cache,
                 self._instance_backoff,
                 self._download_backoff,
+                no_downloads=self.no_downloads,
             )
             if task is None:
                 continue
