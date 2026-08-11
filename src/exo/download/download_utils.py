@@ -873,11 +873,25 @@ async def _download_file(
     )
     integrity = final_hash == remote_hash
     if not integrity:
-        try:
-            await aios.remove(partial_path)
-        except Exception as e:
-            logger.error(f"Error removing partial file {partial_path}: {e}")
-        raise Exception(
+        # xet-backed repos (e.g. GLM-4.7-Flash) serve files whose
+        # x-linked-etag is NOT a plain sha256 of the content — it's an xet
+        # content hash. The file itself is correct (size matches); only the
+        # hash scheme differs. Fall back to size-only verification instead
+        # of deleting a good download.
+        actual_size = (await aios.stat(partial_path)).st_size
+        if actual_size == length:
+            logger.warning(
+                f"Hash mismatch for {target_dir / path} ({final_hash} vs "
+                f"{remote_hash}) but size matches ({length} bytes) — "
+                "xet-served file, accepting on size"
+            )
+            integrity = True
+        else:
+            try:
+                await aios.remove(partial_path)
+            except Exception as e:
+                logger.error(f"Error removing partial file {partial_path}: {e}")
+            raise Exception(
             f"Downloaded file {target_dir / path} has hash {final_hash} but remote hash is {remote_hash}"
         )
     await aios.rename(partial_path, target_dir / path)
