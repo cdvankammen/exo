@@ -401,8 +401,24 @@ def place_instance(
     if command.sharding == Sharding.Pipeline and len(selected_cycle) >= 3:
         selected_cycle = _rotate_metal_to_middle(selected_cycle, node_backends)
 
-    # Single-node: force Pipeline/Ring (Tensor and Jaccl require multi-node)
+    # Single-node: force Pipeline/Ring (Tensor and Jaccl require multi-node).
+    # If the user explicitly asked for Tensor (or Jaccl) but only a
+    # single-node cycle was viable, silently rewriting their request to
+    # Pipeline is surprising (a failed Tensor placement retries as Pipeline
+    # with no indication). Fail loudly instead so the caller knows their
+    # chosen sharding could not be honored.
     if len(selected_cycle) == 1:
+        requested_multi_node = (
+            command.sharding in (Sharding.Tensor, Sharding.Ring)
+            or command.instance_meta == InstanceMeta.MlxJaccl
+        )
+        if requested_multi_node:
+            raise ValueError(
+                f"{command.sharding.value} ({command.instance_meta.value}) "
+                f"requires at least 2 nodes, but only a single-node cycle is "
+                f"available for {command.model_card.model_id}. Use Pipeline "
+                f"sharding, or connect more nodes."
+            )
         command = command.model_copy(
             update={
                 "instance_meta": InstanceMeta.MlxRing,

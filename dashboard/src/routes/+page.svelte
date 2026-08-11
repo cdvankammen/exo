@@ -102,6 +102,50 @@
   const sidebarVisible = $derived(chatSidebarVisible());
   const mobileChatOpen = $derived(mobileChatSidebarOpen());
   const mobileRightOpen = $derived(mobileRightSidebarOpen());
+
+  // ── Resizable left sidebar width ──
+  // Drag the sidebar's right edge to resize. Width persisted to localStorage.
+  const SIDEBAR_WIDTH_KEY = "exo-chat-sidebar-width";
+  let sidebarWidth = $state(320);
+  let sidebarResizing = $state(false);
+  let sidebarDragStartX = $state(0);
+  let sidebarDragStartWidth = $state(320);
+
+  function initSidebarWidth() {
+    if (typeof localStorage === "undefined") return;
+    const saved = Number(localStorage.getItem(SIDEBAR_WIDTH_KEY));
+    if (saved >= 240 && saved <= 720) sidebarWidth = saved;
+  }
+
+  function onSidebarResizePointerDown(e: PointerEvent) {
+    sidebarResizing = true;
+    sidebarDragStartX = e.clientX;
+    sidebarDragStartWidth = sidebarWidth;
+    window.addEventListener("pointermove", onSidebarResizePointerMove);
+    window.addEventListener("pointerup", onSidebarResizePointerUp);
+    window.addEventListener("pointercancel", onSidebarResizePointerUp);
+    e.preventDefault();
+  }
+
+  function onSidebarResizePointerMove(e: PointerEvent) {
+    if (!sidebarResizing) return;
+    // Drag right → widen; drag left → narrow.
+    const delta = e.clientX - sidebarDragStartX;
+    sidebarWidth = Math.min(Math.max(240, sidebarDragStartWidth + delta), 720);
+  }
+
+  function onSidebarResizePointerUp() {
+    sidebarResizing = false;
+    window.removeEventListener("pointermove", onSidebarResizePointerMove);
+    window.removeEventListener("pointerup", onSidebarResizePointerUp);
+    window.removeEventListener("pointercancel", onSidebarResizePointerUp);
+    try {
+      localStorage.setItem(SIDEBAR_WIDTH_KEY, String(Math.round(sidebarWidth)));
+    } catch {
+      // ignore
+    }
+  }
+
   const tbBridgeCycles = $derived(thunderboltBridgeCycles());
   const tbBridgeData = $derived(nodeThunderboltBridge());
   const identitiesData = $derived(nodeIdentities());
@@ -1373,6 +1417,7 @@
   });
 
   onMount(async () => {
+    initSidebarWidth();
     mounted = true;
     fetchModels();
     fetch("/node_id")
@@ -3395,6 +3440,25 @@
   // Get the first filtered preview (for launch function compatibility)
   const filteredPreview = $derived(() => filteredPreviews()[0] ?? null);
 
+  // When no valid configuration exists, surface the FIRST error from the
+  // backend so the user knows WHY (e.g. "Pipeline not supported for Gemma 4 —
+  // use tensor", or "no cycle with sufficient memory"). Previously the UI
+  // just said "No valid configurations" with no explanation, which made
+  // users think it was a restriction bug when it was a real constraint.
+  const previewError = $derived(() => {
+    if (filteredPreviews().length > 0) return null;
+    if (!selectedModelId || previewsData.length === 0) return null;
+    // Prefer an error from a preview matching the selected sharding/runtime;
+    // fall back to any error.
+    const matching = previewsData.find(
+      (p) =>
+        p.sharding === selectedSharding &&
+        matchesSelectedRuntime(p.instance_meta) &&
+        p.error,
+    );
+    return matching?.error ?? previewsData.find((p) => p.error)?.error ?? null;
+  });
+
   // Auto-update selectedMinNodes when node count changes (default to 1 = show all placements)
   $effect(() => {
     const maxNodes = availableMinNodes;
@@ -4965,17 +5029,26 @@
     <!-- Left: Conversation History Sidebar (hidden in topology-only mode, welcome state, or when toggled off) - Desktop only -->
     {#if !topologyOnlyEnabled && sidebarVisible}
       <div
-        class="hidden md:block w-80 flex-shrink-0 border-r border-exo-yellow/10"
+        class="hidden md:flex flex-col relative flex-shrink-0 border-r border-exo-yellow/10"
+        style="width: {sidebarWidth}px"
         role="complementary"
         aria-label="Conversation history"
       >
         <ChatSidebar
-          class="h-full"
+          class="h-full min-w-0"
           onNewChat={handleNewChat}
           onSelectConversation={() => {
             userForcedIdle = false;
           }}
         />
+        <!-- Drag handle on the right edge to resize the sidebar width -->
+        <div
+          role="separator"
+          aria-orientation="vertical"
+          title="Drag to resize sidebar width"
+          class="absolute inset-y-0 right-0 w-1.5 cursor-col-resize hover:bg-exo-yellow/30 active:bg-exo-yellow/50 transition-colors z-10 {sidebarResizing ? 'bg-exo-yellow/50' : ''}"
+          onpointerdown={onSidebarResizePointerDown}
+        ></div>
       </div>
     {/if}
 
@@ -6239,6 +6312,14 @@
                     <div class="text-xs text-white/50 font-mono">
                       No valid configurations for current settings
                     </div>
+                    {#if previewError()}
+                      <div
+                        class="text-[11px] text-exo-yellow/80 font-mono mt-1 px-3 text-left break-words"
+                        title={previewError()}
+                      >
+                        {previewError()}
+                      </div>
+                    {/if}
                   </div>
                 {/if}
               {/if}

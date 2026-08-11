@@ -1764,6 +1764,44 @@ def test_ring_attention_rejects_single_node(model_card: ModelCard) -> None:
         place_instance(command, Topology(), {}, {}, {}, {})
 
 
+def test_tensor_requested_on_single_node_raises_not_silent_downgrade(
+    model_card: ModelCard,
+) -> None:
+    """Tensor requested but only a 1-node cycle available must raise.
+
+    Regression: a single-node fallback silently rewrote the requested
+    sharding to Pipeline, so a failed Tensor placement retried as Pipeline
+    with no indication to the user (their chosen sharding was discarded).
+    """
+    topology, node_a, _ = _create_two_node_ring()
+    # Only advertise ONE node's memory as sufficient so the single-node
+    # cycle is selected... but even simpler: use a 1-node topology.
+    single_topo = Topology()
+    single_topo.add_node(node_a)
+    # Model storage is Memory.from_kb(1000) (~1MB); give the node ~2MB so the
+    # single-node cycle passes the memory filter and we reach the sharding
+    # check that must now raise.
+    node_memory = {node_a: create_node_memory(2_000_000)}
+
+    command = PlaceInstance(
+        command_id=CommandId(),
+        model_card=model_card,
+        sharding=Sharding.Tensor,
+        instance_meta=InstanceMeta.MlxRing,
+        min_nodes=1,
+    )
+
+    with pytest.raises(ValueError, match="requires at least 2 nodes"):
+        place_instance(
+            command,
+            single_topo,
+            {},
+            node_memory,
+            {},
+            _metal_only(node_memory),
+        )
+
+
 def test_ring_attention_rejects_model_without_capability(model_card: ModelCard) -> None:
     command = PlaceInstance(
         command_id=CommandId(),
