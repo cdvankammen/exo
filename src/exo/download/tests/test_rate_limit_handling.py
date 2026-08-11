@@ -440,5 +440,5 @@ async def test_file_meta_302_absolute_location_used_as_is() -> None:
     assert size == 4321
     assert etag == "def456"
     # The absolute Location must be requested verbatim (no endpoint prepend).
-    called_url = mock_session.head.call_args.args[0]
+    called_url = mock_session.head.call_args.args[0]  # pyright: ignore[reportAny]
     assert called_url == "https://cdn.example.com/signed/url"
