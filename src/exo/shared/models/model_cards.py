@@ -195,6 +195,20 @@ class ModelCard(FrozenModel):
             )
         return self
 
+    @model_validator(mode="after")
+    def _autodetect_ring_support(self) -> "ModelCard":
+        """Bundled TOML cards carry no architectures; infer ring support from family.
+
+        The ring engine (ring_attention.py) verifies only mlx_lm's llama and
+        dense Qwen3 attention modules. Every bundled ``llama``-family card is
+        LlamaForCausalLM; dense Qwen3 cards opt in via ``supports_ring = true``
+        in their TOML because the ``qwen`` family also covers MoE/Next/VL
+        variants the engine does not support.
+        """
+        if not self.supports_ring and self.family == "llama":
+            object.__setattr__(self, "supports_ring", True)
+        return self
+
     @field_validator("tasks", mode="before")
     @classmethod
     def _validate_tasks(cls, v: list[str | ModelTask]) -> list[ModelTask]:
