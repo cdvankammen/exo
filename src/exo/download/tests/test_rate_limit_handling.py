@@ -395,3 +395,50 @@ async def test_file_meta_follows_302_redirect() -> None:
         size, etag = await file_meta(ModelId("test/model"), "main", "weights.safetensors")
     assert size == 1234
     assert etag == "abc123"
+
+
+async def test_file_meta_302_absolute_location_used_as_is() -> None:
+    """A 302 with an ABSOLUTE Location (e.g. a CDN/signed URL) must be used
+    as-is — prepending the HF endpoint produced the malformed host
+    'huggingface.cohttps://...' that surfaced as a fake DNS failure."""
+    from exo.download.download_utils import file_meta
+
+    first_response = MagicMock()
+    first_response.status = 302
+    first_response.headers = {"location": "https://cdn.example.com/signed/url"}
+
+    second_response = MagicMock()
+    second_response.status = 200
+    second_response.headers = {
+        "x-linked-size": "4321",
+        "x-linked-etag": '"def456"',
+    }
+
+    responses = iter([first_response, second_response])
+
+    mock_session = MagicMock()
+    mock_session.head.return_value.__aenter__ = AsyncMock(  # pyright: ignore[reportAny]
+        side_effect=lambda: next(responses)
+    )
+    mock_session.head.return_value.__aexit__ = AsyncMock(  # pyright: ignore[reportAny]
+        return_value=None
+    )
+
+    mock_factory = MagicMock()
+    mock_factory.return_value.__aenter__ = AsyncMock(  # pyright: ignore[reportAny]
+        return_value=mock_session
+    )
+    mock_factory.return_value.__aexit__ = AsyncMock(  # pyright: ignore[reportAny]
+        return_value=None
+    )
+
+    with patch("exo.download.download_utils.create_http_session", mock_factory):
+        size, etag = await file_meta(
+            ModelId("org/model"), "main", "weights.safetensors"
+        )
+
+    assert size == 4321
+    assert etag == "def456"
+    # The absolute Location must be requested verbatim (no endpoint prepend).
+    called_url = mock_session.head.call_args.args[0]
+    assert called_url == "https://cdn.example.com/signed/url"

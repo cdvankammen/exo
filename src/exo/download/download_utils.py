@@ -677,7 +677,16 @@ async def file_meta(
     url = (
         urljoin(f"{get_hf_endpoint()}/{model_id}/resolve/{revision}/", path)
         if redirected_location is None
-        else f"{get_hf_endpoint()}{redirected_location}"
+        # An absolute redirect (http:// or https://) is used as-is; only
+        # relative Locations get the endpoint prepended. Concatenating the
+        # endpoint onto an absolute Location produced
+        # 'https://huggingface.cohttps://...' — the malformed host that
+        # looked like a DNS failure ('huggingface.cohttps:443').
+        else (
+            redirected_location
+            if redirected_location.startswith(("http://", "https://"))
+            else f"{get_hf_endpoint()}{redirected_location}"
+        )
     )
     headers = await get_download_headers()
     async with (
