@@ -707,10 +707,9 @@ async def file_meta(
         if r.status == 302:
             # Some repos (e.g. gated or recently-moved GLM checkpoints) return
             # a 302 to a CDN / signed URL instead of a 307. Follow it to the
-            # CDN and use the CDN's etag as the hash — the x-linked-etag on
-            # the 302 is NOT the file's sha256 for xet-backed repos (it's a
-            # different hash format), so trusting it caused spurious hash
-            # mismatches on GLM-4.7-Flash downloads.
+            # CDN — the CDN's 200 carries the authoritative x-linked-* headers
+            # (x-linked-etag IS the file's sha256; the CDN's plain etag is a
+            # different xet hash format).
             redirected_location = r.headers.get("location")
             if redirected_location:
                 return await file_meta(model_id, revision, path, redirected_location)
@@ -736,11 +735,11 @@ async def file_meta(
         content_length = int(
             r.headers.get("x-linked-size") or r.headers.get("content-length") or 0
         )
-        # Prefer the plain etag over x-linked-etag: for xet-backed repos the
-        # x-linked-etag is NOT the file's sha256 (it's a different hash
-        # format), while the CDN's etag IS the actual content hash. Using
-        # x-linked-etag caused spurious hash mismatches on GLM-4.7-Flash.
-        etag = r.headers.get("etag") or r.headers.get("x-linked-etag")
+        # x-linked-etag IS the file's sha256 for HF repos (verified: the
+        # downloaded tokenizer.json hashes to the x-linked-etag value). The
+        # CDN's plain etag is a different hash format (xet content hash) and
+        # must NOT be used for verification.
+        etag = r.headers.get("x-linked-etag") or r.headers.get("etag")
         assert content_length > 0, f"No content length for {url}"
         assert etag is not None, f"No remote hash for {url}"
         etag = trim_etag(etag)
