@@ -637,7 +637,15 @@ def create_http_session(
     ssl_context = ssl.create_default_context(
         cafile=os.getenv("SSL_CERT_FILE") or certifi.where()
     )
-    connector = aiohttp.TCPConnector(ssl=ssl_context)
+    # ThreadedResolver resolves hostnames in a worker thread via the system
+    # resolver instead of the event loop's getaddrinfo. The default resolver
+    # intermittently fails with 'Name or service not known' under Tailscale
+    # MagicDNS (100.100.100.100) — the flaky DNS that broke GLM downloads on
+    # the Linux box even though curl resolved fine.
+    connector = aiohttp.TCPConnector(
+        ssl=ssl_context,
+        resolver=aiohttp.resolver.ThreadedResolver(),
+    )
 
     return aiohttp.ClientSession(
         auto_decompress=auto_decompress,
