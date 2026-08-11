@@ -210,7 +210,7 @@ def _model_needs_download(
             # Ghost completion: treat as absent so the downloader runs.
             status = None
         if (
-            isinstance(runner.status, RunnerIdle)
+            isinstance(runner.status, (RunnerIdle, RunnerConnecting, RunnerConnected))
             and (
                 status is None
                 or not isinstance(status, (DownloadOngoing, DownloadCompleted, DownloadFailed))
