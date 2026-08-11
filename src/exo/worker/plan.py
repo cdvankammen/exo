@@ -2,6 +2,8 @@
 
 from collections.abc import Mapping, Sequence
 
+from exo.download.download_utils import resolve_existing_model
+from exo.shared.constants import EXO_MODELS_DIRS, EXO_MODELS_READ_ONLY_DIRS
 from exo.shared.types.chunks import InputImageChunk
 from exo.shared.types.common import CommandId, ModelId, NodeId
 from exo.shared.types.events import Event, RunnerStatusUpdated
@@ -183,14 +185,35 @@ def _model_needs_download(
 
     for runner in runners.values():
         model_id = runner.bound_instance.bound_shard.model_card.model_id
+        status = download_status.get(model_id)
+        # A DownloadCompleted entry can be a GHOST: it survives in the
+        # replayed event log from a previous attempt that recorded
+        # completion but whose files were later deleted / never fully
+        # written (e.g. a shard whose weights failed a hash check and was
+        # rolled back, or a cancelled download whose stale completion
+        # event was never superseded). Trusting it sends the worker
+        # straight to LoadModel, which then fails on missing files and
+        # loops CreateRunner/Shutdown forever. Verify against disk: if the
+        # model is not actually present, re-download.
+        status_is_complete = isinstance(status, DownloadCompleted)
+        if status_is_complete:
+            # Fast path: if no model dir exists anywhere, it is a ghost —
+            # re-download without paying for a full directory scan.
+            model_card = runner.bound_instance.bound_shard.model_card
+            normalized = model_id.normalize()
+            any_dir_exists = any(
+                (d / normalized).is_dir()
+                for d in (*EXO_MODELS_READ_ONLY_DIRS, *EXO_MODELS_DIRS)
+            )
+            if any_dir_exists and resolve_existing_model(model_id, model_card) is not None:
+                continue
+            # Ghost completion: treat as absent so the downloader runs.
+            status = None
         if (
             isinstance(runner.status, RunnerIdle)
             and (
-                model_id not in download_status
-                or not isinstance(
-                    download_status[model_id],
-                    (DownloadOngoing, DownloadCompleted, DownloadFailed),
-                )
+                status is None
+                or not isinstance(status, (DownloadOngoing, DownloadCompleted, DownloadFailed))
             )
             and download_backoff.should_proceed(model_id)
         ):
