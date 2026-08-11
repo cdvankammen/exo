@@ -172,8 +172,10 @@ async def _wait_for_pending(
 
 
 async def test_cancel_active_download_transitions_to_pending() -> None:
-    """Cancelling an in-progress download should emit a DownloadPending event
-    and remove the model from active_downloads."""
+    """Cancelling an in-progress download should emit a DownloadPending event,
+    remove the model from active_downloads, and CLEAR the local download_status
+    (port of PR #1614) so a re-download of the same model is not blocked/stuck
+    behind the stale pending entry."""
     slow_downloader = SlowShardDownloader()
     coordinator, cmd_send, event_recv = _setup_coordinator(slow_downloader)
     shard = _make_shard()
@@ -219,9 +221,10 @@ async def test_cancel_active_download_transitions_to_pending() -> None:
 
         # Model should no longer be in active_downloads
         assert MODEL_ID not in coordinator.active_downloads
-        # But should still be in download_status as pending
-        assert MODEL_ID in coordinator.download_status
-        assert isinstance(coordinator.download_status[MODEL_ID], DownloadPending)
+        # And the local status is cleared on cancel (PR #1614) so a
+        # re-download isn't stuck behind a stale pending entry. The pending
+        # event was already emitted above for the UI/state.
+        assert MODEL_ID not in coordinator.download_status
     finally:
         await coordinator.shutdown()
         coordinator_task.cancel()
