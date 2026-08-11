@@ -155,8 +155,9 @@ async def test_peer_with_higher_seniority_wins_and_we_switch_master() -> None:
             cm_tx.close()
             co_tx.close()
 
-    # We lost → seniority unchanged
-    assert election.seniority == 0
+    # We lost → seniority raised toward the peer (max_peer - 1) so we stop
+    # re-proposing a stale low value that would flap elections.
+    assert election.seniority == 9
 
 
 @pytest.mark.anyio

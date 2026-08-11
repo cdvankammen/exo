@@ -338,6 +338,21 @@ class Election:
                     logger.debug(
                         f"Node is not a candidate or seniority is not {self.seniority}"
                     )
+                # A node that did NOT win must still raise its seniority toward
+                # the highest peer seniority ever observed. Without this, a
+                # restarted node stays at a low seniority (e.g. 1) and keeps
+                # re-proposing itself every round, ping-ponging elections with
+                # the established master (which wins at its much higher
+                # seniority) and flapping the cluster. We stay just below the
+                # peer (max+1 is only for explicit PromoteMaster) so the
+                # higher-seniority peer always wins and there is never a tie.
+                if self._max_peer_seniority_seen > self.seniority:
+                    target = self._max_peer_seniority_seen - 1
+                    logger.debug(
+                        f"Raising seniority {self.seniority} -> {target} "
+                        "(observed from peer)"
+                    )
+                    self.seniority = max(self.seniority, target)
                 logger.debug(
                     f"Election finished, new SessionId({elected.proposed_session}) with queue {candidates}"
                 )
