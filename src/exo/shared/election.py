@@ -347,7 +347,20 @@ class Election:
                     logger.debug(
                         f"Node is a candidate and seniority is {self.seniority}"
                     )
-                    self.seniority = max(self.seniority, len(candidates))
+                    # Winning must give a DURABLE seniority edge, not just
+                    # len(candidates). With a 2-node cluster both nodes end up
+                    # at the same seniority after enough rounds (winner:
+                    # max(sen, len(candidates)); loser: peer-1 -> converge),
+                    # so every subsequent campaign can flip the master
+                    # (commands_seen tiebreak alternates) -> ping-pong. Go one
+                    # above the highest peer seniority ever seen so the winner
+                    # keeps winning subsequent rounds and the master stays
+                    # stable (max+1 is also what explicit PromoteMaster uses).
+                    self.seniority = max(
+                        self.seniority,
+                        self._max_peer_seniority_seen + 1,
+                        len(candidates),
+                    )
                     logger.debug(f"New seniority: {self.seniority}")
                 else:
                     logger.debug(
