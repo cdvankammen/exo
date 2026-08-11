@@ -706,19 +706,11 @@ async def file_meta(
             return await file_meta(model_id, revision, path, redirected_location)
         if r.status == 302:
             # Some repos (e.g. gated or recently-moved GLM checkpoints) return
-            # a 302 to a CDN / signed URL instead of a 307. Trust the
-            # x-linked-* headers from THIS response (they are the
-            # authoritative size + hash for the file) — recursing to HEAD the
-            # CDN URL can return a DIFFERENT etag (the CDN's own hash vs the
-            # repo's x-linked-etag), which caused spurious hash mismatches on
-            # GLM-4.7-Flash downloads.
-            x_linked_size = r.headers.get("x-linked-size")
-            x_linked_etag = r.headers.get("x-linked-etag")
-            if x_linked_size and x_linked_etag:
-                content_length = int(x_linked_size)
-                etag = trim_etag(x_linked_etag)
-                return content_length, etag
-            # No x-linked headers — follow the redirect for size/hash.
+            # a 302 to a CDN / signed URL instead of a 307. Follow it to the
+            # CDN and use the CDN's etag as the hash — the x-linked-etag on
+            # the 302 is NOT the file's sha256 for xet-backed repos (it's a
+            # different hash format), so trusting it caused spurious hash
+            # mismatches on GLM-4.7-Flash downloads.
             redirected_location = r.headers.get("location")
             if redirected_location:
                 return await file_meta(model_id, revision, path, redirected_location)
@@ -744,7 +736,11 @@ async def file_meta(
         content_length = int(
             r.headers.get("x-linked-size") or r.headers.get("content-length") or 0
         )
-        etag = r.headers.get("x-linked-etag") or r.headers.get("etag")
+        # Prefer the plain etag over x-linked-etag: for xet-backed repos the
+        # x-linked-etag is NOT the file's sha256 (it's a different hash
+        # format), while the CDN's etag IS the actual content hash. Using
+        # x-linked-etag caused spurious hash mismatches on GLM-4.7-Flash.
+        etag = r.headers.get("etag") or r.headers.get("x-linked-etag")
         assert content_length > 0, f"No content length for {url}"
         assert etag is not None, f"No remote hash for {url}"
         etag = trim_etag(etag)
