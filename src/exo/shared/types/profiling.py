@@ -7,6 +7,8 @@ from collections.abc import Sequence
 from pathlib import Path
 from typing import Literal, Self, cast
 
+from loguru import logger
+
 from exo.shared.types.memory import Memory
 from exo.shared.types.thunderbolt import ThunderboltIdentifier
 from exo.utils.pydantic_ext import FrozenModel
@@ -162,13 +164,18 @@ def _find_nvidia_smi_binary() -> str | None:
 
 
 def _query_cuda_vram_bytes() -> tuple[int, int] | None:
-    """Total and free VRAM in bytes across ALL CUDA GPUs.
+    """Total and free VRAM in bytes for the LARGEST single CUDA GPU.
 
-    Sums every GPU's VRAM so multi-GPU boxes (2×, 4×, 8×…) advertise their
-    full capacity — MLX CUDA can span all devices. Tries ``nvidia-smi``
-    first (tolerating version-suffixed binary names), then the NVML driver
-    library directly. Returns None when neither is available or the output
-    cannot be parsed, so callers fall back to system RAM.
+    MLX CUDA (0.32) uses ONE device per process — ``mx.default_device()`` is
+    ``Device(gpu, 0)`` regardless of how many GPUs a box has. Summing every
+    GPU's VRAM (the previous behaviour) advertised 2×16GB as 32GB, so
+    placement accepted models like Qwen3.6-35B-A3B (19.5GB) that then OOM'd
+    loading into a single 16GB device: ``cudaMallocAsync ... out of memory``.
+    Reporting the largest single device keeps placement honest: a model is
+    only placed when it fits the one GPU MLX will actually use. Tries
+    ``nvidia-smi`` first (tolerating version-suffixed binary names), then the
+    NVML driver library directly. Returns None when neither is available or
+    the output cannot be parsed, so callers fall back to system RAM.
     """
     nvidia_smi = _find_nvidia_smi_binary()
     if nvidia_smi is not None:
@@ -181,29 +188,38 @@ def _query_cuda_vram_bytes() -> tuple[int, int] | None:
                 ],
                 capture_output=True,
                 text=True,
-                timeout=5,
+                timeout=3,
                 check=True,
             )
+        except subprocess.TimeoutExpired:
+            # A hung nvidia-smi (GPU driver in D-state) must NEVER propagate —
+            # it previously bubbled up through from_cuda() and, combined with a
+            # SIGTERM, hard-killed the whole EXO process. Fall back to NVML or None.
+            logger.warning("nvidia-smi timed out querying VRAM — falling back to NVML")
+            return _query_cuda_vram_bytes_nvml()
         except (subprocess.SubprocessError, OSError):
             pass
         else:
             lines = completed.stdout.strip().splitlines()
-            total_mebibytes = 0
-            free_mebibytes = 0
+            max_total_mebibytes = 0
+            max_free_mebibytes = 0
             for line in lines:
                 fields = line.split(",")
                 if len(fields) != 2:
                     return _query_cuda_vram_bytes_nvml()
                 try:
-                    total_mebibytes += int(fields[0].strip())
-                    free_mebibytes += int(fields[1].strip())
+                    total_mebibytes = int(fields[0].strip())
+                    free_mebibytes = int(fields[1].strip())
                 except ValueError:
                     return _query_cuda_vram_bytes_nvml()
-            if total_mebibytes > 0:
+                if total_mebibytes > max_total_mebibytes:
+                    max_total_mebibytes = total_mebibytes
+                    max_free_mebibytes = free_mebibytes
+            if max_total_mebibytes > 0:
                 mebibyte = 1024 * 1024
                 return (
-                    total_mebibytes * mebibyte,
-                    free_mebibytes * mebibyte,
+                    max_total_mebibytes * mebibyte,
+                    max_free_mebibytes * mebibyte,
                 )
     return _query_cuda_vram_bytes_nvml()
 
@@ -214,7 +230,8 @@ def _query_cuda_vram_bytes_nvml() -> tuple[int, int] | None:
     Fallback used when no ``nvidia-smi`` binary is on PATH. The driver
     library ships with every NVIDIA driver (including minimal/container
     installs), so this removes the binary-name dependency entirely.
-    Sums VRAM across ALL devices (adaptive to GPU count).
+    Returns the LARGEST single device's VRAM (MLX CUDA uses one GPU per
+    process), NOT the sum across devices.
     Returns None on any error — never raises.
     """
     try:
@@ -231,8 +248,8 @@ def _query_cuda_vram_bytes_nvml() -> tuple[int, int] | None:
                 or device_count.value == 0
             ):
                 return None
-            total_bytes = 0
-            free_bytes = 0
+            max_total_bytes = 0
+            max_free_bytes = 0
             for index in range(device_count.value):
                 handle = ctypes.c_void_p()
                 if (
@@ -247,11 +264,13 @@ def _query_cuda_vram_bytes_nvml() -> tuple[int, int] | None:
                     handle, ctypes.byref(memory)
                 ) != 0:
                     continue
-                total_bytes += cast(int, memory.total)
-                free_bytes += cast(int, memory.free)
-            if total_bytes == 0:
+                total = cast(int, memory.total)
+                if total > max_total_bytes:
+                    max_total_bytes = total
+                    max_free_bytes = cast(int, memory.free)
+            if max_total_bytes == 0:
                 return None
-            return total_bytes, free_bytes
+            return max_total_bytes, max_free_bytes
         finally:
             lib.nvmlShutdown()
     except (AttributeError, OSError):
