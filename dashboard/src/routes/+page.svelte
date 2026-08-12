@@ -1565,7 +1565,10 @@
       const preview = specificPreview ?? filteredPreview();
       // Explicit "load anyway" (force) or global override setting both bypass
       // the memory-sufficiency checks on the backend.
-      const forceOverride = force || memoryOverrideEnabled;
+      const overrideParams = appStore.getMemoryOverrideParams();
+      const forceOverride =
+        force || memoryOverrideEnabled || overrideParams.force_override === true;
+      const toleranceParam = overrideParams.memory_tolerance;
 
       let response: Response;
       if (preview?.instance) {
@@ -1578,14 +1581,16 @@
             force_override: forceOverride,
           }),
         });
-      } else if (forceOverride) {
-        // No valid placement (model exceeds available memory) — ask the server
-        // to place it anyway, ignoring the memory checks.
-        const placementRes = await fetch(
-          `/instance/placement?model_id=${encodeURIComponent(
-            modelId,
-          )}&force_override=true`,
-        );
+      } else if (forceOverride || toleranceParam !== undefined) {
+        // No valid placement under strict checks — ask the server to place it
+        // with the relaxed tolerance (level 1) or force (level 2).
+        let url = `/instance/placement?model_id=${encodeURIComponent(modelId)}`;
+        if (forceOverride) {
+          url += `&force_override=true`;
+        } else if (toleranceParam !== undefined) {
+          url += `&memory_tolerance=${encodeURIComponent(String(toleranceParam))}`;
+        }
+        const placementRes = await fetch(url);
         if (!placementRes.ok) {
           const errorText = await placementRes.text();
           console.error("Failed to get forced placement:", errorText);
@@ -1604,15 +1609,18 @@
         });
       } else {
         // No preview available — use place_instance to let server decide placement
+        const body: Record<string, unknown> = {
+          model_id: modelId,
+          sharding: selectedSharding,
+          instance_meta: selectedInstanceType,
+          min_nodes: 1,
+        };
+        if (overrideParams.force_override) body.force_override = true;
+        if (toleranceParam !== undefined) body.memory_tolerance = toleranceParam;
         response = await fetch("/place_instance", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            model_id: modelId,
-            sharding: selectedSharding,
-            instance_meta: selectedInstanceType,
-            min_nodes: 1,
-          }),
+          body: JSON.stringify(body),
         });
       }
 

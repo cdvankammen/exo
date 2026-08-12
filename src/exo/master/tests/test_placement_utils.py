@@ -131,6 +131,55 @@ def test_filter_cycles_by_memory_force_override():
     assert len(filtered_cycles) >= 1
 
 
+def test_filter_cycles_by_memory_tolerance():
+    """memory_tolerance<1.0 should admit cycles holding only a fraction of the
+    required memory (LM Studio-style relaxed placement)."""
+    # arrange
+    node1_id = NodeId()
+    node2_id = NodeId()
+    connection1 = Connection(
+        source=node1_id, sink=node2_id, edge=create_socket_connection(1)
+    )
+    connection2 = Connection(
+        source=node2_id, sink=node1_id, edge=create_socket_connection(2)
+    )
+
+    # Each node has 1000KB available → 2-node cycle total = 2000KB.
+    node1_mem = create_node_memory(1000 * 1024)
+    node2_mem = create_node_memory(1000 * 1024)
+    node_memory = {node1_id: node1_mem, node2_id: node2_mem}
+
+    topology = Topology()
+    topology.add_node(node1_id)
+    topology.add_node(node2_id)
+    topology.add_connection(connection1)
+    topology.add_connection(connection2)
+
+    # Strict: 4000KB required, only 2000KB available → rejected.
+    strict = filter_cycles_by_memory(
+        topology.get_cycles(), node_memory, Memory.from_kb(4000)
+    )
+    assert len(strict) == 0
+
+    # Tolerance 0.5: 4000KB * 0.5 = 2000KB required → 2000KB available passes.
+    relaxed = filter_cycles_by_memory(
+        topology.get_cycles(),
+        node_memory,
+        Memory.from_kb(4000),
+        memory_tolerance=0.5,
+    )
+    assert len(relaxed) >= 1
+
+    # Tolerance 0.4: 4000KB * 0.4 = 1600KB required → still passes.
+    relaxed_2 = filter_cycles_by_memory(
+        topology.get_cycles(),
+        node_memory,
+        Memory.from_kb(4000),
+        memory_tolerance=0.4,
+    )
+    assert len(relaxed_2) >= 1
+
+
 def test_filter_multiple_cycles_by_memory():
     # arrange
     node_a_id = NodeId()

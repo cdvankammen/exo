@@ -590,6 +590,7 @@ class API:
             instance_meta=payload.instance_meta,
             min_nodes=payload.min_nodes,
             force_override=payload.force_override,
+            memory_tolerance=payload.memory_tolerance,
             node_layers=payload.node_layers,
         )
         await self._send(command)
@@ -633,6 +634,7 @@ class API:
         instance_meta: InstanceMeta = InstanceMeta.MlxRing,
         min_nodes: int = 1,
         force_override: bool = Query(default=False),
+        memory_tolerance: float = Query(default=1.0, ge=0.0, le=1.0),
     ) -> Instance:
         model_card = await ModelCard.load(model_id)
 
@@ -644,6 +646,7 @@ class API:
                     instance_meta=instance_meta,
                     min_nodes=min_nodes,
                     force_override=force_override,
+                    memory_tolerance=memory_tolerance,
                 ),
                 node_memory=self.state.node_memory,
                 node_network=self.state.node_network,
@@ -677,6 +680,7 @@ class API:
         model_id: ModelId,
         node_ids: Annotated[list[NodeId] | None, Query()] = None,
         force_override: bool = Query(default=False),
+        memory_tolerance: float = Query(default=1.0, ge=0.0, le=1.0),
     ) -> PlacementPreviewResponse:
         seen: set[tuple[ModelId, Sharding, InstanceMeta, int]] = set()
         previews: list[PlacementPreview] = []
@@ -721,6 +725,7 @@ class API:
                         instance_meta=instance_meta,
                         min_nodes=min_nodes,
                         force_override=force_override,
+                        memory_tolerance=memory_tolerance,
                     ),
                     node_memory=self.state.node_memory,
                     node_network=self.state.node_network,

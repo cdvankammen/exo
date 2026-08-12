@@ -260,6 +260,7 @@ def place_instance(
             node_memory,
             command.model_card.storage_size,
             force_override=command.force_override,
+            memory_tolerance=command.memory_tolerance,
         )
     if len(cycles_with_sufficient_memory) == 0:
         raise ValueError("No cycles found with sufficient memory")

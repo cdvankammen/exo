@@ -44,6 +44,11 @@ class PlaceInstance(BaseCommand):
     # users who explicitly want to attempt loading a model that exceeds the
     # reported available memory ("load the model anyway").
     force_override: bool = False
+    # Memory tolerance multiplier (0.0–1.0). 1.0 = strict (model must fit
+    # available memory). Lower values relax the check: e.g. 0.5 admits a
+    # cycle holding at least half the model's size. force_override=True
+    # bypasses the check entirely regardless of this value.
+    memory_tolerance: float = 1.0
 
 
 class CreateInstance(BaseCommand):

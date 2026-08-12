@@ -309,6 +309,11 @@ class PlaceInstanceParams(WarnExtraModel):
     # When True, bypass memory-sufficiency checks and attempt to place/load
     # the model anyway.
     force_override: bool = False
+    # Memory tolerance multiplier (0.0–1.0). 1.0 = strict (model must fit
+    # available memory). Lower values relax the check (e.g. 0.5 admits a
+    # cycle holding at least half the model's size). Ignored when
+    # force_override is True.
+    memory_tolerance: float = 1.0
     # Optional explicit per-node layer allocation (Pipeline sharding only).
     # Keys must exactly match a connected pipeline cycle and sum to the
     # model's layer count.

@@ -1,6 +1,7 @@
 <script lang="ts">
   import { onMount } from "svelte";
   import HeaderNav from "$lib/components/HeaderNav.svelte";
+  import { appStore } from "$lib/stores/app.svelte";
 
   // ── Live cluster state (detected values — read-only) ──────────────────────
   let state = $state<{
@@ -234,6 +235,64 @@
       {/each}
       {#if state.topologyNodes.length === 0 && !loadError}
         <p class="text-white/40 text-sm col-span-full">Waiting for cluster state…</p>
+      {/if}
+    </div>
+  </section>
+
+  <!-- ═══ Memory override (LM Studio-style tiering) ═══ -->
+  <section class="mb-8">
+    <h2 class="text-exo-yellow font-mono text-sm tracking-wider mb-3">MEMORY OVERRIDE</h2>
+    <div class="border border-white/10 rounded-lg p-4 bg-white/[0.02] space-y-4">
+      <p class="text-[11px] text-white/50 leading-relaxed">
+        Controls how strictly placement checks available memory before loading a
+        model. Higher levels let you push past the reported limits — the model
+        may load slowly or fail if the hardware truly can't hold it.
+      </p>
+      <div class="grid gap-2 md:grid-cols-3">
+        <button
+          class="text-left border rounded-lg p-3 transition-colors {appStore.getMemoryOverrideLevel() === 0
+            ? 'border-exo-yellow/60 bg-exo-yellow/10'
+            : 'border-white/10 hover:border-white/30'}"
+          onclick={() => appStore.setMemoryOverrideLevel(0)}
+        >
+          <div class="text-xs font-mono text-exo-light-gray mb-1">AUTO</div>
+          <div class="text-[11px] text-white/50">Strict check — model must fit available memory.</div>
+        </button>
+        <button
+          class="text-left border rounded-lg p-3 transition-colors {appStore.getMemoryOverrideLevel() === 1
+            ? 'border-exo-yellow/60 bg-exo-yellow/10'
+            : 'border-white/10 hover:border-white/30'}"
+          onclick={() => appStore.setMemoryOverrideLevel(1)}
+        >
+          <div class="text-xs font-mono text-exo-light-gray mb-1">RELAXED</div>
+          <div class="text-[11px] text-white/50">Admit cycles holding at least the tolerance fraction of the model.</div>
+        </button>
+        <button
+          class="text-left border rounded-lg p-3 transition-colors {appStore.getMemoryOverrideLevel() === 2
+            ? 'border-exo-yellow/60 bg-exo-yellow/10'
+            : 'border-white/10 hover:border-white/30'}"
+          onclick={() => appStore.setMemoryOverrideLevel(2)}
+        >
+          <div class="text-xs font-mono text-exo-light-gray mb-1">FORCE</div>
+          <div class="text-[11px] text-white/50">Bypass memory checks entirely — load the model anyway.</div>
+        </button>
+      </div>
+      {#if appStore.getMemoryOverrideLevel() === 1}
+        <div class="flex items-center gap-3">
+          <label class="text-xs text-white/60 font-mono whitespace-nowrap">
+            Tolerance: {Math.round(appStore.getMemoryTolerance() * 100)}%
+          </label>
+          <input
+            type="range"
+            min="0.1"
+            max="1"
+            step="0.05"
+            value={appStore.getMemoryTolerance()}
+            oninput={(e) => appStore.setMemoryTolerance(parseFloat(e.currentTarget.value))}
+            class="flex-1 accent-exo-yellow"
+          />
+          <span class="text-[10px] text-white/40 font-mono">% of model size a cycle must hold</span>
+        </div>
       {/if}
     </div>
   </section>

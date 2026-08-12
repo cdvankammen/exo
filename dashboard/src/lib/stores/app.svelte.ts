@@ -29,7 +29,20 @@ function loadSamplingParams(): {
   try {
     const raw = localStorage.getItem(SAMPLING_PARAMS_KEY);
     if (!raw) return defaults;
-    return { ...defaults, ...JSON.parse(raw) };
+    // T27 fix: coerce integer fields (topK/seed/maxTokens) to whole numbers so
+    // the API doesn't reject them as floats (422).
+    const toIntOrNull = (v: unknown): number | null => {
+      const n = typeof v === "number" ? v : Number(v);
+      return Number.isFinite(n) ? Math.round(n) : null;
+    };
+    const parsed: ReturnType<typeof loadSamplingParams> = {
+      ...defaults,
+      ...JSON.parse(raw),
+    };
+    parsed.topK = toIntOrNull(parsed.topK);
+    parsed.seed = toIntOrNull(parsed.seed);
+    parsed.maxTokens = toIntOrNull(parsed.maxTokens);
+    return parsed;
   } catch {
     return defaults;
   }
@@ -713,6 +726,19 @@ class AppStore {
   /** When true, models that exceed available memory are not blocked — placement
    *  previews are fetched with force_override so oversized models can be loaded. */
   allowMemoryOverride = $state(false);
+  /**
+   * Memory override level (LM Studio-style tiering):
+   *   0 = Auto    — strict memory check (model must fit available memory).
+   *   1 = Relaxed — admit cycles holding at least `memoryTolerance` × model size
+   *       (default 0.5); UI shows a warning chip.
+   *   2 = Force   — bypass the memory check entirely (equivalent to the old
+   *       allowMemoryOverride boolean / force_override=true).
+   * `allowMemoryOverride` remains as a derived "is any override on" (level > 0)
+   * for backward-compatible call sites.
+   */
+  memoryOverrideLevel = $state(0);
+  /** Fraction of model size a cycle must hold when level=1 (0.0–1.0). */
+  memoryTolerance = $state(0.5);
   chatSidebarVisible = $state(true); // Shown by default
   mobileChatSidebarOpen = $state(false); // Mobile drawer state
   mobileRightSidebarOpen = $state(false); // Mobile right drawer state
@@ -852,6 +878,18 @@ class AppStore {
       if (stored !== null) {
         this.allowMemoryOverride = stored === "true";
       }
+      // Tiered override level + tolerance (newer, preferred)
+      const levelStored = localStorage.getItem("exo-memory-override-level");
+      if (levelStored !== null) {
+        this.memoryOverrideLevel = parseInt(levelStored, 10) || 0;
+        // Keep the legacy boolean in sync so old call sites still work.
+        this.allowMemoryOverride = this.memoryOverrideLevel > 0;
+      }
+      const tolStored = localStorage.getItem("exo-memory-tolerance");
+      if (tolStored !== null) {
+        const t = parseFloat(tolStored);
+        if (Number.isFinite(t)) this.memoryTolerance = Math.min(1, Math.max(0, t));
+      }
     } catch (error) {
       console.error("Failed to load allow memory override:", error);
     }
@@ -863,6 +901,11 @@ class AppStore {
         "exo-allow-memory-override",
         this.allowMemoryOverride ? "true" : "false",
       );
+      localStorage.setItem(
+        "exo-memory-override-level",
+        String(this.memoryOverrideLevel),
+      );
+      localStorage.setItem("exo-memory-tolerance", String(this.memoryTolerance));
     } catch (error) {
       console.error("Failed to save allow memory override:", error);
     }
@@ -1431,12 +1474,46 @@ class AppStore {
 
   setAllowMemoryOverride(enabled: boolean) {
     this.allowMemoryOverride = enabled;
+    // Backward-compat setter: boolean on = Force (level 2), off = Auto (0).
+    this.memoryOverrideLevel = enabled ? 2 : 0;
     this.saveAllowMemoryOverrideToStorage();
   }
 
   toggleAllowMemoryOverride() {
-    this.allowMemoryOverride = !this.allowMemoryOverride;
+    this.setAllowMemoryOverride(!this.allowMemoryOverride);
+  }
+
+  getMemoryOverrideLevel(): number {
+    return this.memoryOverrideLevel;
+  }
+
+  setMemoryOverrideLevel(level: number) {
+    this.memoryOverrideLevel = Math.min(2, Math.max(0, Math.round(level)));
+    this.allowMemoryOverride = this.memoryOverrideLevel > 0;
     this.saveAllowMemoryOverrideToStorage();
+  }
+
+  getMemoryTolerance(): number {
+    return this.memoryTolerance;
+  }
+
+  setMemoryTolerance(tolerance: number) {
+    this.memoryTolerance = Math.min(1, Math.max(0, tolerance));
+    this.saveAllowMemoryOverrideToStorage();
+  }
+
+  /**
+   * Current memory-override parameters for placement requests, based on the
+   * tiered level:
+   *   level 2 → { force_override: true }
+   *   level 1 → { memory_tolerance: this.memoryTolerance }
+   *   level 0 → {}
+   */
+  getMemoryOverrideParams(): { force_override?: boolean; memory_tolerance?: number } {
+    if (this.memoryOverrideLevel >= 2) return { force_override: true };
+    if (this.memoryOverrideLevel === 1)
+      return { memory_tolerance: this.memoryTolerance };
+    return {};
   }
 
   getChatSidebarVisible(): boolean {
@@ -1591,10 +1668,13 @@ class AppStore {
 
     try {
       let url = `/instance/previews?model_id=${encodeURIComponent(modelId)}`;
-      // When override is enabled, request placements that skip memory checks
-      // so oversized models are not blocked in the UI.
-      if (this.allowMemoryOverride) {
+      // Tiered memory override:
+      //   level 2 (Force) → force_override=true (skip memory checks entirely)
+      //   level 1 (Relaxed) → memory_tolerance=<tolerance> (admit partial-fit cycles)
+      if (this.memoryOverrideLevel >= 2) {
         url += `&force_override=true`;
+      } else if (this.memoryOverrideLevel === 1) {
+        url += `&memory_tolerance=${encodeURIComponent(String(this.memoryTolerance))}`;
       }
       // Add node filter if active
       if (this.previewNodeFilter.size > 0) {
@@ -2805,13 +2885,13 @@ class AppStore {
             top_p: this.samplingParams.topP,
           }),
           ...(this.samplingParams.topK !== null && {
-            top_k: this.samplingParams.topK,
+            top_k: Math.round(this.samplingParams.topK),
           }),
           ...(this.samplingParams.seed !== null && {
-            seed: this.samplingParams.seed,
+            seed: Math.round(this.samplingParams.seed),
           }),
           ...(this.samplingParams.maxTokens !== null && {
-            max_tokens: this.samplingParams.maxTokens,
+            max_tokens: Math.round(this.samplingParams.maxTokens),
           }),
           stream: true,
           logprobs: true,

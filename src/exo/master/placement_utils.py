@@ -25,8 +25,13 @@ def filter_cycles_by_memory(
     node_memory: Mapping[NodeId, MemoryUsage],
     required_memory: Memory,
     force_override: bool = False,
+    memory_tolerance: float = 1.0,
 ) -> list[Cycle]:
     filtered_cycles: list[Cycle] = []
+    # memory_tolerance relaxes the requirement: 1.0 = strict (model must fit),
+    # 0.5 = admit cycles holding at least half the model, etc. force_override
+    # bypasses the check entirely.
+    required_bytes = required_memory.in_bytes * max(memory_tolerance, 0.0)
     for cycle in cycles:
         if not all(node in node_memory for node in cycle):
             continue
@@ -35,7 +40,7 @@ def filter_cycles_by_memory(
             (node_memory[node_id].ram_available for node_id in cycle.node_ids),
             start=Memory(),
         )
-        if force_override or total_mem >= required_memory:
+        if force_override or total_mem.in_bytes >= required_bytes:
             filtered_cycles.append(cycle)
     return filtered_cycles
 
