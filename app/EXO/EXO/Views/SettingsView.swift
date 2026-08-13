@@ -20,6 +20,7 @@ struct SettingsView: View {
     @State private var pendingDefaultModelsDir: String = ""
     @State private var pendingAdditionalModelsDirs: String = ""
     @State private var pendingReadOnlyModelsDirs: String = ""
+    @State private var pendingBootstrapPeers: String = ""
     @State private var pendingCustomEnvironmentVariables: [CustomEnvironmentVariable] = []
     @State private var needsRestart = false
     @State private var uninstallInProgress = false
@@ -59,6 +60,7 @@ struct SettingsView: View {
             pendingDefaultModelsDir = controller.defaultModelsDir
             pendingAdditionalModelsDirs = controller.additionalModelsDirs
             pendingReadOnlyModelsDirs = controller.readOnlyModelsDirs
+            pendingBootstrapPeers = controller.bootstrapPeers
             pendingCustomEnvironmentVariables = controller.customEnvironmentVariables
             needsRestart = false
         }
@@ -233,6 +235,26 @@ struct SettingsView: View {
 
     private var environmentTab: some View {
         Form {
+            Section("Networking") {
+                LabeledContent("Bootstrap Peers") {
+                    TextField(
+                        "",
+                        text: $pendingBootstrapPeers,
+                        prompt: Text("host[:port], comma-separated")
+                    )
+                    .textFieldStyle(.roundedBorder)
+                    .font(.system(.body, design: .monospaced))
+                    .frame(width: 260)
+                }
+                Text(
+                    "Sets EXO_BOOTSTRAP_PEERS. Manually dial peers on startup when multicast "
+                        + "discovery can't reach them (VPN, Tailscale, corporate firewalls). "
+                        + "E.g. tailscale-host:52414."
+                )
+                .font(.caption)
+                .foregroundColor(.secondary)
+            }
+
             Section("Models Directories") {
                 LabeledContent("Default Models Directory") {
                     TextField(
@@ -627,6 +649,7 @@ struct SettingsView: View {
         pendingDefaultModelsDir != controller.defaultModelsDir
             || pendingAdditionalModelsDirs != controller.additionalModelsDirs
             || pendingReadOnlyModelsDirs != controller.readOnlyModelsDirs
+            || pendingBootstrapPeers != controller.bootstrapPeers
             || pendingCustomEnvironmentVariables != controller.customEnvironmentVariables
     }
 
@@ -656,10 +679,12 @@ struct SettingsView: View {
             in: .whitespaces)
         controller.readOnlyModelsDirs = pendingReadOnlyModelsDirs.trimmingCharacters(
             in: .whitespaces)
+        controller.bootstrapPeers = pendingBootstrapPeers.trimmingCharacters(in: .whitespaces)
 
         pendingDefaultModelsDir = controller.defaultModelsDir
         pendingAdditionalModelsDirs = controller.additionalModelsDirs
         pendingReadOnlyModelsDirs = controller.readOnlyModelsDirs
+        pendingBootstrapPeers = controller.bootstrapPeers
 
         // Trim whitespace from keys and drop empty ones so that the stored
         // form matches what is actually injected into the child process and

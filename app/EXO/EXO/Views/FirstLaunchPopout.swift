@@ -12,11 +12,12 @@ final class FirstLaunchPopout {
     /// Called when the user completes onboarding (clicks Open Dashboard or dismisses).
     var onComplete: (() -> Void)?
 
-    /// Whether the countdown should auto-open the dashboard. Default true for
-    /// backward compatibility; EXOApp passes the user preference (default OFF).
-    private var autoOpenDashboard = true
+    /// Whether the countdown should auto-open the dashboard. Default false —
+    /// the dashboard must NOT auto-open on every launch; EXOApp passes the
+    /// user preference (default OFF).
+    private var autoOpenDashboard = false
 
-    func show(autoOpenDashboard: Bool = true) {
+    func show(autoOpenDashboard: Bool = false) {
         guard popover == nil else { return }
         self.autoOpenDashboard = autoOpenDashboard
 
@@ -87,6 +88,14 @@ final class FirstLaunchPopout {
 
     private func openDashboard() {
         guard let url = URL(string: Self.dashboardURL) else { return }
+        NSWorkspace.shared.open(url)
+    }
+
+    /// Opens the dashboard immediately, without showing the popout. Used on
+    /// every launch after the first, driven by the "Open Dashboard on
+    /// Launch" setting once onboarding no longer needs to be shown.
+    static func openDashboardNow() {
+        guard let url = URL(string: dashboardURL) else { return }
         NSWorkspace.shared.open(url)
     }
 

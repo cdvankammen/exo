@@ -85,7 +85,13 @@ CATALOG: dict[str, SettingSpec] = {
         # Cluster / placement
         SettingSpec("EXO_MAX_CONCURRENT_REQUESTS", "int", "API concurrency limit", None, requires_restart=False),
         SettingSpec("EXO_MAX_INSTANCE_RETRIES", "int", "Runner retry budget", "5"),
-        SettingSpec("EXO_BOOTSTRAP_PEERS", "str", "Manual peer list (comma-separated)", None),
+        SettingSpec(
+            "EXO_BOOTSTRAP_PEERS",
+            "str",
+            "Manual peer list, host[:port] comma-separated (e.g. tailscale-host:52414) — "
+            "use when multicast discovery can't reach a peer (VPN, Tailscale, firewalled/corporate networks)",
+            None,
+        ),
         SettingSpec("EXO_NODE_ZID", "str", "Fixed node identity (keypair seed)", None),
         SettingSpec("EXO_ZENOH_NAMESPACE", "str", "Cluster namespace isolation", None),
         # Models

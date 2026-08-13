@@ -73,12 +73,23 @@ struct EXOApp: App {
             menuBarIcon
                 .onReceive(controller.$isFirstLaunchReady) { [weak controller] ready in
                     if ready {
+                        guard let controller else { return }
+                        // Onboarding popout only ever shows once (first-ever
+                        // launch). On every later launch, don't reshow it —
+                        // but still honor "Open Dashboard on Launch" if the
+                        // user enabled it, independent of onboarding state.
+                        guard !controller.isOnboardingCompleted else {
+                            if controller.openDashboardOnLaunch {
+                                FirstLaunchPopout.openDashboardNow()
+                            }
+                            return
+                        }
                         DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
                             self.firstLaunchPopout.onComplete = { [weak controller] in
                                 controller?.markOnboardingCompleted()
                             }
                             self.firstLaunchPopout.show(
-                                autoOpenDashboard: controller?.openDashboardOnLaunch ?? false
+                                autoOpenDashboard: controller.openDashboardOnLaunch
                             )
                         }
                     }

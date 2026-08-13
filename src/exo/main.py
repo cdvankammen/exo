@@ -33,6 +33,7 @@ from exo.shared.types.common import NodeId, SessionId
 from exo.utils import STDIO_FDS
 from exo.utils.channels import Receiver, channel
 from exo.utils.pydantic_ext import FrozenModel
+from exo.utils.settings import get_settings_manager
 from exo.utils.task_group import TaskGroup
 from exo.worker.main import Worker
 
@@ -446,6 +447,16 @@ def main_inner(args: "Args"):
         logger_cleanup()
 
 
+def _default_bootstrap_peers() -> list[str]:
+    """Resolve the --bootstrap-peers default with override > env > default
+    precedence (see SettingsManager.resolve), so a peer list saved via the
+    dashboard/macOS app Settings UI actually takes effect on the next start —
+    not just a bare env var."""
+    resolved = get_settings_manager().resolve("EXO_BOOTSTRAP_PEERS")
+    raw = resolved[0] if resolved else ""
+    return [p for p in raw.split(",") if p]
+
+
 class Args(FrozenModel):
     verbosity: int = 0
     force_master: bool = False
@@ -542,12 +553,11 @@ class Args(FrozenModel):
         parser.add_argument(
             "--bootstrap-peers",
             type=lambda s: [p for p in s.split(",") if p],
-            default=os.getenv("EXO_BOOTSTRAP_PEERS", "").split(",")
-            if os.getenv("EXO_BOOTSTRAP_PEERS")
-            else [],
+            default=_default_bootstrap_peers(),
             dest="bootstrap_peers",
             help="Comma-separated peers to dial on startup: host[:zenoh_port] (default port 52414). "
-            "Env: EXO_BOOTSTRAP_PEERS. For cross-subnet clusters where multicast discovery can't reach.",
+            "Env: EXO_BOOTSTRAP_PEERS. For cross-subnet clusters where multicast discovery can't reach. "
+            "Also settable via the dashboard/macOS app Settings (persisted, takes effect on restart).",
         )
         parser.add_argument(
             "--namespace",

@@ -13,6 +13,7 @@ private let openDashboardOnLaunchKey = "EXOOpenDashboardOnLaunch"
 private let defaultModelsDirKey = "EXODefaultModelsDir"
 private let additionalModelsDirsKey = "EXOAdditionalModelsDirs"
 private let readOnlyModelsDirsKey = "EXOReadOnlyModelsDirs"
+private let bootstrapPeersKey = "EXOBootstrapPeers"
 private let customEnvironmentVariablesKey = "EXOCustomEnvironmentVariables"
 
 /// A user-defined environment variable that is injected into the exo child
@@ -146,6 +147,17 @@ final class ExoProcessController: ObservableObject {
     {
         didSet {
             UserDefaults.standard.set(readOnlyModelsDirs, forKey: readOnlyModelsDirsKey)
+        }
+    }
+    /// Manual peers to dial on startup (host[:port], comma-separated). Sets
+    /// EXO_BOOTSTRAP_PEERS — the escape hatch for networks where multicast
+    /// discovery can't reach a peer (VPN, Tailscale, corporate firewalls).
+    @Published var bootstrapPeers: String = {
+        return UserDefaults.standard.string(forKey: bootstrapPeersKey) ?? ""
+    }()
+    {
+        didSet {
+            UserDefaults.standard.set(bootstrapPeers, forKey: bootstrapPeersKey)
         }
     }
     @Published var customEnvironmentVariables: [CustomEnvironmentVariable] = {
@@ -350,6 +362,12 @@ final class ExoProcessController: ObservableObject {
         launch()
     }
 
+    /// Whether the user has already completed onboarding. When true, the
+    /// welcome popout must NOT appear on launch.
+    var isOnboardingCompleted: Bool {
+        UserDefaults.standard.bool(forKey: onboardingCompletedKey)
+    }
+
     /// Mark onboarding as completed (user interacted with the welcome popout).
     func markOnboardingCompleted() {
         UserDefaults.standard.set(true, forKey: onboardingCompletedKey)
@@ -489,6 +507,10 @@ final class ExoProcessController: ObservableObject {
         let trimmedReadOnlyModelsDirs = readOnlyModelsDirs.trimmingCharacters(in: .whitespaces)
         if !trimmedReadOnlyModelsDirs.isEmpty {
             environment["EXO_MODELS_READ_ONLY_DIRS"] = trimmedReadOnlyModelsDirs
+        }
+        let trimmedBootstrapPeers = bootstrapPeers.trimmingCharacters(in: .whitespaces)
+        if !trimmedBootstrapPeers.isEmpty {
+            environment["EXO_BOOTSTRAP_PEERS"] = trimmedBootstrapPeers
         }
 
         // Apply user-defined arbitrary environment variables last so that
