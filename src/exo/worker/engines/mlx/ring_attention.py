@@ -24,6 +24,7 @@ References:
 
 from __future__ import annotations
 
+import sys
 from collections.abc import Generator, Sequence
 from typing import Protocol, cast
 
@@ -46,6 +47,18 @@ _SUPPORTED_ATTENTION_TYPES = frozenset(
         ("mlx_lm.models.qwen3", "Attention"),
     }
 )
+
+
+def _is_cuda_backend() -> bool:
+    """True when MLX is running on the Linux CUDA backend (no unified memory).
+
+    Distributed send/recv on CUDA must use the default stream — CPU streams
+    deadlock on VRAM-resident arrays (see RingAttentionLayer.__init__).
+    """
+    return (
+        sys.platform == "linux"
+        and mx.default_device().type == mx.DeviceType.gpu
+    )
 
 
 class _AttentionLayer(Protocol):
@@ -113,10 +126,17 @@ class RingAttentionLayer(CustomMlxLayer):
         self.rank: int = group.rank()
         self.world_size: int = group.size()
         self.sequence_block_size = sequence_block_size
-        # MLX distributed send/receive are CPU operations. Unified memory lets
-        # them consume Metal-produced KV arrays without an explicit copy.
-        self.send_stream = send_stream or mx.new_stream(mx.cpu)
-        self.receive_stream = receive_stream or mx.new_stream(mx.cpu)
+        # MLX distributed send/receive are CPU operations. On Metal, unified
+        # memory lets them consume GPU-produced KV arrays without an explicit
+        # copy. On CUDA there is NO unified memory — a CPU-stream send/recv of
+        # VRAM-resident arrays deadlocks (observed as a ring-prefill hang on
+        # Linux). Use the default stream there, matching auto_parallel.py.
+        if _is_cuda_backend():
+            self.send_stream = send_stream or mx.default_stream()
+            self.receive_stream = receive_stream or mx.default_stream()
+        else:
+            self.send_stream = send_stream or mx.new_stream(mx.cpu)
+            self.receive_stream = receive_stream or mx.new_stream(mx.cpu)
         self.is_prefill: bool = False
 
     def __call__(
@@ -709,8 +729,14 @@ def ring_auto_parallel(
 
     total = len(layers)
     wrapped_layers = 0
-    send_stream = mx.new_stream(mx.cpu)
-    receive_stream = mx.new_stream(mx.cpu)
+    if _is_cuda_backend():
+        # CUDA has no unified memory: CPU-stream send/recv of VRAM arrays
+        # deadlocks. Use the default stream (same as auto_parallel.py).
+        send_stream = mx.default_stream()  # pyright: ignore[reportUnknownVariableType]
+        receive_stream = mx.default_stream()  # pyright: ignore[reportUnknownVariableType]
+    else:
+        send_stream = mx.new_stream(mx.cpu)
+        receive_stream = mx.new_stream(mx.cpu)
     for i, layer in enumerate(layers):
         mx.eval(layer)
         mx.clear_cache()

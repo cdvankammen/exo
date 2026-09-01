@@ -940,7 +940,23 @@ def set_wired_limit_for_model(model_size: Memory) -> None:
         mx.set_wired_limit(max_rec_size.in_bytes)
         logger.info(f"Wired limit set to {max_rec_size}.")
     elif hasattr(mx, "cuda") and mx.cuda.is_available():
-        logger.info("CUDA backend active — skipping Metal wired limit.")
+        # On CUDA, set a memory limit to leave headroom for the CUDA context
+        # and driver overhead (~2 GB).  Without this, MLX may request more VRAM
+        # than is actually available after the driver context is mapped, causing
+        # ``cudaMallocAsync ... out of memory`` during layer loading.
+        info: dict[str, int] = mx.device_info()  # type: ignore[reportUnknownVariableType]
+        total_vram: int = info["total_memory"]
+        # Reserve ~2 GB for CUDA context / driver overhead
+        usable = max(total_vram - 2 * 1024 * 1024 * 1024, 0)
+        mx.set_memory_limit(usable)
+        mx.set_wired_limit(usable)
+        mx.set_cache_limit(0)
+        logger.info(
+            f"CUDA backend active — memory limit set to "
+            f"{Memory.from_bytes(usable).in_float_mb:.0f} MB "
+            f"(total {Memory.from_bytes(total_vram).in_float_mb:.0f} MB, "
+            f"reserved 2048 MB for driver)."
+        )
 
 
 def mlx_cleanup(
