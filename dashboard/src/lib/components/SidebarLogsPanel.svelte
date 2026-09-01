@@ -1,10 +1,10 @@
 <script lang="ts">
   // Sidebar Logs/Errors panel.
-  // - Header bar says "Main Logs" and doubles as the drag handle: click to
-  //   collapse/expand (restoring the previous height), click-and-hold to
-  //   drag up/down to resize.
+  // - Header bar toggles collapse/expand. Click header to collapse/expand.
+  // - Expanded = auto-height panel that fits the number of errors, bounded by
+  //   a viewport-relative max (max-h-[60vh]) so it works on any screen size.
+  //   No manual drag-resize: the panel grows/shrinks with its content.
   // - Collapsed = slim footer-style row with toggle + error-count badge.
-  // - Expanded height persisted to localStorage; expand restores it.
   import { onMount, onDestroy } from "svelte";
   import { listLogErrors, getLogTail, type LogErrorEntry } from "$lib/stores/app.svelte";
 
@@ -16,7 +16,9 @@
 
   const LEVEL_ORDER = ["CRITICAL", "ERROR", "WARNING"] as const;
   const EXPANDED_KEY = "exo-sidebar-logs-expanded";
-  const HEIGHT_KEY = "exo-sidebar-logs-height";
+  const ERRORS_SECTION_KEY = "exo-sidebar-logs-errors-section";
+  const TAIL_SECTION_KEY = "exo-sidebar-logs-tail-section";
+  const ERRORS_HEIGHT_KEY = "exo-sidebar-logs-errors-height";
 
   let errors = $state<LogErrorEntry[]>([]);
   let loading = $state(true);
@@ -25,24 +27,72 @@
   let tailLoading = $state(false);
   let refreshTimer: ReturnType<typeof setInterval> | undefined;
   let expanded = $state(false);
-  // Height in px when expanded. Persisted so it survives navigation.
-  let panelHeight = $state(256);
+  let errorsExpanded = $state(true);
+  let tailExpanded = $state(true);
+  let errorsSectionHeight = $state(200);
   let dragging = $state(false);
-  let dragStartY = $state(0);
-  let dragStartHeight = $state(0);
-  let panelEl = $state<HTMLElement | null>(null);
-  // Distinguish a click (collapse/expand) from a drag (resize).
-  let dragMoved = $state(false);
+  let dismissedErrors = $state<Set<string>>(new Set());
 
+  // Errors we can show, ordered by severity (critical first), capped so a
+  // burst of errors can't freeze the UI. Dismissed errors are filtered out.
   const visibleErrors = $derived(
-    errors
-      .filter((e) => LEVEL_ORDER.includes(e.level as (typeof LEVEL_ORDER)[number]))
-      .slice(0, 30),
+    [...errors]
+      .filter((e) => !dismissedErrors.has(errorKey(e)))
+      .sort((a, b) => levelRank(a.level) - levelRank(b.level))
+      .slice(0, 50),
   );
+
+  const activeErrorCount = $derived(visibleErrors.length);
+
+  // Expandable error cards: click to show the full message inline.
+  let expandedErrors = $state<Set<string>>(new Set());
+
+  function errorKey(e: LogErrorEntry): string {
+    return e.id ?? `${e.level}-${e.message}-${e.timestamp}`;
+  }
+
+  function toggleError(e: LogErrorEntry) {
+    const key = errorKey(e);
+    const next = new Set(expandedErrors);
+    if (next.has(key)) {
+      next.delete(key);
+    } else {
+      next.add(key);
+    }
+    expandedErrors = next;
+  }
+
+  function dismissError(e: LogErrorEntry) {
+    const key = errorKey(e);
+    dismissedErrors = new Set([...dismissedErrors, key]);
+  }
+
+  function clearAllErrors() {
+    dismissedErrors = new Set(errors.map((e) => errorKey(e)));
+  }
+
+  function toggleErrorsSection() {
+    errorsExpanded = !errorsExpanded;
+    try {
+      localStorage.setItem(ERRORS_SECTION_KEY, errorsExpanded ? "1" : "0");
+    } catch { /* ignore */ }
+  }
+
+  function toggleTailSection() {
+    tailExpanded = !tailExpanded;
+    try {
+      localStorage.setItem(TAIL_SECTION_KEY, tailExpanded ? "1" : "0");
+    } catch { /* ignore */ }
+  }
 
   const criticalCount = $derived(
     errors.filter((e) => e.level === "CRITICAL" || e.level === "ERROR").length,
   );
+
+  function levelRank(level: string): number {
+    const idx = LEVEL_ORDER.indexOf(level as (typeof LEVEL_ORDER)[number]);
+    return idx === -1 ? LEVEL_ORDER.length : idx;
+  }
 
   function toggleExpanded() {
     expanded = !expanded;
@@ -54,73 +104,17 @@
     if (expanded) refreshAll();
   }
 
-  // --- Header bar: click to collapse/expand, click-and-hold to resize ----
-  // The header bar is both the collapse toggle and the drag handle. A plain
-  // click (no movement) toggles; holding and moving resizes. Move/up are
-  // bound to window so dragging past the header still tracks.
-  function onHeaderPointerDown(e: PointerEvent) {
-    dragging = true;
-    dragMoved = false;
-    dragStartY = e.clientY;
-    dragStartHeight = panelHeight;
-    window.addEventListener("pointermove", onHeaderPointerMove);
-    window.addEventListener("pointerup", onHeaderPointerUp);
-    window.addEventListener("pointercancel", onHeaderPointerUp);
-    e.preventDefault();
-  }
-
-  function onHeaderPointerMove(e: PointerEvent) {
-    if (!dragging || !panelEl) return;
-    const delta = dragStartY - e.clientY; // drag up → grow
-    if (Math.abs(delta) > 3) dragMoved = true;
-    // Upper bound: don't let the panel's top rise above the search header.
-    // Find the conversation list header (search bar) top edge.
-    const sidebar = panelEl.closest("aside");
-    const searchHeader = sidebar?.querySelector(".p-4") as HTMLElement | null;
-    const minTop = searchHeader
-      ? searchHeader.getBoundingClientRect().bottom + 8
-      : 0;
-    const panelTop = panelEl.getBoundingClientRect().top;
-    const maxHeight = Math.max(96, panelTop - minTop);
-    panelHeight = Math.min(Math.max(96, dragStartHeight + delta), maxHeight);
-  }
-
-  function onHeaderPointerUp() {
-    const wasDragging = dragging;
-    dragging = false;
-    window.removeEventListener("pointermove", onHeaderPointerMove);
-    window.removeEventListener("pointerup", onHeaderPointerUp);
-    window.removeEventListener("pointercancel", onHeaderPointerUp);
-    if (wasDragging && !dragMoved) {
-      // Plain click on the header bar → collapse/expand.
-      toggleExpanded();
-    } else if (wasDragging) {
-      // Resize finished — persist the new height.
-      try {
-        localStorage.setItem(HEIGHT_KEY, String(Math.round(panelHeight)));
-      } catch {
-        // ignore
-      }
-    }
-  }
-
-  // Fallback: a native click also toggles (covers touch / synthetic events
-  // where pointerup may not fire reliably). Guarded by dragMoved so a
-  // resize drag never triggers a collapse.
-  function onHeaderClick() {
-    if (dragMoved) {
-      dragMoved = false;
-      return;
-    }
-    toggleExpanded();
-  }
-
+  // --- Flicker-free refresh: only reassign if content actually changed ---
   async function refreshErrors() {
     loading = true;
     errorMsg = null;
     try {
       const response = await listLogErrors();
-      errors = response.errors;
+      const next = response.errors;
+      // Diff: only replace if the serialized content differs
+      if (JSON.stringify(next) !== JSON.stringify(errors)) {
+        errors = next;
+      }
     } catch (e) {
       errorMsg = e instanceof Error ? e.message : "Failed to load errors";
     } finally {
@@ -131,12 +125,50 @@
   async function refreshTail() {
     tailLoading = true;
     try {
-      tailContent = (await getLogTail("main", 30)).content;
+      const result = (await getLogTail("main", 30)).content;
+      // Only update if content actually changed to prevent flicker
+      if (result !== tailContent) {
+        tailContent = result;
+      }
     } catch {
-      tailContent = "(unavailable)";
+      if (tailContent !== "(unavailable)") {
+        tailContent = "(unavailable)";
+      }
     } finally {
       tailLoading = false;
     }
+  }
+
+  // --- Resizable divider between errors and log tail ---
+  function onDividerPointerDown(e: PointerEvent) {
+    e.preventDefault();
+    dragging = true;
+    const pointerId = e.pointerId;
+    (e.target as HTMLElement).setPointerCapture(pointerId);
+
+    const startY = e.clientY;
+    const startHeight = errorsSectionHeight;
+
+    function onMove(ev: PointerEvent) {
+      const delta = ev.clientY - startY;
+      const newHeight = Math.max(60, Math.min(startHeight + delta, 500));
+      errorsSectionHeight = newHeight;
+    }
+
+    function onUp() {
+      dragging = false;
+      (e.target as HTMLElement).releasePointerCapture(pointerId);
+      document.removeEventListener("pointermove", onMove);
+      document.removeEventListener("pointerup", onUp);
+      try {
+        localStorage.setItem(ERRORS_HEIGHT_KEY, String(errorsSectionHeight));
+      } catch {
+        // ignore
+      }
+    }
+
+    document.addEventListener("pointermove", onMove);
+    document.addEventListener("pointerup", onUp);
   }
 
   function refreshAll() {
@@ -147,14 +179,15 @@
   onMount(() => {
     try {
       expanded = localStorage.getItem(EXPANDED_KEY) === "1";
-      const savedHeight = Number(localStorage.getItem(HEIGHT_KEY));
-      if (savedHeight >= 96 && savedHeight <= 800) panelHeight = savedHeight;
+      errorsExpanded = localStorage.getItem(ERRORS_SECTION_KEY) !== "0";
+      tailExpanded = localStorage.getItem(TAIL_SECTION_KEY) !== "0";
+      const storedHeight = localStorage.getItem(ERRORS_HEIGHT_KEY);
+      if (storedHeight) errorsSectionHeight = Number(storedHeight) || 200;
     } catch {
       // ignore
     }
     refreshAll();
     refreshTimer = setInterval(() => {
-      // Only keep polling while expanded — collapsed state doesn't need live data.
       if (expanded) refreshAll();
     }, 5000);
   });
@@ -185,64 +218,161 @@
     {/if}
   </button>
 {:else}
-  <div
-    bind:this={panelEl}
-    class="flex flex-col min-h-0 border-t border-exo-yellow/10 bg-exo-black/30"
-    style="height: {panelHeight}px"
-  >
-    <!-- Header bar: click to collapse/expand, click-and-hold to resize -->
-    <div
-      class="px-3 py-2 flex items-center justify-between flex-shrink-0 cursor-row-resize select-none hover:bg-exo-yellow/10 transition-colors"
-      onpointerdown={onHeaderPointerDown}
-      onclick={onHeaderClick}
-      role="button"
-      title="Click to collapse/expand — click and drag to resize"
-    >
-      <span class="text-[10px] font-mono tracking-widest uppercase text-exo-light-gray/70">
+  <div class="flex flex-col border-t border-exo-yellow/10 bg-exo-black/30 min-h-0 overflow-hidden">
+    <!-- Header bar: click to collapse entire panel + clear-all button -->
+    <div class="px-3 py-2 flex items-center justify-between flex-shrink-0 select-none hover:bg-exo-yellow/10 transition-colors">
+      <span
+        class="text-[10px] font-mono tracking-widest uppercase text-exo-light-gray/70 cursor-pointer"
+        onclick={toggleExpanded}
+        role="button"
+        title="Click to collapse"
+      >
         Main Logs
       </span>
       <div class="flex items-center gap-2">
-        {#if errors.length > 0}
-          <span class="text-[10px] font-mono text-red-400">{errors.length}</span>
+        {#if activeErrorCount > 0}
+          <button
+            type="button"
+            onclick={(ev) => { ev.stopPropagation(); clearAllErrors(); }}
+            class="text-[9px] font-mono text-red-400/60 hover:text-red-400 transition-colors cursor-pointer uppercase"
+            title="Dismiss all warnings"
+          >
+            Clear All
+          </button>
         {/if}
-        <span class="text-[10px] font-mono text-exo-light-gray/40">⠿</span>
+        {#if activeErrorCount > 0}
+          <span class="text-[10px] font-mono text-red-400">{activeErrorCount}</span>
+        {/if}
+        <span
+          class="text-[10px] font-mono text-exo-light-gray/40 cursor-pointer"
+          onclick={toggleExpanded}
+          role="button"
+          title="Click to collapse"
+        >⠿</span>
       </div>
     </div>
 
-    <!-- Error list -->
-    <div class="flex-1 overflow-y-auto min-h-0 px-2 pb-1 space-y-1">
-      {#if loading}
-        <div class="text-[10px] text-exo-light-gray/50 font-mono px-1">Loading…</div>
-      {:else if errorMsg}
-        <div class="text-[10px] text-red-400 font-mono px-1">{errorMsg}</div>
-      {:else if visibleErrors.length === 0}
-        <div class="text-[10px] text-exo-light-gray/40 font-mono px-1">
-          No errors in cluster.
-        </div>
-      {:else}
-        {#each visibleErrors as e (e.id ?? `${e.level}-${e.message}-${e.timestamp}`)}
-          <div
-            class="px-1.5 py-1 rounded border text-[10px] font-mono leading-snug {LEVEL_STYLES[e.level] ?? 'text-exo-light-gray/70'}"
-            title={e.message}
-          >
-            <div class="flex items-center gap-1.5">
-              <span class="uppercase font-bold">{e.level}</span>
-              <span class="text-exo-light-gray/50 truncate">{e.source ?? "node"}</span>
+    <!-- Errors section (collapsible) -->
+    <div class="flex-shrink-0">
+      <button
+        type="button"
+        onclick={toggleErrorsSection}
+        class="w-full px-2 py-1 flex items-center justify-between text-[9px] font-mono uppercase tracking-widest text-exo-light-gray/50 hover:text-exo-light-gray/70 hover:bg-white/[0.02] transition-colors cursor-pointer"
+      >
+        <span class="flex items-center gap-1">
+          <span class="text-[8px]">{errorsExpanded ? "▾" : "▸"}</span>
+          Warnings & Errors
+        </span>
+        {#if visibleErrors.length > 0}
+          <span class="text-[9px] text-red-400/70">{visibleErrors.length}</span>
+        {/if}
+      </button>
+
+      {#if errorsExpanded}
+        <div
+          class="overflow-y-auto px-2 pb-1 space-y-1"
+          style="max-height: {errorsSectionHeight}px;"
+        >
+          {#if loading}
+            <div class="text-[10px] text-exo-light-gray/50 font-mono px-1">Loading…</div>
+          {:else if errorMsg}
+            <div class="text-[10px] text-red-400 font-mono px-1">{errorMsg}</div>
+          {:else if visibleErrors.length === 0}
+            <div class="text-[10px] text-exo-light-gray/40 font-mono px-1">
+              {dismissedErrors.size > 0 ? "All warnings dismissed." : "No errors in cluster."}
             </div>
-            <div class="truncate">{e.message}</div>
-          </div>
-        {/each}
+          {:else}
+            {#each visibleErrors as e (errorKey(e))}
+              {@const isExpanded = expandedErrors.has(errorKey(e))}
+              <div
+                class="w-full text-left px-1.5 py-1 rounded border text-[10px] font-mono leading-snug transition-colors {LEVEL_STYLES[e.level] ?? 'text-exo-light-gray/70'} hover:border-exo-yellow/40"
+              >
+                <div class="flex items-center gap-1.5">
+                  <button
+                    type="button"
+                    onclick={() => toggleError(e)}
+                    class="flex-1 flex items-center gap-1.5 text-left cursor-pointer"
+                    title={isExpanded ? "Click to collapse" : "Click to expand full error"}
+                  >
+                    <span class="uppercase font-bold">{e.level}</span>
+                    <span class="text-exo-light-gray/50 truncate">{e.source ?? "node"}</span>
+                    <span class="ml-auto flex-shrink-0 text-exo-light-gray/40" aria-hidden="true">
+                      {isExpanded ? "▾" : "▸"}
+                    </span>
+                  </button>
+                  <button
+                    type="button"
+                    onclick={() => dismissError(e)}
+                    class="flex-shrink-0 p-0.5 text-exo-light-gray/30 hover:text-red-400 transition-colors cursor-pointer"
+                    title="Dismiss this warning"
+                  >
+                    <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                  </button>
+                </div>
+                <button
+                  type="button"
+                  onclick={() => toggleError(e)}
+                  class="w-full text-left cursor-pointer"
+                  title={isExpanded ? "Click to collapse" : "Click to expand full error"}
+                >
+                  <div class={isExpanded ? "whitespace-pre-wrap break-words" : "truncate"}>
+                    {e.message}
+                  </div>
+                  {#if isExpanded}
+                    {#if e.source}
+                      <div class="mt-1 pt-1 border-t border-white/10 text-exo-light-gray/40">
+                        {e.source}
+                      </div>
+                    {/if}
+                    {#if e.timestamp}
+                      <div class="mt-0.5 text-exo-light-gray/30">
+                        {new Date(e.timestamp).toLocaleString()}
+                      </div>
+                    {/if}
+                  {/if}
+                </button>
+              </div>
+            {/each}
+          {/if}
+        </div>
       {/if}
     </div>
 
-    <!-- Log tail -->
-    <div class="px-3 py-1 border-t border-exo-yellow/10">
-      <div class="text-[10px] font-mono tracking-widest uppercase text-exo-light-gray/70 mb-0.5">
-        Log Tail
+    <!-- Draggable divider between errors and log tail -->
+    {#if errorsExpanded && tailExpanded}
+      <div
+        class="h-1 flex-shrink-0 cursor-row-resize hover:bg-exo-yellow/20 active:bg-exo-yellow/30 transition-colors flex items-center justify-center select-none"
+        onpointerdown={onDividerPointerDown}
+        role="separator"
+        aria-label="Resize errors and logs sections"
+        title="Drag to resize"
+      >
+        <div class="w-8 h-0.5 rounded-full bg-exo-light-gray/20 {dragging ? 'bg-exo-yellow/40' : ''}"></div>
       </div>
-      <pre
-        class="text-[9px] font-mono leading-tight text-exo-light-gray/60 whitespace-pre-wrap break-words max-h-16 overflow-y-auto m-0"
-      >{tailLoading ? "Loading…" : tailContent}</pre>
+    {/if}
+
+    <!-- Log tail section (collapsible) -->
+    <div class="flex-shrink-0 min-h-0">
+      <button
+        type="button"
+        onclick={toggleTailSection}
+        class="w-full px-2 py-1 flex items-center justify-between text-[9px] font-mono uppercase tracking-widest text-exo-light-gray/50 hover:text-exo-light-gray/70 hover:bg-white/[0.02] transition-colors cursor-pointer"
+      >
+        <span class="flex items-center gap-1">
+          <span class="text-[8px]">{tailExpanded ? "▾" : "▸"}</span>
+          Log Tail
+        </span>
+      </button>
+
+      {#if tailExpanded}
+        <div class="px-2 pb-1 overflow-y-auto" style="max-height: {280 - errorsSectionHeight}px; min-height: 40px;">
+          <pre
+            class="text-[9px] font-mono leading-tight text-exo-light-gray/60 whitespace-pre-wrap break-words m-0"
+          >{tailLoading ? "Loading…" : tailContent}</pre>
+        </div>
+      {/if}
     </div>
   </div>
 {/if}

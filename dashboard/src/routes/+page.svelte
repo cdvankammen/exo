@@ -2929,7 +2929,22 @@
         .sort((a, b) => getPreviewNodeCount(b) - getPreviewNodeCount(a));
       if (jacclTensor.length > 0) return jacclTensor[0];
 
-      // Multi-node without RDMA: fall back to single-node Pipeline/Ring
+      // Multi-node without RDMA: prefer multi-node Pipeline/Ring (spreads
+      // the model across nodes) over single-node. This is the key fix —
+      // previously it fell back to single-node even when multi-node was
+      // available, which is why 12B+ models appeared to "force" all nodes
+      // or conversely why users couldn't get multi-node spread.
+      const multiPipeline = valid
+        .filter(
+          (p) =>
+            p.instance_meta === "MlxRing" &&
+            p.sharding === "Pipeline" &&
+            getPreviewNodeCount(p) > 1,
+        )
+        .sort((a, b) => getPreviewNodeCount(b) - getPreviewNodeCount(a));
+      if (multiPipeline.length > 0) return multiPipeline[0];
+
+      // Fall back to single-node Pipeline/Ring if no multi-node option exists
       const singlePipeline = valid.filter(
         (p) =>
           p.instance_meta === "MlxRing" &&

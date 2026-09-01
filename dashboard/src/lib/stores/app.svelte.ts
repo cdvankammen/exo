@@ -1588,7 +1588,11 @@ class AppStore {
     try {
       const response = await fetch("/v1/warnings");
       if (!response.ok) return;
-      this.warnings = await response.json();
+      const next = await response.json();
+      // Only update if content actually changed to prevent UI flicker
+      if (JSON.stringify(next) !== JSON.stringify(this.warnings)) {
+        this.warnings = next;
+      }
     } catch {
       // Silently ignore — no warnings to show.
     }

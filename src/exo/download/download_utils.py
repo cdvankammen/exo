@@ -517,8 +517,16 @@ async def fetch_file_list_with_cache(
         return file_list
     except Exception as e:
         logger.opt(exception=e).warning(
-            "Ran into exception when fetching file list from HF."
+            f"Ran into exception when fetching file list from HF for {model_id}."
         )
+        # Cache failures for 10 minutes to avoid hammering HF with repeated
+        # requests for gated/missing/deleted models.  Without this, pending
+        # downloads on every node re-fetch and re-warn every few seconds.
+        try:
+            async with aiofiles.open(cache_file, "w") as f:
+                await f.write("[]")  # empty file list marks a cached failure
+        except OSError:
+            pass
 
         if await aios.path.exists(cache_file):
             logger.warning(

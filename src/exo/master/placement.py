@@ -249,11 +249,21 @@ def place_instance(
     if command.sharding is Sharding.Ring:
         # Every ring rank replicates the weights and must also hold the
         # long-context prefill working set, not just the model file.
-        cycles_with_sufficient_memory = filter_cycles_by_replicated_memory(
-            candidate_cycles,
-            node_memory,
-            estimate_ring_node_memory(command.model_card),
-        )
+        if command.force_override:
+            # Force override: skip strict Ring memory admission, use
+            # regular per-node storage check instead.
+            cycles_with_sufficient_memory = filter_cycles_by_memory(
+                candidate_cycles,
+                node_memory,
+                command.model_card.storage_size,
+                force_override=True,
+            )
+        else:
+            cycles_with_sufficient_memory = filter_cycles_by_replicated_memory(
+                candidate_cycles,
+                node_memory,
+                estimate_ring_node_memory(command.model_card),
+            )
     else:
         cycles_with_sufficient_memory = filter_cycles_by_memory(
             candidate_cycles,
@@ -266,7 +276,7 @@ def place_instance(
         raise ValueError("No cycles found with sufficient memory")
 
     if command.sharding == Sharding.Tensor:
-        if not command.model_card.supports_tensor:
+        if not command.model_card.supports_tensor and not command.force_override:
             raise ValueError(
                 f"Requested Tensor sharding but this model does not support tensor parallelism: {command.model_card.model_id}"
             )
@@ -276,12 +286,13 @@ def place_instance(
         # KV heads, so the kv-head divisibility check doesn't apply.
         is_deepseek_v4 = command.model_card.base_model.startswith("DeepSeek V4")
         kv_heads = command.model_card.num_key_value_heads
-        cycles_with_sufficient_memory = [
-            cycle
-            for cycle in cycles_with_sufficient_memory
-            if command.model_card.hidden_size % len(cycle) == 0
-            and (is_deepseek_v4 or kv_heads is None or kv_heads % len(cycle) == 0)
-        ]
+        if not command.force_override:
+            cycles_with_sufficient_memory = [
+                cycle
+                for cycle in cycles_with_sufficient_memory
+                if command.model_card.hidden_size % len(cycle) == 0
+                and (is_deepseek_v4 or kv_heads is None or kv_heads % len(cycle) == 0)
+            ]
         if not cycles_with_sufficient_memory:
             raise ValueError(
                 f"No tensor sharding found for model with "
@@ -289,8 +300,10 @@ def place_instance(
                 f"{f', num_key_value_heads={kv_heads}' if kv_heads is not None else ''}"
                 f" across candidate cycles"
             )
-    if command.sharding == Sharding.Pipeline and command.model_card.model_id == ModelId(
-        "mlx-community/DeepSeek-V3.1-8bit"
+    if (
+        command.sharding == Sharding.Pipeline
+        and command.model_card.model_id == ModelId("mlx-community/DeepSeek-V3.1-8bit")
+        and not command.force_override
     ):
         raise ValueError(
             "Pipeline parallelism is not supported for DeepSeek V3.1 (8-bit)"
@@ -298,13 +311,16 @@ def place_instance(
     if (
         command.sharding == Sharding.Pipeline
         and command.model_card.base_model.startswith("Gemma 4")
+        and not command.force_override
     ):
         cycles_with_sufficient_memory = [
             cycle for cycle in cycles_with_sufficient_memory if len(cycle) == 1
         ]
         if not cycles_with_sufficient_memory:
             raise ValueError(
-                "Pipeline parallelism is not supported for Gemma 4; use tensor parallelism instead."
+                "Pipeline parallelism is not supported for Gemma 4; use tensor "
+                "parallelism instead. (Enable 'Force Override' to attempt "
+                "multi-node Pipeline — may not work on all variants.)"
             )
 
     smallest_cycles = get_smallest_cycles(cycles_with_sufficient_memory)
