@@ -515,11 +515,35 @@ async def fetch_file_list_with_cache(
                 TypeAdapter(list[FileListEntry]).dump_json(file_list).decode()
             )
         return file_list
+    except HuggingFaceAuthenticationError:
+        # Auth errors won't resolve without user action (HF_TOKEN).
+        # Log at info level and cache permanently to avoid repeated noise.
+        logger.info(
+            f"Model {model_id} requires authentication — "
+            "set HF_TOKEN in Advanced Settings or run `hf auth login`."
+        )
+        try:
+            async with aiofiles.open(cache_file, "w") as f:
+                await f.write("[]")  # cache auth failure permanently
+        except OSError:
+            pass
+        raise
+    except HuggingFaceRateLimitError:
+        # Rate limits are transient — cache briefly and re-raise.
+        logger.warning(
+            f"Rate limited by HF fetching file list for {model_id}; retrying later"
+        )
+        try:
+            async with aiofiles.open(cache_file, "w") as f:
+                await f.write("[]")
+        except OSError:
+            pass
+        raise
     except Exception as e:
         logger.opt(exception=e).warning(
             f"Ran into exception when fetching file list from HF for {model_id}."
         )
-        # Cache failures for 10 minutes to avoid hammering HF with repeated
+        # Cache failures for 24 hours to avoid hammering HF with repeated
         # requests for gated/missing/deleted models.  Without this, pending
         # downloads on every node re-fetch and re-warn every few seconds.
         try:
