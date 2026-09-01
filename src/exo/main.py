@@ -216,8 +216,29 @@ class Node:
 
     async def run(self):
         async with self._tg as tg:
-            signal.signal(signal.SIGINT, lambda _, __: self.shutdown())
-            signal.signal(signal.SIGTERM, lambda _, __: self.shutdown())
+            # Signal handlers must NOT call sys.exit() synchronously — a SIGTERM
+            # that arrives mid-subprocess (e.g. a hung nvidia-smi inside
+            # subprocess.run in profiling.py) would unwind the stack and hard-kill
+            # the whole node. Instead, schedule graceful task cancellation on the
+            # event loop; the second signal remains a hard-exit escape hatch.
+            self._shutdown_requested = False
+
+            def _request_shutdown(*_: object) -> None:
+                if self._shutdown_requested:
+                    import sys
+
+                    sys.exit(1)  # second signal: force exit
+                self._shutdown_requested = True
+                logger.info("Shutdown requested (SIGINT/SIGTERM) — cancelling tasks")
+                # Signal handlers run synchronously in the main thread (not a
+                # worker thread), so `anyio.from_thread.run` is the wrong tool
+                # here — it raises NoEventLoopError with no portal set up.
+                # `cancel_scope.cancel()` is a plain synchronous call and is
+                # safe to invoke directly from a signal handler.
+                tg.cancel_scope.cancel()
+
+            signal.signal(signal.SIGINT, _request_shutdown)
+            signal.signal(signal.SIGTERM, _request_shutdown)
             tg.start_soon(self.router.run)
             tg.start_soon(self.event_router.run)
             tg.start_soon(self.election.run)
@@ -233,11 +254,10 @@ class Node:
             tg.start_soon(self._elect_loop)
 
     def shutdown(self):
-        # if this is our second call to shutdown, just sys.exit
-        if self._tg.cancel_called():
-            import sys
-
-            sys.exit(1)
+        # Keep the public shutdown() API for callers that invoke it directly
+        # (e.g. tests). It cancels the task group's cancel scope; it must NOT
+        # sys.exit() here, otherwise a direct call mid-subprocess would
+        # hard-kill the node too.
         self._tg.cancel_tasks()
 
     async def _elect_loop(self):
@@ -426,6 +446,11 @@ def main_inner(args: "Args"):
         os.environ["EXO_NO_BATCH"] = "1"
         logger.info("Continuous batching disabled (--no-batch)")
 
+    # Advertise this node's real API port (info_gatherer reads EXO_API_PORT).
+    # With multiple exo instances per host (one per GPU), each advertises a
+    # distinct port so peers probe the right instance on the shared IP.
+    os.environ["EXO_API_PORT"] = str(args.api_port)
+
     # Set FAST_SYNCH override env var for runner subprocesses
     if args.fast_synch is True:
         os.environ["EXO_FAST_SYNCH"] = "true"
@@ -454,7 +479,12 @@ def _default_bootstrap_peers() -> list[str]:
     not just a bare env var."""
     resolved = get_settings_manager().resolve("EXO_BOOTSTRAP_PEERS")
     raw = resolved[0] if resolved else ""
-    return [p for p in raw.split(",") if p]
+    return _parse_bootstrap_peers(raw)
+
+
+def _parse_bootstrap_peers(raw: str) -> list[str]:
+    """Parse a comma-separated peer list while accepting human-friendly spacing."""
+    return [peer for item in raw.split(",") if (peer := item.strip())]
 
 
 class Args(FrozenModel):
@@ -552,7 +582,7 @@ class Args(FrozenModel):
         )
         parser.add_argument(
             "--bootstrap-peers",
-            type=lambda s: [p for p in s.split(",") if p],
+            type=_parse_bootstrap_peers,
             default=_default_bootstrap_peers(),
             dest="bootstrap_peers",
             help="Comma-separated peers to dial on startup: host[:zenoh_port] (default port 52414). "

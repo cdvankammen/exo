@@ -140,12 +140,28 @@ impl Session {
     /// reachable from this machine. Hostnames (e.g. Tailscale names) are
     /// resolved by the OS network stack — no manual interface selection needed.
     ///
-    /// Returns `true` if a new connection was established, `false` if the peer
-    /// was already connected (mirrors zenoh's `connect_peer`).
+    /// Returns `true` if a new router connection was established.
+    ///
+    /// zenoh's `Runtime::connect_peer` skips dialing entirely when the given
+    /// zid equals our own — passing `self.z.zid()` (as this used to) made it
+    /// a silent no-op. We pass a random placeholder instead to force the real
+    /// dial. That placeholder never matches the remote's real (negotiated)
+    /// zid either, so zenoh's own return value can't be trusted here; we
+    /// instead check whether the router set actually grew.
     pub async fn connect_peer(&self, host: &str, port: u16) -> bool {
         let Ok(locator) = Locator::new("tcp", format!("{host}:{port}"), "") else {
             return false;
         };
-        self.runtime.connect_peer(&self.z.zid().into(), &[locator]).await
+        let placeholder_zid: ZenohId = rand::random::<[u8; 16]>()
+            .as_slice()
+            .try_into()
+            .expect("16-byte slice always fits a ZenohId");
+
+        let before = self.z.info().routers_zid().await.count();
+        self.runtime
+            .connect_peer(&placeholder_zid.into(), &[locator])
+            .await;
+        let after = self.z.info().routers_zid().await.count();
+        after > before
     }
 }

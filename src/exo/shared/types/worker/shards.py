@@ -1,7 +1,7 @@
 from enum import Enum
 from typing import TypeAlias, final
 
-from pydantic import Field
+from pydantic import Field, field_validator
 
 from exo.shared.models.model_cards import ModelCard
 from exo.shared.types.backends import Backend
@@ -26,6 +26,24 @@ class BaseShardMetadata(TaggedModel):
 
     backend: Backend | None = None
     """The compute backend this shard should run on; None preserves the engine default."""
+
+    @field_validator("backend", mode="before")
+    @classmethod
+    def _coerce_backend(cls, v: object) -> object:
+        """Coerce a JSON string backend (e.g. "MlxCuda") to the Backend enum.
+
+        The dashboard POSTs instance JSON serialized from the placement preview,
+        where ``backend`` is a plain string. ``FrozenModel`` uses ``strict=True``,
+        which rejects string→enum coercion — without this validator every
+        instance launch from the dashboard fails with 422
+        ("Input should be an instance of Backend").
+        """
+        if isinstance(v, str):
+            try:
+                return Backend(v)
+            except ValueError:
+                return v  # let pydantic raise the proper validation error
+        return v
 
     # Error handling; equivalent to monkey-patch, but we can't monkey-patch runner.py
     # This is kinda annoying because it allocates memory in the ShardMetadata object. Can be rethought after Shanghai.
