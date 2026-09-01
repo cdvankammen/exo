@@ -194,3 +194,10 @@ GitHub's API doesn't support direct image upload for PR comments. Workaround:
    git push origin <branch>
    ```
    The images still render in the PR comment because they reference the permanent commit SHA.
+
+<!-- agent-ninja-START -->
+## Agent Skills
+
+No skills installed yet. Use "Agent Skills Ninja: Search Skills" to install skills.
+
+<!-- agent-ninja-END -->
