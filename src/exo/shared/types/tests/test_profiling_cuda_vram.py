@@ -63,10 +63,14 @@ class TestQueryCudaVramBytes:
         assert total == 16311 * 1024 * 1024
         assert free == 12345 * 1024 * 1024
 
-    def test_nvidia_smi_sums_all_gpus(
+    def test_nvidia_smi_reports_largest_gpu(
         self, monkeypatch: pytest.MonkeyPatch
     ) -> None:
-        """Multi-GPU boxes sum every GPU's VRAM (adaptive to GPU count)."""
+        """Multi-GPU boxes report the largest single GPU's VRAM, not the sum.
+
+        MLX CUDA uses one device per process, so placement must only see
+        what a single GPU actually offers.
+        """
         fake = "/fake/bin/nvidia-smi"
 
         class _FakeCompleted:
@@ -81,13 +85,13 @@ class TestQueryCudaVramBytes:
         )
 
         total, free = profiling._query_cuda_vram_bytes()
-        assert total == 32622 * 1024 * 1024  # 16311 + 16311
-        assert free == 29973 * 1024 * 1024  # 14276 + 15697
+        assert total == 16311 * 1024 * 1024
+        assert free == 14276 * 1024 * 1024  # free for the first device (tie on total)
 
-    def test_nvidia_smi_sums_four_gpus(
+    def test_nvidia_smi_four_gpus_reports_largest(
         self, monkeypatch: pytest.MonkeyPatch
     ) -> None:
-        """4-GPU boxes (DGX-style) sum correctly too."""
+        """4-GPU boxes (DGX-style) report the largest single GPU too."""
         fake = "/fake/bin/nvidia-smi"
 
         class _FakeCompleted:
@@ -101,8 +105,8 @@ class TestQueryCudaVramBytes:
         )
 
         total, free = profiling._query_cuda_vram_bytes()
-        assert total == 32768 * 1024 * 1024
-        assert free == 28000 * 1024 * 1024
+        assert total == 8192 * 1024 * 1024
+        assert free == 7000 * 1024 * 1024
 
     def test_nvml_fallback_when_no_binary(
         self, monkeypatch: pytest.MonkeyPatch
@@ -113,8 +117,7 @@ class TestQueryCudaVramBytes:
         class _FakeLib:
             def __init__(self) -> None:
                 self._count = 2
-                # Per-device totals (2 × 8.5GB) = 17GB total
-                self._totals = [8_500_000_000, 8_500_000_000]
+                self._totals = [8_500_000_000, 6_000_000_000]
                 self._frees = [4_000_000_000, 5_000_000_000]
 
             def nvmlInit_v2(self) -> int:  # noqa: N802
@@ -140,13 +143,13 @@ class TestQueryCudaVramBytes:
         monkeypatch.setattr(profiling.ctypes, "CDLL", lambda _name: _FakeLib())
 
         total, free = profiling._query_cuda_vram_bytes()
-        assert total == 17_000_000_000  # 8.5e9 + 8.5e9
-        assert free == 9_000_000_000  # 4e9 + 5e9
+        assert total == 8_500_000_000  # largest single device, not the sum
+        assert free == 4_000_000_000  # free for that same device
 
     def test_nvml_one_bad_device_skips_it(
         self, monkeypatch: pytest.MonkeyPatch
     ) -> None:
-        """A device that fails its memory query is skipped, others still sum."""
+        """A device that fails its memory query is skipped when finding the largest."""
         monkeypatch.setattr(profiling, "_find_nvidia_smi_binary", lambda: None)
 
         class _FakeLib:
