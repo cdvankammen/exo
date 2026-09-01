@@ -607,9 +607,14 @@
                   placeholder="default"
                   oninput={(e) => {
                     const v = (e.currentTarget as HTMLInputElement).value;
+                    const numeric = Number(v);
+                    const rounded =
+                      key === "topK" || key === "maxTokens"
+                        ? Math.round(numeric)
+                        : numeric;
                     setSamplingParam(
                       key as "temperature",
-                      v === "" ? null : Number(v),
+                      v === "" ? null : rounded,
                     );
                   }}
                   class="w-24 bg-exo-medium-gray/60 border border-exo-light-gray/20 rounded px-1.5 py-0.5 text-right text-exo-yellow focus:outline-none focus:border-exo-yellow/60"
@@ -626,7 +631,10 @@
                 placeholder="random"
                 oninput={(e) => {
                   const v = (e.currentTarget as HTMLInputElement).value;
-                  setSamplingParam("seed", v === "" ? null : Number(v));
+                  setSamplingParam(
+                    "seed",
+                    v === "" ? null : Math.round(Number(v)),
+                  );
                 }}
                 class="w-24 bg-exo-medium-gray/60 border border-exo-light-gray/20 rounded px-1.5 py-0.5 text-right text-exo-yellow focus:outline-none focus:border-exo-yellow/60"
               />
