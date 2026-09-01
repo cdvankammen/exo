@@ -432,16 +432,21 @@ class Worker:
                 self.node_id,
                 self.state.node_network,
                 api_port=self.api_port,
+                node_identities=self.state.node_identities,
             ):
                 if ip in conns[nid]:
                     continue
                 conns[nid].add(ip)
+                sink_api_port = self.api_port
+                identity = self.state.node_identities.get(nid)
+                if identity is not None and identity.api_port > 0:
+                    sink_api_port = identity.api_port
                 edge = SocketConnection(
                     # nonsense multiaddr
-                    sink_multiaddr=Multiaddr(address=f"/ip4/{ip}/tcp/{self.api_port}")
+                    sink_multiaddr=Multiaddr(address=f"/ip4/{ip}/tcp/{sink_api_port}")
                     if "." in ip
                     # nonsense multiaddr
-                    else Multiaddr(address=f"/ip6/{ip}/tcp/{self.api_port}"),
+                    else Multiaddr(address=f"/ip6/{ip}/tcp/{sink_api_port}"),
                     latency_ms=latency_ms,
                 )
                 old_conn = existing_edges.get(edge)
@@ -469,7 +474,11 @@ class Worker:
                 if not isinstance(conn.edge, SocketConnection):
                     continue
                 # ignore mDNS discovered connections
-                if conn.edge.sink_multiaddr.port != self.api_port:
+                expected_port = self.api_port
+                identity = self.state.node_identities.get(conn.sink)
+                if identity is not None and identity.api_port > 0:
+                    expected_port = identity.api_port
+                if conn.edge.sink_multiaddr.port != expected_port:
                     continue
                 if (
                     conn.sink not in conns
@@ -501,11 +510,16 @@ class Worker:
                 self.node_id,
                 self.state.node_network,
                 api_port=self.api_port,
+                node_identities=self.state.node_identities,
             ):
+                sink_api_port = self.api_port
+                identity = self.state.node_identities.get(nid)
+                if identity is not None and identity.api_port > 0:
+                    sink_api_port = identity.api_port
                 edge = SocketConnection(
-                    sink_multiaddr=Multiaddr(address=f"/ip4/{ip}/tcp/{self.api_port}")
+                    sink_multiaddr=Multiaddr(address=f"/ip4/{ip}/tcp/{sink_api_port}")
                     if "." in ip
-                    else Multiaddr(address=f"/ip6/{ip}/tcp/{self.api_port}"),
+                    else Multiaddr(address=f"/ip6/{ip}/tcp/{sink_api_port}"),
                     bandwidth_mbps=mbps,
                 )
                 old_conn = existing_edges.get(edge)

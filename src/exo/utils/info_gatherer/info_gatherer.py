@@ -664,7 +664,12 @@ class InfoGatherer:
             try:
                 usage: MemoryUsage | None = None
                 if report_vram:
-                    usage = MemoryUsage.from_cuda(override_memory=override_memory)
+                    # Bound the CUDA VRAM query: a hung nvidia-smi (GPU driver in
+                    # D-state) must not stall this monitor indefinitely. Without a
+                    # deadline, a slow subprocess inside from_cuda() blocks the
+                    # loop forever and can hold up graceful shutdown.
+                    with fail_after(10):
+                        usage = MemoryUsage.from_cuda(override_memory=override_memory)
                 if usage is None:
                     usage = MemoryUsage.from_system(override_memory=override_memory)
                 await self.info_sender.send(usage)
