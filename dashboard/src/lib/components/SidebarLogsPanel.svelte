@@ -34,10 +34,12 @@
   let dismissedErrors = $state<Set<string>>(new Set());
 
   // Errors we can show, ordered by severity (critical first), capped so a
-  // burst of errors can't freeze the UI. Dismissed errors are filtered out.
+  // burst of errors can't freeze the UI. Dismissed errors are filtered out
+  // using the stable key (level+source+message, no timestamp) so the same
+  // error re-emitted across polls stays dismissed.
   const visibleErrors = $derived(
     [...errors]
-      .filter((e) => !dismissedErrors.has(errorKey(e)))
+      .filter((e) => !dismissedErrors.has(stableErrorKey(e)))
       .sort((a, b) => levelRank(a.level) - levelRank(b.level))
       .slice(0, 50),
   );
@@ -46,6 +48,12 @@
 
   // Expandable error cards: click to show the full message inline.
   let expandedErrors = $state<Set<string>>(new Set());
+
+  // Stable key for dismiss matching: level + source + message (no timestamp).
+  // This ensures the same error re-emitted across polls stays dismissed.
+  function stableErrorKey(e: LogErrorEntry): string {
+    return `${e.level}::${e.source ?? "node"}::${e.message}`;
+  }
 
   function errorKey(e: LogErrorEntry): string {
     return e.id ?? `${e.level}-${e.message}-${e.timestamp}`;
@@ -63,12 +71,12 @@
   }
 
   function dismissError(e: LogErrorEntry) {
-    const key = errorKey(e);
+    const key = stableErrorKey(e);
     dismissedErrors = new Set([...dismissedErrors, key]);
   }
 
   function clearAllErrors() {
-    dismissedErrors = new Set(errors.map((e) => errorKey(e)));
+    dismissedErrors = new Set(errors.map((e) => stableErrorKey(e)));
   }
 
   function toggleErrorsSection() {
@@ -282,8 +290,8 @@
               {dismissedErrors.size > 0 ? "All warnings dismissed." : "No errors in cluster."}
             </div>
           {:else}
-            {#each visibleErrors as e (errorKey(e))}
-              {@const isExpanded = expandedErrors.has(errorKey(e))}
+            {#each visibleErrors as e (stableErrorKey(e))}
+              {@const isExpanded = expandedErrors.has(stableErrorKey(e))}
               <div
                 class="w-full text-left px-1.5 py-1 rounded border text-[10px] font-mono leading-snug transition-colors {LEVEL_STYLES[e.level] ?? 'text-exo-light-gray/70'} hover:border-exo-yellow/40"
               >
