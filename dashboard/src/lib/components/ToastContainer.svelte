@@ -8,6 +8,13 @@
   /** Toasts whose message is expanded past the clamp (per-toast toggle). */
   let expandedIds = $state<Set<string>>(new Set());
 
+  /** Which toast is currently shown in the full overlay modal. */
+  let overlayToast = $state<Toast | null>(null);
+
+  /** View mode for the overlay: 'clean' (readable), 'raw' (full text), 'json' (structured). */
+  type ViewMode = "clean" | "raw" | "json";
+  let overlayViewMode = $state<ViewMode>("clean");
+
   /** Messages longer than this get the 4-line clamp + "Show full" affordance. */
   const CLAMP_THRESHOLD = 160;
 
@@ -23,6 +30,33 @@
       next.add(toastId);
     }
     expandedIds = next;
+  }
+
+  function openOverlay(toast: Toast) {
+    overlayToast = toast;
+    overlayViewMode = "clean";
+  }
+
+  function closeOverlay() {
+    overlayToast = null;
+  }
+
+  /** Try to parse the message as JSON for structured viewing. */
+  function tryParseJson(message: string): unknown | null {
+    try {
+      return JSON.parse(message);
+    } catch {
+      return null;
+    }
+  }
+
+  /** Format a timestamp for display. */
+  function formatTimestamp(id: string): string {
+    try {
+      const ts = parseInt(id.split("-")[0]);
+      if (!isNaN(ts)) return new Date(ts).toLocaleString();
+    } catch { /* ignore */ }
+    return "";
   }
 
   const typeStyles: Record<
@@ -64,11 +98,13 @@
       {@const long = isLongMessage(toast.message)}
       {@const expanded = expandedIds.has(toast.id)}
       <div
-        class="pointer-events-auto w-80 max-w-sm bg-exo-dark-gray/95 backdrop-blur-sm border border-exo-medium-gray/60 border-l-[3px] {style.border} rounded shadow-lg shadow-black/40"
+        class="pointer-events-auto w-80 max-w-sm bg-exo-dark-gray/95 backdrop-blur-sm border border-exo-medium-gray/60 border-l-[3px] {style.border} rounded shadow-lg shadow-black/40 cursor-pointer hover:border-exo-medium-gray/80 transition-colors"
         in:fly={{ x: 80, duration: 250 }}
         out:fade={{ duration: 150 }}
         animate:flip={{ duration: 200 }}
         role="alert"
+        onclick={() => openOverlay(toast)}
+        onkeydown={(e) => { if (e.key === "Enter" || e.key === " ") openOverlay(toast); }}
       >
         <div class="flex items-start gap-3 px-4 py-3">
           <!-- Icon -->
@@ -141,6 +177,91 @@
         {/if}
       </div>
     {/each}
+  </div>
+{/if}
+
+<!-- Full Error Overlay Modal -->
+{#if overlayToast}
+  {@const jsonParsed = tryParseJson(overlayToast.message)}
+  <div
+    class="fixed inset-0 z-[10000] flex items-center justify-center p-4"
+    role="dialog"
+    aria-modal="true"
+    onclick={closeOverlay}
+    onkeydown={(e) => { if (e.key === "Escape") closeOverlay(); }}
+  >
+    <!-- Backdrop -->
+    <div class="absolute inset-0 bg-black/70 backdrop-blur-sm" in:fade={{ duration: 150 }}></div>
+    <!-- Modal -->
+    <div
+      class="relative w-full max-w-2xl max-h-[80vh] bg-exo-dark-gray border border-exo-medium-gray/60 rounded-lg shadow-2xl flex flex-col overflow-hidden"
+      onclick={(e) => e.stopPropagation()}
+      in:fly={{ y: 20, duration: 200 }}
+    >
+      <!-- Header -->
+      <div class="flex items-center justify-between px-4 py-3 border-b border-exo-medium-gray/30">
+        <div class="flex items-center gap-2">
+          <span class="text-xs font-mono uppercase tracking-wider {typeStyles[overlayToast.type].iconColor}">
+            {overlayToast.type}
+          </span>
+          <span class="text-xs text-white/30 font-mono">
+            {overlayToast.createdAt ? new Date(overlayToast.createdAt).toLocaleString() : ""}
+          </span>
+        </div>
+        <button
+          type="button"
+          onclick={closeOverlay}
+          class="p-1 text-white/40 hover:text-white/80 transition-colors cursor-pointer"
+          aria-label="Close"
+        >
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+      <!-- View mode tabs -->
+      <div class="flex gap-1 px-4 py-2 border-b border-exo-medium-gray/20">
+        {#each ["clean", "raw", "json"] as mode}
+          <button
+            type="button"
+            onclick={() => overlayViewMode = mode}
+            class="px-2 py-0.5 text-[10px] font-mono uppercase tracking-wider rounded transition-colors cursor-pointer {overlayViewMode === mode
+              ? 'bg-exo-yellow/20 text-exo-yellow border border-exo-yellow/30'
+              : 'text-white/40 hover:text-white/60 border border-transparent'}"
+            disabled={mode === "json" && !jsonParsed}
+          >
+            {mode}
+          </button>
+        {/each}
+      </div>
+      <!-- Content -->
+      <div class="flex-1 overflow-y-auto p-4">
+        {#if overlayViewMode === "clean"}
+          <pre class="text-xs font-mono text-white/80 whitespace-pre-wrap break-words leading-relaxed">{overlayToast.message}</pre>
+        {:else if overlayViewMode === "raw"}
+          <pre class="text-[10px] font-mono text-white/50 whitespace-pre-wrap break-words">{JSON.stringify(overlayToast, null, 2)}</pre>
+        {:else if overlayViewMode === "json" && jsonParsed}
+          <pre class="text-[11px] font-mono text-green-400/80 whitespace-pre-wrap break-words">{JSON.stringify(jsonParsed, null, 2)}</pre>
+        {/if}
+      </div>
+      <!-- Footer -->
+      <div class="flex items-center justify-between px-4 py-2 border-t border-exo-medium-gray/20">
+        <button
+          type="button"
+          onclick={() => { navigator.clipboard.writeText(overlayToast?.message ?? ""); }}
+          class="text-[10px] font-mono text-white/40 hover:text-exo-yellow transition-colors cursor-pointer"
+        >
+          Copy to clipboard
+        </button>
+        <button
+          type="button"
+          onclick={() => { if (overlayToast) dismissToast(overlayToast.id); closeOverlay(); }}
+          class="text-[10px] font-mono text-white/40 hover:text-red-400 transition-colors cursor-pointer"
+        >
+          Dismiss
+        </button>
+      </div>
+    </div>
   </div>
 {/if}
 
