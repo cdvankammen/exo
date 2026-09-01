@@ -183,11 +183,19 @@
       return v && v !== "Unknown" && /^\d/.test(v);
     });
     if (macosNodes.length < 2) return null;
-    // Compare on buildVersion for precise mismatch detection
-    const buildVersions = new Set(
-      macosNodes.map(([_, id]) => id.osBuildVersion ?? id.osVersion),
+    // Compare MAJOR versions only (e.g. "26.6" vs "26.6.2" is fine;
+    // "15.0" vs "16.0" is a real mismatch). Patch-level differences
+    // (26.6 vs 26.6.2) do not cause inference compatibility issues.
+    const majorVersions = new Set(
+      macosNodes.map(([_, id]) => {
+        const v = id.osVersion!;
+        const dotIdx = v.indexOf(".");
+        const secondDotIdx = v.indexOf(".", dotIdx + 1);
+        // "26.6.2" → "26.6", "26.6" → "26.6", "15.0" → "15.0"
+        return secondDotIdx > -1 ? v.substring(0, secondDotIdx) : v;
+      }),
     );
-    if (buildVersions.size <= 1) return null;
+    if (majorVersions.size <= 1) return null;
     return macosNodes.map(([nodeId, id]) => ({
       nodeId,
       friendlyName: getNodeName(nodeId),
@@ -6206,6 +6214,34 @@
                     </div>
                   </div>
 
+                  <!-- Force Override: bypass memory & placement restrictions -->
+                  <div>
+                    <button
+                      onclick={() => {
+                        handleToggleMemoryOverride();
+                      }}
+                      class="flex items-center gap-2 py-1.5 px-3 text-xs font-mono border rounded transition-all duration-200 w-full cursor-pointer {memoryOverrideEnabled
+                        ? 'bg-red-500/10 text-red-300 border-red-500/50'
+                        : 'bg-transparent text-white/50 border-exo-medium-gray/50 hover:border-exo-yellow/50'}"
+                    >
+                      <span
+                        class="w-3 h-3 rounded border-2 flex items-center justify-center {memoryOverrideEnabled
+                          ? 'border-red-400 bg-red-400/20'
+                          : 'border-exo-medium-gray'}"
+                      >
+                        {#if memoryOverrideEnabled}
+                          <span class="w-1.5 h-1.5 rounded-full bg-red-400"></span>
+                        {/if}
+                      </span>
+                      Force Override
+                    </button>
+                    {#if memoryOverrideEnabled}
+                      <div class="text-[10px] text-red-400/60 font-mono mt-1 ml-1">
+                        Bypasses memory, backend, and model restrictions. Use at your own risk.
+                      </div>
+                    {/if}
+                  </div>
+
                   <!-- Minimum Devices -->
                   <div>
                     <div class="text-xs text-white/50 font-mono mb-2">
@@ -6331,16 +6367,50 @@
                     {/each}
                   </div>
                 {:else if selectedModel}
-                  <div class="text-center py-4">
-                    <div class="text-xs text-white/50 font-mono">
+                  <div class="py-4 px-3 space-y-2">
+                    <div class="text-xs text-white/50 font-mono text-center">
                       No valid configurations for current settings
                     </div>
                     {#if previewError()}
                       <div
-                        class="text-[11px] text-exo-yellow/80 font-mono mt-1 px-3 text-left break-words"
+                        class="text-[11px] text-exo-yellow/80 font-mono px-2 py-2 rounded border border-exo-yellow/20 bg-exo-yellow/5 text-left break-words"
                         title={previewError()}
                       >
                         {previewError()}
+                      </div>
+                    {/if}
+                    <!-- Per-node memory breakdown to help diagnose placement failures -->
+                    {#if data?.nodes && Object.keys(data.nodes).length > 0}
+                      <div class="mt-2 pt-2 border-t border-white/5">
+                        <div class="text-[10px] text-white/40 font-mono uppercase tracking-wider mb-1.5">
+                          Available Memory by Node
+                        </div>
+                        <div class="space-y-1">
+                          {#each Object.entries(data.nodes) as [nodeId, nodeInfo]}
+                            {@const memTotal = nodeInfo?.macmon_info?.memory?.ram_total ?? nodeInfo?.system_info?.memory ?? 0}
+                            {@const memUsed = nodeInfo?.macmon_info?.memory?.ram_usage ?? 0}
+                            {@const memAvail = memTotal - memUsed}
+                            {@const memPct = memTotal > 0 ? Math.round((memAvail / memTotal) * 100) : 0}
+                            {@const name = nodeInfo?.friendly_name ?? nodeId.slice(0, 8)}
+                            <div class="flex items-center gap-2 text-[10px] font-mono">
+                              <span class="w-16 truncate text-white/60">{name}</span>
+                              <div class="flex-1 h-1.5 bg-white/5 rounded-full overflow-hidden">
+                                <div
+                                  class="h-full rounded-full {memPct > 50 ? 'bg-green-500/60' : memPct > 25 ? 'bg-yellow-500/60' : 'bg-red-500/60'}"
+                                  style="width: {memPct}%"
+                                ></div>
+                              </div>
+                              <span class="w-20 text-right text-white/40">
+                                {(memAvail / (1024 * 1024 * 1024)).toFixed(1)}GB free
+                              </span>
+                            </div>
+                          {/each}
+                        </div>
+                        {#if !memoryOverrideEnabled}
+                          <div class="mt-2 text-[10px] text-white/30 font-mono">
+                            Tip: Enable "Force Override" in Advanced Options to bypass memory restrictions.
+                          </div>
+                        {/if}
                       </div>
                     {/if}
                   </div>
