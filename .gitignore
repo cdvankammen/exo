@@ -50,3 +50,7 @@ skills-lock.json
 /.mnemo
 /.ua
 /promptsANDplans
+
+# Build artifacts
+.vite/
+default.profraw
