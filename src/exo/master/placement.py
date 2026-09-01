@@ -329,7 +329,10 @@ def place_instance(
                 "multi-node Pipeline — may not work on all variants.)"
             )
 
-    smallest_cycles = get_smallest_cycles(cycles_with_sufficient_memory)
+    smallest_cycles = get_smallest_cycles(
+        cycles_with_sufficient_memory,
+        max_nodes=len(required_nodes) if required_nodes else None,
+    )
 
     required_backends = set(INSTANCE_META_BACKENDS[command.instance_meta]) & set(
         command.model_card.backends

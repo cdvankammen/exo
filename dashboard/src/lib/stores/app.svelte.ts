@@ -1753,6 +1753,14 @@ class AppStore {
       if (this.memoryOverrideLevel >= 2) {
         url += `&force_override=true`;
       }
+      // Pass node filter if active — this tells the endpoint which nodes the
+      // user chose, so per-node memory math uses the correct denominator
+      // (e.g. Pipeline: storage/3 not storage/5).
+      if (this.previewNodeFilter.size > 0) {
+        for (const nodeId of this.previewNodeFilter) {
+          url += `&node_ids=${encodeURIComponent(nodeId)}`;
+        }
+      }
       const response = await fetch(url);
       if (!response.ok) {
         throw new Error(`Failed to fetch node compatibility: ${response.status}`);

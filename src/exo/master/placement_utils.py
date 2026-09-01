@@ -106,7 +106,21 @@ def estimate_ring_node_memory(model_card: ModelCard) -> Memory:
 
 def get_smallest_cycles(
     cycles: list[Cycle],
+    max_nodes: int | None = None,
 ) -> list[Cycle]:
+    """Return the smallest cycles, optionally capped at ``max_nodes``.
+
+    When ``max_nodes`` is None (default), returns all cycles with the minimum
+    node count — the original behavior. When ``max_nodes`` is set (e.g. from
+    the user's node selection), returns cycles with exactly ``max_nodes`` nodes
+    if any exist, otherwise falls back to the smallest available.
+    """
+    if not cycles:
+        return []
+    if max_nodes is not None:
+        exact = [cycle for cycle in cycles if len(cycle) == max_nodes]
+        if exact:
+            return exact
     min_nodes = min(len(cycle) for cycle in cycles)
     return [cycle for cycle in cycles if len(cycle) == min_nodes]
 
@@ -355,6 +369,7 @@ def _validate_manual_layer_allocations(
     node_memory: Mapping[NodeId, MemoryUsage],
     model_card: ModelCard,
     node_layers: Mapping[NodeId, int],
+    force_override: bool = False,
 ) -> list[int]:
     if set(node_layers) != set(node_ids):
         raise ValueError(
@@ -375,7 +390,7 @@ def _validate_manual_layer_allocations(
     ):
         required_memory = (model_card.storage_size * layer_count) // model_card.n_layers
         available_memory = node_memory[node_id].ram_available
-        if required_memory > available_memory:
+        if not force_override and required_memory > available_memory:
             raise ValueError(
                 f"Node {index} ({node_id}) has insufficient memory: "
                 f"requires {required_memory.in_gb:.2f} GB for {layer_count} layers, "
@@ -499,7 +514,7 @@ def _get_shard_assignments_for_pure_pipeline(
         )
         if node_layers is None
         else _validate_manual_layer_allocations(
-            cycle.node_ids, node_memory, model_card, node_layers
+            cycle.node_ids, node_memory, model_card, node_layers, force_override
         )
     )
 

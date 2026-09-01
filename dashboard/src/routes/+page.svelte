@@ -6309,6 +6309,7 @@
 
             <!-- Per-Node Compatibility (from /instance/node-compatibility) -->
             {#if selectedModelId && nodeCompatData && nodeCompatData.nodes.length > 0}
+              {@const hasFilter = nodeFilter.size > 0}
               <div class="px-4 py-3 border-t border-white/5">
                 <div class="flex items-center gap-2 mb-2">
                   <div class="w-1.5 h-1.5 rounded-full bg-exo-yellow/60"></div>
@@ -6316,18 +6317,25 @@
                     Node Compatibility
                   </span>
                   <span class="text-[10px] text-white/30 font-mono">
-                    {nodeCompatData.storage_size_gb.toFixed(1)}GB required
+                    {#if nodeCompatData.per_node_size_gb !== null && nodeCompatData.sharding === "Pipeline"}
+                      {nodeCompatData.per_node_size_gb.toFixed(1)}GB/node ({nodeCompatData.num_nodes}-node Pipeline)
+                    {:else}
+                      {nodeCompatData.storage_size_gb.toFixed(1)}GB required
+                    {/if}
                   </span>
                 </div>
                 <div class="flex flex-wrap gap-1.5">
                   {#each nodeCompatData.nodes as entry}
+                    {@const isUnselected = entry.reason?.includes("Not selected") ?? false}
                     <div
-                      class="group relative inline-flex items-center gap-1.5 px-2 py-1 rounded-full text-[10px] font-mono border transition-colors cursor-help {entry.compatible
-                        ? 'bg-green-500/10 border-green-500/30 text-green-400/80'
-                        : 'bg-red-500/10 border-red-500/30 text-red-400/80'}"
+                      class="group relative inline-flex items-center gap-1.5 px-2 py-1 rounded-full text-[10px] font-mono border transition-colors cursor-help {isUnselected
+                        ? 'bg-white/5 border-white/10 text-white/40'
+                        : entry.compatible
+                          ? 'bg-green-500/10 border-green-500/30 text-green-400/80'
+                          : 'bg-red-500/10 border-red-500/30 text-red-400/80'}"
                       title={entry.reason ?? "Compatible"}
                     >
-                      <span class="w-1.5 h-1.5 rounded-full {entry.compatible ? 'bg-green-400' : 'bg-red-400'}"></span>
+                      <span class="w-1.5 h-1.5 rounded-full {isUnselected ? 'bg-white/30' : entry.compatible ? 'bg-green-400' : 'bg-red-400'}"></span>
                       <span>{entry.friendly_name}</span>
                       {#if entry.ram_available_gb !== null}
                         <span class="text-white/30">{entry.ram_available_gb.toFixed(1)}GB</span>
@@ -6340,6 +6348,11 @@
                     </div>
                   {/each}
                 </div>
+                {#if hasFilter}
+                  <div class="mt-2 text-[10px] text-white/30 font-mono">
+                    Showing {nodeFilter.size} selected node{nodeFilter.size === 1 ? '' : 's'} — click nodes in topology to change selection.
+                  </div>
+                {/if}
               </div>
             {/if}
 

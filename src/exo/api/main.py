@@ -837,6 +837,7 @@ class API:
         model_id: ModelId,
         force_override: bool = Query(default=False),
         sharding: str = Query(default="Pipeline", description="Sharding strategy: Pipeline, Tensor, or Ring"),
+        node_ids: Annotated[list[NodeId] | None, Query()] = None,
     ) -> NodeCompatibilityResponse:
         """Return per-node green/red compatibility for a given model.
 
@@ -849,6 +850,10 @@ class API:
         only needs ~model_size/N memory. For Tensor/Ring, each node holds the
         full model (replicated). The endpoint reports per-node status assuming
         the model will be distributed across all available nodes.
+
+        When ``node_ids`` is provided (user-selected subset), the per-node
+        math uses the SELECTED node count as the denominator — e.g. a 30GB
+        model on 3 chosen nodes needs 10GB/node, not 30GB/5=6GB/node.
         """
         try:
             model_card = await ModelCard.load(model_id)
@@ -869,7 +874,13 @@ class API:
         # For Pipeline sharding, the model is split across N nodes — each node
         # only needs ~model_size/N. For Tensor/Ring, each node holds the full
         # model (replicated). Compute the per-node requirement accordingly.
-        num_nodes = max(len(topology_nodes), 1)
+        # CRITICAL: when the user selects a subset of nodes (node_ids), use
+        # THAT count as the denominator, not the full topology count.
+        selected_nodes = set(node_ids) if node_ids else None
+        if selected_nodes is not None:
+            num_nodes = max(len(selected_nodes), 1)
+        else:
+            num_nodes = max(len(topology_nodes), 1)
         is_pipeline = sharding.upper() == "PIPELINE"
         per_node_bytes = (
             storage_bytes // num_nodes if is_pipeline else storage_bytes
@@ -894,6 +905,7 @@ class API:
             memory = self.state.node_memory.get(node_id)
             backends = self.state.node_backends.get(node_id, [])
             in_topology = node_id in topology_nodes
+            is_selected = selected_nodes is None or node_id in selected_nodes
 
             reasons: list[str] = []
             compatible = True
@@ -901,6 +913,33 @@ class API:
             if not in_topology:
                 compatible = False
                 reasons.append("Not connected to cluster (no topology edges)")
+            elif not is_selected:
+                # Node exists but user did not select it — show as neutral
+                # (not red) so the user can see it's available but unselected.
+                # Skip all further checks (backend, memory) for unselected nodes.
+                compatible = True
+                reasons.append("Not selected (click node to include)")
+                entries.append(
+                    NodeCompatibilityEntry(
+                        node_id=node_id,
+                        friendly_name=friendly_name,
+                        compatible=compatible,
+                        reason="; ".join(reasons) if reasons else None,
+                        ram_available_gb=(
+                            memory.inference_available.in_bytes / (1024**3)
+                            if memory is not None
+                            else None
+                        ),
+                        ram_total_gb=(
+                            memory.ram_total.in_bytes / (1024**3)
+                            if memory is not None
+                            else None
+                        ),
+                        backends=sorted(b.value for b in backends),
+                        in_topology=in_topology,
+                    )
+                )
+                continue
 
             if not required_backends:
                 compatible = False
