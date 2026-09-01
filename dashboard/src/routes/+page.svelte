@@ -72,6 +72,9 @@
     warnings,
     type DownloadProgress,
     type PlacementPreview,
+    nodeCompatibility,
+    isLoadingNodeCompatibility,
+    type NodeCompatibilityEntry,
   } from "$lib/stores/app.svelte";
   import {
     addToast,
@@ -95,6 +98,8 @@
   const previewsData = $derived(placementPreviews());
   const selectedModelId = $derived(selectedPreviewModelId());
   const loadingPreviews = $derived(isLoadingPreviews());
+  const nodeCompatData = $derived(nodeCompatibility());
+  const loadingNodeCompat = $derived(isLoadingNodeCompatibility());
   const debugEnabled = $derived(debugMode());
   const devModeEnabled = $derived(devMode());
   const topologyOnlyEnabled = $derived(topologyOnlyMode());
@@ -6301,6 +6306,42 @@
                 </div>
               {/if}
             </div>
+
+            <!-- Per-Node Compatibility (from /instance/node-compatibility) -->
+            {#if selectedModelId && nodeCompatData && nodeCompatData.nodes.length > 0}
+              <div class="px-4 py-3 border-t border-white/5">
+                <div class="flex items-center gap-2 mb-2">
+                  <div class="w-1.5 h-1.5 rounded-full bg-exo-yellow/60"></div>
+                  <span class="text-[10px] text-white/40 font-mono uppercase tracking-wider">
+                    Node Compatibility
+                  </span>
+                  <span class="text-[10px] text-white/30 font-mono">
+                    {nodeCompatData.storage_size_gb.toFixed(1)}GB required
+                  </span>
+                </div>
+                <div class="flex flex-wrap gap-1.5">
+                  {#each nodeCompatData.nodes as entry}
+                    <div
+                      class="group relative inline-flex items-center gap-1.5 px-2 py-1 rounded-full text-[10px] font-mono border transition-colors cursor-help {entry.compatible
+                        ? 'bg-green-500/10 border-green-500/30 text-green-400/80'
+                        : 'bg-red-500/10 border-red-500/30 text-red-400/80'}"
+                      title={entry.reason ?? "Compatible"}
+                    >
+                      <span class="w-1.5 h-1.5 rounded-full {entry.compatible ? 'bg-green-400' : 'bg-red-400'}"></span>
+                      <span>{entry.friendly_name}</span>
+                      {#if entry.ram_available_gb !== null}
+                        <span class="text-white/30">{entry.ram_available_gb.toFixed(1)}GB</span>
+                      {/if}
+                      {#if entry.reason}
+                        <div class="absolute left-0 top-full mt-1 hidden group-hover:block z-50 w-64 p-2 rounded border border-white/10 bg-exo-dark-gray/95 backdrop-blur-sm text-[10px] text-white/70 leading-relaxed whitespace-normal">
+                          {entry.reason}
+                        </div>
+                      {/if}
+                    </div>
+                  {/each}
+                </div>
+              </div>
+            {/if}
 
             <!-- Selected Model Preview -->
             <div class="space-y-3">

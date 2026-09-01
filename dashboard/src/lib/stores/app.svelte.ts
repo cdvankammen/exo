@@ -225,6 +225,25 @@ export interface PlacementPreviewResponse {
   previews: PlacementPreview[];
 }
 
+// Node compatibility from /instance/node-compatibility endpoint
+export interface NodeCompatibilityEntry {
+  node_id: string;
+  friendly_name: string;
+  compatible: boolean;
+  reason: string | null;
+  ram_available_gb: number | null;
+  ram_total_gb: number | null;
+  backends: string[] | null;
+  in_topology: boolean;
+}
+
+export interface NodeCompatibilityResponse {
+  model_id: string;
+  storage_size_gb: number;
+  required_backends: string[];
+  nodes: NodeCompatibilityEntry[];
+}
+
 interface ImageApiResponse {
   created: number;
   data: Array<{ b64_json?: string; url?: string }>;
@@ -690,6 +709,8 @@ class AppStore {
   selectedPreviewModelId = $state<string | null>(null);
   isLoadingPreviews = $state(false);
   previewNodeFilter = $state<Set<string>>(new Set());
+  nodeCompatibility = $state<NodeCompatibilityResponse | null>(null);
+  isLoadingNodeCompatibility = $state(false);
   lastUpdate = $state<number | null>(null);
   nodeIdentities = $state<Record<string, RawNodeIdentity>>({});
   thunderboltBridgeCycles = $state<string[][]>([]);
@@ -1710,13 +1731,37 @@ class AppStore {
 
     // Fetch immediately
     this.fetchPlacementPreviews(modelId);
+    this.fetchNodeCompatibility(modelId);
 
     // Then poll every 15 seconds (don't show loading spinner for subsequent fetches)
     this.previewsInterval = setInterval(() => {
       if (this.selectedPreviewModelId) {
         this.fetchPlacementPreviews(this.selectedPreviewModelId, false);
+        this.fetchNodeCompatibility(this.selectedPreviewModelId);
       }
     }, 15000);
+  }
+
+  async fetchNodeCompatibility(modelId: string) {
+    if (!modelId) return;
+    this.isLoadingNodeCompatibility = true;
+    try {
+      let url = `/instance/node-compatibility?model_id=${encodeURIComponent(modelId)}`;
+      if (this.memoryOverrideLevel >= 2) {
+        url += `&force_override=true`;
+      }
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error(`Failed to fetch node compatibility: ${response.status}`);
+      }
+      const data: NodeCompatibilityResponse = await response.json();
+      this.nodeCompatibility = data;
+    } catch (error) {
+      console.error("Error fetching node compatibility:", error);
+      this.nodeCompatibility = null;
+    } finally {
+      this.isLoadingNodeCompatibility = false;
+    }
   }
 
   stopPreviewsPolling() {
@@ -1733,6 +1778,7 @@ class AppStore {
       this.stopPreviewsPolling();
       this.selectedPreviewModelId = null;
       this.placementPreviews = [];
+      this.nodeCompatibility = null;
     }
   }
 
@@ -4011,6 +4057,9 @@ export const deleteInstanceLink = (linkId: string) =>
 export const downloads = () => appStore.downloads;
 export const nodeDisk = () => appStore.nodeDisk;
 export const placementPreviews = () => appStore.placementPreviews;
+export const nodeCompatibility = () => appStore.nodeCompatibility;
+export const isLoadingNodeCompatibility = () =>
+  appStore.isLoadingNodeCompatibility;
 export const selectedPreviewModelId = () => appStore.selectedPreviewModelId;
 export const isLoadingPreviews = () => appStore.isLoadingPreviews;
 export const lastUpdate = () => appStore.lastUpdate;
