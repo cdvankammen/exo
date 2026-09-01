@@ -240,6 +240,9 @@ export interface NodeCompatibilityEntry {
 export interface NodeCompatibilityResponse {
   model_id: string;
   storage_size_gb: number;
+  per_node_size_gb: number | null;
+  sharding: string | null;
+  num_nodes: number | null;
   required_backends: string[];
   nodes: NodeCompatibilityEntry[];
 }

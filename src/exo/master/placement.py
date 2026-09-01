@@ -213,11 +213,12 @@ def place_instance(
     if (
         command.sharding is Sharding.Ring
         and command.instance_meta is not InstanceMeta.MlxRing
+        and not command.force_override
     ):
         raise ValueError("Ring attention requires the MlxRing transport")
-    if command.sharding is Sharding.Ring and command.min_nodes < 2:
+    if command.sharding is Sharding.Ring and command.min_nodes < 2 and not command.force_override:
         raise ValueError("Ring attention requires at least two nodes")
-    if command.sharding is Sharding.Ring and not command.model_card.supports_ring:
+    if command.sharding is Sharding.Ring and not command.model_card.supports_ring and not command.force_override:
         raise ValueError(
             f"Model does not declare Ring attention support: {command.model_card.model_id}"
         )
@@ -272,8 +273,13 @@ def place_instance(
             force_override=command.force_override,
             memory_tolerance=command.memory_tolerance,
         )
-    if len(cycles_with_sufficient_memory) == 0:
+    if len(cycles_with_sufficient_memory) == 0 and not command.force_override:
         raise ValueError("No cycles found with sufficient memory")
+    # With force_override, fall back to all candidate cycles if memory filter emptied them
+    if len(cycles_with_sufficient_memory) == 0 and command.force_override:
+        cycles_with_sufficient_memory = candidate_cycles
+        if len(cycles_with_sufficient_memory) == 0:
+            raise ValueError("No cycles found (no connected nodes in topology)")
 
     if command.sharding == Sharding.Tensor:
         if not command.model_card.supports_tensor and not command.force_override:
@@ -293,7 +299,7 @@ def place_instance(
                 if command.model_card.hidden_size % len(cycle) == 0
                 and (is_deepseek_v4 or kv_heads is None or kv_heads % len(cycle) == 0)
             ]
-        if not cycles_with_sufficient_memory:
+        if not cycles_with_sufficient_memory and not command.force_override:
             raise ValueError(
                 f"No tensor sharding found for model with "
                 f"hidden_size={command.model_card.hidden_size}"
@@ -328,21 +334,22 @@ def place_instance(
     required_backends = set(INSTANCE_META_BACKENDS[command.instance_meta]) & set(
         command.model_card.backends
     )
-    if not required_backends:
+    if not required_backends and not command.force_override:
         raise ValueError(
             f"Model {command.model_card.model_id} backends "
             f"{sorted(b.value for b in command.model_card.backends)} cannot satisfy engine "
             f"{command.instance_meta.value} which requires "
             f"{sorted(b.value for b in INSTANCE_META_BACKENDS[command.instance_meta])}"
         )
-    smallest_cycles = [
-        cycle
-        for cycle in smallest_cycles
-        if all(
-            set(node_backends.get(node_id, [])) & required_backends for node_id in cycle
-        )
-    ]
-    if not smallest_cycles:
+    if not command.force_override:
+        smallest_cycles = [
+            cycle
+            for cycle in smallest_cycles
+            if all(
+                set(node_backends.get(node_id, [])) & required_backends for node_id in cycle
+            )
+        ]
+    if not smallest_cycles and not command.force_override:
         # Build an actionable message: which nodes are candidates, and what
         # backends each actually advertises vs. what the model requires. A
         # bare "No cycle..." left users (and the log) guessing why — e.g. a
@@ -379,11 +386,12 @@ def place_instance(
     ]
 
     if command.instance_meta == InstanceMeta.MlxJaccl:
-        if not smallest_rdma_cycles:
+        if not smallest_rdma_cycles and not command.force_override:
             raise ValueError(
                 "Requested RDMA (MlxJaccl) but no RDMA-connected cycles available"
             )
-        smallest_cycles = smallest_rdma_cycles
+        if smallest_rdma_cycles:
+            smallest_cycles = smallest_rdma_cycles
 
     cycles_with_leaf_nodes: list[Cycle] = [
         cycle
@@ -429,7 +437,7 @@ def place_instance(
             command.sharding in (Sharding.Tensor, Sharding.Ring)
             or command.instance_meta == InstanceMeta.MlxJaccl
         )
-        if requested_multi_node:
+        if requested_multi_node and not command.force_override:
             raise ValueError(
                 f"{command.sharding.value} ({command.instance_meta.value}) "
                 f"requires at least 2 nodes, but only a single-node cycle is "

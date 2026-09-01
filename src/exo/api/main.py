@@ -836,6 +836,7 @@ class API:
         self,
         model_id: ModelId,
         force_override: bool = Query(default=False),
+        sharding: str = Query(default="Pipeline", description="Sharding strategy: Pipeline, Tensor, or Ring"),
     ) -> NodeCompatibilityResponse:
         """Return per-node green/red compatibility for a given model.
 
@@ -843,6 +844,11 @@ class API:
         size and required backends, producing a human-readable reason when a
         node cannot host the model. This powers the dashboard's per-node
         status indicators in the Load Model panel.
+
+        For Pipeline sharding, the model is split across N nodes, so each node
+        only needs ~model_size/N memory. For Tensor/Ring, each node holds the
+        full model (replicated). The endpoint reports per-node status assuming
+        the model will be distributed across all available nodes.
         """
         try:
             model_card = await ModelCard.load(model_id)
@@ -859,6 +865,16 @@ class API:
         )
         storage_bytes = model_card.storage_size.in_bytes
         storage_gb = storage_bytes / (1024**3)
+
+        # For Pipeline sharding, the model is split across N nodes — each node
+        # only needs ~model_size/N. For Tensor/Ring, each node holds the full
+        # model (replicated). Compute the per-node requirement accordingly.
+        num_nodes = max(len(topology_nodes), 1)
+        is_pipeline = sharding.upper() == "PIPELINE"
+        per_node_bytes = (
+            storage_bytes // num_nodes if is_pipeline else storage_bytes
+        )
+        per_node_gb = per_node_bytes / (1024**3)
 
         entries: list[NodeCompatibilityEntry] = []
         all_node_ids = sorted(
@@ -901,11 +917,12 @@ class API:
 
             if memory is not None:
                 available = memory.inference_available.in_bytes
-                if not force_override and available < storage_bytes:
+                if not force_override and available < per_node_bytes:
                     compatible = False
                     reasons.append(
                         f"Insufficient memory: {available / (1024**3):.1f}GB available "
-                        f"< {storage_gb:.1f}GB required"
+                        f"< {per_node_gb:.1f}GB required per node"
+                        f"{' (' + str(num_nodes) + '-node Pipeline split)' if is_pipeline else ''}"
                     )
             else:
                 compatible = False
@@ -935,6 +952,9 @@ class API:
         return NodeCompatibilityResponse(
             model_id=model_card.model_id,
             storage_size_gb=round(storage_gb, 2),
+            per_node_size_gb=round(per_node_gb, 2),
+            sharding=sharding,
+            num_nodes=num_nodes,
             required_backends=sorted(b.value for b in required_backends),
             nodes=entries,
         )

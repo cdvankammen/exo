@@ -358,6 +358,11 @@ class NodeCompatibilityEntry(BaseModel):
 class NodeCompatibilityResponse(BaseModel):
     model_id: ModelId
     storage_size_gb: float
+    # Per-node memory requirement given the sharding strategy (Pipeline splits
+    # the model across nodes; Tensor/Ring replicate it).
+    per_node_size_gb: float | None = None
+    sharding: str | None = None
+    num_nodes: int | None = None
     required_backends: list[str]
     nodes: list[NodeCompatibilityEntry]
 

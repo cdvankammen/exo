@@ -508,8 +508,8 @@
     {/if}
   </div>
 
-  <!-- Sidebar Logs/Errors panel (collapsible; auto height when collapsed) -->
-  <div class="flex-shrink-0 flex flex-col min-h-0">
+  <!-- Sidebar Logs/Errors panel (collapsible; fills remaining sidebar height when open) -->
+  <div class="flex-shrink min-h-0 flex flex-col overflow-hidden">
     <SidebarLogsPanel />
   </div>
 

@@ -159,7 +159,10 @@
 
     function onMove(ev: PointerEvent) {
       const delta = ev.clientY - startY;
-      const newHeight = Math.max(60, Math.min(startHeight + delta, 500));
+      // Allow the errors section to grow to fill the full sidebar height.
+      // The sidebar itself is flex-1 with overflow-hidden, so the panel
+      // naturally scrolls if it exceeds the viewport — no hard pixel cap.
+      const newHeight = Math.max(60, startHeight + delta);
       errorsSectionHeight = newHeight;
     }
 
@@ -375,7 +378,7 @@
       </button>
 
       {#if tailExpanded}
-        <div class="px-2 pb-1 overflow-y-auto" style="max-height: {280 - errorsSectionHeight}px; min-height: 40px;">
+        <div class="px-2 pb-1 overflow-y-auto" style="max-height: {Math.max(40, 600 - errorsSectionHeight)}px; min-height: 40px;">
           <pre
             class="text-[9px] font-mono leading-tight text-exo-light-gray/60 whitespace-pre-wrap break-words m-0"
           >{tailLoading ? "Loading…" : tailContent}</pre>
