@@ -96,6 +96,8 @@ from exo.api.types import (
     LogTailResponse,
     ModelList,
     ModelListModel,
+    NodeCompatibilityEntry,
+    NodeCompatibilityResponse,
     PlaceInstanceParams,
     PlacementPreview,
     PlacementPreviewResponse,
@@ -136,7 +138,12 @@ from exo.api.types.openai_responses import (
     ResponsesResponse,
 )
 from exo.master.image_store import ImageStore
-from exo.master.placement import place_instance as get_instance_placements
+from exo.master.placement import (
+    INSTANCE_META_BACKENDS,
+)
+from exo.master.placement import (
+    place_instance as get_instance_placements,
+)
 from exo.routing.router import Router, malformed_event_log
 from exo.shared.apply import apply
 from exo.shared.constants import (
@@ -256,8 +263,10 @@ def _tail_file(path: Path, max_lines: int) -> tuple[str, bool]:
 # Loguru line format (both the 1-line stderr form and the file form):
 #   [ 2026-08-08 06:03:28.551 | INFO  | module:func:86 ] message
 #   [ 2026-08-08 06:03:28.551 | INFO     | exo.worker... ] message
+#   [ 11:37:29.3026AM | CRITICAL ] message  (with optional ANSI color codes)
+_ANSI_ESCAPE_RE = re.compile(r"\x1b\[[0-9;]*m")
 _LOG_LINE_RE = re.compile(
-    r"^\s*\[\s*([\d\- :.]+)\s*\|\s*([A-Z]+)\s*\|\s*([^\]]+?)\s*\]\s*(.*)$"
+    r"^\s*\[\s*([\d\- :.A-Za-z]+)\s*\|\s*([A-Z]+)(?:\s*\|\s*([^\]]+?))?\s*\]\s*(.*)$"
 )
 _LOG_ERROR_LEVELS = frozenset({"WARNING", "ERROR", "CRITICAL"})
 
@@ -271,7 +280,8 @@ def _parse_log_errors(content: str, source_log: str) -> list[LogErrorEntry]:
     like an exception message (no leading whitespace-only frame text).
     """
     entries: list[LogErrorEntry] = []
-    lines = content.splitlines()
+    # Strip ANSI color codes before parsing (loguru emits them when stderr is a TTY)
+    lines = [_ANSI_ESCAPE_RE.sub("", line) for line in content.splitlines()]
     i = 0
     while i < len(lines):
         m = _LOG_LINE_RE.match(lines[i])
@@ -293,7 +303,7 @@ def _parse_log_errors(content: str, source_log: str) -> list[LogErrorEntry]:
             LogErrorEntry(
                 timestamp=timestamp.strip(),
                 level=level,
-                source=source.strip(),
+                source=(source or "").strip(),
                 message=message.strip(),
                 source_log=source_log,
             )
@@ -481,6 +491,7 @@ class API:
         self.app.post("/master/promote/{node_id}")(self.promote_master)
         self.app.get("/instance/placement")(self.get_placement)
         self.app.get("/instance/previews")(self.get_placement_previews)
+        self.app.get("/instance/node-compatibility")(self.get_node_compatibility)
         self.app.get("/instance/await", response_model=None)(self.await_instance)
         self.app.get("/instance/{instance_id}")(self.get_instance)
         self.app.delete("/instance/{instance_id}")(self.delete_instance)
@@ -820,6 +831,113 @@ class API:
                 error_code="INSTANCE_NOT_FOUND",
             )
         return self.state.instances[instance_id]
+
+    async def get_node_compatibility(
+        self,
+        model_id: ModelId,
+        force_override: bool = Query(default=False),
+    ) -> NodeCompatibilityResponse:
+        """Return per-node green/red compatibility for a given model.
+
+        Each node in the topology is evaluated against the model's storage
+        size and required backends, producing a human-readable reason when a
+        node cannot host the model. This powers the dashboard's per-node
+        status indicators in the Load Model panel.
+        """
+        try:
+            model_card = await ModelCard.load(model_id)
+        except Exception as exc:
+            raise ApiError(
+                status_code=400,
+                detail=f"Failed to load model card: {exc}",
+                error_code="MODEL_NOT_FOUND",
+            ) from exc
+
+        topology_nodes = set(self.state.topology.list_nodes())
+        required_backends = set(INSTANCE_META_BACKENDS[InstanceMeta.MlxRing]) & set(
+            model_card.backends
+        )
+        storage_bytes = model_card.storage_size.in_bytes
+        storage_gb = storage_bytes / (1024**3)
+
+        entries: list[NodeCompatibilityEntry] = []
+        all_node_ids = sorted(
+            set(topology_nodes)
+            | set(self.state.node_memory.keys())
+            | set(self.state.node_backends.keys()),
+            key=str,
+        )
+
+        for node_id in all_node_ids:
+            identity = self.state.node_identities.get(node_id)
+            friendly_name = (
+                identity.friendly_name
+                if identity and identity.friendly_name != "Unknown"
+                else node_id[:8]
+            )
+            memory = self.state.node_memory.get(node_id)
+            backends = self.state.node_backends.get(node_id, [])
+            in_topology = node_id in topology_nodes
+
+            reasons: list[str] = []
+            compatible = True
+
+            if not in_topology:
+                compatible = False
+                reasons.append("Not connected to cluster (no topology edges)")
+
+            if not required_backends:
+                compatible = False
+                reasons.append(
+                    f"Model backends {sorted(b.value for b in model_card.backends)} "
+                    "cannot satisfy any engine"
+                )
+            elif not (set(backends) & required_backends):
+                compatible = False
+                reasons.append(
+                    f"Missing required backend {sorted(b.value for b in required_backends)} "
+                    f"(node has {sorted(b.value for b in backends) or 'none reported'})"
+                )
+
+            if memory is not None:
+                available = memory.inference_available.in_bytes
+                if not force_override and available < storage_bytes:
+                    compatible = False
+                    reasons.append(
+                        f"Insufficient memory: {available / (1024**3):.1f}GB available "
+                        f"< {storage_gb:.1f}GB required"
+                    )
+            else:
+                compatible = False
+                reasons.append("No memory report (node may be offline)")
+
+            entries.append(
+                NodeCompatibilityEntry(
+                    node_id=node_id,
+                    friendly_name=friendly_name,
+                    compatible=compatible,
+                    reason="; ".join(reasons) if reasons else None,
+                    ram_available_gb=(
+                        memory.inference_available.in_bytes / (1024**3)
+                        if memory is not None
+                        else None
+                    ),
+                    ram_total_gb=(
+                        memory.ram_total.in_bytes / (1024**3)
+                        if memory is not None
+                        else None
+                    ),
+                    backends=sorted(b.value for b in backends),
+                    in_topology=in_topology,
+                )
+            )
+
+        return NodeCompatibilityResponse(
+            model_id=model_card.model_id,
+            storage_size_gb=round(storage_gb, 2),
+            required_backends=sorted(b.value for b in required_backends),
+            nodes=entries,
+        )
 
     async def await_instance(
         self,

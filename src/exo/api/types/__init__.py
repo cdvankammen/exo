@@ -50,6 +50,8 @@ from .api import LogprobsContentItem as LogprobsContentItem
 from .api import LogTailResponse as LogTailResponse
 from .api import ModelList as ModelList
 from .api import ModelListModel as ModelListModel
+from .api import NodeCompatibilityEntry as NodeCompatibilityEntry
+from .api import NodeCompatibilityResponse as NodeCompatibilityResponse
 from .api import NodePowerStats as NodePowerStats
 from .api import PlaceInstanceParams as PlaceInstanceParams
 from .api import PlacementPreview as PlacementPreview

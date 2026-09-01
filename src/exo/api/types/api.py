@@ -341,6 +341,26 @@ class PlacementPreviewResponse(BaseModel):
     previews: list[PlacementPreview]
 
 
+class NodeCompatibilityEntry(BaseModel):
+    """Per-node compatibility for a given model: green/red + reason."""
+
+    node_id: NodeId
+    friendly_name: str
+    compatible: bool
+    reason: str | None = None
+    # Memory info for display
+    ram_available_gb: float | None = None
+    ram_total_gb: float | None = None
+    backends: list[str] | None = None
+    # Whether this node is in the topology (connected)
+    in_topology: bool = True
+
+class NodeCompatibilityResponse(BaseModel):
+    model_id: ModelId
+    storage_size_gb: float
+    required_backends: list[str]
+    nodes: list[NodeCompatibilityEntry]
+
 class DeleteInstanceTaskParams(WarnExtraModel):
     instance_id: str
 
