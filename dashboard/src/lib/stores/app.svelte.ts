@@ -304,6 +304,8 @@ export interface LogErrorEntry {
   source: string;
   message: string;
   sourceLog: string;
+  /** Surrounding raw log lines (±5) around the error, for debugging context. */
+  context?: string[] | null;
 }
 
 export interface LogErrorsResponse {

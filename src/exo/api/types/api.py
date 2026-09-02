@@ -660,6 +660,8 @@ class LogErrorEntry(FrozenModel):
     source: str
     message: str
     source_log: str
+    # Surrounding log lines (±context_lines around the error) for debugging.
+    context: list[str] | None = None
 
 
 class LogErrorsResponse(FrozenModel):

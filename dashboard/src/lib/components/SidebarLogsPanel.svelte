@@ -332,6 +332,12 @@
                     {e.message}
                   </div>
                   {#if isExpanded}
+                    {#if e.context && e.context.length > 0}
+                      <div class="mt-2 pt-2 border-t border-white/10">
+                        <div class="text-[9px] uppercase tracking-wider text-exo-light-gray/50 mb-1">Context</div>
+                        <pre class="text-[8px] font-mono leading-tight text-exo-light-gray/60 whitespace-pre-wrap break-all bg-black/30 rounded p-1.5 max-h-48 overflow-y-auto">{e.context.join("\n")}</pre>
+                      </div>
+                    {/if}
                     {#if e.source}
                       <div class="mt-1 pt-1 border-t border-white/10 text-exo-light-gray/40">
                         {e.source}

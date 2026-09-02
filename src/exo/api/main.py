@@ -271,13 +271,17 @@ _LOG_LINE_RE = re.compile(
 _LOG_ERROR_LEVELS = frozenset({"WARNING", "ERROR", "CRITICAL"})
 
 
-def _parse_log_errors(content: str, source_log: str) -> list[LogErrorEntry]:
+def _parse_log_errors(content: str, source_log: str, context_lines: int = 5) -> list[LogErrorEntry]:
     """Parse WARNING/ERROR/CRITICAL lines from a log tail into structured entries.
 
     Skips continuation lines (tracebacks etc.) so each entry is the primary
     log line. Multi-line tracebacks are collapsed: the message is the first
     line, and a following non-matching line is appended only when it looks
     like an exception message (no leading whitespace-only frame text).
+
+    Each entry includes up to ``context_lines`` surrounding raw log lines
+    before and after the error line, so the dashboard can show the events
+    that led to the failure.
     """
     entries: list[LogErrorEntry] = []
     # Strip ANSI color codes before parsing (loguru emits them when stderr is a TTY)
@@ -299,6 +303,14 @@ def _parse_log_errors(content: str, source_log: str) -> list[LogErrorEntry]:
             if extra and not extra.startswith(("File \"", "  ", "Traceback")):
                 message = f"{message} {extra}"
             j += 1
+        # Collect surrounding context: lines before the error and after the collapse
+        ctx_before = [
+            lines[k] for k in range(max(0, i - context_lines), i)
+        ]
+        ctx_after = [
+            lines[k] for k in range(j, min(len(lines), j + context_lines))
+        ]
+        context = ctx_before + [lines[i]] + ctx_after
         entries.append(
             LogErrorEntry(
                 timestamp=timestamp.strip(),
@@ -306,6 +318,7 @@ def _parse_log_errors(content: str, source_log: str) -> list[LogErrorEntry]:
                 source=(source or "").strip(),
                 message=message.strip(),
                 source_log=source_log,
+                context=context if context_lines > 0 else None,
             )
         )
         i = j
@@ -2881,6 +2894,11 @@ class API:
                         source=str(e.get("source", "")),
                         message=str(e.get("message", "")),
                         source_log=f"{node_id[:8]}::{e.get('source_log', 'main')}",
+                        context=(
+                            [str(c) for c in cast(list[object], e["context"])]
+                            if isinstance(e.get("context"), list)
+                            else None
+                        ),
                     )
                     for e in remote
                     if str(e.get("level", "")).upper() in wanted
