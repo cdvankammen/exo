@@ -418,7 +418,12 @@ def place_instance(
                 cycle, command.model_card.model_id, resolved_download_status
             ),
             sum(
-                (node_memory[node_id].ram_available for node_id in cycle),
+                (
+                    node_memory.get(
+                        node_id, MemoryUsage.from_bytes(ram_total=0, ram_available=0, swap_total=0, swap_available=0)
+                    ).ram_available
+                    for node_id in cycle
+                ),
                 start=Memory(),
             ),
         ),
