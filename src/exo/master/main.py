@@ -420,6 +420,7 @@ class Master:
                                 self.state.node_memory,
                                 self.state.node_network,
                                 self.state.node_backends,
+                                required_nodes=command.node_ids,
                                 download_status=self.state.downloads,
                                 node_rdma_ctl=self.state.node_rdma_ctl,
                                 node_identities=self.state.node_identities,

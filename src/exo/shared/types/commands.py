@@ -40,6 +40,10 @@ class PlaceInstance(BaseCommand):
     instance_meta: InstanceMeta
     min_nodes: int
     node_layers: dict[NodeId, int] | None = None
+    # Optional explicit node subset for placement. When set, only cycles that
+    # exactly match these nodes are considered (same semantics as the
+    # node_ids query param on the preview/compatibility endpoints).
+    node_ids: set[NodeId] | None = None
     # When True, skip memory-sufficiency checks (cycles/layers). Intended for
     # users who explicitly want to attempt loading a model that exceeds the
     # reported available memory ("load the model anyway").

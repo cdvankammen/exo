@@ -1630,6 +1630,12 @@
         };
         if (overrideParams.force_override) body.force_override = true;
         if (toleranceParam !== undefined) body.memory_tolerance = toleranceParam;
+        // Wire node selection through: if the user selected specific nodes,
+        // send them to the server so placement only considers those nodes.
+        const nodeFilter = appStore.previewNodeFilter;
+        if (nodeFilter && nodeFilter.size > 0) {
+          body.node_ids = [...nodeFilter];
+        }
         response = await fetch("/place_instance", {
           method: "POST",
           headers: { "Content-Type": "application/json" },

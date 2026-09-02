@@ -616,6 +616,7 @@ class API:
             force_override=payload.force_override,
             memory_tolerance=payload.memory_tolerance,
             node_layers=payload.node_layers,
+            node_ids=payload.node_ids,
         )
         await self._send(command)
 

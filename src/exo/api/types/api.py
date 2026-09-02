@@ -318,6 +318,9 @@ class PlaceInstanceParams(WarnExtraModel):
     # Keys must exactly match a connected pipeline cycle and sum to the
     # model's layer count.
     node_layers: dict[NodeId, int] | None = None
+    # Optional explicit node subset for placement. When set, only cycles that
+    # exactly match these nodes are considered.
+    node_ids: set[NodeId] | None = None
 
 
 class CreateInstanceParams(WarnExtraModel):
