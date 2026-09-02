@@ -1017,7 +1017,16 @@ def tensor_auto_parallel(
             sharded_to_all_linear_in_place,
         )
     else:
-        raise ValueError(f"Unsupported model type: {type(model)}")
+        # Fallback: generic Llama-compatible sharding for unknown models.
+        # Validates structure (self_attn.q/k/v/o_proj + mlp.gate/up/down_proj)
+        # before applying; raises if the layout doesn't match.
+        tensor_parallel_sharding_strategy = GenericShardingStrategy(
+            group,
+            all_to_sharded_linear,
+            sharded_to_all_linear,
+            all_to_sharded_linear_in_place,
+            sharded_to_all_linear_in_place,
+        )
 
     model = yield from tensor_parallel_sharding_strategy.shard_model(model)
     return patch_tensor_model(model)
@@ -2043,4 +2052,106 @@ class Gemma4ShardingStrategy(TensorParallelShardingStrategy):
             mx.eval(layer)
             mx.clear_cache()
             yield ModelLoadingResponse(layers_loaded=i, total=total)
+        return model
+
+
+class GenericShardingStrategy(TensorParallelShardingStrategy):
+    """Fallback tensor-parallel strategy for unknown Llama-compatible models.
+
+    Validates that every decoder layer exposes the standard attention and MLP
+    projection attributes (``self_attn.q/k/v/o_proj``, ``mlp.gate/up/down_proj``)
+    before sharding. If any layer is missing a required attribute, raises
+    ``ValueError`` with a diagnostic message rather than silently producing
+    incorrect weights.
+
+    This covers new Llama-derivative families that haven't been given a
+    dedicated strategy yet, without risking silent mis-sharding of exotic
+    architectures (MoE, linear attention, hybrid SSM).
+    """
+
+    _REQUIRED_ATTN_ATTRS = ("q_proj", "k_proj", "v_proj", "o_proj")
+    _REQUIRED_MLP_ATTRS = ("gate_proj", "down_proj", "up_proj")
+
+    def shard_model(
+        self,
+        model: nn.Module,
+    ) -> Generator[ModelLoadingResponse, None, nn.Module]:
+        inner = get_inner_model(model)
+        layers = get_layers(inner)
+        total = len(layers)
+
+        # Structural validation pass — fail fast before mutating any weights.
+        for i, layer in enumerate(layers):
+            attn = getattr(layer, "self_attn", None)
+            if attn is None:
+                raise ValueError(
+                    f"GenericShardingStrategy: layer {i} of "
+                    f"{type(model).__name__} has no 'self_attn' attribute; "
+                    f"this model requires a dedicated sharding strategy."
+                )
+            attn_mod = cast(nn.Module, attn)
+            missing_attn = [
+                attr
+                for attr in self._REQUIRED_ATTN_ATTRS
+                if getattr(attn_mod, attr, None) is None
+            ]
+            if missing_attn:
+                raise ValueError(
+                    f"GenericShardingStrategy: layer {i} self_attn is missing "
+                    f"{missing_attn}; this model requires a dedicated strategy."
+                )
+
+            mlp = getattr(layer, "mlp", None)
+            if mlp is None:
+                raise ValueError(
+                    f"GenericShardingStrategy: layer {i} of "
+                    f"{type(model).__name__} has no 'mlp' attribute; "
+                    f"this model requires a dedicated sharding strategy."
+                )
+            mlp_mod = cast(nn.Module, mlp)
+            missing_mlp = [
+                attr
+                for attr in self._REQUIRED_MLP_ATTRS
+                if getattr(mlp_mod, attr, None) is None
+            ]
+            if missing_mlp:
+                raise ValueError(
+                    f"GenericShardingStrategy: layer {i} mlp is missing "
+                    f"{missing_mlp}; this model requires a dedicated strategy."
+                )
+
+        logger.info(
+            f"Using GenericShardingStrategy for {type(model).__name__} "
+            f"({total} layers, {self.N}-way tensor parallel)"
+        )
+
+        for i, layer in enumerate(layers):
+            layer_module = cast(nn.Module, layer)
+            mx.eval(layer_module.parameters())
+
+            attn = cast(nn.Module, layer.self_attn)  # type: ignore[attr-defined]
+            attn.q_proj = self.all_to_sharded_linear(attn.q_proj)  # pyright: ignore[reportUnknownMemberType]
+            attn.k_proj = self.all_to_sharded_linear(attn.k_proj)  # pyright: ignore[reportUnknownMemberType]
+            attn.v_proj = self.all_to_sharded_linear(attn.v_proj)  # pyright: ignore[reportUnknownMemberType]
+            attn.o_proj = self.sharded_to_all_linear(attn.o_proj)  # pyright: ignore[reportUnknownMemberType]
+
+            # Divide head counts when present (Llama-compatible convention).
+            for head_attr in ("n_heads", "num_attention_heads"):
+                head_val = getattr(attn, head_attr, None)
+                if head_val is not None:
+                    setattr(attn, head_attr, head_val // self.N)
+            for kv_attr in ("n_kv_heads", "num_key_value_heads"):
+                kv_val = getattr(attn, kv_attr, None)
+                if kv_val is not None:
+                    setattr(attn, kv_attr, kv_val // self.N)
+
+            mlp = cast(nn.Module, layer.mlp)  # type: ignore[attr-defined]
+            mlp.gate_proj = self.all_to_sharded_linear(mlp.gate_proj)  # pyright: ignore[reportUnknownMemberType]
+            mlp.down_proj = self.sharded_to_all_linear(mlp.down_proj)  # pyright: ignore[reportUnknownMemberType]
+            mlp.up_proj = self.all_to_sharded_linear(mlp.up_proj)  # pyright: ignore[reportUnknownMemberType]
+
+            mx.eval(layer)  # pyright: ignore[reportArgumentType]
+            mx.clear_cache()
+            yield ModelLoadingResponse(layers_loaded=i, total=total)
+
         return model
