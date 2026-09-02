@@ -199,13 +199,19 @@ class ModelCard(FrozenModel):
     def _autodetect_ring_support(self) -> "ModelCard":
         """Bundled TOML cards carry no architectures; infer ring support from family.
 
-        The ring engine (ring_attention.py) verifies only mlx_lm's llama and
-        dense Qwen3 attention modules. Every bundled ``llama``-family card is
-        LlamaForCausalLM; dense Qwen3 cards opt in via ``supports_ring = true``
-        in their TOML because the ``qwen`` family also covers MoE/Next/VL
-        variants the engine does not support.
+        The ring engine (ring_attention.py) verifies attention modules against
+        a whitelist. Every bundled ``llama``-family card is LlamaForCausalLM.
+        Dense ``qwen`` cards opt in via ``supports_ring = true`` in their TOML
+        because the ``qwen`` family also covers MoE/Next/VL variants the engine
+        does not support. The ``glm`` and ``minimax`` families use standard
+        Q/K/V/O attention with no sliding window, sinks, or softcapping and are
+        whitelisted, so they are auto-enabled here.
+
+        Families that mix or gate attention (nemotron Mamba2, gemma sliding +
+        softcapping, gpt-oss sliding + sinks, step sliding, deepseek V4) must
+        keep ``supports_ring = false``.
         """
-        if not self.supports_ring and self.family == "llama":
+        if not self.supports_ring and self.family in ("llama", "glm", "minimax"):
             object.__setattr__(self, "supports_ring", True)
         return self
 

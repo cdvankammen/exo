@@ -45,6 +45,11 @@ _SUPPORTED_ATTENTION_TYPES = frozenset(
     {
         ("mlx_lm.models.llama", "Attention"),
         ("mlx_lm.models.qwen3", "Attention"),
+        ("mlx_lm.models.glm4_moe", "Attention"),
+        ("mlx_lm.models.glm4_moe_lite", "Glm4MoeLiteAttention"),
+        ("mlx_lm.models.minimax", "MiniMaxAttention"),
+        # NemotronH uses self.mixer (not self_attn) — requires detection extension
+        # ("mlx_lm.models.nemotron_h", "NemotronHAttention"),
     }
 )
 
