@@ -11,9 +11,9 @@
   /** Which toast is currently shown in the full overlay modal. */
   let overlayToast = $state<Toast | null>(null);
 
-  /** View mode for the overlay: 'clean' (readable), 'raw' (full text), 'json' (structured). */
-  type ViewMode = "clean" | "raw" | "json";
-  let overlayViewMode = $state<ViewMode>("clean");
+  /** View mode for the overlay: 'details' (structured), 'clean' (readable), 'raw' (full text), 'json' (highlighted). */
+  type ViewMode = "details" | "clean" | "raw" | "json";
+  let overlayViewMode = $state<ViewMode>("details");
 
   /** Messages longer than this get the 4-line clamp + "Show full" affordance. */
   const CLAMP_THRESHOLD = 160;
@@ -34,7 +34,33 @@
 
   function openOverlay(toast: Toast) {
     overlayToast = toast;
-    overlayViewMode = "clean";
+    overlayViewMode = "details";
+  }
+
+  /** Navigate to the full Logs page so the user can see raw context. */
+  function viewInLogs() {
+    closeOverlay();
+    window.location.hash = "#/logs";
+  }
+
+  /** Format a message for display: unwrap common FastAPI/JSON wrappers. */
+  function unwrapMessage(message: string): string {
+    if (!message) return "";
+    const trimmed = message.trim();
+    if (trimmed.startsWith("{") || trimmed.startsWith("[")) {
+      try {
+        const parsed = JSON.parse(trimmed);
+        if (parsed && typeof parsed === "object" && "detail" in parsed) {
+          const detail = (parsed as { detail: unknown }).detail;
+          if (typeof detail === "string") return detail;
+          if (Array.isArray(detail) && detail.length > 0) {
+            const first = detail[0] as { msg?: unknown } | null;
+            if (first && typeof first.msg === "string") return first.msg;
+          }
+        }
+      } catch { /* fall through */ }
+    }
+    return message;
   }
 
   function closeOverlay() {
@@ -221,10 +247,10 @@
       </div>
       <!-- View mode tabs -->
       <div class="flex gap-1 px-4 py-2 border-b border-exo-medium-gray/20">
-        {#each ["clean", "raw", "json"] as mode}
+        {#each ["details", "clean", "raw", "json"] as mode}
           <button
             type="button"
-            onclick={() => overlayViewMode = mode}
+            onclick={() => overlayViewMode = mode as ViewMode}
             class="px-2 py-0.5 text-[10px] font-mono uppercase tracking-wider rounded transition-colors cursor-pointer {overlayViewMode === mode
               ? 'bg-exo-yellow/20 text-exo-yellow border border-exo-yellow/30'
               : 'text-white/40 hover:text-white/60 border border-transparent'}"
@@ -236,7 +262,32 @@
       </div>
       <!-- Content -->
       <div class="flex-1 overflow-y-auto p-4">
-        {#if overlayViewMode === "clean"}
+        {#if overlayViewMode === "details"}
+          <div class="space-y-3">
+            <div class="grid grid-cols-2 gap-2">
+              <div class="bg-white/[0.03] border border-white/10 rounded p-2">
+                <div class="text-[9px] uppercase tracking-wider text-white/40">Type</div>
+                <div class="text-xs text-white/90 mt-0.5">{overlayToast.type}</div>
+              </div>
+              <div class="bg-white/[0.03] border border-white/10 rounded p-2">
+                <div class="text-[9px] uppercase tracking-wider text-white/40">ID</div>
+                <div class="text-xs text-white/70 mt-0.5 break-all">{overlayToast.id}</div>
+              </div>
+              <div class="bg-white/[0.03] border border-white/10 rounded p-2">
+                <div class="text-[9px] uppercase tracking-wider text-white/40">Created</div>
+                <div class="text-xs text-white/70 mt-0.5">{overlayToast.createdAt ? new Date(overlayToast.createdAt).toLocaleString() : "—"}</div>
+              </div>
+              <div class="bg-white/[0.03] border border-white/10 rounded p-2">
+                <div class="text-[9px] uppercase tracking-wider text-white/40">Duration</div>
+                <div class="text-xs text-white/70 mt-0.5">{overlayToast.duration > 0 ? `${(overlayToast.duration / 1000).toFixed(0)}s` : "persistent"}</div>
+              </div>
+            </div>
+            <div class="bg-white/[0.03] border border-white/10 rounded p-2">
+              <div class="text-[9px] uppercase tracking-wider text-white/40">Message</div>
+              <pre class="text-xs font-mono text-white/85 whitespace-pre-wrap break-words leading-relaxed mt-1">{unwrapMessage(overlayToast.message)}</pre>
+            </div>
+          </div>
+        {:else if overlayViewMode === "clean"}
           <pre class="text-xs font-mono text-white/80 whitespace-pre-wrap break-words leading-relaxed">{overlayToast.message}</pre>
         {:else if overlayViewMode === "raw"}
           <pre class="text-[10px] font-mono text-white/50 whitespace-pre-wrap break-words">{JSON.stringify(overlayToast, null, 2)}</pre>
@@ -248,18 +299,27 @@
       <div class="flex items-center justify-between px-4 py-2 border-t border-exo-medium-gray/20">
         <button
           type="button"
-          onclick={() => { navigator.clipboard.writeText(overlayToast?.message ?? ""); }}
-          class="text-[10px] font-mono text-white/40 hover:text-exo-yellow transition-colors cursor-pointer"
+          onclick={viewInLogs}
+          class="text-[10px] font-mono text-exo-yellow/70 hover:text-exo-yellow transition-colors cursor-pointer"
         >
-          Copy to clipboard
+          View in Logs →
         </button>
-        <button
-          type="button"
-          onclick={() => { if (overlayToast) dismissToast(overlayToast.id); closeOverlay(); }}
-          class="text-[10px] font-mono text-white/40 hover:text-red-400 transition-colors cursor-pointer"
-        >
-          Dismiss
-        </button>
+        <div class="flex items-center gap-4">
+          <button
+            type="button"
+            onclick={() => { navigator.clipboard.writeText(overlayToast?.message ?? ""); }}
+            class="text-[10px] font-mono text-white/40 hover:text-exo-yellow transition-colors cursor-pointer"
+          >
+            Copy to clipboard
+          </button>
+          <button
+            type="button"
+            onclick={() => { if (overlayToast) dismissToast(overlayToast.id); closeOverlay(); }}
+            class="text-[10px] font-mono text-white/40 hover:text-red-400 transition-colors cursor-pointer"
+          >
+            Dismiss
+          </button>
+        </div>
       </div>
     </div>
   </div>
