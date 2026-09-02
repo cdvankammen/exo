@@ -1,0 +1,19 @@
+model_id = "mlx-community/AceReason-Nemotron-14B-4bit"
+n_layers = 48
+hidden_size = 5120
+num_key_value_heads = 8
+supports_tensor = true
+supports_ring = false
+tasks = ["TextGeneration"]
+family = "nemotron"
+quantization = "4bit"
+base_model = "AceReason-Nemotron 14B"
+capabilities = ["text", "reasoning"]
+context_length = 4096
+backends = ["MlxMetal", "MlxCuda", "MlxCpu"]
+[storage_size]
+in_bytes = 8309495150
+
+[sampling_defaults]
+temperature = 0.7
+top_p = 0.9
