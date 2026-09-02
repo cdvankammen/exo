@@ -211,7 +211,7 @@ class ModelCard(FrozenModel):
         softcapping, gpt-oss sliding + sinks, step sliding, deepseek V4) must
         keep ``supports_ring = false``.
         """
-        if not self.supports_ring and self.family in ("llama", "glm", "minimax"):
+        if not self.supports_ring and self.family in ("llama", "glm", "minimax", "nemotron"):
             object.__setattr__(self, "supports_ring", True)
         return self
 

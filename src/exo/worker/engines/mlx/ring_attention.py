@@ -48,8 +48,7 @@ _SUPPORTED_ATTENTION_TYPES = frozenset(
         ("mlx_lm.models.glm4_moe", "Attention"),
         ("mlx_lm.models.glm4_moe_lite", "Glm4MoeLiteAttention"),
         ("mlx_lm.models.minimax", "MiniMaxAttention"),
-        # NemotronH uses self.mixer (not self_attn) — requires detection extension
-        # ("mlx_lm.models.nemotron_h", "NemotronHAttention"),
+        ("mlx_lm.models.nemotron_h", "NemotronHAttention"),
     }
 )
 
@@ -599,8 +598,15 @@ def _is_attention_layer(layer: object) -> bool:
     """Heuristic to detect if a layer is an attention layer.
 
     Checks for common attribute names used across MLX model implementations.
+    For hybrid architectures (e.g. NemotronH which mixes attention and Mamba2
+    blocks behind a ``mixer`` attribute), the mixer must expose ``q_proj`` to
+    be recognised as attention rather than an SSM — Mamba2 mixers lack Q/K/V/O
+    projections entirely.
     """
-    return any(hasattr(layer, attr) for attr in ("q_proj", "self_attn", "attn"))
+    if any(hasattr(layer, attr) for attr in ("q_proj", "self_attn", "attn")):
+        return True
+    mixer = getattr(layer, "mixer", None)
+    return mixer is not None and getattr(mixer, "q_proj", None) is not None
 
 
 def _ring_attention_layers(model: nn.Module) -> list[RingAttentionLayer]:
@@ -610,7 +616,7 @@ def _ring_attention_layers(model: nn.Module) -> list[RingAttentionLayer]:
         if isinstance(layer, RingAttentionLayer):
             wrappers.append(layer)
             continue
-        for attribute in ("self_attn", "attn"):
+        for attribute in ("self_attn", "attn", "mixer"):
             attention = getattr(layer, attribute, None)
             if isinstance(attention, RingAttentionLayer):
                 wrappers.append(attention)
@@ -618,12 +624,20 @@ def _ring_attention_layers(model: nn.Module) -> list[RingAttentionLayer]:
 
 
 def _attention_target(layer: _LayerCallable) -> tuple[nn.Module, str | None]:
-    """Return the attention module and its parent attribute, if nested."""
+    """Return the attention module and its parent attribute, if nested.
+
+    For hybrid blocks that share the ``mixer`` attribute between attention and
+    SSM variants, only return the mixer when it carries ``q_proj`` (i.e. is an
+    attention module). Mamba2 / SSM mixers are not ring-wrap candidates.
+    """
     if getattr(layer, "q_proj", None) is not None:
         return cast(nn.Module, layer), None
-    for attribute in ("self_attn", "attn"):
+    for attribute in ("self_attn", "attn", "mixer"):
         attention = getattr(layer, attribute, None)
-        if isinstance(attention, nn.Module):
+        if (
+            isinstance(attention, nn.Module)
+            and getattr(attention, "q_proj", None) is not None
+        ):
             return attention, attribute
     raise ValueError(f"Cannot find an attention module on {type(layer).__name__}")
 
