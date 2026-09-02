@@ -175,6 +175,130 @@
     { var: "EXO_MODELS_DIRS", meaning: "Writable model directories", suggested: "~/.cache/exo/models" },
     { var: "EXO_MODELS_READ_ONLY_DIRS", meaning: "Read-only dirs (incl. HF cache)", suggested: "~/.cache/huggingface/hub" },
   ];
+
+  // ── Placement guardrails (src/exo/master/placement.py) ────────────────────
+  // Every guardrail can be bypassed by enabling FORCE in the Memory Override
+  // section above (sets force_override=True on the PlaceInstance command).
+  type Guardrail = {
+    id: number;
+    name: string;
+    category: "Ring" | "Tensor" | "Pipeline" | "Memory" | "Backend" | "Topology";
+    description: string;
+    errorMessage: string;
+    bypassable: boolean;
+  };
+
+  const GUARDRAILS: Guardrail[] = [
+    {
+      id: 1, name: "Ring transport", category: "Ring",
+      description: "Ring attention requires the MlxRing transport engine. Cannot be used with MlxJaccl.",
+      errorMessage: "Ring attention requires the MlxRing transport",
+      bypassable: true,
+    },
+    {
+      id: 2, name: "Ring minimum nodes", category: "Ring",
+      description: "Ring attention requires at least 2 nodes to form a ring buffer.",
+      errorMessage: "Ring attention requires at least two nodes",
+      bypassable: true,
+    },
+    {
+      id: 3, name: "Ring model support", category: "Ring",
+      description: "Model card must declare Ring attention support (supports_ring=true). Only verified for dense LlamaForCausalLM and Qwen3ForCausalLM architectures.",
+      errorMessage: "Model does not declare Ring attention support",
+      bypassable: true,
+    },
+    {
+      id: 4, name: "Manual layer allocation", category: "Pipeline",
+      description: "Per-node layer counts (node_layers) are only valid for Pipeline sharding. Tensor/Ring handle layer distribution automatically.",
+      errorMessage: "Manual layer allocation requires Pipeline sharding",
+      bypassable: false,
+    },
+    {
+      id: 5, name: "Exact node match", category: "Topology",
+      description: "When node_ids are selected in the UI, only cycles whose node set exactly matches are considered. No supersets.",
+      errorMessage: "(silently filters cycles — no matching cycle means placement fails)",
+      bypassable: false,
+    },
+    {
+      id: 6, name: "Ring memory admission", category: "Memory",
+      description: "Every ring rank replicates the full model weights plus KV cache working set. Each node must hold the full model size.",
+      errorMessage: "No cycles found with sufficient memory",
+      bypassable: true,
+    },
+    {
+      id: 7, name: "Pipeline/Tensor memory", category: "Memory",
+      description: "Total cycle memory must exceed the model storage size. For Pipeline: layers split across nodes. For Tensor: weights split per node.",
+      errorMessage: "No cycles found with sufficient memory",
+      bypassable: true,
+    },
+    {
+      id: 8, name: "Tensor model support", category: "Tensor",
+      description: "Model card must declare supports_tensor=true. Architecture-gated in ConfigData.supports_tensor (e.g. LlamaForCausalLM, Qwen3NextForCausalLM, DeepseekV4ForCausalLM).",
+      errorMessage: "Requested Tensor sharding but this model does not support tensor parallelism",
+      bypassable: true,
+    },
+    {
+      id: 9, name: "Tensor hidden_size divisibility", category: "Tensor",
+      description: "hidden_size must be divisible by the number of nodes in the cycle. e.g. hidden_size=2048 works on 2/4/8 nodes but not 3.",
+      errorMessage: "No tensor sharding found for model with hidden_size=…",
+      bypassable: true,
+    },
+    {
+      id: 10, name: "Tensor kv_heads divisibility", category: "Tensor",
+      description: "num_key_value_heads must be divisible by node count (MQA models like DeepSeek V4 are exempt — they shard MoE experts instead of KV heads).",
+      errorMessage: "No tensor sharding found … num_key_value_heads=…",
+      bypassable: true,
+    },
+    {
+      id: 11, name: "DeepSeek V3.1 Pipeline block", category: "Pipeline",
+      description: "DeepSeek-V3.1-8bit specifically blocks Pipeline parallelism due to quantization constraints. Use Tensor.",
+      errorMessage: "Pipeline parallelism is not supported for DeepSeek V3.1 (8-bit)",
+      bypassable: true,
+    },
+    {
+      id: 12, name: "Gemma 4 Pipeline block", category: "Pipeline",
+      description: "Gemma 4 models restrict Pipeline to single-node cycles. Multi-node Gemma 4 requires Tensor sharding.",
+      errorMessage: "Pipeline parallelism is not supported for Gemma 4; use tensor parallelism instead",
+      bypassable: true,
+    },
+    {
+      id: 13, name: "Backend compatibility", category: "Backend",
+      description: "The model's declared backends must overlap with the instance engine's required backends (e.g. MlxRing needs MlxMetal/MlxCuda/MlxCpu).",
+      errorMessage: "Model backends cannot satisfy engine",
+      bypassable: true,
+    },
+    {
+      id: 14, name: "Backend cycle filter", category: "Backend",
+      description: "Every node in the selected cycle must support at least one of the required backends. A single node without a matching backend disqualifies the cycle.",
+      errorMessage: "No cycle where every node supports a backend in …",
+      bypassable: true,
+    },
+    {
+      id: 15, name: "RDMA for MlxJaccl", category: "Backend",
+      description: "MlxJaccl (RDMA transport) requires every node in the cycle to be RDMA-connected AND have rdma_ctl enabled with a verbs device enumerated.",
+      errorMessage: "Requested RDMA (MlxJaccl) but no RDMA-connected cycles available",
+      bypassable: true,
+    },
+    {
+      id: 16, name: "Single-node multi-sharding", category: "Topology",
+      description: "Tensor, Ring, and MlxJaccl all require at least 2 nodes. If only a single-node cycle is viable, placement forces Pipeline/Ring rewrite (or fails if force_override is off).",
+      errorMessage: "… requires at least 2 nodes, but only a single-node cycle is available",
+      bypassable: true,
+    },
+  ];
+
+  const guardrailCategories = ["Ring", "Tensor", "Pipeline", "Memory", "Backend", "Topology"] as const;
+
+  function categoryColor(cat: Guardrail["category"]): string {
+    switch (cat) {
+      case "Ring": return "border-purple-500/40 text-purple-400 bg-purple-500/10";
+      case "Tensor": return "border-blue-500/40 text-blue-400 bg-blue-500/10";
+      case "Pipeline": return "border-green-500/40 text-green-400 bg-green-500/10";
+      case "Memory": return "border-exo-yellow/40 text-exo-yellow bg-exo-yellow/10";
+      case "Backend": return "border-orange-500/40 text-orange-400 bg-orange-500/10";
+      case "Topology": return "border-cyan-500/40 text-cyan-400 bg-cyan-500/10";
+    }
+  }
 </script>
 
 <svelte:head>
@@ -384,6 +508,71 @@
         new runners — restart the node for a full effect.
       </p>
     {/if}
+  </section>
+
+  <!-- ═══ Placement guardrails ═══ -->
+  <section class="mb-8">
+    <h2 class="text-exo-yellow font-mono text-sm tracking-wider mb-3">PLACEMENT GUARDRAILS</h2>
+    <div class="border border-white/10 rounded-lg p-4 bg-white/[0.02] space-y-3 mb-4">
+      <p class="text-[11px] text-white/60 leading-relaxed">
+        Every model launch runs through <code class="font-mono text-exo-light-gray">{GUARDRAILS.length}</code> guardrails in
+        <code class="font-mono text-exo-light-gray">src/exo/master/placement.py</code>. Each one is a specific check that
+        can reject placement with an actionable error message.
+      </p>
+      <p class="text-[11px] text-white/50 leading-relaxed">
+        <span class="text-exo-yellow">Tip:</span> Every guardrail except the hard routing ones (manual layers, exact node match)
+        can be bypassed by enabling <span class="font-mono text-exo-light-gray">FORCE</span> in the Memory Override section above.
+        Force override sets <code class="font-mono">force_override=true</code> on the PlaceInstance command, which skips memory,
+        backend, tensor divisibility, and model-support checks — useful for pushing past reported limits on known-good hardware.
+      </p>
+    </div>
+
+    <div class="space-y-2">
+      {#each guardrailCategories as cat (cat)}
+        {@const rails = GUARDRAILS.filter((g) => g.category === cat)}
+        {#if rails.length > 0}
+          <div class="border border-white/10 rounded-lg overflow-hidden">
+            <div class="px-4 py-2 border-b border-white/10 bg-white/[0.02] flex items-center gap-2">
+              <span class="text-[10px] px-2 py-0.5 rounded border font-mono uppercase tracking-wider {categoryColor(cat)}">
+                {cat}
+              </span>
+              <span class="text-xs text-white/50">{rails.length} guardrail{rails.length > 1 ? "s" : ""}</span>
+            </div>
+            <div class="divide-y divide-white/5">
+              {#each rails as rail (rail.id)}
+                <div class="px-4 py-3 hover:bg-white/[0.02]">
+                  <div class="flex items-start justify-between gap-3 mb-1">
+                    <div class="flex items-center gap-2">
+                      <span class="text-[10px] font-mono text-white/30">#{rail.id}</span>
+                      <span class="text-sm font-mono text-exo-light-gray">{rail.name}</span>
+                    </div>
+                    {#if rail.bypassable}
+                      <span class="text-[9px] px-1.5 py-0.5 rounded border border-exo-yellow/30 text-exo-yellow/80 uppercase tracking-wider whitespace-nowrap" title="Can be bypassed with force_override=true">
+                        force-overridable
+                      </span>
+                    {:else}
+                      <span class="text-[9px] px-1.5 py-0.5 rounded border border-white/20 text-white/50 uppercase tracking-wider whitespace-nowrap" title="Always enforced — structural requirement">
+                        always enforced
+                      </span>
+                    {/if}
+                  </div>
+                  <p class="text-xs text-white/60 leading-relaxed mb-1.5">{rail.description}</p>
+                  <div class="flex items-start gap-1.5">
+                    <span class="text-[9px] font-mono text-red-400/70 uppercase tracking-wider mt-0.5 whitespace-nowrap">error:</span>
+                    <code class="text-[10px] font-mono text-red-400/80 break-words">{rail.errorMessage}</code>
+                  </div>
+                </div>
+              {/each}
+            </div>
+          </div>
+        {/if}
+      {/each}
+    </div>
+
+    <p class="text-[11px] text-white/35 mt-3">
+      Source: <code class="font-mono">src/exo/master/placement.py</code> · placement_utils helpers ·
+      per-model gates. Full trace available in the logs page when a placement fails.
+    </p>
   </section>
 
   <!-- ═══ Launch env reference ═══ -->
