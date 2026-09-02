@@ -240,12 +240,15 @@ def place_instance(
                 "No connected cycle exactly matches the manual layer allocation nodes"
             )
 
-    # Filter to cycles containing all required nodes (subset matching)
+    # When the user selects specific nodes, only consider cycles that exactly
+    # match those nodes — not supersets.  Upstream used issubset which kept
+    # larger cycles containing the selected nodes, causing get_smallest_cycles
+    # to fall back to the minimum-size cycle and ignoring the user's choice.
     if required_nodes:
         candidate_cycles = [
             cycle
             for cycle in candidate_cycles
-            if required_nodes.issubset(cycle.node_ids)
+            if set(cycle.node_ids) == required_nodes
         ]
     if command.sharding is Sharding.Ring:
         # Every ring rank replicates the weights and must also hold the
