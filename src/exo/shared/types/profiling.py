@@ -323,6 +323,13 @@ class NetworkInterfaceInfo(FrozenModel):
     # Negotiated link speed in megabits per second (None when the OS cannot
     # report it, e.g. Wi-Fi on some platforms or virtual interfaces).
     link_speed_megabits: int | None = None
+    # Cumulative bytes sent/received on this interface since boot (from
+    # psutil.net_io_counters).  The dashboard computes a live rate from the
+    # delta between consecutive polls.  None when the platform cannot report.
+    rx_bytes: int | None = None
+    tx_bytes: int | None = None
+    # Monotonic timestamp (ns) when rx/tx_bytes were sampled, for rate math.
+    timestamp_ns: int | None = None
 
 
 class NodeIdentity(FrozenModel):

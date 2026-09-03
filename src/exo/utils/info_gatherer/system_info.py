@@ -2,6 +2,7 @@ import platform
 import re
 import socket
 import sys
+import time
 from pathlib import Path
 from subprocess import CalledProcessError
 
@@ -153,11 +154,19 @@ async def get_network_interfaces() -> list[NetworkInterfaceInfo]:
     interface_types = await _get_interface_types_from_networksetup()
     is_linux = sys.platform == "linux"
 
+    # Per-interface cumulative byte counters for live traffic-rate display.
+    # (psutil may not report counters for virtual/loopback interfaces.)
+    net_io = psutil.net_io_counters(pernic=True)
+    timestamp_ns = time.time_ns()
+
     for iface, services in psutil.net_if_addrs().items():
         interface_type = interface_types.get(iface, "unknown")
         link_speed_megabits: int | None = None
         if is_linux:
             interface_type, link_speed_megabits = _classify_linux_interface(iface)
+        counters = net_io.get(iface)
+        rx_bytes = int(counters.bytes_recv) if counters else None
+        tx_bytes = int(counters.bytes_sent) if counters else None
         for service in services:
             match service.family:
                 case socket.AF_INET | socket.AF_INET6:
@@ -167,6 +176,9 @@ async def get_network_interfaces() -> list[NetworkInterfaceInfo]:
                             ip_address=service.address,
                             interface_type=interface_type,
                             link_speed_megabits=link_speed_megabits,
+                            rx_bytes=rx_bytes,
+                            tx_bytes=tx_bytes,
+                            timestamp_ns=timestamp_ns,
                         )
                     )
                 case _:
