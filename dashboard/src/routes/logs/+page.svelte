@@ -5,6 +5,7 @@
     getLogTail,
     getLogRawUrl,
     listLogErrors,
+    nodeIdentities,
     type LogErrorEntry,
     type LogFileListItem,
   } from "$lib/stores/app.svelte";
@@ -38,6 +39,45 @@
   let errorsTruncated = $state(false);
   let loadingErrors = $state(false);
   let errorLevelFilter = $state<Set<string>>(new Set(["ERROR", "CRITICAL"]));
+
+  // Node filter for errors view: Set of node_id prefixes (first 8 chars).
+  // Empty = show all nodes.
+  let errorNodeFilter = $state<Set<string>>(new Set());
+
+  // Derive unique node prefixes from error source_log fields.
+  // Local entries have source_log like "main" or "runner_stdout".
+  // Remote entries are prefixed: "<node_id>::<source_log>".
+  const NODE_PREFIX_RE = /^([0-9a-f-]{8})::(.+)$/;
+  const uniqueNodePrefixes = $derived(
+    [...new Set(
+      errors.map((e) => {
+        const m = e.sourceLog.match(NODE_PREFIX_RE);
+        return m ? m[1] : null;
+      }).filter((p): p is string => p !== null),
+    )].sort(),
+  );
+
+  // Resolve a node_id prefix to a friendly name or fall back to the prefix.
+  function resolveNodeName(prefix: string): string {
+    const identities = nodeIdentities();
+    for (const [nodeId, identity] of Object.entries(identities)) {
+      if (nodeId.startsWith(prefix)) {
+        return (identity as { friendlyName?: string }).friendlyName || prefix;
+      }
+    }
+    return prefix;
+  }
+
+  // Node-filtered errors: when filter is empty, show all.
+  const nodeFilteredErrors = $derived(
+    errorNodeFilter.size === 0
+      ? filteredErrors
+      : filteredErrors.filter((e) => {
+          const m = e.sourceLog.match(NODE_PREFIX_RE);
+          const nodePrefix = m ? m[1] : "local";
+          return errorNodeFilter.has(nodePrefix);
+        }),
+  );
 
   // --- State persistence across page navigation ---------------------------
   // The user asked: when leaving the Logs page (Home, Settings, ...) and
@@ -245,6 +285,16 @@
     errorLevelFilter = next;
   }
 
+  function toggleErrorNodeFilter(prefix: string) {
+    const next = new Set(errorNodeFilter);
+    if (next.has(prefix)) {
+      next.delete(prefix);
+    } else {
+      next.add(prefix);
+    }
+    errorNodeFilter = next;
+  }
+
   function setViewMode(mode: "tail" | "errors") {
     viewMode = mode;
     if (mode === "errors" && errors.length === 0) {
@@ -293,7 +343,7 @@
           Logs
         </h1>
         <div class="text-xs text-exo-light-gray/70 font-mono mt-1">
-          Logs from this node only.
+          Logs and errors from all cluster nodes.
         </div>
       </div>
       <div class="flex items-center gap-3">
@@ -373,6 +423,44 @@
         {/each}
       </div>
 
+      <!-- Node filter chips -->
+      {#if uniqueNodePrefixes.length > 0}
+        <div class="flex items-center gap-2 flex-wrap">
+          <span class="text-xs font-mono uppercase text-exo-light-gray/70"
+            >Nodes:</span
+          >
+          <button
+            type="button"
+            class="text-xs font-mono uppercase border px-3 py-1 rounded transition-colors {errorNodeFilter.size ===
+            0
+              ? 'text-exo-yellow border-exo-yellow/40'
+              : 'text-exo-light-gray/50 border-exo-medium-gray/30 hover:text-exo-light-gray'}"
+            onclick={() => (errorNodeFilter = new Set())}
+          >
+            All
+          </button>
+          {#each uniqueNodePrefixes as prefix}
+            <button
+              type="button"
+              class="text-xs font-mono border px-3 py-1 rounded transition-colors {errorNodeFilter.has(
+                prefix,
+              )
+                ? 'text-exo-yellow border-exo-yellow/40'
+                : 'text-exo-light-gray/50 border-exo-medium-gray/30 hover:text-exo-light-gray'}"
+              onclick={() => toggleErrorNodeFilter(prefix)}
+            >
+              {resolveNodeName(prefix)}
+              <span class="ml-1 normal-case text-exo-light-gray/50"
+                >({errors.filter((e) => {
+                  const m = e.sourceLog.match(NODE_PREFIX_RE);
+                  return m ? m[1] === prefix : false;
+                }).length})</span
+              >
+            </button>
+          {/each}
+        </div>
+      {/if}
+
       {#if errorsTruncated}
         <div class="text-xs text-exo-light-gray/70 font-mono">
           Scanning the tail of each log file — very old entries may be missed.
@@ -385,7 +473,7 @@
         >
           <div class="text-sm">Loading errors...</div>
         </div>
-      {:else if filteredErrors.length === 0}
+      {:else if nodeFilteredErrors.length === 0}
         <div
           class="rounded border border-exo-medium-gray/30 bg-exo-black/30 p-6 text-center text-exo-light-gray"
         >
@@ -404,7 +492,7 @@
               </tr>
             </thead>
             <tbody>
-              {#each filteredErrors as entry (entry.timestamp + entry.source + entry.message)}
+              {#each nodeFilteredErrors as entry (entry.timestamp + entry.source + entry.message)}
                 <tr
                   class="border-t border-exo-medium-gray/20 hover:bg-exo-yellow/5"
                 >
