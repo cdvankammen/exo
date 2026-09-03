@@ -62,7 +62,10 @@
 62. Smox node isolation — API server down on exo-amd container (10.2.0.76); zenoh discovers but HTTP unreachable. Needs container restart + code update from `main` to `fix-memory-error`
 63. Download queue stall — bad model card blocks entire queue; needs per-download timeout + dead-letter handling + "stalled" dashboard warning
 64. Election cycling breaks multi-step flows — download/placement state lives on master in-memory; master change loses in-flight operations. Needs persistent download state or master-pin protocol
-65. Network traffic display — show live bytes in/out per node in dashboard topology (needs backend counters + UI)
+65. Network traffic display — show live bytes in/out per node in dashboard topology (backend DONE `67020f5f`, UI IN PROGRESS)
+66. Bandwidth-aware pipeline placement — use topology bandwidth_mbps data for water-filling layer allocation across pipeline stages (P1 #35)
+67. TP single-node heuristic — don't tensor-shard when one node has enough memory for the full model
+68. Pipeline activation memory estimate — reserve ~10% of weight memory for activations
 
 ### Open Questions
 59. Commit + push CUDA memory limit fix upstream? (genuine bug fix)
