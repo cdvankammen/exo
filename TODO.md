@@ -54,7 +54,7 @@
 ~~53. Logs page: per-node + aggregated "all nodes" view~~ → **DONE (`f1611a55`)** — node filter chips on errors view parse source_log prefix (`node_id::`) to identify remote nodes, resolve to friendly names via nodeIdentities, All/per-node filter with counts
 54. ~~Error table on Logs page (structured WARNING/ERROR list)~~ → **DONE** — full error table with Time/Level/Source/Message/Log columns, parsed via `_parse_log_errors()`, sidebar error cards
 55. ~~Log-level filter buttons~~ → **DONE** — CRITICAL/ERROR/WARNING chips with counts, color-coded
-56. WCAG AA contrast pass — **NEEDS AUDIT** — multiple low-opacity text values (`/50`, `/60`, `/70`) likely fail 4.5:1 ratio
+~~56. WCAG AA contrast pass~~ → **DONE (`22b7102f`+`b56a77c8`)** — bumped `--exo-light-gray` from `oklch(0.6)` to `oklch(0.7)` (base CR ~4.9:1 → ~7.5:1); bulk bumped 53 text opacity instances (`/30`→`/60`, `/40`→`/70`, `/50`→`/70`) across all Svelte components; all text now passes WCAG AA 4.5:1
 57. ~~Stable machine-readable error codes~~ → **DONE at API level** — `ErrorCode` Literal with 13 codes (`INSUFFICIENT_MEMORY`, `PLACEMENT_FAILED`, etc.), `ApiError` class, `ErrorResponse` envelope; dashboard consumption still minimal
 58. ~~App shell: surface stderr + exit reason~~ → **DONE** — `RunnerFailed` with `error_message` + `diagnostics` (MetalGpuTimeout, RingTransportError, CudaOom, etc.); dashboard surfaces in instance cards
 
