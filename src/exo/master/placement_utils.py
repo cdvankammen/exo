@@ -272,6 +272,89 @@ def allocate_layers_proportionally(
     return result
 
 
+def allocate_layers_by_water_filling(
+    total_layers: int,
+    node_throughputs: list[float],
+    link_bandwidths: list[float],
+    max_layers_per_node: list[int],
+) -> list[int]:
+    """Allocate pipeline layers to balance the bottleneck between compute and
+    communication (water-filling, GitHub #957).
+
+    Per-token pipeline decode latency at each stage is bounded by
+    ``max(compute_time, comm_time)`` where:
+
+      - ``compute_time[i]  = layers[i] / node_throughputs[i]``
+      - ``comm_time[i]     = transfer_bytes / link_bandwidths[i]`` (per hop)
+
+    Water-filling assigns layers to the currently least-loaded stage until the
+    load is balanced across all stages or a node hits its memory cap.  This is
+    superior to greedy fill-fastest-first when links are the bottleneck: a fast
+    GPU behind a slow link should not be overloaded.
+
+    Every node keeps at least one layer.  Raises ValueError when allocation is
+    impossible (handled by the placement caller).
+    """
+    n = len(node_throughputs)
+    if n == 0:
+        raise ValueError("Cannot allocate layers to an empty node list")
+    if total_layers < n:
+        raise ValueError(
+            f"Cannot distribute {total_layers} layers across {n} nodes "
+            "(need at least 1 layer per node)"
+        )
+    if len(link_bandwidths) != n:
+        raise ValueError(
+            f"link_bandwidths must have {n} entries (one per node), got "
+            f"{len(link_bandwidths)}"
+        )
+    if any(cap < 1 for cap in max_layers_per_node):
+        raise ValueError(
+            "Every pipeline node must have memory capacity for at least one layer"
+        )
+    if sum(max_layers_per_node) < total_layers:
+        raise ValueError(
+            f"Selected nodes only have capacity for {sum(max_layers_per_node)} of "
+            f"{total_layers} layers"
+        )
+
+    # Start with 1 layer per node (a pipeline stage cannot be empty).
+    result = [1] * n
+    remaining = total_layers - n
+
+    # Normalise per-stage cost coefficients: comm cost is proportional to the
+    # inverse of link bandwidth (assume the node's outgoing hop dominates).
+    # If a link bandwidth is unknown/zero, fall back to a large cost so the
+    # allocator avoids overloading that stage.
+    effective_speeds = [
+        min(node_throughputs[i], link_bandwidths[i])
+        if link_bandwidths[i] > 0
+        else node_throughputs[i]
+        for i in range(n)
+    ]
+
+    # Greedy water-filling: repeatedly hand the next layer to the stage with the
+    # lowest current load (layers / effective_speed) that still has capacity.
+    for _ in range(remaining):
+        # Find the least-loaded stage that has capacity.
+        best_i = -1
+        best_load = float("inf")
+        for i in range(n):
+            if result[i] >= max_layers_per_node[i]:
+                continue  # at capacity
+            load = result[i] / effective_speeds[i] if effective_speeds[i] > 0 else float("inf")
+            if load < best_load:
+                best_load = load
+                best_i = i
+        if best_i < 0:
+            raise ValueError(
+                "No pipeline node has capacity to receive a layer (this should "
+                "have been caught by the total-capacity check)"
+            )
+        result[best_i] += 1
+
+    return result
+
 def _validate_cycle(cycle: Cycle) -> None:
     if not cycle.node_ids:
         raise ValueError("Cannot create shard assignments for empty node cycle")
