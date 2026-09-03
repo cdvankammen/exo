@@ -22,7 +22,7 @@
 31. Periodic cache cleanup + gc.collect() (idle memory leak, #2262)
 32. Input length limiter (66k-token OOM, #560)
 33. Node identity periodic re-announce (lost startup announcement → invisible node)
-34. Log rotation for runner stdout/stderr (Linux log grew to 14GB → disk full)
+34. ~~Log rotation for runner stdout/stderr (Linux log grew to 14GB → disk full)~~ → **DONE (`57eab048`)** — runner subprocess logs rotate; complements main `exo.log` rotation (`009b43c6`)
 
 ### P1 — Quick Wins (week 1-2)
 35. Bandwidth-aware pipeline placement (#957 water-filling algorithm)
@@ -57,6 +57,12 @@
 56. WCAG AA contrast pass
 57. Stable machine-readable error codes (`INSUFFICIENT_MEMORY` etc.)
 58. App shell: surface stderr + exit reason (don't discard)
+
+### Diagnosed — Needs Fix (from 2026-09-02/03 investigation)
+62. Smox node isolation — API server down on exo-amd container (10.2.0.76); zenoh discovers but HTTP unreachable. Needs container restart + code update from `main` to `fix-memory-error`
+63. Download queue stall — bad model card blocks entire queue; needs per-download timeout + dead-letter handling + "stalled" dashboard warning
+64. Election cycling breaks multi-step flows — download/placement state lives on master in-memory; master change loses in-flight operations. Needs persistent download state or master-pin protocol
+65. Network traffic display — show live bytes in/out per node in dashboard topology (needs backend counters + UI)
 
 ### Open Questions
 59. Commit + push CUDA memory limit fix upstream? (genuine bug fix)
