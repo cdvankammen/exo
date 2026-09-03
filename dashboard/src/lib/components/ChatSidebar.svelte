@@ -316,7 +316,7 @@
   </div>
 
   <!-- Conversation List -->
-  <div class="flex-1 overflow-y-auto">
+  <div class="flex-shrink-0 overflow-y-auto max-h-[40vh]">
     {#if filteredConversations.length > 0}
       <div class="py-2">
         <div class="px-4 py-2">
@@ -508,8 +508,8 @@
     {/if}
   </div>
 
-  <!-- Sidebar Logs/Errors panel (collapsible; fills remaining sidebar height when open) -->
-  <div class="flex-shrink min-h-0 flex flex-col overflow-hidden">
+  <!-- Sidebar Logs/Errors panel (collapsible; expands to fill remaining sidebar height) -->
+  <div class="flex-1 min-h-0 flex flex-col overflow-hidden">
     <SidebarLogsPanel />
   </div>
 

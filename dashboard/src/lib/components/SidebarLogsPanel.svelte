@@ -229,7 +229,7 @@
     {/if}
   </button>
 {:else}
-  <div class="flex flex-col border-t border-exo-yellow/10 bg-exo-black/30 min-h-0 overflow-hidden">
+  <div class="flex flex-col flex-1 min-h-0 border-t border-exo-yellow/10 bg-exo-black/30 overflow-hidden">
     <!-- Header bar: click to collapse entire panel + clear-all button -->
     <div class="px-3 py-2 flex items-center justify-between flex-shrink-0 select-none hover:bg-exo-yellow/10 transition-colors">
       <span
@@ -263,12 +263,12 @@
       </div>
     </div>
 
-    <!-- Errors section (collapsible) -->
-    <div class="flex-shrink-0">
+    <!-- Errors section (collapsible, fills remaining space) -->
+    <div class="flex-1 min-h-0 flex flex-col">
       <button
         type="button"
         onclick={toggleErrorsSection}
-        class="w-full px-2 py-1 flex items-center justify-between text-[9px] font-mono uppercase tracking-widest text-exo-light-gray/50 hover:text-exo-light-gray/70 hover:bg-white/[0.02] transition-colors cursor-pointer"
+        class="w-full px-2 py-1 flex items-center justify-between text-[9px] font-mono uppercase tracking-widest text-exo-light-gray/50 hover:text-exo-light-gray/70 hover:bg-white/[0.02] transition-colors cursor-pointer flex-shrink-0"
       >
         <span class="flex items-center gap-1">
           <span class="text-[8px]">{errorsExpanded ? "▾" : "▸"}</span>
@@ -280,10 +280,7 @@
       </button>
 
       {#if errorsExpanded}
-        <div
-          class="overflow-y-auto px-2 pb-1 space-y-1"
-          style="max-height: {errorsSectionHeight}px;"
-        >
+        <div class="flex-1 overflow-y-auto px-2 pb-1 space-y-1">
           {#if loading}
             <div class="text-[10px] text-exo-light-gray/50 font-mono px-1">Loading…</div>
           {:else if errorMsg}
@@ -384,7 +381,7 @@
       </button>
 
       {#if tailExpanded}
-        <div class="px-2 pb-1 overflow-y-auto" style="max-height: {Math.max(40, 600 - errorsSectionHeight)}px; min-height: 40px;">
+        <div class="flex-1 min-h-[40px] px-2 pb-1 overflow-y-auto">
           <pre
             class="text-[9px] font-mono leading-tight text-exo-light-gray/60 whitespace-pre-wrap break-words m-0"
           >{tailLoading ? "Loading…" : tailContent}</pre>

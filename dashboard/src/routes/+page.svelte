@@ -2177,10 +2177,11 @@
   function getInstanceRunnerError(instanceWrapped: unknown): {
     errorMessage: string | null;
     diagnostics: string[];
+    runnerIds: string[];
   } {
     const [, instance] = getTagged(instanceWrapped);
     if (!instance || typeof instance !== "object") {
-      return { errorMessage: null, diagnostics: [] };
+      return { errorMessage: null, diagnostics: [], runnerIds: [] };
     }
     const inst = instance as {
       shardAssignments?: { runnerToShard?: Record<string, unknown> };
@@ -2199,9 +2200,9 @@
       const diags = Array.isArray(rf.diagnostics)
         ? rf.diagnostics.map(String)
         : [];
-      return { errorMessage: rf.error_message ?? null, diagnostics: diags };
+      return { errorMessage: rf.error_message ?? null, diagnostics: diags, runnerIds };
     }
-    return { errorMessage: null, diagnostics: [] };
+    return { errorMessage: null, diagnostics: [], runnerIds };
   }
 
   async function ejectInstance(instanceId: string) {
@@ -5646,14 +5647,14 @@
                         {/if}
 
                         <!-- Runner failure reason (stays visible until ejected) -->
-                        {#if isFailed && instanceRunnerError.errorMessage}
+                        {#if isFailed}
                           <div
                             class="mt-2 rounded border border-red-500/40 bg-red-500/10 p-2"
                           >
                             <div
                               class="text-[11px] font-mono text-red-300 break-words leading-snug"
                             >
-                              {instanceRunnerError.errorMessage}
+                              {instanceRunnerError.errorMessage ?? "Model failed to load — see logs tab for details"}
                             </div>
                             {#if instanceRunnerError.diagnostics.length > 0}
                               <div
@@ -5662,6 +5663,9 @@
                                 {instanceRunnerError.diagnostics.join(" • ")}
                               </div>
                             {/if}
+                            <div class="mt-1.5 text-[9px] font-mono text-exo-light-gray/40">
+                              Runner ID: {instanceRunnerError.runnerIds[0] ?? "unknown"}
+                            </div>
                           </div>
                         {/if}
 
@@ -7015,14 +7019,14 @@
                           {/if}
 
                           <!-- Runner failure reason (stays visible until ejected) -->
-                          {#if isFailed && instanceRunnerError.errorMessage}
+                          {#if isFailed}
                             <div
                               class="mt-2 rounded border border-red-500/40 bg-red-500/10 p-2"
                             >
                               <div
                                 class="text-[11px] font-mono text-red-300 break-words leading-snug"
                               >
-                                {instanceRunnerError.errorMessage}
+                                {instanceRunnerError.errorMessage ?? "Model failed to load — see logs tab for details"}
                               </div>
                               {#if instanceRunnerError.diagnostics.length > 0}
                                 <div
@@ -7031,6 +7035,9 @@
                                   {instanceRunnerError.diagnostics.join(" • ")}
                                 </div>
                               {/if}
+                              <div class="mt-1.5 text-[9px] font-mono text-exo-light-gray/40">
+                                Runner ID: {instanceRunnerError.runnerIds[0] ?? "unknown"}
+                              </div>
                             </div>
                           {/if}
 
