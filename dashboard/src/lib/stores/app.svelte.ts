@@ -73,6 +73,11 @@ export interface NodeInfo {
   network_interfaces?: Array<{
     name?: string;
     addresses?: string[];
+    rx_bytes?: number;
+    tx_bytes?: number;
+    timestamp_ns?: number;
+    rx_rate_bps?: number;
+    tx_rate_bps?: number;
   }>;
   ip_to_interface?: Record<string, string>;
   macmon_info?: {
@@ -153,6 +158,9 @@ interface RawNetworkInterfaceInfo {
   ipv6?: string;
   ipAddresses?: string[];
   ips?: string[];
+  rxBytes?: number;
+  txBytes?: number;
+  timestampNs?: number;
 }
 
 interface RawNodeNetworkInfo {
@@ -477,6 +485,11 @@ interface GranularNodeState {
 function transformNetworkInterface(iface: RawNetworkInterfaceInfo): {
   name?: string;
   addresses: string[];
+  rx_bytes?: number;
+  tx_bytes?: number;
+  timestamp_ns?: number;
+  rx_rate_bps?: number;
+  tx_rate_bps?: number;
 } {
   const addresses: string[] = [];
   if (iface.ipAddress && typeof iface.ipAddress === "string") {
@@ -505,6 +518,10 @@ function transformNetworkInterface(iface: RawNetworkInterfaceInfo): {
   return {
     name: iface.name,
     addresses: Array.from(new Set(addresses)),
+    rx_bytes: typeof iface.rxBytes === "number" ? iface.rxBytes : undefined,
+    tx_bytes: typeof iface.txBytes === "number" ? iface.txBytes : undefined,
+    timestamp_ns:
+      typeof iface.timestampNs === "number" ? iface.timestampNs : undefined,
   };
 }
 

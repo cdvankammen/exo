@@ -6477,6 +6477,34 @@
                         {/if}
                       </div>
                     {/if}
+                    <!-- Per-node network traffic (T52) -->
+                    {#if data?.nodes && Object.keys(data.nodes).length > 0}
+                      {@const hasTraffic = Object.values(data.nodes).some((n: any) =>
+                        n.network_interfaces?.some((iface: any) => iface.rx_bytes != null || iface.tx_bytes != null)
+                      )}
+                      {#if hasTraffic}
+                        <div class="mt-2 pt-2 border-t border-white/5">
+                          <div class="text-[10px] text-white/40 font-mono uppercase tracking-wider mb-1.5">
+                            Network Traffic by Node
+                          </div>
+                          <div class="space-y-1">
+                            {#each Object.entries(data.nodes) as [nodeId, nodeInfo]}
+                              {@const ifaces = (nodeInfo as any)?.network_interfaces ?? []}
+                              {@const totalRx = ifaces.reduce((sum: number, i: any) => sum + (i.rx_bytes ?? 0), 0)}
+                              {@const totalTx = ifaces.reduce((sum: number, i: any) => sum + (i.tx_bytes ?? 0), 0)}
+                              {@const name = (nodeInfo as any)?.friendly_name ?? nodeId.slice(0, 8)}
+                              {#if totalRx > 0 || totalTx > 0}
+                                <div class="flex items-center gap-2 text-[10px] font-mono">
+                                  <span class="w-16 truncate text-white/60">{name}</span>
+                                  <span class="text-green-400/70">↓ {(totalRx / (1024 * 1024)).toFixed(1)}MB</span>
+                                  <span class="text-blue-400/70">↑ {(totalTx / (1024 * 1024)).toFixed(1)}MB</span>
+                                </div>
+                              {/if}
+                            {/each}
+                          </div>
+                        </div>
+                      {/if}
+                    {/if}
                   </div>
                 {/if}
               {/if}
