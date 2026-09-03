@@ -412,7 +412,7 @@
               level,
             )
               ? (LEVEL_STYLES[level] ?? 'text-exo-yellow border-exo-yellow/40')
-              : 'text-exo-light-gray/50 border-exo-medium-gray/30 hover:text-exo-light-gray'}"
+              : 'text-exo-light-gray/70 border-exo-medium-gray/30 hover:text-exo-light-gray'}"
             onclick={() => toggleErrorLevel(level)}
           >
             {level}
@@ -434,7 +434,7 @@
             class="text-xs font-mono uppercase border px-3 py-1 rounded transition-colors {errorNodeFilter.size ===
             0
               ? 'text-exo-yellow border-exo-yellow/40'
-              : 'text-exo-light-gray/50 border-exo-medium-gray/30 hover:text-exo-light-gray'}"
+              : 'text-exo-light-gray/70 border-exo-medium-gray/30 hover:text-exo-light-gray'}"
             onclick={() => (errorNodeFilter = new Set())}
           >
             All
@@ -446,11 +446,11 @@
                 prefix,
               )
                 ? 'text-exo-yellow border-exo-yellow/40'
-                : 'text-exo-light-gray/50 border-exo-medium-gray/30 hover:text-exo-light-gray'}"
+                : 'text-exo-light-gray/70 border-exo-medium-gray/30 hover:text-exo-light-gray'}"
               onclick={() => toggleErrorNodeFilter(prefix)}
             >
               {resolveNodeName(prefix)}
-              <span class="ml-1 normal-case text-exo-light-gray/50"
+              <span class="ml-1 normal-case text-exo-light-gray/70"
                 >({errors.filter((e) => {
                   const m = e.sourceLog.match(NODE_PREFIX_RE);
                   return m ? m[1] === prefix : false;

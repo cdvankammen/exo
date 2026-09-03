@@ -358,7 +358,7 @@
                                 : ""}
                             </div>
                             <div
-                              class="text-exo-light-gray/40 text-[10px] font-mono truncate"
+                              class="text-exo-light-gray/70 text-[10px] font-mono truncate"
                               title={r.id}
                             >
                               {r.id.slice(0, 8)}
@@ -395,7 +395,7 @@
                                 : ""}
                             </div>
                             <div
-                              class="text-exo-light-gray/40 text-[10px] font-mono truncate"
+                              class="text-exo-light-gray/70 text-[10px] font-mono truncate"
                               title={r.id}
                             >
                               {r.id.slice(0, 8)}
@@ -504,7 +504,7 @@
                     : ""}
                 </div>
                 <div
-                  class="text-exo-light-gray/40 text-[10px] font-mono truncate"
+                  class="text-exo-light-gray/70 text-[10px] font-mono truncate"
                   title={row.id}
                 >
                   {row.id.slice(0, 8)}

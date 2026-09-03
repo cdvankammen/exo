@@ -423,7 +423,7 @@
       >
       <span class="text-white font-mono text-sm ml-2">{apiUrl}</span>
       {#if runningModels.length > 0}
-        <div class="text-exo-light-gray/50 text-xs mt-2">
+        <div class="text-exo-light-gray/70 text-xs mt-2">
           Running model{runningModels.length > 1 ? "s" : ""}:
           <ul class="mt-1 space-y-0.5 list-none">
             {#each runningModels as model}
@@ -432,7 +432,7 @@
           </ul>
         </div>
       {:else}
-        <p class="text-exo-light-gray/40 text-xs mt-2 italic">
+        <p class="text-exo-light-gray/70 text-xs mt-2 italic">
           No models currently running
         </p>
       {/if}
@@ -446,7 +446,7 @@
         <div
           class="flex-1 bg-black/20 border border-exo-light-gray/10 rounded px-3 py-2"
         >
-          <span class="text-exo-light-gray/40 text-[10px] uppercase block mb-1"
+          <span class="text-exo-light-gray/70 text-[10px] uppercase block mb-1"
             >OpenAI-compatible</span
           >
           <span class="text-white/80">{apiUrl}/v1</span>
@@ -454,7 +454,7 @@
         <div
           class="flex-1 bg-black/20 border border-exo-light-gray/10 rounded px-3 py-2"
         >
-          <span class="text-exo-light-gray/40 text-[10px] uppercase block mb-1"
+          <span class="text-exo-light-gray/70 text-[10px] uppercase block mb-1"
             >Claude-compatible</span
           >
           <span class="text-white/80">{apiUrl}</span>
@@ -462,7 +462,7 @@
         <div
           class="flex-1 bg-black/20 border border-exo-light-gray/10 rounded px-3 py-2"
         >
-          <span class="text-exo-light-gray/40 text-[10px] uppercase block mb-1"
+          <span class="text-exo-light-gray/70 text-[10px] uppercase block mb-1"
             >Ollama-compatible</span
           >
           <span class="text-white/80">{apiUrl}/ollama</span>
@@ -495,7 +495,7 @@
             {#each [{ label: "Opus", bind: () => opusModel, set: (v: string) => (opusModel = v) }, { label: "Sonnet", bind: () => sonnetModel, set: (v: string) => (sonnetModel = v) }, { label: "Haiku", bind: () => haikuModel, set: (v: string) => (haikuModel = v) }] as tier}
               <div>
                 <span
-                  class="text-exo-light-gray/50 text-[10px] uppercase tracking-wider block mb-1"
+                  class="text-exo-light-gray/70 text-[10px] uppercase tracking-wider block mb-1"
                   >{tier.label}</span
                 >
                 <select
@@ -537,7 +537,7 @@
           {#if runningModels.length > 1}
             <div>
               <span
-                class="text-exo-light-gray/50 text-[10px] uppercase tracking-wider block mb-1"
+                class="text-exo-light-gray/70 text-[10px] uppercase tracking-wider block mb-1"
                 >Model</span
               >
               <select bind:value={codexModel} class={selectClass}>
@@ -549,7 +549,7 @@
           {/if}
           <div class="flex-1">
             <span
-              class="text-exo-light-gray/50 text-[10px] uppercase tracking-wider block mb-1"
+              class="text-exo-light-gray/70 text-[10px] uppercase tracking-wider block mb-1"
               >MCP Filesystem Path</span
             >
             <input
@@ -576,7 +576,7 @@
         {#if runningModels.length > 1}
           <div class="text-xs">
             <span
-              class="text-exo-light-gray/50 text-[10px] uppercase tracking-wider block mb-1"
+              class="text-exo-light-gray/70 text-[10px] uppercase tracking-wider block mb-1"
               >Model</span
             >
             <select bind:value={openClawModel} class={selectClass}>
@@ -603,7 +603,7 @@
         {#if runningModels.length > 1}
           <div class="text-xs">
             <span
-              class="text-exo-light-gray/50 text-[10px] uppercase tracking-wider block mb-1"
+              class="text-exo-light-gray/70 text-[10px] uppercase tracking-wider block mb-1"
               >Model</span
             >
             <select bind:value={piModel} class={selectClass}>

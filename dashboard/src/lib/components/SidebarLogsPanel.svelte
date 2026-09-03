@@ -255,7 +255,7 @@
           <span class="text-[10px] font-mono text-red-400">{activeErrorCount}</span>
         {/if}
         <span
-          class="text-[10px] font-mono text-exo-light-gray/40 cursor-pointer"
+          class="text-[10px] font-mono text-exo-light-gray/70 cursor-pointer"
           onclick={toggleExpanded}
           role="button"
           title="Click to collapse"
@@ -268,7 +268,7 @@
       <button
         type="button"
         onclick={toggleErrorsSection}
-        class="w-full px-2 py-1 flex items-center justify-between text-[9px] font-mono uppercase tracking-widest text-exo-light-gray/50 hover:text-exo-light-gray/70 hover:bg-white/[0.02] transition-colors cursor-pointer flex-shrink-0"
+        class="w-full px-2 py-1 flex items-center justify-between text-[9px] font-mono uppercase tracking-widest text-exo-light-gray/70 hover:text-exo-light-gray/70 hover:bg-white/[0.02] transition-colors cursor-pointer flex-shrink-0"
       >
         <span class="flex items-center gap-1">
           <span class="text-[8px]">{errorsExpanded ? "▾" : "▸"}</span>
@@ -282,11 +282,11 @@
       {#if errorsExpanded}
         <div class="flex-1 overflow-y-auto px-2 pb-1 space-y-1">
           {#if loading}
-            <div class="text-[10px] text-exo-light-gray/50 font-mono px-1">Loading…</div>
+            <div class="text-[10px] text-exo-light-gray/70 font-mono px-1">Loading…</div>
           {:else if errorMsg}
             <div class="text-[10px] text-red-400 font-mono px-1">{errorMsg}</div>
           {:else if visibleErrors.length === 0}
-            <div class="text-[10px] text-exo-light-gray/40 font-mono px-1">
+            <div class="text-[10px] text-exo-light-gray/70 font-mono px-1">
               {dismissedErrors.size > 0 ? "All warnings dismissed." : "No errors in cluster."}
             </div>
           {:else}
@@ -303,15 +303,15 @@
                     title={isExpanded ? "Click to collapse" : "Click to expand full error"}
                   >
                     <span class="uppercase font-bold">{e.level}</span>
-                    <span class="text-exo-light-gray/50 truncate">{e.source ?? "node"}</span>
-                    <span class="ml-auto flex-shrink-0 text-exo-light-gray/40" aria-hidden="true">
+                    <span class="text-exo-light-gray/70 truncate">{e.source ?? "node"}</span>
+                    <span class="ml-auto flex-shrink-0 text-exo-light-gray/70" aria-hidden="true">
                       {isExpanded ? "▾" : "▸"}
                     </span>
                   </button>
                   <button
                     type="button"
                     onclick={() => dismissError(e)}
-                    class="flex-shrink-0 p-0.5 text-exo-light-gray/30 hover:text-red-400 transition-colors cursor-pointer"
+                    class="flex-shrink-0 p-0.5 text-exo-light-gray/60 hover:text-red-400 transition-colors cursor-pointer"
                     title="Dismiss this warning"
                   >
                     <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
@@ -331,17 +331,17 @@
                   {#if isExpanded}
                     {#if e.context && e.context.length > 0}
                       <div class="mt-2 pt-2 border-t border-white/10">
-                        <div class="text-[9px] uppercase tracking-wider text-exo-light-gray/50 mb-1">Context</div>
+                        <div class="text-[9px] uppercase tracking-wider text-exo-light-gray/70 mb-1">Context</div>
                         <pre class="text-[8px] font-mono leading-tight text-exo-light-gray/60 whitespace-pre-wrap break-all bg-black/30 rounded p-1.5 max-h-48 overflow-y-auto">{e.context.join("\n")}</pre>
                       </div>
                     {/if}
                     {#if e.source}
-                      <div class="mt-1 pt-1 border-t border-white/10 text-exo-light-gray/40">
+                      <div class="mt-1 pt-1 border-t border-white/10 text-exo-light-gray/70">
                         {e.source}
                       </div>
                     {/if}
                     {#if e.timestamp}
-                      <div class="mt-0.5 text-exo-light-gray/30">
+                      <div class="mt-0.5 text-exo-light-gray/60">
                         {new Date(e.timestamp).toLocaleString()}
                       </div>
                     {/if}
@@ -372,7 +372,7 @@
       <button
         type="button"
         onclick={toggleTailSection}
-        class="w-full px-2 py-1 flex items-center justify-between text-[9px] font-mono uppercase tracking-widest text-exo-light-gray/50 hover:text-exo-light-gray/70 hover:bg-white/[0.02] transition-colors cursor-pointer"
+        class="w-full px-2 py-1 flex items-center justify-between text-[9px] font-mono uppercase tracking-widest text-exo-light-gray/70 hover:text-exo-light-gray/70 hover:bg-white/[0.02] transition-colors cursor-pointer"
       >
         <span class="flex items-center gap-1">
           <span class="text-[8px]">{tailExpanded ? "▾" : "▸"}</span>

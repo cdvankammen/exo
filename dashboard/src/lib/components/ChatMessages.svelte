@@ -303,27 +303,27 @@
                   ? `Prefix cache: ${message.prefixCacheHit}`
                   : undefined}
               >
-                {#if message.ttftMs}<span class="text-exo-light-gray/50"
+                {#if message.ttftMs}<span class="text-exo-light-gray/70"
                     >TTFT</span
                   >
                   {message.ttftMs.toFixed(
                     0,
                   )}ms{/if}{#if message.ttftMs && message.tps}<span
-                    class="text-exo-light-gray/30 mx-1">•</span
+                    class="text-exo-light-gray/60 mx-1">•</span
                   >{/if}{#if message.tps}{message.tps.toFixed(1)}
-                  <span class="text-exo-light-gray/50">tok/s</span
+                  <span class="text-exo-light-gray/70">tok/s</span
                   >{/if}{#if message.promptTps}<span
-                    class="text-exo-light-gray/30 mx-1">•</span
-                  ><span class="text-exo-light-gray/50">prompt</span>
+                    class="text-exo-light-gray/60 mx-1">•</span
+                  ><span class="text-exo-light-gray/70">prompt</span>
                   {message.promptTps.toFixed(1)}<span
-                    class="text-exo-light-gray/50">tok/s</span
+                    class="text-exo-light-gray/70">tok/s</span
                   >{/if}{#if message.peakMemoryBytes}<span
-                    class="text-exo-light-gray/30 mx-1">•</span
-                  ><span class="text-exo-light-gray/50">peak</span>
+                    class="text-exo-light-gray/60 mx-1">•</span
+                  ><span class="text-exo-light-gray/70">peak</span>
                   {formatBytes(
                     message.peakMemoryBytes,
                   )}{/if}{#if message.prefixCacheHit === "exact" || message.prefixCacheHit === "partial"}<span
-                    class="text-exo-light-gray/30 mx-1">•</span
+                    class="text-exo-light-gray/60 mx-1">•</span
                   ><span class="text-exo-yellow/70"
                     >cache {message.prefixCacheHit}</span
                   >{/if}
@@ -794,7 +794,7 @@
               onclick={() => handleDeleteClick(message.id)}
               disabled={loading}
               class="p-1.5 transition-colors rounded {loading
-                ? 'text-exo-light-gray/30 cursor-not-allowed'
+                ? 'text-exo-light-gray/60 cursor-not-allowed'
                 : 'text-exo-light-gray hover:text-red-400 hover:bg-red-500/10 cursor-pointer'}"
               title={loading
                 ? "Cannot delete while generating"

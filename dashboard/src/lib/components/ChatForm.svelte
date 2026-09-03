@@ -356,7 +356,7 @@
                 <span class="text-exo-yellow truncate">{currentModelLabel}</span
                 >
               {:else}
-                <span class="text-exo-light-gray/50">— SELECT MODEL —</span>
+                <span class="text-exo-light-gray/70">— SELECT MODEL —</span>
               {/if}
             </button>
             <div

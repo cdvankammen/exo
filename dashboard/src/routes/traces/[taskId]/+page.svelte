@@ -232,7 +232,7 @@
           <h2
             class="text-sm font-mono uppercase tracking-wider text-exo-light-gray"
           >
-            By Phase <span class="text-exo-light-gray/50">(avg per node)</span>
+            By Phase <span class="text-exo-light-gray/70">(avg per node)</span>
           </h2>
           <div class="space-y-4">
             {#each phases as phase}
@@ -321,7 +321,7 @@
                         >
                         <span class="font-mono text-white">
                           {formatDuration(phase.totalUs)}
-                          <span class="text-exo-light-gray/50 ml-1">
+                          <span class="text-exo-light-gray/70 ml-1">
                             ({phase.stepCount}x)
                           </span>
                         </span>
@@ -343,10 +343,10 @@
                               >
                               <span class="text-exo-light-gray">
                                 {formatDuration(subcat.stats.totalUs)}
-                                <span class="text-exo-light-gray/50"
+                                <span class="text-exo-light-gray/70"
                                   >({pct})</span
                                 >
-                                <span class="text-exo-light-gray/30 ml-1"
+                                <span class="text-exo-light-gray/60 ml-1"
                                   >{formatDuration(perStep)}/step</span
                                 >
                               </span>

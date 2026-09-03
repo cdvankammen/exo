@@ -294,7 +294,7 @@
               <span
                 role="button"
                 tabindex="-1"
-                class="text-exo-light-gray/40 hover:text-exo-light-gray transition-colors cursor-help inline-flex"
+                class="text-exo-light-gray/70 hover:text-exo-light-gray transition-colors cursor-help inline-flex"
                 onmouseenter={(e: MouseEvent) => showTooltip(rec.category, e)}
                 onmouseleave={() => hideTooltip()}
                 onclick={(e: MouseEvent) => {
@@ -328,7 +328,7 @@
             <p class="text-xs text-exo-light-gray/60 font-mono mt-0.5">
               {formatSize(rec.model.storage_size_megabytes)}
               {#if rec.model.quantization}
-                <span class="text-exo-light-gray/40"
+                <span class="text-exo-light-gray/70"
                   >&middot; {rec.model.quantization}</span
                 >
               {/if}
@@ -342,7 +342,7 @@
         >
           <div class="flex items-center gap-2">
             <svg
-              class="w-4 h-4 text-exo-light-gray/40 flex-shrink-0"
+              class="w-4 h-4 text-exo-light-gray/70 flex-shrink-0"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -355,11 +355,11 @@
               />
             </svg>
             <span
-              class="text-xs font-mono uppercase tracking-wider text-exo-light-gray/50"
+              class="text-xs font-mono uppercase tracking-wider text-exo-light-gray/70"
               >{rec.label}</span
             >
           </div>
-          <p class="text-xs text-exo-light-gray/40 font-mono">No model fits</p>
+          <p class="text-xs text-exo-light-gray/70 font-mono">No model fits</p>
         </div>
       {/if}
     {/each}
@@ -384,7 +384,7 @@
   </button>
 
   <!-- Auto hint -->
-  <p class="text-xs text-exo-light-gray/40 font-mono tracking-wide text-center">
+  <p class="text-xs text-exo-light-gray/70 font-mono tracking-wide text-center">
     Or just start typing &mdash; we'll pick the best model automatically
   </p>
 </div>

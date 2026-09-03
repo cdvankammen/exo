@@ -5664,7 +5664,7 @@
                                 {instanceRunnerError.diagnostics.join(" • ")}
                               </div>
                             {/if}
-                            <div class="mt-1.5 text-[9px] font-mono text-exo-light-gray/40">
+                            <div class="mt-1.5 text-[9px] font-mono text-exo-light-gray/70">
                               Runner ID: {instanceRunnerError.runnerIds[0] ?? "unknown"}
                             </div>
                           </div>
@@ -7064,7 +7064,7 @@
                                   {instanceRunnerError.diagnostics.join(" • ")}
                                 </div>
                               {/if}
-                              <div class="mt-1.5 text-[9px] font-mono text-exo-light-gray/40">
+                              <div class="mt-1.5 text-[9px] font-mono text-exo-light-gray/70">
                                 Runner ID: {instanceRunnerError.runnerIds[0] ?? "unknown"}
                               </div>
                             </div>
