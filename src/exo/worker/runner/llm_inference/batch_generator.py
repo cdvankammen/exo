@@ -1,5 +1,6 @@
 import itertools
 import os
+import re
 import time
 from collections import deque
 from collections.abc import Generator, Iterator
@@ -49,6 +50,18 @@ from exo.worker.runner.bootstrap import logger
 from .model_output_parsers import apply_all_parsers, map_responses_to_chunks
 from .tool_parsers import ToolParser
 
+_OOM_ERROR_RE = re.compile(
+    r"(?:out.of.memory|OOM|cudaMallocAsync|memory allocation|"
+    r"METAL.*device memory|Failed to allocate)",
+    re.IGNORECASE,
+)
+
+def _is_oom_error(exc: Exception) -> bool:
+    """Return True if the exception is an out-of-memory error."""
+    msg = str(exc)
+    if _OOM_ERROR_RE.search(msg):
+        return True
+    return isinstance(exc, MemoryError)
 
 class GeneratorQueue[T]:
     def __init__(self):
@@ -205,6 +218,63 @@ class SequentialGenerator(Engine):
                 self._start_next()
 
         except Exception as e:
+            # P1 #39: OOM graceful degradation — evict KV cache and retry once
+            # instead of crashing the runner with SIGABRT. The retry rebuilds
+            # the generator from scratch (fresh KV cache, no stale state).
+            if _is_oom_error(e) and self.kv_prefix_cache is not None:
+                logger.warning(
+                    f"OOM during generation for task {task.task_id}: {e}. "
+                    "Evicting KV cache and retrying once."
+                )
+                try:
+                    self.kv_prefix_cache.clear()
+                    import gc
+
+                    gc.collect()
+                    mx.clear_cache()
+                except Exception:
+                    pass
+                # Rebuild the generator and retry one step
+                try:
+                    gen = self._build_generator(task)
+                    queue = GeneratorQueue[GenerationResponse]()
+                    if task.task_params.bench:
+                        output_generator = map(
+                            lambda r: map_responses_to_chunks(r, self.model_id),
+                            queue.gen(),
+                        )
+                    else:
+                        output_generator = apply_all_parsers(
+                            queue.gen(),
+                            apply_chat_template(self.tokenizer, task.task_params),
+                            self.tool_parser,
+                            self.tokenizer,
+                            type(self.model),
+                            self.model_id,
+                            task.task_params.tools,
+                        )
+                    self._active = (task, gen, queue, output_generator)
+                    response = next(gen)
+                    queue.push(response)
+                    while (parsed := next(output_generator, None)) is not None:
+                        output.append((task.task_id, parsed))
+                    return filter(
+                        lambda chunk: (
+                            not isinstance(chunk[1], GenerationChunk)
+                            or self.device_rank == 0
+                        ),
+                        itertools.chain(
+                            output,
+                            map(
+                                lambda t: (t, CancelledResponse()),
+                                self._cancelled_tasks,
+                            ),
+                        ),
+                    )
+                except Exception as retry_e:
+                    self._send_error(task, retry_e)
+                    self._active = None
+                    raise
             self._send_error(task, e)
             self._active = None
             raise
