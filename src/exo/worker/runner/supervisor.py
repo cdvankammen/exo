@@ -2,10 +2,13 @@ import codecs
 import contextlib
 import signal
 from dataclasses import dataclass, field
+from datetime import datetime, timezone
 from os import PathLike
+from pathlib import Path
 from typing import Callable, Self
 
 import anyio
+import zstandard
 from anyio import (
     AsyncFile,
     BrokenResourceError,
@@ -14,7 +17,12 @@ from anyio import (
 )
 from loguru import logger
 
-from exo.shared.constants import EXO_RUNNER_STDERR_LOG, EXO_RUNNER_STDOUT_LOG
+from exo.shared.constants import (
+    EXO_RUNNER_LOG_MAX_ARCHIVES,
+    EXO_RUNNER_LOG_MAX_BYTES,
+    EXO_RUNNER_STDERR_LOG,
+    EXO_RUNNER_STDOUT_LOG,
+)
 from exo.shared.types.chunks import ErrorChunk
 from exo.shared.types.events import (
     ChunkGenerated,
@@ -58,12 +66,41 @@ PREFILL_TIMEOUT_SECONDS = 60
 DECODE_TIMEOUT_SECONDS = 5
 
 
+def _rotate_log_file(source: Path) -> None:
+    """Compress *source* into a timestamped ``.zst`` archive and prune old ones.
+
+    Mirrors ``DiskEventLog._rotate`` (src/exo/utils/disk_event_log.py): keeps at
+    most ``EXO_RUNNER_LOG_MAX_ARCHIVES`` compressed copies.  This prevents the
+    runner stdout/stderr logs from growing unbounded and filling the disk
+    (see L36: a 14GB log killed a Linux node).
+    """
+    try:
+        stamp = datetime.now(timezone.utc).strftime("%Y-%m-%d_%H-%M-%S_%f")
+        dest = source.with_name(f"{source.name}.{stamp}.zst")
+        compressor = zstandard.ZstdCompressor()
+        with source.open("rb") as f_in, dest.open("wb") as f_out:
+            compressor.copy_stream(f_in, f_out)
+        source.unlink()
+        logger.info(f"Rotated runner log: {source} -> {dest}")
+
+        archives = sorted(source.parent.glob(f"{source.name}.*.zst"))
+        for old in archives[:-EXO_RUNNER_LOG_MAX_ARCHIVES]:
+            old.unlink()
+    except Exception as e:
+        logger.opt(exception=e).warning(f"Failed to rotate runner log {source}")
+        # Even if compression fails, truncate the source so it can't grow forever.
+        with contextlib.suppress(OSError):
+            source.unlink()
+
+
 @dataclass(eq=False)
 class RunnerStdioHandler:
     _stdout_rx: Receiver[bytes]
     _stderr_rx: Receiver[bytes]
     _stdout_log: AsyncFile[str]
     _stderr_log: AsyncFile[str]
+    _stdout_log_path: Path
+    _stderr_log_path: Path
     diagnostics: RunnerDiagnosticCollector = field(
         default_factory=RunnerDiagnosticCollector
     )
@@ -79,6 +116,12 @@ class RunnerStdioHandler:
         stdout_log_path: PathLike[str] = EXO_RUNNER_STDOUT_LOG,
         stderr_log_path: PathLike[str] = EXO_RUNNER_STDERR_LOG,
     ) -> Self:
+        # Rotate stale logs from a previous session/crash so the new run starts
+        # with an empty file (mirrors DiskEventLog._rotate on startup).
+        for path in (stdout_log_path, stderr_log_path):
+            path_obj = Path(path)
+            if path_obj.exists() and path_obj.stat().st_size > EXO_RUNNER_LOG_MAX_BYTES:
+                _rotate_log_file(path_obj)
         # these are append only logs used to gather data for log template mining
         #
         # TODO: in the future use [Drain3](https://github.com/logpai/Drain3)
@@ -94,6 +137,8 @@ class RunnerStdioHandler:
             _stderr_rx=stderr_rx,
             _stdout_log=stdout_log,
             _stderr_log=stderr_log,
+            _stdout_log_path=Path(stdout_log_path),
+            _stderr_log_path=Path(stderr_log_path),
         )
         return self
 
@@ -104,6 +149,7 @@ class RunnerStdioHandler:
                     self._handle_runner_output,
                     self._stdout_rx,
                     self._stdout_log,
+                    self._stdout_log_path,
                     lambda line: logger.info(f"Runner stdout: {line}"),  # pyright: ignore[reportUnknownLambdaType]
                     lambda _: None,  # pyright: ignore[reportUnknownLambdaType]
                 )
@@ -111,6 +157,7 @@ class RunnerStdioHandler:
                     self._handle_runner_output,
                     self._stderr_rx,
                     self._stderr_log,
+                    self._stderr_log_path,
                     lambda line: logger.warning(f"Runner stderr: {line}"),  # pyright: ignore[reportUnknownLambdaType]
                     self.diagnostics.record_line,
                 )
@@ -123,6 +170,7 @@ class RunnerStdioHandler:
         self,
         rx: Receiver[bytes],
         logfile: AsyncFile[str],
+        log_path: Path,
         log_line: Callable[[str], None],
         record_diagnostic_line: Callable[[str], None],
     ):
@@ -134,6 +182,9 @@ class RunnerStdioHandler:
         # not using TextReceiveStream because it doesn't do final=True handling on errors
         decoder = codecs.getincrementaldecoder("utf-8")(errors="replace")
         pending_line = ""
+        # Mutable container so handle_text can reassign the active logfile
+        # after rotation and the finally block sees the updated reference.
+        active_logfile: list[AsyncFile[str]] = [logfile]
 
         async def handle_line(line: str):
             # preserve whitespace for later log-mining
@@ -151,8 +202,23 @@ class RunnerStdioHandler:
             if not text:
                 return
 
-            await logfile.write(text)
-            await logfile.flush()
+            current = active_logfile[0]
+            await current.write(text)
+            await current.flush()
+
+            # Mid-run size-based rotation: if the log has grown past the limit
+            # (e.g. a runner spews gigabytes of output — see L36 where a 14GB
+            # log filled the disk), close it, archive it, and reopen fresh so
+            # the active file can never exceed EXO_RUNNER_LOG_MAX_BYTES.
+            try:
+                if log_path.exists() and log_path.stat().st_size > EXO_RUNNER_LOG_MAX_BYTES:
+                    await current.aclose()
+                    _rotate_log_file(log_path)
+                    active_logfile[0] = await anyio.open_file(log_path, "a")
+            except (OSError, RuntimeError) as e:
+                logger.opt(exception=e).warning(
+                    f"Runner log rotation check failed for {log_path}"
+                )
 
             # newline buffering
             pending_line += text
@@ -171,7 +237,7 @@ class RunnerStdioHandler:
         finally:
             with CancelScope(shield=True):
                 await handle_text(decoder.decode(b"", final=True))
-                await logfile.flush()
+                await active_logfile[0].flush()
 
                 if pending_line:
                     await handle_line(pending_line)
