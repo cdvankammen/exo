@@ -381,6 +381,7 @@ def _allocate_and_validate_layers(
     model_card: ModelCard,
     force_override: bool = False,
     node_identities: Mapping[NodeId, NodeIdentity] | None = None,
+    link_bandwidths: list[float] | None = None,
 ) -> list[int]:
     # NOTE (memory-override feature, coordinated with RDMA multi-link commit):
     # The RDMA commit added `max_layers_per_node` caps (per-node memory limits
@@ -405,7 +406,26 @@ def _allocate_and_validate_layers(
         for node_id in node_ids
     ]
 
-    if not force_override and all(
+    # Water-filling (P1 #35 / GitHub #957): when topology bandwidth is available
+    # for every pipeline hop AND GPU bandwidth is known for every node, balance
+    # the bottleneck between per-stage compute and inter-stage communication.
+    # Falls through to the greedy throughput allocator when links are unknown.
+    if (
+        not force_override
+        and caps is not None
+        and link_bandwidths is not None
+        and len(link_bandwidths) == len(node_ids)
+        and all(bandwidth is not None for bandwidth in node_bandwidths)
+    ):
+        layer_allocations = allocate_layers_by_water_filling(
+            total_layers=model_card.n_layers,
+            node_throughputs=[
+                bandwidth for bandwidth in node_bandwidths if bandwidth is not None
+            ],
+            link_bandwidths=link_bandwidths,
+            max_layers_per_node=caps,
+        )
+    elif not force_override and all(
         bandwidth is not None for bandwidth in node_bandwidths
     ):
         # Decode throughput is bounded by the sum of per-stage times, so load
