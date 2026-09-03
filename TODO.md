@@ -51,16 +51,16 @@
 52. Graceful degradation (circuit breaker, instance migration)
 
 ### Dashboard/UX Backlog
-53. Logs page: per-node + aggregated "all nodes" view
-54. Error table on Logs page (structured WARNING/ERROR list)
-55. Log-level filter buttons
-56. WCAG AA contrast pass
-57. Stable machine-readable error codes (`INSUFFICIENT_MEMORY` etc.)
-58. App shell: surface stderr + exit reason (don't discard)
+~~53. Logs page: per-node + aggregated "all nodes" view~~ → **DONE (`f1611a55`)** — node filter chips on errors view parse source_log prefix (`node_id::`) to identify remote nodes, resolve to friendly names via nodeIdentities, All/per-node filter with counts
+54. ~~Error table on Logs page (structured WARNING/ERROR list)~~ → **DONE** — full error table with Time/Level/Source/Message/Log columns, parsed via `_parse_log_errors()`, sidebar error cards
+55. ~~Log-level filter buttons~~ → **DONE** — CRITICAL/ERROR/WARNING chips with counts, color-coded
+56. WCAG AA contrast pass — **NEEDS AUDIT** — multiple low-opacity text values (`/50`, `/60`, `/70`) likely fail 4.5:1 ratio
+57. ~~Stable machine-readable error codes~~ → **DONE at API level** — `ErrorCode` Literal with 13 codes (`INSUFFICIENT_MEMORY`, `PLACEMENT_FAILED`, etc.), `ApiError` class, `ErrorResponse` envelope; dashboard consumption still minimal
+58. ~~App shell: surface stderr + exit reason~~ → **DONE** — `RunnerFailed` with `error_message` + `diagnostics` (MetalGpuTimeout, RingTransportError, CudaOom, etc.); dashboard surfaces in instance cards
 
 ### Diagnosed — Needs Fix (from 2026-09-02/03 investigation)
 62. Smox node isolation — API server down on exo-amd container (10.2.0.76); zenoh discovers but HTTP unreachable. Needs container restart + code update from `main` to `fix-memory-error` — **DEFERRED (infra-only, no code path in this branch)**
-63. Download queue stall — bad model card blocks entire queue; partially mitigated by `9945231c` (removed GLM-4.7 card), but general per-download timeout + dead-letter handling still needed — **TRACKED as new task T53**
+~~63. Download queue stall~~ → **DONE (`8bed4ca4` T53)** — `DownloadStalled` type + `_stall_watchdog()` in DownloadCoordinator polls active downloads, cancels stalled ones after `EXO_DOWNLOAD_STALL_TIMEOUT_SECS` (30min default); `_stalled_models` set distinguishes watchdog cancel (preserves status for retry) from user cancel (clears status)
 64. Election cycling breaks multi-step flows — download/placement state lives on master in-memory; master change loses in-flight operations. Needs persistent download state or master-pin protocol — **DEFERRED (P5 architectural, tracked in research/master-implementation-plan)**
 ~~65. Network traffic display~~ → **BACKEND DONE (`67020f5f`)** + **UI DONE (`ea766091`)** — per-node rx/tx in placement panel
 ~~66. Bandwidth-aware pipeline placement~~ → **duplicate of P1 #35, DONE (`35153898`)**
@@ -69,5 +69,5 @@
 
 ### Open Questions
 59. Commit + push CUDA memory limit fix upstream? (genuine bug fix) — **DECISION: DEFER** — fix is in our `fix-memory-error` branch; upstream PR requires maintainer buy-in and a clean isolated commit. Track as follow-up when branch merges.
-60. Wire `EXO_ZENOH_NAMESPACE` env var to `--namespace` CLI? — **DECISION: YES, wire it** — CLI `--namespace` exists (`main.py:593`, default=`__version__`), env var is currently cosmetic (logged at `main.py:440`, declared in `settings.py:96`). Add `default=os.getenv('EXO_ZENOH_NAMESPACE', __version__)` so env var and CLI agree. **TRACKED as new task T54**.
+~~60. Wire `EXO_ZENOH_NAMESPACE` env var to `--namespace` CLI?~~ → **DONE (`1c3af9bf` T54)** — `default=os.getenv('EXO_ZENOH_NAMESPACE', __version__)` at `main.py:595`; env var and CLI now agree; `--help` documents env var
 61. Upstream PR: CUDA ring attention `_is_cuda_backend()` stream fix — **DECISION: DEFER** — function at `ring_attention.py:58` correctly checks `linux + gpu`; our local fix is sufficient. Upstream PR only needed if ml-explore/mlx adds CUDA backend support.
