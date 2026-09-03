@@ -9,7 +9,7 @@ from collections.abc import AsyncGenerator, Awaitable, Callable, Iterable
 from datetime import datetime, timezone
 from http import HTTPStatus
 from pathlib import Path
-from typing import Annotated, Any, Literal, cast
+from typing import Annotated, Any, Literal, Sequence, cast
 from uuid import uuid4
 
 import anyio
@@ -155,7 +155,9 @@ from exo.shared.constants import (
     EXO_EVENT_LOG_DIR,
     EXO_IMAGE_CACHE_DIR,
     EXO_LOG,
+    EXO_CHARS_PER_TOKEN,
     EXO_MAX_CHUNK_SIZE,
+    EXO_MAX_INPUT_TOKENS,
     EXO_RUNNER_STDERR_LOG,
     EXO_RUNNER_STDOUT_LOG,
     EXO_TRACING_CACHE_DIR,
@@ -370,6 +372,63 @@ def _error_code_for(exc: HTTPException) -> ErrorCode:
     if exc.status_code in (400, 422):
         return "INVALID_REQUEST"
     return "INTERNAL_ERROR"
+
+
+# ── Input length guard (GitHub #560) ──────────────────────────────────────────
+# 66k-token inputs on a 24GB Mac Mini caused Metal OOM.  The API layer has no
+# tokenizer, so we count characters and use a heuristic (EXO_CHARS_PER_TOKEN
+# chars ≈ 1 token).  Text-only; images are not counted since they bypass the
+# token-based prefill path.
+def _estimate_message_chars(
+    messages: Sequence[object],
+) -> int:
+    """Return the total character count across all text content in *messages*.
+
+    Handles ChatCompletionMessage, ClaudeMessage, OllamaMessage, and raw dicts
+    produced by the various API adapters.
+    """
+    total = 0
+    for msg in messages:
+        content: object
+        if isinstance(msg, dict):
+            content = msg.get("content")  # pyright: ignore
+        else:
+            content = getattr(msg, "content", None)
+        if content is None:
+            continue
+        if isinstance(content, str):
+            total += len(content)
+        elif isinstance(content, list):
+            for part in content:  # pyright: ignore
+                if isinstance(part, dict):
+                    if part.get("type") == "text":  # pyright: ignore
+                        text_val = part.get("text")  # pyright: ignore
+                        if isinstance(text_val, str):
+                            total += len(text_val)
+                else:
+                    text_attr = getattr(part, "text", None)  # pyright: ignore
+                    if isinstance(text_attr, str):
+                        total += len(text_attr)
+    return total
+
+
+def _check_input_length(
+    messages: Sequence[object],
+) -> None:
+    """Raise a 400 ApiError if the input is estimated to exceed the token limit."""
+    char_count = _estimate_message_chars(messages)
+    est_tokens = max(1, char_count // max(EXO_CHARS_PER_TOKEN, 1))
+    if est_tokens > EXO_MAX_INPUT_TOKENS:
+        raise ApiError(
+            status_code=400,
+            detail=(
+                f"Input too long: estimated {est_tokens:,} tokens "
+                f"(character limit exceeded: {char_count:,} chars > "
+                f"{EXO_MAX_INPUT_TOKENS * EXO_CHARS_PER_TOKEN:,}). "
+                f"Reduce the input or set EXO_MAX_INPUT_TOKENS higher."
+            ),
+            error_code="INPUT_TOO_LONG",
+        )
 
 
 def _require_disaggregation_enabled() -> None:
@@ -1378,6 +1437,9 @@ class API:
     ) -> ChatCompletionResponse | StreamingResponse:
         """OpenAI Chat Completions API - adapter."""
         self._enforce_text_generation_backpressure()
+        # P0 #32: reject oversized inputs before they reach the runner.
+        # 66k-token prompts on a 24GB Mac Mini caused Metal OOM (#560).
+        _check_input_length(payload.messages)
         # T28: validate the JSON schema at request time so unsupported schemas
         # fail with a clean 400 instead of mid-generation.
         if payload.response_format is not None:
@@ -2047,6 +2109,7 @@ class API:
         self, payload: ClaudeMessagesRequest
     ) -> ClaudeMessagesResponse | StreamingResponse:
         """Claude Messages API - adapter."""
+        _check_input_length(payload.messages)
         task_params = await claude_request_to_text_generation(payload)
         validated_model = await self._validate_model_has_instance(
             ModelId(task_params.model)
@@ -2128,6 +2191,7 @@ class API:
         """Ollama Chat API — accepts JSON regardless of Content-Type."""
         body = await request.body()
         payload = OllamaChatRequest.model_validate_json(body)
+        _check_input_length(payload.messages)
         task_params = ollama_request_to_text_generation(payload)
         validated_model = await self._validate_model_has_instance(
             ModelId(task_params.model)
@@ -2164,6 +2228,9 @@ class API:
         """Ollama Generate API — accepts JSON regardless of Content-Type."""
         body = await request.body()
         payload = OllamaGenerateRequest.model_validate_json(body)
+        # Ollama generate uses a prompt string, not a messages list;
+        # adapt to _check_input_length by wrapping in a minimal dict.
+        _check_input_length([{"content": payload.prompt}])
         task_params = ollama_generate_request_to_text_generation(payload)
         validated_model = await self._validate_model_has_instance(
             ModelId(task_params.model)

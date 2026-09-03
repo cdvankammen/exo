@@ -116,6 +116,14 @@ ENABLE_DISAGGREGATION = os.getenv("ENABLE_DISAGGREGATION", "false").lower() == "
 
 EXO_MAX_CONCURRENT_REQUESTS = int(os.getenv("EXO_MAX_CONCURRENT_REQUESTS", "8"))
 
+# Maximum input length (in estimated tokens) accepted by the API.
+# The API layer has no tokenizer loaded, so this is enforced via a character
+# heuristic (~4 chars/token for English, configurable via EXO_CHARS_PER_TOKEN).
+# Oversized inputs cause Metal OOM during prefill (#560 — 66k-token input
+# crashed a 24GB Mac Mini). Default 128k tokens ≈ 512k characters.
+EXO_MAX_INPUT_TOKENS = int(os.getenv("EXO_MAX_INPUT_TOKENS", "128000"))
+EXO_CHARS_PER_TOKEN = int(os.getenv("EXO_CHARS_PER_TOKEN", "4"))
+
 EXO_MAX_INSTANCE_RETRIES = 5
 
 # Optional API bearer token (T23). When set, all API routes except the

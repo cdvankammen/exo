@@ -32,6 +32,7 @@ ErrorCode = Literal[
     "NODE_NOT_FOUND",
     "INSTANCES_RUNNING",
     "NOT_FOUND",
+    "INPUT_TOO_LONG",
     "INTERNAL_ERROR",
 ]
 
