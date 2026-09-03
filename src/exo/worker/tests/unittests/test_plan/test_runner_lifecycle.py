@@ -213,3 +213,45 @@ def test_plan_does_not_create_runner_for_unassigned_node():
     )
 
     assert result is None
+
+
+def test_plan_does_not_create_runner_when_memory_overloaded():
+    """
+    P1 #40: When memory is critically high (>90%), plan() should NOT create
+    a new runner to avoid OOM crash loops.
+    """
+    from typing import Any
+
+    shard = get_pipeline_shard_metadata(model_id=MODEL_A_ID, device_rank=0)
+    instance = get_mlx_ring_instance(
+        instance_id=INSTANCE_1_ID,
+        model_id=MODEL_A_ID,
+        node_to_runner={NODE_A: RUNNER_1_ID},
+        runner_to_shard={RUNNER_1_ID: shard},
+    )
+
+    runners: dict[RunnerId, Any] = {}
+    instances = {INSTANCE_1_ID: instance}
+    all_runners: dict[RunnerId, Any] = {}
+
+    # Monkeypatch _is_memory_overloaded to return True
+    original = plan_mod._is_memory_overloaded  # type: ignore[attr-defined]
+    plan_mod._is_memory_overloaded = lambda: True  # type: ignore[attr-defined]
+    try:
+        result = plan_mod.plan(
+            node_id=NODE_A,
+            runners=runners,  # type: ignore
+            global_download_status={NODE_A: []},
+            instances=instances,
+            all_runners=all_runners,
+            tasks={},
+            input_chunk_buffer={},
+            image_cache={},
+            instance_backoff=KeyedBackoff(),
+            download_backoff=KeyedBackoff(),
+        )
+    finally:
+        plan_mod._is_memory_overloaded = original  # type: ignore[attr-defined]
+
+    # Should NOT create a runner when memory is overloaded
+    assert not isinstance(result, plan_mod.CreateRunner)

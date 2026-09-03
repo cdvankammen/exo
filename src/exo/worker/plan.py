@@ -44,7 +44,23 @@ from exo.shared.types.worker.runners import (
     RunnerWarmingUp,
 )
 from exo.utils.keyed_backoff import KeyedBackoff
+from exo.utils.virtual_memory import virtual_memory_statistics
 from exo.worker.runner.supervisor import RunnerSupervisor
+
+# P1 #40: Skip runner creation when memory usage is too high (>90%).
+# Restarting a runner allocates weights, KV caches, and activation buffers;
+# if memory is already near capacity the new runner will immediately OOM and
+# enter a crash → restart loop that never converges.
+_EXO_RESTART_MEMORY_THRESHOLD = 0.90
+
+
+def _is_memory_overloaded() -> bool:
+    """Return True if system memory usage exceeds the restart threshold."""
+    stats = virtual_memory_statistics()
+    if stats.total_bytes == 0:
+        return False
+    used_fraction = (stats.total_bytes - stats.available_bytes) / stats.total_bytes
+    return used_fraction >= _EXO_RESTART_MEMORY_THRESHOLD
 
 
 def instance_to_reset_backoff(
@@ -162,6 +178,12 @@ def _create_runner(
             continue
 
         if not instance_backoff.should_proceed(instance.instance_id):
+            continue
+
+        # P1 #40: Don't start a new runner if memory is critically low.
+        # The new process will load weights + allocate KV cache, which almost
+        # certainly triggers OOM again and enters a crash→restart loop.
+        if _is_memory_overloaded():
             continue
 
         return CreateRunner(
