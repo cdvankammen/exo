@@ -47,8 +47,28 @@ class DownloadOngoing(BaseDownloadProgress):
     download_progress: DownloadProgressData
 
 
+class DownloadStalled(BaseDownloadProgress):
+    """A download that has made zero progress for longer than the stall timeout.
+
+    Unlike DownloadFailed (which is terminal), a stalled download can be
+    retried. The coordinator moves downloads here when its watchdog detects
+    no byte progress for EXO_DOWNLOAD_STALL_TIMEOUT_SECS seconds, then cancels
+    the underlying task. The dashboard renders these with a warning so the
+    user can retry instead of the queue being silently blocked.
+    """
+
+    error_message: str = "download stalled (no progress for extended period)"
+    stalled_at: float = 0.0
+    downloaded: Memory = Memory()
+    total: Memory = Memory()
+
+
 DownloadProgress = (
-    DownloadPending | DownloadCompleted | DownloadFailed | DownloadOngoing
+    DownloadPending
+    | DownloadCompleted
+    | DownloadFailed
+    | DownloadOngoing
+    | DownloadStalled
 )
 
 

@@ -78,6 +78,15 @@ DASHBOARD_DIR = (
 
 # Log files (data/logs or cache)
 EXO_LOG_DIR = EXO_CACHE_HOME / "exo_log"
+
+# Download stall watchdog: if a download makes zero byte progress for this many
+# seconds, the coordinator moves it to DownloadStalled and cancels the task.
+# Defaults to 30 minutes — long enough for slow HF mirrors, short enough to
+# unblock the queue when a connection silently drops. Override with
+# EXO_DOWNLOAD_STALL_TIMEOUT_SECS.
+EXO_DOWNLOAD_STALL_TIMEOUT_SECS = float(
+    os.environ.get("EXO_DOWNLOAD_STALL_TIMEOUT_SECS", str(30 * 60))
+)
 EXO_LOG = EXO_LOG_DIR / "exo.log"
 EXO_RUNNER_LOG_DIR = EXO_LOG_DIR / "runner_log"
 EXO_RUNNER_STDOUT_LOG = EXO_RUNNER_LOG_DIR / "stdout.log"

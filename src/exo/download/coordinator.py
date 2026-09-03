@@ -20,7 +20,11 @@ from exo.routing.event_router import (
     EventRouterBrokenResourceError,
     EventRouterClosedResourceError,
 )
-from exo.shared.constants import EXO_DEFAULT_MODELS_DIR, EXO_MODELS_READ_ONLY_DIRS
+from exo.shared.constants import (
+    EXO_DEFAULT_MODELS_DIR,
+    EXO_DOWNLOAD_STALL_TIMEOUT_SECS,
+    EXO_MODELS_READ_ONLY_DIRS,
+)
 from exo.shared.models import model_cards
 from exo.shared.models.model_cards import ModelId
 from exo.shared.types.commands import (
@@ -41,6 +45,7 @@ from exo.shared.types.worker.downloads import (
     DownloadOngoing,
     DownloadPending,
     DownloadProgress,
+    DownloadStalled,
 )
 from exo.shared.types.worker.shards import PipelineShardMetadata, ShardMetadata
 from exo.utils.channels import Receiver, Sender
@@ -64,6 +69,17 @@ class DownloadCoordinator:
 
     # Per-model throttle for download progress events
     _last_progress_time: dict[ModelId, float] = field(default_factory=dict)
+
+    # Stall watchdog: tracks last-known byte count per model. When bytes don't
+    # change for EXO_DOWNLOAD_STALL_TIMEOUT_SECS, the download is moved to
+    # DownloadStalled and its task is cancelled so the queue can proceed.
+    _last_download_bytes: dict[ModelId, Memory] = field(default_factory=dict)
+    _download_started_at: dict[ModelId, float] = field(default_factory=dict)
+    # Models the watchdog has marked as stalled. Used to distinguish a
+    # watchdog-driven cancellation (status must be kept as DownloadStalled so
+    # the worker retries / the UI can warn) from a user-initiated cancel
+    # (status must be cleared so a re-download isn't blocked).
+    _stalled_models: set[ModelId] = field(default_factory=set)
 
     def __post_init__(self) -> None:
         self.shard_downloader.on_progress(self._download_progress_callback)
@@ -130,6 +146,8 @@ class DownloadCoordinator:
                     model_directory=self._default_model_dir(model_id),
                 )
                 self.download_status[model_id] = ongoing
+                self._last_download_bytes[model_id] = progress.downloaded
+                self._download_started_at.setdefault(model_id, current_time())
                 try:
                     await self.event_sender.send(
                         NodeDownloadProgress(download_progress=ongoing)
@@ -150,6 +168,7 @@ class DownloadCoordinator:
             async with self._tg as tg:
                 tg.start_soon(self._command_processor)
                 tg.start_soon(self._emit_existing_download_progress)
+                tg.start_soon(self._stall_watchdog)
         except* (EventRouterBrokenResourceError, EventRouterClosedResourceError):
             # Event router has been closed (try-star syntax handles error groups)
             pass
@@ -345,12 +364,14 @@ class DownloadCoordinator:
                     return
             except anyio.get_cancelled_exc_class():
                 # Cancelled: clear the local status so the model is not stuck
-                # in a stale ongoing/pending state (port of PR #1614). Unlike
-                # upstream we don't re-raise: the coordinator's task group owns
-                # this wrapper and the cancellation is already contained by the
-                # cancel scope below.
+                # in a stale ongoing/pending state (port of PR #1614) — UNLESS
+                # the watchdog marked it stalled, in which case the
+                # DownloadStalled status is kept so the worker can retry and
+                # the dashboard can surface the warning.
                 logger.info(f"Download cancelled for {model_id}")
-                if model_id in self.download_status:
+                if model_id in self._stalled_models:
+                    self._stalled_models.discard(model_id)
+                elif model_id in self.download_status:
                     del self.download_status[model_id]
                 self._last_progress_time.pop(model_id, None)
             finally:
@@ -359,6 +380,58 @@ class DownloadCoordinator:
         scope = anyio.CancelScope()
         self._tg.start_soon(download_wrapper, scope)
         self.active_downloads[model_id] = scope
+
+    async def _stall_watchdog(self) -> None:
+        """Watch for downloads making zero progress over the stall timeout.
+
+        If a download's byte counter hasn't moved for EXO_DOWNLOAD_STALL_TIMEOUT_SECS
+        seconds, emit DownloadStalled and cancel the task so the queue is not
+        blocked forever by a silently-dropped connection (T53).
+        """
+        poll_interval = max(5.0, EXO_DOWNLOAD_STALL_TIMEOUT_SECS / 10.0)
+        while True:
+            await anyio.sleep(poll_interval)
+            now = current_time()
+            for model_id, cancel_scope in list(self.active_downloads.items()):
+                last_bytes = self._last_download_bytes.get(model_id)
+                started_at = self._download_started_at.get(model_id, now)
+                # Give the download a grace window of at least one poll interval
+                # after it starts before we can call it stalled.
+                if now - started_at < poll_interval:
+                    continue
+                status = self.download_status.get(model_id)
+                if not isinstance(status, DownloadOngoing):
+                    continue
+                downloaded = status.download_progress.downloaded
+                if last_bytes is not None and downloaded <= last_bytes:
+                    stalled_for = now - self._last_progress_time.get(model_id, started_at)
+                    if stalled_for >= EXO_DOWNLOAD_STALL_TIMEOUT_SECS:
+                        logger.warning(
+                            f"Download stalled for {model_id}: no progress for "
+                            f"{stalled_for:.0f}s; cancelling to unblock queue"
+                        )
+                        self.download_status[model_id] = DownloadStalled(
+                            shard_metadata=status.shard_metadata,
+                            node_id=self.node_id,
+                            model_directory=status.model_directory,
+                            stalled_at=now,
+                            downloaded=downloaded,
+                            total=status.download_progress.total,
+                        )
+                        with contextlib.suppress(
+                            anyio.BrokenResourceError, anyio.ClosedResourceError
+                        ):
+                            await self.event_sender.send(
+                                NodeDownloadProgress(
+                                    download_progress=self.download_status[model_id]
+                                )
+                            )
+                        self._stalled_models.add(model_id)
+                        cancel_scope.cancel()
+                else:
+                    # Progress was made; update the baseline
+                    self._last_download_bytes[model_id] = downloaded
+                    self._last_progress_time[model_id] = now
 
     async def _delete_download(self, model_id: ModelId) -> None:
         # Protect read-only models from deletion
