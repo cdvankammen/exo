@@ -31,7 +31,7 @@
 38. Pipeline activation memory estimate (~10% of weights)
 39. OOM graceful degradation (evict → halve batch → retry instead of SIGABRT)
 40. Auto-restart VRAM check (skip restart if memory >90%)
-41. BUG3: tryingexo nodes outgoing edges (deploy latest containers, verify cycles)
+~~41. BUG3: tryingexo nodes outgoing edges (deploy latest containers, verify cycles)~~ → **VERIFIED (86f9f246)** — tryingexo nodes have outgoing edges forming 2-cycles in mesh topology. Live cluster data confirmed bidirectional edges via multi-interface (tailscale, LAN, loopback). No code defect.
 
 ### P2 — Core Performance (weeks 2-4)
 42. Continuous batching scheduler (2-4× throughput under load)
