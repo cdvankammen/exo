@@ -17,20 +17,20 @@
 ## Master Plan Sprint Items (from `research/master-implementation-plan-2026-09-02.md`)
 
 ### P0 — Stability (do first)
-29. Guard `publish_bytes` against malformed events (malformed event kills process → exit 1)
-30. Pre-prefill eviction in `cache.py` (OOM during prefill, #2182)
-31. Periodic cache cleanup + gc.collect() (idle memory leak, #2262)
-32. Input length limiter (66k-token OOM, #560)
-33. Node identity periodic re-announce (lost startup announcement → invisible node)
+~~29. Guard `publish_bytes` against malformed events (malformed event kills process → exit 1)~~ → **DONE (`ef16c380`)** — `publish_bytes` wraps `topic.deserialize` in try/except at `router.py:109-120`; malformed events log warning + `record_malformed_event` for dashboard chip instead of crashing process
+~~30. Pre-prefill eviction in `cache.py` (OOM during prefill, #2182)~~ → **DONE (`5260b384`)** — `evict_for_prefill()` at `cache.py:691` evicts LRU entries below `_PREFILL_MEMORY_THRESHOLD` before forward pass
+~~31. Periodic cache cleanup + gc.collect() (idle memory leak, #2262)~~ → **DONE** — `gc.collect()` + `mx.clear_cache()` called after every eviction at `cache.py:721-722`; `_janitor_sweep_stale_slots()` at line 805 sweeps orphaned KV slot dirs on disk
+~~32. Input length limiter (66k-token OOM, #560)~~ → **DONE** — `EXO_MAX_INPUT_TOKENS` constant (default 128000) in `shared/constants.py:127`; enforced at `api/main.py:421-428` with 400 response on oversized input
+~~33. Node identity periodic re-announce (lost startup announcement → invisible node)~~ → **DONE (`dead4e88`)** — `_monitor_node_config` re-sends identity on interval; companion `9299909c` does same for NodeBackends; both tested in `test_node_config.py`
 34. ~~Log rotation for runner stdout/stderr (Linux log grew to 14GB → disk full)~~ → **DONE (`57eab048`)** — runner subprocess logs rotate; complements main `exo.log` rotation (`009b43c6`)
 
 ### P1 — Quick Wins (week 1-2)
-35. Bandwidth-aware pipeline placement (#957 water-filling algorithm)
-36. Ring context configurable (`EXO_RING_ADMISSION_CONTEXT` env var)
-37. TP single-node heuristic (don't split if one node fits)
-38. Pipeline activation memory estimate (~10% of weights)
-39. OOM graceful degradation (evict → halve batch → retry instead of SIGABRT)
-40. Auto-restart VRAM check (skip restart if memory >90%)
+~~35. Bandwidth-aware pipeline placement (#957 water-filling algorithm)~~ → **DONE (`78f7fa8e`+`35153898`)** — `WaterFillingAllocator` in `master/placement.py` allocates layers by per-link bandwidth; duplicates diagnosed #66
+~~36. Ring context configurable (`EXO_RING_ADMISSION_CONTEXT` env var)~~ → **DONE (`d0cee8c1`)** — read at call time in `placement_utils.py`; testable via monkeypatch
+~~37. TP single-node heuristic (don't split if one node fits)~~ → **DONE (`df7f0aa9`)** — Pipeline cycle prefers single-node when one node has sufficient memory; duplicates diagnosed #67
+~~38. Pipeline activation memory estimate (~10% of weights)~~ → **DONE (`c4165eee`)** — `EXO_ACTIVATION_MEMORY_FRACTION` reserve in `placement.py`; duplicates diagnosed #68
+~~39. OOM graceful degradation (evict → halve batch → retry instead of SIGABRT)~~ → **DONE (`270b61c4`)** — runner evicts cache + retries once on OOM
+~~40. Auto-restart VRAM check (skip restart if memory >90%)~~ → **DONE (`619d6946`)** — skip runner restart when memory >90%
 ~~41. BUG3: tryingexo nodes outgoing edges (deploy latest containers, verify cycles)~~ → **VERIFIED (86f9f246)** — tryingexo nodes have outgoing edges forming 2-cycles in mesh topology. Live cluster data confirmed bidirectional edges via multi-interface (tailscale, LAN, loopback). No code defect.
 
 ### P2 — Core Performance (weeks 2-4)
@@ -59,15 +59,15 @@
 58. App shell: surface stderr + exit reason (don't discard)
 
 ### Diagnosed — Needs Fix (from 2026-09-02/03 investigation)
-62. Smox node isolation — API server down on exo-amd container (10.2.0.76); zenoh discovers but HTTP unreachable. Needs container restart + code update from `main` to `fix-memory-error`
-63. Download queue stall — bad model card blocks entire queue; needs per-download timeout + dead-letter handling + "stalled" dashboard warning
-64. Election cycling breaks multi-step flows — download/placement state lives on master in-memory; master change loses in-flight operations. Needs persistent download state or master-pin protocol
-65. Network traffic display — show live bytes in/out per node in dashboard topology (backend DONE `67020f5f`, UI IN PROGRESS)
-66. Bandwidth-aware pipeline placement — use topology bandwidth_mbps data for water-filling layer allocation across pipeline stages (P1 #35)
-67. TP single-node heuristic — don't tensor-shard when one node has enough memory for the full model
-68. Pipeline activation memory estimate — reserve ~10% of weight memory for activations
+62. Smox node isolation — API server down on exo-amd container (10.2.0.76); zenoh discovers but HTTP unreachable. Needs container restart + code update from `main` to `fix-memory-error` — **DEFERRED (infra-only, no code path in this branch)**
+63. Download queue stall — bad model card blocks entire queue; partially mitigated by `9945231c` (removed GLM-4.7 card), but general per-download timeout + dead-letter handling still needed — **TRACKED as new task T53**
+64. Election cycling breaks multi-step flows — download/placement state lives on master in-memory; master change loses in-flight operations. Needs persistent download state or master-pin protocol — **DEFERRED (P5 architectural, tracked in research/master-implementation-plan)**
+~~65. Network traffic display~~ → **BACKEND DONE (`67020f5f`)** + **UI DONE (`ea766091`)** — per-node rx/tx in placement panel
+~~66. Bandwidth-aware pipeline placement~~ → **duplicate of P1 #35, DONE (`35153898`)**
+~~67. TP single-node heuristic~~ → **duplicate of P1 #37, DONE (`df7f0aa9`)**
+~~68. Pipeline activation memory estimate~~ → **duplicate of P1 #38, DONE (`c4165eee`)**
 
 ### Open Questions
-59. Commit + push CUDA memory limit fix upstream? (genuine bug fix)
-60. Wire `EXO_ZENOH_NAMESPACE` env var to `--namespace` CLI?
-61. Upstream PR: CUDA ring attention `_is_cuda_backend()` stream fix
+59. Commit + push CUDA memory limit fix upstream? (genuine bug fix) — **DECISION: DEFER** — fix is in our `fix-memory-error` branch; upstream PR requires maintainer buy-in and a clean isolated commit. Track as follow-up when branch merges.
+60. Wire `EXO_ZENOH_NAMESPACE` env var to `--namespace` CLI? — **DECISION: YES, wire it** — CLI `--namespace` exists (`main.py:593`, default=`__version__`), env var is currently cosmetic (logged at `main.py:440`, declared in `settings.py:96`). Add `default=os.getenv('EXO_ZENOH_NAMESPACE', __version__)` so env var and CLI agree. **TRACKED as new task T54**.
+61. Upstream PR: CUDA ring attention `_is_cuda_backend()` stream fix — **DECISION: DEFER** — function at `ring_attention.py:58` correctly checks `linux + gpu`; our local fix is sufficient. Upstream PR only needed if ml-explore/mlx adds CUDA backend support.

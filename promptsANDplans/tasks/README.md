@@ -262,4 +262,21 @@ Subagent audit: **16/16 decision-queue ports PRESENT**, 128 targeted tests pass.
 | T49 | **P0 #34 Runner log rotation** — runner stdout/stderr log rotation to prevent disk-full crashes (Linux log grew to 14GB) | ✅ **DONE `57eab048`** — rotation for runner subprocess logs; complements main exo.log rotation (`009b43c6`) |
 | T50 | **Smox node isolation investigation** — smox (10.2.0.76, exo-amd) visible in zenoh discovery but HTTP API unreachable | 🔍 **DIAGNOSED** — API server down on smox container; zenoh gossipsub discovers the node but FastAPI on port 52415 is not running. Needs container restart + code update (still on old `main` at PR #2245) |
 | T51 | **Qwen3-30B-A3B download stall investigation** — model download hangs indefinitely despite cluster having capacity | 🔍 **DIAGNOSED** — download queue saturated + bad model card entry blocking the entire queue. Single malformed card stalls all pending downloads (see L54) |
-| T52 | **Network traffic display in dashboard** — show live network traffic (bytes in/out per node) on topology or node cards | 🔧 **BACKEND DONE `67020f5f`** — per-node rx/tx counters wired in `profiling.py` (NetworkInterfaceInfo rx_bytes/tx_bytes/timestamp_ns); **dashboard UI IN PROGRESS** |
+| T52 | **Network traffic display in dashboard** — show live network traffic (bytes in/out per node) on topology or node cards | ✅ **DONE** — backend `67020f5f` + UI `ea766091` — per-node rx/tx in placement panel + topology |
+
+### Session 3 audit (2026-09-03) — TODO.md P0 items found already implemented, new tasks added
+| # | Task | Status |
+|---|---|---|
+| T53 | **Download queue resilience** — per-download timeout + dead-letter handling + "stalled" dashboard warning (prevents single bad card from blocking entire queue) | ⏳ **NEW — needs implementation** (TODO #63 partial mitigation done via `9945231c` card removal; general resilience not yet implemented) |
+| T54 | **Wire EXO_ZENOH_NAMESPACE to --namespace CLI** — env var is cosmetic (logged but not wired to argparse default at `main.py:593`); add `default=os.getenv('EXO_ZENOH_NAMESPACE', __version__)` | ⏳ **NEW — needs implementation** (small, env var cosmetic today) |
+
+### Deferred tasks (with evidence)
+| # | Task | Evidence |
+|---|---|---|
+| T6 | #2064 asymmetric TP — DEFERRED | `research/t6-qwen3.6-linux-investigation.md`: Qwen3.6-35B fits single-node Linux (19.5GB < 29.2GB VRAM); real value = >200B models only. Revisit when needed. |
+| T14 | Non-MLX models (GGUF/PyTorch) — DEFERRED | `research/decision-support-t14-non-mlx-vllm.md`: needs vLLM integration first. No upstream PR exists. |
+| T16 | Dynamic connection priority (#16) — DEFERRED | Requires InstanceReplacedAtomically revival + placement logic rewrite. Mini-campaign scope. |
+| T17 | Stream models from devices (#17) — DEFERRED | Overlaps P2P #1992 (26-file huge port). Needs dedicated effort. |
+| T50 | Smox node isolation — DEFERRED | Container infra issue: API server not running on exo-amd. Needs container restart + code sync. Not a code bug in this branch. |
+| T51 | Download queue stall — PARTIALLY MITIGATED | Bad card removed (`9945231c`); general per-download timeout still needed (see T53). |
+| T64 | Election cycling — DEFERRED | Architectural: download/placement state in master in-memory; persistent state needed. P5 roadmap item. |
