@@ -76,7 +76,10 @@ def instance() -> Instance:
 def model_card() -> ModelCard:
     return ModelCard(
         model_id=ModelId("test-model"),
-        storage_size=Memory.from_kb(1000),
+        # P1 #38: storage_size is set to 800KB so that with the 10% activation
+        # overhead (800 * 1.10 = 880KB), the model still fits in a 1000KB node.
+        # Tests that need exact-fit semantics override this via model_copy.
+        storage_size=Memory.from_kb(800),
         n_layers=10,
         hidden_size=30,
         supports_tensor=True,
@@ -117,12 +120,15 @@ def test_get_instance_placements_create_instance(
     model_card: ModelCard,
 ):
     # arrange
+    # P1 #38: storage_size must leave headroom for the 10% activation overhead.
+    # Setting storage_size to ~87% of total memory ensures
+    # storage_size * 1.10 <= sum(available_memory).
     model_card = model_card.model_copy(
         update={
             "n_layers": total_layers,
             "storage_size": Memory.from_bytes(
-                sum(available_memory)
-            ),  # make it exactly fit across all nodes
+                int(sum(available_memory) / 1.15)
+            ),
         }
     )
     topology = Topology()
@@ -205,7 +211,8 @@ def test_get_instance_placements_one_node_exact_fit() -> None:
     topology = Topology()
     node_id = NodeId()
     topology.add_node(node_id)
-    node_memory = {node_id: create_node_memory(1000 * 1024)}
+    # P1 #38: bumped from 1000*1024 to 1200*1024 for 10% activation overhead
+    node_memory = {node_id: create_node_memory(1200 * 1024)}
     node_network = {node_id: create_node_network()}
     cic = place_instance_command(
         ModelCard(
@@ -235,7 +242,8 @@ def test_get_instance_placements_one_node_fits_with_extra_memory() -> None:
     topology = Topology()
     node_id = NodeId()
     topology.add_node(node_id)
-    node_memory = {node_id: create_node_memory(1001 * 1024)}
+    # P1 #38: bumped from 1001*1024 to 1200*1024 for 10% activation overhead
+    node_memory = {node_id: create_node_memory(1200 * 1024)}
     node_network = {node_id: create_node_network()}
     cic = place_instance_command(
         ModelCard(
@@ -373,10 +381,10 @@ def test_placement_selects_leaf_nodes(
     node_id_d = NodeId()
 
     node_memory = {
-        node_id_a: create_node_memory(500),
+        node_id_a: create_node_memory(600),
         node_id_b: create_node_memory(600),
         node_id_c: create_node_memory(600),
-        node_id_d: create_node_memory(500),
+        node_id_d: create_node_memory(600),
     }
     node_network = {
         node_id_a: create_node_network(),
@@ -446,10 +454,11 @@ def test_tensor_rdma_backend_connectivity_matrix(
     node_b = NodeId()
     node_c = NodeId()
 
+    # P1 #38: bumped from 500 to 600 each (total 1800 > 1500*1.10) for activation overhead
     node_memory = {
-        node_a: create_node_memory(500),
-        node_b: create_node_memory(500),
-        node_c: create_node_memory(500),
+        node_a: create_node_memory(600),
+        node_b: create_node_memory(600),
+        node_c: create_node_memory(600),
     }
 
     ethernet_interface = NetworkInterfaceInfo(
@@ -682,9 +691,9 @@ def test_place_mlx_jaccl_rejects_when_a_node_has_rdma_ctl_disabled(
     )
     topology, node_a, node_b, node_c, node_network = _build_three_node_rdma_topology()
     node_memory = {
-        node_a: create_node_memory(500),
-        node_b: create_node_memory(500),
-        node_c: create_node_memory(500),
+        node_a: create_node_memory(600),
+        node_b: create_node_memory(600),
+        node_c: create_node_memory(600),
     }
     node_rdma_ctl = {
         node_a: NodeRdmaCtlStatus(enabled=True),
@@ -722,9 +731,9 @@ def test_place_mlx_jaccl_rejects_when_node_rdma_ctl_missing(model_card: ModelCar
     )
     topology, node_a, node_b, node_c, node_network = _build_three_node_rdma_topology()
     node_memory = {
-        node_a: create_node_memory(500),
-        node_b: create_node_memory(500),
-        node_c: create_node_memory(500),
+        node_a: create_node_memory(600),
+        node_b: create_node_memory(600),
+        node_c: create_node_memory(600),
     }
     # node_c has no rdma_ctl entry at all
     node_rdma_ctl = {
@@ -767,9 +776,9 @@ def test_place_mlx_jaccl_rejects_when_rdma_ctl_enabled_but_no_verbs_device(
     )
     topology, node_a, node_b, node_c, node_network = _build_three_node_rdma_topology()
     node_memory = {
-        node_a: create_node_memory(500),
-        node_b: create_node_memory(500),
-        node_c: create_node_memory(500),
+        node_a: create_node_memory(600),
+        node_b: create_node_memory(600),
+        node_c: create_node_memory(600),
     }
     # All nodes have rdma_ctl enabled, but NONE enumerates a verbs device.
     node_rdma_ctl = {
@@ -810,9 +819,9 @@ def test_place_mlx_jaccl_rejects_when_mixed_verbs_device_availability(
     )
     topology, node_a, node_b, node_c, node_network = _build_three_node_rdma_topology()
     node_memory = {
-        node_a: create_node_memory(500),
-        node_b: create_node_memory(500),
-        node_c: create_node_memory(500),
+        node_a: create_node_memory(600),
+        node_b: create_node_memory(600),
+        node_c: create_node_memory(600),
     }
     # node_c: rdma_ctl enabled but no verbs device — the exact #3777 state.
     node_rdma_ctl = {
@@ -863,7 +872,7 @@ def test_placement_assigns_a_backend_to_every_shard(model_card: ModelCard):
         topology.add_connection(Connection(source=src, sink=dst, edge=eth))
 
     nodes = (node_metal, node_cuda, node_cpu)
-    node_memory = {n: create_node_memory(500 * 1024) for n in nodes}
+    node_memory = {n: create_node_memory(600 * 1024) for n in nodes}
     node_network = {n: create_node_network() for n in nodes}
     node_backends = {
         node_metal: [Backend.MlxMetal],
@@ -1409,9 +1418,10 @@ def test_placement_prefers_cycle_with_higher_download_progress(
     node_a = NodeId()
     node_b = NodeId()
 
+    # P1 #38: bumped from 1000 to 1200 each for activation overhead
     node_memory = {
-        node_a: create_node_memory(1000),
-        node_b: create_node_memory(1000),
+        node_a: create_node_memory(1200),
+        node_b: create_node_memory(1200),
     }
     node_network = {
         node_a: create_node_network(),
@@ -1613,7 +1623,8 @@ def test_placement_rejects_when_only_some_nodes_support_backend(
     ]:
         topology.add_connection(Connection(source=src, sink=dst, edge=eth))
 
-    node_memory = {n: create_node_memory(500 * 1024) for n in (node_a, node_b, node_c)}
+    # P1 #38: bumped from 500*1024 to 600*1024 for activation overhead
+    node_memory = {n: create_node_memory(600 * 1024) for n in (node_a, node_b, node_c)}
     node_network = {n: create_node_network() for n in (node_a, node_b, node_c)}
     node_backends = {
         node_a: [Backend.MlxMetal],
@@ -1645,7 +1656,8 @@ def test_placement_rejects_when_only_some_nodes_support_backend(
 
 def test_mlx_jaccl_rejects_cuda_only_cycle(model_card: ModelCard):
     topology, node_a, node_b, node_c, node_network = _build_three_node_rdma_topology()
-    node_memory = {n: create_node_memory(500) for n in (node_a, node_b, node_c)}
+    # P1 #38: bumped from 500 to 600 each for activation overhead
+    node_memory = {n: create_node_memory(600) for n in (node_a, node_b, node_c)}
     node_rdma_ctl = {
         n: NodeRdmaCtlStatus(enabled=True) for n in (node_a, node_b, node_c)
     }
@@ -1873,9 +1885,10 @@ def test_pipeline_placement_uses_manual_per_node_layer_allocation(
     model_card: ModelCard,
 ) -> None:
     topology, node_a, node_b = _create_two_node_ring()
+    # P1 #38: bumped from 300/900 to 400/1000 for activation overhead
     node_memory = {
-        node_a: create_node_memory(300),
-        node_b: create_node_memory(900),
+        node_a: create_node_memory(400),
+        node_b: create_node_memory(1000),
     }
     node_network = {
         node_a: create_node_network(),
@@ -1912,9 +1925,10 @@ def test_manual_layer_allocation_rejects_non_pipeline_sharding(
     model_card: ModelCard,
 ) -> None:
     topology, node_a, node_b = _create_two_node_ring()
+    # P1 #38: bumped from 500/500 to 600/600 for activation overhead
     node_memory = {
-        node_a: create_node_memory(500),
-        node_b: create_node_memory(500),
+        node_a: create_node_memory(600),
+        node_b: create_node_memory(600),
     }
     node_network = {
         node_a: create_node_network(),
@@ -1945,8 +1959,8 @@ def test_manual_layer_allocation_requires_matching_cycle(
 ) -> None:
     topology, node_a, node_b = _create_two_node_ring()
     node_memory = {
-        node_a: create_node_memory(500),
-        node_b: create_node_memory(500),
+        node_a: create_node_memory(600),
+        node_b: create_node_memory(600),
     }
     node_network = {
         node_a: create_node_network(),
@@ -1973,8 +1987,8 @@ def test_manual_layer_allocation_rejects_wrong_layer_sum(
 ) -> None:
     topology, node_a, node_b = _create_two_node_ring()
     node_memory = {
-        node_a: create_node_memory(500),
-        node_b: create_node_memory(500),
+        node_a: create_node_memory(600),
+        node_b: create_node_memory(600),
     }
     node_network = {
         node_a: create_node_network(),

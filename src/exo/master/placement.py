@@ -14,6 +14,7 @@ from exo.master.placement_utils import (
     get_shard_assignments,
     get_smallest_cycles,
 )
+from exo.shared.constants import EXO_ACTIVATION_MEMORY_FRACTION
 from exo.shared.models.model_cards import ModelId
 from exo.shared.topology import Topology
 from exo.shared.types.backends import Backend
@@ -269,10 +270,19 @@ def place_instance(
                 estimate_ring_node_memory(command.model_card),
             )
     else:
+        # P1 #38: Reserve ~10% of weight memory for activations (attention
+        # intermediates, logits buffers). This prevents OOM during the first
+        # inference request on nodes that barely fit the weights alone.
+        # Ring already accounts for activations via estimate_ring_node_memory,
+        # so only apply to Pipeline here.
+        activation_overhead = Memory.from_bytes(
+            int(command.model_card.storage_size.in_bytes * EXO_ACTIVATION_MEMORY_FRACTION)
+        )
+        pipeline_required_memory = command.model_card.storage_size + activation_overhead
         cycles_with_sufficient_memory = filter_cycles_by_memory(
             candidate_cycles,
             node_memory,
-            command.model_card.storage_size,
+            pipeline_required_memory,
             force_override=command.force_override,
             memory_tolerance=command.memory_tolerance,
         )

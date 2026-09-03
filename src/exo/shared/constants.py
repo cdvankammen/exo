@@ -127,6 +127,13 @@ EXO_MAX_CONCURRENT_REQUESTS = int(os.getenv("EXO_MAX_CONCURRENT_REQUESTS", "8"))
 EXO_MAX_INPUT_TOKENS = int(os.getenv("EXO_MAX_INPUT_TOKENS", "128000"))
 EXO_CHARS_PER_TOKEN = int(os.getenv("EXO_CHARS_PER_TOKEN", "4"))
 
+# P1 #38: Activation memory overhead for Pipeline/Ring memory admission.
+# During inference, each node also needs memory for attention intermediates
+# (QKV transients, attention scores, output projections) and logits buffers.
+# This fraction of weight memory is reserved on top of the storage_size check
+# to prevent OOM during the first inference request. Default 0.10 (10%).
+EXO_ACTIVATION_MEMORY_FRACTION = float(os.getenv("EXO_ACTIVATION_MEMORY_FRACTION", "0.10"))
+
 # Ring attention admission context length (P1 #36). Ring exists for long-context
 # prefill; we admit against at least this many tokens even if requests may be
 # shorter, and no more than this even for cards that advertise 128K+ so
