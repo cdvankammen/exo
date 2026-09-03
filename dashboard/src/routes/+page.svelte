@@ -76,6 +76,7 @@
     isLoadingNodeCompatibility,
     type NodeCompatibilityEntry,
   } from "$lib/stores/app.svelte";
+  import { appStore } from "$lib/stores/app.svelte";
   import {
     addToast,
     dismissByMessage,
