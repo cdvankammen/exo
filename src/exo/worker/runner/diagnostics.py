@@ -24,6 +24,11 @@ _RING_TRANSPORT_ABORT_RE = re.compile(
     r"^\s*\[ring\]\s+Too\s+many\s+send/recv\s+errors\.\s+Aborting\.\.\.\s*$",
     re.IGNORECASE,
 )
+_CUDA_OOM_RE = re.compile(
+    r"(?:cudaMallocAsync|CUDA out of memory|out of memory|OOM)"
+    r".*?(?:tried to allocate|free|device|GPU|memory)",
+    re.IGNORECASE,
+)
 
 
 class BaseRunnerDiagnostic(TaggedModel):
@@ -45,12 +50,19 @@ class RunnerRingSocketReceivingError(BaseRunnerDiagnostic):
     error_description: str
 
 
+class RunnerCudaOutOfMemory(BaseRunnerDiagnostic):
+    pass
+
+
 class RunnerUnknown(BaseRunnerDiagnostic):
     pass
 
 
 KnownRunnerDiagnostic = (
-    RunnerMetalGpuTimeout | RunnerRingTransportError | RunnerRingSocketReceivingError
+    RunnerMetalGpuTimeout
+    | RunnerRingTransportError
+    | RunnerRingSocketReceivingError
+    | RunnerCudaOutOfMemory
 )
 
 RunnerDiagnostic = KnownRunnerDiagnostic | RunnerUnknown
@@ -105,6 +117,9 @@ class RunnerDiagnosticCollector:
                 evidence=evidence,
             )
 
+        if cuda_oom := _parse_cuda_oom(line, evidence):
+            return cuda_oom
+
         return None
 
 
@@ -120,6 +135,18 @@ def _parse_metal_gpu_timeout(
         evidence=evidence,
     )
 
+
+def _parse_cuda_oom(
+    line: str, evidence: tuple[str, ...]
+) -> RunnerCudaOutOfMemory | None:
+    match = _CUDA_OOM_RE.search(line)
+    if match is None:
+        return None
+
+    return RunnerCudaOutOfMemory(
+        message=f"CUDA out of memory: {line.strip()[:200]}",
+        evidence=evidence,
+    )
 
 def _parse_ring_socket_error(
     line: str, evidence: tuple[str, ...]
