@@ -1,3 +1,8 @@
+from pathlib import Path
+from unittest.mock import patch
+
+import pytest
+
 import exo.worker.plan as plan_mod
 from exo.shared.types.common import NodeId
 from exo.shared.types.memory import Memory
@@ -22,6 +27,28 @@ from exo.worker.tests.unittests.conftest import (
     get_mlx_ring_instance,
     get_pipeline_shard_metadata,
 )
+
+# The ghost-completion check in plan.py verifies DownloadCompleted entries
+# against disk: it checks whether `(d / normalized).is_dir()` for any model
+# dir AND whether resolve_existing_model returns a path. In test environments
+# no model dirs exist, so every DownloadCompleted is treated as a ghost and
+# the test sees DownloadModel instead of LoadModel. This fixture patches the
+# model dir list and resolve_existing_model so the ghost check trusts the
+# DownloadCompleted status from global_download_status.
+@pytest.fixture(autouse=True)
+def _trust_completed_downloads(tmp_path: Path) -> None:
+    fake_model_root = tmp_path / "models"
+    fake_model_root.mkdir()
+    # Create a normalized subdir for every model used in tests so the
+    # `any_dir_exists` check in plan.py returns True.
+    for model_id in (MODEL_A_ID,):
+        (fake_model_root / model_id.normalize()).mkdir(parents=True, exist_ok=True)
+    with (
+        patch.object(plan_mod, "EXO_MODELS_DIRS", (fake_model_root,)),
+        patch.object(plan_mod, "EXO_MODELS_READ_ONLY_DIRS", ()),
+        patch.object(plan_mod, "resolve_existing_model", return_value=fake_model_root),
+    ):
+        yield
 
 
 def test_plan_requests_download_when_waiting_and_shard_not_downloaded():
