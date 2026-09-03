@@ -592,9 +592,10 @@ class Args(FrozenModel):
         parser.add_argument(
             "--namespace",
             type=str,
-            default=__version__,
+            default=os.getenv("EXO_ZENOH_NAMESPACE", __version__),
             dest="namespace",
-            help="Discovery namespace, nodes with different namespaces will not connect.",
+            help="Discovery namespace, nodes with different namespaces will not connect. "
+            "Env: EXO_ZENOH_NAMESPACE (overrides default __version__).",
         )
         parser.add_argument(
             "--zenoh-port",
