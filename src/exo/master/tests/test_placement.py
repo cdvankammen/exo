@@ -1764,6 +1764,45 @@ def test_ring_attention_rejects_single_node(model_card: ModelCard) -> None:
         place_instance(command, Topology(), {}, {}, {}, {})
 
 
+def test_pipeline_prefers_single_node_when_memory_sufficient(
+    model_card: ModelCard,
+) -> None:
+    """P1 #37: Pipeline sharding should prefer single-node when one node fits.
+
+    Distribution overhead (network hops, synchronization) is only justified
+    when the model genuinely needs multiple nodes. When a single node has
+    sufficient memory for the model, Pipeline should select it over a
+    multi-node cycle with more total RAM.
+    """
+    topology, node_a, node_b = _create_two_node_ring()
+    node_memory = {
+        node_a: create_node_memory(10_000_000),
+        node_b: create_node_memory(5_000_000),
+    }
+
+    command = PlaceInstance(
+        command_id=CommandId(),
+        model_card=model_card,
+        sharding=Sharding.Pipeline,
+        instance_meta=InstanceMeta.MlxRing,
+        min_nodes=1,
+    )
+
+    placements = place_instance(
+        command,
+        topology,
+        {},
+        node_memory,
+        {},
+        _metal_only(node_memory),
+    )
+
+    assert len(placements) == 1
+    instance = list(placements.values())[0]
+    assert len(instance.shard_assignments.node_to_runner) == 1
+    assert node_a in instance.shard_assignments.node_to_runner
+
+
 def test_tensor_requested_on_single_node_raises_not_silent_downgrade(
     model_card: ModelCard,
 ) -> None:

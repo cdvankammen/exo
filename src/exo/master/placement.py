@@ -410,9 +410,19 @@ def place_instance(
         cycles_with_leaf_nodes if cycles_with_leaf_nodes != [] else smallest_cycles
     )
 
+    # P1 #37: For Pipeline sharding, prefer single-node cycles when one node
+    # has sufficient memory. Distribution overhead (network hops,
+    # synchronization) is only justified when the model genuinely needs
+    # multiple nodes.
+    def _cycle_size_penalty(cycle: Cycle) -> int:
+        if command.sharding == Sharding.Pipeline:
+            return len(cycle) - 1
+        return 0
+
     selected_cycle = max(
         candidate_cycles,
         key=lambda cycle: (
+            -_cycle_size_penalty(cycle),
             _cycle_accelerator_score(cycle, node_backends, required_backends),
             _cycle_download_score(
                 cycle, command.model_card.model_id, resolved_download_status
