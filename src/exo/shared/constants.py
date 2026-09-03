@@ -127,6 +127,13 @@ EXO_MAX_CONCURRENT_REQUESTS = int(os.getenv("EXO_MAX_CONCURRENT_REQUESTS", "8"))
 EXO_MAX_INPUT_TOKENS = int(os.getenv("EXO_MAX_INPUT_TOKENS", "128000"))
 EXO_CHARS_PER_TOKEN = int(os.getenv("EXO_CHARS_PER_TOKEN", "4"))
 
+# Ring attention admission context length (P1 #36). Ring exists for long-context
+# prefill; we admit against at least this many tokens even if requests may be
+# shorter, and no more than this even for cards that advertise 128K+ so
+# admission stays achievable. Override with EXO_RING_ADMISSION_CONTEXT env var
+# (integer token count). Default 16384.
+EXO_RING_ADMISSION_CONTEXT = int(os.getenv("EXO_RING_ADMISSION_CONTEXT", "16384"))
+
 EXO_MAX_INSTANCE_RETRIES = 5
 
 # Optional API bearer token (T23). When set, all API routes except the

@@ -1061,3 +1061,33 @@ class TestRingMemoryAdmission:
         card = self._ring_card(num_key_value_heads=None)
         estimate = estimate_ring_node_memory(card)
         assert estimate > card.storage_size
+
+    def test_admission_context_respects_env_var(
+        self, monkeypatch: pytest.MonkeyPatch
+    ) -> None:
+        """EXO_RING_ADMISSION_CONTEXT env var overrides the admission ceiling.
+
+        P1 #36: operators running very-long-context models (e.g. 128K ring)
+        need to raise the ceiling above the 16384 default; operators on tiny
+        nodes may want to lower it. The override must take effect without
+        restarting the process, so estimate_ring_node_memory reads the
+        constant at call time.
+        """
+        from exo.master import placement_utils as placement_utils_module
+
+        card = self._ring_card(context_length=65536)
+        baseline = estimate_ring_node_memory(card)
+
+        # Raise the ceiling — working set must grow.
+        monkeypatch.setattr(
+            placement_utils_module, "EXO_RING_ADMISSION_CONTEXT", 32768
+        )
+        raised = estimate_ring_node_memory(card)
+        assert raised > baseline
+
+        # Lower the ceiling below the card's context — working set must shrink.
+        monkeypatch.setattr(
+            placement_utils_module, "EXO_RING_ADMISSION_CONTEXT", 4096
+        )
+        lowered = estimate_ring_node_memory(card)
+        assert lowered < baseline

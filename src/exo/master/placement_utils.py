@@ -2,6 +2,7 @@ from collections.abc import Generator, Mapping, Sequence
 
 from loguru import logger
 
+from exo.shared.constants import EXO_RING_ADMISSION_CONTEXT
 from exo.shared.models.model_cards import ModelCard
 from exo.shared.topology import Topology
 from exo.shared.types.backends import Backend
@@ -71,10 +72,6 @@ _RING_KV_WORKING_SET_MULTIPLIER = 4
 # Upper bound on head_dim across the verified Ring model families (Llama,
 # Qwen3), used when the card does not pin the exact geometry.
 _RING_HEAD_DIM_BOUND = 128
-# Ring exists for long-context prefill; admit against at least this context
-# even if requests may be shorter, and no more than this even for cards that
-# advertise 128K+ so admission stays achievable.
-_RING_ADMISSION_CONTEXT_TOKENS = 16384
 
 
 def estimate_ring_node_memory(model_card: ModelCard) -> Memory:
@@ -83,11 +80,16 @@ def estimate_ring_node_memory(model_card: ModelCard) -> Memory:
 
     Weight-only admission demonstrably over-admits: a 4 GB-VRAM rank passed
     the old check for a model whose 16K prefill peaks well past 4 GB.
+
+    The admission context ceiling is the module-level binding
+    ``EXO_RING_ADMISSION_CONTEXT`` (configurable via the env var of the same
+    name). Read at call time so overrides take effect without a restart.
     """
+    admission_ceiling = EXO_RING_ADMISSION_CONTEXT
     admission_context = (
-        min(model_card.context_length, _RING_ADMISSION_CONTEXT_TOKENS)
+        min(model_card.context_length, admission_ceiling)
         if model_card.context_length > 0
-        else _RING_ADMISSION_CONTEXT_TOKENS
+        else admission_ceiling
     )
     if model_card.num_key_value_heads is not None:
         kv_width = model_card.num_key_value_heads * _RING_HEAD_DIM_BOUND
