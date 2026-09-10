@@ -802,6 +802,37 @@ def set_wired_limit_for_model(model_size: Memory):
     to exiting the context manager.
     """
     if not mx.metal.is_available():
+        # CUDA branch: Metal APIs unavailable, but we still need memory limits
+        # to prevent OOM when loading large models (e.g., 35B on 2x RTX 5060 Ti).
+        # Reserve 2GB headroom for CUDA context + framework overhead.
+        try:
+            import pynvml
+            pynvml.nvmlInit()
+            handle = pynvml.nvmlDeviceGetHandleByIndex(0)
+            mem_info = pynvml.nvmlDeviceGetMemoryInfo(handle)
+            total_bytes = mem_info.total
+            headroom_bytes = 2 * 1024 * 1024 * 1024  # 2GB
+            usable_bytes = max(total_bytes - headroom_bytes, 0)
+            mx.set_memory_limit(usable_bytes)
+            if hasattr(mx, "set_wired_limit"):
+                mx.set_wired_limit(usable_bytes)
+            if hasattr(mx, "set_cache_limit"):
+                mx.set_cache_limit(0)
+            logger.info(
+                f"CUDA memory limit set: {usable_bytes / (1024**3):.1f} GB usable "
+                f"of {total_bytes / (1024**3):.1f} GB total (2GB headroom reserved)"
+            )
+            if model_size.in_bytes > 0.9 * usable_bytes:
+                logger.warning(
+                    f"Model requires {model_size.in_float_mb:.1f} MB which is close to "
+                    f"available CUDA memory ({usable_bytes / (1024**2):.1f} MB). "
+                    "OOM is likely."
+                )
+        except Exception as e:
+            logger.opt(exception=e).warning(
+                "Failed to set CUDA memory limits via pynvml; "
+                "relying on default CUDA memory management (OOM risk on large models)"
+            )
         return
 
     max_rec_size = Memory.from_bytes(
