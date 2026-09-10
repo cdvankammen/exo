@@ -1,0 +1,654 @@
+from collections.abc import Mapping
+from copy import deepcopy
+from typing import Sequence
+
+import os
+
+from loguru import logger
+
+from exo.master.placement_utils import (
+    Cycle,
+    assign_shard_backends,
+    cycle_bandwidth_score,
+    estimate_ring_node_memory,
+    filter_cycles_by_memory,
+    filter_cycles_by_replicated_memory,
+    get_mlx_jaccl_coordinators,
+    get_mlx_jaccl_devices_matrix,
+    get_mlx_ring_hosts_by_node,
+    get_shard_assignments,
+    get_smallest_cycles,
+    should_prefer_single_node,
+)
+from exo.shared.models.model_cards import ModelId
+from exo.shared.topology import Topology
+from exo.shared.types.backends import Backend
+from exo.shared.types.commands import (
+    CancelDownload,
+    CreateInstance,
+    DeleteInstance,
+    DownloadCommand,
+    PlaceInstance,
+)
+from exo.shared.types.common import NodeId
+from exo.shared.types.events import (
+    Event,
+    InstanceCreated,
+    InstanceDeleted,
+    TaskStatusUpdated,
+)
+from exo.shared.types.memory import Memory
+from exo.shared.types.profiling import (
+    MemoryUsage,
+    NodeIdentity,
+    NodeNetworkInfo,
+    NodeRdmaCtlStatus,
+)
+from exo.shared.types.tasks import Task, TaskId, TaskStatus
+from exo.shared.types.topology import SocketConnection
+from exo.shared.types.worker.downloads import (
+    DownloadCompleted,
+    DownloadFailed,
+    DownloadOngoing,
+    DownloadPending,
+    DownloadProgress,
+)
+from exo.shared.types.worker.instances import (
+    Instance,
+    InstanceId,
+    InstanceMeta,
+    MlxJacclInstance,
+    MlxRingInstance,
+)
+from exo.shared.types.worker.shards import Sharding
+from exo.utils.ports import random_ephemeral_port
+
+INSTANCE_META_BACKENDS: dict[InstanceMeta, list[Backend]] = {
+    InstanceMeta.MlxRing: [Backend.MlxMetal, Backend.MlxCuda, Backend.MlxCpu],
+    InstanceMeta.MlxJaccl: [Backend.MlxMetal],
+}
+
+
+def add_instance_to_placements(
+    command: CreateInstance,
+    topology: Topology,
+    current_instances: Mapping[InstanceId, Instance],
+) -> Mapping[InstanceId, Instance]:
+    # TODO: validate against topology
+
+    return {**current_instances, command.instance.instance_id: command.instance}
+
+
+def _get_node_download_fraction(
+    node_id: NodeId,
+    model_id: ModelId,
+    download_status: Mapping[NodeId, Sequence[DownloadProgress]],
+) -> float:
+    """Return the download fraction (0.0–1.0) for a model on a given node."""
+    for progress in download_status.get(node_id, []):
+        if progress.shard_metadata.model_card.model_id != model_id:
+            continue
+        match progress:
+            case DownloadCompleted():
+                return 1.0
+            case DownloadOngoing():
+                total = progress.download_progress.total.in_bytes
+                return (
+                    progress.download_progress.downloaded.in_bytes / total
+                    if total > 0
+                    else 0.0
+                )
+            case DownloadPending():
+                total = progress.total.in_bytes
+                return progress.downloaded.in_bytes / total if total > 0 else 0.0
+            case DownloadFailed():
+                return 0.0
+    return 0.0
+
+
+def _cycle_download_score(
+    cycle: Cycle,
+    model_id: ModelId,
+    download_status: Mapping[NodeId, Sequence[DownloadProgress]],
+) -> float:
+    """Sum of download fractions across all nodes in a cycle."""
+    return sum(
+        _get_node_download_fraction(node_id, model_id, download_status)
+        for node_id in cycle
+    )
+
+
+def _cycle_accelerator_score(
+    cycle: Cycle,
+    node_backends: Mapping[NodeId, list[Backend]],
+    required_backends: set[Backend],
+) -> int:
+    """Count nodes that can run on an accelerator instead of CPU fallback."""
+    accelerator_backends = {Backend.MlxMetal, Backend.MlxCuda}
+    return sum(
+        bool(
+            set(node_backends.get(node_id, []))
+            & required_backends
+            & accelerator_backends
+        )
+        for node_id in cycle
+    )
+
+
+def _rotate_metal_to_middle(
+    cycle: Cycle,
+    node_backends: Mapping[NodeId, list[Backend]],
+) -> Cycle:
+    """Rotate a Pipeline cycle so Metal nodes are evenly spaced between CUDA nodes.
+
+    For 3 nodes: Metal in the middle rank (index 1).
+    For 5+ nodes: Metal nodes distributed to minimize consecutive CUDA↔CUDA links.
+    This avoids CUDA↔CUDA send/recv which hang in MLX 0.32.0 ring backend.
+    """
+    n = len(cycle)
+    if n < 3:
+        return cycle
+
+    metal_indices = [
+        i for i, nid in enumerate(cycle) if Backend.MlxMetal in set(node_backends.get(nid, []))
+    ]
+    if not metal_indices:
+        return cycle
+
+    # Check if Metal nodes are already well-distributed
+    # (no two consecutive CUDA-only spans longer than 1)
+    nids = list(cycle.node_ids)
+
+    if n == 3:
+        # All-Metal cycle: nothing to optimize (no CUDA↔CUDA links exist).
+        if len(metal_indices) == n:
+            return cycle
+        target = 1  # middle
+        metal_idx = metal_indices[0]
+        if metal_idx == target:
+            return cycle
+        if metal_idx == 0:
+            rotated = [nids[2], nids[0], nids[1]]
+        else:
+            rotated = [nids[1], nids[2], nids[0]]
+        return Cycle(node_ids=rotated)
+
+    # General case: interleave Metal nodes evenly among CUDA nodes
+    metal_nodes = [nids[i] for i in metal_indices]
+    cuda_nodes = [nids[i] for i in range(n) if i not in metal_indices]
+
+    if not cuda_nodes:
+        return cycle  # all Metal, nothing to optimize
+
+    rotated: list[NodeId] = []
+    cuda_idx = 0
+    metal_idx = 0
+    # Place CUDA nodes, inserting a Metal node between every pair
+    cuda_gap = len(cuda_nodes) / (len(metal_nodes) + 1)
+    next_metal_at = cuda_gap
+    while cuda_idx < len(cuda_nodes) or metal_idx < len(metal_nodes):
+        if metal_idx < len(metal_nodes) and cuda_idx >= round(next_metal_at):
+            rotated.append(metal_nodes[metal_idx])
+            metal_idx += 1
+            next_metal_at += cuda_gap
+        elif cuda_idx < len(cuda_nodes):
+            rotated.append(cuda_nodes[cuda_idx])
+            cuda_idx += 1
+        else:
+            rotated.append(metal_nodes[metal_idx])
+            metal_idx += 1
+
+    if len(rotated) != n:
+        return cycle  # safety fallback
+
+    return Cycle(node_ids=rotated)
+
+
+def place_instance(
+    command: PlaceInstance,
+    topology: Topology,
+    current_instances: Mapping[InstanceId, Instance],
+    node_memory: Mapping[NodeId, MemoryUsage],
+    node_network: Mapping[NodeId, NodeNetworkInfo],
+    node_backends: Mapping[NodeId, list[Backend]],
+    required_nodes: set[NodeId] | None = None,
+    download_status: Mapping[NodeId, Sequence[DownloadProgress]] | None = None,
+    node_rdma_ctl: Mapping[NodeId, NodeRdmaCtlStatus] | None = None,
+    node_identities: Mapping[NodeId, NodeIdentity] | None = None,
+) -> dict[InstanceId, Instance]:
+    if (
+        command.sharding is Sharding.Ring
+        and command.instance_meta is not InstanceMeta.MlxRing
+    ):
+        raise ValueError("Ring attention requires the MlxRing transport")
+    if command.sharding is Sharding.Ring and command.min_nodes < 2:
+        raise ValueError("Ring attention requires at least two nodes")
+    if command.sharding is Sharding.Ring and not command.model_card.supports_ring:
+        raise ValueError(
+            f"Model does not declare Ring attention support: {command.model_card.model_id}"
+        )
+
+    cycles = topology.get_cycles()
+    candidate_cycles = list(filter(lambda it: len(it) >= command.min_nodes, cycles))
+
+    # --- Single-node heuristic (Phase 1.3) ---
+    # Tensor parallelism splits weights across nodes but requires an all-reduce
+    # after every attention and MLP block. On slow interconnects (WiFi, 1 GbE)
+    # the communication cost dominates decode latency for models that already
+    # fit in one node's memory. When TP is requested but a viable single node
+    # exists, prefer Pipeline on that single node instead.
+    _single_node_preferred: Cycle | None = None
+    _single_node_pref_disabled = os.environ.get(
+        "EXO_DISABLE_SINGLE_NODE_PREFERENCE", ""
+    ).lower() in ("1", "true", "yes")
+    if command.sharding == Sharding.Tensor and not _single_node_pref_disabled:
+        _single_node_preferred = should_prefer_single_node(
+            command.model_card,
+            cycles,
+            node_memory,
+            node_identities,
+        )
+        # Models with known Pipeline breaks — heuristic should not downgrade TP to
+        # Pipeline for these models; they must stay on TP or fail.
+        _PIPELINE_BROKEN = {ModelId("mlx-community/DeepSeek-V3.1-8bit")}
+        if (
+            _single_node_preferred is not None
+            and command.node_layers is None
+            and command.model_card.model_id not in _PIPELINE_BROKEN
+        ):
+            original_sharding = command.sharding.value
+            command = command.model_copy(
+                update={
+                    "instance_meta": InstanceMeta.MlxRing,
+                    "sharding": Sharding.Pipeline,
+                }
+            )
+            logger.info(
+                f"Single-node heuristic: {command.model_card.model_id} fits on "
+                f"fastest node — downgrading from {original_sharding} to "
+                f"Pipeline for better decode performance"
+            )
+
+    if command.node_layers is not None:
+        if command.sharding != Sharding.Pipeline:
+            raise ValueError("Manual layer allocation requires Pipeline sharding")
+        requested_nodes = set(command.node_layers)
+        candidate_cycles = [
+            cycle
+            for cycle in candidate_cycles
+            if set(cycle.node_ids) == requested_nodes
+        ]
+        if not candidate_cycles:
+            raise ValueError(
+                "No connected cycle exactly matches the manual layer allocation nodes"
+            )
+
+    # Filter to cycles containing all required nodes (subset matching)
+    if required_nodes:
+        candidate_cycles = [
+            cycle
+            for cycle in candidate_cycles
+            if required_nodes.issubset(cycle.node_ids)
+        ]
+    cycles_with_sufficient_memory: list[Cycle]
+    if _single_node_preferred is not None:
+        # Single-node heuristic already picked the cycle; skip re-filtering.
+        cycles_with_sufficient_memory = [_single_node_preferred]
+    elif command.sharding is Sharding.Ring:
+        # Every ring rank replicates the weights and must also hold the
+        # long-context prefill working set, not just the model file.
+        cycles_with_sufficient_memory = filter_cycles_by_replicated_memory(
+            candidate_cycles,
+            node_memory,
+            estimate_ring_node_memory(command.model_card),
+        )
+    else:
+        cycles_with_sufficient_memory = filter_cycles_by_memory(
+            candidate_cycles,
+            node_memory,
+            command.model_card.storage_size,
+            force_override=command.force_override,
+        )
+    if len(cycles_with_sufficient_memory) == 0:
+        raise ValueError("No cycles found with sufficient memory")
+
+    if command.sharding == Sharding.Tensor:
+        if not command.model_card.supports_tensor:
+            raise ValueError(
+                f"Requested Tensor sharding but this model does not support tensor parallelism: {command.model_card.model_id}"
+            )
+        # TODO: the condition here for tensor parallel is not correct, but it works good enough for now.
+        # DeepSeek V4 is MQA (num_key_value_heads=1) but its sharding strategy
+        # head-parallelises wq_b/wo_a and shards MoE experts instead of splitting
+        # KV heads, so the kv-head divisibility check doesn't apply.
+        is_deepseek_v4 = command.model_card.base_model.startswith("DeepSeek V4")
+        kv_heads = command.model_card.num_key_value_heads
+        cycles_with_sufficient_memory = [
+            cycle
+            for cycle in cycles_with_sufficient_memory
+            if command.model_card.hidden_size % len(cycle) == 0
+            and (is_deepseek_v4 or kv_heads is None or kv_heads % len(cycle) == 0)
+        ]
+        if not cycles_with_sufficient_memory:
+            raise ValueError(
+                f"No tensor sharding found for model with "
+                f"hidden_size={command.model_card.hidden_size}"
+                f"{f', num_key_value_heads={kv_heads}' if kv_heads is not None else ''}"
+                f" across candidate cycles"
+            )
+    if command.sharding == Sharding.Pipeline and command.model_card.model_id == ModelId(
+        "mlx-community/DeepSeek-V3.1-8bit"
+    ):
+        raise ValueError(
+            "Pipeline parallelism is not supported for DeepSeek V3.1 (8-bit)"
+        )
+    if (
+        command.sharding == Sharding.Pipeline
+        and command.model_card.base_model.startswith("Gemma 4")
+    ):
+        cycles_with_sufficient_memory = [
+            cycle for cycle in cycles_with_sufficient_memory if len(cycle) == 1
+        ]
+        if not cycles_with_sufficient_memory:
+            raise ValueError(
+                "Pipeline parallelism is not supported for Gemma 4; use tensor parallelism instead."
+            )
+
+    smallest_cycles = get_smallest_cycles(cycles_with_sufficient_memory)
+
+    required_backends = set(INSTANCE_META_BACKENDS[command.instance_meta]) & set(
+        command.model_card.backends
+    )
+    if not required_backends:
+        raise ValueError(
+            f"Model {command.model_card.model_id} backends "
+            f"{sorted(b.value for b in command.model_card.backends)} cannot satisfy engine "
+            f"{command.instance_meta.value} which requires "
+            f"{sorted(b.value for b in INSTANCE_META_BACKENDS[command.instance_meta])}"
+        )
+    smallest_cycles = [
+        cycle
+        for cycle in smallest_cycles
+        if all(
+            set(node_backends.get(node_id, [])) & required_backends for node_id in cycle
+        )
+    ]
+    if not smallest_cycles:
+        # Build an actionable message: which nodes are candidates, and what
+        # backends each actually advertises vs. what the model requires. A
+        # bare "No cycle..." left users (and the log) guessing why — e.g. a
+        # Linux node silently advertising only MlxCpu.
+        node_backend_desc = ", ".join(
+            f"{node_id[:8]}={sorted(b.value for b in node_backends.get(node_id, []))}"
+            for node_id in sorted(set(node_backends.keys()))
+        )
+        raise ValueError(
+            f"No cycle where every node supports a backend in "
+            f"{sorted(b.value for b in required_backends)} for {command.model_card.model_id}. "
+            f"Node backends: {node_backend_desc or 'none reported'}"
+        )
+
+    rdma_ctl_status = node_rdma_ctl or {}
+
+    def _all_rdma_ctl_enabled(cycle: Cycle) -> bool:
+        # ``rdma_ctl`` may report enabled while no verbs device is enumerated;
+        # jaccl segfaults on the NULL protection domain in that state
+        # (ml-explore/mlx#3777), so both flags are required.
+        return all(
+            (
+                (status := rdma_ctl_status.get(node_id)) is not None
+                and status.enabled
+                and status.has_verbs_device
+            )
+            for node_id in cycle
+        )
+
+    smallest_rdma_cycles = [
+        cycle
+        for cycle in smallest_cycles
+        if topology.is_rdma_cycle(cycle) and _all_rdma_ctl_enabled(cycle)
+    ]
+
+    if command.instance_meta == InstanceMeta.MlxJaccl:
+        if not smallest_rdma_cycles:
+            raise ValueError(
+                "Requested RDMA (MlxJaccl) but no RDMA-connected cycles available"
+            )
+        smallest_cycles = smallest_rdma_cycles
+
+    cycles_with_leaf_nodes: list[Cycle] = [
+        cycle
+        for cycle in smallest_cycles
+        if any(topology.node_is_leaf(node_id) for node_id in cycle)
+    ]
+
+    resolved_download_status = download_status or {}
+    candidate_cycles = (
+        cycles_with_leaf_nodes if cycles_with_leaf_nodes != [] else smallest_cycles
+    )
+
+    selected_cycle = max(
+        candidate_cycles,
+        key=lambda cycle: (
+            cycle_bandwidth_score(cycle, node_identities),
+            _cycle_accelerator_score(cycle, node_backends, required_backends),
+            _cycle_download_score(
+                cycle, command.model_card.model_id, resolved_download_status
+            ),
+            sum(
+                (node_memory[node_id].ram_available for node_id in cycle),
+                start=Memory(),
+            ),
+        ),
+    )
+    selected_cycle = _prefer_socket_reachable_rank_zero(selected_cycle, topology)
+
+    # For heterogeneous Metal+CUDA pipeline, rotate the cycle so the Metal node
+    # sits in the middle rank. This ensures all pipeline send/recv operations
+    # go through Metal↔CUDA links (which work) instead of CUDA↔CUDA links
+    # (which hang in MLX 0.32.0 aarch64 ring backend).
+    if command.sharding == Sharding.Pipeline and len(selected_cycle) >= 3:
+        selected_cycle = _rotate_metal_to_middle(selected_cycle, node_backends)
+
+    # Single-node: force Pipeline/Ring (Tensor and Jaccl require multi-node).
+    # If the user explicitly asked for Tensor (or Jaccl) but only a
+    # single-node cycle was viable, silently rewriting their request to
+    # Pipeline is surprising (a failed Tensor placement retries as Pipeline
+    # with no indication). Fail loudly instead so the caller knows their
+    # chosen sharding could not be honored.
+    if len(selected_cycle) == 1:
+        requested_multi_node = (
+            command.sharding in (Sharding.Tensor, Sharding.Ring)
+            or command.instance_meta == InstanceMeta.MlxJaccl
+        )
+        if requested_multi_node:
+            raise ValueError(
+                f"{command.sharding.value} ({command.instance_meta.value}) "
+                f"requires at least 2 nodes, but only a single-node cycle is "
+                f"available for {command.model_card.model_id}. Use Pipeline "
+                f"sharding, or connect more nodes."
+            )
+        command = command.model_copy(
+            update={
+                "instance_meta": InstanceMeta.MlxRing,
+                "sharding": Sharding.Pipeline,
+            }
+        )
+
+    shard_assignments = get_shard_assignments(
+        command.model_card,
+        selected_cycle,
+        command.sharding,
+        node_memory,
+        force_override=command.force_override,
+        node_identities=node_identities,
+        node_layers=command.node_layers,
+    )
+
+    preferred_backends = [
+        backend
+        for backend in INSTANCE_META_BACKENDS[command.instance_meta]
+        if backend in command.model_card.backends
+    ]
+    shard_assignments = assign_shard_backends(
+        shard_assignments, node_backends, preferred_backends
+    )
+
+    cycle_digraph: Topology = topology.get_subgraph_from_nodes(selected_cycle.node_ids)
+
+    instance_id = InstanceId()
+    target_instances = dict(deepcopy(current_instances))
+
+    match command.instance_meta:
+        case InstanceMeta.MlxJaccl:
+            # TODO(evan): shard assignments should contain information about ranks, this is ugly
+            def get_device_rank(node_id: NodeId) -> int:
+                runner_id = shard_assignments.node_to_runner[node_id]
+                shard_metadata = shard_assignments.runner_to_shard.get(runner_id)
+                assert shard_metadata is not None
+                return shard_metadata.device_rank
+
+            zero_node_ids = [
+                node_id
+                for node_id in selected_cycle.node_ids
+                if get_device_rank(node_id) == 0
+            ]
+            assert len(zero_node_ids) == 1
+            coordinator_node_id = zero_node_ids[0]
+
+            mlx_jaccl_devices = get_mlx_jaccl_devices_matrix(
+                [node_id for node_id in selected_cycle],
+                cycle_digraph,
+            )
+            mlx_jaccl_coordinators = get_mlx_jaccl_coordinators(
+                coordinator=coordinator_node_id,
+                coordinator_port=random_ephemeral_port(),
+                cycle_digraph=cycle_digraph,
+                node_network=node_network,
+            )
+            target_instances[instance_id] = MlxJacclInstance(
+                instance_id=instance_id,
+                shard_assignments=shard_assignments,
+                jaccl_devices=mlx_jaccl_devices,
+                jaccl_coordinators=mlx_jaccl_coordinators,
+            )
+        case InstanceMeta.MlxRing:
+            ephemeral_port = random_ephemeral_port()
+            hosts_by_node = get_mlx_ring_hosts_by_node(
+                selected_cycle=selected_cycle,
+                cycle_digraph=cycle_digraph,
+                ephemeral_port=ephemeral_port,
+                node_network=node_network,
+            )
+            target_instances[instance_id] = MlxRingInstance(
+                instance_id=instance_id,
+                shard_assignments=shard_assignments,
+                hosts_by_node=hosts_by_node,
+                ephemeral_port=ephemeral_port,
+            )
+
+    return target_instances
+
+
+def _prefer_socket_reachable_rank_zero(cycle: Cycle, topology: Topology) -> Cycle:
+    """Rotate multi-node placements so rank 0 is easiest for peers to reach.
+
+    MLX ring and JACCL both make rank 0 the listener/coordinator. Discovery can
+    produce RDMA-only edges in one direction and socket control-plane edges in
+    another, so putting a node with advertised inbound socket edges at rank 0
+    avoids assigning the listener role to a machine peers cannot dial.
+    """
+    if len(cycle) <= 1:
+        return cycle
+
+    inbound_socket_edges: dict[NodeId, int] = {node_id: 0 for node_id in cycle}
+    for connection in topology.list_connections():
+        if connection.sink not in inbound_socket_edges:
+            continue
+        if isinstance(connection.edge, SocketConnection):
+            inbound_socket_edges[connection.sink] += 1
+
+    best_index = max(
+        range(len(cycle.node_ids)),
+        key=lambda index: (inbound_socket_edges[cycle.node_ids[index]], -index),
+    )
+    if best_index == 0:
+        return cycle
+    return Cycle(node_ids=cycle.node_ids[best_index:] + cycle.node_ids[:best_index])
+
+
+def delete_instance(
+    command: DeleteInstance,
+    current_instances: Mapping[InstanceId, Instance],
+) -> dict[InstanceId, Instance]:
+    target_instances = dict(deepcopy(current_instances))
+    if command.instance_id in target_instances:
+        del target_instances[command.instance_id]
+        return target_instances
+    raise ValueError(f"Instance {command.instance_id} not found")
+
+
+def get_transition_events(
+    current_instances: Mapping[InstanceId, Instance],
+    target_instances: Mapping[InstanceId, Instance],
+    tasks: Mapping[TaskId, Task],
+) -> Sequence[Event]:
+    events: list[Event] = []
+
+    # find instances to create
+    for instance_id, instance in target_instances.items():
+        if instance_id not in current_instances:
+            events.append(
+                InstanceCreated(
+                    instance=instance,
+                )
+            )
+
+    # find instances to delete
+    for instance_id in current_instances:
+        if instance_id not in target_instances:
+            for task in tasks.values():
+                if task.instance_id == instance_id and task.task_status in [
+                    TaskStatus.Pending,
+                    TaskStatus.Running,
+                ]:
+                    events.append(
+                        TaskStatusUpdated(
+                            task_status=TaskStatus.Cancelled,
+                            task_id=task.task_id,
+                        )
+                    )
+
+            events.append(
+                InstanceDeleted(
+                    instance_id=instance_id,
+                )
+            )
+
+    return events
+
+
+def cancel_unnecessary_downloads(
+    instances: Mapping[InstanceId, Instance],
+    download_status: Mapping[NodeId, Sequence[DownloadProgress]],
+) -> Sequence[DownloadCommand]:
+    commands: list[DownloadCommand] = []
+    currently_downloading = [
+        (k, v.shard_metadata.model_card.model_id)
+        for k, vs in download_status.items()
+        for v in vs
+        if isinstance(v, (DownloadOngoing))
+    ]
+    active_models = set(
+        (
+            node_id,
+            instance.shard_assignments.runner_to_shard[runner_id].model_card.model_id,
+        )
+        for instance in instances.values()
+        for node_id, runner_id in instance.shard_assignments.node_to_runner.items()
+    )
+    for pair in currently_downloading:
+        if pair not in active_models:
+            commands.append(CancelDownload(target_node_id=pair[0], model_id=pair[1]))
+
+    return commands

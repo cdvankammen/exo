@@ -1,0 +1,372 @@
+"""Tests for offline/air-gapped mode."""
+
+import os
+import time
+from collections.abc import AsyncIterator
+from pathlib import Path
+from unittest.mock import AsyncMock, patch
+
+import aiofiles
+import aiofiles.os as aios
+import pytest
+
+from exo.download.download_utils import (
+    _download_file,  # pyright: ignore[reportPrivateUsage]
+    download_file_with_retry,
+    fetch_file_list_with_cache,
+    is_model_directory_complete,
+    resolve_existing_model,
+)
+from exo.shared.types.common import ModelId
+from exo.shared.types.worker.downloads import FileListEntry
+
+
+@pytest.fixture
+def model_id() -> ModelId:
+    return ModelId("test-org/test-model")
+
+
+@pytest.fixture
+async def temp_models_dir(tmp_path: Path) -> AsyncIterator[Path]:
+    models_dir = tmp_path / "models"
+    await aios.makedirs(models_dir, exist_ok=True)
+    with (
+        patch("exo.download.download_utils.EXO_MODELS_DIRS", (models_dir,)),
+        patch("exo.download.download_utils.EXO_DEFAULT_MODELS_DIR", models_dir),
+    ):
+        yield models_dir
+
+
+class TestDownloadFileOffline:
+    """Tests for _download_file with skip_internet=True."""
+
+    async def test_returns_local_file_without_http_verification(
+        self, model_id: ModelId, tmp_path: Path
+    ) -> None:
+        """When skip_internet=True and file exists locally, return it immediately
+        without making any HTTP calls (no file_meta verification)."""
+        target_dir = tmp_path / "downloads"
+        await aios.makedirs(target_dir, exist_ok=True)
+
+        local_file = target_dir / "model.safetensors"
+        async with aiofiles.open(local_file, "wb") as f:
+            await f.write(b"model weights data")
+
+        with patch(
+            "exo.download.download_utils.file_meta",
+            new_callable=AsyncMock,
+        ) as mock_file_meta:
+            result = await _download_file(
+                model_id,
+                "main",
+                "model.safetensors",
+                target_dir,
+                skip_internet=True,
+            )
+
+            assert result == local_file
+            mock_file_meta.assert_not_called()
+
+    async def test_raises_file_not_found_for_missing_file(
+        self, model_id: ModelId, tmp_path: Path
+    ) -> None:
+        """When skip_internet=True and file does NOT exist locally,
+        raise FileNotFoundError instead of attempting download."""
+        target_dir = tmp_path / "downloads"
+        await aios.makedirs(target_dir, exist_ok=True)
+
+        with pytest.raises(FileNotFoundError, match="offline mode"):
+            await _download_file(
+                model_id,
+                "main",
+                "missing_model.safetensors",
+                target_dir,
+                skip_internet=True,
+            )
+
+    async def test_returns_local_file_in_subdirectory(
+        self, model_id: ModelId, tmp_path: Path
+    ) -> None:
+        """When skip_internet=True and file exists in a subdirectory,
+        return it without HTTP calls."""
+        target_dir = tmp_path / "downloads"
+        subdir = target_dir / "transformer"
+        await aios.makedirs(subdir, exist_ok=True)
+
+        local_file = subdir / "diffusion_pytorch_model.safetensors"
+        async with aiofiles.open(local_file, "wb") as f:
+            await f.write(b"weights")
+
+        with patch(
+            "exo.download.download_utils.file_meta",
+            new_callable=AsyncMock,
+        ) as mock_file_meta:
+            result = await _download_file(
+                model_id,
+                "main",
+                "transformer/diffusion_pytorch_model.safetensors",
+                target_dir,
+                skip_internet=True,
+            )
+
+            assert result == local_file
+            mock_file_meta.assert_not_called()
+
+
+class TestDownloadFileWithRetryOffline:
+    """Tests for download_file_with_retry with skip_internet=True."""
+
+    async def test_propagates_skip_internet_to_download_file(
+        self, model_id: ModelId, tmp_path: Path
+    ) -> None:
+        """Verify skip_internet is passed through to _download_file."""
+        target_dir = tmp_path / "downloads"
+        await aios.makedirs(target_dir, exist_ok=True)
+
+        local_file = target_dir / "config.json"
+        async with aiofiles.open(local_file, "wb") as f:
+            await f.write(b'{"model_type": "qwen2"}')
+
+        with patch(
+            "exo.download.download_utils.file_meta",
+            new_callable=AsyncMock,
+        ) as mock_file_meta:
+            result = await download_file_with_retry(
+                model_id,
+                "main",
+                "config.json",
+                target_dir,
+                skip_internet=True,
+            )
+
+            assert result == local_file
+            mock_file_meta.assert_not_called()
+
+    async def test_file_not_found_does_not_retry(
+        self, model_id: ModelId, tmp_path: Path
+    ) -> None:
+        """FileNotFoundError from offline mode should not trigger retries."""
+        target_dir = tmp_path / "downloads"
+        await aios.makedirs(target_dir, exist_ok=True)
+
+        with pytest.raises(FileNotFoundError):
+            await download_file_with_retry(
+                model_id,
+                "main",
+                "nonexistent.safetensors",
+                target_dir,
+                skip_internet=True,
+            )
+
+
+class TestFetchFileListOffline:
+    """Tests for fetch_file_list_with_cache with skip_internet=True."""
+
+    async def test_uses_cached_file_list(
+        self, model_id: ModelId, temp_models_dir: Path
+    ) -> None:
+        """When skip_internet=True and cache file exists, use it without network."""
+        from pydantic import TypeAdapter
+
+        cache_dir = temp_models_dir / "caches" / model_id.normalize()
+        await aios.makedirs(cache_dir, exist_ok=True)
+
+        cached_list = [
+            FileListEntry(type="file", path="model.safetensors", size=1000),
+            FileListEntry(type="file", path="config.json", size=200),
+        ]
+        cache_file = cache_dir / f"{model_id.normalize()}--main--file_list.json"
+        async with aiofiles.open(cache_file, "w") as f:
+            await f.write(
+                TypeAdapter(list[FileListEntry]).dump_json(cached_list).decode()
+            )
+
+        with patch(
+            "exo.download.download_utils.fetch_file_list_with_retry",
+            new_callable=AsyncMock,
+        ) as mock_fetch:
+            result = await fetch_file_list_with_cache(
+                model_id, "main", skip_internet=True
+            )
+
+            assert result == cached_list
+            mock_fetch.assert_not_called()
+
+    async def test_falls_back_to_local_directory_scan(
+        self, model_id: ModelId, temp_models_dir: Path
+    ) -> None:
+        """When skip_internet=True and no cache but local files exist,
+        build file list from local directory."""
+        import json
+
+        model_dir = temp_models_dir / model_id.normalize()
+        await aios.makedirs(model_dir, exist_ok=True)
+
+        async with aiofiles.open(model_dir / "config.json", "w") as f:
+            await f.write('{"model_type": "qwen2"}')
+
+        index_data = {
+            "metadata": {},
+            "weight_map": {"model.layers.0.weight": "model.safetensors"},
+        }
+        async with aiofiles.open(model_dir / "model.safetensors.index.json", "w") as f:
+            await f.write(json.dumps(index_data))
+
+        async with aiofiles.open(model_dir / "model.safetensors", "wb") as f:
+            await f.write(b"x" * 500)
+
+        with patch(
+            "exo.download.download_utils.fetch_file_list_with_retry",
+            new_callable=AsyncMock,
+        ) as mock_fetch:
+            result = await fetch_file_list_with_cache(
+                model_id, "main", skip_internet=True
+            )
+
+            mock_fetch.assert_not_called()
+            paths = {entry.path for entry in result}
+            assert "config.json" in paths
+            assert "model.safetensors" in paths
+
+    async def test_raises_when_no_cache_and_no_local_files(
+        self, model_id: ModelId, temp_models_dir: Path
+    ) -> None:
+        """When skip_internet=True and neither cache nor local files exist,
+        raise FileNotFoundError."""
+        with pytest.raises(FileNotFoundError, match="No internet"):
+            await fetch_file_list_with_cache(model_id, "main", skip_internet=True)
+
+
+class TestFileListCacheTTL:
+    async def test_uses_fresh_cache_without_fetching(
+        self, model_id: ModelId, temp_models_dir: Path
+    ) -> None:
+        from pydantic import TypeAdapter
+
+        cache_dir = temp_models_dir / "caches" / model_id.normalize()
+        await aios.makedirs(cache_dir, exist_ok=True)
+
+        cached_list = [
+            FileListEntry(type="file", path="model.safetensors", size=1000),
+        ]
+        cache_file = cache_dir / f"{model_id.normalize()}--main--file_list.json"
+        async with aiofiles.open(cache_file, "w") as f:
+            await f.write(
+                TypeAdapter(list[FileListEntry]).dump_json(cached_list).decode()
+            )
+
+        with patch(
+            "exo.download.download_utils.fetch_file_list_with_retry",
+            new_callable=AsyncMock,
+        ) as mock_fetch:
+            result = await fetch_file_list_with_cache(model_id, "main")
+
+        assert result == cached_list
+        mock_fetch.assert_not_called()
+
+    async def test_refetches_when_cache_older_than_ttl(
+        self, model_id: ModelId, temp_models_dir: Path
+    ) -> None:
+        from pydantic import TypeAdapter
+
+        from exo.download.download_utils import (
+            _FILE_LIST_CACHE_TTL_SECS,  # pyright: ignore[reportPrivateUsage]
+        )
+
+        cache_dir = temp_models_dir / "caches" / model_id.normalize()
+        await aios.makedirs(cache_dir, exist_ok=True)
+
+        stale_list = [FileListEntry(type="file", path="stale.bin", size=1)]
+        cache_file = cache_dir / f"{model_id.normalize()}--main--file_list.json"
+        async with aiofiles.open(cache_file, "w") as f:
+            await f.write(
+                TypeAdapter(list[FileListEntry]).dump_json(stale_list).decode()
+            )
+
+        old_mtime = time.time() - _FILE_LIST_CACHE_TTL_SECS - 60
+        os.utime(cache_file, (old_mtime, old_mtime))
+
+        fresh_list = [FileListEntry(type="file", path="fresh.bin", size=2)]
+        with patch(
+            "exo.download.download_utils.fetch_file_list_with_retry",
+            new_callable=AsyncMock,
+            return_value=fresh_list,
+        ) as mock_fetch:
+            result = await fetch_file_list_with_cache(model_id, "main")
+
+        assert result == fresh_list
+        mock_fetch.assert_called_once()
+
+
+class TestModelDirectoryCompleteness:
+    """is_model_directory_complete offline-copy heuristics (TODO #8)."""
+
+    def test_complete_without_index_when_markers_present(self, tmp_path: Path) -> None:
+        """A copied GGUF-style folder (no safetensors index) with model
+        markers and no .partial files counts as complete."""
+        model_dir = tmp_path / "models--org--gguf"
+        model_dir.mkdir()
+        (model_dir / "config.json").write_text("{}")
+        (model_dir / "model.gguf").write_bytes(b"weights")
+
+        assert is_model_directory_complete(model_dir)
+
+    def test_complete_with_single_safetensors_without_index(
+        self, tmp_path: Path
+    ) -> None:
+        """Single-file safetensors model without an index is complete."""
+        model_dir = tmp_path / "single"
+        model_dir.mkdir()
+        (model_dir / "config.json").write_text("{}")
+        (model_dir / "model.safetensors").write_bytes(b"weights")
+
+        assert is_model_directory_complete(model_dir)
+
+    def test_incomplete_when_partial_files_present(self, tmp_path: Path) -> None:
+        """A .partial file anywhere means an in-progress download — not complete."""
+        model_dir = tmp_path / "partial"
+        model_dir.mkdir()
+        (model_dir / "config.json").write_text("{}")
+        (model_dir / "model.safetensors.partial").write_bytes(b"half")
+
+        assert not is_model_directory_complete(model_dir)
+
+    def test_incomplete_when_not_a_model_dir(self, tmp_path: Path) -> None:
+        """Empty or junk-only directories must not be treated as complete."""
+        empty_dir = tmp_path / "empty"
+        empty_dir.mkdir()
+
+        assert not is_model_directory_complete(empty_dir)
+
+        junk_dir = tmp_path / "junk"
+        junk_dir.mkdir()
+        (junk_dir / "notes.txt").write_text("not a model")
+
+        assert not is_model_directory_complete(junk_dir)
+
+    def test_index_based_check_still_strict(self, tmp_path: Path) -> None:
+        """When a safetensors index exists, missing weights must still fail."""
+        model_dir = tmp_path / "indexed"
+        model_dir.mkdir()
+        (model_dir / "config.json").write_text("{}")
+        (model_dir / "model.safetensors.index.json").write_text(
+            '{"metadata": {"total_size": 100}, "weight_map": '
+            '{"a": "model-00001-of-00002.safetensors", '
+            '"b": "model-00002-of-00002.safetensors"}}'
+        )
+        (model_dir / "model-00001-of-00002.safetensors").write_bytes(b"one")
+
+        assert not is_model_directory_complete(model_dir)
+
+    async def test_resolve_existing_model_finds_copied_gguf(
+        self, model_id: ModelId, temp_models_dir: Path
+    ) -> None:
+        """resolve_existing_model returns a copied GGUF folder without internet."""
+        model_dir = temp_models_dir / model_id.normalize()
+        model_dir.mkdir()
+        (model_dir / "config.json").write_text("{}")
+        (model_dir / "model.gguf").write_bytes(b"weights")
+
+        found = resolve_existing_model(model_id)
+
+        assert found == model_dir

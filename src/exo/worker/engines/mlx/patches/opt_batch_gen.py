@@ -1,0 +1,158 @@
+from dataclasses import dataclass, field
+from typing import cast
+
+import mlx.core as mx
+from mlx_lm.generate import GenerationBatch
+
+from exo.worker.engines.mlx.auto_parallel import (
+    get_active_relay_context,
+    relay_sampled_tokens,
+)
+
+_PRECOMPUTE_TOP_K = 20
+
+
+@dataclass
+class BatchTopKLogprobs:
+    uids: list[int] = field(default_factory=list)
+    indices: mx.array | None = None
+    values: mx.array | None = None
+    selected: mx.array | None = None
+    _uid_to_row: dict[int, int] = field(default_factory=dict, init=False, repr=False)
+
+    def __post_init__(self) -> None:
+        self._uid_to_row = {uid: i for i, uid in enumerate(self.uids)}
+
+    def for_uid(self, uid: int) -> tuple[list[int], list[float], float] | None:
+        if self.indices is None or self.values is None or self.selected is None:
+            return None
+        row = self._uid_to_row.get(uid)
+        if row is None:
+            return None
+        return (
+            cast(list[int], self.indices[row].tolist()),
+            cast(list[float], self.values[row].tolist()),
+            float(self.selected[row].item()),
+        )
+
+
+@dataclass
+class _TopKBuffer:
+    needs_topk: bool = False
+    pending: BatchTopKLogprobs = field(default_factory=BatchTopKLogprobs)
+    ready: BatchTopKLogprobs = field(default_factory=BatchTopKLogprobs)
+
+
+def _get_buffer(batch: GenerationBatch) -> _TopKBuffer:
+    buf = getattr(batch, "_topk_buffer", None)
+    if buf is None:
+        buf = _TopKBuffer()
+        batch._topk_buffer = buf  # pyright: ignore[reportAttributeAccessIssue]
+    return buf
+
+
+def set_needs_topk(batch: GenerationBatch, needed: bool) -> None:
+    _get_buffer(batch).needs_topk = needed
+
+
+def take_ready_topk(batch: GenerationBatch) -> BatchTopKLogprobs:
+    return _get_buffer(batch).ready
+
+
+def _patched_step(self: GenerationBatch) -> tuple[list[int], list[mx.array]]:
+    self._current_tokens = self._next_tokens
+    self._current_logprobs = self._next_logprobs
+    inputs = self._current_tokens
+    assert inputs is not None, "_step requires initialized _next_tokens"
+
+    # Materialize the current input tokens (the previous step's sample) and
+    # append them to the per-sequence history BEFORE running logits
+    # processors. Stateful processors (e.g. T28 JSON-schema constrained
+    # decoding) must see the latest sampled token when computing the mask for
+    # the next sample — otherwise they constrain against a state that lags
+    # one token behind, and two mutually-exclusive continuations of the same
+    # FSM state can both be sampled in a row (e.g. "{" then "{" producing
+    # "{{"). The upstream GenerationBatch._step feeds processors from a
+    # TokenBuffer that is updated before sampling; this patch restores that
+    # ordering for the history list.
+    token_list = cast(list[int], inputs.tolist())
+    for sti, ti in zip(self.tokens, token_list, strict=True):
+        sti.append(ti)
+
+    buf = _get_buffer(self)
+    buf.ready = buf.pending
+    buf.pending = BatchTopKLogprobs()
+
+    logits = self.model(inputs[:, None], cache=self.prompt_cache)
+    logits = logits[:, -1, :]
+
+    if self.logits_processors is not None and any(self.logits_processors):
+        processed_logits: list[mx.array] = []
+        for e in range(len(self.uids)):
+            sample_logits = logits[e : e + 1]
+            for processor in self.logits_processors[e]:
+                sample_logits = processor(mx.array(self.tokens[e]), sample_logits)
+            processed_logits.append(sample_logits)
+        logits = mx.concatenate(processed_logits, axis=0)
+
+    logprobs = logits - mx.logsumexp(logits, axis=-1, keepdims=True)
+
+    if self.samplers is not None and any(self.samplers):
+        all_samples: list[mx.array] = []
+        for e in range(len(self.uids)):
+            sample_sampler = self.samplers[e] or self.fallback_sampler
+            all_samples.append(sample_sampler(logprobs[e : e + 1]))
+        sampled = mx.concatenate(all_samples, axis=0)
+    else:
+        sampled = self.fallback_sampler(logprobs)
+
+    relay_context = get_active_relay_context(self.model)
+    if relay_context is not None:
+        # Token-relay decode: only the last pipeline rank sampled from real
+        # logits; circulate its token ids so every rank stays in lockstep.
+        sampled = relay_sampled_tokens(sampled, relay_context)
+
+    self._next_tokens = sampled
+    self._next_logprobs = logprobs
+
+    if buf.needs_topk:
+        batch_size = len(self.uids)
+        k = min(_PRECOMPUTE_TOP_K, logprobs.shape[1])
+        pending_indices = mx.argpartition(-logprobs, k, axis=1)[:, :k]
+        pending_values = mx.take_along_axis(logprobs, pending_indices, axis=1)
+        sort_order = mx.argsort(-pending_values, axis=1)
+        pending_indices = mx.take_along_axis(pending_indices, sort_order, axis=1)
+        pending_values = mx.take_along_axis(pending_values, sort_order, axis=1)
+        pending_selected = logprobs[mx.arange(batch_size), sampled]
+        buf.pending = BatchTopKLogprobs(
+            uids=list(self.uids),
+            indices=pending_indices,
+            values=pending_values,
+            selected=pending_selected,
+        )
+        mx.async_eval(
+            self._next_tokens,
+            self._next_logprobs,
+            pending_indices,
+            pending_values,
+            pending_selected,
+        )
+    else:
+        mx.async_eval(self._next_tokens, self._next_logprobs)
+
+    current_lp = self._current_logprobs
+    if isinstance(current_lp, mx.array):
+        mx.eval(current_lp)
+    elif current_lp:
+        mx.eval(*current_lp)
+
+    # token_list was already appended to self.tokens before the processors
+    # ran (stateful processors must see the latest sampled token); the input
+    # tokens themselves are already materialized by inputs.tolist() above.
+    if isinstance(current_lp, mx.array):
+        current_lp = list(current_lp)
+    return token_list, current_lp
+
+
+def apply_batch_gen_patch() -> None:
+    GenerationBatch._step = _patched_step

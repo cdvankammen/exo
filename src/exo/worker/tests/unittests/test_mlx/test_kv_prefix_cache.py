@@ -1,0 +1,752 @@
+# type: ignore
+import time
+from typing import cast
+from unittest.mock import patch
+
+import mlx.core as mx
+import pytest
+from mlx_lm.models.cache import KVCache
+from mlx_lm.models.deepseek_v4 import DeepseekV4Cache
+from mlx_lm.sample_utils import make_sampler
+
+from exo.shared.types.common import ModelId
+from exo.shared.types.text_generation import InputMessage, TextGenerationTaskParams
+from exo.worker.engines.mlx.cache import (
+    CacheSnapshot,
+    KVPrefixCache,
+    cache_length,
+    encode_prompt,
+    get_prefix_length,
+    make_kv_cache,
+    snapshot_ssm_states,
+    trim_cache,
+)
+from exo.worker.engines.mlx.generator.generate import mlx_generate, prefill
+from exo.worker.engines.mlx.types import Model
+from exo.worker.engines.mlx.utils_mlx import apply_chat_template
+from exo.worker.tests.unittests.test_mlx.conftest import (
+    DEFAULT_GPT_OSS_CONFIG,
+    DEFAULT_GPT_OSS_MODEL_ID,
+)
+
+
+def _check_model_exists() -> bool:
+    return DEFAULT_GPT_OSS_CONFIG.model_path.exists()
+
+
+class TestGetPrefixLength:
+    def test_identical_arrays(self):
+        a = mx.array([1, 2, 3, 4, 5])
+        b = mx.array([1, 2, 3, 4, 5])
+        assert get_prefix_length(a, b) == 5
+
+    def test_no_common_prefix(self):
+        a = mx.array([1, 2, 3])
+        b = mx.array([4, 5, 6])
+        assert get_prefix_length(a, b) == 0
+
+    def test_partial_prefix(self):
+        a = mx.array([1, 2, 3, 4, 5])
+        b = mx.array([1, 2, 3, 7, 8])
+        assert get_prefix_length(a, b) == 3
+
+    def test_prompt_longer_than_cached(self):
+        a = mx.array([1, 2, 3, 4, 5])
+        b = mx.array([1, 2, 3])
+        assert get_prefix_length(a, b) == 3
+
+    def test_cached_longer_than_prompt(self):
+        a = mx.array([1, 2, 3])
+        b = mx.array([1, 2, 3, 4, 5])
+        assert get_prefix_length(a, b) == 3
+
+    def test_single_token_match(self):
+        a = mx.array([1, 2, 3])
+        b = mx.array([1, 5, 6])
+        assert get_prefix_length(a, b) == 1
+
+    def test_empty_prompt(self):
+        a = mx.array([]).astype(mx.int32)
+        b = mx.array([1, 2, 3])
+        assert get_prefix_length(a, b) == 0
+
+    def test_empty_cached(self):
+        a = mx.array([1, 2, 3])
+        b = mx.array([]).astype(mx.int32)
+        assert get_prefix_length(a, b) == 0
+
+    def test_both_empty(self):
+        a = mx.array([]).astype(mx.int32)
+        b = mx.array([]).astype(mx.int32)
+        assert get_prefix_length(a, b) == 0
+
+
+class TestSnapshotAccumulation:
+    """Locks in the fix for the actual per-grow Metal leak on hybrid (SSM)
+    models: `update_kv_cache` must not let `_snapshots` grow without bound when
+    the same entry is grown in place many times."""
+
+    def test_repeated_update_does_not_accumulate_snapshots(self):
+        with patch(
+            "exo.worker.engines.mlx.cache.get_memory_used_percentage",
+            return_value=0.0,
+        ):
+            kv_prefix_cache = KVPrefixCache(None)
+            initial = [
+                CacheSnapshot(states=[None], token_count=4096),
+                CacheSnapshot(states=[None], token_count=8192),
+            ]
+            kv_prefix_cache.add_kv_cache(
+                mx.arange(10000), [KVCache()], ssm_snapshots=initial
+            )
+
+            # Each in-place grow re-prefills from restore_pos and produces a
+            # fresh snapshot at a position the retained old snapshots already
+            # cover. Pre-fix this appended one snapshot per grow forever.
+            for _ in range(50):
+                fresh = [CacheSnapshot(states=[None], token_count=8192)]
+                kv_prefix_cache.update_kv_cache(
+                    0, mx.arange(10000), [KVCache()], fresh, restore_pos=8192
+                )
+
+            stored = kv_prefix_cache._snapshots[0]
+            assert stored is not None
+            # Bounded by the number of distinct snapshot positions (here 2),
+            # not by the 50 grows.
+            assert len(stored) == 2
+            assert sorted(s.token_count for s in stored) == [4096, 8192]
+            # The kept 8192 snapshot must be the most recently supplied one.
+            assert stored[1] is fresh[0]
+
+    def test_extension_caps_snapshots_to_sliding_window(self):
+        """Extending a single entry to a long context (one snapshot per ~4096
+        tokens) must cap retained snapshots to a sliding window of the most-recent
+        N, not keep all of them — that linear-in-context retention was the
+        residual OOM cause."""
+        from exo.worker.engines.mlx.cache import _MAX_RETAINED_SNAPSHOTS
+
+        with patch(
+            "exo.worker.engines.mlx.cache.get_memory_used_percentage",
+            return_value=0.0,
+        ):
+            kv_prefix_cache = KVPrefixCache(None)
+            # 64 distinct positions = a 262144-token context at 4096/chunk.
+            num_positions = 64
+            snaps = [
+                CacheSnapshot(states=[None], token_count=4096 * (i + 1))
+                for i in range(num_positions)
+            ]
+            kv_prefix_cache.add_kv_cache(
+                mx.arange(10), [KVCache()], ssm_snapshots=snaps
+            )
+
+            stored = kv_prefix_cache._snapshots[0]
+            assert stored is not None
+            # Capped at the window; the most-recent N positions are retained
+            # (in-place grows extend from the tip, so these are what get used).
+            assert len(stored) == _MAX_RETAINED_SNAPSHOTS
+            assert stored == snaps[-_MAX_RETAINED_SNAPSHOTS:]
+            assert stored[-1] is snaps[-1]  # tip always kept
+
+
+class TestKVPrefix:
+    @pytest.fixture
+    def mock_tokenizer(self):
+        """Create a minimal mock tokenizer for tests that don't need real tokenization."""
+        from unittest.mock import MagicMock
+
+        tokenizer = MagicMock()
+        tokenizer.encode.return_value = [1, 2, 3]
+        return tokenizer
+
+    def test_starts_empty(self, mock_tokenizer):
+        cache = KVPrefixCache(None)
+        assert len(cache.prompts) == 0
+        assert len(cache.caches) == 0
+
+    def test_clear_empties_cache(self, mock_tokenizer):
+        cache = KVPrefixCache(None)
+        cache.prompts.append(mx.array([1, 2, 3]))
+        cache.caches.append([KVCache()])
+        cache.clear()
+        assert len(cache.prompts) == 0
+        assert len(cache.caches) == 0
+
+    def test_clear_on_empty_cache(self, mock_tokenizer):
+        cache = KVPrefixCache(None)
+        cache.clear()
+        assert len(cache.prompts) == 0
+
+    def test_evict_for_prefill_reserves_activation_headroom(self) -> None:
+        cache = KVPrefixCache(None)
+        cache.prompts = [mx.array([1]), mx.array([2])]
+        cache.caches = [[KVCache()], [KVCache()]]
+        cache._snapshots = [None, None]
+        cache._media_regions = [[], []]
+        cache._last_used = [0, 1]
+        cache.prefill_tps = [1.0, 2.0]
+
+        with (
+            patch(
+                "exo.worker.engines.mlx.cache._PREFILL_MEMORY_THRESHOLD",
+                0.70,
+            ),
+            patch.object(
+                cache,
+                "get_memory_used_percentage",
+                side_effect=[0.80, 0.65],
+            ),
+        ):
+            cache.evict_for_prefill()
+
+        assert len(cache.caches) == 1
+        assert cache.prompts[0].item() == 2
+
+
+def _load_gpt_oss() -> tuple[Model, object]:
+    from mlx_lm.utils import load_model
+
+    from exo.worker.engines.mlx.utils_mlx import load_tokenizer_for_model_id
+
+    model_path = DEFAULT_GPT_OSS_CONFIG.model_path
+    model_id = ModelId(DEFAULT_GPT_OSS_MODEL_ID)
+
+    model, _ = load_model(model_path, lazy=False)
+    tokenizer = load_tokenizer_for_model_id(model_id, model_path)
+    return cast(Model, model), tokenizer
+
+
+@pytest.mark.slow
+@pytest.mark.skipif(
+    not _check_model_exists(),
+    reason=f"GPT-OSS model not found at {DEFAULT_GPT_OSS_CONFIG.model_path}",
+)
+class TestKVPrefixCacheWithModel:
+    @pytest.fixture(scope="class")
+    def model_and_tokenizer(self):
+        model, tokenizer = _load_gpt_oss()
+        return model, tokenizer
+
+    def test_prefill_populates_cache(self, model_and_tokenizer):
+        model, tokenizer = model_and_tokenizer
+
+        task = TextGenerationTaskParams(
+            model=DEFAULT_GPT_OSS_MODEL_ID,
+            input=[InputMessage(role="user", content="Hello!!")],
+            max_output_tokens=1,
+        )
+        prompt = apply_chat_template(tokenizer, task)
+        tokens = encode_prompt(tokenizer, prompt)
+        cache = make_kv_cache(model)
+
+        _, _, snapshots = prefill(
+            model,
+            tokenizer,
+            make_sampler(0.0),
+            tokens,
+            cache,
+            group=None,
+            on_prefill_progress=None,
+            distributed_prompt_progress_callback=None,
+        )
+
+        # Cache should now hold the prompt tokens minus one
+        assert cache_length(cache) == len(tokens) - 1
+        # Snapshots should be available for models with non-KV caches
+        assert len(snapshots) > 0
+
+    def test_add_and_get_exact_match(self, model_and_tokenizer):
+        model, tokenizer = model_and_tokenizer
+
+        task = TextGenerationTaskParams(
+            model=DEFAULT_GPT_OSS_MODEL_ID,
+            input=[InputMessage(role="user", content="Test exact")],
+            max_output_tokens=1,
+        )
+        prompt = apply_chat_template(tokenizer, task)
+        tokens = encode_prompt(tokenizer, prompt)
+        cache = make_kv_cache(model)
+
+        _, _, snapshots = prefill(
+            model,
+            tokenizer,
+            make_sampler(0.0),
+            tokens,
+            cache,
+            group=None,
+            on_prefill_progress=None,
+            distributed_prompt_progress_callback=None,
+        )
+
+        kv_prefix_cache = KVPrefixCache(None)
+        kv_prefix_cache.add_kv_cache(tokens, cache, snapshots)
+
+        assert len(kv_prefix_cache.prompts) == 1
+        stored_length = cache_length(kv_prefix_cache.caches[0])
+        assert stored_length > 0
+
+        # Retrieve with same prompt: exact match
+        result_cache, remaining_tokens, matched_index, _ = kv_prefix_cache.get_kv_cache(
+            model, tokens
+        )
+        assert matched_index == 0
+
+        # Exact match returns last token(s) — for models with SSM/rotating caches,
+        # snapshot availability constrains how far back we can trim, so remaining
+        # may be 1 or 2 tokens depending on the model.
+        assert len(remaining_tokens) >= 1
+        assert mx.array_equal(remaining_tokens, tokens[-len(remaining_tokens) :])
+
+    def test_add_and_get_prefix_match(self, model_and_tokenizer):
+        """get_kv_cache with a longer prompt sharing prefix should return partial match."""
+        model, tokenizer = model_and_tokenizer
+
+        short_task = TextGenerationTaskParams(
+            model=DEFAULT_GPT_OSS_MODEL_ID,
+            input=[InputMessage(role="user", content="Hi")],
+            max_output_tokens=1,
+        )
+        short_prompt = apply_chat_template(tokenizer, short_task)
+        short_tokens = encode_prompt(tokenizer, short_prompt)
+        cache = make_kv_cache(model)
+
+        _, _, snapshots = prefill(
+            model,
+            tokenizer,
+            make_sampler(0.0),
+            short_tokens,
+            cache,
+            group=None,
+            on_prefill_progress=None,
+            distributed_prompt_progress_callback=None,
+        )
+
+        kv_prefix_cache = KVPrefixCache(None)
+        kv_prefix_cache.add_kv_cache(short_tokens, cache, snapshots)
+
+        # Query with longer prompt that shares the chat template prefix
+        long_task = TextGenerationTaskParams(
+            model=DEFAULT_GPT_OSS_MODEL_ID,
+            input=[InputMessage(role="user", content="Hi there, how are you?")],
+            max_output_tokens=1,
+        )
+        long_prompt = apply_chat_template(tokenizer, long_task)
+        long_tokens = encode_prompt(tokenizer, long_prompt)
+
+        # The prompts share a prefix (chat template preamble + "Hi")
+        expected_prefix = get_prefix_length(long_tokens, short_tokens)
+        assert expected_prefix > 0, (
+            "Prompts should share a prefix from the chat template"
+        )
+
+        result_cache, remaining_tokens, matched_index, _ = kv_prefix_cache.get_kv_cache(
+            model, long_tokens
+        )
+        assert matched_index == 0
+
+        # remaining_tokens covers from snapshot restore position to end
+        assert len(remaining_tokens) >= len(long_tokens) - expected_prefix
+
+    def test_stored_cache_not_mutated_after_get_and_generation(
+        self, model_and_tokenizer
+    ):
+        """Getting a cache and then mutating it (as generation does) must not corrupt stored cache."""
+        model, tokenizer = model_and_tokenizer
+
+        task = TextGenerationTaskParams(
+            model=DEFAULT_GPT_OSS_MODEL_ID,
+            input=[InputMessage(role="user", content="Mutation test")],
+            max_output_tokens=1,
+        )
+        prompt = apply_chat_template(tokenizer, task)
+        tokens = encode_prompt(tokenizer, prompt)
+        cache = make_kv_cache(model)
+
+        _, _, snapshots = prefill(
+            model,
+            tokenizer,
+            make_sampler(0.0),
+            tokens,
+            cache,
+            group=None,
+            on_prefill_progress=None,
+            distributed_prompt_progress_callback=None,
+        )
+
+        kv_prefix_cache = KVPrefixCache(None)
+        kv_prefix_cache.add_kv_cache(tokens, cache, snapshots)
+
+        stored_length = cache_length(kv_prefix_cache.caches[0])
+
+        # Get cache and mutate it (simulating what generation does)
+        result_cache, _, matched_index, _ = kv_prefix_cache.get_kv_cache(model, tokens)
+        assert matched_index == 0
+
+        # Simulate generation: feed many additional tokens through the cache
+        head_dim = result_cache[0].keys.shape[-1]
+        num_heads = result_cache[0].keys.shape[1]
+        extra_keys = mx.random.normal((1, num_heads, 50, head_dim))
+        extra_values = mx.random.normal((1, num_heads, 50, head_dim))
+        for layer_cache in result_cache:
+            layer_cache.update_and_fetch(extra_keys, extra_values)
+        mx.eval([c.keys for c in result_cache])
+
+        # Stored cache must be unchanged
+        assert cache_length(kv_prefix_cache.caches[0]) == stored_length
+
+    def test_stored_cache_survives_repeated_get_mutate_cycles(
+        self, model_and_tokenizer
+    ):
+        """Multiple get+mutate cycles (like repeated user requests) must not corrupt cache."""
+        model, tokenizer = model_and_tokenizer
+
+        task = TextGenerationTaskParams(
+            model=DEFAULT_GPT_OSS_MODEL_ID,
+            input=[InputMessage(role="user", content="Repeat test")],
+            max_output_tokens=1,
+        )
+        prompt = apply_chat_template(tokenizer, task)
+        tokens = encode_prompt(tokenizer, prompt)
+        cache = make_kv_cache(model)
+
+        _, _, snapshots = prefill(
+            model,
+            tokenizer,
+            make_sampler(0.0),
+            tokens,
+            cache,
+            group=None,
+            on_prefill_progress=None,
+            distributed_prompt_progress_callback=None,
+        )
+
+        kv_prefix_cache = KVPrefixCache(None)
+        kv_prefix_cache.add_kv_cache(tokens, cache, snapshots)
+
+        stored_length = cache_length(kv_prefix_cache.caches[0])
+
+        for i in range(3):
+            result_cache, _, _, _ = kv_prefix_cache.get_kv_cache(model, tokens)
+
+            head_dim = result_cache[0].keys.shape[-1]
+            num_heads = result_cache[0].keys.shape[1]
+            extra = mx.random.normal((1, num_heads, 30, head_dim))
+            for layer_cache in result_cache:
+                layer_cache.update_and_fetch(extra, extra)
+            mx.eval([c.keys for c in result_cache])
+
+            assert cache_length(kv_prefix_cache.caches[0]) == stored_length, (
+                f"Failed on loop {i}"
+            )
+
+    def test_mlx_generate_populates_cache(self, model_and_tokenizer):
+        """mlx_generate should save the post-prefill cache (before the decode loop)."""
+        model, tokenizer = model_and_tokenizer
+
+        kv_prefix_cache = KVPrefixCache(None)
+        task = TextGenerationTaskParams(
+            model=DEFAULT_GPT_OSS_MODEL_ID,
+            input=[InputMessage(role="user", content="Hello")],
+            max_output_tokens=5,
+        )
+        prompt = apply_chat_template(tokenizer, task)
+        prompt_tokens = encode_prompt(tokenizer, prompt)
+
+        # Consume the entire generator so the cache-saving code after yield runs
+        for _response in mlx_generate(
+            model=model,
+            tokenizer=tokenizer,
+            task=task,
+            prompt=prompt,
+            kv_prefix_cache=kv_prefix_cache,
+            group=None,
+        ):
+            pass
+
+        assert len(kv_prefix_cache.prompts) == 1
+        assert len(kv_prefix_cache.caches) == 1
+        # add_kv_cache is called before the decode loop and stores a deepcopy of
+        # the cache as it is just after prefill + trim(2). Generation tokens are
+        # never written into the stored entry.
+        assert cache_length(kv_prefix_cache.caches[0]) == len(prompt_tokens) - 2
+
+    def test_mlx_generate_second_call_gets_prefix_hit(self, model_and_tokenizer):
+        """Second mlx_generate call with same prompt should get a prefix hit from stored cache."""
+        model, tokenizer = model_and_tokenizer
+
+        kv_prefix_cache = KVPrefixCache(None)
+        task = TextGenerationTaskParams(
+            model=DEFAULT_GPT_OSS_MODEL_ID,
+            input=[InputMessage(role="user", content="Reuse test")],
+            max_output_tokens=5,
+        )
+        prompt = apply_chat_template(tokenizer, task)
+        prompt_tokens = encode_prompt(tokenizer, prompt)
+
+        # First generation populates cache
+        for _response in mlx_generate(
+            model=model,
+            tokenizer=tokenizer,
+            task=task,
+            prompt=prompt,
+            kv_prefix_cache=kv_prefix_cache,
+            group=None,
+        ):
+            pass
+
+        assert len(kv_prefix_cache.prompts) == 1
+
+        # Second call should find a prefix match (the stored cache contains
+        # prompt + generated tokens, which shares the prompt prefix)
+        result_cache, remaining_tokens, matched_index, _ = kv_prefix_cache.get_kv_cache(
+            model, prompt_tokens
+        )
+        # The stored cache is longer than the prompt (it includes generated tokens),
+        # so this is a prefix match where our prompt is fully contained
+        assert matched_index == 0
+        # Exact match: remaining_tokens is just the last token and the one before
+        assert len(remaining_tokens) == 2
+        assert mx.array_equal(remaining_tokens, prompt_tokens[-2:])
+
+    def test_mlx_generate_long_prompt_updates_cache_in_place(self, model_and_tokenizer):
+        """With a prompt > 1000 tokens, second generation should update the cache entry in-place."""
+        model, tokenizer = model_and_tokenizer
+
+        kv_prefix_cache = KVPrefixCache(None)
+
+        # Build a long user message (> 1000 tokens) to exceed _MIN_PREFIX_HIT_TO_UPDATE
+        base_text = "The quick brown fox jumps over the lazy dog. "
+        base_tokens = tokenizer.encode(base_text)
+        repeats = (1200 // len(base_tokens)) + 2
+        long_content = base_text * repeats
+
+        task1 = TextGenerationTaskParams(
+            model=DEFAULT_GPT_OSS_MODEL_ID,
+            input=[InputMessage(role="user", content=long_content)],
+            max_output_tokens=5,
+        )
+        prompt1 = apply_chat_template(tokenizer, task1)
+        prompt1_tokens = encode_prompt(tokenizer, prompt1)
+        assert len(prompt1_tokens) > 1000, (
+            "Prompt must exceed _MIN_PREFIX_HIT_TO_UPDATE"
+        )
+
+        # First generation populates the cache (must prefill all tokens)
+        t0 = time.perf_counter()
+        for _response in mlx_generate(
+            model=model,
+            tokenizer=tokenizer,
+            task=task1,
+            prompt=prompt1,
+            kv_prefix_cache=kv_prefix_cache,
+            group=None,
+        ):
+            pass
+        first_gen_time = time.perf_counter() - t0
+
+        assert len(kv_prefix_cache.prompts) == 1
+        first_cache_length = cache_length(kv_prefix_cache.caches[0])
+
+        # Second generation: same long prompt + extra content (simulating multi-turn)
+        task2 = TextGenerationTaskParams(
+            model=DEFAULT_GPT_OSS_MODEL_ID,
+            input=[
+                InputMessage(role="user", content=long_content),
+                InputMessage(role="assistant", content="Sure, I can help."),
+                InputMessage(role="user", content="Tell me more."),
+            ],
+            max_output_tokens=5,
+        )
+        prompt2 = apply_chat_template(tokenizer, task2)
+        prompt2_tokens = encode_prompt(tokenizer, prompt2)
+
+        # Verify the prompts share a long prefix
+        prefix_len = get_prefix_length(prompt2_tokens, prompt1_tokens)
+        assert prefix_len > 1000, "Prompts must share > 1000 token prefix"
+
+        # Second generation should reuse the cached prefix (only prefill new tokens)
+        t0 = time.perf_counter()
+        for _response in mlx_generate(
+            model=model,
+            tokenizer=tokenizer,
+            task=task2,
+            prompt=prompt2,
+            kv_prefix_cache=kv_prefix_cache,
+            group=None,
+        ):
+            pass
+        second_gen_time = time.perf_counter() - t0
+
+        # Second generation should be significantly faster due to prefix cache hit - hopefully not flaky
+        assert second_gen_time < first_gen_time * 0.5, (
+            f"Expected prefix cache speedup: "
+            f"first={first_gen_time:.2f}s, second={second_gen_time:.2f}s"
+        )
+
+        # With prefix_hit > 1000, should update in-place (not add a second entry)
+        assert len(kv_prefix_cache.prompts) == 1
+        # Updated cache should be longer (prompt2 + generated > prompt1 + generated)
+        updated_cache_length = cache_length(kv_prefix_cache.caches[0])
+        assert updated_cache_length > first_cache_length
+
+    def test_mlx_generate_stored_cache_not_mutated(self, model_and_tokenizer):
+        """After mlx_generate saves a cache, a second generation must not corrupt the stored copy."""
+        model, tokenizer = model_and_tokenizer
+
+        kv_prefix_cache = KVPrefixCache(None)
+        task = TextGenerationTaskParams(
+            model=DEFAULT_GPT_OSS_MODEL_ID,
+            input=[InputMessage(role="user", content="Immutable test")],
+            max_output_tokens=5,
+        )
+        prompt = apply_chat_template(tokenizer, task)
+
+        # First generation populates cache
+        for _response in mlx_generate(
+            model=model,
+            tokenizer=tokenizer,
+            task=task,
+            prompt=prompt,
+            kv_prefix_cache=kv_prefix_cache,
+            group=None,
+        ):
+            pass
+
+        firstcache_length = cache_length(kv_prefix_cache.caches[0])
+
+        # Second generation gets the cache and mutates it during generation
+        for _response in mlx_generate(
+            model=model,
+            tokenizer=tokenizer,
+            task=task,
+            prompt=prompt,
+            kv_prefix_cache=kv_prefix_cache,
+            group=None,
+        ):
+            pass
+
+        # The first stored cache must not have been mutated by the second generation
+        assert cache_length(kv_prefix_cache.caches[0]) == firstcache_length
+
+    def test_evicts_lru_entry_under_memory_pressure(self, model_and_tokenizer):
+        """Under memory pressure, adding a new cache entry evicts the least recently used one."""
+        model, tokenizer = model_and_tokenizer
+
+        kv_prefix_cache = KVPrefixCache(None)
+
+        # Add three cache entries with different prompts
+        prompts = ["First entry", "Second entry", "Third entry"]
+        for i, content in enumerate(prompts):
+            task = TextGenerationTaskParams(
+                model=DEFAULT_GPT_OSS_MODEL_ID,
+                input=[InputMessage(role="user", content=content)],
+                max_output_tokens=1,
+            )
+            prompt = apply_chat_template(tokenizer, task)
+            tokens = encode_prompt(tokenizer, prompt)
+            cache = make_kv_cache(model)
+            prefill(
+                model,
+                tokenizer,
+                make_sampler(0.0),
+                tokens,
+                cache,
+                group=None,
+                on_prefill_progress=None,
+                distributed_prompt_progress_callback=None,
+            )
+            kv_prefix_cache.add_kv_cache(tokens, cache)
+            # Stagger _last_used so LRU order is deterministic
+            kv_prefix_cache._last_used[i] = float(i)
+
+        assert len(kv_prefix_cache.prompts) == 3
+
+        # Access the third entry to make it most recently used
+        kv_prefix_cache._last_used[2] = 100.0
+        # Entry 0 (_last_used=0.0) is LRU, entry 1 (_last_used=1.0) is next
+
+        # Simulate memory pressure: return usage above _MEMORY_THRESHOLD (0.9)
+        with patch(
+            "exo.worker.engines.mlx.cache.get_memory_used_percentage",
+            return_value=0.95,
+        ):
+            # Trigger eviction by adding a new entry
+            task = TextGenerationTaskParams(
+                model=DEFAULT_GPT_OSS_MODEL_ID,
+                input=[InputMessage(role="user", content="New entry")],
+                max_output_tokens=1,
+            )
+            prompt = apply_chat_template(tokenizer, task)
+            tokens = encode_prompt(tokenizer, prompt)
+            cache = make_kv_cache(model)
+            prefill(
+                model,
+                tokenizer,
+                make_sampler(0.0),
+                tokens,
+                cache,
+                group=None,
+                on_prefill_progress=None,
+                distributed_prompt_progress_callback=None,
+            )
+            kv_prefix_cache.add_kv_cache(tokens, cache)
+
+        # LRU entries should have been evicted (entries 0, 1, 2 in order of _last_used)
+        # Since fake_active stays above threshold after each eviction (we don't change it),
+        # all old entries get evicted, leaving only the newly added one
+        assert len(kv_prefix_cache.prompts) == 1
+        # The surviving entry should be the newly added one
+        assert get_prefix_length(kv_prefix_cache.prompts[0], tokens) == len(tokens)
+
+
+class TestTrimCacheDeepseekV4:
+    """trim_cache must treat DeepseekV4Cache as non-trimmable.
+
+    DeepseekV4Cache.is_trimmable() is False and .trim() is a no-op, and
+    is_non_trimmable_cache_entry() already classifies it as non-trimmable —
+    but trim_cache used a stale inline copy of that predicate which omitted
+    it, so V4 entries fell through to the no-op .trim() and were silently
+    reused untrimmed instead of being restored from the snapshot.
+    """
+
+    @staticmethod
+    def _v4_cache(n_tokens: int, sliding_window: int = 64) -> DeepseekV4Cache:
+        c = DeepseekV4Cache(sliding_window)
+        c.local.update_and_fetch(
+            mx.random.normal([1, 1, n_tokens, 8]),
+            mx.random.normal([1, 1, n_tokens, 8]),
+        )
+        return c
+
+    def test_restores_v4_from_snapshot(self):
+        v4 = self._v4_cache(200)
+        kv = KVCache()
+        kv.update_and_fetch(
+            mx.random.normal([1, 2, 200, 8]), mx.random.normal([1, 2, 200, 8])
+        )
+        cache = [kv, v4]
+        snapshot = snapshot_ssm_states(cache)
+        assert snapshot.token_count == 200
+
+        # Advance both entries past the snapshot point.
+        v4.local.update_and_fetch(
+            mx.random.normal([1, 1, 100, 8]), mx.random.normal([1, 1, 100, 8])
+        )
+        kv.update_and_fetch(
+            mx.random.normal([1, 2, 100, 8]), mx.random.normal([1, 2, 100, 8])
+        )
+        assert cache_length(cache) == 300
+
+        trim_cache(cache, 100, snapshot)
+
+        # V4 entry must come back from the snapshot, not stay at 300.
+        assert cache[1].offset == 200
+        # Trimmable entries still trim normally.
+        assert cache[0].offset == 200
+
+    def test_v4_without_snapshot_does_not_raise(self):
+        v4 = self._v4_cache(200)
+        # No snapshot available: must be a no-op, not a TypeError from
+        # iterating a non-iterable cache in the CacheList fallback arm.
+        trim_cache([v4], 50, None)
+        assert v4.offset == 200

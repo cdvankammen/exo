@@ -1,0 +1,323 @@
+import json
+import os
+from copy import copy
+from itertools import count
+from math import inf
+from pathlib import Path
+from typing import cast
+
+from anyio import (
+    BrokenResourceError,
+    ClosedResourceError,
+    move_on_after,
+    sleep_forever,
+)
+from exo_rs import (
+    FromSwarm,
+    NetworkingHandle,
+)
+from loguru import logger
+from pydantic import ValidationError
+
+from exo.shared.constants import EXO_NODE_ZID
+from exo.shared.types.common import NodeId
+from exo.utils.channels import Receiver, Sender, channel
+from exo.utils.pydantic_ext import FrozenModel
+from exo.utils.task_group import TaskGroup
+
+from .connection_message import ConnectionMessage
+from .topics import CONNECTION_MESSAGES, PublishPolicy, TypedTopic
+
+# Bounded record of dropped malformed events, for the dashboard warning chip.
+# Each entry: {"topic": str, "error": str, "time": float}.
+_MALFORMED_EVENT_LOG: list[dict[str, str | float]] = []
+_MALFORMED_EVENT_LOG_MAX = 20
+
+
+def record_malformed_event(topic: str, error: str) -> None:
+    """Record a dropped malformed event (bounded ring buffer)."""
+    import time
+
+    _MALFORMED_EVENT_LOG.append(
+        {"topic": topic, "error": error, "time": time.time()}
+    )
+    if len(_MALFORMED_EVENT_LOG) > _MALFORMED_EVENT_LOG_MAX:
+        del _MALFORMED_EVENT_LOG[0]
+
+
+def malformed_event_log() -> list[dict[str, str | float]]:
+    """Return a copy of the dropped-event log for API/UI consumption."""
+    return list(_MALFORMED_EVENT_LOG)
+
+
+# A significant current limitation of the TopicRouter is that it is not capable
+# of preventing feedback, as it does not ask for a system id so cannot tell
+# which message is coming/going to which system.
+# This is currently only relevant for Election
+class TopicRouter[T: FrozenModel]:
+    def __init__(
+        self,
+        topic: TypedTopic[T],
+        networking_sender: Sender[tuple[str, bytes]],
+        max_buffer_size: float = inf,
+    ):
+        self.topic: TypedTopic[T] = topic
+        self.senders: set[Sender[T]] = set()
+        send, recv = channel[T]()
+        self.receiver: Receiver[T] = recv
+        self._sender: Sender[T] = send
+        self.networking_sender: Sender[tuple[str, bytes]] = networking_sender
+
+    async def run(self):
+        logger.debug(f"Topic Router {self.topic} ready to send")
+        with self.receiver as items:
+            async for item in items:
+                # Check if we should send to network
+                if (
+                    len(self.senders) == 0
+                    and self.topic.publish_policy is PublishPolicy.Minimal
+                ):
+                    await self._send_out(item)
+                    continue
+                if self.topic.publish_policy is PublishPolicy.Always:
+                    await self._send_out(item)
+                # Then publish to all senders
+                await self.publish(item)
+
+    async def shutdown(self):
+        logger.debug(f"Shutting down Topic Router {self.topic}")
+        # Close all the things!
+        for sender in self.senders:
+            sender.close()
+        self._sender.close()
+        self.receiver.close()
+
+    async def publish(self, item: T):
+        """
+        Publish item T on this topic to all senders.
+        NB: this sends to ALL receivers, potentially including receivers held by the object doing the sending.
+        You should handle your own output if you hold a sender + receiver pair.
+        """
+        to_clear: set[Sender[T]] = set()
+        for sender in copy(self.senders):
+            try:
+                await sender.send(item)
+            except (ClosedResourceError, BrokenResourceError):
+                to_clear.add(sender)
+        self.senders -= to_clear
+
+    async def publish_bytes(self, data: bytes):
+        try:
+            await self.publish(self.topic.deserialize(data))
+        except Exception as e:
+            # A malformed/desynced event (e.g. an old bundle sending a schema
+            # this version can't parse) must never kill the whole process.
+            # Log it, record it for the UI warning, and drop just this event.
+            logger.warning(
+                f"Dropping malformed event on {self.topic.topic}: {e}"
+            )
+            record_malformed_event(self.topic.topic, repr(e))
+
+    def new_sender(self) -> Sender[T]:
+        return self._sender.clone()
+
+    async def _send_out(self, item: T):
+        logger.trace(f"TopicRouter {self.topic.topic} sending {item}")
+        await self.networking_sender.send(
+            (str(self.topic.topic), self.topic.serialize(item))
+        )
+
+
+class Router:
+    @classmethod
+    def create(
+        cls,
+        identity: str,
+        namespace: str,
+        listen_port: int,
+        discovery_service_port: int,
+    ) -> "Router":
+        return cls(
+            handle=NetworkingHandle.new(
+                identity, namespace, listen_port, discovery_service_port
+            )
+        )
+
+    def __init__(self, handle: NetworkingHandle):
+        self.topic_routers: dict[str, TopicRouter[FrozenModel]] = {}
+        send, recv = channel[tuple[str, bytes]]()
+        self.networking_receiver: Receiver[tuple[str, bytes]] = recv
+        self._net: NetworkingHandle = handle
+        self._tmp_networking_sender: Sender[tuple[str, bytes]] | None = send
+        self._id_count = count()
+        self._tg: TaskGroup = TaskGroup()
+
+    async def register_topic[T: FrozenModel](self, topic: TypedTopic[T]):
+        send = self._tmp_networking_sender
+        if send:
+            self._tmp_networking_sender = None
+        else:
+            send = self.networking_receiver.clone_sender()
+        router = TopicRouter[T](topic, send)
+        self.topic_routers[topic.topic] = cast(TopicRouter[FrozenModel], router)
+        if self._tg.is_running():
+            await self._networking_subscribe(topic.topic)
+
+    def sender[T: FrozenModel](self, topic: TypedTopic[T]) -> Sender[T]:
+        router = self.topic_routers.get(topic.topic, None)
+        # There's gotta be a way to do this without THIS many asserts
+        assert router is not None
+        assert router.topic == topic
+        sender = cast(TopicRouter[T], router).new_sender()
+        return sender
+
+    def receiver[T: FrozenModel](self, topic: TypedTopic[T]) -> Receiver[T]:
+        router = self.topic_routers.get(topic.topic, None)
+        # There's gotta be a way to do this without THIS many asserts
+
+        assert router is not None
+        assert router.topic == topic
+        assert router.topic.model_type == topic.model_type
+
+        send, recv = channel[T]()
+        router.senders.add(cast(Sender[FrozenModel], send))
+
+        return recv
+
+    async def run(self):
+        logger.debug("Starting Router")
+        try:
+            async with self._tg as tg:
+                for topic in self.topic_routers:
+                    router = self.topic_routers[topic]
+                    tg.start_soon(router.run)
+                tg.start_soon(self._networking_recv)
+                tg.start_soon(self._networking_publish)
+                # subscribe to pending topics
+                for topic in self.topic_routers:
+                    await self._networking_subscribe(topic)
+                # Router only shuts down if you cancel it.
+                await sleep_forever()
+        finally:
+            with move_on_after(1, shield=True):
+                for topic in self.topic_routers:
+                    await self._networking_unsubscribe(str(topic))
+
+    async def shutdown(self):
+        logger.debug("Shutting down Router")
+        self._tg.cancel_tasks()
+
+    async def _networking_subscribe(self, topic: str):
+        await self._net.gossipsub_subscribe(topic)
+        logger.info(f"Subscribed to {topic}")
+
+    async def connect_peer(self, host: str, port: int = 52414) -> bool:
+        """Manually connect to a peer node by hostname/IP.
+
+        Bypasses multicast discovery. Hostnames (e.g. Tailscale names) are
+        resolved by the OS network stack. Returns True if a new connection was
+        established.
+        """
+        connected = await self._net.connect_peer(host, port)
+        logger.info(f"Manual peer connect {host}:{port} -> connected={connected}")
+        return connected
+
+    async def _networking_unsubscribe(self, topic: str):
+        await self._net.gossipsub_unsubscribe(topic)
+        logger.info(f"Unsubscribed from {topic}")
+
+    async def _networking_recv(self):
+        try:
+            while True:
+                from_swarm = await self._net.recv()
+                logger.debug(from_swarm)
+                try:
+                    match from_swarm:
+                        case FromSwarm.Message(topic, data):
+                            logger.trace(
+                                f"Received message on {topic} with payload {data}"
+                            )
+                            if topic not in self.topic_routers:
+                                logger.warning(
+                                    f"Received message on unknown or inactive topic {topic}"
+                                )
+                                continue
+                            router = self.topic_routers[topic]
+                            try:
+                                await router.publish_bytes(data)
+                            except ValidationError as exception:
+                                # A peer on an incompatible version (or a corrupt
+                                # packet) can produce undeserializable payloads.
+                                # Drop the message rather than killing the node.
+                                logger.warning(
+                                    f"Dropping undeserializable message on {topic}: "
+                                    f"{exception.error_count()} validation errors"
+                                )
+                                continue
+                        case FromSwarm.Connection():
+                            message = ConnectionMessage.from_update(from_swarm)
+                            logger.trace(
+                                f"Received message on connection_messages with payload {message}"
+                            )
+                            if CONNECTION_MESSAGES.topic in self.topic_routers:
+                                router = self.topic_routers[CONNECTION_MESSAGES.topic]
+                                assert router.topic.model_type == ConnectionMessage
+                                router = cast(TopicRouter[ConnectionMessage], router)
+                                await router.publish(message)
+                        case _:
+                            logger.critical(
+                                "failed to exhaustively check FromSwarm messages - logic error"
+                            )
+                except (
+                    ValidationError,
+                    UnicodeDecodeError,
+                    json.JSONDecodeError,
+                ) as e:
+                    # A malformed/desynced event must never kill the receive
+                    # loop (which would crash the whole process). Log it,
+                    # record it for the UI warning, and drop just this message.
+                    # Resource-closed errors are deliberately NOT caught here —
+                    # they are legitimate shutdown signals.
+                    logger.warning(f"Dropping malformed message: {e}")
+                    record_malformed_event("networking_recv", repr(e))
+        except Exception as exception:
+            logger.opt(exception=exception).error(
+                "Gossipsub receive loop terminated unexpectedly"
+            )
+            raise
+
+    async def _networking_publish(self):
+        with self.networking_receiver as networked_items:
+            async for topic, data in networked_items:
+                logger.trace(f"Sending message on {topic} with payload {data}")
+                if len(data) > 1024 * 1024:
+                    logger.warning(
+                        "Sending overlarge payload, network performance may be temporarily degraded"
+                    )
+                await self._net.gossipsub_publish(topic, data)
+
+
+def get_node_zid(
+    path: Path = EXO_NODE_ZID,
+) -> NodeId:
+    """
+    Obtains the stable node-ID for this node.
+
+    The ID is generated once and persisted to ``path`` (under a cross-process
+    file lock) so that restarts keep the same identity — T22 (stable node
+    identity / keypair persistence). Concurrent processes on the same machine
+    always observe the same ID; deleting the file rotates to a new one.
+    """
+    from filelock import FileLock
+
+    lock_path = Path(str(path) + ".lock")
+    with FileLock(lock_path):
+        if path.exists():
+            persisted = path.read_text().strip()
+            if persisted:
+                return NodeId(persisted)
+
+        node_id = NodeId(os.urandom(16).hex().lstrip("0") or "0")
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(str(node_id))
+        return node_id

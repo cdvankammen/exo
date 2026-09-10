@@ -1,0 +1,2097 @@
+from collections.abc import Mapping
+
+import pytest
+
+from exo.master.placement import (
+    _rotate_metal_to_middle,  # type: ignore[reportPrivateUsage]
+    get_transition_events,
+    place_instance,
+)
+from exo.master.placement_utils import get_mlx_jaccl_devices_matrix
+from exo.master.tests.conftest import (
+    create_node_memory,
+    create_node_network,
+    create_rdma_connection,
+    create_socket_connection,
+)
+from exo.shared.models.model_cards import ModelCard, ModelId, ModelTask
+from exo.shared.topology import Topology
+from exo.shared.types.backends import Backend
+from exo.shared.types.commands import PlaceInstance
+from exo.shared.types.common import CommandId, NodeId
+from exo.shared.types.events import (
+    InstanceCreated,
+    InstanceDeleted,
+    TaskStatusUpdated,
+)
+from exo.shared.types.memory import Memory
+from exo.shared.types.multiaddr import Multiaddr
+from exo.shared.types.profiling import (
+    NetworkInterfaceInfo,
+    NodeIdentity,
+    NodeNetworkInfo,
+    NodeRdmaCtlStatus,
+)
+from exo.shared.types.tasks import TaskId, TaskStatus, TextGeneration
+from exo.shared.types.text_generation import (
+    InputMessage,
+    InputMessageContent,
+    TextGenerationTaskParams,
+)
+from exo.shared.types.topology import (
+    Connection,
+    Cycle,
+    RDMAConnection,
+    SocketConnection,
+)
+from exo.shared.types.worker.downloads import (
+    DownloadCompleted,
+    DownloadFailed,
+    DownloadOngoing,
+    DownloadProgressData,
+)
+from exo.shared.types.worker.instances import (
+    Instance,
+    InstanceId,
+    InstanceMeta,
+    MlxJacclInstance,
+    MlxRingInstance,
+)
+from exo.shared.types.worker.runners import ShardAssignments
+from exo.shared.types.worker.shards import PipelineShardMetadata, Sharding
+
+
+@pytest.fixture
+def instance() -> Instance:
+    return MlxRingInstance(
+        instance_id=InstanceId(),
+        shard_assignments=ShardAssignments(
+            model_id=ModelId("test-model"), runner_to_shard={}, node_to_runner={}
+        ),
+        hosts_by_node={},
+        ephemeral_port=50000,
+    )
+
+
+@pytest.fixture
+def model_card() -> ModelCard:
+    return ModelCard(
+        model_id=ModelId("test-model"),
+        storage_size=Memory.from_kb(1000),
+        n_layers=10,
+        hidden_size=30,
+        supports_tensor=True,
+        supports_ring=True,
+        tasks=[ModelTask.TextGeneration],
+        backends=[Backend.MlxMetal],
+    )
+
+
+def _metal_only(
+    node_memory: Mapping[NodeId, object],
+) -> dict[NodeId, list[Backend]]:
+    return {node_id: [Backend.MlxMetal] for node_id in node_memory}
+
+
+def place_instance_command(model_card: ModelCard) -> PlaceInstance:
+    return PlaceInstance(
+        command_id=CommandId(),
+        model_card=model_card,
+        sharding=Sharding.Pipeline,
+        instance_meta=InstanceMeta.MlxRing,
+        min_nodes=1,
+    )
+
+
+@pytest.mark.parametrize(
+    "available_memory,total_layers,expected_layers",
+    [
+        ((500, 500, 1000), 12, (3, 3, 6)),
+        ((500, 500, 500), 12, (4, 4, 4)),
+        ((312, 468, 1092), 12, (2, 3, 7)),
+    ],
+)
+def test_get_instance_placements_create_instance(
+    available_memory: tuple[int, int, int],
+    total_layers: int,
+    expected_layers: tuple[int, int, int],
+    model_card: ModelCard,
+):
+    # arrange
+    model_card = model_card.model_copy(
+        update={
+            "n_layers": total_layers,
+            "storage_size": Memory.from_bytes(
+                int(sum(available_memory) / 1.1)
+            ),  # fit weights+activation (10% overhead) across all nodes
+        }
+    )
+    topology = Topology()
+
+    cic = place_instance_command(model_card)
+    node_id_a = NodeId()
+    node_id_b = NodeId()
+    node_id_c = NodeId()
+
+    # fully connected (directed) between the 3 nodes
+    conn_a_b = Connection(
+        source=node_id_a, sink=node_id_b, edge=create_socket_connection(1)
+    )
+    conn_b_c = Connection(
+        source=node_id_b, sink=node_id_c, edge=create_socket_connection(2)
+    )
+    conn_c_a = Connection(
+        source=node_id_c, sink=node_id_a, edge=create_socket_connection(3)
+    )
+    conn_c_b = Connection(
+        source=node_id_c, sink=node_id_b, edge=create_socket_connection(4)
+    )
+    conn_a_c = Connection(
+        source=node_id_a, sink=node_id_c, edge=create_socket_connection(5)
+    )
+    conn_b_a = Connection(
+        source=node_id_b, sink=node_id_a, edge=create_socket_connection(6)
+    )
+
+    node_memory = {
+        node_id_a: create_node_memory(available_memory[0]),
+        node_id_b: create_node_memory(available_memory[1]),
+        node_id_c: create_node_memory(available_memory[2]),
+    }
+    node_network = {
+        node_id_a: create_node_network(),
+        node_id_b: create_node_network(),
+        node_id_c: create_node_network(),
+    }
+    topology.add_node(node_id_a)
+    topology.add_node(node_id_b)
+    topology.add_node(node_id_c)
+    topology.add_connection(conn_a_b)
+    topology.add_connection(conn_b_c)
+    topology.add_connection(conn_c_a)
+    topology.add_connection(conn_c_b)
+    topology.add_connection(conn_a_c)
+    topology.add_connection(conn_b_a)
+
+    # act
+    placements = place_instance(
+        cic, topology, {}, node_memory, node_network, _metal_only(node_memory)
+    )
+
+    # assert
+    assert len(placements) == 1
+    instance_id = list(placements.keys())[0]
+    instance = placements[instance_id]
+    assert instance.shard_assignments.model_id == model_card.model_id
+
+    runner_id_a = instance.shard_assignments.node_to_runner[node_id_a]
+    runner_id_b = instance.shard_assignments.node_to_runner[node_id_b]
+    runner_id_c = instance.shard_assignments.node_to_runner[node_id_c]
+
+    shard_a = instance.shard_assignments.runner_to_shard[runner_id_a]
+    shard_b = instance.shard_assignments.runner_to_shard[runner_id_b]
+    shard_c = instance.shard_assignments.runner_to_shard[runner_id_c]
+
+    assert shard_a.end_layer - shard_a.start_layer == expected_layers[0]
+    assert shard_b.end_layer - shard_b.start_layer == expected_layers[1]
+    assert shard_c.end_layer - shard_c.start_layer == expected_layers[2]
+
+    shards = [shard_a, shard_b, shard_c]
+    shards_sorted = sorted(shards, key=lambda s: s.start_layer)
+    assert shards_sorted[0].start_layer == 0
+    assert shards_sorted[-1].end_layer == total_layers
+
+
+def test_get_instance_placements_one_node_exact_fit() -> None:
+    topology = Topology()
+    node_id = NodeId()
+    topology.add_node(node_id)
+    node_memory = {node_id: create_node_memory(1100 * 1024)}  # 10% headroom for activation
+    node_network = {node_id: create_node_network()}
+    cic = place_instance_command(
+        ModelCard(
+            model_id=ModelId("test-model"),
+            storage_size=Memory.from_kb(1000),
+            n_layers=10,
+            hidden_size=1000,
+            supports_tensor=True,
+            tasks=[ModelTask.TextGeneration],
+            backends=[Backend.MlxMetal],
+        ),
+    )
+    placements = place_instance(
+        cic, topology, {}, node_memory, node_network, _metal_only(node_memory)
+    )
+
+    assert len(placements) == 1
+    instance_id = list(placements.keys())[0]
+    instance = placements[instance_id]
+    assert instance.shard_assignments.model_id == "test-model"
+    assert len(instance.shard_assignments.node_to_runner) == 1
+    assert len(instance.shard_assignments.runner_to_shard) == 1
+    assert len(instance.shard_assignments.runner_to_shard) == 1
+
+
+def test_get_instance_placements_one_node_fits_with_extra_memory() -> None:
+    topology = Topology()
+    node_id = NodeId()
+    topology.add_node(node_id)
+    node_memory = {node_id: create_node_memory(1200 * 1024)}  # extra headroom for activation
+    node_network = {node_id: create_node_network()}
+    cic = place_instance_command(
+        ModelCard(
+            model_id=ModelId("test-model"),
+            storage_size=Memory.from_kb(1000),
+            n_layers=10,
+            hidden_size=1000,
+            supports_tensor=True,
+            tasks=[ModelTask.TextGeneration],
+            backends=[Backend.MlxMetal],
+        ),
+    )
+    placements = place_instance(
+        cic, topology, {}, node_memory, node_network, _metal_only(node_memory)
+    )
+
+    assert len(placements) == 1
+    instance_id = list(placements.keys())[0]
+    instance = placements[instance_id]
+    assert instance.shard_assignments.model_id == "test-model"
+    assert len(instance.shard_assignments.node_to_runner) == 1
+    assert len(instance.shard_assignments.runner_to_shard) == 1
+    assert len(instance.shard_assignments.runner_to_shard) == 1
+
+
+def test_get_instance_placements_one_node_not_fit() -> None:
+    topology = Topology()
+    node_id = NodeId()
+    topology.add_node(node_id)
+    node_memory = {node_id: create_node_memory(1000 * 1024)}
+    node_network = {node_id: create_node_network()}
+    cic = place_instance_command(
+        model_card=ModelCard(
+            model_id=ModelId("test-model"),
+            storage_size=Memory.from_kb(1001),
+            n_layers=10,
+            hidden_size=1000,
+            supports_tensor=True,
+            tasks=[ModelTask.TextGeneration],
+            backends=[Backend.MlxMetal],
+        ),
+    )
+
+    with pytest.raises(ValueError, match="No cycles found with sufficient memory"):
+        place_instance(
+            cic, topology, {}, node_memory, node_network, _metal_only(node_memory)
+        )
+
+
+def test_get_instance_placements_one_node_force_override() -> None:
+    """force_override=True should bypass the memory-sufficiency check and still
+    produce a placement for a model that exceeds available memory."""
+    topology = Topology()
+    node_id = NodeId()
+    topology.add_node(node_id)
+    node_memory = {node_id: create_node_memory(1000 * 1024)}
+    node_network = {node_id: create_node_network()}
+    cic = place_instance_command(
+        model_card=ModelCard(
+            model_id=ModelId("test-model"),
+            storage_size=Memory.from_kb(1001),
+            n_layers=10,
+            hidden_size=1000,
+            supports_tensor=True,
+            tasks=[ModelTask.TextGeneration],
+            backends=[Backend.MlxMetal],
+        ),
+    )
+    cic = cic.model_copy(update={"force_override": True})
+
+    placements = place_instance(
+        cic, topology, {}, node_memory, node_network, _metal_only(node_memory)
+    )
+
+    assert len(placements) == 1
+    instance_id = list(placements.keys())[0]
+    instance = placements[instance_id]
+    assert instance.shard_assignments.model_id == "test-model"
+    assert len(instance.shard_assignments.node_to_runner) == 1
+
+
+def test_get_transition_events_no_change(instance: Instance):
+    # arrange
+    instance_id = InstanceId()
+    current_instances = {instance_id: instance}
+    target_instances = {instance_id: instance}
+
+    # act
+    events = get_transition_events(current_instances, target_instances, {})
+
+    # assert
+    assert len(events) == 0
+
+
+def test_get_transition_events_create_instance(instance: Instance):
+    # arrange
+    instance_id = InstanceId()
+    current_instances: dict[InstanceId, Instance] = {}
+    target_instances: dict[InstanceId, Instance] = {instance_id: instance}
+
+    # act
+    events = get_transition_events(current_instances, target_instances, {})
+
+    # assert
+    assert len(events) == 1
+    assert isinstance(events[0], InstanceCreated)
+
+
+def test_get_transition_events_delete_instance(instance: Instance):
+    # arrange
+    instance_id = InstanceId()
+    current_instances: dict[InstanceId, Instance] = {instance_id: instance}
+    target_instances: dict[InstanceId, Instance] = {}
+
+    # act
+    events = get_transition_events(current_instances, target_instances, {})
+
+    # assert
+    assert len(events) == 1
+    assert isinstance(events[0], InstanceDeleted)
+    assert events[0].instance_id == instance_id
+
+
+def test_placement_selects_leaf_nodes(
+    model_card: ModelCard,
+):
+    # arrange
+    topology = Topology()
+
+    model_card = model_card.model_copy(update={"storage_size": Memory.from_bytes(1000)})
+
+    node_id_a = NodeId()
+    node_id_b = NodeId()
+    node_id_c = NodeId()
+    node_id_d = NodeId()
+
+    node_memory = {
+        node_id_a: create_node_memory(550),
+        node_id_b: create_node_memory(660),
+        node_id_c: create_node_memory(660),
+        node_id_d: create_node_memory(550),
+    }
+    node_network = {
+        node_id_a: create_node_network(),
+        node_id_b: create_node_network(),
+        node_id_c: create_node_network(),
+        node_id_d: create_node_network(),
+    }
+
+    topology.add_node(node_id_a)
+    topology.add_node(node_id_b)
+    topology.add_node(node_id_c)
+    topology.add_node(node_id_d)
+
+    # Daisy chain topology (directed)
+    topology.add_connection(
+        Connection(source=node_id_a, sink=node_id_b, edge=create_socket_connection(1))
+    )
+    topology.add_connection(
+        Connection(source=node_id_b, sink=node_id_a, edge=create_socket_connection(1))
+    )
+    topology.add_connection(
+        Connection(source=node_id_b, sink=node_id_c, edge=create_socket_connection(1))
+    )
+    topology.add_connection(
+        Connection(source=node_id_c, sink=node_id_b, edge=create_socket_connection(1))
+    )
+    topology.add_connection(
+        Connection(source=node_id_c, sink=node_id_d, edge=create_socket_connection(1))
+    )
+    topology.add_connection(
+        Connection(source=node_id_d, sink=node_id_c, edge=create_socket_connection(1))
+    )
+
+    cic = place_instance_command(model_card=model_card)
+
+    # act
+    placements = place_instance(
+        cic, topology, {}, node_memory, node_network, _metal_only(node_memory)
+    )
+
+    # assert
+    assert len(placements) == 1
+    instance = list(placements.values())[0]
+
+    assigned_nodes = set(instance.shard_assignments.node_to_runner.keys())
+    assert assigned_nodes == set((node_id_a, node_id_b)) or assigned_nodes == set(
+        (
+            node_id_c,
+            node_id_d,
+        )
+    )
+
+
+def test_tensor_rdma_backend_connectivity_matrix(
+    model_card: ModelCard,
+):
+    # arrange
+    topology = Topology()
+    model_card = model_card.model_copy(
+        update={
+            "n_layers": 12,
+            "storage_size": Memory.from_bytes(1500),
+        }
+    )
+
+    node_a = NodeId()
+    node_b = NodeId()
+    node_c = NodeId()
+
+    node_memory = {
+        node_a: create_node_memory(500),
+        node_b: create_node_memory(500),
+        node_c: create_node_memory(500),
+    }
+
+    ethernet_interface = NetworkInterfaceInfo(
+        name="en0",
+        ip_address="10.0.0.1",
+    )
+    ethernet_conn = SocketConnection(
+        sink_multiaddr=Multiaddr(address="/ip4/10.0.0.1/tcp/8000")
+    )
+
+    node_network = {
+        node_a: NodeNetworkInfo(interfaces=[ethernet_interface]),
+        node_b: NodeNetworkInfo(interfaces=[ethernet_interface]),
+        node_c: NodeNetworkInfo(interfaces=[ethernet_interface]),
+    }
+
+    topology.add_node(node_a)
+    topology.add_node(node_b)
+    topology.add_node(node_c)
+
+    # RDMA connections (directed)
+    topology.add_connection(
+        Connection(source=node_a, sink=node_b, edge=create_rdma_connection(3))
+    )
+    topology.add_connection(
+        Connection(source=node_b, sink=node_a, edge=create_rdma_connection(3))
+    )
+    topology.add_connection(
+        Connection(source=node_b, sink=node_c, edge=create_rdma_connection(4))
+    )
+    topology.add_connection(
+        Connection(source=node_c, sink=node_b, edge=create_rdma_connection(4))
+    )
+    topology.add_connection(
+        Connection(source=node_a, sink=node_c, edge=create_rdma_connection(5))
+    )
+    topology.add_connection(
+        Connection(source=node_c, sink=node_a, edge=create_rdma_connection(5))
+    )
+
+    # Ethernet connections (directed)
+    topology.add_connection(Connection(source=node_a, sink=node_b, edge=ethernet_conn))
+    topology.add_connection(Connection(source=node_b, sink=node_c, edge=ethernet_conn))
+    topology.add_connection(Connection(source=node_c, sink=node_a, edge=ethernet_conn))
+    topology.add_connection(Connection(source=node_a, sink=node_c, edge=ethernet_conn))
+    topology.add_connection(Connection(source=node_b, sink=node_a, edge=ethernet_conn))
+    topology.add_connection(Connection(source=node_c, sink=node_b, edge=ethernet_conn))
+
+    cic = PlaceInstance(
+        sharding=Sharding.Tensor,
+        instance_meta=InstanceMeta.MlxJaccl,
+        command_id=CommandId(),
+        model_card=model_card,
+        min_nodes=1,
+    )
+
+    node_rdma_ctl = {
+        node_a: NodeRdmaCtlStatus(enabled=True),
+        node_b: NodeRdmaCtlStatus(enabled=True),
+        node_c: NodeRdmaCtlStatus(enabled=True),
+    }
+
+    # act
+    placements = place_instance(
+        cic,
+        topology,
+        {},
+        node_memory,
+        node_network,
+        _metal_only(node_memory),
+        node_rdma_ctl=node_rdma_ctl,
+    )
+
+    # assert
+    assert len(placements) == 1
+    instance_id = list(placements.keys())[0]
+    instance = placements[instance_id]
+
+    assert isinstance(instance, MlxJacclInstance)
+
+    assert instance.jaccl_devices is not None
+    assert instance.jaccl_coordinators is not None
+
+    matrix = instance.jaccl_devices
+    assert len(matrix) == 3
+    for i in range(3):
+        assert matrix[i][i] == []
+
+    assigned_nodes = list(instance.shard_assignments.node_to_runner.keys())
+    node_to_idx = {node_id: idx for idx, node_id in enumerate(assigned_nodes)}
+
+    idx_a = node_to_idx[node_a]
+    idx_b = node_to_idx[node_b]
+    idx_c = node_to_idx[node_c]
+
+    assert matrix[idx_a][idx_b] == ["rdma_en3"]
+    assert matrix[idx_b][idx_c] == ["rdma_en4"]
+    assert matrix[idx_c][idx_a] == ["rdma_en5"]
+
+    # Verify coordinators are set for all nodes
+    assert len(instance.jaccl_coordinators) == 3
+    for node_id in assigned_nodes:
+        assert node_id in instance.jaccl_coordinators
+        coordinator = instance.jaccl_coordinators[node_id]
+        assert ":" in coordinator
+        # Rank 0 node should use 0.0.0.0, others should use connection-specific IPs
+        if node_id == assigned_nodes[0]:
+            assert coordinator.startswith("0.0.0.0:")
+        else:
+            ip_part = coordinator.split(":")[0]
+            assert len(ip_part.split(".")) == 4
+
+
+def test_jaccl_devices_matrix_multiple_links_between_two_nodes() -> None:
+    """Two cables between the same pair of nodes must produce index-aligned
+    rails: entry k of [i][j] and entry k of [j][i] are the two ends of the
+    same physical link, regardless of edge insertion order."""
+    topology = Topology()
+    node_a = NodeId()
+    node_b = NodeId()
+    topology.add_node(node_a)
+    topology.add_node(node_b)
+
+    # Cable 1: en6 on A <-> en7 on B. Cable 2: en7 on A <-> en6 on B.
+    # The crossed names mean a naive "first edge per direction" pick can pair
+    # interfaces that are not on the same cable.
+    cable_1_a_view = RDMAConnection(
+        source_rdma_iface="rdma_en6", sink_rdma_iface="rdma_en7"
+    )
+    cable_2_a_view = RDMAConnection(
+        source_rdma_iface="rdma_en7", sink_rdma_iface="rdma_en6"
+    )
+    cable_1_b_view = RDMAConnection(
+        source_rdma_iface="rdma_en7", sink_rdma_iface="rdma_en6"
+    )
+    cable_2_b_view = RDMAConnection(
+        source_rdma_iface="rdma_en6", sink_rdma_iface="rdma_en7"
+    )
+
+    # Insert the two directions in opposite cable order on purpose.
+    topology.add_connection(Connection(source=node_a, sink=node_b, edge=cable_1_a_view))
+    topology.add_connection(Connection(source=node_a, sink=node_b, edge=cable_2_a_view))
+    topology.add_connection(Connection(source=node_b, sink=node_a, edge=cable_2_b_view))
+    topology.add_connection(Connection(source=node_b, sink=node_a, edge=cable_1_b_view))
+
+    matrix = get_mlx_jaccl_devices_matrix([node_a, node_b], topology)
+
+    assert matrix[0][0] == []
+    assert matrix[1][1] == []
+    assert len(matrix[0][1]) == 2
+    assert len(matrix[1][0]) == 2
+
+    # Each rail index must reference the two endpoints of one physical cable.
+    rails = list(zip(matrix[0][1], matrix[1][0], strict=True))
+    assert sorted(rails) == [("rdma_en6", "rdma_en7"), ("rdma_en7", "rdma_en6")]
+
+
+def test_jaccl_devices_matrix_single_link_remains_single_entry() -> None:
+    topology = Topology()
+    node_a = NodeId()
+    node_b = NodeId()
+    topology.add_node(node_a)
+    topology.add_node(node_b)
+    topology.add_connection(
+        Connection(source=node_a, sink=node_b, edge=create_rdma_connection(6))
+    )
+    topology.add_connection(
+        Connection(source=node_b, sink=node_a, edge=create_rdma_connection(6))
+    )
+
+    matrix = get_mlx_jaccl_devices_matrix([node_a, node_b], topology)
+
+    assert matrix == [[[], ["rdma_en6"]], [["rdma_en6"], []]]
+
+
+def _build_three_node_rdma_topology() -> tuple[
+    Topology, NodeId, NodeId, NodeId, dict[NodeId, NodeNetworkInfo]
+]:
+    topology = Topology()
+    node_a = NodeId()
+    node_b = NodeId()
+    node_c = NodeId()
+
+    ethernet_interface = NetworkInterfaceInfo(name="en0", ip_address="10.0.0.1")
+    ethernet_conn = SocketConnection(
+        sink_multiaddr=Multiaddr(address="/ip4/10.0.0.1/tcp/8000")
+    )
+    node_network = {
+        node_a: NodeNetworkInfo(interfaces=[ethernet_interface]),
+        node_b: NodeNetworkInfo(interfaces=[ethernet_interface]),
+        node_c: NodeNetworkInfo(interfaces=[ethernet_interface]),
+    }
+
+    for n in (node_a, node_b, node_c):
+        topology.add_node(n)
+
+    rdma_pairs = [
+        (node_a, node_b, 3),
+        (node_b, node_a, 3),
+        (node_b, node_c, 4),
+        (node_c, node_b, 4),
+        (node_a, node_c, 5),
+        (node_c, node_a, 5),
+    ]
+    for src, sink, iface in rdma_pairs:
+        topology.add_connection(
+            Connection(source=src, sink=sink, edge=create_rdma_connection(iface))
+        )
+
+    socket_pairs = [
+        (node_a, node_b),
+        (node_b, node_c),
+        (node_c, node_a),
+        (node_a, node_c),
+        (node_b, node_a),
+        (node_c, node_b),
+    ]
+    for src, sink in socket_pairs:
+        topology.add_connection(Connection(source=src, sink=sink, edge=ethernet_conn))
+
+    return topology, node_a, node_b, node_c, node_network
+
+
+def test_place_mlx_jaccl_rejects_when_a_node_has_rdma_ctl_disabled(
+    model_card: ModelCard,
+):
+    # arrange
+    model_card = model_card.model_copy(
+        update={"n_layers": 12, "storage_size": Memory.from_bytes(1500)}
+    )
+    topology, node_a, node_b, node_c, node_network = _build_three_node_rdma_topology()
+    node_memory = {
+        node_a: create_node_memory(500),
+        node_b: create_node_memory(500),
+        node_c: create_node_memory(500),
+    }
+    node_rdma_ctl = {
+        node_a: NodeRdmaCtlStatus(enabled=True),
+        node_b: NodeRdmaCtlStatus(enabled=True),
+        node_c: NodeRdmaCtlStatus(enabled=False),
+    }
+    cic = PlaceInstance(
+        sharding=Sharding.Tensor,
+        instance_meta=InstanceMeta.MlxJaccl,
+        command_id=CommandId(),
+        model_card=model_card,
+        min_nodes=3,
+    )
+
+    # act / assert
+    with pytest.raises(
+        ValueError, match="Requested RDMA \\(MlxJaccl\\) but no RDMA-connected cycles"
+    ):
+        place_instance(
+            cic,
+            topology,
+            {},
+            node_memory,
+            node_network,
+            _metal_only(node_memory),
+            node_rdma_ctl=node_rdma_ctl,
+        )
+
+
+def test_place_mlx_jaccl_rejects_when_node_rdma_ctl_missing(model_card: ModelCard):
+    """A node with no observed rdma_ctl status must not participate in RDMA placement."""
+    # arrange
+    model_card = model_card.model_copy(
+        update={"n_layers": 12, "storage_size": Memory.from_bytes(1500)}
+    )
+    topology, node_a, node_b, node_c, node_network = _build_three_node_rdma_topology()
+    node_memory = {
+        node_a: create_node_memory(500),
+        node_b: create_node_memory(500),
+        node_c: create_node_memory(500),
+    }
+    # node_c has no rdma_ctl entry at all
+    node_rdma_ctl = {
+        node_a: NodeRdmaCtlStatus(enabled=True),
+        node_b: NodeRdmaCtlStatus(enabled=True),
+    }
+    cic = PlaceInstance(
+        sharding=Sharding.Tensor,
+        instance_meta=InstanceMeta.MlxJaccl,
+        command_id=CommandId(),
+        model_card=model_card,
+        min_nodes=3,
+    )
+
+    # act / assert
+    with pytest.raises(ValueError):
+        place_instance(
+            cic,
+            topology,
+            {},
+            node_memory,
+            node_network,
+            _metal_only(node_memory),
+            node_rdma_ctl=node_rdma_ctl,
+        )
+
+
+def test_place_mlx_jaccl_rejects_when_rdma_ctl_enabled_but_no_verbs_device(
+    model_card: ModelCard,
+):
+    """rdma_ctl enabled but no verbs device must reject jaccl placement.
+
+    ``rdma_ctl`` can report enabled while ``ibv_devices`` enumerates nothing;
+    jaccl segfaults on the NULL protection domain in that state
+    (ml-explore/mlx#3777). Placement must fail cleanly instead.
+    """
+    # arrange
+    model_card = model_card.model_copy(
+        update={"n_layers": 12, "storage_size": Memory.from_bytes(1500)}
+    )
+    topology, node_a, node_b, node_c, node_network = _build_three_node_rdma_topology()
+    node_memory = {
+        node_a: create_node_memory(500),
+        node_b: create_node_memory(500),
+        node_c: create_node_memory(500),
+    }
+    # All nodes have rdma_ctl enabled, but NONE enumerates a verbs device.
+    node_rdma_ctl = {
+        node_a: NodeRdmaCtlStatus(enabled=True, has_verbs_device=False),
+        node_b: NodeRdmaCtlStatus(enabled=True, has_verbs_device=False),
+        node_c: NodeRdmaCtlStatus(enabled=True, has_verbs_device=False),
+    }
+    cic = PlaceInstance(
+        sharding=Sharding.Tensor,
+        instance_meta=InstanceMeta.MlxJaccl,
+        command_id=CommandId(),
+        model_card=model_card,
+        min_nodes=3,
+    )
+
+    # act / assert
+    with pytest.raises(
+        ValueError, match="Requested RDMA \\(MlxJaccl\\) but no RDMA-connected cycles"
+    ):
+        place_instance(
+            cic,
+            topology,
+            {},
+            node_memory,
+            node_network,
+            _metal_only(node_memory),
+            node_rdma_ctl=node_rdma_ctl,
+        )
+
+
+def test_place_mlx_jaccl_rejects_when_mixed_verbs_device_availability(
+    model_card: ModelCard,
+):
+    """A single node without a verbs device must veto the whole jaccl cycle."""
+    # arrange
+    model_card = model_card.model_copy(
+        update={"n_layers": 12, "storage_size": Memory.from_bytes(1500)}
+    )
+    topology, node_a, node_b, node_c, node_network = _build_three_node_rdma_topology()
+    node_memory = {
+        node_a: create_node_memory(500),
+        node_b: create_node_memory(500),
+        node_c: create_node_memory(500),
+    }
+    # node_c: rdma_ctl enabled but no verbs device — the exact #3777 state.
+    node_rdma_ctl = {
+        node_a: NodeRdmaCtlStatus(enabled=True, has_verbs_device=True),
+        node_b: NodeRdmaCtlStatus(enabled=True, has_verbs_device=True),
+        node_c: NodeRdmaCtlStatus(enabled=True, has_verbs_device=False),
+    }
+    cic = PlaceInstance(
+        sharding=Sharding.Tensor,
+        instance_meta=InstanceMeta.MlxJaccl,
+        command_id=CommandId(),
+        model_card=model_card,
+        min_nodes=3,
+    )
+
+    # act / assert
+    with pytest.raises(
+        ValueError, match="Requested RDMA \\(MlxJaccl\\) but no RDMA-connected cycles"
+    ):
+        place_instance(
+            cic,
+            topology,
+            {},
+            node_memory,
+            node_network,
+            _metal_only(node_memory),
+            node_rdma_ctl=node_rdma_ctl,
+        )
+
+
+def test_placement_assigns_a_backend_to_every_shard(model_card: ModelCard):
+    topology = Topology()
+    node_metal = NodeId()
+    node_cuda = NodeId()
+    node_cpu = NodeId()
+    for n in (node_metal, node_cuda, node_cpu):
+        topology.add_node(n)
+
+    eth = create_socket_connection(1)
+    for src, dst in [
+        (node_metal, node_cuda),
+        (node_cuda, node_cpu),
+        (node_cpu, node_metal),
+        (node_metal, node_cpu),
+        (node_cpu, node_cuda),
+        (node_cuda, node_metal),
+    ]:
+        topology.add_connection(Connection(source=src, sink=dst, edge=eth))
+
+    nodes = (node_metal, node_cuda, node_cpu)
+    node_memory = {n: create_node_memory(700 * 1024) for n in nodes}
+    node_network = {n: create_node_network() for n in nodes}
+    node_backends = {
+        node_metal: [Backend.MlxMetal],
+        node_cuda: [Backend.MlxCuda],
+        node_cpu: [Backend.MlxCpu],
+    }
+
+    cic = place_instance_command(
+        model_card.model_copy(
+            update={
+                "backends": [Backend.MlxMetal, Backend.MlxCuda, Backend.MlxCpu],
+                "n_layers": 12,
+                "storage_size": Memory.from_kb(1500),
+            }
+        )
+    )
+
+    placements = place_instance(
+        cic, topology, {}, node_memory, node_network, node_backends
+    )
+
+    (instance,) = placements.values()
+    expected_backends = {
+        node_metal: Backend.MlxMetal,
+        node_cuda: Backend.MlxCuda,
+        node_cpu: Backend.MlxCpu,
+    }
+    for node_id, expected_backend in expected_backends.items():
+        runner_id = instance.shard_assignments.node_to_runner[node_id]
+        shard = instance.shard_assignments.runner_to_shard[runner_id]
+        assert shard.backend == expected_backend
+
+
+def test_ring_placement_prefers_lan_ip_over_tailscale_ip(
+    model_card: ModelCard,
+) -> None:
+    """When MlxRing neighbours have multiple socket-reachable IPs of the same
+    interface type, the LAN address (RFC1918) should win over the Tailscale
+    CGNAT-class address (100.64/10). Exercises ``_address_priority`` as the
+    tiebreaker for ``ring=True`` placements.
+    """
+    topology = Topology()
+    model_card = model_card.model_copy(
+        update={
+            "storage_size": Memory.from_bytes(1500),
+            "n_layers": 12,
+        }
+    )
+
+    node_a = NodeId()
+    node_b = NodeId()
+
+    topology.add_node(node_a)
+    topology.add_node(node_b)
+    topology.add_connection(
+        Connection(source=node_a, sink=node_b, edge=create_rdma_connection(1))
+    )
+    topology.add_connection(
+        Connection(source=node_b, sink=node_a, edge=create_rdma_connection(2))
+    )
+    for ip_a, ip_b in (
+        ("192.168.1.10", "192.168.1.11"),
+        ("100.64.0.10", "100.64.0.11"),
+    ):
+        topology.add_connection(
+            Connection(
+                source=node_a,
+                sink=node_b,
+                edge=SocketConnection(
+                    sink_multiaddr=Multiaddr(address=f"/ip4/{ip_b}/tcp/52415")
+                ),
+            )
+        )
+        topology.add_connection(
+            Connection(
+                source=node_b,
+                sink=node_a,
+                edge=SocketConnection(
+                    sink_multiaddr=Multiaddr(address=f"/ip4/{ip_a}/tcp/52415")
+                ),
+            )
+        )
+
+    node_memory = {
+        node_a: create_node_memory(1000),
+        node_b: create_node_memory(1000),
+    }
+    node_network = {
+        node_a: NodeNetworkInfo(
+            interfaces=[
+                NetworkInterfaceInfo(
+                    name="en9", ip_address="192.168.1.10", interface_type="ethernet"
+                ),
+                NetworkInterfaceInfo(
+                    name="utun0",
+                    ip_address="100.64.0.10",
+                    interface_type="ethernet",
+                ),
+            ]
+        ),
+        node_b: NodeNetworkInfo(
+            interfaces=[
+                NetworkInterfaceInfo(
+                    name="en9", ip_address="192.168.1.11", interface_type="ethernet"
+                ),
+                NetworkInterfaceInfo(
+                    name="utun0",
+                    ip_address="100.64.0.11",
+                    interface_type="ethernet",
+                ),
+            ]
+        ),
+    }
+
+    command = place_instance_command(model_card)
+    command = command.model_copy(update={"min_nodes": 2})
+
+    placements = place_instance(
+        command, topology, {}, node_memory, node_network, _metal_only(node_memory)
+    )
+
+    instance = list(placements.values())[0]
+    assert isinstance(instance, MlxRingInstance)
+    assert len(instance.shard_assignments.node_to_runner) == 2
+    # Every dialed neighbour host should be on the LAN, never on Tailscale.
+    for hosts in instance.hosts_by_node.values():
+        for host in hosts:
+            if host.port != 0 and host.ip != "0.0.0.0":
+                assert host.ip.startswith("192.168.1."), host
+
+
+def test_jaccl_placement_prefers_lan_ip_over_tailscale_ip(
+    model_card: ModelCard,
+) -> None:
+    """When a peer is socket-reachable over both LAN (192.168/16) and a
+    CGNAT-class address (100.64/10, e.g. Tailscale), the JACCL coordinator
+    should pick the LAN IP. This exercises ``_address_priority`` as the
+    tiebreaker among same-type ethernet edges.
+    """
+    topology = Topology()
+    model_card = model_card.model_copy(
+        update={
+            "storage_size": Memory.from_bytes(1500),
+            "n_layers": 12,
+            "hidden_size": 32,
+            "num_key_value_heads": 8,
+            "supports_tensor": True,
+        }
+    )
+
+    node_a = NodeId()
+    node_b = NodeId()
+
+    topology.add_node(node_a)
+    topology.add_node(node_b)
+    topology.add_connection(
+        Connection(source=node_a, sink=node_b, edge=create_rdma_connection(1))
+    )
+    topology.add_connection(
+        Connection(source=node_b, sink=node_a, edge=create_rdma_connection(2))
+    )
+    # Both LAN and Tailscale socket edges are advertised in both directions.
+    topology.add_connection(
+        Connection(
+            source=node_a,
+            sink=node_b,
+            edge=SocketConnection(
+                sink_multiaddr=Multiaddr(address="/ip4/192.168.1.11/tcp/52415")
+            ),
+        )
+    )
+    topology.add_connection(
+        Connection(
+            source=node_a,
+            sink=node_b,
+            edge=SocketConnection(
+                sink_multiaddr=Multiaddr(address="/ip4/100.64.0.11/tcp/52415")
+            ),
+        )
+    )
+    topology.add_connection(
+        Connection(
+            source=node_b,
+            sink=node_a,
+            edge=SocketConnection(
+                sink_multiaddr=Multiaddr(address="/ip4/192.168.1.10/tcp/52415")
+            ),
+        )
+    )
+    topology.add_connection(
+        Connection(
+            source=node_b,
+            sink=node_a,
+            edge=SocketConnection(
+                sink_multiaddr=Multiaddr(address="/ip4/100.64.0.10/tcp/52415")
+            ),
+        )
+    )
+
+    node_memory = {
+        node_a: create_node_memory(1000),
+        node_b: create_node_memory(1000),
+    }
+    node_network = {
+        node_a: NodeNetworkInfo(
+            interfaces=[
+                NetworkInterfaceInfo(
+                    name="en9", ip_address="192.168.1.10", interface_type="ethernet"
+                ),
+                NetworkInterfaceInfo(
+                    name="utun0",
+                    ip_address="100.64.0.10",
+                    interface_type="ethernet",
+                ),
+            ]
+        ),
+        node_b: NodeNetworkInfo(
+            interfaces=[
+                NetworkInterfaceInfo(
+                    name="en9", ip_address="192.168.1.11", interface_type="ethernet"
+                ),
+                NetworkInterfaceInfo(
+                    name="utun0",
+                    ip_address="100.64.0.11",
+                    interface_type="ethernet",
+                ),
+            ]
+        ),
+    }
+    command = PlaceInstance(
+        sharding=Sharding.Tensor,
+        instance_meta=InstanceMeta.MlxJaccl,
+        command_id=CommandId(),
+        model_card=model_card,
+        min_nodes=2,
+    )
+
+    node_rdma_ctl = {
+        node_a: NodeRdmaCtlStatus(enabled=True),
+        node_b: NodeRdmaCtlStatus(enabled=True),
+    }
+    placements = place_instance(
+        command,
+        topology,
+        {},
+        node_memory,
+        node_network,
+        _metal_only(node_memory),
+        node_rdma_ctl=node_rdma_ctl,
+    )
+
+    instance = list(placements.values())[0]
+    assert isinstance(instance, MlxJacclInstance)
+    assert len(instance.shard_assignments.node_to_runner) == 2
+    non_rank_zero = [
+        coordinator
+        for coordinator in instance.jaccl_coordinators.values()
+        if not coordinator.startswith("0.0.0.0:")
+    ]
+    # Every dialled coordinator should be on the LAN, never on Tailscale.
+    assert non_rank_zero, "expected at least one non-rank-0 coordinator"
+    assert all(c.startswith("192.168.1.") for c in non_rank_zero), non_rank_zero
+
+
+def test_placement_prefers_socket_reachable_rank_zero(
+    model_card: ModelCard,
+) -> None:
+    """``_prefer_socket_reachable_rank_zero`` rotates the cycle so the node
+    with the most inbound socket edges becomes rank 0 (the listener).
+    """
+    topology = Topology()
+    model_card = model_card.model_copy(
+        update={
+            "storage_size": Memory.from_bytes(1500),
+            "n_layers": 12,
+        }
+    )
+
+    listener = NodeId()
+    peer = NodeId()
+
+    topology.add_node(listener)
+    topology.add_node(peer)
+    topology.add_connection(
+        Connection(source=listener, sink=peer, edge=create_rdma_connection(1))
+    )
+    topology.add_connection(
+        Connection(source=peer, sink=listener, edge=create_rdma_connection(2))
+    )
+    # One socket edge in the listener->peer direction so the ring placement
+    # can resolve an IP for peer.
+    topology.add_connection(
+        Connection(
+            source=listener,
+            sink=peer,
+            edge=SocketConnection(
+                sink_multiaddr=Multiaddr(address="/ip4/192.168.1.11/tcp/52415")
+            ),
+        )
+    )
+    # Two distinct socket edges to the listener so it dominates the inbound
+    # count and the rotation prefers it as rank 0.
+    topology.add_connection(
+        Connection(
+            source=peer,
+            sink=listener,
+            edge=SocketConnection(
+                sink_multiaddr=Multiaddr(address="/ip4/192.168.1.10/tcp/52415")
+            ),
+        )
+    )
+    topology.add_connection(
+        Connection(
+            source=peer,
+            sink=listener,
+            edge=SocketConnection(
+                sink_multiaddr=Multiaddr(address="/ip4/192.168.1.10/tcp/52416")
+            ),
+        )
+    )
+
+    node_memory = {
+        listener: create_node_memory(1000),
+        peer: create_node_memory(1000),
+    }
+    node_network = {
+        listener: NodeNetworkInfo(
+            interfaces=[
+                NetworkInterfaceInfo(
+                    name="en9", ip_address="192.168.1.10", interface_type="ethernet"
+                )
+            ]
+        ),
+        peer: NodeNetworkInfo(
+            interfaces=[
+                NetworkInterfaceInfo(
+                    name="en9", ip_address="192.168.1.11", interface_type="ethernet"
+                )
+            ]
+        ),
+    }
+
+    command = place_instance_command(model_card)
+    command = command.model_copy(update={"min_nodes": 2})
+
+    placements = place_instance(
+        command, topology, {}, node_memory, node_network, _metal_only(node_memory)
+    )
+
+    instance = list(placements.values())[0]
+    runner_id = instance.shard_assignments.node_to_runner[listener]
+    shard = instance.shard_assignments.runner_to_shard[runner_id]
+    assert shard.device_rank == 0
+
+
+def _make_task(
+    instance_id: InstanceId,
+    status: TaskStatus = TaskStatus.Running,
+) -> TextGeneration:
+    return TextGeneration(
+        task_id=TaskId(),
+        task_status=status,
+        instance_id=instance_id,
+        command_id=CommandId(),
+        task_params=TextGenerationTaskParams(
+            model=ModelId("test-model"),
+            input=[InputMessage(role="user", content=InputMessageContent("hello"))],
+        ),
+    )
+
+
+def test_get_transition_events_delete_instance_cancels_running_tasks(
+    instance: Instance,
+):
+    # arrange
+    instance_id = InstanceId()
+    current_instances: dict[InstanceId, Instance] = {instance_id: instance}
+    target_instances: dict[InstanceId, Instance] = {}
+    task = _make_task(instance_id, TaskStatus.Running)
+    tasks = {task.task_id: task}
+
+    # act
+    events = get_transition_events(current_instances, target_instances, tasks)
+
+    # assert – cancellation event should come before the deletion event
+    assert len(events) == 2
+    assert isinstance(events[0], TaskStatusUpdated)
+    assert events[0].task_id == task.task_id
+    assert events[0].task_status == TaskStatus.Cancelled
+    assert isinstance(events[1], InstanceDeleted)
+    assert events[1].instance_id == instance_id
+
+
+def test_get_transition_events_delete_instance_cancels_pending_tasks(
+    instance: Instance,
+):
+    # arrange
+    instance_id = InstanceId()
+    current_instances: dict[InstanceId, Instance] = {instance_id: instance}
+    target_instances: dict[InstanceId, Instance] = {}
+    task = _make_task(instance_id, TaskStatus.Pending)
+    tasks = {task.task_id: task}
+
+    # act
+    events = get_transition_events(current_instances, target_instances, tasks)
+
+    # assert
+    assert len(events) == 2
+    assert isinstance(events[0], TaskStatusUpdated)
+    assert events[0].task_id == task.task_id
+    assert events[0].task_status == TaskStatus.Cancelled
+    assert isinstance(events[1], InstanceDeleted)
+
+
+def test_get_transition_events_delete_instance_ignores_completed_tasks(
+    instance: Instance,
+):
+    # arrange
+    instance_id = InstanceId()
+    current_instances: dict[InstanceId, Instance] = {instance_id: instance}
+    target_instances: dict[InstanceId, Instance] = {}
+    tasks = {
+        t.task_id: t
+        for t in [
+            _make_task(instance_id, TaskStatus.Complete),
+            _make_task(instance_id, TaskStatus.Failed),
+            _make_task(instance_id, TaskStatus.TimedOut),
+            _make_task(instance_id, TaskStatus.Cancelled),
+        ]
+    }
+
+    # act
+    events = get_transition_events(current_instances, target_instances, tasks)
+
+    # assert – only the InstanceDeleted event, no cancellations
+    assert len(events) == 1
+    assert isinstance(events[0], InstanceDeleted)
+
+
+def test_get_transition_events_delete_instance_cancels_only_matching_tasks(
+    instance: Instance,
+):
+    # arrange
+    instance_id_a = InstanceId()
+    instance_id_b = InstanceId()
+    current_instances: dict[InstanceId, Instance] = {
+        instance_id_a: instance,
+        instance_id_b: instance,
+    }
+    # only delete instance A, keep instance B
+    target_instances: dict[InstanceId, Instance] = {instance_id_b: instance}
+
+    task_a = _make_task(instance_id_a, TaskStatus.Running)
+    task_b = _make_task(instance_id_b, TaskStatus.Running)
+    tasks = {task_a.task_id: task_a, task_b.task_id: task_b}
+
+    # act
+    events = get_transition_events(current_instances, target_instances, tasks)
+
+    # assert – only task_a should be cancelled
+    cancel_events = [e for e in events if isinstance(e, TaskStatusUpdated)]
+    delete_events = [e for e in events if isinstance(e, InstanceDeleted)]
+    assert len(cancel_events) == 1
+    assert cancel_events[0].task_id == task_a.task_id
+    assert cancel_events[0].task_status == TaskStatus.Cancelled
+    assert len(delete_events) == 1
+    assert delete_events[0].instance_id == instance_id_a
+
+
+def _make_shard_metadata(model_card: ModelCard) -> PipelineShardMetadata:
+    return PipelineShardMetadata(
+        model_card=model_card,
+        device_rank=0,
+        world_size=1,
+        start_layer=0,
+        end_layer=model_card.n_layers,
+        n_layers=model_card.n_layers,
+    )
+
+
+def test_placement_prefers_cycle_with_downloaded_model(
+    model_card: ModelCard,
+) -> None:
+    """When two cycles are otherwise equal, prefer the one with the model already downloaded."""
+    topology = Topology()
+
+    model_card = model_card.model_copy(update={"storage_size": Memory.from_bytes(500)})
+
+    node_a = NodeId()
+    node_b = NodeId()
+
+    node_memory = {
+        node_a: create_node_memory(1000),
+        node_b: create_node_memory(1000),
+    }
+    node_network = {
+        node_a: create_node_network(),
+        node_b: create_node_network(),
+    }
+
+    topology.add_node(node_a)
+    topology.add_node(node_b)
+    # No connections between them — two single-node cycles
+
+    shard_meta = _make_shard_metadata(model_card)
+
+    # node_b has the model fully downloaded, node_a does not
+    download_status = {
+        node_b: [
+            DownloadCompleted(
+                node_id=node_b,
+                shard_metadata=shard_meta,
+                total=model_card.storage_size,
+            ),
+        ],
+    }
+
+    cic = place_instance_command(model_card)
+    placements = place_instance(
+        cic,
+        topology,
+        {},
+        node_memory,
+        node_network,
+        _metal_only(node_memory),
+        download_status=download_status,
+    )
+
+    assert len(placements) == 1
+    instance = list(placements.values())[0]
+    assigned_nodes = set(instance.shard_assignments.node_to_runner.keys())
+    assert assigned_nodes == {node_b}
+
+
+def test_placement_prefers_cycle_with_higher_download_progress(
+    model_card: ModelCard,
+) -> None:
+    """When two cycles are otherwise equal, prefer the one with more download progress."""
+    topology = Topology()
+
+    model_card = model_card.model_copy(update={"storage_size": Memory.from_bytes(1000)})
+
+    node_a = NodeId()
+    node_b = NodeId()
+
+    node_memory = {
+        node_a: create_node_memory(1100),
+        node_b: create_node_memory(1100),
+    }
+    node_network = {
+        node_a: create_node_network(),
+        node_b: create_node_network(),
+    }
+
+    topology.add_node(node_a)
+    topology.add_node(node_b)
+
+    shard_meta = _make_shard_metadata(model_card)
+
+    # node_a: 30% downloaded, node_b: 80% downloaded
+    download_status = {
+        node_a: [
+            DownloadOngoing(
+                node_id=node_a,
+                shard_metadata=shard_meta,
+                download_progress=DownloadProgressData(
+                    total=Memory.from_bytes(1000),
+                    downloaded=Memory.from_bytes(300),
+                    downloaded_this_session=Memory.from_bytes(300),
+                    completed_files=0,
+                    total_files=1,
+                    speed=0.0,
+                    eta_ms=0,
+                    files={},
+                ),
+            ),
+        ],
+        node_b: [
+            DownloadOngoing(
+                node_id=node_b,
+                shard_metadata=shard_meta,
+                download_progress=DownloadProgressData(
+                    total=Memory.from_bytes(1000),
+                    downloaded=Memory.from_bytes(800),
+                    downloaded_this_session=Memory.from_bytes(800),
+                    completed_files=0,
+                    total_files=1,
+                    speed=0.0,
+                    eta_ms=0,
+                    files={},
+                ),
+            ),
+        ],
+    }
+
+    cic = place_instance_command(model_card)
+    placements = place_instance(
+        cic,
+        topology,
+        {},
+        node_memory,
+        node_network,
+        _metal_only(node_memory),
+        download_status=download_status,
+    )
+
+    assert len(placements) == 1
+    instance = list(placements.values())[0]
+    assigned_nodes = set(instance.shard_assignments.node_to_runner.keys())
+    assert assigned_nodes == {node_b}
+
+
+def test_placement_does_not_prefer_cycle_with_failed_download(
+    model_card: ModelCard,
+) -> None:
+    """A failed download should count as 0% — not preferred over a node with no download history."""
+    topology = Topology()
+
+    model_card = model_card.model_copy(update={"storage_size": Memory.from_bytes(500)})
+
+    node_a = NodeId()
+    node_b = NodeId()
+
+    # node_a has slightly more RAM so it would win on the RAM tiebreaker
+    node_memory = {
+        node_a: create_node_memory(1001),
+        node_b: create_node_memory(1000),
+    }
+    node_network = {
+        node_a: create_node_network(),
+        node_b: create_node_network(),
+    }
+
+    topology.add_node(node_a)
+    topology.add_node(node_b)
+
+    shard_meta = _make_shard_metadata(model_card)
+
+    # node_b has a failed download — should not be preferred
+    download_status = {
+        node_b: [
+            DownloadFailed(
+                node_id=node_b,
+                shard_metadata=shard_meta,
+                error_message="connection reset",
+            ),
+        ],
+    }
+
+    cic = place_instance_command(model_card)
+    placements = place_instance(
+        cic,
+        topology,
+        {},
+        node_memory,
+        node_network,
+        _metal_only(node_memory),
+        download_status=download_status,
+    )
+
+    assert len(placements) == 1
+    instance = list(placements.values())[0]
+    assigned_nodes = set(instance.shard_assignments.node_to_runner.keys())
+    # node_a should win on RAM tiebreaker since failed download scores 0.0
+    assert assigned_nodes == {node_a}
+
+
+def test_placement_rejects_when_model_backends_disjoint_from_engine(
+    model_card: ModelCard,
+):
+    topology = Topology()
+    node_id = NodeId()
+    topology.add_node(node_id)
+    node_memory = {node_id: create_node_memory(1000 * 1024)}
+    node_network = {node_id: create_node_network()}
+
+    cic = place_instance_command(
+        model_card.model_copy(update={"backends": [Backend.Vllm]})
+    )
+
+    with pytest.raises(ValueError, match="cannot satisfy engine MlxRing"):
+        place_instance(
+            cic, topology, {}, node_memory, node_network, _metal_only(node_memory)
+        )
+
+
+def test_placement_prefers_accelerator_over_cpu_with_more_memory(
+    model_card: ModelCard,
+):
+    topology = Topology()
+    gpu_node = NodeId()
+    cpu_node = NodeId()
+    topology.add_node(gpu_node)
+    topology.add_node(cpu_node)
+    node_memory = {
+        gpu_node: create_node_memory(1000),
+        cpu_node: create_node_memory(2000),
+    }
+    node_network = {
+        gpu_node: create_node_network(),
+        cpu_node: create_node_network(),
+    }
+    node_backends = {
+        gpu_node: [Backend.MlxCuda],
+        cpu_node: [Backend.MlxCpu],
+    }
+    command = place_instance_command(
+        model_card.model_copy(
+            update={
+                "backends": [Backend.MlxCuda, Backend.MlxCpu],
+                "storage_size": Memory.from_bytes(500),
+            }
+        )
+    )
+
+    placements = place_instance(
+        command,
+        topology,
+        {},
+        node_memory,
+        node_network,
+        node_backends,
+    )
+
+    instance = next(iter(placements.values()))
+    assert set(instance.shard_assignments.node_to_runner) == {gpu_node}
+
+
+def test_placement_rejects_when_only_some_nodes_support_backend(
+    model_card: ModelCard,
+):
+    topology = Topology()
+    node_a = NodeId()
+    node_b = NodeId()
+    node_c = NodeId()
+    for n in (node_a, node_b, node_c):
+        topology.add_node(n)
+
+    eth = create_socket_connection(1)
+    for src, dst in [
+        (node_a, node_b),
+        (node_b, node_c),
+        (node_c, node_a),
+        (node_a, node_c),
+        (node_c, node_b),
+        (node_b, node_a),
+    ]:
+        topology.add_connection(Connection(source=src, sink=dst, edge=eth))
+
+    node_memory = {n: create_node_memory(500 * 1024) for n in (node_a, node_b, node_c)}
+    node_network = {n: create_node_network() for n in (node_a, node_b, node_c)}
+    node_backends = {
+        node_a: [Backend.MlxMetal],
+        node_b: [Backend.MlxMetal],
+        node_c: [Backend.MlxCuda],  # the lone CUDA-only node breaks the cycle
+    }
+
+    cic = place_instance_command(
+        model_card.model_copy(
+            update={
+                "backends": [Backend.MlxMetal],
+                "n_layers": 12,
+                "storage_size": Memory.from_kb(1500),
+            }
+        )
+    )
+
+    with pytest.raises(ValueError) as excinfo:
+        place_instance(cic, topology, {}, node_memory, node_network, node_backends)
+    # The actionable message lists every node's advertised backends so the
+    # log/API error shows WHICH node lacks the required backend (e.g. a Linux
+    # node silently advertising MlxCpu only).
+    message = str(excinfo.value)
+    assert "No cycle where every node supports" in message
+    assert "Node backends:" in message
+    assert node_a[:8] in message  # node IDs are included (truncated)
+    assert "MlxCuda" in message  # node_c's CUDA-only backend is listed
+
+
+def test_mlx_jaccl_rejects_cuda_only_cycle(model_card: ModelCard):
+    topology, node_a, node_b, node_c, node_network = _build_three_node_rdma_topology()
+    node_memory = {n: create_node_memory(500) for n in (node_a, node_b, node_c)}
+    node_rdma_ctl = {
+        n: NodeRdmaCtlStatus(enabled=True) for n in (node_a, node_b, node_c)
+    }
+    node_backends = {n: [Backend.MlxCuda] for n in (node_a, node_b, node_c)}
+
+    cic = PlaceInstance(
+        sharding=Sharding.Tensor,
+        instance_meta=InstanceMeta.MlxJaccl,
+        command_id=CommandId(),
+        model_card=model_card.model_copy(
+            update={
+                "backends": [Backend.MlxMetal, Backend.MlxCuda],
+                "n_layers": 12,
+                "storage_size": Memory.from_bytes(1500),
+            }
+        ),
+        min_nodes=3,
+    )
+
+    with pytest.raises(ValueError, match="No cycle where every node supports"):
+        place_instance(
+            cic,
+            topology,
+            {},
+            node_memory,
+            node_network,
+            node_backends,
+            node_rdma_ctl=node_rdma_ctl,
+        )
+
+
+def test_rotate_metal_to_middle_three_nodes_metal_first() -> None:
+    """3-node Metal+CUDA+CUDA cycle rotates Metal into the middle rank."""
+    cycle = Cycle(node_ids=[NodeId("metal_node"), NodeId("cuda_node_1"), NodeId("cuda_node_2")])
+    node_backends: Mapping[NodeId, list[Backend]] = {
+        NodeId("metal_node"): [Backend.MlxMetal],
+        NodeId("cuda_node_1"): [Backend.MlxCuda],
+        NodeId("cuda_node_2"): [Backend.MlxCuda],
+    }
+    rotated = _rotate_metal_to_middle(cycle, node_backends)
+    # Rotation preserves the ring order — the metal node ends up in the middle.
+    assert rotated.node_ids[1] == NodeId("metal_node")
+    assert set(rotated.node_ids) == set(cycle.node_ids)
+
+
+def test_rotate_metal_to_middle_three_nodes_metal_last() -> None:
+    """3-node CUDA+CUDA+Metal cycle rotates Metal into the middle rank."""
+    cycle = Cycle(node_ids=[NodeId("cuda_node_1"), NodeId("cuda_node_2"), NodeId("metal_node")])
+    node_backends: Mapping[NodeId, list[Backend]] = {
+        NodeId("cuda_node_1"): [Backend.MlxCuda],
+        NodeId("cuda_node_2"): [Backend.MlxCuda],
+        NodeId("metal_node"): [Backend.MlxMetal],
+    }
+    rotated = _rotate_metal_to_middle(cycle, node_backends)
+    assert rotated.node_ids[1] == NodeId("metal_node")
+    assert set(rotated.node_ids) == set(cycle.node_ids)
+
+
+def test_rotate_metal_to_middle_all_metal_unchanged() -> None:
+    """All-Metal cycles are left untouched."""
+    cycle = Cycle(node_ids=[NodeId("metal_1"), NodeId("metal_2"), NodeId("metal_3")])
+    node_backends: Mapping[NodeId, list[Backend]] = {
+        node_id: [Backend.MlxMetal] for node_id in cycle
+    }
+    assert _rotate_metal_to_middle(cycle, node_backends).node_ids == [
+        NodeId("metal_1"),
+        NodeId("metal_2"),
+        NodeId("metal_3"),
+    ]
+
+
+def test_rotate_metal_to_middle_already_centered_unchanged() -> None:
+    """Metal already in the middle rank is a no-op."""
+    cycle = Cycle(node_ids=[NodeId("cuda_node_1"), NodeId("metal_node"), NodeId("cuda_node_2")])
+    node_backends: Mapping[NodeId, list[Backend]] = {
+        NodeId("cuda_node_1"): [Backend.MlxCuda],
+        NodeId("metal_node"): [Backend.MlxMetal],
+        NodeId("cuda_node_2"): [Backend.MlxCuda],
+    }
+    assert _rotate_metal_to_middle(cycle, node_backends).node_ids == list(cycle.node_ids)
+
+
+def test_rotate_metal_to_middle_two_nodes_unchanged() -> None:
+    """Cycles under 3 nodes are never rotated."""
+    cycle = Cycle(node_ids=[NodeId("cuda_node_1"), NodeId("metal_node")])
+    node_backends: Mapping[NodeId, list[Backend]] = {
+        NodeId("cuda_node_1"): [Backend.MlxCuda],
+        NodeId("metal_node"): [Backend.MlxMetal],
+    }
+    assert _rotate_metal_to_middle(cycle, node_backends).node_ids == list(cycle.node_ids)
+
+
+def test_ring_attention_rejects_non_ring_transport(model_card: ModelCard) -> None:
+    command = PlaceInstance(
+        command_id=CommandId(),
+        model_card=model_card,
+        sharding=Sharding.Ring,
+        instance_meta=InstanceMeta.MlxJaccl,
+        min_nodes=2,
+    )
+
+    with pytest.raises(ValueError, match="requires the MlxRing transport"):
+        place_instance(command, Topology(), {}, {}, {}, {})
+
+
+def test_ring_attention_rejects_single_node(model_card: ModelCard) -> None:
+    command = PlaceInstance(
+        command_id=CommandId(),
+        model_card=model_card,
+        sharding=Sharding.Ring,
+        instance_meta=InstanceMeta.MlxRing,
+        min_nodes=1,
+    )
+
+    with pytest.raises(ValueError, match="requires at least two nodes"):
+        place_instance(command, Topology(), {}, {}, {}, {})
+
+
+def test_ring_attention_rejects_model_without_capability(model_card: ModelCard) -> None:
+    command = PlaceInstance(
+        command_id=CommandId(),
+        model_card=model_card.model_copy(update={"supports_ring": False}),
+        sharding=Sharding.Ring,
+        instance_meta=InstanceMeta.MlxRing,
+        min_nodes=2,
+    )
+
+    with pytest.raises(ValueError, match="does not declare Ring attention support"):
+        place_instance(command, Topology(), {}, {}, {}, {})
+
+
+def _create_two_node_ring() -> tuple[Topology, NodeId, NodeId]:
+    node_a = NodeId()
+    node_b = NodeId()
+    topology = Topology()
+    topology.add_node(node_a)
+    topology.add_node(node_b)
+    topology.add_connection(
+        Connection(source=node_a, sink=node_b, edge=create_socket_connection(1))
+    )
+    topology.add_connection(
+        Connection(source=node_b, sink=node_a, edge=create_socket_connection(2))
+    )
+    return topology, node_a, node_b
+
+
+def test_pipeline_placement_uses_manual_per_node_layer_allocation(
+    model_card: ModelCard,
+) -> None:
+    topology, node_a, node_b = _create_two_node_ring()
+    node_memory = {
+        node_a: create_node_memory(300),
+        node_b: create_node_memory(900),
+    }
+    node_network = {
+        node_a: create_node_network(),
+        node_b: create_node_network(),
+    }
+    command = place_instance_command(
+        model_card.model_copy(update={"storage_size": Memory.from_bytes(1000)})
+    ).model_copy(
+        update={
+            "min_nodes": 2,
+            "node_layers": {node_a: 2, node_b: 8},
+        }
+    )
+
+    placements = place_instance(
+        command,
+        topology,
+        {},
+        node_memory,
+        node_network,
+        _metal_only(node_memory),
+    )
+
+    instance = next(iter(placements.values()))
+    runner_a = instance.shard_assignments.node_to_runner[node_a]
+    runner_b = instance.shard_assignments.node_to_runner[node_b]
+    shard_a = instance.shard_assignments.runner_to_shard[runner_a]
+    shard_b = instance.shard_assignments.runner_to_shard[runner_b]
+    assert shard_a.end_layer - shard_a.start_layer == 2
+    assert shard_b.end_layer - shard_b.start_layer == 8
+
+
+def test_manual_layer_allocation_rejects_non_pipeline_sharding(
+    model_card: ModelCard,
+) -> None:
+    topology, node_a, node_b = _create_two_node_ring()
+    node_memory = {
+        node_a: create_node_memory(500),
+        node_b: create_node_memory(500),
+    }
+    node_network = {
+        node_a: create_node_network(),
+        node_b: create_node_network(),
+    }
+    command = place_instance_command(
+        model_card.model_copy(update={"storage_size": Memory.from_bytes(1000)})
+    ).model_copy(
+        update={
+            "sharding": Sharding.Tensor,
+            "node_layers": {node_a: 5, node_b: 5},
+        }
+    )
+
+    with pytest.raises(ValueError, match="requires Pipeline sharding"):
+        place_instance(
+            command,
+            topology,
+            {},
+            node_memory,
+            node_network,
+            _metal_only(node_memory),
+        )
+
+
+def test_manual_layer_allocation_requires_matching_cycle(
+    model_card: ModelCard,
+) -> None:
+    topology, node_a, node_b = _create_two_node_ring()
+    node_memory = {
+        node_a: create_node_memory(500),
+        node_b: create_node_memory(500),
+    }
+    node_network = {
+        node_a: create_node_network(),
+        node_b: create_node_network(),
+    }
+    unknown_node = NodeId()
+    command = place_instance_command(
+        model_card.model_copy(update={"storage_size": Memory.from_bytes(1000)})
+    ).model_copy(update={"node_layers": {node_a: 5, unknown_node: 5}})
+
+    with pytest.raises(ValueError, match="No connected cycle exactly matches"):
+        place_instance(
+            command,
+            topology,
+            {},
+            node_memory,
+            node_network,
+            _metal_only(node_memory),
+        )
+
+
+def test_manual_layer_allocation_rejects_wrong_layer_sum(
+    model_card: ModelCard,
+) -> None:
+    topology, node_a, node_b = _create_two_node_ring()
+    node_memory = {
+        node_a: create_node_memory(500),
+        node_b: create_node_memory(500),
+    }
+    node_network = {
+        node_a: create_node_network(),
+        node_b: create_node_network(),
+    }
+    command = place_instance_command(
+        model_card.model_copy(update={"storage_size": Memory.from_bytes(1000)})
+    ).model_copy(update={"node_layers": {node_a: 3, node_b: 4}})
+
+    with pytest.raises(ValueError, match="must sum to 10 layers"):
+        place_instance(
+            command,
+            topology,
+            {},
+            node_memory,
+            node_network,
+            _metal_only(node_memory),
+        )
+
+
+def test_manual_layer_allocation_rejects_insufficient_memory(
+    model_card: ModelCard,
+) -> None:
+    topology, node_a, node_b = _create_two_node_ring()
+    node_memory = {
+        node_a: create_node_memory(300),
+        node_b: create_node_memory(900),
+    }
+    node_network = {
+        node_a: create_node_network(),
+        node_b: create_node_network(),
+    }
+    command = place_instance_command(
+        model_card.model_copy(update={"storage_size": Memory.from_bytes(1000)})
+    ).model_copy(update={"node_layers": {node_a: 8, node_b: 2}})
+
+    with pytest.raises(ValueError, match="insufficient memory"):
+        place_instance(
+            command,
+            topology,
+            {},
+            node_memory,
+            node_network,
+            _metal_only(node_memory),
+        )
+
+
+def test_single_node_pref_downgrades_tensor_to_pipeline(model_card: ModelCard):
+    """When TP is requested but the model fits on the fastest single node,
+    place_instance should silently downgrade to Pipeline on that node."""
+    topology = Topology()
+    node_a = NodeId()  # slow: M1, 192 GB RAM
+    node_b = NodeId()  # fast: M3 Ultra, 192 GB RAM
+    topology.add_node(node_a)
+    topology.add_node(node_b)
+    eth = create_socket_connection(1)
+    topology.add_connection(Connection(source=node_a, sink=node_b, edge=eth))
+    topology.add_connection(Connection(source=node_b, sink=node_a, edge=eth))
+
+    # Model is 50 KB — fits on either node. TP is requested with min_nodes=2.
+    small_model = model_card.model_copy(
+        update={"storage_size": Memory.from_kb(50), "n_layers": 10}
+    )
+    command = PlaceInstance(
+        command_id=CommandId(),
+        model_card=small_model,
+        sharding=Sharding.Tensor,
+        instance_meta=InstanceMeta.MlxRing,
+        min_nodes=2,
+    )
+    node_memory = {
+        node_a: create_node_memory(1024 * 1024),
+        node_b: create_node_memory(1024 * 1024),
+    }
+    node_network = {node_a: create_node_network(), node_b: create_node_network()}
+    node_identities = {
+        node_a: NodeIdentity(chip_id="Apple M1"),
+        node_b: NodeIdentity(chip_id="Apple M3 Ultra"),
+    }
+
+    placements = place_instance(
+        command,
+        topology,
+        {},
+        node_memory,
+        node_network,
+        _metal_only(node_memory),
+        node_identities=node_identities,
+    )
+
+    instance = list(placements.values())[0]
+    shard = list(instance.shard_assignments.runner_to_shard.values())[0]
+    # Should be Pipeline (single-node) with 10 layers on one node
+    assert isinstance(shard, PipelineShardMetadata)
+    assert len(instance.shard_assignments.node_to_runner) == 1
+    assert shard.start_layer == 0
+    assert shard.end_layer == 10
+
+
+def test_single_node_pref_env_var_disables(model_card: ModelCard, monkeypatch):
+    """EXO_DISABLE_SINGLE_NODE_PREFERENCE=1 should prevent the downgrade."""
+    import os
+    monkeypatch.setenv("EXO_DISABLE_SINGLE_NODE_PREFERENCE", "1")
+    topology = Topology()
+    node_a = NodeId()
+    node_b = NodeId()
+    topology.add_node(node_a)
+    topology.add_node(node_b)
+    eth = create_socket_connection(1)
+    topology.add_connection(Connection(source=node_a, sink=node_b, edge=eth))
+    topology.add_connection(Connection(source=node_b, sink=node_a, edge=eth))
+
+    small_model = model_card.model_copy(
+        update={"storage_size": Memory.from_kb(50), "n_layers": 10}
+    )
+    command = PlaceInstance(
+        command_id=CommandId(),
+        model_card=small_model,
+        sharding=Sharding.Tensor,
+        instance_meta=InstanceMeta.MlxRing,
+        min_nodes=2,
+    )
+    node_memory = {
+        node_a: create_node_memory(1024 * 1024),
+        node_b: create_node_memory(1024 * 1024),
+    }
+    node_network = {node_a: create_node_network(), node_b: create_node_network()}
+    node_identities = {
+        node_a: NodeIdentity(chip_id="Apple M1"),
+        node_b: NodeIdentity(chip_id="Apple M3 Ultra"),
+    }
+
+    placements = place_instance(
+        command,
+        topology,
+        {},
+        node_memory,
+        node_network,
+        _metal_only(node_memory),
+        node_identities=node_identities,
+    )
+
+    instance = list(placements.values())[0]
+    shard = list(instance.shard_assignments.runner_to_shard.values())[0]
+    # Should stay Tensor on 2 nodes
+    assert len(instance.shard_assignments.node_to_runner) == 2
+    assert not isinstance(shard, PipelineShardMetadata)
+
+
+def test_single_node_pref_skips_when_model_does_not_fit(model_card: ModelCard):
+    """When the model is larger than any single node's RAM, TP should proceed normally."""
+    topology = Topology()
+    node_a = NodeId()
+    node_b = NodeId()
+    topology.add_node(node_a)
+    topology.add_node(node_b)
+    eth = create_socket_connection(1)
+    topology.add_connection(Connection(source=node_a, sink=node_b, edge=eth))
+    topology.add_connection(Connection(source=node_b, sink=node_a, edge=eth))
+
+    # 1000 KB model — each node only has 600 KB, so it must span 2 nodes.
+    big_model = model_card.model_copy(
+        update={"storage_size": Memory.from_kb(1000), "n_layers": 10}
+    )
+    command = PlaceInstance(
+        command_id=CommandId(),
+        model_card=big_model,
+        sharding=Sharding.Tensor,
+        instance_meta=InstanceMeta.MlxRing,
+        min_nodes=2,
+    )
+    node_memory = {
+        node_a: create_node_memory(600 * 1024),
+        node_b: create_node_memory(600 * 1024),
+    }
+    node_network = {node_a: create_node_network(), node_b: create_node_network()}
+    node_identities = {
+        node_a: NodeIdentity(chip_id="Apple M3 Ultra"),
+        node_b: NodeIdentity(chip_id="Apple M3 Ultra"),
+    }
+
+    placements = place_instance(
+        command,
+        topology,
+        {},
+        node_memory,
+        node_network,
+        _metal_only(node_memory),
+        node_identities=node_identities,
+    )
+
+    instance = list(placements.values())[0]
+    shard = list(instance.shard_assignments.runner_to_shard.values())[0]
+    # Should stay Tensor on 2 nodes
+    assert len(instance.shard_assignments.node_to_runner) == 2
+    assert not isinstance(shard, PipelineShardMetadata)

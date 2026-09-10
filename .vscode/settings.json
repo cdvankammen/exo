@@ -1,0 +1,56 @@
+{
+    "files.associations": {
+        "*.nix": "nix",
+    },
+    "nix.enableLanguageServer": true,
+    "nix.serverPath": "nixd",
+    "nix.serverSettings": {
+        "nixd": {
+        "formatting": {
+            "command": ["nixpkgs-fmt"]
+        },
+        "nixpkgs": {
+            "expr": "(builtins.getFlake \"path:${workspaceFolder}\").currentSystem.config._module.args.pkgs"
+        },
+        "options": {
+            "flake-parts": {
+                "expr": "(builtins.getFlake \"path:${workspaceFolder}\").debug.options"
+            },
+            "flake-parts-perSystem": {
+                "expr": "(builtins.getFlake \"path:${workspaceFolder}\").currentSystem.options"
+            }
+        }
+      }
+    },
+    "[nix]": {
+        "editor.defaultFormatter": "jnoortheen.nix-ide"
+    },
+    
+    "[python]": {
+      "editor.defaultFormatter": "charliermarsh.ruff",
+    },
+    "python.defaultInterpreterPath": "${workspaceFolder}/.venv/bin/python",
+    "basedpyright.analysis.configFilePath": "${workspaceFolder}/pyproject.toml",
+    "basedpyright.importStrategy": "fromEnvironment",
+    "github.copilot.chat.cli.sessionControllerForSessionsApp.enabled": true,
+    "github.copilot.chat.cli.sessionController.enabled": true,
+    "github.copilot.completions.chat.enabled": true,
+    "github.copilot.chat.agent.autoFix": true,
+    "github.copilot.chat.searchSubagent.thoroughnessEnabled": true,
+    "github.copilot.chat.review.intent": true,
+    "github.copilot.chat.responsesApiContextManagement.enabled": true,
+    "github.copilot.chat.responsesApi.promptCacheKey.enabled": true,
+    "github.copilot.chat.responsesApi.promptCacheBreakpoint.enabled": true,
+    "github.copilot.chat.localWorkspaceRecording.enabled": true,
+    "github.copilot.chat.languageContext.fix.typescript.enabled": true,
+    "github.copilot.chat.claudeAgent.allowAutoPermissions": true,
+    "github.copilot.chat.claudeAgent.useSdkExtension": false,
+    "github.copilot.chat.codesearch.enabled": true,
+    "github.copilot.chat.cli.branchSupport.enabled": true,
+    "inlineChat.notebookAgent": true,
+    "chat.agent.thinking.generateTitles": true,
+    "github.copilot.chat.inlineChat.enableThinking": true,
+    "chat.agent.thinking.collapsedTools": "off",
+    "chat.agentSessionProjection.enabled": true,
+    "js/ts.tsserver.experimental.enableProjectDiagnostics": true,
+}
