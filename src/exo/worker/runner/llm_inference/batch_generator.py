@@ -105,6 +105,7 @@ class SequentialGenerator(Engine):
     _maybe_cancel: list[TextGeneration] = field(default_factory=list, init=False)
     _all_tasks: dict[TaskId, TextGeneration] = field(default_factory=dict, init=False)
     _queue: deque[TextGeneration] = field(default_factory=deque, init=False)
+    _bytes_per_token: int = field(default=0, init=False)
     _active: (
         tuple[
             TextGeneration,
@@ -119,7 +120,7 @@ class SequentialGenerator(Engine):
     ) = field(default=None, init=False)
 
     def warmup(self):
-        self.check_for_cancel_every = warmup_inference(
+        self.check_for_cancel_every, self._bytes_per_token = warmup_inference(
             model=self.model,
             tokenizer=self.tokenizer,
             group=self.group,
@@ -295,6 +296,7 @@ class SequentialGenerator(Engine):
             on_generation_token=on_generation_token,
             group=self.group,
             vision_processor=self.vision_processor,
+            bytes_per_token=self._bytes_per_token,
         )
 
     def close(self) -> None:
@@ -337,6 +339,7 @@ class BatchGenerator(Engine):
     _all_tasks: dict[TaskId, TextGeneration] = field(default_factory=dict, init=False)
     _queue: deque[TextGeneration] = field(default_factory=deque, init=False)
     _gen: ExoBatchGenerator = field(init=False)
+    _bytes_per_token: int = field(default=0, init=False)
     _active_tasks: dict[
         int,
         tuple[
@@ -356,7 +359,7 @@ class BatchGenerator(Engine):
         )
 
     def warmup(self):
-        self.check_for_cancel_every = warmup_inference(
+        self.check_for_cancel_every, self._bytes_per_token = warmup_inference(
             model=self.model,
             tokenizer=self.tokenizer,
             group=self.group,

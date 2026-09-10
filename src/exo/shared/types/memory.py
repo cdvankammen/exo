@@ -1,5 +1,9 @@
+import os
 from math import ceil
+from pathlib import Path
 from typing import Self, overload
+
+import psutil
 
 from exo.utils.pydantic_ext import FrozenModel
 
@@ -149,3 +153,35 @@ class Memory(FrozenModel):
             unit = "B"
 
         return f"{val:.2f} {unit}".rstrip("0").rstrip(".") + f" {unit}"
+
+
+# Memory pressure monitoring for OOM prevention
+def get_system_memory_total() -> Memory:
+    """Get total system memory."""
+    return Memory.from_bytes(psutil.virtual_memory().total)
+
+
+def get_system_memory_available() -> Memory:
+    """Get currently available system memory."""
+    return Memory.from_bytes(psutil.virtual_memory().available)
+
+
+def get_system_memory_used() -> Memory:
+    """Get currently used system memory."""
+    return Memory.from_bytes(psutil.virtual_memory().used)
+
+
+def get_memory_pressure_percent() -> float:
+    """Get current memory pressure as percentage (0-100)."""
+    return float(psutil.virtual_memory().percent)
+
+
+def is_memory_pressure_high(threshold_percent: float = 90.0) -> bool:
+    """Check if memory pressure is above threshold percentage."""
+    return get_memory_pressure_percent() >= threshold_percent
+
+
+# Default memory pressure threshold for OOM prevention (90% used)
+MEMORY_PRESSURE_THRESHOLD_PERCENT = float(
+    os.environ.get("EXO_MEMORY_PRESSURE_THRESHOLD", "90.0")
+)
