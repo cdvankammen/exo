@@ -9,7 +9,7 @@ from loguru import logger
 
 from exo.shared.topology import Topology
 from exo.shared.types.common import NodeId
-from exo.shared.types.profiling import NodeNetworkInfo
+from exo.shared.types.profiling import NodeIdentity, NodeNetworkInfo
 from exo.utils.channels import Sender, channel
 
 REACHABILITY_ATTEMPTS = 3
@@ -104,10 +104,10 @@ async def check_reachability(
         url = f"http://{target_ip}:{api_port}/node_id"
 
     remote_node_id = None
-    last_error = None
+    last_error: Exception | None = None
     latency_ms = None
 
-    for _ in range(REACHABILITY_ATTEMPTS):
+    for attempt in range(REACHABILITY_ATTEMPTS):
         try:
             probe_start = time.perf_counter()
             r = await client.get(url)
@@ -125,19 +125,17 @@ async def check_reachability(
             latency_ms = probe_elapsed_ms
             break
 
-        # expected failure cases
+        # expected failure cases — track all of them so we can warn on the
+        # last attempt (§12.4: silent 0-edge must surface at WARNING level)
         except (
             httpx.TimeoutException,
             httpx.NetworkError,
-        ):
-            await anyio.sleep(1)
-
-        # other failures should be logged on last attempt
-        except httpx.HTTPError as e:
+            httpx.HTTPError,
+        ) as e:
             last_error = e
             await anyio.sleep(1)
 
-    if last_error is not None:
+    if last_error is not None and remote_node_id is None:
         logger.warning(
             f"connect error {type(last_error).__name__} from {target_ip} after {REACHABILITY_ATTEMPTS} attempts; treating as down"
         )
@@ -146,7 +144,7 @@ async def check_reachability(
         return None
 
     if remote_node_id != expected_node_id:
-        logger.debug(
+        logger.warning(
             f"Discovered node with unexpected node_id; "
             f"ip={target_ip}, expected_node_id={expected_node_id}, "
             f"remote_node_id={remote_node_id}"
@@ -164,8 +162,15 @@ async def check_reachable(
     self_node_id: NodeId,
     node_network: Mapping[NodeId, NodeNetworkInfo],
     api_port: int,
+    node_identities: Mapping[NodeId, NodeIdentity] | None = None,
 ) -> AsyncGenerator[tuple[str, NodeId, float], None]:
-    """Yield (ip, node_id, latency_ms) tuples as reachability probes complete."""
+    """Yield (ip, node_id, latency_ms) tuples as reachability probes complete.
+
+    When ``node_identities`` is provided, each peer's advertised ``api_port``
+    is used for probes instead of the caller's ``api_port``.  This fixes the
+    silent 0-edge failure when peers run on different ports (Docker port maps,
+    user overrides, NAT DNAT rules).
+    """
 
     send, recv = channel[tuple[str, NodeId, float]]()
 
@@ -180,13 +185,14 @@ async def check_reachable(
     async def _probe(
         target_ip: str,
         expected_node_id: NodeId,
+        peer_api_port: int,
         client: httpx.AsyncClient,
         send: Sender[tuple[str, NodeId, float]],
     ) -> None:
         async with send:
             out: defaultdict[NodeId, set[str]] = defaultdict(set)
             latency_ms = await check_reachability(
-                target_ip, expected_node_id, out, client, api_port
+                target_ip, expected_node_id, out, client, peer_api_port
             )
             if expected_node_id in out and latency_ms is not None:
                 await send.send((target_ip, expected_node_id, latency_ms))
@@ -200,8 +206,19 @@ async def check_reachable(
                 continue
             if node_id == self_node_id:
                 continue
+            # Use the peer's advertised port when available; fall back to
+            # the caller's api_port for backwards compatibility.
+            peer_port = (
+                node_identities[node_id].api_port
+                if node_identities
+                and node_id in node_identities
+                and node_identities[node_id].api_port != 0
+                else api_port
+            )
             for iface in node_network[node_id].interfaces:
-                tg.start_soon(_probe, iface.ip_address, node_id, client, send.clone())
+                tg.start_soon(
+                    _probe, iface.ip_address, node_id, peer_port, client, send.clone()
+                )
         send.close()
 
         with recv:
@@ -214,12 +231,14 @@ async def check_bandwidth(
     self_node_id: NodeId,
     node_network: Mapping[NodeId, NodeNetworkInfo],
     api_port: int,
+    node_identities: Mapping[NodeId, NodeIdentity] | None = None,
 ) -> AsyncGenerator[tuple[str, NodeId, float], None]:
     """Probe throughput to reachable peers; yield (ip, node_id, mbps) tuples.
 
     Mirrors ``check_reachable`` but measures transfer speed against the
     peer's ``/v1/bandwidth-probe`` endpoint. Only interfaces already known in
-    ``node_network`` are probed.
+    ``node_network`` are probed.  Uses per-peer ``api_port`` from
+    ``node_identities`` when available.
     """
     send, recv = channel[tuple[str, NodeId, float]]()
 
@@ -233,11 +252,12 @@ async def check_bandwidth(
     async def _probe(
         target_ip: str,
         expected_node_id: NodeId,
+        peer_api_port: int,
         client: httpx.AsyncClient,
         send: Sender[tuple[str, NodeId, float]],
     ) -> None:
         async with send:
-            mbps = await probe_bandwidth(target_ip, client, api_port)
+            mbps = await probe_bandwidth(target_ip, client, peer_api_port)
             if mbps is not None:
                 await send.send((target_ip, expected_node_id, mbps))
 
@@ -250,8 +270,17 @@ async def check_bandwidth(
                 continue
             if node_id == self_node_id:
                 continue
+            peer_port = (
+                node_identities[node_id].api_port
+                if node_identities
+                and node_id in node_identities
+                and node_identities[node_id].api_port != 0
+                else api_port
+            )
             for iface in node_network[node_id].interfaces:
-                tg.start_soon(_probe, iface.ip_address, node_id, client, send.clone())
+                tg.start_soon(
+                    _probe, iface.ip_address, node_id, peer_port, client, send.clone()
+                )
         send.close()
 
         with recv:

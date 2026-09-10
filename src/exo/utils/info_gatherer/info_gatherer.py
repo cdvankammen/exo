@@ -739,14 +739,24 @@ class InfoGatherer:
             await anyio.sleep(memory_poll_rate)
 
     async def _watch_system_info(self, interface_watcher_interval: float):
+        # Emit once eagerly at startup so the first probe cycle has
+        # network data immediately (removes the 0-10s window where GATE 1
+        # always trips and produces zero edges — §12.3).
+        try:
+            with fail_after(10):
+                nics = await get_network_interfaces()
+                await self.info_sender.send(NodeNetworkInterfaces(ifaces=nics))
+        except Exception as e:
+            logger.opt(exception=e).warning("Error gathering network interfaces")
+
         while True:
+            await anyio.sleep(interface_watcher_interval)
             try:
                 with fail_after(10):
                     nics = await get_network_interfaces()
                     await self.info_sender.send(NodeNetworkInterfaces(ifaces=nics))
             except Exception as e:
                 logger.opt(exception=e).warning("Error gathering network interfaces")
-            await anyio.sleep(interface_watcher_interval)
 
     async def _monitor_thunderbolt_bridge_status(
         self, thunderbolt_bridge_poll_interval: float

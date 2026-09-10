@@ -432,16 +432,25 @@ class Worker:
                 self.node_id,
                 self.state.node_network,
                 api_port=self.api_port,
+                node_identities=self.state.node_identities,
             ):
                 if ip in conns[nid]:
                     continue
                 conns[nid].add(ip)
+                # Use the peer's advertised port when available so the edge
+                # matches the port actually probed (fixes §5.3 0-edge bug).
+                peer_port = (
+                    self.state.node_identities[nid].api_port
+                    if nid in self.state.node_identities
+                    and self.state.node_identities[nid].api_port != 0
+                    else self.api_port
+                )
                 edge = SocketConnection(
                     # nonsense multiaddr
-                    sink_multiaddr=Multiaddr(address=f"/ip4/{ip}/tcp/{self.api_port}")
+                    sink_multiaddr=Multiaddr(address=f"/ip4/{ip}/tcp/{peer_port}")
                     if "." in ip
                     # nonsense multiaddr
-                    else Multiaddr(address=f"/ip6/{ip}/tcp/{self.api_port}"),
+                    else Multiaddr(address=f"/ip6/{ip}/tcp/{peer_port}"),
                     latency_ms=latency_ms,
                 )
                 old_conn = existing_edges.get(edge)
@@ -501,11 +510,18 @@ class Worker:
                 self.node_id,
                 self.state.node_network,
                 api_port=self.api_port,
+                node_identities=self.state.node_identities,
             ):
+                peer_port = (
+                    self.state.node_identities[nid].api_port
+                    if nid in self.state.node_identities
+                    and self.state.node_identities[nid].api_port != 0
+                    else self.api_port
+                )
                 edge = SocketConnection(
-                    sink_multiaddr=Multiaddr(address=f"/ip4/{ip}/tcp/{self.api_port}")
+                    sink_multiaddr=Multiaddr(address=f"/ip4/{ip}/tcp/{peer_port}")
                     if "." in ip
-                    else Multiaddr(address=f"/ip6/{ip}/tcp/{self.api_port}"),
+                    else Multiaddr(address=f"/ip6/{ip}/tcp/{peer_port}"),
                     bandwidth_mbps=mbps,
                 )
                 old_conn = existing_edges.get(edge)
