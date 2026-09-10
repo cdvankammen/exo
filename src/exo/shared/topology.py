@@ -1,4 +1,3 @@
-import contextlib
 from collections.abc import Mapping, Sequence
 from dataclasses import dataclass, field
 from typing import Iterable
@@ -46,8 +45,7 @@ class Topology:
         topology = cls()
 
         for node_id in snapshot.nodes:
-            with contextlib.suppress(ValueError):
-                topology.add_node(node_id)
+            topology.add_node(node_id)
 
         for source in snapshot.connections:
             for sink in snapshot.connections[source]:
@@ -65,9 +63,27 @@ class Topology:
         self._vertex_indices[node_id] = rx_id
 
     def node_is_leaf(self, node_id: NodeId) -> bool:
+        """A leaf node has exactly 1 undirected neighbor (dangling endpoint).
+
+        Uses ``neighbors_undirected`` so both endpoints of a single directed
+        edge count as leaves — matching graph-theory degree and the placement
+        use case where a peer reachable in only one direction is still a
+        dangling endpoint worth preferring.
+        """
         return (
             node_id in self._vertex_indices
-            and len(self._graph.neighbors(self._vertex_indices[node_id])) <= 1
+            and len(self._graph.neighbors_undirected(self._vertex_indices[node_id])) == 1
+        )
+
+    def node_is_isolated(self, node_id: NodeId) -> bool:
+        """An isolated node has 0 undirected neighbors (fully disconnected).
+
+        A node that has only incoming edges (a pure sink) is NOT isolated —
+        it is connected. Uses ``neighbors_undirected`` so in-degree counts.
+        """
+        return (
+            node_id in self._vertex_indices
+            and len(self._graph.neighbors_undirected(self._vertex_indices[node_id])) == 0
         )
 
     def neighbours(self, node_id: NodeId) -> list[NodeId]:
@@ -197,8 +213,14 @@ class Topology:
             if self._graph.get_edge_data_by_index(conn_idx) == conn.edge:
                 self._graph.remove_edge_from_index(conn_idx)
 
-    def get_cycles(self) -> list[Cycle]:
-        """Get simple cycles in the graph, including singleton cycles"""
+    def get_cycles(self, include_singletons: bool = True) -> list[Cycle]:
+        """Get simple cycles in the graph.
+
+        Singleton cycles are always included when ``include_singletons`` is
+        True (backward-compatible default). When False, singleton cycles for
+        isolated nodes (0 neighbors) are excluded; self-loop cycles reported
+        by rustworkx are kept.
+        """
 
         cycle_idxs = rx.simple_cycles(self._graph)
         cycles: list[Cycle] = []
@@ -206,7 +228,8 @@ class Topology:
             cycle = Cycle(node_ids=[self._graph[idx] for idx in cycle_idx])
             cycles.append(cycle)
         for node_id in self.list_nodes():
-            cycles.append(Cycle(node_ids=[node_id]))
+            if include_singletons or not self.node_is_isolated(node_id):
+                cycles.append(Cycle(node_ids=[node_id]))
         return cycles
 
     def get_rdma_cycles(self) -> list[Cycle]:

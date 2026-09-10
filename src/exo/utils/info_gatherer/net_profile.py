@@ -14,6 +14,27 @@ from exo.utils.channels import Sender, channel
 
 REACHABILITY_ATTEMPTS = 3
 
+
+def resolve_peer_port(
+    node_identities: Mapping[NodeId, NodeIdentity] | None,
+    node_id: NodeId,
+    fallback_port: int,
+) -> int:
+    """Return the peer's advertised api_port, or *fallback_port* when unknown.
+
+    A ``NodeIdentity`` with ``api_port == 0`` means the node did not declare
+    a port, so we fall back — matching the pre-§12 behaviour.  When
+    *node_identities* is ``None`` or *node_id* is absent the fallback is
+    used directly.
+    """
+    if (
+        node_identities is not None
+        and node_id in node_identities
+        and node_identities[node_id].api_port != 0
+    ):
+        return node_identities[node_id].api_port
+    return fallback_port
+
 # Thresholds below which a latency change is treated as measurement noise
 LATENCY_NOISE_FLOOR_MS = 2.0
 LATENCY_CHANGE_FACTOR = 2.0
@@ -107,7 +128,7 @@ async def check_reachability(
     last_error: Exception | None = None
     latency_ms = None
 
-    for attempt in range(REACHABILITY_ATTEMPTS):
+    for _ in range(REACHABILITY_ATTEMPTS):
         try:
             probe_start = time.perf_counter()
             r = await client.get(url)
