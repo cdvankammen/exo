@@ -35,6 +35,7 @@ def resolve_peer_port(
         return node_identities[node_id].api_port
     return fallback_port
 
+
 # Thresholds below which a latency change is treated as measurement noise
 LATENCY_NOISE_FLOOR_MS = 2.0
 LATENCY_CHANGE_FACTOR = 2.0
@@ -227,15 +228,7 @@ async def check_reachable(
                 continue
             if node_id == self_node_id:
                 continue
-            # Use the peer's advertised port when available; fall back to
-            # the caller's api_port for backwards compatibility.
-            peer_port = (
-                node_identities[node_id].api_port
-                if node_identities
-                and node_id in node_identities
-                and node_identities[node_id].api_port != 0
-                else api_port
-            )
+            peer_port = resolve_peer_port(node_identities, node_id, api_port)
             for iface in node_network[node_id].interfaces:
                 tg.start_soon(
                     _probe, iface.ip_address, node_id, peer_port, client, send.clone()
@@ -291,13 +284,7 @@ async def check_bandwidth(
                 continue
             if node_id == self_node_id:
                 continue
-            peer_port = (
-                node_identities[node_id].api_port
-                if node_identities
-                and node_id in node_identities
-                and node_identities[node_id].api_port != 0
-                else api_port
-            )
+            peer_port = resolve_peer_port(node_identities, node_id, api_port)
             for iface in node_network[node_id].interfaces:
                 tg.start_soon(
                     _probe, iface.ip_address, node_id, peer_port, client, send.clone()

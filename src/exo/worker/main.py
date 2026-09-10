@@ -59,6 +59,7 @@ from exo.utils.info_gatherer.net_profile import (
     check_bandwidth,
     check_reachable,
     latency_changed_materially,
+    resolve_peer_port,
 )
 from exo.utils.keyed_backoff import KeyedBackoff
 from exo.utils.task_group import TaskGroup
@@ -437,13 +438,10 @@ class Worker:
                 if ip in conns[nid]:
                     continue
                 conns[nid].add(ip)
-                # Use the peer's advertised port when available so the edge
-                # matches the port actually probed (fixes §5.3 0-edge bug).
-                peer_port = (
-                    self.state.node_identities[nid].api_port
-                    if nid in self.state.node_identities
-                    and self.state.node_identities[nid].api_port != 0
-                    else self.api_port
+                # Use the peer's advertised port so the edge matches the
+                # port actually probed (fixes §5.3 0-edge bug).
+                peer_port = resolve_peer_port(
+                    self.state.node_identities, nid, self.api_port
                 )
                 edge = SocketConnection(
                     # nonsense multiaddr
@@ -512,11 +510,8 @@ class Worker:
                 api_port=self.api_port,
                 node_identities=self.state.node_identities,
             ):
-                peer_port = (
-                    self.state.node_identities[nid].api_port
-                    if nid in self.state.node_identities
-                    and self.state.node_identities[nid].api_port != 0
-                    else self.api_port
+                peer_port = resolve_peer_port(
+                    self.state.node_identities, nid, self.api_port
                 )
                 edge = SocketConnection(
                     sink_multiaddr=Multiaddr(address=f"/ip4/{ip}/tcp/{peer_port}")
