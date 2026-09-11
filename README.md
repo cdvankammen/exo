@@ -336,6 +336,10 @@ exo supports several environment variables for configuration:
 | `EXO_LIBP2P_NAMESPACE` | Custom namespace for cluster isolation | None |
 | `EXO_FAST_SYNCH` | Control MLX_METAL_FAST_SYNCH behavior (for JACCL backend) | Auto |
 | `EXO_TRACING_ENABLED` | Enable distributed tracing for performance analysis | `false` |
+| `EXO_API_HOST` | Bind address for the HTTP API server. Set to `127.0.0.1` to restrict access to localhost only. | `0.0.0.0` |
+| `EXO_API_TOKEN` | Optional bearer token for API authentication. When set, all API requests must include `Authorization: Bearer <token>`. | None |
+
+**Security:** By default exo binds to `0.0.0.0`, exposing the API to all network interfaces. On untrusted networks, set `EXO_API_HOST=127.0.0.1` to allow only local connections. Combine with `EXO_API_TOKEN` for authenticated access.
 
 **Example usage:**
 

@@ -255,4 +255,30 @@ See `promptsANDplans/research/rdma-multi-node-investigation.md` for full topolog
 | CUDA runtime | 12.8 (nvrtc 12.8.93) |
 | MLX | 0.32.0 (fork) + mlx_cuda_12 0.32.0 |
 | torch | 2.10.0+cu130 |
+
+---
+
+## Security: API Bind Host and Authentication
+
+The exo HTTP API server can be restricted to localhost or authenticated with a bearer token.
+
+### `EXO_API_HOST` (default `0.0.0.0`)
+
+Controls which network address the API binds to. The default `0.0.0.0` exposes the API to all network interfaces — suitable for trusted LANs but risky on shared or public networks.
+
+```bash
+# Bind to localhost only (safe for single-machine or SSH-tunneled access)
+EXO_API_HOST=127.0.0.1 uv run exo
+
+# Explicit LAN bind (default behavior)
+EXO_API_HOST=0.0.0.0 uv run exo
+```
+
+### `EXO_API_TOKEN` (default: unset)
+
+When set, all API requests must include `Authorization: Bearer <token>`. Combine with `EXO_API_HOST=127.0.0.1` for defense-in-depth on exposed hosts.
+
+```bash
+EXO_API_HOST=127.0.0.1 EXO_API_TOKEN=my-secret-token uv run exo
+```
 | Python | 3.13.14 (uv-managed) |
