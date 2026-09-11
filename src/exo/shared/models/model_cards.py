@@ -22,9 +22,9 @@ from tomlkit.exceptions import TOMLKitError
 
 from exo.shared.constants import (
     EXO_CUSTOM_MODEL_CARDS_DIR,
-    EXO_ENABLE_IMAGE_MODELS,
     EXO_MODELS_DIRS,
     RESOURCES_DIR,
+    enable_image_models,
 )
 from exo.shared.types.backends import Backend
 from exo.shared.types.common import ModelId
@@ -68,7 +68,7 @@ class _CardCache:
     async def list_all(self) -> list["ModelCard"]:
         if len(self.cc) == 0:
             await self.refresh()
-        if EXO_ENABLE_IMAGE_MODELS:
+        if enable_image_models():
             return list(self.cc.values())
         return [c for c in self.cc.values() if not _is_image_card(c)]
 

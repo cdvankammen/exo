@@ -16,7 +16,7 @@ from exo.routing.event_router import (
     EventRouterClosedResourceError,
 )
 from exo.shared.apply import apply
-from exo.shared.constants import EXO_EVENT_LOG_DIR, EXO_TRACING_ENABLED
+from exo.shared.constants import EXO_EVENT_LOG_DIR, tracing_enabled
 from exo.shared.models.model_cards import ModelId
 from exo.shared.types.chunks import ErrorChunk
 from exo.shared.types.commands import (
@@ -343,7 +343,7 @@ class Master:
 
                             self.command_task_mapping[command.command_id] = task_id
 
-                            if EXO_TRACING_ENABLED:
+                            if tracing_enabled():
                                 selected_instance = self.state.instances.get(
                                     selected_instance_id
                                 )
@@ -388,7 +388,7 @@ class Master:
 
                             self.command_task_mapping[command.command_id] = task_id
 
-                            if EXO_TRACING_ENABLED:
+                            if tracing_enabled():
                                 selected_instance = self.state.instances.get(
                                     selected_instance_id
                                 )

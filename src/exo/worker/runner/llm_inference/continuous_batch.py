@@ -26,7 +26,7 @@ from typing import BinaryIO, Iterator
 import mlx.core as mx
 from mlx_lm.tokenizer_utils import TokenizerWrapper
 
-from exo.shared.constants import EXO_MAX_CONCURRENT_REQUESTS
+from exo.shared.constants import max_concurrent_requests
 from exo.shared.types.chunks import ErrorChunk, GenerationChunk, PrefillProgressChunk
 from exo.shared.types.common import ModelId
 from exo.shared.types.events import ChunkGenerated, Event
@@ -225,7 +225,7 @@ class ContinuousBatchScheduler(Engine):
     event_sender: MpSender[Event]
     vision_processor: VisionProcessor | None = None
     check_for_cancel_every: int = 50
-    _max_batch_size: int = field(default=EXO_MAX_CONCURRENT_REQUESTS, init=True)
+    _max_batch_size: int = field(default_factory=max_concurrent_requests, init=True)
 
     # -- internal state (init=False) --
     _gen: ExoBatchGenerator = field(init=False)

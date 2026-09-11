@@ -24,7 +24,7 @@ from typing import Literal, cast
 
 from loguru import logger
 
-from exo.shared.constants import EXO_CONFIG_HOME
+from exo.shared.paths import EXO_CONFIG_HOME
 
 SettingType = Literal["bool", "int", "float", "str"]
 

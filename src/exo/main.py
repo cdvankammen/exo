@@ -22,7 +22,7 @@ from exo.download.impl_shard_downloader import exo_shard_downloader
 from exo.master.main import Master
 from exo.routing.event_router import EventRouter
 from exo.routing.router import Router, get_node_zid
-from exo.shared.constants import EXO_DEFAULT_MODELS_DIR, EXO_LOG, EXO_PID_FILE
+from exo.shared.constants import EXO_DEFAULT_MODELS_DIR, EXO_LOG, EXO_PID_FILE, offline
 from exo.shared.election import (
     FORCE_MASTER_SENIORITY,
     Election,
@@ -482,7 +482,7 @@ class Args(FrozenModel):
     tb_only: bool = False
     no_worker: bool = False
     no_downloads: bool = False
-    offline: bool = os.getenv("EXO_OFFLINE", "false").lower() == "true"
+    offline: bool = field(default_factory=offline)
     no_batch: bool = False
     fast_synch: bool | None = None  # None = auto, True = force on, False = force off
     legacy_daemon: bool = False
@@ -553,7 +553,7 @@ class Args(FrozenModel):
         parser.add_argument(
             "--offline",
             action="store_true",
-            default=os.getenv("EXO_OFFLINE", "false").lower() == "true",
+            default=offline(),
             help="Run in offline/air-gapped mode: skip internet checks, use only pre-staged local models",
         )
         parser.add_argument(

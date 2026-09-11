@@ -1,30 +1,22 @@
+"""Shared constants and configuration for the exo project.
+
+XDG paths are computed in ``exo.shared.paths`` (a tiny leaf module) and
+re-exported here for backward compatibility. Feature-knob accessors resolve
+through :class:`~exo.utils.settings.SettingsManager` lazily, giving precedence
+to persisted UI overrides > environment variables > in-code defaults. The
+circular import between ``constants.py`` and ``settings.py`` is broken by the
+``paths.py`` leaf module that both can safely import.
+"""
+
 import os
 import sys
 from pathlib import Path
 
 from exo.utils.dashboard_path import find_dashboard, find_resources
 
-_EXO_HOME_ENV = os.environ.get("EXO_HOME", None)
-
-
-def _get_xdg_dir(env_var: str, fallback: str) -> Path:
-    """Get XDG directory, prioritising EXO_HOME environment variable if its set. On non-Linux platforms, default to ~/.exo."""
-
-    if _EXO_HOME_ENV is not None:
-        return Path.home() / _EXO_HOME_ENV
-
-    if sys.platform != "linux":
-        return Path.home() / ".exo"
-
-    xdg_value = os.environ.get(env_var, None)
-    if xdg_value is not None:
-        return Path(xdg_value) / "exo"
-    return Path.home() / fallback / "exo"
-
-
-EXO_CONFIG_HOME = _get_xdg_dir("XDG_CONFIG_HOME", ".config")
-EXO_DATA_HOME = _get_xdg_dir("XDG_DATA_HOME", ".local/share")
-EXO_CACHE_HOME = _get_xdg_dir("XDG_CACHE_HOME", ".cache")
+# ── XDG paths (leaf module — no circular import) ───────────────────────────
+# Re-exported from exo.shared.paths for backward compatibility.
+from exo.shared.paths import EXO_CACHE_HOME, EXO_CONFIG_HOME, EXO_DATA_HOME
 
 # Default models directory (always included as first entry in writable dirs)
 _EXO_DEFAULT_MODELS_DIR_ENV = os.environ.get("EXO_DEFAULT_MODELS_DIR", None)
@@ -104,22 +96,62 @@ EXO_EVENT_LOG_DIR = EXO_DATA_HOME / "event_log"
 EXO_IMAGE_CACHE_DIR = EXO_CACHE_HOME / "images"
 EXO_TRACING_CACHE_DIR = EXO_CACHE_HOME / "traces"
 
-EXO_ENABLE_IMAGE_MODELS = (
-    os.getenv("EXO_ENABLE_IMAGE_MODELS", "false").lower() == "true"
+
+# ── Feature knobs — lazy accessors via SettingsManager ──────────────────────
+#
+# Phase 1-2 wired the KV/cache/memory knobs at import time through the
+# singleton manager (no circular import risk because those consumers live
+# deeper in the tree).  The five knobs below are imported at module level
+# by ``constants.py`` itself, which ``settings.py`` also imports — wiring
+# them at import time would create a circular import.
+#
+# Solution: lazy accessor functions that resolve override > env > in-code
+# default on each call, exactly like the existing ``tools_enabled()``.
+# Callers switch from ``EXO_FOO`` (module constant) to
+# ``from exo.shared.constants import foo`` + ``foo()``.
+
+from exo.utils.settings import get_settings_manager  # noqa: E402 (deferred)
+
+
+def enable_image_models() -> bool:
+    """Show image model cards.  Default OFF (backward compat)."""
+    raw = get_settings_manager().get_value("EXO_ENABLE_IMAGE_MODELS", "false")
+    return raw is not None and raw.lower() in ("true", "1", "yes", "on")
+
+
+def offline() -> bool:
+    """No network (Hub disabled).  Default OFF."""
+    raw = get_settings_manager().get_value("EXO_OFFLINE", "false")
+    return raw is not None and raw.lower() in ("true", "1", "yes", "on")
+
+
+def tracing_enabled() -> bool:
+    """Per-request tracing.  Default OFF."""
+    raw = get_settings_manager().get_value("EXO_TRACING_ENABLED", "false")
+    return raw is not None and raw.lower() in ("true", "1", "yes", "on")
+
+
+def max_concurrent_requests() -> int:
+    """API concurrency limit.  Default 8."""
+    raw = get_settings_manager().get_value(
+        "EXO_MAX_CONCURRENT_REQUESTS", "8"
+    )
+    return int(raw) if raw is not None else 8
+
+
+# Master-side prefix cache routing (t_585f3e8c). When enabled, the master
+# maintains a PrefixCacheRegistry and prefers routing TextGeneration requests
+# to workers that already hold the prompt prefix in their KV cache.
+EXO_CLUSTER_PREFIX_CACHE: bool = (
+    os.getenv("EXO_CLUSTER_PREFIX_CACHE", "false").lower() in ("1", "true", "yes")
 )
 
-EXO_OFFLINE = os.getenv("EXO_OFFLINE", "false").lower() == "true"
-
-EXO_TRACING_ENABLED = os.getenv("EXO_TRACING_ENABLED", "false").lower() == "true"
-
 ENABLE_DISAGGREGATION = os.getenv("ENABLE_DISAGGREGATION", "false").lower() == "true"
-
-EXO_MAX_CONCURRENT_REQUESTS = int(os.getenv("EXO_MAX_CONCURRENT_REQUESTS", "8"))
 
 EXO_MAX_INSTANCE_RETRIES = 5
 
 # Optional API bearer token (T23). When set, all API routes except the
-# dashboard static assets require `Authorization: Bearer <EXO_API_TOKEN>`.
+# dashboard static assets require `Authorization: Bearer ***`
 EXO_API_TOKEN: str | None = os.getenv("EXO_API_TOKEN", None)
 
 # API bind host (T12). Default 0.0.0.0 = all interfaces (cluster behavior).
@@ -127,10 +159,6 @@ EXO_API_TOKEN: str | None = os.getenv("EXO_API_TOKEN", None)
 EXO_API_HOST: str = os.getenv("EXO_API_HOST", "0.0.0.0")
 
 # Maximum input length (in estimated tokens) accepted by the API.
-# The API layer has no tokenizer loaded, so this is enforced via a character
-# heuristic (~4 chars/token for English, configurable via EXO_CHARS_PER_TOKEN).
-# Oversized inputs cause Metal OOM during prefill (#560 — 66k-token input
-# crashed a 24GB Mac Mini). Default 128k tokens ≈ 512k characters.
 EXO_MAX_INPUT_TOKENS = int(os.getenv("EXO_MAX_INPUT_TOKENS", "128000"))
 EXO_CHARS_PER_TOKEN = int(os.getenv("EXO_CHARS_PER_TOKEN", "4"))
 
@@ -138,4 +166,5 @@ EXO_CHARS_PER_TOKEN = int(os.getenv("EXO_CHARS_PER_TOKEN", "4"))
 # Set EXO_ENABLE_SERVERSIDE_TOOLCALLS=0 to strip tools from requests
 # (security: a malicious prompt can't trigger server-side tool execution).
 def tools_enabled() -> bool:
-    return os.getenv("EXO_ENABLE_SERVERSIDE_TOOLCALLS", "1").lower() not in {"0", "false", "no", "off"}
+    raw = get_settings_manager().get_value("EXO_ENABLE_SERVERSIDE_TOOLCALLS", "1")
+    return raw is not None and raw.lower() not in {"0", "false", "no", "off"}
