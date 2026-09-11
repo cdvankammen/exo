@@ -148,13 +148,19 @@ class Election:
         self, candidates: list[ElectionMessage], timeout: float
     ) -> None:
         """Enqueue a new campaign request for the owner to process."""
-        self._campaign_request_tx.send_nowait(
-            _StartCampaign(candidates=candidates, timeout=timeout)
-        )
+        try:
+            self._campaign_request_tx.send_nowait(
+                _StartCampaign(candidates=candidates, timeout=timeout)
+            )
+        except anyio.ClosedResourceError:
+            logger.debug("Campaign channel closed — dropping campaign request")
 
     def _request_add_candidate(self, message: ElectionMessage) -> None:
         """Enqueue an equal-clock candidate for the running campaign."""
-        self._campaign_request_tx.send_nowait(_AddCandidate(message=message))
+        try:
+            self._campaign_request_tx.send_nowait(_AddCandidate(message=message))
+        except anyio.ClosedResourceError:
+            logger.debug("Campaign channel closed — dropping add-candidate")
 
     # ------------------------------------------------------------------
     # Lifecycle
@@ -164,9 +170,21 @@ class Election:
         logger.info("Starting Election")
         try:
             async with self._tg as tg:
-                tg.start_soon(self._election_receiver)
-                tg.start_soon(self._connection_receiver)
-                tg.start_soon(self._command_counter)
+                # The campaign-owner task must stop when its input receivers
+                # have all exited. We close the request channel as soon as
+                # the three receivers finish (they exit when their respective
+                # inbound channels close). _campaign_owner observes the closed
+                # channel and exits, then the task group completes.
+                async def _guard_campaign_channel():
+                    try:
+                        async with anyio.create_task_group() as receivers_tg:
+                            receivers_tg.start_soon(self._election_receiver)
+                            receivers_tg.start_soon(self._connection_receiver)
+                            receivers_tg.start_soon(self._command_counter)
+                    finally:
+                        await self._campaign_request_tx.aclose()
+
+                tg.start_soon(_guard_campaign_channel)
                 tg.start_soon(self._campaign_owner)
 
                 # Kick off an initial election that resolves instantly
@@ -175,25 +193,36 @@ class Election:
                 logger.debug("Starting initial campaign")
                 self._request_campaign(candidates, timeout=0.0)
         finally:
-            # Close the request channel so the owner's ``async for`` loop
-            # exits cleanly and the task completes.
+            # Ensure the channel is closed even if we exit without the
+            # receivers closing (e.g. cancellation). send_nowait callers
+            # tolerate a closed channel via guard in _request_campaign.
             try:
                 await self._campaign_request_tx.aclose()
             except Exception:
                 logger.debug("Campaign request channel already closed")
             logger.info("Election shutdown")
 
+    async def _safe_send(self, sender, message) -> None:
+        """Send *message* on *sender*, silently dropping if channel is closed."""
+        try:
+            await sender.send(message)
+        except anyio.ClosedResourceError:
+            logger.debug(
+                f"Channel closed — dropping send of {type(message).__name__}"
+            )
+
     async def elect(self, em: ElectionMessage) -> None:
         logger.debug(f"Electing: {em}")
         is_new_master = em.proposed_session != self.current_session
         self.current_session = em.proposed_session
         logger.debug(f"Current session: {self.current_session}")
-        await self._er_sender.send(
+        await self._safe_send(
+            self._er_sender,
             ElectionResult(
                 won_clock=em.clock,
                 session_id=em.proposed_session,
                 is_new_master=is_new_master,
-            )
+            ),
         )
 
     async def shutdown(self) -> None:
@@ -419,7 +448,10 @@ class Election:
                 # The pending new campaign request is already consumed from
                 # the channel.  The main loop's ``async for`` will block on
                 # the next receive; we re-enqueue so the main loop picks it up.
-                self._campaign_request_tx.send_nowait(superseded_by)
+                try:
+                    self._campaign_request_tx.send_nowait(superseded_by)
+                except anyio.ClosedResourceError:
+                    logger.debug("Campaign channel closed — dropping superseded re-enqueue")
                 return
 
             # minor hack - rebroadcast status in case anyone has missed it.
