@@ -51,6 +51,11 @@
   // Empty = show all nodes.
   let errorNodeFilter = $state<Set<string>>(new Set());
 
+  // Click-to-jump state: when jumping from an error row to the Tail view,
+  // track which line index should be highlighted and scrolled into view.
+  let highlightedLineIndex = $state<number | null>(null);
+  let pendingJump = $state<{ timestamp: string; messageHead: string } | null>(null);
+
   // Derive unique node prefixes from error source_log fields.
   // Local entries have source_log like "main" or "runner_stdout".
   // Remote entries are prefixed: "<node_id>::<source_log>".
@@ -317,6 +322,77 @@
     }
   }
 
+  // Jump from an error-table row to the matching line in the Tail view.
+  // Remote-node entries (source_log prefixed with a node_id) cannot jump
+  // locally — their log lives on another node.
+  function isRemoteEntry(entry: LogErrorEntry): boolean {
+    return NODE_PREFIX_RE.test(entry.sourceLog);
+  }
+
+  function jumpToErrorLine(entry: LogErrorEntry) {
+    if (isRemoteEntry(entry)) return; // tooltip tells the user why
+    // Defer the scroll/highlight until after the Tail view loads the content.
+    pendingJump = {
+      timestamp: entry.timestamp,
+      messageHead: entry.message.slice(0, 80),
+    };
+    viewMode = "tail";
+    selectLog(entry.sourceLog);
+  }
+
+  // After the Tail content renders, find the best-matching line for the
+  // pending jump, scroll to it, and flash-highlight it.
+  function applyPendingJump() {
+    if (!pendingJump || !logViewerEl || !content) return;
+    const lines = content.split("\n");
+    let idx = -1;
+    const jp = pendingJump!;
+    // 1) Try exact timestamp match on the raw line.
+    if (jp.timestamp) {
+      idx = lines.findIndex((l) => l.includes(jp.timestamp));
+    }
+    // 2) Fallback: first line containing the message head.
+    if (idx === -1 && jp.messageHead) {
+      const head = jp.messageHead.trim();
+      if (head) {
+        idx = lines.findIndex((l) => l.includes(head));
+      }
+    }
+    if (idx === -1) {
+      pendingJump = null;
+      return;
+    }
+    highlightedLineIndex = idx;
+    // Scroll the target line into the middle of the viewport.
+    // The <pre> contains one <div> per line with a stable data-line-idx, so
+    // we can query for it directly and use scrollIntoView.
+    requestAnimationFrame(() => {
+      if (!logViewerEl) return;
+      const target = logViewerEl.querySelector(
+        `[data-line-idx="${idx}"]`,
+      ) as HTMLElement | null;
+      if (target) {
+        target.scrollIntoView({ block: "center", behavior: "smooth" });
+      }
+      // Clear the highlight after ~1.5s.
+      setTimeout(() => {
+        highlightedLineIndex = null;
+      }, 1500);
+    });
+    pendingJump = null;
+  }
+
+  // Trigger applyPendingJump whenever content settles after a jump.
+  $effect(() => {
+    // Read reactive inputs so the effect re-runs on change.
+    void content;
+    void viewMode;
+    if (pendingJump && !loadingContent) {
+      // Small delay lets Svelte render the new line divs into the DOM.
+      setTimeout(applyPendingJump, 50);
+    }
+  });
+
   $effect(() => {
     if (refreshTimer) clearInterval(refreshTimer);
     if (autoRefresh) {
@@ -508,8 +584,15 @@
             </thead>
             <tbody>
               {#each nodeFilteredErrors as entry (entry.timestamp + entry.source + entry.message)}
+                {@const remote = isRemoteEntry(entry)}
                 <tr
-                  class="border-t border-exo-medium-gray/20 hover:bg-exo-yellow/5"
+                  class="border-t border-exo-medium-gray/20 hover:bg-exo-yellow/5 {remote
+                    ? 'cursor-not-allowed opacity-70'
+                    : 'cursor-pointer'} transition-colors"
+                  title={remote
+                    ? "Remote node — open that node's dashboard"
+                    : "Jump to this line in Tail view"}
+                  onclick={() => jumpToErrorLine(entry)}
                 >
                   <td
                     class="px-3 py-1.5 whitespace-nowrap text-exo-light-gray/70"
@@ -609,8 +692,13 @@
       <pre
         bind:this={logViewerEl}
         onscroll={onLogScroll}
-        class="rounded border border-exo-medium-gray/30 bg-exo-black/50 p-4 text-xs font-mono text-exo-light-gray whitespace-pre-wrap break-words overflow-y-auto max-h-[70vh]">{content ||
-          (loadingContent ? "Loading..." : "No content.")}</pre>
+        class="rounded border border-exo-medium-gray/30 bg-exo-black/50 p-4 text-xs font-mono text-exo-light-gray whitespace-pre-wrap break-words overflow-y-auto max-h-[70vh]"
+      >{#if loadingContent}Loading...{:else if !content}No content.{:else}{#each content.split('\n') as line, idx}
+<div
+          data-line-idx={idx}
+          class="log-line {highlightedLineIndex === idx ? 'log-line-highlight' : ''}"
+        >{line || ' '}</div>
+{/each}{/if}</pre>
     {/if}
   </div>
 </div>
