@@ -56,6 +56,9 @@ from exo.worker.runner.diagnostics import (
 
 PREFILL_TIMEOUT_SECONDS = 60
 DECODE_TIMEOUT_SECONDS = 5
+# How long start_task() waits for the runner to acknowledge a task before
+# giving up; a missing ack must not block the worker's plan loop forever (RC-05).
+TASK_ACK_TIMEOUT_SECONDS = 60
 
 
 @dataclass(eq=False)
@@ -305,10 +308,20 @@ class RunnerSupervisor:
         try:
             await self._task_sender.send_async(task)
         except ClosedResourceError:
+            self.pending.pop(task.task_id, None)
+            event.set()
             self.in_progress.pop(task.task_id, None)
             logger.warning(f"Task {task} dropped, runner closed communication.")
             return
-        await event.wait()
+        with anyio.move_on_after(TASK_ACK_TIMEOUT_SECONDS) as ack_scope:
+            await event.wait()
+        if ack_scope.cancel_called:
+            self.pending.pop(task.task_id, None)
+            event.set()
+            self.in_progress.pop(task.task_id, None)
+            logger.warning(
+                f"Task {task} timed out waiting for acknowledgement"
+            )
 
     async def cancel_task(self, task_id: TaskId):
         if task_id in self.completed:
@@ -339,7 +352,13 @@ class RunnerSupervisor:
                     if isinstance(event, RunnerStatusUpdated):
                         self.status = event.runner_status
                     if isinstance(event, TaskAcknowledged):
-                        self.pending.pop(event.task_id).set()
+                        pending_event = self.pending.pop(event.task_id, None)
+                        if pending_event is not None:
+                            pending_event.set()
+                        else:
+                            logger.warning(
+                                f"Received duplicate or stale TaskAcknowledged for {event.task_id}, already popped"
+                            )
                         continue
                     if (
                         isinstance(event, TaskStatusUpdated)
