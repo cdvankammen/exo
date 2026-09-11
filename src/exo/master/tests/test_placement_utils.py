@@ -7,6 +7,7 @@ from exo.master.placement_utils import (
     filter_cycles_by_memory,
     filter_cycles_by_replicated_memory,
     get_mlx_jaccl_coordinators,
+    get_mlx_ring_hosts_by_node,
     get_shard_assignments,
     get_shard_assignments_for_pipeline_parallel,
     get_smallest_cycles,

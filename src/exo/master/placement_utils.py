@@ -1061,11 +1061,34 @@ def _address_priority(ip: str) -> int:
     return 1
 
 
+def _fallback_connection_ip(
+    other_node_id: NodeId,
+    node_network: Mapping[NodeId, NodeNetworkInfo],
+) -> str | None:
+    """Pick any reachable IP for force_override fallback.
+
+    When the topology has no SocketConnection edge in the required direction
+    (asymmetric discovery — upstream #2077), fall back to the *target* node's
+    advertised network interfaces. The peer dials the address the target
+    itself reports, so any advertised interface is a reasonable best effort.
+    Prefer RFC1918 LAN addresses over public/CGNAT/link-local.
+    """
+    other_network = node_network.get(other_node_id, NodeNetworkInfo())
+    interfaces = list(other_network.interfaces)
+    if not interfaces:
+        return None
+    return min(
+        (iface.ip_address for iface in interfaces),
+        key=_address_priority,
+    )
+
+
 def get_mlx_ring_hosts_by_node(
     selected_cycle: Cycle,
     cycle_digraph: Topology,
     ephemeral_port: int,
     node_network: Mapping[NodeId, NodeNetworkInfo],
+    force_override: bool = False,
 ) -> dict[NodeId, list[Host]]:
     """Generate per-node host lists for MLX ring backend.
 
@@ -1100,9 +1123,14 @@ def get_mlx_ring_hosts_by_node(
                 node_id, other_node_id, cycle_digraph, node_network, ring=True
             )
             if connection_ip is None:
-                raise ValueError(
-                    "MLX ring backend requires connectivity between neighbouring nodes"
-                )
+                if force_override:
+                    connection_ip = _fallback_connection_ip(
+                        other_node_id, node_network
+                    )
+                if connection_ip is None:
+                    raise ValueError(
+                        "MLX ring backend requires connectivity between neighbouring nodes"
+                    )
 
             hosts_for_node.append(Host(ip=connection_ip, port=ephemeral_port))
 
@@ -1116,6 +1144,7 @@ def get_mlx_jaccl_coordinators(
     coordinator_port: int,
     cycle_digraph: Topology,
     node_network: Mapping[NodeId, NodeNetworkInfo],
+    force_override: bool = False,
 ) -> dict[NodeId, str]:
     """Get the coordinator addresses for MLX JACCL (rank 0 device).
 
@@ -1133,6 +1162,11 @@ def get_mlx_jaccl_coordinators(
         )
         if ip is not None:
             return ip
+
+        if force_override:
+            ip = _fallback_connection_ip(coordinator, node_network)
+            if ip is not None:
+                return ip
 
         raise ValueError(
             "Current jaccl backend requires all participating devices to be able to communicate"

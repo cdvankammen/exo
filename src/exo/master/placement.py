@@ -1,10 +1,15 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
 from copy import deepcopy
-from typing import Sequence
+from typing import TYPE_CHECKING, Sequence
 
 import os
 
 from loguru import logger
+
+if TYPE_CHECKING:
+    from exo.master.circuit_breaker import NodeHealthTracker
 
 from exo.master.placement_utils import (
     Cycle,
@@ -215,6 +220,7 @@ def place_instance(
     download_status: Mapping[NodeId, Sequence[DownloadProgress]] | None = None,
     node_rdma_ctl: Mapping[NodeId, NodeRdmaCtlStatus] | None = None,
     node_identities: Mapping[NodeId, NodeIdentity] | None = None,
+    node_health_tracker: NodeHealthTracker | None = None,
 ) -> dict[InstanceId, Instance]:
     if (
         command.sharding is Sharding.Ring
@@ -230,6 +236,20 @@ def place_instance(
 
     cycles = topology.get_cycles()
     candidate_cycles = list(filter(lambda it: len(it) >= command.min_nodes, cycles))
+
+    # Filter out cycles containing tripped nodes (circuit breaker)
+    if node_health_tracker is not None and not command.force_override:
+        candidate_cycles = [
+            cycle
+            for cycle in candidate_cycles
+            if all(node_health_tracker.is_node_healthy(n) for n in cycle.node_ids)
+        ]
+        if not candidate_cycles:
+            tripped = node_health_tracker.get_tripped_nodes()
+            raise ValueError(
+                f"No eligible cycles: all remaining candidates contain tripped nodes {tripped}. "
+                "Wait for cooldown or force_override."
+            )
 
     # --- Single-node heuristic (Phase 1.3) ---
     # Tensor parallelism splits weights across nodes but requires an all-reduce
@@ -525,6 +545,7 @@ def place_instance(
                 coordinator_port=random_ephemeral_port(),
                 cycle_digraph=cycle_digraph,
                 node_network=node_network,
+                force_override=command.force_override,
             )
             target_instances[instance_id] = MlxJacclInstance(
                 instance_id=instance_id,
@@ -539,6 +560,7 @@ def place_instance(
                 cycle_digraph=cycle_digraph,
                 ephemeral_port=ephemeral_port,
                 node_network=node_network,
+                force_override=command.force_override,
             )
             target_instances[instance_id] = MlxRingInstance(
                 instance_id=instance_id,
