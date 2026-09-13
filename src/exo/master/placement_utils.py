@@ -958,7 +958,14 @@ def _find_connection_ip(
     node_j: NodeId,
     cycle_digraph: Topology,
 ) -> Generator[SocketConnection, None, None]:
-    """Find all socket connections from node i to node j."""
+    """Find all socket connections from node i to node j.
+
+    Walks directed edges i->j. Topology edges are asymmetric: the
+    worker->master connection may carry Thunderbolt sinkMultiaddr entries
+    while the master->worker connection carries only RDMA or Ethernet
+    (upstream issue #2310). Callers should fall back to node_network
+    interfaces when this yields nothing.
+    """
     for connection in cycle_digraph.get_all_connections_between(node_i, node_j):
         if isinstance(connection, SocketConnection):
             yield connection
@@ -989,11 +996,34 @@ def find_ip_prioritised(
     first, then the negotiated link speed when the node reports one (Linux
     sysfs), otherwise a nominal per-type speed, then RFC1918 LAN as a final
     tiebreak. RDMA coordinators prefer ethernet, then RFC1918 LAN.
+
+    When directed topology edges are asymmetric (upstream #2310 — one
+    direction carries Thunderbolt addresses while the other carries only
+    RDMA/Ethernet), different nodes compute different IPs for the same
+    peer. To prevent this, *all* of the target node's advertised
+    interfaces (from node_network) are included as candidates alongside
+    edge-derived IPs. The priority logic then selects the best one
+    consistently across all ranks.
     """
     connections = list(_find_connection_ip(node_id, other_node_id, cycle_digraph))
-    if not connections:
+
+    other_network = node_network.get(other_node_id, NodeNetworkInfo())
+    ip_to_interface = {iface.ip_address: iface for iface in other_network.interfaces}
+
+    # Collect IPs from directed topology edges
+    edge_ips: set[str] = {
+        connection.sink_multiaddr.ip_address for connection in connections
+    }
+
+    # Also include all of the target node's advertised interfaces as
+    # candidates. This ensures consistent IP selection across all ranks
+    # even when topology edges are asymmetric (issue #2310).
+    all_candidate_ips: set[str] = edge_ips | set(ip_to_interface.keys())
+
+    if not all_candidate_ips:
         return None
 
+    # Collect latency measurements from directed topology edges
     latency_by_ip: dict[str, float] = {}
     for connection in connections:
         ip_address = connection.sink_multiaddr.ip_address
@@ -1002,9 +1032,6 @@ def find_ip_prioritised(
         known = latency_by_ip.get(ip_address)
         if known is None or connection.latency_ms < known:
             latency_by_ip[ip_address] = connection.latency_ms
-
-    other_network = node_network.get(other_node_id, NodeNetworkInfo())
-    ip_to_interface = {iface.ip_address: iface for iface in other_network.interfaces}
 
     if ring:
         def effective_link_speed_megabits(ip: str) -> int:
@@ -1018,7 +1045,7 @@ def find_ip_prioritised(
             )
 
         return max(
-            {connection.sink_multiaddr.ip_address for connection in connections},
+            all_candidate_ips,
             key=lambda ip: (
                 -latency_by_ip.get(ip, float("inf")),
                 effective_link_speed_megabits(ip),
@@ -1040,7 +1067,7 @@ def find_ip_prioritised(
         return interface.interface_type if interface is not None else "unknown"
 
     return min(
-        {connection.sink_multiaddr.ip_address for connection in connections},
+        all_candidate_ips,
         key=lambda ip: (
             type_priority.get(interface_type_for_ip(ip), 5),
             _address_priority(ip),

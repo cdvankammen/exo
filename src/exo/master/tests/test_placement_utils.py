@@ -415,18 +415,22 @@ def test_get_mlx_jaccl_coordinators():
         "Rank 0 node should use 0.0.0.0 as coordinator listen address"
     )
 
-    # Non-rank-0 nodes should use the specific IP from their connection to rank 0
-    # node_b uses the IP from conn_b_a (node_b -> node_a)
-    assert isinstance(conn_b_a.edge, SocketConnection)
-    assert (
-        coordinators[node_b_id] == f"{conn_b_a.edge.sink_multiaddr.ip_address}:5000"
-    ), "node_b should use the IP from conn_b_a"
+    # Non-rank-0 nodes should use an IP reachable from their connection to rank 0.
+    # With node_network included as candidates (#2310 fix), the selected IP may
+    # come from either the directed edge or the coordinator's node_network
+    # interfaces — both are valid reachable addresses.
+    coordinator_network = node_network.get(node_a_id, NodeNetworkInfo())
+    coordinator_ips = {iface.ip_address for iface in coordinator_network.interfaces}
 
-    # node_c uses the IP from conn_c_a (node_c -> node_a)
-    assert isinstance(conn_c_a.edge, SocketConnection)
-    assert coordinators[node_c_id] == (
-        f"{conn_c_a.edge.sink_multiaddr.ip_address}:5000"
-    ), "node_c should use the IP from conn_c_a"
+    node_b_coordinator_ip = coordinators[node_b_id].replace(":5000", "")
+    assert node_b_coordinator_ip in coordinator_ips, (
+        f"node_b coordinator IP should be a valid candidate, got {node_b_coordinator_ip}"
+    )
+
+    node_c_coordinator_ip = coordinators[node_c_id].replace(":5000", "")
+    assert node_c_coordinator_ip in coordinator_ips, (
+        f"node_c coordinator IP should be a valid candidate, got {node_c_coordinator_ip}"
+    )
 
 
 class TestAllocateLayersProportionally:
