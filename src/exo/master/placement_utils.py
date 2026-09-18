@@ -191,6 +191,7 @@ _MEMORY_BANDWIDTH_GBPS_BY_CHIP_SUBSTRING: tuple[tuple[str, float], ...] = (
     ("GB10", 273.0),  # NVIDIA DGX Spark
     ("RTX 5090", 1792.0),
     ("RTX 5080", 960.0),
+    ("RTX 5060 Ti", 448.0),  # 128-bit GDDR7, 28 Gbps
     ("RTX 4090", 1008.0),
     ("RTX 4080", 717.0),
     ("RTX 3090", 936.0),
