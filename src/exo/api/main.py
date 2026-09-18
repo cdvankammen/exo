@@ -3432,6 +3432,16 @@ class API:
             truncated=bool(remote.get("truncated", False)),
         )
 
+    def _node_name(self, node_id: str) -> str:
+        """Friendly name for a node id if known, else the short id."""
+        identities = getattr(self.state, "node_identities", {}) or {}
+        identity = identities.get(node_id)
+        if identity is not None:
+            name = str(getattr(identity, "friendly_name", "") or "")
+            if name and name != "Unknown":
+                return name
+        return node_id[:8]
+
     async def get_onboarding(self) -> JSONResponse:
         return JSONResponse({"completed": ONBOARDING_COMPLETE_FILE.exists()})
 
