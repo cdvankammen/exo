@@ -9,6 +9,7 @@ import math
 import os
 import time
 import uuid
+from dataclasses import dataclass, field
 from typing import Any, Callable, Generator, cast, get_args
 
 import mlx.core as mx
@@ -95,6 +96,121 @@ from exo.worker.runner.bootstrap import logger
 REMOTE_PREFILL_MIN_TOKENS = 1000
 
 generation_stream = mx.new_stream(mx.default_device())
+
+
+def compute_ring_prefill_chunks(
+    num_tokens: int,
+    world_size: int,
+    max_chunk_size: int,
+) -> list[tuple[int, int]]:
+    """Compute ring prefill chunk boundaries.
+
+    Each chunk is ``max_chunk_size`` tokens (except possibly the last). The
+    boundaries are global token indices: ``(chunk_start, chunk_end)`` where
+    ``chunk_end`` is exclusive. A trailing partial chunk shorter than
+    ``world_size`` tokens is merged into the previous chunk so every rank
+    keeps a non-empty block.
+
+    Mirrors the loop previously inlined in ``prefill()``; pure and testable
+    without a distributed group.
+    """
+    chunk_starts = list(range(0, num_tokens, max_chunk_size))
+    if len(chunk_starts) > 1 and num_tokens - chunk_starts[-1] < world_size:
+        chunk_starts.pop()
+
+    chunks: list[tuple[int, int]] = []
+    for chunk_start in chunk_starts:
+        chunk_end = min(chunk_start + max_chunk_size, num_tokens)
+        if chunk_start == chunk_starts[-1]:
+            chunk_end = num_tokens
+        chunks.append((chunk_start, chunk_end))
+    return chunks
+
+
+def compute_ring_prefill_rank_bounds(
+    chunk_start: int,
+    chunk_end: int,
+    rank: int,
+    world_size: int,
+) -> tuple[int, int]:
+    """Compute the per-rank token slice for one ring prefill chunk."""
+    chunk_size = chunk_end - chunk_start
+    start = chunk_start + (chunk_size * rank) // world_size
+    end = chunk_start + (chunk_size * (rank + 1)) // world_size
+    return (start, end)
+
+
+@dataclass
+class RingPrefillState:
+    """Mutable state for interleaving ring prefill with decode.
+
+    Holds the pending prompt tokens, the KV cache being filled, the list of
+    chunk ranges, and a cursor into it. ``step()`` processes exactly one
+    chunk and returns False when all chunks are done.
+    """
+
+    prompt_tokens: mx.array
+    cache: KVCacheType
+    group: mx.distributed.Group
+    model: Model
+    chunk_ranges: list[tuple[int, int]]
+    rank: int
+    world_size: int
+    index: int = 0
+    stall_watchdog: StallWatchdog | None = None
+
+    def step(self) -> bool:
+        """Process one ring prefill chunk.
+
+        Returns True if a chunk was processed, False when exhausted.
+        """
+        if self.index >= len(self.chunk_ranges):
+            return False
+        chunk_start, chunk_end = self.chunk_ranges[self.index]
+        start, end = compute_ring_prefill_rank_bounds(
+            chunk_start, chunk_end, self.rank, self.world_size
+        )
+        with mx.stream(generation_stream):
+            self.model(self.prompt_tokens[start:end][None], cache=self.cache)
+            mx.eval([c.state for c in self.cache])  # type: ignore
+        if self.stall_watchdog is not None:
+            self.stall_watchdog.kick()
+        self.index += 1
+        return True
+
+
+def make_ring_prefill_state(
+    model: Model,
+    prompt_tokens: mx.array,
+    cache: KVCacheType,
+    group: mx.distributed.Group,
+    stall_timeout_seconds: float | None = None,
+) -> RingPrefillState:
+    """Build chunked ring prefill state for interleaved execution.
+
+    Mirrors the chunk computation in ``prefill()``; used by
+    ``ExoBatchGenerator`` so long ring prompts prefill one chunk per decode
+    step instead of blocking ``submit()``.
+    """
+    num_tokens = len(prompt_tokens)
+    rank = group.rank()
+    world_size = group.size()
+    max_chunk_size = world_size * ring_prefill_block_size(model)
+    chunk_ranges = compute_ring_prefill_chunks(num_tokens, world_size, max_chunk_size)
+    if stall_timeout_seconds is None:
+        stall_timeout_seconds = float(os.environ.get("EXO_PREFILL_STALL_TIMEOUT", "300"))
+    return RingPrefillState(
+        model=model,
+        prompt_tokens=prompt_tokens,
+        cache=cache,
+        group=group,
+        chunk_ranges=chunk_ranges,
+        rank=rank,
+        world_size=world_size,
+        stall_watchdog=StallWatchdog(
+            stall_timeout_seconds, f"Ring prefill ({num_tokens} tokens)"
+        ),
+    )
 
 
 @contextlib.contextmanager
@@ -366,32 +482,15 @@ def prefill(
 
         if is_ring_prefill:
             assert group is not None
-            rank = group.rank()
-            world_size = group.size()
-            max_chunk_size = world_size * ring_prefill_block_size(model)
-            chunk_ranges = list(range(0, num_tokens, max_chunk_size))
-            if len(chunk_ranges) > 1 and num_tokens - chunk_ranges[-1] < world_size:
-                chunk_ranges.pop()
-
-            stall_timeout_seconds = float(
-                os.environ.get("EXO_PREFILL_STALL_TIMEOUT", "300")
+            ring_state = make_ring_prefill_state(
+                model, prompt_tokens, cache, group
             )
             combined_progress_callback(0, num_tokens)
-            with StallWatchdog(
-                stall_timeout_seconds, f"Ring prefill ({num_tokens} tokens)"
-            ) as stall_watchdog:
-                for chunk_start in chunk_ranges:
-                    chunk_end = min(chunk_start + max_chunk_size, num_tokens)
-                    if chunk_start == chunk_ranges[-1]:
-                        chunk_end = num_tokens
-                    chunk_size = chunk_end - chunk_start
-                    start = chunk_start + (chunk_size * rank) // world_size
-                    end = chunk_start + (chunk_size * (rank + 1)) // world_size
-                    with mx.stream(generation_stream):
-                        model(prompt_tokens[start:end][None], cache=cache)
-                        mx.eval([c.state for c in cache])  # type: ignore
-                    stall_watchdog.kick()
-                    combined_progress_callback(chunk_end, num_tokens)
+            with ring_state.stall_watchdog or contextlib.nullcontext():
+                while ring_state.step():
+                    combined_progress_callback(
+                        ring_state.chunk_ranges[ring_state.index - 1][1], num_tokens
+                    )
         elif is_pipeline and num_tokens >= prefill_step_size:
             set_pipeline_queue_sends(model, queue_sends=True)
             assert group is not None, "Pipeline prefill requires a distributed group"

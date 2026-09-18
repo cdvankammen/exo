@@ -47,10 +47,12 @@ from exo.worker.engines.mlx.constants import (
     MAX_TOKENS,
 )
 from exo.worker.engines.mlx.generator.generate import (
+    RingPrefillState,
     ban_token_ids,
     eos_ids_from_tokenizer,
     extract_top_logprobs,
     make_constrained_processor,
+    make_ring_prefill_state,
     patch_embed_tokens,
     prefill,
 )
@@ -106,12 +108,39 @@ class _EngineTask:
     last_gen_token_time: float | None = None
 
 
+@dataclass
+class _PendingRingInsert:
+    """Deferred mlx-lm insert for a ring-prefill task.
+
+    Ring sequence-parallel prefill runs *outside* ``MlxBatchGenerator`` (its
+    ``PromptProcessingBatch`` is not ring-aware), but must not block
+    ``submit()`` the way the eager path does.  Instead we hold the task here
+    and run one ``ring_state.step()`` chunk per ``ExoBatchGenerator.step()``
+    call; once the cache is fully populated we finally insert the last-token
+    decode seed into ``MlxBatchGenerator`` with the populated cache.
+    """
+
+    uid: int
+    ring_state: RingPrefillState
+    last_tokens: mx.array
+    max_tokens: int
+    sampler: Callable[[mx.array], mx.array]
+    logits_processors: list[Callable[[mx.array, mx.array], mx.array]]
+    cache: KVCacheType
+    on_prefill_progress: Callable[[int, int], None] | None
+    distributed_prompt_progress_callback: Callable[[], None] | None
+    num_tokens: int
+    mlx_uid: int | None = None
+    start_time: float = field(default_factory=time.perf_counter)
+
+
 def can_defer_prefill(
     group: mx.distributed.Group | None,
     has_prefix_cache: bool,
     use_prefix_cache: bool,
     has_vision: bool,
     is_bench: bool,
+    is_ring: bool = False,
 ) -> bool:
     """Whether a prompt can skip eager prefill and use the chunked deferred path.
 
@@ -121,7 +150,13 @@ def can_defer_prefill(
     BatchGenerator, which decodes the current batch first and prefills new
     prompts in chunks gated by batch capacity. Only safe when nothing needs the
     eager prefill's side effects: no distributed pipeline sync, no prefix-cache
-    save/restore, no vision embedding patching, no bench timing.
+    save/restore, no vision embedding patching, no bench timing and no
+    ring sequence-parallel prefill.
+
+    Ring prefill never returns True here (``is_ring`` always False for the
+    mlx-lm deferred path) — ring prompts need distributed collectives that
+    ``MlxBatchGenerator`` cannot drive, so they use the custom chunked
+    ``_PendingRingInsert`` path instead.
     """
     return (
         group is None
@@ -150,6 +185,10 @@ class ExoBatchGenerator:
     _mlx_gen: MlxBatchGenerator = field(init=False)
     _active_tasks: dict[int, _EngineTask] = field(default_factory=dict, init=False)
     _supports_token_relay: bool = field(init=False)
+    _pending_ring_inserts: dict[int, _PendingRingInsert] = field(
+        default_factory=dict, init=False
+    )
+    _synthetic_uid: int = field(default=0, init=False)
 
     def __post_init__(self) -> None:
         self._mlx_gen = MlxBatchGenerator(
@@ -167,6 +206,7 @@ class ExoBatchGenerator:
         """True if any active task or pending MLX batch remains."""
         return (
             bool(self._active_tasks)
+            or bool(self._pending_ring_inserts)
             or bool(self._mlx_gen._unprocessed_sequences)
             or len(self._mlx_gen._prompt_batch) > 0
             or len(self._mlx_gen._generation_batch) > 0
@@ -291,19 +331,33 @@ class ExoBatchGenerator:
             else contextlib.nullcontext()
         )
         uncached_count = len(prompt_tokens)
+        is_ring = uses_ring_sequence_parallel_prefill(
+            self.model, len(prompt_tokens) - 1, self.group
+        )
         use_remote = (
             uncached_count > REMOTE_PREFILL_MIN_TOKENS
             and task_params.prefill_endpoint is not None
-            and not uses_ring_sequence_parallel_prefill(
-                self.model, len(prompt_tokens) - 1, self.group
-            )
+            and not is_ring
         )
+
+        # Ring sequence-parallel prefill runs through distributed collectives
+        # that MlxBatchGenerator's PromptProcessingBatch cannot drive.  Instead
+        # of the synchronous eager prefill below (which blocks submit() and
+        # stalls the current batch's decode for the whole prompt), defer it:
+        # build a chunked RingPrefillState now, return a synthetic uid, and
+        # drain one chunk per step() until done, then insert the decode seed.
+        ring_state: RingPrefillState | None = None
+        if is_ring and not use_remote:
+            assert self.group is not None
+            ring_state = make_ring_prefill_state(
+                self.model, prompt_tokens[:-1], cache, self.group
+            )
 
         _prefill_tps: float = 0.0
         _prefill_tokens: int = 0
         cache_snapshots: list[CacheSnapshot] = []
         remote_prefilled = False
-        if not defer_prefill:
+        if not defer_prefill and ring_state is None:
             with vision_ctx:
                 if use_remote and task_params.prefill_endpoint is not None:
                     try:
@@ -356,7 +410,7 @@ class ExoBatchGenerator:
                 c.values = c._trim(trim_size, c.values)
                 c._idx = c.max_size
 
-        if task_params.use_prefix_cache and not defer_prefill:
+        if task_params.use_prefix_cache and not defer_prefill and ring_state is None:
             min_prefix_hit_length = max(
                 1000, system_prompt_token_count(task_params, self.tokenizer)
             )
@@ -402,34 +456,60 @@ class ExoBatchGenerator:
 
         max_tokens = task_params.max_output_tokens or MAX_TOKENS
 
-        if defer_prefill:
-            # Deferred path: hand the FULL prompt to the BatchGenerator with an
-            # empty cache — its chunked PromptProcessingBatch prefills it in
-            # prefill_step_size chunks, decode-first, gated by batch capacity.
-            insert_tokens = all_prompt_tokens
-            insert_caches: list[list[Any] | None] = [None]
-        else:
-            last_tokens = (
-                prompt_tokens[-1:]
-                if uses_ring_sequence_parallel_prefill(
-                    self.model, len(prompt_tokens) - 1, self.group
-                )
-                else prompt_tokens[-2:]
+        if ring_state is not None:
+            # Deferred ring prefill: build the pending-insert record now, return
+            # a synthetic uid, and let step() drain ring chunks before finally
+            # inserting the decode seed with the fully-populated cache.
+            synthetic_uid = -(self._synthetic_uid + 1)
+            self._synthetic_uid += 1
+            self._pending_ring_inserts[synthetic_uid] = _PendingRingInsert(
+                uid=synthetic_uid,
+                ring_state=ring_state,
+                last_tokens=(
+                    prompt_tokens[-1:]
+                    if is_ring
+                    else prompt_tokens[-2:]
+                ),
+                max_tokens=max_tokens,
+                sampler=sampler,
+                logits_processors=logits_processors,
+                cache=cache,
+                on_prefill_progress=on_prefill_progress,
+                distributed_prompt_progress_callback=(
+                    distributed_prompt_progress_callback
+                ),
+                num_tokens=len(prompt_tokens) - 1,
             )
-            insert_tokens = last_tokens
-            insert_caches = [list(cache)]
+            uid = synthetic_uid
+        else:
+            if defer_prefill:
+                # Deferred path: hand the FULL prompt to the BatchGenerator with an
+                # empty cache — its chunked PromptProcessingBatch prefills it in
+                # prefill_step_size chunks, decode-first, gated by batch capacity.
+                insert_tokens = all_prompt_tokens
+                insert_caches: list[list[Any] | None] = [None]
+            else:
+                last_tokens = (
+                    prompt_tokens[-1:]
+                    if uses_ring_sequence_parallel_prefill(
+                        self.model, len(prompt_tokens) - 1, self.group
+                    )
+                    else prompt_tokens[-2:]
+                )
+                insert_tokens = last_tokens
+                insert_caches = [list(cache)]
 
-        uids = self._mlx_gen.insert(
-            prompts=[cast(list[int], insert_tokens.tolist())],
-            max_tokens=[max_tokens],
-            caches=cast(list[list[Any]] | None, insert_caches),
-            samplers=[sampler],
-            logits_processors=[logits_processors],
-        )
+            uids = self._mlx_gen.insert(
+                prompts=[cast(list[int], insert_tokens.tolist())],
+                max_tokens=[max_tokens],
+                caches=cast(list[list[Any]] | None, insert_caches),
+                samplers=[sampler],
+                logits_processors=[logits_processors],
+            )
 
-        assert len(uids) == 1
+            assert len(uids) == 1
 
-        uid = uids[0]
+            uid = uids[0]
 
         self._active_tasks[uid] = _EngineTask(
             uid=uid,
@@ -630,15 +710,78 @@ class ExoBatchGenerator:
 
         return results
 
+    def _drain_ring_prefill_chunks(self) -> None:
+        """Run one ring-prefill chunk per pending task; insert seeds when done.
+
+        Called at the top of each ``step()``.  The chunked ``RingPrefillState``
+        drives the distributed ring collectives; the ``MlxBatchGenerator`` is
+        handed only the *last* token (decode seed) once the KV cache is fully
+        populated, exactly like the eager path, so its own (non-ring-aware)
+        prompt processing never touches the distributed cache.
+        """
+        for synthetic_uid, pending in list(self._pending_ring_inserts.items()):
+            if pending.ring_state.step():
+                # One chunk processed. Fire progress callbacks (same contract
+                # as eager prefill: chunk_end is a global token index).
+                if pending.on_prefill_progress is not None:
+                    pending.on_prefill_progress(
+                        pending.ring_state.index, pending.num_tokens
+                    )
+                if pending.distributed_prompt_progress_callback is not None:
+                    pending.distributed_prompt_progress_callback()
+                return
+            # Chunks exhausted: insert the decode seed with the populated cache.
+            mlx_uids = self._mlx_gen.insert(
+                prompts=[cast(list[int], pending.last_tokens.tolist())],
+                max_tokens=[pending.max_tokens],
+                caches=cast(list[list[Any]] | None, [list(pending.cache)]),
+                samplers=[pending.sampler],
+                logits_processors=[pending.logits_processors],
+            )
+            del self._pending_ring_inserts[synthetic_uid]
+            if not mlx_uids:
+                logger.warning(
+                    f"ring prefill uid {synthetic_uid}: no mlx uid returned; task dropped"
+                )
+                self._active_tasks.pop(synthetic_uid, None)
+                continue
+            pending.mlx_uid = mlx_uids[0]
+            assert pending.mlx_uid is not None
+            # Remap the engine task from synthetic uid to real mlx uid so the
+            # response loop below and cancel() see a consistent uid namespace.
+            engine_task = self._active_tasks.pop(synthetic_uid, None)
+            if engine_task is not None:
+                engine_task.uid = pending.mlx_uid
+                elapsed = time.perf_counter() - pending.start_time
+                engine_task.prefill_tps = (
+                    pending.num_tokens / elapsed if elapsed > 0 else 0.0
+                )
+                self._active_tasks[pending.mlx_uid] = engine_task
+
     def cancel(self, uids: list[int]) -> None:
         """Cancel the given task uids, removing them from the batch and bookkeeping."""
-        self._mlx_gen.remove(uids)
+        # Pending ring tasks have a synthetic uid and are not yet in the mlx
+        # batch; drop them from bookkeeping directly.
+        for uid in uids:
+            pending = self._pending_ring_inserts.pop(uid, None)
+            if pending is not None:
+                self._active_tasks.pop(uid, None)
+                continue
+        # Synthetic uids are negative; mlx uids are non-negative, so filter
+        # only the real ones for mlx remove().
+        mlx_uids = [u for u in uids if u >= 0]
+        if mlx_uids:
+            self._mlx_gen.remove(mlx_uids)
         for uid in uids:
             self._active_tasks.pop(uid, None)
 
     def close(self) -> None:
         """Shut down the underlying batch generator and clear the MLX cache."""
         self._mlx_gen.close()
+        for pending in self._pending_ring_inserts.values():
+            if pending.ring_state.stall_watchdog is not None:
+                pending.ring_state.stall_watchdog.close()
+        self._pending_ring_inserts.clear()
         mx.clear_cache()
 
     def _save_prefix_cache(
