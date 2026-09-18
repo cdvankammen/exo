@@ -1,7 +1,10 @@
+import os
+
 from collections.abc import Generator, Mapping, Sequence
 
 from loguru import logger
 
+from exo.shared.circuit_breaker import NodeCircuitBreaker, NodeCircuitState
 from exo.shared.constants import EXO_RING_ADMISSION_CONTEXT
 from exo.shared.models.model_cards import ModelCard
 from exo.shared.topology import Topology
@@ -46,6 +49,28 @@ def filter_cycles_by_memory(
     return filtered_cycles
 
 
+def filter_cycles_by_health(
+    cycles: list[Cycle],
+    node_circuits: Mapping[NodeId, NodeCircuitState],
+    breaker: NodeCircuitBreaker | None = None,
+) -> list[Cycle]:
+    """Keep only cycles whose nodes are not tripped by the circuit breaker.
+
+    A node that failed repeatedly mid-inference is degraded and must be
+    skipped until it reports healthy telemetry again. Cycles containing a
+    tripped node are pruned so placement never selects the failing node while
+    the breaker is open. Nodes with no circuit state are healthy.
+    """
+    if not node_circuits:
+        return cycles
+    local_breaker = breaker or NodeCircuitBreaker.from_mapping(node_circuits)
+    return [
+        cycle
+        for cycle in cycles
+        if all(not local_breaker.is_tripped(node_id) for node_id in cycle)
+    ]
+
+
 def filter_cycles_by_replicated_memory(
     cycles: list[Cycle],
     node_memory: Mapping[NodeId, MemoryUsage],
@@ -69,6 +94,15 @@ def filter_cycles_by_replicated_memory(
 # size, CUDA at ~5x, for the same prefill).
 _KV_CACHE_BYTES_PER_ELEMENT = 2
 _RING_KV_WORKING_SET_MULTIPLIER = 4
+# Tiered KV offload (EXO_KV_TIERED=1, vLLM simple_kv_offload-style) demotes
+# LRU KV entries GPU -> CPU -> disk, so the *Metal* working set no longer
+# scales with the full admission context. The steady-state multiplier for a
+# tiered node is close to 1 (only the hot tier stays resident). Use a
+# conservative 1.5 to keep transient attention buffers covered without
+# re-imposing the old 4x over-admission. Read at call time so overrides
+# apply without a restart (mirrors EXO_RING_ADMISSION_CONTEXT).
+_RING_KV_TIERED_WORKING_SET_MULTIPLIER = 1.5
+_RING_KV_TIERED_ENABLED = os.getenv("EXO_KV_TIERED", "0") == "1" 
 # Upper bound on head_dim across the verified Ring model families (Llama,
 # Qwen3), used when the card does not pin the exact geometry.
 _RING_HEAD_DIM_BOUND = 128
@@ -102,7 +136,12 @@ def estimate_ring_node_memory(model_card: ModelCard) -> Memory:
         * kv_width
         * admission_context
     )
-    working_set = Memory.from_bytes(kv_cache_bytes * _RING_KV_WORKING_SET_MULTIPLIER)
+    multiplier = (
+        _RING_KV_TIERED_WORKING_SET_MULTIPLIER
+        if _RING_KV_TIERED_ENABLED
+        else _RING_KV_WORKING_SET_MULTIPLIER
+    )
+    working_set = Memory.from_bytes(int(kv_cache_bytes * multiplier))
     return model_card.storage_size + working_set
 
 
@@ -834,22 +873,37 @@ def find_ip_prioritised(
     first, then the negotiated link speed when the node reports one (Linux
     sysfs), otherwise a nominal per-type speed, then RFC1918 LAN as a final
     tiebreak. RDMA coordinators prefer ethernet, then RFC1918 LAN.
+
+    When no SocketConnection edge exists in this direction (asymmetric
+    topology — e.g. the peer was only discovered via RDMA), fall back to the
+    peer's advertised interface IPs so ring/jaccl placement can still resolve
+    a reachable address (upstream exo-explore/exo#2077).
     """
     connections = list(_find_connection_ip(node_id, other_node_id, cycle_digraph))
-    if not connections:
-        return None
-
-    latency_by_ip: dict[str, float] = {}
-    for connection in connections:
-        ip_address = connection.sink_multiaddr.ip_address
-        if connection.latency_ms is None:
-            continue
-        known = latency_by_ip.get(ip_address)
-        if known is None or connection.latency_ms < known:
-            latency_by_ip[ip_address] = connection.latency_ms
 
     other_network = node_network.get(other_node_id, NodeNetworkInfo())
     ip_to_interface = {iface.ip_address: iface for iface in other_network.interfaces}
+
+    latency_by_ip: dict[str, float] = {}
+    if connections:
+        for connection in connections:
+            ip_address = connection.sink_multiaddr.ip_address
+            if connection.latency_ms is None:
+                continue
+            known = latency_by_ip.get(ip_address)
+            if known is None or connection.latency_ms < known:
+                latency_by_ip[ip_address] = connection.latency_ms
+        candidate_ips = {
+            connection.sink_multiaddr.ip_address for connection in connections
+        }
+    else:
+        # Asymmetric-topology fallback: RDMA-only reverse edges carry no IP,
+        # so derive candidates from the peer's reported interfaces instead.
+        # The same type-priority ordering as the socket path applies below.
+        candidate_ips = set(ip_to_interface)
+
+    if not candidate_ips:
+        return None
 
     if ring:
         def effective_link_speed_megabits(ip: str) -> int:
@@ -863,7 +917,7 @@ def find_ip_prioritised(
             )
 
         return max(
-            {connection.sink_multiaddr.ip_address for connection in connections},
+            candidate_ips,
             key=lambda ip: (
                 -latency_by_ip.get(ip, float("inf")),
                 effective_link_speed_megabits(ip),
@@ -885,7 +939,7 @@ def find_ip_prioritised(
         return interface.interface_type if interface is not None else "unknown"
 
     return min(
-        {connection.sink_multiaddr.ip_address for connection in connections},
+        candidate_ips,
         key=lambda ip: (
             type_priority.get(interface_type_for_ip(ip), 5),
             _address_priority(ip),
