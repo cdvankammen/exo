@@ -76,66 +76,82 @@
 
   async function downloadTrace() {
     if (!taskId) return;
-    const response = await fetch(getTraceRawUrl(taskId));
-    const blob = await response.blob();
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = `trace_${taskId}.json`;
-    a.click();
-    URL.revokeObjectURL(url);
+    try {
+      const response = await fetch(getTraceRawUrl(taskId));
+      if (!response.ok) {
+        throw new Error(`Failed to download trace: ${response.status}`);
+      }
+      const blob = await response.blob();
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `trace_${taskId}.json`;
+      a.click();
+      URL.revokeObjectURL(url);
+    } catch (e) {
+      error = e instanceof Error ? e.message : "Failed to download trace";
+    }
   }
 
   async function openInPerfetto() {
     if (!taskId) return;
 
-    // Fetch trace data from our local API
-    const response = await fetch(getTraceRawUrl(taskId));
-    const traceData = await response.arrayBuffer();
-
-    // Open Perfetto UI
-    const perfettoWindow = window.open("https://ui.perfetto.dev");
-    if (!perfettoWindow) {
-      alert("Failed to open Perfetto. Please allow popups.");
-      return;
-    }
-
-    // Wait for Perfetto to be ready, then send trace via postMessage
-    const onMessage = (e: MessageEvent) => {
-      if (e.data === "PONG") {
-        window.removeEventListener("message", onMessage);
-        perfettoWindow.postMessage(
-          {
-            perfetto: {
-              buffer: traceData,
-              title: `Trace ${taskId}`,
-            },
-          },
-          "https://ui.perfetto.dev",
-        );
+    try {
+      // Fetch trace data from our local API
+      const response = await fetch(getTraceRawUrl(taskId));
+      if (!response.ok) {
+        throw new Error(`Failed to fetch trace for Perfetto: ${response.status}`);
       }
-    };
-    window.addEventListener("message", onMessage);
+      const traceData = await response.arrayBuffer();
 
-    // Ping Perfetto until it responds
-    const pingInterval = setInterval(() => {
-      perfettoWindow.postMessage("PING", "https://ui.perfetto.dev");
-    }, 50);
+      // Open Perfetto UI
+      const perfettoWindow = window.open("https://ui.perfetto.dev");
+      if (!perfettoWindow) {
+        alert("Failed to open Perfetto. Please allow popups.");
+        return;
+      }
 
-    // Clean up after 10 seconds
-    setTimeout(() => {
-      clearInterval(pingInterval);
-      window.removeEventListener("message", onMessage);
-    }, 10000);
+      // Wait for Perfetto to be ready, then send trace via postMessage
+      const onMessage = (e: MessageEvent) => {
+        if (e.data === "PONG") {
+          window.removeEventListener("message", onMessage);
+          perfettoWindow.postMessage(
+            {
+              perfetto: {
+                buffer: traceData,
+                title: `Trace ${taskId}`,
+              },
+            },
+            "https://ui.perfetto.dev",
+          );
+        }
+      };
+      window.addEventListener("message", onMessage);
+
+      // Ping Perfetto until it responds
+      const pingInterval = setInterval(() => {
+        perfettoWindow.postMessage("PING", "https://ui.perfetto.dev");
+      }, 50);
+
+      // Clean up after 10 seconds
+      setTimeout(() => {
+        clearInterval(pingInterval);
+        window.removeEventListener("message", onMessage);
+      }, 10000);
+    } catch (e) {
+      error = e instanceof Error ? e.message : "Failed to open trace in Perfetto";
+    }
   }
 
-  onMount(async () => {
+  async function load() {
     if (!taskId) {
       error = "No task ID provided";
       loading = false;
       return;
     }
 
+    loading = true;
+    error = null;
     try {
       stats = await fetchTraceStats(taskId);
     } catch (e) {
@@ -143,6 +159,14 @@
     } finally {
       loading = false;
     }
+  }
+
+  async function refresh() {
+    await load();
+  }
+
+  onMount(async () => {
+    await load();
   });
 
   const phases = $derived(stats ? parsePhases(stats.byCategory) : []);
@@ -187,6 +211,14 @@
         </button>
         <button
           type="button"
+          class="text-xs font-mono text-exo-light-gray hover:text-exo-yellow transition-colors uppercase border border-exo-medium-gray/40 px-3 py-1.5 rounded"
+          onclick={refresh}
+          disabled={loading}
+        >
+          Refresh
+        </button>
+        <button
+          type="button"
           class="text-xs font-mono text-exo-dark-gray bg-exo-yellow hover:bg-exo-yellow/90 transition-colors uppercase px-3 py-1.5 rounded font-semibold"
           onclick={openInPerfetto}
           disabled={loading || !!error}
@@ -204,9 +236,19 @@
       </div>
     {:else if error}
       <div
-        class="rounded border border-red-500/30 bg-red-500/10 p-6 text-center text-red-400"
+        class="rounded border border-red-500/30 bg-red-500/10 p-6 text-center text-red-400 space-y-3"
       >
         <div class="text-sm">{error}</div>
+        <button
+          type="button"
+          class="text-xs font-mono text-exo-light-gray hover:text-exo-yellow transition-colors uppercase border border-exo-medium-gray/40 px-3 py-1.5 rounded"
+          onclick={() => {
+            stats = null;
+            load();
+          }}
+        >
+          Retry
+        </button>
       </div>
     {:else if stats}
       <!-- Wall Time Summary -->
