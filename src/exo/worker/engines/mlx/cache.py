@@ -1307,5 +1307,11 @@ def make_kv_cache(
                 for _ in model.layers
             ]
     else:
+        if KV_CACHE_BITS is not None:
+            logger.warning(
+                f"EXO_KV_CACHE_BITS={KV_CACHE_BITS} ignored: rotating KV cache "
+                f"({max_kv_size=}) does not support quantization "
+                f"(mlx_lm RotatingKVCache.to_quantized NYI)."
+            )
         logger.info(f"Using rotating KV cache with {max_kv_size=} with {keep=}")
         return [RotatingKVCache(max_size=max_kv_size, keep=keep) for _ in model.layers]

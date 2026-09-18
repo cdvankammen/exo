@@ -17,6 +17,10 @@ from mlx_lm.generate import (
     maybe_quantize_kv_cache,
     stream_generate,
 )
+from mlx_lm.models.cache import (
+    BatchRotatingKVCache,
+    RotatingKVCache,
+)
 from mlx_lm.sample_utils import make_logits_processors, make_sampler
 from mlx_lm.tokenizer_utils import TokenizerWrapper
 
@@ -96,6 +100,31 @@ from exo.worker.runner.bootstrap import logger
 REMOTE_PREFILL_MIN_TOKENS = 1000
 
 generation_stream = mx.new_stream(mx.default_device())
+
+
+def effective_kv_bits(cache: KVCacheType, kv_bits: int | None) -> int | None:
+    """Return ``kv_bits`` only when the cache can actually be quantized.
+
+    mlx_lm's ``maybe_quantize_kv_cache`` calls ``c.to_quantized()`` on every
+    cache entry that has the method. ``RotatingKVCache`` /
+    ``BatchRotatingKVCache`` expose ``to_quantized`` but raise
+    ``NotImplementedError("... Quantization NYI")`` — so passing
+    ``kv_bits=EXO_KV_CACHE_BITS`` with the default rotating cache (T9 #1860,
+    ``MAX_KV_SIZE=16384``) crashes every generate/prefill call. Return ``None``
+    for rotating caches so mlx_lm skips quantization entirely. Non-rotating
+    caches (``KVCache``, model ``make_cache`` results) keep quantization.
+    """
+    if kv_bits is None:
+        return None
+    for c in cache:
+        if isinstance(c, (RotatingKVCache, BatchRotatingKVCache)):
+            logger.warning(
+                "EXO_KV_CACHE_BITS=%s ignored: rotating KV cache does not support "
+                "quantization (mlx_lm RotatingKVCache.to_quantized NYI).",
+                kv_bits,
+            )
+            return None
+    return kv_bits
 
 
 def compute_ring_prefill_chunks(
@@ -338,7 +367,7 @@ def pipeline_parallel_prefill(
         maybe_quantize_kv_cache,
         quantized_kv_start=0,
         kv_group_size=kv_group_size,
-        kv_bits=kv_bits,
+        kv_bits=effective_kv_bits(prompt_cache, kv_bits),
     )
 
     _prompt_cache: KVCacheType = prompt_cache
@@ -517,7 +546,7 @@ def prefill(
                 prompt_cache=cache,
                 prefill_step_size=prefill_step_size,
                 kv_group_size=KV_CACHE_GROUP_SIZE,
-                kv_bits=KV_CACHE_BITS,
+                kv_bits=effective_kv_bits(cache, KV_CACHE_BITS),
                 prompt_progress_callback=combined_progress_callback,
             ):
                 break  # Stop after first iteration - cache is now filled
@@ -995,7 +1024,7 @@ def mlx_generate(
             prompt_cache=caches,
             prefill_step_size=1,
             kv_group_size=KV_CACHE_GROUP_SIZE,
-            kv_bits=KV_CACHE_BITS,
+            kv_bits=effective_kv_bits(caches, KV_CACHE_BITS),
         ),
         start=1,
     ):
