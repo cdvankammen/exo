@@ -45,6 +45,8 @@ from .api import ImageListResponse as ImageListResponse
 from .api import ImageSize as ImageSize
 from .api import InstanceLinkBody as InstanceLinkBody
 from .api import InstanceLinkResponse as InstanceLinkResponse
+from .api import LogAllEntry as LogAllEntry
+from .api import LogAllResponse as LogAllResponse
 from .api import LogErrorEntry as LogErrorEntry
 from .api import LogErrorsResponse as LogErrorsResponse
 from .api import LogFileListItem as LogFileListItem

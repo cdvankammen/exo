@@ -107,10 +107,13 @@ from exo.api.types import (
     ImageSize,
     InstanceLinkBody,
     InstanceLinkResponse,
+    LogAllEntry,
+    LogAllResponse,
     LogErrorEntry,
     LogErrorsResponse,
     LogFileListItem,
     LogFileListResponse,
+    LogNodeTailResponse,
     LogTailResponse,
     ModelList,
     ModelListModel,
@@ -293,6 +296,52 @@ _LOG_LINE_RE = re.compile(
 )
 _LOG_ERROR_LEVELS = frozenset({"WARNING", "ERROR", "CRITICAL"})
 
+# Bare (non-loguru) crash markers that the structured line regex cannot
+# match. These show up in runner_stderr and daemon output when the process
+# dies before loguru can format a line: Python tracebacks, segfaults,
+# OOM kills, and Metal/GPU faults.
+_RAW_ERROR_PATTERNS: tuple[tuple[re.Pattern[str], str], ...] = (
+    (re.compile(r"^Traceback \(most recent call last\):$"), "ERROR"),
+    (re.compile(r"^Segmentation[ _]?fault.*$", re.IGNORECASE), "CRITICAL"),
+    (re.compile(r"^(Killed|Out of memory|OOM).*$", re.IGNORECASE), "CRITICAL"),
+    (re.compile(r"^.*(?:Metal|CUDA|GPU).*error.*$", re.IGNORECASE), "ERROR"),
+)
+
+
+def _looks_like_crash_line(line: str) -> str | None:
+    """Return the level for a bare crash line, or None if it's not one.
+
+    These matches are intentionally anchored at line start (after ANSI
+    stripping) so ordinary INFO/DEBUG lines that merely mention an error
+    elsewhere are not flagged.
+    """
+    for pattern, level in _RAW_ERROR_PATTERNS:
+        if pattern.match(line):
+            return level
+    return None
+
+
+def _parse_log_lines(content: str) -> list[tuple[str, str]]:
+    """Split a log tail into ``(timestamp, raw_line)`` pairs.
+
+    Only lines that carry a parseable loguru timestamp prefix are kept —
+    runner_stdout-style plain lines and traceback fragments have no
+    cluster-wide ordering, so they are excluded from the merged view.
+    ANSI escape codes are stripped before parsing (loguru emits them when
+    stderr is a TTY).
+    """
+    out: list[tuple[str, str]] = []
+    for raw_line in content.splitlines():
+        line = _ANSI_ESCAPE_RE.sub("", raw_line)
+        m = _LOG_LINE_RE.match(line)
+        if m is None:
+            continue
+        ts = (m.group(1) or "").strip()
+        if not ts:
+            continue
+        out.append((ts, raw_line))
+    return out
+
 
 def _parse_log_errors(
     content: str,
@@ -318,7 +367,42 @@ def _parse_log_errors(
     while i < len(lines):
         m = _LOG_LINE_RE.match(lines[i])
         if m is None:
-            i += 1
+            # Not a structured loguru line — check for bare crash markers
+            # (traceback headers, segfaults, OOM kills, GPU faults).
+            crash_level = _looks_like_crash_line(lines[i])
+            if crash_level is None:
+                i += 1
+                continue
+            # Pick a timestamp from preceding context if available, else blank.
+            timestamp = ""
+            for k in range(max(0, i - 3), i):
+                prev = _LOG_LINE_RE.match(lines[k])
+                if prev is not None:
+                    timestamp = prev.groups()[0].strip()
+                    break
+            j = i + 1
+            while j < len(lines) and _LOG_LINE_RE.match(lines[j]) is None:
+                j += 1
+            ctx_before = [
+                lines[k] for k in range(max(0, i - context_lines), i)
+            ]
+            crash_body = [lines[k] for k in range(i + 1, j)]
+            ctx_after = [
+                lines[k] for k in range(j, min(len(lines), j + context_lines))
+            ]
+            context = ctx_before + [lines[i]] + crash_body + ctx_after
+            entries.append(
+                LogErrorEntry(
+                    timestamp=timestamp,
+                    level=crash_level,
+                    source="",
+                    message=lines[i].strip(),
+                    source_log=source_log,
+                    node_id=node_id,
+                    context=context if context_lines > 0 else None,
+                )
+            )
+            i = j
             continue
         timestamp, level, source, message = m.groups()
         if level not in _LOG_ERROR_LEVELS:
@@ -327,6 +411,10 @@ def _parse_log_errors(
         # Collapse the next line if it's a short non-log line (exception tail)
         j = i + 1
         while j < len(lines) and _LOG_LINE_RE.match(lines[j]) is None:
+            # Stop collapsing if the next line is itself a bare crash marker
+            # (traceback header, segfault, OOM kill) — it must get its own entry.
+            if _looks_like_crash_line(lines[j]):
+                break
             extra = lines[j].strip()
             if extra and not extra.startswith(("File \"", "  ", "Traceback")):
                 message = f"{message} {extra}"
@@ -3189,7 +3277,11 @@ class API:
             content, truncated = _tail_file(path, max_lines=lines)
             any_truncated = any_truncated or truncated
             entries.extend(
-                e for e in _parse_log_errors(content, source_log=name) if e.level in wanted
+                e
+                for e in _parse_log_errors(
+                    content, source_log=name, node_id=str(self.node_id)
+                )
+                if e.level in wanted
             )
 
         # Merge errors from other cluster nodes that advertise an API endpoint.
@@ -3230,6 +3322,7 @@ class API:
                         source=str(e.get("source", "")),
                         message=str(e.get("message", "")),
                         source_log=f"{node_id[:8]}::{e.get('source_log', 'main')}",
+                        node_id=str(e.get("node_id", node_id)),
                         context=(
                             [str(c) for c in cast(list[object], e["context"])]
                             if isinstance(e.get("context"), list)
