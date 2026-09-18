@@ -37,6 +37,8 @@ ErrorCode = Literal[
     "INSTANCES_RUNNING",
     "NOT_FOUND",
     "INPUT_TOO_LONG",
+    "RATE_LIMITED",
+    "QUOTA_EXCEEDED",
     "INTERNAL_ERROR",
 ]
 
@@ -70,6 +72,39 @@ class SettingsUpdateParams(BaseModel):
 
     var: str
     value: str | None = None
+
+
+class TenantCreateParams(BaseModel):
+    """Body for POST /v1/tenants (admin key creation).
+
+    ``key`` is optional — when omitted a random key is generated and returned
+    once in the response body.
+    """
+
+    key: str | None = None
+    display_name: str = ""
+    rate_limit: int = 60
+    daily_tokens: int = 1_000_000
+    models: str | list[str] = "*"
+    note: str = ""
+
+
+class TenantCreateResponse(BaseModel):
+    """Response for POST /v1/tenants.
+
+    ``key`` is only returned in full on creation for newly generated keys;
+    listing keys omits secrets.
+    """
+
+    key: str
+    display_name: str = ""
+    created: bool = True
+
+
+class TenantListResponse(BaseModel):
+    """List of tenant keys without secrets (only metadata + quotas)."""
+
+    data: list[dict[str, object]]
 
 
 class ModelListModel(BaseModel):
@@ -238,7 +273,9 @@ class GenerationStats(BaseModel):
     """Throughput and memory statistics for one generation run.
 
     ``*_tps`` are tokens per second; ``prefix_cache_hit`` describes how much
-    of the prompt matched the shared KV prefix cache.
+    of the prompt matched the shared KV prefix cache. ``time_to_first_token``
+    and ``total_time`` are wall-clock seconds measured in the runner/API;
+    ``decode_latency_ms`` is the average per-token decode time in milliseconds.
     """
 
     prompt_tps: float
@@ -247,6 +284,10 @@ class GenerationStats(BaseModel):
     generation_tokens: int
     peak_memory_usage: Memory
     prefix_cache_hit: Literal["none", "partial", "exact"] = "none"
+    # --- Per-request latency tracking (seconds unless noted) ---
+    time_to_first_token: float | None = None
+    total_time: float | None = None
+    decode_latency_ms: float | None = None
 
 
 class ChatCompletionResponse(BaseModel):

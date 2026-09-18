@@ -2,21 +2,24 @@ from collections.abc import Mapping
 from copy import deepcopy
 from typing import Sequence
 
+from loguru import logger
+
 from exo.master.placement_utils import (
     Cycle,
     assign_shard_backends,
     estimate_memory_bandwidth_gigabytes_per_second,
     estimate_ring_node_memory,
+    filter_cycles_by_health,
     filter_cycles_by_memory,
     filter_cycles_by_replicated_memory,
+    get_link_bandwidths_for_cycle,
     get_mlx_jaccl_coordinators,
     get_mlx_jaccl_devices_matrix,
     get_mlx_ring_hosts_by_node,
-    get_link_bandwidths_for_cycle,
     get_shard_assignments,
     get_smallest_cycles,
 )
-from exo.shared.types.profiling import MemoryUsage, NodeIdentity
+from exo.shared.circuit_breaker import NodeCircuitBreaker, NodeCircuitState
 from exo.shared.constants import EXO_ACTIVATION_MEMORY_FRACTION
 from exo.shared.models.model_cards import ModelCard, ModelId
 from exo.shared.topology import Topology
@@ -50,6 +53,7 @@ from exo.shared.types.worker.downloads import (
     DownloadOngoing,
     DownloadPending,
     DownloadProgress,
+    DownloadStalled,
 )
 from exo.shared.types.worker.instances import (
     Instance,
@@ -100,6 +104,8 @@ def _get_node_download_fraction(
                 total = progress.total.in_bytes
                 return progress.downloaded.in_bytes / total if total > 0 else 0.0
             case DownloadFailed():
+                return 0.0
+            case DownloadStalled():
                 return 0.0
     return 0.0
 
@@ -269,7 +275,25 @@ def place_instance(
     download_status: Mapping[NodeId, Sequence[DownloadProgress]] | None = None,
     node_rdma_ctl: Mapping[NodeId, NodeRdmaCtlStatus] | None = None,
     node_identities: Mapping[NodeId, NodeIdentity] | None = None,
+    node_circuits: Mapping[NodeId, NodeCircuitState] | None = None,
 ) -> dict[InstanceId, Instance]:
+    # Audit trail for force_override use. Every guard rail that would have
+    # rejected the placement (but was bypassed because force_override=True)
+    # is recorded here and surfaced as a structured WARNING at the end.
+    FORCE_OVERRIDE_AUDIT_PREFIX = "force_override_bypass"
+    bypassed_guardrails: list[str] = []
+
+    def _audit_force_override(guardrail: str) -> None:
+        """Record that ``force_override`` bypassed a specific guard rail."""
+        if command.force_override:
+            bypassed_guardrails.append(guardrail)
+            logger.warning(
+                f"{FORCE_OVERRIDE_AUDIT_PREFIX}: {guardrail} bypassed by "
+                f"force_override for {command.model_card.model_id} "
+                f"(sharding={command.sharding.value}, "
+                f"instance_meta={command.instance_meta.value})"
+            )
+
     if (
         command.sharding is Sharding.Ring
         and command.instance_meta is not InstanceMeta.MlxRing
@@ -282,8 +306,34 @@ def place_instance(
         raise ValueError(
             f"Model does not declare Ring attention support: {command.model_card.model_id}"
         )
+    # Record bypasses for Ring guard rails when force_override is on
+    if command.force_override and command.sharding is Sharding.Ring:
+        if command.instance_meta is not InstanceMeta.MlxRing:
+            _audit_force_override("ring_requires_mlx_ring_transport")
+        if command.min_nodes < 2:
+            _audit_force_override("ring_requires_at_least_two_nodes")
+        if not command.model_card.supports_ring:
+            _audit_force_override("ring_requires_model_ring_support")
 
     cycles = topology.get_cycles()
+    breaker = NodeCircuitBreaker.from_mapping(node_circuits or {})
+    candidate_nodes_before = set(topology.list_nodes())
+    degraded = {
+        node_id
+        for node_id in candidate_nodes_before
+        if breaker.is_tripped(node_id)
+    }
+    if degraded:
+        logger.info(
+            f"Skipping {len(degraded)} degraded node(s) in placement: "
+            f"{sorted(str(n) for n in degraded)}"
+        )
+    if not command.force_override:
+        cycles = filter_cycles_by_health(
+            cycles, node_circuits or {}, breaker=breaker
+        )
+    else:
+        _audit_force_override("cycle_health_filter")
     candidate_cycles = list(filter(lambda it: len(it) >= command.min_nodes, cycles))
 
     if command.node_layers is not None:
@@ -316,6 +366,7 @@ def place_instance(
         if command.force_override:
             # Force override: skip strict Ring memory admission, use
             # regular per-node storage check instead.
+            _audit_force_override("ring_replicated_memory_admission")
             cycles_with_sufficient_memory = filter_cycles_by_memory(
                 candidate_cycles,
                 node_memory,
@@ -349,6 +400,7 @@ def place_instance(
         raise ValueError("No cycles found with sufficient memory")
     # With force_override, fall back to all candidate cycles if memory filter emptied them
     if len(cycles_with_sufficient_memory) == 0 and command.force_override:
+        _audit_force_override("memory_sufficiency")
         cycles_with_sufficient_memory = candidate_cycles
         if len(cycles_with_sufficient_memory) == 0:
             raise ValueError("No cycles found (no connected nodes in topology)")
@@ -358,6 +410,8 @@ def place_instance(
             raise ValueError(
                 f"Requested Tensor sharding but this model does not support tensor parallelism: {command.model_card.model_id}"
             )
+        if not command.model_card.supports_tensor and command.force_override:
+            _audit_force_override("tensor_model_support")
         # P1 #42: TP single-node heuristic (github-issues-mining-2026-09-01.md
         # Section 4.2). TP over the network is slower than single-node for
         # models small enough to fit one node — the all-gather sync per step
@@ -399,6 +453,8 @@ def place_instance(
                 f"{f', num_key_value_heads={kv_heads}' if kv_heads is not None else ''}"
                 f" across candidate cycles"
             )
+        if not cycles_with_sufficient_memory and command.force_override:
+            _audit_force_override("tensor_head_divisibility")
     if (
         command.sharding == Sharding.Pipeline
         and command.model_card.model_id == ModelId("mlx-community/DeepSeek-V3.1-8bit")
@@ -407,6 +463,12 @@ def place_instance(
         raise ValueError(
             "Pipeline parallelism is not supported for DeepSeek V3.1 (8-bit)"
         )
+    if (
+        command.sharding == Sharding.Pipeline
+        and command.model_card.model_id == ModelId("mlx-community/DeepSeek-V3.1-8bit")
+        and command.force_override
+    ):
+        _audit_force_override("pipeline_deepseek_v31_8bit")
     if (
         command.sharding == Sharding.Pipeline
         and command.model_card.base_model.startswith("Gemma 4")
@@ -421,6 +483,12 @@ def place_instance(
                 "parallelism instead. (Enable 'Force Override' to attempt "
                 "multi-node Pipeline — may not work on all variants.)"
             )
+    if (
+        command.sharding == Sharding.Pipeline
+        and command.model_card.base_model.startswith("Gemma 4")
+        and command.force_override
+    ):
+        _audit_force_override("pipeline_gemma4_multi_node")
 
     smallest_cycles = get_smallest_cycles(
         cycles_with_sufficient_memory,
@@ -437,6 +505,8 @@ def place_instance(
             f"{command.instance_meta.value} which requires "
             f"{sorted(b.value for b in INSTANCE_META_BACKENDS[command.instance_meta])}"
         )
+    if not required_backends and command.force_override:
+        _audit_force_override("backend_engine_compatibility")
     if not command.force_override:
         smallest_cycles = [
             cycle
@@ -445,6 +515,8 @@ def place_instance(
                 set(node_backends.get(node_id, [])) & required_backends for node_id in cycle
             )
         ]
+    else:
+        _audit_force_override("node_backend_support")
     if not smallest_cycles and not command.force_override:
         # Build an actionable message: which nodes are candidates, and what
         # backends each actually advertises vs. what the model requires. A
@@ -486,6 +558,8 @@ def place_instance(
             raise ValueError(
                 "Requested RDMA (MlxJaccl) but no RDMA-connected cycles available"
             )
+        if not smallest_rdma_cycles and command.force_override:
+            _audit_force_override("rdma_cycle_availability")
         if smallest_rdma_cycles:
             smallest_cycles = smallest_rdma_cycles
 
@@ -555,6 +629,8 @@ def place_instance(
                 f"available for {command.model_card.model_id}. Use Pipeline "
                 f"sharding, or connect more nodes."
             )
+        if requested_multi_node and command.force_override:
+            _audit_force_override("multi_node_requirement")
         command = command.model_copy(
             update={
                 "instance_meta": InstanceMeta.MlxRing,
@@ -636,6 +712,20 @@ def place_instance(
                 hosts_by_node=hosts_by_node,
                 ephemeral_port=ephemeral_port,
             )
+
+    if command.force_override:
+        # Structured audit summary for force_override usage (searchable via
+        # the FORCE_OVERRIDE_AUDIT_PREFIX marker; the master additionally
+        # emits a PlacementForcedOverride event from main.py).
+        logger.warning(
+            f"{FORCE_OVERRIDE_AUDIT_PREFIX}: force_override placement completed "
+            f"for {command.model_card.model_id} (sharding={command.sharding.value}, "
+            f"instance_meta={command.instance_meta.value}, "
+            f"min_nodes={command.min_nodes}, "
+            f"memory_tolerance={command.memory_tolerance}, "
+            f"destination_nodes={[str(n) for n in selected_cycle.node_ids]}, "
+            f"bypassed={sorted(set(bypassed_guardrails)) or 'none'})"
+        )
 
     return target_instances
 

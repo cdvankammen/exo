@@ -188,8 +188,8 @@ def test_429_rate_limit_error_format() -> None:
     assert err["message"] == "Rate limit exceeded"
     assert err["type"] == "Too Many Requests"
     assert err["code"] == 429
-    # 429 is not 404 or 400/422, so maps to INTERNAL_ERROR
-    assert err["error_code"] == "INTERNAL_ERROR"
+    # 429 maps to the stable RATE_LIMITED code (ErrorCode enum)
+    assert err["error_code"] == "RATE_LIMITED"
 
 
 # ---------------------------------------------------------------------------

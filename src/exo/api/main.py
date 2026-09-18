@@ -6,6 +6,7 @@ import base64
 import contextlib
 import hashlib
 import json
+import os
 import random
 import re
 import time
@@ -53,6 +54,19 @@ from exo.api.adapters.responses import (
 )
 from exo.api.auth import api_token_auth_middleware
 from exo.api.keepalive import with_sse_keepalive
+from exo.api.tenant import (
+    TENANT_CONFIG_ENV,
+    TENANT_JSON_PATH,
+    TenantRegistry,
+    meter_chat_endpoint_middleware,
+    multi_tenant_auth_middleware,
+)
+from exo.api.metrics import (
+    IN_FLIGHT_REQUESTS,
+    record_generation_stats,
+    record_request,
+    render_all,
+)
 from exo.api.types import (
     AddCustomModelParams,
     AddPeerParams,
@@ -109,6 +123,9 @@ from exo.api.types import (
     SettingsUpdateParams,
     StartDownloadParams,
     StartDownloadResponse,
+    TenantCreateParams,
+    TenantCreateResponse,
+    TenantListResponse,
     ToolCall,
     TraceCategoryStats,
     TraceEventResponse,
@@ -375,6 +392,8 @@ def _error_code_for(exc: HTTPException) -> ErrorCode:
         return "NOT_FOUND"
     if exc.status_code in (400, 422):
         return "INVALID_REQUEST"
+    if exc.status_code == HTTPStatus.TOO_MANY_REQUESTS:
+        return "RATE_LIMITED"
     return "INTERNAL_ERROR"
 
 
@@ -475,8 +494,6 @@ def _check_responses_input_length(
         )
 
 
-
-
 def _require_disaggregation_enabled() -> None:
     if not ENABLE_DISAGGREGATION:
         raise HTTPException(
@@ -531,6 +548,31 @@ class API:
 
         if EXO_API_TOKEN is not None:
             self.app.middleware("http")(api_token_auth_middleware(EXO_API_TOKEN))
+
+        # Multi-tenant key auth + per-key quotas (T-multitenancy). Enabled when
+        # EXO_TENANT_CONFIG / ~/.exo/tenants.json / ~/.exo/tenant.db provide
+        # keys. The legacy EXO_API_TOKEN (if set) keeps working as a wildcard
+        # admin token alongside tenant keys.
+        # NOTE: read the env / file EXISTENCE lazily here (per-instance) rather
+        # than caching a module-level boolean — tests monkeypatch
+        # exo.api.tenant.TENANT_JSON_PATH and would otherwise leak the patched
+        # value into later API boots in the same pytest session.
+        self.tenant_registry: TenantRegistry | None = None
+        _tenant_sources = bool(os.getenv(TENANT_CONFIG_ENV) or TENANT_JSON_PATH.exists())
+        if _tenant_sources:
+            self.tenant_registry = TenantRegistry()
+            # NOTE: FastAPI applies http middleware in REVERSE registration
+            # order — the LAST registered runs FIRST (outermost). Register the
+            # meter BEFORE the auth middleware so auth runs first and sets
+            # request.state.tenant for the meter.
+            self.app.middleware("http")(
+                meter_chat_endpoint_middleware(self.tenant_registry)
+            )
+            self.app.middleware("http")(
+                multi_tenant_auth_middleware(
+                    self.tenant_registry, legacy_token=EXO_API_TOKEN
+                )
+            )
 
         self._setup_exception_handlers()
         self._setup_cors()
@@ -603,6 +645,7 @@ class API:
 
     def _setup_routes(self) -> None:
         self.app.get("/node_id")(lambda: self.node_id)
+        self.app.get("/metrics")(self.get_metrics)
         self.app.post("/peers")(self.add_peer)
         self.app.post("/instance")(self.create_instance)
         self.app.post("/place_instance")(self.place_instance)
@@ -620,6 +663,9 @@ class API:
         self.app.get("/v1/feature-flags")(self.get_feature_flags)
         self.app.get("/v1/settings")(self.get_settings)
         self.app.put("/v1/settings")(self.update_settings)
+        self.app.get("/v1/tenants")(self.list_tenants)
+        self.app.post("/v1/tenants")(self.create_tenant)
+        self.app.delete("/v1/tenants/{key:path}")(self.delete_tenant)
         self.app.get("/v1/warnings")(self.get_warnings)
         self.app.get("/models")(self.get_models)
         self.app.get("/v1/models")(self.get_v1_models)
@@ -679,8 +725,9 @@ class API:
         self.app.get("/v1/logs/{name}/raw")(self.get_log_raw)
         self.app.get("/onboarding")(self.get_onboarding)
         self.app.post("/onboarding")(self.complete_onboarding)
+        self.app.delete("/onboarding")(self.reset_onboarding)
 
-    def get_state(self, path: str = ""):
+    async def get_state(self, path: str = ""):
         if path == "":
             return self.state
         try:
@@ -942,7 +989,7 @@ class API:
 
         return PlacementPreviewResponse(previews=previews)
 
-    def get_instance(self, instance_id: InstanceId) -> Instance:
+    async def get_instance(self, instance_id: InstanceId) -> Instance:
         if instance_id not in self.state.instances:
             raise ApiError(
                 status_code=404,
@@ -1213,6 +1260,18 @@ class API:
     async def get_feature_flags(self) -> dict[str, bool]:
         return {"disaggregation": ENABLE_DISAGGREGATION}
 
+    async def get_metrics(self) -> Response:
+        """Prometheus text-format metrics endpoint (``/metrics``).
+
+        Exports per-model/endpoint request counts, latency histograms, TTFT,
+        tokens/sec, decode latency, generation totals, in-flight gauge and
+        error counts. Consumption-ready for Prometheus scrape configs.
+        """
+        return Response(
+            content=render_all(),
+            media_type="text/plain; version=0.0.4; charset=utf-8",
+        )
+
     async def get_settings(self) -> list[dict[str, object]]:
         """Catalog of editable EXO_* settings with resolved values/sources."""
         return get_settings_manager().snapshot()
@@ -1228,6 +1287,74 @@ class API:
                 error_code="INVALID_REQUEST",
             ) from exc
         return {"var": payload.var, "value": payload.value}
+
+    # -- tenant admin (multi-tenancy) --------------------------------------
+
+    def _require_tenant_registry(self) -> TenantRegistry:
+        if self.tenant_registry is None:
+            raise ApiError(
+                status_code=404,
+                detail=(
+                    "Multi-tenancy is not enabled. Set EXO_TENANT_CONFIG, create "
+                    "~/.exo/tenants.json, or create ~/.exo/tenant.db to enable."
+                ),
+                error_code="NOT_FOUND",
+            )
+        return self.tenant_registry
+
+    async def list_tenants(self) -> TenantListResponse:
+        """List tenant keys (metadata + quotas, never the key secrets)."""
+        registry = self._require_tenant_registry()
+        return TenantListResponse(
+            data=[
+                {
+                    "key": spec.key,
+                    "display_name": "",
+                    "rate_limit": spec.rate_limit,
+                    "daily_tokens": spec.daily_tokens,
+                    "models": list(spec.models),
+                    "note": spec.note,
+                }
+                for spec in registry.list_keys()
+            ]
+        )
+
+    async def create_tenant(self, payload: TenantCreateParams) -> TenantCreateResponse:
+        """Create (or update) a tenant key with quotas.
+
+        Responds 404 when multi-tenancy is disabled. The full key is returned
+        once for generated keys.
+        """
+        registry = self._require_tenant_registry()
+        models: tuple[str, ...]
+        if isinstance(payload.models, str):
+            models = tuple(m.strip() for m in payload.models.split(",") if m.strip())
+        else:
+            models = tuple(str(m) for m in payload.models)
+        if not models:
+            models = ("*",)
+
+        key = registry.create_key(
+            rate_limit=payload.rate_limit,
+            daily_tokens=payload.daily_tokens,
+            models=models,
+            note=payload.note,
+            display_name=payload.display_name,
+            key=payload.key,
+        )
+        return TenantCreateResponse(key=key, display_name=payload.display_name)
+
+    async def delete_tenant(self, key: str) -> dict[str, object]:
+        """Delete a tenant key by value."""
+        registry = self._require_tenant_registry()
+        deleted = registry.delete_key(key)
+        if not deleted:
+            raise ApiError(
+                status_code=404,
+                detail=f"No tenant key found: {key}",
+                error_code="NOT_FOUND",
+            )
+        return {"deleted": key}
 
     async def get_warnings(self) -> dict[str, object]:
         """Cluster health warnings for the dashboard warning chips.
@@ -1307,7 +1434,17 @@ class API:
         """Yield chunks for a given command until completion.
 
         This is the internal low-level stream used by all API adapters.
+
+        Per-request latency metrics are recorded here (the single choke point
+        every adapter streams through): TTFT on the first non-prefill chunk,
+        and total latency / tokens-per-sec / decode latency on completion.
         """
+        stream_start = time.perf_counter()
+        ttft_seconds: float | None = None
+        model_label = ""
+        endpoint_label = "chat"
+        recorded: bool = False
+
         try:
             self._text_generation_queues[command_id], recv = channel[
                 TokenChunk | ErrorChunk | ToolCallChunk | PrefillProgressChunk
@@ -1315,10 +1452,64 @@ class API:
 
             with recv as token_chunks:
                 async for chunk in token_chunks:
+                    if ttft_seconds is None and not isinstance(
+                        chunk, PrefillProgressChunk
+                    ):
+                        ttft_seconds = time.perf_counter() - stream_start
+                        model_label = str(chunk.model)
                     yield chunk
                     if isinstance(chunk, PrefillProgressChunk):
                         continue
                     if chunk.finish_reason is not None:
+                        if not recorded:
+                            total = time.perf_counter() - stream_start
+                            status = (
+                                "error"
+                                if chunk.finish_reason == "error"
+                                else "success"
+                            )
+                            stats = getattr(
+                                chunk, "stats", None
+                            )  # TokenChunk/ToolCallChunk only
+                            record_request(
+                                model=model_label or str(chunk.model),
+                                endpoint=endpoint_label,
+                                status=status,
+                                latency_seconds=total,
+                                ttft_seconds=ttft_seconds,
+                                tokens_per_second=(
+                                    float(stats.generation_tps)
+                                    if stats is not None
+                                    else None
+                                ),
+                                decode_tokens_per_second=(
+                                    float(stats.generation_tps)
+                                    if stats is not None
+                                    else None
+                                ),
+                                generation_tokens=(
+                                    int(stats.generation_tokens)
+                                    if stats is not None
+                                    else None
+                                ),
+                                error_type=(
+                                    chunk.error_message
+                                    if isinstance(chunk, ErrorChunk)
+                                    else None
+                                ),
+                            )
+                            if stats is not None:
+                                record_generation_stats(
+                                    model=model_label or str(chunk.model)
+                                )
+                            IN_FLIGHT_REQUESTS.dec(
+                                1.0,
+                                {
+                                    "model": model_label or str(chunk.model),
+                                    "endpoint": endpoint_label,
+                                },
+                            )
+                            recorded = True
                         break
 
         except anyio.get_cancelled_exc_class():
@@ -1326,6 +1517,10 @@ class API:
             with anyio.CancelScope(shield=True):
                 await self.command_sender.send(
                     ForwarderCommand(origin=self._system_id, command=command)
+                )
+            if not recorded:
+                IN_FLIGHT_REQUESTS.dec(
+                    1.0, {"model": model_label, "endpoint": endpoint_label}
                 )
             raise
         finally:
@@ -1507,6 +1702,10 @@ class API:
 
         command = await self._send_text_generation_with_images(task_params)
 
+        IN_FLIGHT_REQUESTS.inc(
+            1.0, {"model": str(task_params.model), "endpoint": "chat"}
+        )
+
         if payload.stream:
             return StreamingResponse(
                 with_sse_keepalive(
@@ -1614,7 +1813,7 @@ class API:
             )
         return resolved_model
 
-    def stream_events(
+    async def stream_events(
         self,
         since: int = Query(default=0, ge=0),
         limit: int | None = Query(default=None, ge=0),
@@ -3038,3 +3237,8 @@ class API:
         ONBOARDING_COMPLETE_FILE.parent.mkdir(parents=True, exist_ok=True)
         ONBOARDING_COMPLETE_FILE.write_text("true")
         return JSONResponse({"completed": True})
+
+    async def reset_onboarding(self) -> JSONResponse:
+        with contextlib.suppress(FileNotFoundError):
+            ONBOARDING_COMPLETE_FILE.unlink()
+        return JSONResponse({"completed": False})
