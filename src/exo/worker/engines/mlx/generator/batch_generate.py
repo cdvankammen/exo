@@ -1,3 +1,7 @@
+"""Batched generation over the MLX engine.
+
+:class:`ExoBatchGenerator` handles deferred prefill, top-k sampling, and stop-sequence processing for batch requests."""
+
 import contextlib
 import time
 import uuid
@@ -129,6 +133,14 @@ def can_defer_prefill(
 
 @dataclass(eq=False)
 class ExoBatchGenerator:
+    """Batcher multiplexing concurrent text-generation tasks over one model.
+
+    Layers an exo task book-keeping layer (active tasks, prefix-cache
+    persistence, token relay, per-task generation state) on top of
+    ``MlxBatchGenerator`` so multiple requests share a single MLX decode
+    loop without starving each other.
+    """
+
     model: Model
     tokenizer: TokenizerWrapper
     group: mx.distributed.Group | None
@@ -152,6 +164,7 @@ class ExoBatchGenerator:
 
     @property
     def has_work(self) -> bool:
+        """True if any active task or pending MLX batch remains."""
         return (
             bool(self._active_tasks)
             or bool(self._mlx_gen._unprocessed_sequences)
@@ -167,6 +180,7 @@ class ExoBatchGenerator:
         distributed_prompt_progress_callback: Callable[[], None] | None = None,
         on_generation_token: Callable[[], None] | None = None,
     ) -> int:
+        """Submit a generation task; returns its uid for later ``step``/cancel."""
         all_prompt_tokens = encode_prompt(self.tokenizer, prompt)
         all_prompt_tokens = fix_unmatched_think_end_tokens(
             all_prompt_tokens, self.tokenizer
@@ -433,6 +447,7 @@ class ExoBatchGenerator:
         return uid
 
     def step(self) -> list[tuple[int, GenerationResponse]]:
+        """Advance the decode loop one step, returning new token responses."""
         if not self.has_work:
             return []
 
@@ -597,11 +612,13 @@ class ExoBatchGenerator:
         return results
 
     def cancel(self, uids: list[int]) -> None:
+        """Cancel the given task uids, removing them from the batch and bookkeeping."""
         self._mlx_gen.remove(uids)
         for uid in uids:
             self._active_tasks.pop(uid, None)
 
     def close(self) -> None:
+        """Shut down the underlying batch generator and clear the MLX cache."""
         self._mlx_gen.close()
         mx.clear_cache()
 

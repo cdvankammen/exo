@@ -1,3 +1,7 @@
+"""Runner status types.
+
+:class:`RunnerId`, :class:`RunnerError`, the full runner state family, and :class:`ShardAssignments`."""
+
 from collections.abc import Mapping
 
 from pydantic import model_validator
@@ -10,60 +14,69 @@ from exo.worker.runner.diagnostics import KnownRunnerDiagnostic
 
 
 class RunnerId(Id):
-    pass
+    """Identifier of a runner."""
 
 
 class RunnerError(Exception):
-    pass
+    """Raised for runner-level errors."""
 
 
 class BaseRunnerStatus(TaggedModel):
+    """Base class for runner status variants (tagged by status type)."""
+
     def is_running(self):
+        """Whether the runner is currently executing a task."""
         return isinstance(self, RunnerRunning)
 
 
 class RunnerIdle(BaseRunnerStatus):
-    pass
+    """Runner is idle and available."""
 
 
 class RunnerConnecting(BaseRunnerStatus):
-    pass
+    """Runner is establishing its connection."""
 
 
 class RunnerConnected(BaseRunnerStatus):
-    pass
+    """Runner has connected to the swarm."""
 
 
 class RunnerLoading(BaseRunnerStatus):
+    """Runner is loading model layers (progress tracked by counts)."""
+
     layers_loaded: int = 0
     total_layers: int = 0
 
 
 class RunnerLoaded(BaseRunnerStatus):
-    pass
+    """Runner has finished loading the model into memory."""
 
 
 class RunnerWarmingUp(BaseRunnerStatus):
-    pass
+    """Runner is warming the model up (prefill pass)."""
 
 
 class RunnerReady(BaseRunnerStatus):
+    """Runner is ready to serve; prefill server port when applicable."""
+
     prefill_server_port: int | None = None
 
 
 class RunnerRunning(BaseRunnerStatus):
-    pass
+    """Runner is actively executing a task."""
 
 
 class RunnerShuttingDown(BaseRunnerStatus):
-    pass
+    """Runner is shutting down."""
 
 
 class RunnerShutdown(BaseRunnerStatus):
-    pass
+    """Runner has shut down."""
 
 
 class RunnerFailed(BaseRunnerStatus):
+    """Runner failed, with message and known diagnostics."""
+
     error_message: str | None = None
     diagnostics: list[KnownRunnerDiagnostic]
 
@@ -84,12 +97,15 @@ RunnerStatus = (
 
 
 class ShardAssignments(FrozenModel):
+    """Runner↔shard and node↔runner mapping for a model instance."""
+
     model_id: ModelId
     runner_to_shard: Mapping[RunnerId, ShardMetadata]
     node_to_runner: Mapping[NodeId, RunnerId]
 
     @model_validator(mode="after")
     def validate_runners_exist(self) -> "ShardAssignments":
+        """Require every node-mapped runner to exist in runner_to_shard."""
         for runner_id in self.node_to_runner.values():
             if runner_id not in self.runner_to_shard:
                 raise ValueError(

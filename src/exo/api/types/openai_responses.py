@@ -28,6 +28,8 @@ class ResponseInputTextPart(BaseModel, frozen=True):
 
 
 class ResponseInputImagePart(BaseModel, frozen=True):
+    """Image content part in a Responses API input message (URL + detail)."""
+
     type: Literal["input_image"] = "input_image"
     image_url: str | None = None
     detail: str | None = None
@@ -76,6 +78,8 @@ class FunctionCallOutputInputItem(BaseModel, frozen=True):
 
 
 class ReasoningInputItem(BaseModel, frozen=True):
+    """Replayed reasoning item (summary or encrypted content) in input."""
+
     type: Literal["reasoning"] = "reasoning"
     id: str | None = None
     summary: list[dict[str, Any]] | None = None
@@ -85,6 +89,8 @@ class ReasoningInputItem(BaseModel, frozen=True):
 
 
 class ComputerCallInputItem(BaseModel, frozen=True):
+    """Computer-use tool call item replayed in input."""
+
     type: Literal["computer_call"] = "computer_call"
     id: str | None = None
     call_id: str = ""
@@ -93,6 +99,8 @@ class ComputerCallInputItem(BaseModel, frozen=True):
 
 
 class ComputerCallOutputInputItem(BaseModel, frozen=True):
+    """Output of a computer-use tool call (user providing result)."""
+
     type: Literal["computer_call_output"] = "computer_call_output"
     id: str | None = None
     call_id: str = ""
@@ -101,6 +109,8 @@ class ComputerCallOutputInputItem(BaseModel, frozen=True):
 
 
 class WebSearchCallInputItem(BaseModel, frozen=True):
+    """Web-search tool call item replayed in input."""
+
     type: Literal["web_search_call"] = "web_search_call"
     id: str | None = None
     call_id: str = ""
@@ -109,6 +119,8 @@ class WebSearchCallInputItem(BaseModel, frozen=True):
 
 
 class FileSearchCallInputItem(BaseModel, frozen=True):
+    """File-search tool call item (queries + optional results) in input."""
+
     type: Literal["file_search_call"] = "file_search_call"
     id: str | None = None
     call_id: str = ""
@@ -118,6 +130,8 @@ class FileSearchCallInputItem(BaseModel, frozen=True):
 
 
 class CodeInterpreterCallInputItem(BaseModel, frozen=True):
+    """Code-interpreter tool call item (code + optional results) in input."""
+
     type: Literal["code_interpreter_call"] = "code_interpreter_call"
     id: str | None = None
     call_id: str = ""
@@ -127,6 +141,8 @@ class CodeInterpreterCallInputItem(BaseModel, frozen=True):
 
 
 class ImageGenerationCallInputItem(BaseModel, frozen=True):
+    """Image-generation tool call item (prompt + optional result) in input."""
+
     type: Literal["image_generation_call"] = "image_generation_call"
     id: str | None = None
     call_id: str = ""
@@ -136,6 +152,8 @@ class ImageGenerationCallInputItem(BaseModel, frozen=True):
 
 
 class LocalShellCallInputItem(BaseModel, frozen=True):
+    """Local-shell tool call item replayed in input."""
+
     type: Literal["local_shell_call"] = "local_shell_call"
     id: str | None = None
     call_id: str = ""
@@ -144,6 +162,8 @@ class LocalShellCallInputItem(BaseModel, frozen=True):
 
 
 class LocalShellCallOutputInputItem(BaseModel, frozen=True):
+    """Output of a local-shell tool call in input."""
+
     type: Literal["local_shell_call_output"] = "local_shell_call_output"
     id: str | None = None
     call_id: str = ""
@@ -152,6 +172,8 @@ class LocalShellCallOutputInputItem(BaseModel, frozen=True):
 
 
 class ShellCallInputItem(BaseModel, frozen=True):
+    """Shell tool call item replayed in input."""
+
     type: Literal["shell_call"] = "shell_call"
     id: str | None = None
     call_id: str = ""
@@ -160,6 +182,8 @@ class ShellCallInputItem(BaseModel, frozen=True):
 
 
 class ShellCallOutputInputItem(BaseModel, frozen=True):
+    """Output of a shell tool call in input."""
+
     type: Literal["shell_call_output"] = "shell_call_output"
     id: str | None = None
     call_id: str = ""
@@ -168,6 +192,8 @@ class ShellCallOutputInputItem(BaseModel, frozen=True):
 
 
 class ApplyPatchCallInputItem(BaseModel, frozen=True):
+    """Apply-patch tool call item (patch text) replayed in input."""
+
     type: Literal["apply_patch_call"] = "apply_patch_call"
     id: str | None = None
     call_id: str = ""
@@ -176,6 +202,8 @@ class ApplyPatchCallInputItem(BaseModel, frozen=True):
 
 
 class ApplyPatchCallOutputInputItem(BaseModel, frozen=True):
+    """Output of an apply-patch tool call in input."""
+
     type: Literal["apply_patch_call_output"] = "apply_patch_call_output"
     id: str | None = None
     call_id: str = ""
@@ -184,6 +212,8 @@ class ApplyPatchCallOutputInputItem(BaseModel, frozen=True):
 
 
 class ToolSearchCallInputItem(BaseModel, frozen=True):
+    """Tool-search call item (query) replayed in input."""
+
     type: Literal["tool_search_call"] = "tool_search_call"
     id: str | None = None
     call_id: str = ""
@@ -192,6 +222,8 @@ class ToolSearchCallInputItem(BaseModel, frozen=True):
 
 
 class ToolSearchOutputInputItem(BaseModel, frozen=True):
+    """Output of a tool-search call in input."""
+
     type: Literal["tool_search_output"] = "tool_search_output"
     id: str | None = None
     call_id: str = ""
@@ -200,6 +232,8 @@ class ToolSearchOutputInputItem(BaseModel, frozen=True):
 
 
 class McpCallInputItem(BaseModel, frozen=True):
+    """MCP (Model Context Protocol) tool call item, with optional approval state."""
+
     type: Literal["mcp_call"] = "mcp_call"
     id: str | None = None
     call_id: str = ""
@@ -213,6 +247,8 @@ class McpCallInputItem(BaseModel, frozen=True):
 
 
 class McpListToolsInputItem(BaseModel, frozen=True):
+    """MCP list-tools item: server label plus discovered tool schemas."""
+
     type: Literal["mcp_list_tools"] = "mcp_list_tools"
     id: str | None = None
     server_label: str = ""
@@ -222,6 +258,8 @@ class McpListToolsInputItem(BaseModel, frozen=True):
 
 
 class McpApprovalRequestInputItem(BaseModel, frozen=True):
+    """MCP approval-request item: MCP call awaiting human approval."""
+
     type: Literal["mcp_approval_request"] = "mcp_approval_request"
     id: str | None = None
     call_id: str = ""
@@ -232,6 +270,8 @@ class McpApprovalRequestInputItem(BaseModel, frozen=True):
 
 
 class McpApprovalResponseInputItem(BaseModel, frozen=True):
+    """Human response (approve/reject + reason) to an MCP approval request."""
+
     type: Literal["mcp_approval_response"] = "mcp_approval_response"
     id: str | None = None
     approval_request_id: str = ""
@@ -241,6 +281,8 @@ class McpApprovalResponseInputItem(BaseModel, frozen=True):
 
 
 class CustomToolCallInputItem(BaseModel, frozen=True):
+    """Custom (user-registered) tool call item replayed in input."""
+
     type: Literal["custom_tool_call"] = "custom_tool_call"
     id: str | None = None
     call_id: str = ""
@@ -250,6 +292,8 @@ class CustomToolCallInputItem(BaseModel, frozen=True):
 
 
 class CustomToolCallOutputInputItem(BaseModel, frozen=True):
+    """Output of a custom tool call in input."""
+
     type: Literal["custom_tool_call_output"] = "custom_tool_call_output"
     id: str | None = None
     call_id: str = ""
@@ -258,6 +302,8 @@ class CustomToolCallOutputInputItem(BaseModel, frozen=True):
 
 
 class CompactionInputItem(BaseModel, frozen=True):
+    """Compaction item: summarized conversation history injected into input."""
+
     type: Literal["compaction"] = "compaction"
     id: str | None = None
     summary: str = ""
@@ -266,6 +312,8 @@ class CompactionInputItem(BaseModel, frozen=True):
 
 
 class ItemReferenceInputItem(BaseModel, frozen=True):
+    """Reference to a previously-created item by id (no inline content)."""
+
     type: Literal["item_reference"] = "item_reference"
     id: str | None = None
 

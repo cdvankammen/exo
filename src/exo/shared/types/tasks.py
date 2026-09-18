@@ -1,3 +1,7 @@
+"""Task envelope types executed by nodes.
+
+:class:`BaseTask` and subclasses for generation, downloads, model loading, group connect, warmup, cancellation, and shutdown."""
+
 from enum import Enum
 
 from pydantic import Field
@@ -15,13 +19,15 @@ from exo.utils.pydantic_ext import TaggedModel
 
 
 class TaskId(Id):
-    pass
+    """Identifier of a task."""
 
 
 CANCEL_ALL_TASKS = TaskId("CANCEL_ALL_TASKS")
 
 
 class TaskStatus(str, Enum):
+    """Lifecycle status of a task."""
+
     Pending = "Pending"
     Running = "Running"
     Complete = "Complete"
@@ -31,32 +37,43 @@ class TaskStatus(str, Enum):
 
 
 class BaseTask(TaggedModel):
+    """Base class for all tasks executed by nodes (tagged by task type)."""
+
     task_id: TaskId = Field(default_factory=TaskId)
     task_status: TaskStatus = Field(default=TaskStatus.Pending)
     instance_id: InstanceId
 
 
 class CreateRunner(BaseTask):  # emitted by Worker
+    """Request to spawn a runner bound to an instance, emitted by the worker."""
+
     bound_instance: BoundInstance
 
 
 class DownloadModel(BaseTask):  # emitted by Worker
+    """Request to download a model shard, emitted by the worker."""
+
     shard_metadata: ShardMetadata
 
 
 class LoadModel(BaseTask):  # emitted by Worker
-    pass
+    """Request to load a model into memory, emitted by the worker."""
+
 
 
 class ConnectToGroup(BaseTask):  # emitted by Worker
-    pass
+    """Request to join a group, emitted by the worker."""
+
 
 
 class StartWarmup(BaseTask):  # emitted by Worker
-    pass
+    """Request to begin model warmup, emitted by the worker."""
+
 
 
 class TextGeneration(BaseTask):  # emitted by Master
+    """Text-generation task issued by the master; carries error fields."""
+
     command_id: CommandId
     task_params: TextGenerationTaskParams
 
@@ -65,11 +82,15 @@ class TextGeneration(BaseTask):  # emitted by Master
 
 
 class CancelTask(BaseTask):
+    """Request to cancel a task and shut down its runner."""
+
     cancelled_task_id: TaskId
     runner_id: RunnerId
 
 
 class ImageGeneration(BaseTask):  # emitted by Master
+    """Image-generation task issued by the master; carries error fields."""
+
     command_id: CommandId
     task_params: ImageGenerationTaskParams
 
@@ -78,6 +99,8 @@ class ImageGeneration(BaseTask):  # emitted by Master
 
 
 class ImageEdits(BaseTask):  # emitted by Master
+    """Image-editing task issued by the master; carries error fields."""
+
     command_id: CommandId
     task_params: ImageEditsTaskParams
 
@@ -86,6 +109,8 @@ class ImageEdits(BaseTask):  # emitted by Master
 
 
 class Shutdown(BaseTask):  # emitted by Worker
+    """Request to shut down a runner, emitted by the worker."""
+
     runner_id: RunnerId
 
 

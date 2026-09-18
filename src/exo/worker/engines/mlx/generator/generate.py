@@ -1,3 +1,7 @@
+"""MLX generation core.
+
+Prefill, warmup, sampling (``mlx_generate()``), token banning, constrained processing, and top-logprob extraction."""
+
 import contextlib
 import functools
 import json
@@ -101,6 +105,12 @@ def patch_embed_tokens(
     token_count: int = 0,
     image_token_id: int | None = None,
 ) -> Generator[None]:
+    """Temporarily splice precomputed embeddings into the model's embed layer.
+
+    Within the context, token positions in ``[start_offset, start_offset +
+    token_count)`` are replaced by the given ``embeddings`` (used for image /
+    media injection); the original embed function is restored on exit.
+    """
     inner = get_inner_model(model)  # type: ignore
     original_embed = inner.embed_tokens  # type: ignore
     end_offset = start_offset + token_count
@@ -322,6 +332,7 @@ def prefill(
 
     # TODO(evan): kill the callbacks/runner refactor
     def progress_callback(processed: int, total: int) -> None:
+        """Log prefill progress at debug level + snapshot SSM states."""
         elapsed = time.perf_counter() - start_time
         tok_per_sec = processed / elapsed if elapsed > 0 else 0
         logger.debug(
@@ -334,6 +345,7 @@ def prefill(
             on_prefill_progress(processed, total)
 
     def combined_progress_callback(processed: int, total: int) -> None:
+        """Distributed-prompt signal plus local progress callback."""
         if distributed_prompt_progress_callback is not None:
             distributed_prompt_progress_callback()
         progress_callback(processed, total)
@@ -451,6 +463,11 @@ def warmup_inference(
     group: mx.distributed.Group | None,
     model_id: ModelId,
 ) -> int:
+    """Run a short warmup generation so the engine is primed before use.
+
+    Returns the measured tokens-per-second of the warmup run (input length +
+    output tokens over wall time).
+    """
     logger.info(f"warming up inference for instance: {model_id}")
 
     content = InputMessageContent(
@@ -512,9 +529,11 @@ def warmup_inference(
 
 
 def ban_token_ids(token_ids: list[int]) -> Callable[[mx.array, mx.array], mx.array]:
+    """Build a logits processor that forbids the given token ids."""
     token_ids = [int(t) for t in token_ids]
 
     def proc(_history: mx.array, logits: mx.array) -> mx.array:
+        """Set forbidden token logits to a very negative value."""
         for tid in token_ids:
             logits[..., tid] = -1e9
         return logits
@@ -523,6 +542,7 @@ def ban_token_ids(token_ids: list[int]) -> Callable[[mx.array, mx.array], mx.arr
 
 
 def eos_ids_from_tokenizer(tokenizer: TokenizerWrapper) -> list[int]:
+    """Return the tokenizer's EOS token ids (empty list if none declared)."""
     eos: list[int] | None = getattr(tokenizer, "eos_token_ids", None)
     if eos is None:
         return []
@@ -601,6 +621,12 @@ def extract_top_logprobs(
     precomputed_values: list[float] | None = None,
     precomputed_selected: float | None = None,
 ) -> tuple[float, list[TopLogprobItem]]:
+    """Extract the selected token's logprob plus the top-k alternatives.
+
+    ``precomputed_*`` args skip re-argpartition when the caller already
+    computed the top-k indices/values for this position. NaN logprobs are
+    skipped. Returns ``(selected_logprob, top_logprob_items)``.
+    """
     if (
         precomputed_indices is not None
         and precomputed_values is not None
@@ -653,6 +679,13 @@ def mlx_generate(
     on_generation_token: Callable[[], None] | None = None,
     vision_processor: VisionProcessor | None = None,
 ) -> Generator[GenerationResponse]:
+    """Run a single text-generation task on this model and yield tokens.
+
+    Handles prompt encoding (with think-tag fixing and optional vision
+    pre-processing), prefix-cache lookup (skipped for benchmarks or when
+    ``task.use_prefix_cache`` is false), ring or pipeline prefill, and the
+    decode loop, yielding a ``GenerationResponse`` per generated token.
+    """
     # Ensure that generation stats only contains peak memory for this generation
     mx.reset_peak_memory()
     # TODO: Randomise task seed and set in taskparams, instead of hard coding as 42.

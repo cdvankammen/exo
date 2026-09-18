@@ -1,3 +1,7 @@
+"""Pydantic models mirroring Ollama's REST wire format.
+
+Covers the chat, generate, show, tags, and ps endpoints, used by :mod:`exo.api.adapters.ollama`."""
+
 from __future__ import annotations
 
 import time
@@ -24,18 +28,24 @@ OllamaCapability = Literal[
 
 
 class OllamaToolFunction(BaseModel, frozen=True):
+    """Tool function name plus its JSON-serialized arguments."""
+
     name: str
     arguments: dict[str, Any] | str
     index: int | None = None
 
 
 class OllamaToolCall(BaseModel, frozen=True):
+    """A single tool invocation inside a message."""
+
     id: str | None = None
     type: Literal["function"] | None = None
     function: OllamaToolFunction
 
 
 class OllamaMessage(BaseModel, frozen=True):
+    """Chat message: role, content, optional thinking/tool calls/images."""
+
     role: OllamaRole
     content: str | None = None
     thinking: str | None = None
@@ -46,6 +56,8 @@ class OllamaMessage(BaseModel, frozen=True):
 
 
 class OllamaOptions(BaseModel, frozen=True):
+    """Sampling options mirroring Ollama's ``options`` block."""
+
     num_predict: int | None = None
     temperature: float | None = None
     top_p: float | None = None
@@ -55,6 +67,8 @@ class OllamaOptions(BaseModel, frozen=True):
 
 
 class OllamaChatRequest(BaseModel, frozen=True):
+    """``POST /api/chat`` request body."""
+
     model: ModelId
     messages: list[OllamaMessage]
     stream: bool = True
@@ -66,6 +80,8 @@ class OllamaChatRequest(BaseModel, frozen=True):
 
 
 class OllamaGenerateRequest(BaseModel, frozen=True):
+    """``POST /api/generate`` request body."""
+
     model: ModelId
     prompt: str = ""
     system: str | None = None
@@ -79,6 +95,8 @@ class OllamaGenerateRequest(BaseModel, frozen=True):
 
 
 class OllamaGenerateResponse(BaseModel, frozen=True, strict=True):
+    """``POST /api/generate`` response body."""
+
     model: str
     created_at: str = Field(
         default_factory=lambda: time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
@@ -96,12 +114,16 @@ class OllamaGenerateResponse(BaseModel, frozen=True, strict=True):
 
 
 class OllamaShowRequest(BaseModel, frozen=True):
+    """``POST /api/show`` request body."""
+
     name: str | None = None
     model: str | None = None
     verbose: bool | None = None
 
 
 class OllamaChatResponse(BaseModel, frozen=True, strict=True):
+    """``POST /api/chat`` response body."""
+
     model: str
     created_at: str = Field(
         default_factory=lambda: time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
@@ -118,6 +140,8 @@ class OllamaChatResponse(BaseModel, frozen=True, strict=True):
 
 
 class OllamaModelDetails(BaseModel, frozen=True, strict=True):
+    """Model metadata: format, family, parameter size, quantization."""
+
     format: str | None = None
     family: str | None = None
     parameter_size: str | None = None
@@ -125,6 +149,8 @@ class OllamaModelDetails(BaseModel, frozen=True, strict=True):
 
 
 class OllamaModelTag(BaseModel, frozen=True, strict=True):
+    """One model entry in the ``/api/tags`` list."""
+
     name: str
     model: str | None = None
     modified_at: str | None = None
@@ -134,10 +160,14 @@ class OllamaModelTag(BaseModel, frozen=True, strict=True):
 
 
 class OllamaTagsResponse(BaseModel, frozen=True, strict=True):
+    """``GET /api/tags`` response body."""
+
     models: list[OllamaModelTag]
 
 
 class OllamaShowResponse(BaseModel, frozen=True, strict=True):
+    """``POST /api/show`` response: modelfile, template, capabilities."""
+
     modelfile: str | None = None
     parameters: str | None = None
     template: str | None = None
@@ -147,6 +177,8 @@ class OllamaShowResponse(BaseModel, frozen=True, strict=True):
 
 
 class OllamaPsModel(BaseModel, frozen=True, strict=True):
+    """One loaded-model entry in the ``/api/ps`` list."""
+
     name: str
     model: str
     size: int
@@ -157,4 +189,6 @@ class OllamaPsModel(BaseModel, frozen=True, strict=True):
 
 
 class OllamaPsResponse(BaseModel, frozen=True, strict=True):
+    """``GET /api/ps`` response: currently loaded models."""
+
     models: list[OllamaPsModel]

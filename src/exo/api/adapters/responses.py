@@ -133,6 +133,13 @@ def _append_tool_call(
 async def responses_request_to_text_generation(
     request: ResponsesRequest,
 ) -> TextGenerationTaskParams:
+    """Convert a Responses API request into a text-generation task.
+
+    Handles string inputs, structured input items (system/developer
+    instructions, images with URL/data-URL fetching, tool calls), and maps
+    sampling options (temperature, top_p, stop sequences, max tokens) onto
+    the task params.
+    """
     input_value: list[InputMessage]
     built_chat_template: list[dict[str, Any]] | None = None
     images: list[Base64Image] = []

@@ -1,3 +1,7 @@
+"""Pydantic schemas for exo's HTTP API wire format.
+
+Models the chat-completion, image-generation, instance placement/creation, download, trace, and log endpoints. These types are shared by the FastAPI routes, the OpenAI-compatible adapters, and the internal command/event pipelines."""
+
 import time
 from collections.abc import Generator
 from typing import Annotated, Any, Literal, get_args
@@ -38,6 +42,13 @@ ErrorCode = Literal[
 
 
 class ErrorInfo(BaseModel):
+    """Structured error payload returned on API failures.
+
+    Carries a stable machine-readable ``error_code`` (see ``ErrorCode``)
+    alongside the HTTP-style ``code``/``type`` so clients can branch
+    programmatically without parsing the human ``message``.
+    """
+
     message: str
     type: str
     param: str | None = None
@@ -46,6 +57,8 @@ class ErrorInfo(BaseModel):
 
 
 class ErrorResponse(BaseModel):
+    """Uniform error envelope wrapping an :class:`ErrorInfo`."""
+
     error: ErrorInfo
 
 
@@ -60,6 +73,13 @@ class SettingsUpdateParams(BaseModel):
 
 
 class ModelListModel(BaseModel):
+    """A single model entry in ``GET /v1/models``.
+
+    Mirrors the OpenAI ``model`` object for compatibility (``id``, ``object``,
+    ``created``, ``owned_by``) and extends it with Open WebUI fields plus
+    exo-specific metadata (storage size, task support, reasoning dialect).
+    """
+
     id: str
     object: str = "model"
     created: int = Field(default_factory=lambda: int(time.time()))
@@ -83,16 +103,22 @@ class ModelListModel(BaseModel):
 
 
 class ModelList(BaseModel):
+    """``GET /v1/models`` response body: the list payload wrapper."""
+
     object: Literal["list"] = "list"
     data: list[ModelListModel]
 
 
 class ChatCompletionMessageText(BaseModel):
+    """Text content part of a chat message."""
+
     type: Literal["text"] = "text"
     text: str
 
 
 class ChatCompletionMessageImageUrl(BaseModel):
+    """Image content part of a chat message (data URL or http(s) URL)."""
+
     type: Literal["image_url"] = "image_url"
     image_url: dict[str, str]  # {"url": "data:image/png;base64,..."}
 
@@ -101,12 +127,16 @@ ChatCompletionContentPart = ChatCompletionMessageText | ChatCompletionMessageIma
 
 
 class ToolCallItem(BaseModel):
+    """A single tool invocation: name plus JSON-encoded arguments."""
+
     id: str = Field(default_factory=lambda: str(uuid4()))
     name: str
     arguments: str
 
 
 class ToolCall(BaseModel):
+    """Tool call attached to an assistant message (OpenAI wire shape)."""
+
     id: str
     index: int | None = None
     type: Literal["function"] = "function"
@@ -114,6 +144,12 @@ class ToolCall(BaseModel):
 
 
 class ChatCompletionMessage(BaseModel):
+    """A chat message in OpenAI-compatible wire format.
+
+    Supports text / image content parts, reasoning content (thinking), and
+    tool calls; used for both requests and streamed deltas.
+    """
+
     role: Literal["system", "user", "assistant", "developer", "tool", "function"]
     content: (
         str | ChatCompletionContentPart | list[ChatCompletionContentPart] | None
@@ -126,16 +162,21 @@ class ChatCompletionMessage(BaseModel):
 
 
 class BenchChatCompletionMessage(ChatCompletionMessage):
-    pass
+    """Chat message variant used by the benchmark mode (identical schema)."""
+
 
 
 class TopLogprobItem(BaseModel):
+    """Token-level logprob entry (``bytes`` is the UTF-8 encoding)."""
+
     token: str
     logprob: float
     bytes: list[int] | None = None
 
 
 class LogprobsContentItem(BaseModel):
+    """Per-token logprob with the top-k alternative tokens."""
+
     token: str
     logprob: float
     bytes: list[int] | None = None
@@ -143,15 +184,21 @@ class LogprobsContentItem(BaseModel):
 
 
 class Logprobs(BaseModel):
+    """Logprob payload attached to a message/choice (OpenAI wire shape)."""
+
     content: list[LogprobsContentItem] | None = None
 
 
 class PromptTokensDetails(BaseModel):
+    """Breakdown of prompt-token counts reported in ``usage``."""
+
     cached_tokens: int = 0
     audio_tokens: int = 0
 
 
 class CompletionTokensDetails(BaseModel):
+    """Breakdown of completion-token counts reported in ``usage``."""
+
     reasoning_tokens: int = 0
     audio_tokens: int = 0
     accepted_prediction_tokens: int = 0
@@ -159,6 +206,8 @@ class CompletionTokensDetails(BaseModel):
 
 
 class Usage(BaseModel):
+    """Token usage totals with per-category details."""
+
     prompt_tokens: int
     completion_tokens: int
     total_tokens: int
@@ -167,6 +216,8 @@ class Usage(BaseModel):
 
 
 class StreamingChoiceResponse(BaseModel):
+    """A single streaming chunk choice carrying a ``delta`` message."""
+
     index: int
     delta: ChatCompletionMessage
     logprobs: Logprobs | None = None
@@ -175,6 +226,8 @@ class StreamingChoiceResponse(BaseModel):
 
 
 class ChatCompletionChoice(BaseModel):
+    """A single non-streamed completion choice."""
+
     index: int
     message: ChatCompletionMessage
     logprobs: Logprobs | None = None
@@ -182,6 +235,12 @@ class ChatCompletionChoice(BaseModel):
 
 
 class GenerationStats(BaseModel):
+    """Throughput and memory statistics for one generation run.
+
+    ``*_tps`` are tokens per second; ``prefix_cache_hit`` describes how much
+    of the prompt matched the shared KV prefix cache.
+    """
+
     prompt_tps: float
     generation_tps: float
     prompt_tokens: int
@@ -191,6 +250,8 @@ class GenerationStats(BaseModel):
 
 
 class ChatCompletionResponse(BaseModel):
+    """Non-streamed ``/v1/chat/completions`` response body."""
+
     id: str
     object: Literal["chat.completion"] = "chat.completion"
     created: int
@@ -202,6 +263,8 @@ class ChatCompletionResponse(BaseModel):
 
 
 class ImageGenerationStats(BaseModel):
+    """Timing, sizing, and memory statistics for an image generation run."""
+
     seconds_per_step: float
     total_generation_time: float
 
@@ -215,6 +278,8 @@ class ImageGenerationStats(BaseModel):
 
 
 class NodePowerStats(BaseModel, frozen=True):
+    """Per-node power sampling stats (system power, optional phase split)."""
+
     node_id: NodeId
     samples: int
     avg_sys_power: float
@@ -227,6 +292,8 @@ class NodePowerStats(BaseModel, frozen=True):
 
 
 class PowerUsage(BaseModel, frozen=True):
+    """Aggregated power/energy report across all nodes in a run."""
+
     elapsed_seconds: float
     nodes: list[NodePowerStats]
     total_avg_sys_power_watts: float
@@ -244,14 +311,26 @@ class PowerUsage(BaseModel, frozen=True):
 
 
 class BenchChatCompletionResponse(ChatCompletionResponse):
+    """Completion response extended with power usage (benchmark mode)."""
+
     power_usage: PowerUsage | None = None
 
 
 class StreamOptions(BaseModel):
+    """Options controlling streaming behavior (e.g. include usage chunks)."""
+
     include_usage: bool = False
 
 
 class ChatCompletionRequest(WarnExtraModel):
+    """``/v1/chat/completions`` request body (OpenAI-compatible superset).
+
+    Extends the upstream schema with exo sampling extras (``top_k``, ``min_p``,
+    ``repetition_penalty``), thinking toggles (``enable_thinking``), and the
+    ``use_prefix_cache`` flag controlling shared KV-prefix-cache participation.
+    Unknown extra fields produce a warning instead of an error (WarnExtraModel).
+    """
+
     model: ModelId
     frequency_penalty: float | None = None
     messages: list[ChatCompletionMessage]
@@ -286,14 +365,20 @@ class ChatCompletionRequest(WarnExtraModel):
 
 
 class BenchChatCompletionRequest(ChatCompletionRequest):
+    """Benchmark variant: never participates in the shared prefix cache."""
+
     use_prefix_cache: bool = False
 
 
 class AddCustomModelParams(WarnExtraModel):
+    """Body for registering a custom model by id."""
+
     model_id: ModelId
 
 
 class HuggingFaceSearchResult(BaseModel):
+    """One hit from a Hugging Face model search."""
+
     id: str
     author: str = ""
     downloads: int = 0
@@ -303,6 +388,13 @@ class HuggingFaceSearchResult(BaseModel):
 
 
 class PlaceInstanceParams(WarnExtraModel):
+    """Placement request: materialize a model onto a set of nodes.
+
+    Controls sharding strategy, instance type, minimum participating nodes,
+    optional explicit node/layer constraints, and memory-sufficiency tolerance
+    (``force_override`` / ``memory_tolerance``).
+    """
+
     model_id: ModelId
     sharding: Sharding = Sharding.Pipeline
     instance_meta: InstanceMeta = InstanceMeta.MlxRing
@@ -325,6 +417,8 @@ class PlaceInstanceParams(WarnExtraModel):
 
 
 class CreateInstanceParams(WarnExtraModel):
+    """Direct instance-creation request with a fully-formed :class:`Instance`."""
+
     instance: Instance
     # When True, bypass the total-available-memory check when creating this
     # instance ("load the model anyway").
@@ -332,6 +426,8 @@ class CreateInstanceParams(WarnExtraModel):
 
 
 class PlacementPreview(BaseModel):
+    """One candidate placement outcome: instance + per-node memory delta."""
+
     model_id: ModelId
     sharding: Sharding
     instance_meta: InstanceMeta
@@ -342,6 +438,8 @@ class PlacementPreview(BaseModel):
 
 
 class PlacementPreviewResponse(BaseModel):
+    """``POST /v1/placement/preview`` response: list of candidate placements."""
+
     previews: list[PlacementPreview]
 
 
@@ -360,6 +458,12 @@ class NodeCompatibilityEntry(BaseModel):
     in_topology: bool = True
 
 class NodeCompatibilityResponse(BaseModel):
+    """Compatibility report for placing ``model_id``: per-node verdicts.
+
+    ``per_node_size_gb`` is the memory each node needs given the sharding
+    strategy (Pipeline splits the model; Tensor/Ring replicate it).
+    """
+
     model_id: ModelId
     storage_size_gb: float
     # Per-node memory requirement given the sharding strategy (Pipeline splits
@@ -371,6 +475,8 @@ class NodeCompatibilityResponse(BaseModel):
     nodes: list[NodeCompatibilityEntry]
 
 class DeleteInstanceTaskParams(WarnExtraModel):
+    """Body for requesting instance deletion."""
+
     instance_id: str
 
 
@@ -389,6 +495,8 @@ class AddPeerParams(BaseModel):
 
 
 class AddPeerResponse(BaseModel):
+    """Result of manually adding a peer: connectivity + verified node id."""
+
     host: str
     port: int
     connected: bool
@@ -399,44 +507,60 @@ class AddPeerResponse(BaseModel):
 
 
 class CreateInstanceResponse(BaseModel):
+    """Response after a create-instance command is dispatched."""
+
     message: str
     command_id: CommandId
     model_card: ModelCard
 
 
 class DeleteInstanceResponse(BaseModel):
+    """Response after a delete-instance command is dispatched."""
+
     message: str
     command_id: CommandId
     instance_id: InstanceId
 
 
 class PromoteMasterResponse(BaseModel):
+    """Response after a promote-master command is dispatched."""
+
     message: str
     command_id: CommandId
     target_node_id: NodeId
 
 
 class AwaitInstanceReadyMessage(BaseModel):
+    """SSE payload: the awaited instance is ready."""
+
     type: Literal["ready"] = "ready"
     instance: Instance
 
 
 class AwaitInstanceTimeoutMessage(BaseModel):
+    """SSE payload: the awaited instance did not become ready in time."""
+
     type: Literal["timeout"] = "timeout"
     message: str
 
 
 class CancelCommandResponse(BaseModel):
+    """Response confirming a command cancellation was dispatched."""
+
     message: str
     command_id: CommandId
 
 
 class InstanceLinkBody(WarnExtraModel):
+    """Body for linking prefill and decode instances (disaggregation)."""
+
     prefill_instances: list[InstanceId]
     decode_instances: list[InstanceId]
 
 
 class InstanceLinkResponse(BaseModel):
+    """Response confirming an instance link was created."""
+
     message: str
     command_id: CommandId
 
@@ -463,6 +587,8 @@ def normalize_image_size(v: object) -> ImageSize:
 
 
 class AdvancedImageParams(BaseModel):
+    """Advanced knobs for image generation (seed, steps, guidance, negatives)."""
+
     seed: Annotated[int, Field(ge=0)] | None = None
     num_inference_steps: Annotated[int, Field(ge=1, le=100)] | None = None
     guidance: Annotated[float, Field(ge=1.0, le=20.0)] | None = None
@@ -471,6 +597,13 @@ class AdvancedImageParams(BaseModel):
 
 
 class ImageGenerationTaskParams(WarnExtraModel):
+    """``/v1/image/generations`` request body (OpenAI images superset).
+
+    Supports base64/URL responses, streaming partial images, output format and
+    compression, and advanced sampling params; ``bench`` marks benchmark
+    requests and is preserved through serialization.
+    """
+
     prompt: str
     background: str | None = None
     model: str
@@ -492,10 +625,13 @@ class ImageGenerationTaskParams(WarnExtraModel):
     @field_validator("size", mode="before")
     @classmethod
     def normalize_size(cls, v: object) -> ImageSize:
+        """Coerce ``None``/invalid sizes to the canonical ``ImageSize`` value."""
         return normalize_image_size(v)
 
 
 class BenchImageGenerationTaskParams(ImageGenerationTaskParams):
+    """Image-generation benchmark variant (``bench=True`` by default)."""
+
     bench: bool = True
 
 
@@ -520,9 +656,11 @@ class ImageEditsTaskParams(WarnExtraModel):
     @field_validator("size", mode="before")
     @classmethod
     def normalize_size(cls, v: object) -> ImageSize:
+        """Coerce ``None``/invalid sizes to the canonical ``ImageSize`` value."""
         return normalize_image_size(v)
 
     def __repr_args__(self) -> Generator[tuple[str, Any], None, None]:
+        """Redact the base64 ``image_data`` payload from repr output."""
         for name, value in super().__repr_args__():  # pyright: ignore[reportAny]
             if name == "image_data":
                 yield name, f"<{len(self.image_data)} chars>"
@@ -531,11 +669,14 @@ class ImageEditsTaskParams(WarnExtraModel):
 
 
 class ImageData(BaseModel):
+    """One generated image: base64 payload or URL, plus optional revised prompt."""
+
     b64_json: str | None = None
     url: str | None = None
     revised_prompt: str | None = None
 
     def __repr_args__(self) -> Generator[tuple[str, Any], None, None]:
+        """Redact the base64 ``b64_json`` payload from repr output."""
         for name, value in super().__repr_args__():  # pyright: ignore[reportAny]
             if name == "b64_json" and self.b64_json is not None:
                 yield name, f"<{len(self.b64_json)} chars>"
@@ -544,16 +685,22 @@ class ImageData(BaseModel):
 
 
 class ImageGenerationResponse(BaseModel):
+    """``/v1/image/generations`` response body."""
+
     created: int = Field(default_factory=lambda: int(time.time()))
     data: list[ImageData]
 
 
 class BenchImageGenerationResponse(ImageGenerationResponse):
+    """Image-generation benchmark response with stats + power usage."""
+
     generation_stats: ImageGenerationStats | None = None
     power_usage: PowerUsage | None = None
 
 
 class ImageListItem(BaseModel, frozen=True):
+    """One stored image entry in the image list endpoint."""
+
     image_id: str
     url: str
     content_type: str
@@ -561,10 +708,14 @@ class ImageListItem(BaseModel, frozen=True):
 
 
 class ImageListResponse(BaseModel, frozen=True):
+    """``GET /v1/images`` response: stored image entries."""
+
     data: list[ImageListItem]
 
 
 class StartDownloadParams(FrozenModel):
+    """Request to start downloading a model shard onto a target node."""
+
     target_node_id: NodeId
     shard_metadata: ShardMetadata
     # When True, bypass the disk-space sufficiency check and attempt to
@@ -573,23 +724,33 @@ class StartDownloadParams(FrozenModel):
 
 
 class StartDownloadResponse(FrozenModel):
+    """Response confirming a download command was dispatched."""
+
     command_id: CommandId
 
 
 class DeleteDownloadResponse(FrozenModel):
+    """Response confirming a delete-download command was dispatched."""
+
     command_id: CommandId
 
 
 class CancelDownloadParams(FrozenModel):
+    """Request to cancel an in-flight download of a model shard."""
+
     target_node_id: NodeId
     model_id: ModelId
 
 
 class CancelDownloadResponse(FrozenModel):
+    """Response confirming a cancel-download command was dispatched."""
+
     command_id: CommandId
 
 
 class TraceEventResponse(FrozenModel):
+    """A single trace span: name, timing (microseconds), rank, category."""
+
     name: str
     start_us: int
     duration_us: int
@@ -598,11 +759,15 @@ class TraceEventResponse(FrozenModel):
 
 
 class TraceResponse(FrozenModel):
+    """All trace spans collected for one task."""
+
     task_id: str
     traces: list[TraceEventResponse]
 
 
 class TraceCategoryStats(FrozenModel):
+    """Aggregate statistics for one trace category."""
+
     total_us: int
     count: int
     min_us: int
@@ -611,10 +776,14 @@ class TraceCategoryStats(FrozenModel):
 
 
 class TraceRankStats(FrozenModel):
+    """Aggregate trace statistics grouped by category, for one rank."""
+
     by_category: dict[str, TraceCategoryStats]
 
 
 class TraceStatsResponse(FrozenModel):
+    """Aggregate trace statistics for one task: total, by category, by rank."""
+
     task_id: str
     total_wall_time_us: int
     by_category: dict[str, TraceCategoryStats]
@@ -622,35 +791,49 @@ class TraceStatsResponse(FrozenModel):
 
 
 class TraceListItem(FrozenModel):
+    """One stored trace file entry in the trace list endpoint."""
+
     task_id: str
     created_at: str
     file_size: int
 
 
 class TraceListResponse(FrozenModel):
+    """``GET /v1/traces`` response: stored trace entries."""
+
     traces: list[TraceListItem]
 
 
 class DeleteTracesRequest(FrozenModel):
+    """Body for bulk-deleting stored traces."""
+
     task_ids: list[str]
 
 
 class DeleteTracesResponse(FrozenModel):
+    """Result of a trace deletion: deleted ids and ids that were not found."""
+
     deleted: list[str]
     not_found: list[str]
 
 
 class LogFileListItem(FrozenModel):
+    """One stored log file entry in the log list endpoint."""
+
     name: str
     file_size: int
     modified_at: str
 
 
 class LogFileListResponse(FrozenModel):
+    """``GET /v1/logs`` response: stored log file entries."""
+
     logs: list[LogFileListItem]
 
 
 class LogTailResponse(FrozenModel):
+    """Tail of a log file: content plus a truncated flag."""
+
     name: str
     content: str
     truncated: bool
@@ -669,5 +852,7 @@ class LogErrorEntry(FrozenModel):
 
 
 class LogErrorsResponse(FrozenModel):
+    """``GET /v1/logs/errors`` response: parsed error entries."""
+
     errors: list[LogErrorEntry]
     truncated: bool
