@@ -21,6 +21,7 @@ Policy (per cross-cutting deprecation analysis `t_99c1804c`):
 |---|---|---|---|---|
 | `allowMemoryOverride` dashboard boolean (`exo-allow-memory-override` localStorage key) | 2026-09-18 | tiered `memoryOverrideLevel` (`exo-memory-override-level`) | exo-explore/exo#2315 | >= v0.4.x |
 | `/ollama/api/api/chat` + `/ollama/api/api/tags` typo-alias routes | 2026-09-18 | canonical `/ollama/api/chat` + `/ollama/api/tags` | exo-explore/exo#2314 | >= v0.4.x |
+| unknown-field tolerance on public API request models (`extra="ignore"` via `WarnExtraModel`) | 2026-09-18 | strict rejection (`extra="forbid"` via `StrictExtraModel`) | exo-explore/exo#2313 | n/a (flip shipped; `WarnExtraModel` alias kept) |
 
 ## Notes
 
@@ -35,3 +36,11 @@ Policy (per cross-cutting deprecation analysis `t_99c1804c`):
   true` header, an RFC 8594 `Deprecation` header, and a server-side warning
   log. Remove only after the canonical routes have been stable for one
   minor-version window.
+- **unknown-field tolerance on public API request models** — `WarnExtraModel`
+  (src/exo/utils/extra_fields_warner.py, port of PR exo-explore/exo#2015)
+  logged unknown fields for public API request models instead of silently
+  dropping them. After a minor-version window (shipped 2026-08-08), the
+  follow-up flips those models to `extra="forbid"` via `StrictExtraModel`
+  (same module): unknown fields now raise `ValidationError`. The
+  `WarnExtraModel` name is kept as a backward-compatible alias.
+  Consumers flipped: src/exo/api/types/api.py (8 models), src/exo/api/types/claude_api.py (1 model).

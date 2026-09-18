@@ -11,7 +11,7 @@ from exo.shared.types.memory import Memory
 from exo.shared.types.text_generation import ReasoningDialect, ReasoningEffort
 from exo.shared.types.worker.instances import Instance, InstanceId, InstanceMeta
 from exo.shared.types.worker.shards import Sharding, ShardMetadata
-from exo.utils.extra_fields_warner import WarnExtraModel
+from exo.utils.extra_fields_warner import StrictExtraModel
 from exo.utils.pydantic_ext import FrozenModel
 
 FinishReason = Literal[
@@ -256,7 +256,7 @@ class StreamOptions(BaseModel):
     include_usage: bool = False
 
 
-class ChatCompletionRequest(WarnExtraModel):
+class ChatCompletionRequest(StrictExtraModel):
     model: ModelId
     frequency_penalty: float | None = None
     messages: list[ChatCompletionMessage]
@@ -294,7 +294,7 @@ class BenchChatCompletionRequest(ChatCompletionRequest):
     use_prefix_cache: bool = False
 
 
-class AddCustomModelParams(WarnExtraModel):
+class AddCustomModelParams(StrictExtraModel):
     model_id: ModelId
 
 
@@ -307,7 +307,7 @@ class HuggingFaceSearchResult(BaseModel):
     tags: list[str] = Field(default_factory=list)
 
 
-class PlaceInstanceParams(WarnExtraModel):
+class PlaceInstanceParams(StrictExtraModel):
     model_id: ModelId
     sharding: Sharding = Sharding.Pipeline
     instance_meta: InstanceMeta = InstanceMeta.MlxRing
@@ -321,7 +321,7 @@ class PlaceInstanceParams(WarnExtraModel):
     node_layers: dict[NodeId, int] | None = None
 
 
-class CreateInstanceParams(WarnExtraModel):
+class CreateInstanceParams(StrictExtraModel):
     instance: Instance
     # When True, bypass the total-available-memory check when creating this
     # instance ("load the model anyway").
@@ -342,7 +342,7 @@ class PlacementPreviewResponse(BaseModel):
     previews: list[PlacementPreview]
 
 
-class DeleteInstanceTaskParams(WarnExtraModel):
+class DeleteInstanceTaskParams(StrictExtraModel):
     instance_id: str
 
 
@@ -403,7 +403,7 @@ class CancelCommandResponse(BaseModel):
     command_id: CommandId
 
 
-class InstanceLinkBody(WarnExtraModel):
+class InstanceLinkBody(StrictExtraModel):
     prefill_instances: list[InstanceId]
     decode_instances: list[InstanceId]
 
@@ -442,7 +442,7 @@ class AdvancedImageParams(BaseModel):
     num_sync_steps: Annotated[int, Field(ge=1, le=100)] | None = None
 
 
-class ImageGenerationTaskParams(WarnExtraModel):
+class ImageGenerationTaskParams(StrictExtraModel):
     prompt: str
     background: str | None = None
     model: str
@@ -471,7 +471,7 @@ class BenchImageGenerationTaskParams(ImageGenerationTaskParams):
     bench: bool = True
 
 
-class ImageEditsTaskParams(WarnExtraModel):
+class ImageEditsTaskParams(StrictExtraModel):
     """Internal task params for image-editing requests."""
 
     image_data: str = ""  # Base64-encoded image (empty when using chunked transfer)

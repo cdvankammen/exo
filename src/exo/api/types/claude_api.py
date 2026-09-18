@@ -5,7 +5,7 @@ from typing import Any, Literal
 from pydantic import BaseModel, Field
 
 from exo.shared.types.common import ModelId
-from exo.utils.extra_fields_warner import WarnExtraModel
+from exo.utils.extra_fields_warner import StrictExtraModel
 
 # Tool definition types
 ClaudeToolInputSchema = dict[str, Any]
@@ -102,7 +102,7 @@ class ClaudeThinkingConfig(BaseModel, frozen=True):
     budget_tokens: int | None = None
 
 
-class ClaudeMessagesRequest(WarnExtraModel):
+class ClaudeMessagesRequest(StrictExtraModel):
     """Request body for Claude Messages API."""
 
     model: ModelId

@@ -1,4 +1,4 @@
-"""Warn-on-extra-fields mixin for public API request models.
+"""Strict-extra mixin for public API request models.
 
 Pydantic v2 defaults to ``extra="ignore"`` for ``BaseModel``, which silently
 drops unknown fields. For internal data structures this is fine, but for
@@ -11,141 +11,38 @@ a mistyped ``instance_meta`` field was silently dropped, falling back to the
 default ``MlxRing`` instead of the requested ``MlxJaccl``, and the only
 symptom was lower decode throughput. No warning, no log line, no 4xx.
 
-This module exposes :class:`WarnExtraModel`, a drop-in base class that keeps
-``extra="ignore"`` semantics (so the change is non-breaking for existing
-clients) but logs a one-line warning the first time a given
-``(model_name, unknown_field)`` pair is seen, rate-limited thereafter to
-avoid log-spam from repeated requests.
+That problem was first surfaced by :class:`WarnExtraModel` (log-only
+deprecation path, shipped 2026-08-08, exo-explore/exo#2015). After a
+minor-version window with no reported breakage, the follow-up
+(exo-explore/exo#2313) flipped the public API request models to
+``extra="forbid"``: unknown fields now raise a ``ValidationError`` instead of
+being silently dropped.
 
-A future change can flip ``extra="forbid"`` once the warning has had time
-to surface miswired clients in the wild.
+This module exposes :class:`StrictExtraModel`, the current base class for
+public API request models. Unlike the old warn-only base, unknown fields are
+rejected outright — that is the point of the flip. Subclasses that need to
+evolve their request shape in a non-breaking way should add the new field to
+the model and ship it in the same release as the clients that send it.
+
+NOTE: models that declare ``frozen=True`` cannot inherit from this base
+(pydantic v2.12: "a frozen class cannot inherit from a class that is not
+frozen"). Apply this only to non-frozen request models.
 """
 
-from threading import Lock
-from time import monotonic
-from typing import Any, cast
-
-from loguru import logger
-from pydantic import AliasChoices, AliasPath, BaseModel, model_validator
-from pydantic.fields import FieldInfo
-
-# Default rate-limit window for repeat warnings of the same
-# (model_name, field_name) pair. Chosen to be long enough that a hot loop
-# of mistyped requests does not flood the log, but short enough that the
-# warning re-surfaces after operator attention has likely moved on.
-_DEFAULT_RATE_LIMIT_SECONDS: float = 60.0
-
-# (class_name, field_name) -> last-emitted monotonic timestamp.
-_last_warned: dict[tuple[str, str], float] = {}
-_lock = Lock()
+from pydantic import BaseModel, ConfigDict
 
 
-def _should_emit(key: tuple[str, str], now: float, window: float) -> bool:
-    """Return True if a warning for ``key`` should be emitted now.
+class StrictExtraModel(BaseModel):
+    """Base class for public API request models that reject unknown fields.
 
-    Rate-limited per key with a fixed window. Threadsafe; intended to be
-    called from request validation paths that may run concurrently under
-    asyncio + thread-pool offloading.
-    """
-    with _lock:
-        last = _last_warned.get(key)
-        if last is not None and (now - last) < window:
-            return False
-        _last_warned[key] = now
-        return True
-
-
-def _reset_rate_limit_state() -> None:  # pyright: ignore[reportUnusedFunction]
-    """Test helper: clear the rate-limit cache.
-
-    Not part of the public API. Tests use this to assert per-key behavior
-    without coupling to wall-clock timing.
-    """
-    with _lock:
-        _last_warned.clear()
-
-
-def _field_input_keys(name: str, field: FieldInfo) -> set[str]:
-    """All accepted top-level input keys for one model field.
-
-    Includes the field name plus every declared alias/validation alias.
-    AliasPath targets a nested location; the top-level key it reads from is
-    the first path element.
-    """
-    keys = {name}
-    if field.alias is not None:
-        keys.add(field.alias)
-    va = field.validation_alias
-    if isinstance(va, str):
-        keys.add(va)
-    elif isinstance(va, AliasChoices):
-        for choice in va.choices:
-            if isinstance(choice, str):
-                keys.add(choice)
-            else:
-                first = choice.path[0] if choice.path else None
-                if isinstance(first, str):
-                    keys.add(first)
-    elif isinstance(va, AliasPath):
-        first = va.path[0] if va.path else None
-        if isinstance(first, str):
-            keys.add(first)
-    return keys
-
-
-class WarnExtraModel(BaseModel):
-    """Base class for public API request models that warns on extra fields.
-
-    Subclasses keep the default ``extra="ignore"`` behavior — unknown keys
-    are still dropped — but a warning is logged when this happens, rate
-    limited to once per ``(model_name, field_name)`` pair per
-    ``_DEFAULT_RATE_LIMIT_SECONDS``.
-
-    NOTE: models that declare ``frozen=True`` cannot inherit from this base
-    (pydantic v2.12: "a frozen class cannot inherit from a class that is not
-    frozen"). Apply this only to non-frozen request models.
-
-    Why not ``extra="forbid"``?
-        Existing clients may already be sending fields we silently drop
-        (whether a typo or a future-spec field they expect us to ignore).
-        Flipping to ``forbid`` is a breaking change. Warning gives us a
-        deprecation path: surface the problem in logs, then forbid in a
-        follow-up.
+    Subclasses set ``extra="forbid"``: any key not declared on the model is a
+    ``ValidationError``. This is the enforcement half of the deprecation path
+    started by ``WarnExtraModel`` (exo-explore/exo#2015 → #2313).
     """
 
-    @model_validator(mode="before")
-    @classmethod
-    def _warn_unknown_fields(cls, data: Any) -> Any:  # pyright: ignore[reportAny]
-        # Validators see whatever the caller passed. For public API requests
-        # this is normally a dict from JSON, but pydantic also dispatches
-        # this hook for nested model instances and other types — those are
-        # not the case we care about, so bail cleanly.
-        if not isinstance(data, dict):
-            return data  # pyright: ignore[reportAny]
+    model_config = ConfigDict(extra="forbid")
 
-        payload: dict[str, Any] = cast(dict[str, Any], data)
-        known: set[str] = set()
-        for name, field in cls.model_fields.items():
-            known |= _field_input_keys(name, field)
 
-        unknown = [k for k in payload if k not in known]
-        if not unknown:
-            return payload
-
-        now = monotonic()
-        cls_name = cls.__name__
-        for key in unknown:
-            rate_key = (cls_name, str(key))
-            if _should_emit(rate_key, now, _DEFAULT_RATE_LIMIT_SECONDS):
-                logger.warning(
-                    "Dropping unknown field {field!r} on {model} request — "
-                    "this field is not declared on the model and will be "
-                    "ignored. Check for a typo or an out-of-spec field. "
-                    "(Subsequent occurrences of this same field on this "
-                    "model are rate-limited to once per {window:.0f}s.)",
-                    field=key,
-                    model=cls_name,
-                    window=_DEFAULT_RATE_LIMIT_SECONDS,
-                )
-
-        return payload
+# Backward-compatible alias: the deprecation-path name still imports for any
+# client that referenced it directly. New code should use StrictExtraModel.
+WarnExtraModel = StrictExtraModel
