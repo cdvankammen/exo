@@ -289,7 +289,18 @@ class Runner:
                     getattr(self.generator, "kv_prefix_cache", None),
                 )
                 if kv is not None:
-                    kv.set_cluster_hook(self._maybe_publish_prefix)
+                    from exo.worker.engines.mlx.cluster_cache import (
+                        ClusterPrefixIndex,
+                        cluster_prefix_cache_enabled,
+                    )
+                    # Initialize the local advisory cluster index (always, so
+                    # snapshot absorb works); only publish when the feature is
+                    # enabled. Publishing on the default path would spam the
+                    # event bus with per-save events for zero benefit.
+                    if getattr(kv, "cluster_index", None) is None:
+                        kv.cluster_index = ClusterPrefixIndex(node_id=self.runner_id)
+                    if cluster_prefix_cache_enabled():
+                        kv.set_cluster_hook(self._maybe_publish_prefix)
 
                 self.send_task_status(task.task_id, TaskStatus.Complete)
                 self.update_status(RunnerLoaded())

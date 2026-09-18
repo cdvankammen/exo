@@ -331,3 +331,95 @@ class TestUnionMembership:
         rt = PrefixIndexEvent.model_validate(ev.model_dump())
         assert rt.chunks == ev.chunks
         assert rt.hits == 3
+
+
+# ── cross-node integration ───────────────────────────────────────────────
+
+
+class TestCrossNodeIntegration:
+    """End-to-end: a real KVPrefixCache publishes, the coordinator absorbs it
+    into the index, and a *different* node's index lookup finds the cached
+    prefix — the exact cross-node cache-hit path the feature exists for."""
+
+    def _make_cache(self, model_id: str = "model-x") -> "KVPrefixCache":
+        import mlx.core as mx
+        from mlx_lm.models.cache import KVCache
+        from exo.worker.engines.mlx.cache import KVPrefixCache
+
+        cache = KVPrefixCache(None, model_id=model_id)
+        # Stand in for the runner's hook install (runner.py LoadModel case):
+        # the local node keeps an advisory ClusterPrefixIndex and the cache
+        # publishes PrefixIndexEvent on every new prefix save.
+        cache.cluster_index = ClusterPrefixIndex(node_id=f"{model_id}-local")
+        published: list[PrefixIndexEvent] = []
+        cache.set_cluster_hook(
+            lambda d: published.append(
+                PrefixIndexEvent(
+                    node_id="n1",
+                    instance_id="i1",
+                    model_hash=d["model_hash"],
+                    chunks=tuple(d["chunks"]),
+                    token_count=d["token_count"],
+                    last_used=time.time(),
+                )
+            )
+        )
+        cache._published = published  # type: ignore[attr-defined]
+        cache._mx = mx  # type: ignore[attr-defined]
+        return cache
+
+    def test_cross_node_publish_absorb_lookup(self) -> None:
+        import mlx.core as mx
+        from mlx_lm.models.cache import KVCache
+
+        # Node A saves a real 700-token prefix into its KV cache; the hook
+        # fires and builds the event exactly like runner._maybe_publish_prefix.
+        a = self._make_cache()
+        a.add_kv_cache(mx.array(list(range(700))), KVCache())
+        assert len(a._published) == 1  # type: ignore[attr-defined]
+        ev = a._published[0]  # type: ignore[attr-defined]
+
+        # Node B (n2) owns the authoritative index. It consumes A's event.
+        idx_b = ClusterPrefixIndex(node_id="n2", max_entries=100)
+        coord_b = ClusterPrefixCoordinator(
+            node_id="n2",
+            instance_id="i2",
+            event_sender=None,
+            index=idx_b,
+        )
+        coord_b.consume(ev)
+
+        # Any node can now look up the prefix and learn A cached it.
+        hit = idx_b.lookup(ev.model_hash, list(range(700)))
+        assert hit is not None
+        assert hit.node_id == "n1"
+        assert hit.instance_id == "i1"
+        assert hit.token_count == 700
+
+        # Fresh token stream with the same prefix but a different tail still
+        # resolves to the cached prefix (partial-hit path).
+        hit_partial = idx_b.lookup(ev.model_hash, list(range(700)) + [999, 1000])
+        assert hit_partial is not None
+        assert hit_partial.node_id == "n1"
+
+        # A different prompt/ephemeral model misses.
+        miss = idx_b.lookup(model_hash("other-model"), list(range(700)))
+        assert miss is None
+
+    def test_snapshot_roundtrip_across_nodes(self) -> None:
+        # The snapshot task carries the whole index; a cold node rebuilds its
+        # index from it and can serve hits.
+        n1 = ClusterPrefixIndex(node_id="n1", max_entries=50)
+        n1.put(_desc(chunks=_h([11], [22]), node="n2", instance="i2"))
+        task = PrefixIndexSnapshotTask(
+            task_id="snap-1",  # type: ignore[arg-type]
+            instance_id="i2",  # type: ignore[arg-type]
+            descriptors=[PrefixDescriptor.to_dict(d) for d in n1.descriptors()],
+        )
+        n3 = ClusterPrefixIndex(node_id="n3", max_entries=50)
+        for d in task.descriptors:
+            n3.put(PrefixDescriptor.from_dict(d))
+        hit = n3.lookup("m", _tokens([11], [22]))
+        assert hit is not None
+        assert hit.node_id == "n2"
+        assert n3.lookup("m", _tokens([99])) is None

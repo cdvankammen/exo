@@ -86,6 +86,22 @@ class MlxBuilder(Builder):
 
         kv_prefix_cache = KVPrefixCache(self.group, model_id=self.model_id)
 
+        # Cluster-wide prefix cache: give every worker's KV cache a live
+        # advisory ClusterPrefixIndex so runner snapshot-absorb has a target.
+        # Publishing is opt-in via EXO_CLUSTER_PREFIX_CACHE=1 (the runner
+        # installs the publish hook only when the env gate is on); the index
+        # itself is always present so PrefixIndexSnapshotTask absorb works.
+        try:
+            from .cluster_cache import ClusterPrefixIndex
+
+            if getattr(kv_prefix_cache, "cluster_index", None) is None:
+                kv_prefix_cache.cluster_index = ClusterPrefixIndex(
+                    node_id=self.model_id
+                )
+        except ImportError:
+            # cluster_cache is optional (mlx-only); degrade gracefully.
+            pass
+
         device_rank = 0 if self.group is None else self.group.rank()
         if os.environ.get("EXO_NO_BATCH"):
             logger.info("using SequentialGenerator (batching disabled)")

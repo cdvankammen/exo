@@ -441,7 +441,7 @@ class KVPrefixCache:
         # KV disk persistence (offload). Opt-in:
         # set EXO_KV_DISK_PERSISTENCE=1 to enable.
         self._model_id = model_id
-        self.cluster_index = None
+        self.cluster_index: "Any | None" = None
         self._cluster_hook = None
         self._disk_enabled = os.environ.get("EXO_KV_DISK_PERSISTENCE", "0") == "1"
         self._disk_dir = (
@@ -516,14 +516,16 @@ class KVPrefixCache:
         if self._cluster_hook is None or not self.prompts:
             return
         try:
+            from exo.worker.engines.mlx.cluster_cache import model_hash, prefix_chunks
             tokens = self.prompts[-1]
             toks = tokens.tolist()
             if not isinstance(toks, list):
                 toks = [toks]
+            int_toks: list[int] = [int(t) for t in toks if isinstance(t, int)]
             descriptor = {
-                "model_hash": self._model_id or "",
-                "chunks": toks,
-                "token_count": len(toks),
+                "model_hash": model_hash(self._model_id or ""),
+                "chunks": prefix_chunks(int_toks),
+                "token_count": len(int_toks),
             }
             self._cluster_hook(descriptor)
         except Exception:

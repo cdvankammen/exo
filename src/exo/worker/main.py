@@ -3,6 +3,7 @@
 :class:`Worker` owns runner lifecycle, planning, task dispatch, and the node event loop."""
 
 import hashlib
+import time
 from collections import defaultdict
 from datetime import datetime, timezone
 
@@ -68,7 +69,7 @@ from exo.utils.info_gatherer.net_profile import (
 )
 from exo.utils.keyed_backoff import KeyedBackoff
 from exo.utils.task_group import TaskGroup
-from exo.worker.engines.mlx.cluster_cache import ClusterPrefixIndex
+from exo.worker.engines.mlx.cluster_cache import ClusterPrefixIndex, PrefixDescriptor
 from exo.worker.plan import instance_to_reset_backoff, plan
 from exo.worker.runner.supervisor import RunnerSupervisor
 
@@ -170,6 +171,21 @@ class Worker:
                 if (iid := instance_to_reset_backoff(event, self.runners)) is not None:
                     self._instance_backoff.reset(iid)
 
+                # Absorb cluster prefix-index events into the authoritative
+                # index, then let the refresh loop broadcast snapshots.
+                if isinstance(event, PrefixIndexEvent):
+                    self._cluster_prefix_index.put(
+                        PrefixDescriptor(
+                            model_hash=event.model_hash,
+                            chunks=tuple(event.chunks),
+                            token_count=event.token_count,
+                            node_id=event.node_id,
+                            instance_id=event.instance_id,
+                            last_used=event.last_used or time.time(),
+                        )
+                    )
+                    self._cluster_prefix_dirty = True
+
                 # Buffer input image chunks for image editing
                 if isinstance(event, InputChunkReceived):
                     cmd_id = event.command_id
@@ -210,6 +226,38 @@ class Worker:
         for instance_id in self._instance_backoff.tracked_keys():
             if instance_id not in live_instances:
                 self._instance_backoff.reset(instance_id)
+
+    async def _cluster_prefix_refresh_loop(self) -> None:
+        """Periodically broadcast the authoritative cluster prefix index.
+
+        The worker aggregates PrefixIndexEvent entries from the global bus
+        and pushes a full snapshot to every runner via
+        PrefixIndexSnapshotTask, so cold runners converge without needing
+        to observe every event.
+        """
+        while True:
+            await anyio.sleep(5)
+            try:
+                if not self._cluster_prefix_dirty:
+                    continue
+                descs = self._cluster_prefix_index.descriptors()
+                if not descs:
+                    continue
+                for runner in list(self.runners.values()):
+                    try:
+                        await runner.start_task(
+                            PrefixIndexSnapshotTask(
+                                descriptors=[d.to_dict() for d in descs],
+                                instance_id=runner.bound_instance.instance.instance_id,
+                            )
+                        )
+                    except Exception:
+                        logger.warning(
+                            "Failed to send prefix snapshot to runner", exc_info=True
+                        )
+                self._cluster_prefix_dirty = False
+            except Exception:
+                logger.warning("Cluster prefix refresh loop error", exc_info=True)
 
     async def _reconcile_custom_cards(self) -> None:
         while True:
