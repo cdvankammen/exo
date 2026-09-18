@@ -33,6 +33,7 @@ from exo.shared.types.events import (
     InputChunkReceived,
     NodeDownloadProgress,
     NodeGatheredInfo,
+    PrefixIndexEvent,
     TaskCreated,
     TaskStatusUpdated,
     TopologyEdgeCreated,
@@ -46,6 +47,7 @@ from exo.shared.types.tasks import (
     DownloadModel,
     ImageEdits,
     LoadModel,
+    PrefixIndexSnapshotTask,
     Shutdown,
     Task,
     TaskStatus,
@@ -66,6 +68,7 @@ from exo.utils.info_gatherer.net_profile import (
 )
 from exo.utils.keyed_backoff import KeyedBackoff
 from exo.utils.task_group import TaskGroup
+from exo.worker.engines.mlx.cluster_cache import ClusterPrefixIndex
 from exo.worker.plan import instance_to_reset_backoff, plan
 from exo.worker.runner.supervisor import RunnerSupervisor
 
@@ -107,6 +110,10 @@ class Worker:
         self._instance_backoff: KeyedBackoff[InstanceId] = KeyedBackoff(
             base=0.5, cap=10.0
         )
+        self._cluster_prefix_index: ClusterPrefixIndex = ClusterPrefixIndex(
+            node_id=self.node_id, max_entries=4096
+        )
+        self._cluster_prefix_dirty = False
         self._stopped: anyio.Event = anyio.Event()
 
     async def run(self):
@@ -125,6 +132,7 @@ class Worker:
                 tg.start_soon(self._poll_connection_updates)
                 tg.start_soon(self._poll_bandwidth_updates)
                 tg.start_soon(self._reconcile_custom_cards)
+                tg.start_soon(self._cluster_prefix_refresh_loop)
         except* (EventRouterBrokenResourceError, EventRouterClosedResourceError):
             # Event router has been closed (try-star syntax handles error groups)
             pass

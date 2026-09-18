@@ -21,11 +21,9 @@ from exo.shared.types.events import (
     InstanceDeleted,
     InstanceLinkCreated,
     InstanceLinkDeleted,
-    MasterHeartbeat,
     NodeDownloadProgress,
     NodeGatheredInfo,
     NodeTimedOut,
-    PlacementForcedOverride,
     PrefixIndexEvent,
     RunnerStatusUpdated,
     TaskAcknowledged,
@@ -97,8 +95,6 @@ def event_apply(event: Event, state: State) -> State:
             | InputChunkReceived()
             | TracesCollected()
             | TracesMerged()
-            | MasterHeartbeat()
-            | PlacementForcedOverride()
             | PrefixIndexEvent()
         ):  # Pass-through events that don't modify state
             return state

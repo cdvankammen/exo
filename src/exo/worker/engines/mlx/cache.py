@@ -38,7 +38,12 @@ from mlx_lm.tokenizer_utils import TokenizerWrapper
 from exo.shared.constants import EXO_CACHE_HOME
 from exo.shared.types.memory import Memory
 from exo.utils.virtual_memory import virtual_memory_statistics
-from exo.worker.engines.mlx.constants import KV_CACHE_BITS, KV_CACHE_GROUP_SIZE
+from exo.worker.engines.mlx.constants import (
+    KEEP_KV_SIZE,
+    KV_CACHE_BITS,
+    KV_CACHE_GROUP_SIZE,
+    MAX_KV_SIZE,
+)
 from exo.worker.engines.mlx.types import KVCacheType, Model
 from exo.worker.runner.bootstrap import logger
 
@@ -436,6 +441,8 @@ class KVPrefixCache:
         # KV disk persistence (offload). Opt-in:
         # set EXO_KV_DISK_PERSISTENCE=1 to enable.
         self._model_id = model_id
+        self.cluster_index = None
+        self._cluster_hook = None
         self._disk_enabled = os.environ.get("EXO_KV_DISK_PERSISTENCE", "0") == "1"
         self._disk_dir = (
             self._init_disk_dir() if model_id and self._disk_enabled else None
@@ -454,6 +461,15 @@ class KVPrefixCache:
         self._media_regions.clear()
         self._last_used.clear()
         self.prefill_tps.clear()
+
+    def set_cluster_hook(self, hook: Callable[[dict], None] | None) -> None:
+        """Install (or clear) the cluster-index publish hook.
+
+        The runner installs this after the model loads; every add/update of a
+        KV prefix then calls ``hook(descriptor)`` so the worker can converge
+        the shared cluster index.
+        """
+        self._cluster_hook = hook
 
     def add_kv_cache(
         self,
@@ -489,6 +505,29 @@ class KVPrefixCache:
         if not self._flush_requested_at:
             self._flush_requested_at = _time.time()
         logger.info(f"KV cache added: {len(prompt_tokens)} tokens")
+        self._publish_cluster_prefix()
+
+    def _publish_cluster_prefix(self) -> None:
+        """Fire the cluster hook with the newest prefix descriptor, if set.
+
+        Only the freshest (longest) entry is advertised: the worker converges
+        the cluster index from each runner's newest save.
+        """
+        if self._cluster_hook is None or not self.prompts:
+            return
+        try:
+            tokens = self.prompts[-1]
+            toks = tokens.tolist()
+            if not isinstance(toks, list):
+                toks = [toks]
+            descriptor = {
+                "model_hash": self._model_id or "",
+                "chunks": toks,
+                "token_count": len(toks),
+            }
+            self._cluster_hook(descriptor)
+        except Exception:
+            logger.exception("Failed to publish cluster prefix")
 
     def update_kv_cache(
         self,
@@ -519,6 +558,7 @@ class KVPrefixCache:
         if not self._flush_requested_at:
             self._flush_requested_at = _time.time()
         logger.info(f"KV cache updated (index {index}): {len(prompt_tokens)} tokens")
+        self._publish_cluster_prefix()
 
     def should_update_entry(
         self,
@@ -620,7 +660,14 @@ class KVPrefixCache:
                 _disk_result = self._try_load_from_disk(model, prompt_tokens)
                 if _disk_result is not None:
                     return _disk_result
-            return make_kv_cache(model), prompt_tokens, None, False
+            return (
+                make_kv_cache(
+                    model, max_kv_size=MAX_KV_SIZE, keep=KEEP_KV_SIZE or 0
+                ),
+                prompt_tokens,
+                None,
+                False,
+            )
 
         # For exact match: trim to max_length-1 so remaining has the last token
         # For partial match: trim to best_length, remaining has suffix to prefill
@@ -636,7 +683,14 @@ class KVPrefixCache:
 
         # No usable snapshot — need fresh cache
         if restore_snap is None and has_ssm:
-            return make_kv_cache(model), prompt_tokens, None, False
+            return (
+                make_kv_cache(
+                    model, max_kv_size=MAX_KV_SIZE, keep=KEEP_KV_SIZE or 0
+                ),
+                prompt_tokens,
+                None,
+                False,
+            )
 
         prompt_cache = deepcopy(self.caches[best_index])
         tokens_to_trim = cached_length - restore_pos

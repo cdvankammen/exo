@@ -20,6 +20,7 @@ from exo.shared.types.common import CommandId
 from exo.shared.types.events import (
     ChunkGenerated,
     Event,
+    PrefixIndexEvent,
     RunnerStatusUpdated,
     TaskAcknowledged,
     TaskStatusUpdated,
@@ -30,6 +31,7 @@ from exo.shared.types.tasks import (
     ImageEdits,
     ImageGeneration,
     LoadModel,
+    PrefixIndexSnapshotTask,
     Shutdown,
     StartWarmup,
     Task,
@@ -45,6 +47,7 @@ from exo.shared.types.worker.runner_response import (
 from exo.shared.types.worker.runners import (
     RunnerConnected,
     RunnerConnecting,
+    RunnerDegraded,
     RunnerIdle,
     RunnerLoaded,
     RunnerLoading,
@@ -62,6 +65,7 @@ from exo.worker.disaggregated.server import (
     PrefillServer,
 )
 from exo.worker.engines.base import Builder, Engine
+from exo.worker.engines.mlx.cluster_cache import PrefixDescriptor
 from exo.worker.runner.bootstrap import logger
 
 PREFILL_PICKUP_TIMEOUT_SECONDS = 3
@@ -277,6 +281,16 @@ class Runner:
 
                 self.generator = self.generator.build()
 
+                # Install the cluster publish hook: whenever the local KV
+                # cache saves a new prefix, publish PrefixIndexEvent so all
+                # workers converge on the shared index.
+                kv = cast(
+                    "KVPrefixCache | None",
+                    getattr(self.generator, "kv_prefix_cache", None),
+                )
+                if kv is not None:
+                    kv.set_cluster_hook(self._maybe_publish_prefix)
+
                 self.send_task_status(task.task_id, TaskStatus.Complete)
                 self.update_status(RunnerLoaded())
                 logger.info("runner loaded")
@@ -312,6 +326,15 @@ class Runner:
                 self.shutdown(task)
                 return
 
+            case PrefixIndexSnapshotTask():
+                # Event-sourced refresh of the cluster prefix index from the
+                # worker. Acknowledge FIRST (the worker's supervisor awaits
+                # this ack; without it start_task hangs), then absorb the
+                # snapshot into the local KV cache's cluster index.
+                self._absorb_prefix_snapshot(task)
+                self.acknowledge_task(task)
+                return
+
             case _:
                 raise ValueError(
                     f"Received {task.__class__.__name__} outside of state machine in {self.current_status=}"
@@ -324,6 +347,51 @@ class Runner:
         )
         if kv is not None:
             kv.flush_to_disk(force=True)
+
+    def _absorb_prefix_snapshot(self, task: PrefixIndexSnapshotTask) -> None:
+        """Ingest the worker's snapshot into the local cluster index.
+
+        The worker keeps the authoritative cluster index and periodically
+        broadcasts it. The runner's KV cache holds a local mirror used for
+        lookup hints; this replaces it with the freshest view.
+        """
+        try:
+            kv = cast(
+                "KVPrefixCache | None", getattr(self.generator, "kv_prefix_cache", None)
+            )
+            cluster_index = getattr(kv, "cluster_index", None)
+            if cluster_index is None:
+                return
+            cluster_index.clear()
+            for d in task.descriptors:
+                try:
+                    cluster_index.put(PrefixDescriptor(**d))
+                except Exception:
+                    logger.warning(
+                        "Skipping malformed prefix descriptor", exc_info=True
+                    )
+            logger.info(
+                f"Absorbed cluster prefix snapshot: {len(task.descriptors)} descriptors"
+            )
+        except Exception:
+            logger.warning("Failed to absorb prefix snapshot", exc_info=True)
+
+    def _maybe_publish_prefix(self, descriptor: dict) -> None:
+        """Publish a PrefixIndexEvent for a newly saved KV prefix."""
+        try:
+            self.event_sender.send(
+                PrefixIndexEvent(
+                    model_hash=descriptor["model_hash"],
+                    chunks=tuple(descriptor["chunks"]),
+                    token_count=descriptor["token_count"],
+                    node_id=self.runner_id,
+                    instance_id=self.instance.instance_id,
+                    last_used=time.time(),
+                    hits=0,
+                )
+            )
+        except Exception:
+            logger.warning("Failed to publish prefix index event", exc_info=True)
 
     def _periodic_kv_cleanup(self) -> None:
         """Idle-time KV memory sweep; no-op for engines without a prefix cache.
@@ -373,7 +441,39 @@ class Runner:
         self.submit_generation(starting_task)
 
         while self.active_tasks:
-            results = self.generator.step()
+            try:
+                results = self.generator.step()
+            except Exception as step_e:
+                # P1 #39 / #2182: OOM graceful degradation. The generators
+                # raise OomRecoveredError AFTER recovering (KV cache cleared,
+                # batch admission halved). The runner reports the degraded
+                # status and keeps the loop running so retried tasks drain
+                # instead of letting the exception escape to bootstrap and
+                # crash-loop the runner process.
+                #
+                # Lazy import: batch_generator pulls in mlx at module import
+                # time. The runner supervisor process should stay MLX-free
+                # until the engine is actually loaded by the executor; by the
+                # time an OOM happens the engine is running with MLX loaded,
+                # so importing here is safe and avoids import-time coupling.
+                from exo.worker.runner.llm_inference.batch_generator import (
+                    OomRecoveredError,
+                )
+
+                if isinstance(step_e, OomRecoveredError):
+                    logger.warning(
+                        f"OOM recovered: {step_e.reason} — emitting degraded "
+                        f"status, max_batch_size={step_e.max_batch_size}."
+                    )
+                    self.update_status(
+                        RunnerDegraded(
+                            max_batch_size=step_e.max_batch_size,
+                            reason=step_e.reason,
+                        )
+                    )
+                    results = step_e.results
+                else:
+                    raise
 
             finished: list[TaskId] = []
             for task_id, result in results:
