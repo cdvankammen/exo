@@ -27,6 +27,7 @@ FinishReason = Literal[
 # `code` keeps the HTTP status code for backward compatibility.
 ErrorCode = Literal[
     "INVALID_REQUEST",
+    "UNAUTHORIZED",
     "INSUFFICIENT_MEMORY",
     "PLACEMENT_FAILED",
     "MODEL_NOT_FOUND",
@@ -888,6 +889,10 @@ class LogErrorEntry(FrozenModel):
     source: str
     message: str
     source_log: str
+    # Node that produced the entry (NodeId string). Local entries carry the
+    # serving node's own id; remote entries carry the peer's id so the
+    # dashboard can group/filter per node without parsing source_log.
+    node_id: str | None = None
     # Surrounding log lines (±context_lines around the error) for debugging.
     context: list[str] | None = None
 

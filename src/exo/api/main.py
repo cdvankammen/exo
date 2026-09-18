@@ -294,7 +294,12 @@ _LOG_LINE_RE = re.compile(
 _LOG_ERROR_LEVELS = frozenset({"WARNING", "ERROR", "CRITICAL"})
 
 
-def _parse_log_errors(content: str, source_log: str, context_lines: int = 5) -> list[LogErrorEntry]:
+def _parse_log_errors(
+    content: str,
+    source_log: str,
+    context_lines: int = 5,
+    node_id: str | None = None,
+) -> list[LogErrorEntry]:
     """Parse WARNING/ERROR/CRITICAL lines from a log tail into structured entries.
 
     Skips continuation lines (tracebacks etc.) so each entry is the primary
@@ -341,6 +346,7 @@ def _parse_log_errors(content: str, source_log: str, context_lines: int = 5) -> 
                 source=(source or "").strip(),
                 message=message.strip(),
                 source_log=source_log,
+                node_id=node_id,
                 context=context if context_lines > 0 else None,
             )
         )
@@ -1850,7 +1856,11 @@ class API:
     async def get_image(self, image_id: str) -> FileResponse:
         stored = self._image_store.get(Id(image_id))
         if stored is None:
-            raise HTTPException(status_code=404, detail="Image not found or expired")
+            raise ApiError(
+                status_code=404,
+                detail="Image not found or expired",
+                error_code="IMAGE_NOT_FOUND",
+            )
         return FileResponse(path=stored.file_path, media_type=stored.content_type)
 
     async def list_images(self, request: Request) -> ImageListResponse:
@@ -2741,8 +2751,10 @@ class API:
         try:
             connected = await self.router.connect_peer(payload.host, payload.zenoh_port)
         except Exception as exc:
-            raise HTTPException(
-                status_code=400, detail=f"Failed to connect to peer: {exc}"
+            raise ApiError(
+                status_code=400,
+                detail=f"Failed to connect to peer: {exc}",
+                error_code="PEER_UNREACHABLE",
             ) from exc
 
         return AddPeerResponse(
