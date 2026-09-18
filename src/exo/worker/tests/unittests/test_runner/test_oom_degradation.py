@@ -189,7 +189,7 @@ def _task(seq: int, max_output_tokens: int = 8) -> TextGeneration:
 @pytest.fixture
 def patch_batch_io(monkeypatch: pytest.MonkeyPatch) -> pytest.MonkeyPatch:
     """Stub every external dependency the BatchGenerator touches."""
-    monkeypatch.setattr(bg, "warmup_inference", lambda *a, **k: 50)
+    monkeypatch.setattr(bg, "warmup_inference", lambda *a, **k: (50, 0))
     monkeypatch.setattr(bg, "_check_for_debug_prompts", lambda *a, **k: None)
     monkeypatch.setattr(bg, "mx_any", lambda *a, **k: False)
     monkeypatch.setattr(
@@ -212,7 +212,7 @@ def patch_batch_io(monkeypatch: pytest.MonkeyPatch) -> pytest.MonkeyPatch:
 @pytest.fixture
 def patch_scheduler_io(monkeypatch: pytest.MonkeyPatch) -> pytest.MonkeyPatch:
     """Stub every external dependency the ContinuousBatchScheduler touches."""
-    monkeypatch.setattr(cb, "warmup_inference", lambda *a, **k: 50)
+    monkeypatch.setattr(cb, "warmup_inference", lambda *a, **k: (50, 0))
     monkeypatch.setattr(cb, "_check_for_debug_prompts", lambda *a, **k: None)
     monkeypatch.setattr(cb, "mx_any", lambda *a, **k: False)
     monkeypatch.setattr(
