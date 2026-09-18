@@ -967,3 +967,172 @@ class TestRingAttentionDistributed:
                 assert cache_offsets == [9]
         finally:
             os.unlink(hostfile_path)
+
+
+def _run_ring_relay_device(
+    rank: int, world_size: int, hostfile_path: str, result_queue: Any
+) -> None:
+    """Two-rank ring prefill forced through TcpRelay (CUDA simulation).
+
+    Sets MLX_CUDA_RANKS to claim every peer is CUDA, then monkeypatches
+    ring_attention._is_cuda_backend to True so the RingAttentionLayer
+    rotation routes KV blocks over the real TcpRelay (plain TCP loopback)
+    instead of mx.distributed send/recv. The MLX ring group is still used
+    for the block-length all_gather.
+    """
+    import unittest.mock as mock
+
+    os.environ["MLX_HOSTFILE"] = hostfile_path
+    os.environ["MLX_RANK"] = str(rank)
+    os.environ["MLX_CUDA_RANKS"] = ",".join(str(i) for i in range(world_size))
+    try:
+        group = mx.distributed.init(backend="ring", strict=True)
+
+        class MockAttn(nn.Module):
+            def __init__(self) -> None:
+                super().__init__()
+                self.q_proj = nn.Linear(8, 8)
+                self.k_proj = nn.Linear(8, 8)
+                self.v_proj = nn.Linear(8, 8)
+                self.o_proj = nn.Linear(8, 8)
+                self.n_heads = 2
+                self.head_dim = 4
+                self.scale = 0.5
+                for projection in (
+                    self.q_proj,
+                    self.k_proj,
+                    self.v_proj,
+                    self.o_proj,
+                ):
+                    projection.weight = mx.arange(64, dtype=mx.float32).reshape(
+                        8, 8
+                    )
+                    projection.bias = mx.zeros(8)
+
+            def __call__(
+                self, x: mx.array, *args: object, **kwargs: object
+            ) -> mx.array:
+                q = self.q_proj(x)
+                keys = self.k_proj(x)
+                v = self.v_proj(x)
+                batch, seq, dim = q.shape
+                q = q.reshape(batch, seq, self.n_heads, -1).transpose(0, 2, 1, 3)
+                keys = keys.reshape(batch, seq, self.n_heads, -1).transpose(
+                    0, 2, 1, 3
+                )
+                v = v.reshape(batch, seq, self.n_heads, -1).transpose(0, 2, 1, 3)
+                scores = q @ keys.transpose(0, 1, 3, 2) * self.scale
+                attn = mx.softmax(scores, axis=-1)
+                out = attn @ v
+                out = out.transpose(0, 2, 1, 3).reshape(batch, seq, dim)
+                return self.o_proj(out)
+
+        import exo.worker.engines.mlx.ring_attention as ring_attn
+
+        mock_attn = MockAttn()
+        with (
+            mock.patch.object(ring_attn, "_is_cuda_backend", return_value=True),
+            mock.patch(
+                "exo.worker.engines.mlx.auto_parallel._is_cuda_device",
+                return_value=True,
+            ),
+        ):
+            # _get_tcp_relay is imported into ring_attention's namespace, so
+            # poking module-level _tcp_relay via auto_parallel's accessor is
+            # the real production TcpRelay (binds 40000+rank on loopback).
+            from exo.worker.engines.mlx.auto_parallel import _get_tcp_relay
+
+            relay = _get_tcp_relay()
+            relay._ensure_server()
+            wrapped = RingAttentionLayer(mock_attn, group=group)
+            wrapped.is_prefill = True
+            x = (
+                mx.arange(rank * 32, (rank + 1) * 32, dtype=mx.float32).reshape(
+                    1, 4, 8
+                )
+                / 64
+            )
+            result = wrapped(x)
+
+        total_sequence_length = world_size * 4
+        full_x = (
+            mx.arange(total_sequence_length * 8, dtype=mx.float32).reshape(
+                1, total_sequence_length, 8
+            )
+            / 64
+        )
+        queries = (
+            mock_attn.q_proj(full_x)
+            .reshape(1, total_sequence_length, 2, 4)
+            .transpose(0, 2, 1, 3)
+        )
+        keys = (
+            mock_attn.k_proj(full_x)
+            .reshape(1, total_sequence_length, 2, 4)
+            .transpose(0, 2, 1, 3)
+        )
+        values = (
+            mock_attn.v_proj(full_x)
+            .reshape(1, total_sequence_length, 2, 4)
+            .transpose(0, 2, 1, 3)
+        )
+        causal_mask = mx.tril(
+            mx.ones((total_sequence_length, total_sequence_length), dtype=mx.bool_)
+        )[None, :, :]
+        expected = mx.fast.scaled_dot_product_attention(
+            queries, keys, values, scale=mock_attn.scale, mask=causal_mask
+        )
+        expected = expected[:, :, rank * 4 : (rank + 1) * 4, :]
+        expected = expected.transpose(0, 2, 1, 3).reshape(1, 4, 8)
+        expected = mock_attn.o_proj(expected)
+        mx.eval(result)
+        mx.eval(expected)
+        result_queue.put(
+            (rank, True, mx.max(mx.abs(result - expected)).item())
+        )
+    except Exception as e:
+        import traceback
+
+        result_queue.put((rank, False, f"{e}\n{traceback.format_exc()}"))
+
+
+class TestRingAttentionRelayBranch:
+    def test_ring_rotation_through_tcp_relay(self) -> None:
+        """CUDA ring rotation must route through TcpRelay, not the broken
+        mx.distributed CUDA send/recv. Uses a real TcpRelay over loopback."""
+        ctx = mp.get_context("spawn")
+        world_size = 2
+        hosts = [f"127.0.0.1:{29600 + i}" for i in range(world_size)]
+        with tempfile.NamedTemporaryFile(mode="w", suffix=".json", delete=False) as f:
+            json.dump(hosts, f)
+            hostfile_path = f.name
+        processes: list[Any] = []
+        try:
+            result_queue: Any = ctx.Queue()
+            for rank in range(world_size):
+                p = ctx.Process(
+                    target=_run_ring_relay_device,
+                    args=(rank, world_size, hostfile_path, result_queue),
+                )
+                p.start()
+                processes.append(p)
+            for p in processes:
+                p.join(timeout=30)
+            results: dict[int, Any] = {}
+            errors: dict[int, str] = {}
+            while not result_queue.empty():
+                rank, success, value = result_queue.get()
+                if success:
+                    results[rank] = value
+                else:
+                    errors[rank] = value
+            assert len(results) == world_size, f"Errors: {errors}"
+            for rank in range(world_size):
+                assert rank in results, f"Device {rank} failed: {errors.get(rank)}"
+                assert results[rank] < 1e-5
+        finally:
+            for process in processes:
+                if process.is_alive():
+                    process.terminate()
+                    process.join(timeout=5)
+            os.unlink(hostfile_path)

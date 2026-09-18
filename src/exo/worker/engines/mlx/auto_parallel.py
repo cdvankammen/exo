@@ -308,6 +308,123 @@ class TcpRelay:
         sock.sendall(header + shape_data + data)
         return x
 
+    def send_one_shot(self, x: mx.array, dst: int) -> mx.array:
+        """Send array to dst rank via a fresh TCP connection.
+
+        Unlike :meth:`send`, this never consults or populates the
+        ``_connections`` registry.  The ring-attention rotation transfers
+        keys/values to the successor rank *and* receives from the
+        predecessor rank concurrently; with world_size == 2 those are the
+        same peer, so a shared per-peer socket would make each side try to
+        re-read its own outbound socket while the peer's payload arrives on
+        a different connection (classic deadlock).  One fresh connection
+        per message is immune to that collision.
+        """
+        import numpy as np
+
+        x_np = np.array(x)
+        mx.eval(x)
+
+        dtype_code = self._DTYPE_TO_CODE.get(x_np.dtype.type, 0)
+        data = x_np.tobytes()
+        header = _struct.pack(
+            "!IIIQ", len(x_np.shape), dtype_code, x_np.dtype.itemsize, len(data)
+        )
+        shape_data = _struct.pack(f"!{len(x_np.shape)}I", *x_np.shape)
+
+        self._ensure_server()
+        # Fresh outbound connection; deliberately NOT registered.  Retry the
+        # connect briefly: the peer may still be binding its listener during
+        # startup (the pipeline path tolerates this via _connect_to's retry
+        # loop; ring rotation must too).
+        peer_ip = self.peer_ips[dst]
+        peer_port = self._port_base + dst
+        import time
+
+        last_err: Exception | None = None
+        for attempt in range(60):
+            sock = _socket.socket(_socket.AF_INET, _socket.SOCK_STREAM)
+            try:
+                sock.settimeout(60.0)
+                sock.connect((peer_ip, peer_port))
+                sock.sendall(header + shape_data + data)
+                break
+            except Exception as e:
+                last_err = e
+                sock.close()
+                time.sleep(0.5)
+        else:
+            raise ConnectionError(
+                f"Could not one-shot send to rank {dst} at "
+                f"{peer_ip}:{peer_port}"
+            ) from last_err
+        return x
+
+    def recv_one_shot(self, ref: mx.array, src: int) -> mx.array:
+        """Recv array from src rank via a fresh TCP connection.
+
+        Mirrors :meth:`recv_like` but never consults or populates the
+        ``_connections`` registry, so it is safe under the concurrent
+        bidirectional transfers used by ring attention (see
+        :meth:`send_one_shot` for why the registry is unsafe there).
+        """
+        import numpy as np
+
+        self._ensure_server()
+
+        import time
+
+        sock: _socket.socket | None = None
+        for attempt in range(120):
+            try:
+                self._server_socket.settimeout(5.0)  # type: ignore[union-attr]
+                sock_tmp, _ = self._server_socket.accept()  # type: ignore[union-attr]
+                self._server_socket.settimeout(120.0)  # type: ignore[union-attr]
+                # Probe for valid data — if the peer sent nothing, it's a
+                # stale connection from the CUDA-detection probe (RST).
+                # Discard it and accept again.
+                sock_tmp.settimeout(2.0)
+                try:
+                    peek = sock_tmp.recv(1, _socket.MSG_PEEK)
+                    if not peek:
+                        sock_tmp.close()
+                        continue
+                except Exception:
+                    sock_tmp.close()
+                    continue
+                sock_tmp.settimeout(120.0)
+                sock = sock_tmp
+                break
+            except _socket.timeout:
+                if attempt % 10 == 0:
+                    from exo.worker.runner.bootstrap import logger
+
+                    logger.warning(
+                        f"TcpRelay accept from rank {src} attempt "
+                        f"{attempt + 1}/20 timeout"
+                    )
+                time.sleep(1)
+        if sock is None:
+            raise ConnectionError(
+                f"TcpRelay accept from rank {src} timed out after 120 attempts"
+            )
+
+        try:
+            header = self._recv_exact(sock, 20)
+            ndim, dtype_code, _itemsize, total = cast(
+                "tuple[int, int, int, int]", _struct.unpack("!IIIQ", header)
+            )
+            shape_data = self._recv_exact(sock, ndim * 4)
+            shape = cast("tuple[int, ...]", _struct.unpack(f"!{ndim}I", shape_data))
+
+            data = self._recv_exact(sock, total)
+            np_dtype = self._CODE_TO_DTYPE.get(dtype_code, np.float32)
+            arr = np.frombuffer(data, dtype=cast(object, np_dtype)).reshape(shape)  # type: ignore[reportUnknownMemberType]
+            out = mx.array(arr)  # type: ignore[reportUnknownArgumentType]
+        finally:
+            sock.close()
+        return out
+
     def recv_like(self, ref: mx.array, src: int) -> mx.array:
         """Recv array from src rank via TCP."""
         import numpy as np

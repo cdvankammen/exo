@@ -39,6 +39,7 @@ from exo.worker.engines.mlx.auto_parallel import (
     get_inner_model,
     get_layers,
     patch_tensor_model,
+    _get_tcp_relay,
 )
 
 _SUPPORTED_ATTENTION_TYPES = frozenset(
@@ -138,8 +139,8 @@ class RingAttentionLayer(CustomMlxLayer):
         # VRAM-resident arrays deadlocks (observed as a ring-prefill hang on
         # Linux). Use the default stream there, matching auto_parallel.py.
         if _is_cuda_backend():
-            self.send_stream = send_stream or mx.default_stream()
-            self.receive_stream = receive_stream or mx.default_stream()
+            self.send_stream = send_stream or mx.default_stream(mx.gpu)
+            self.receive_stream = receive_stream or mx.default_stream(mx.gpu)
         else:
             self.send_stream = send_stream or mx.new_stream(mx.cpu)
             self.receive_stream = receive_stream or mx.new_stream(mx.cpu)
@@ -260,51 +261,110 @@ class RingAttentionLayer(CustomMlxLayer):
                 source_peer_rank = (self.rank - 1) % self.world_size
                 next_rank = (self.rank - step - 1) % self.world_size
 
-                sent_keys = mx.distributed.send(
-                    current_keys,
-                    destination_rank,
-                    group=self.group,
-                    stream=self.send_stream,
+                use_relay = _is_cuda_backend() and _get_tcp_relay().is_cuda_to_cuda(
+                    destination_rank
                 )
-                sent_values = mx.distributed.send(
-                    current_values,
-                    destination_rank,
-                    group=self.group,
-                    stream=self.send_stream,
-                )
-                pending_sends.extend((sent_keys, sent_values))
+                if use_relay:
+                    # TcpRelay bypasses MLX's broken CUDA send/recv (same
+                    # rationale as the pipeline path in auto_parallel.py).
+                    # One-shot connections are used deliberately: the ring
+                    # rotation sends to the successor AND receives from the
+                    # predecessor concurrently, and with world_size == 2
+                    # those are the same peer — the shared per-peer socket
+                    # registry of TcpRelay would deadlock (each side re-reads
+                    # its own outbound socket while the peer's payload
+                    # arrives on a different connection).  One fresh
+                    # connection per message is immune to that collision and
+                    # performs a synchronous, fully materialized transfer
+                    # (mx.eval + TCP sendall), so there is nothing to
+                    # overlap and no pending_sends bookkeeping needed.
+                    relay = _get_tcp_relay()
+                    relay.send_one_shot(current_keys, destination_rank)
+                    relay.send_one_shot(current_values, destination_rank)
+                    recv_keys = relay.recv_one_shot(
+                        mx.zeros(
+                            (
+                                batch_dim,
+                                n_kv_heads,
+                                block_lengths[next_rank],
+                                head_dim,
+                            ),
+                            dtype=current_keys.dtype,
+                            stream=self.receive_stream,
+                        ),
+                        source_peer_rank,
+                    )
+                    recv_values = relay.recv_one_shot(
+                        mx.zeros(
+                            (
+                                batch_dim,
+                                n_kv_heads,
+                                block_lengths[next_rank],
+                                head_dim,
+                            ),
+                            dtype=current_values.dtype,
+                            stream=self.receive_stream,
+                        ),
+                        source_peer_rank,
+                    )
+                    next_keys = recv_keys
+                    next_values = recv_values
+                else:
+                    sent_keys = mx.distributed.send(
+                        current_keys,
+                        destination_rank,
+                        group=self.group,
+                        stream=self.send_stream,
+                    )
+                    sent_values = mx.distributed.send(
+                        current_values,
+                        destination_rank,
+                        group=self.group,
+                        stream=self.send_stream,
+                    )
+                    pending_sends.extend((sent_keys, sent_values))
 
-                # Templates are allocated on the CPU receive stream so the
-                # posted receive never waits on a GPU kernel (see the payload
-                # materialisation note above).
-                recv_keys = mx.distributed.recv_like(
-                    mx.zeros(
-                        (batch_dim, n_kv_heads, block_lengths[next_rank], head_dim),
-                        dtype=current_keys.dtype,
+                    # Templates are allocated on the CPU receive stream so the
+                    # posted receive never waits on a GPU kernel (see the payload
+                    # materialisation note above).
+                    recv_keys = mx.distributed.recv_like(
+                        mx.zeros(
+                            (
+                                batch_dim,
+                                n_kv_heads,
+                                block_lengths[next_rank],
+                                head_dim,
+                            ),
+                            dtype=current_keys.dtype,
+                            stream=self.receive_stream,
+                        ),
+                        source_peer_rank,
+                        group=self.group,
                         stream=self.receive_stream,
-                    ),
-                    source_peer_rank,
-                    group=self.group,
-                    stream=self.receive_stream,
-                )
-                recv_values = mx.distributed.recv_like(
-                    mx.zeros(
-                        (batch_dim, n_kv_heads, block_lengths[next_rank], head_dim),
-                        dtype=current_values.dtype,
+                    )
+                    recv_values = mx.distributed.recv_like(
+                        mx.zeros(
+                            (
+                                batch_dim,
+                                n_kv_heads,
+                                block_lengths[next_rank],
+                                head_dim,
+                            ),
+                            dtype=current_values.dtype,
+                            stream=self.receive_stream,
+                        ),
+                        source_peer_rank,
+                        group=self.group,
                         stream=self.receive_stream,
-                    ),
-                    source_peer_rank,
-                    group=self.group,
-                    stream=self.receive_stream,
-                )
+                    )
 
-                # Both directions are posted before attention is scheduled.
-                # Communication uses dedicated streams while the attention graph
-                # stays on the caller's compute stream.
-                mx.async_eval(sent_keys, sent_values)
-                mx.async_eval(recv_keys, recv_values)
-                next_keys = recv_keys
-                next_values = recv_values
+                    # Both directions are posted before attention is scheduled.
+                    # Communication uses dedicated streams while the attention graph
+                    # stays on the caller's compute stream.
+                    mx.async_eval(sent_keys, sent_values)
+                    mx.async_eval(recv_keys, recv_values)
+                    next_keys = recv_keys
+                    next_values = recv_values
 
             block_mask = _make_block_causal_mask(
                 local_seq_len=local_seq_len,
@@ -753,8 +813,8 @@ def ring_auto_parallel(
     if _is_cuda_backend():
         # CUDA has no unified memory: CPU-stream send/recv of VRAM arrays
         # deadlocks. Use the default stream (same as auto_parallel.py).
-        send_stream = mx.default_stream()  # pyright: ignore[reportUnknownVariableType]
-        receive_stream = mx.default_stream()  # pyright: ignore[reportUnknownVariableType]
+        send_stream = mx.default_stream(mx.gpu)  # pyright: ignore[reportUnknownVariableType]
+        receive_stream = mx.default_stream(mx.gpu)  # pyright: ignore[reportUnknownVariableType]
     else:
         send_stream = mx.new_stream(mx.cpu)
         receive_stream = mx.new_stream(mx.cpu)
