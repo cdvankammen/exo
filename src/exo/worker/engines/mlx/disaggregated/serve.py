@@ -15,6 +15,7 @@ from exo.worker.engines.mlx.cache import (
     make_kv_cache,
     snapshot_ssm_states,
 )
+from exo.worker.engines.mlx.constants import KEEP_KV_SIZE, MAX_KV_SIZE
 from exo.worker.engines.mlx.generator.generate import prefill as mlx_prefill
 from exo.worker.engines.mlx.types import KVCacheType, Model
 from exo.worker.engines.mlx.utils_mlx import fix_unmatched_think_end_tokens
@@ -42,7 +43,9 @@ def run_prefill_for_request(
         )
         prefix_hit_length = n_tokens - int(remaining.shape[0])
     else:
-        cache = make_kv_cache(model)
+        cache = make_kv_cache(
+            model, max_kv_size=MAX_KV_SIZE, keep=KEEP_KV_SIZE or 0
+        )
         remaining = prompt_tokens
 
     target_offset = max(0, n_tokens - 2)
