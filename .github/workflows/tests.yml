@@ -1,0 +1,119 @@
+name: tests
+
+# Runs the test surfaces that are deselected/ignored by the default
+# `pytest src` unit invocation (see pyproject.toml [tool.pytest.ini_options]):
+#   - Rust workspace tests (cargo test) — rust/exo_rs + rust/networking
+#   - Dashboard vitest suite          — dashboard/ (npm test)
+#   - E2E smoke suite                 — tests/ (1-node)
+# The slow-marked suite (pytest -m slow, 215 tests) runs on a nightly
+# schedule + manual dispatch instead of every PR, because it needs GPU/MLX
+# and takes ~15min+.
+on:
+  push:
+  pull_request:
+    branches:
+      - staging
+      - main
+  # Nightly slow suite. Times: 06:17 UTC = 00:17 America/Denver.
+  schedule:
+    - cron: "17 6 * * *"
+  workflow_dispatch:
+
+jobs:
+  rust:
+    name: cargo test (rust workspace)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          lfs: false
+      - name: Install Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+      - name: Cache cargo registry + target
+        uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: rust
+      - name: cargo test --workspace
+        run: cargo test --workspace
+        env:
+          # PyO3 needs the Python interpreter to link against. Ubuntu
+          # runners have python3 available; point it there explicitly so
+          # the pyo3 build does not guess a broken default.
+          PYO3_PYTHON: /usr/bin/python3
+
+  dashboard:
+    name: dashboard vitest
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          lfs: false
+      - name: Install Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: dashboard/package-lock.json
+      - name: Install dependencies
+        run: npm ci
+        working-directory: dashboard
+      # NOTE: the dashboard suite is currently WIP under kanban card
+      # t_18774607 (tests are untracked, localStorage teardown issue under
+      # investigation). `continue-on-error` is a TEMPORARY bridge so the
+      # suite is exercised in CI without blocking every PR until that card
+      # lands. Remove the flag once the suite is green.
+      - name: Run vitest
+        run: npm test
+        working-directory: dashboard
+        continue-on-error: true
+
+  e2e-smoke:
+    name: e2e smoke (1-node)
+    runs-on: macos-26
+    timeout-minutes: 30
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          lfs: false
+      - name: Install uv
+        uses: astral-sh/setup-uv@v6
+      - name: Install Node (runtime dep for e2e dashboard test)
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Sync dependencies
+        run: uv sync --all-packages --extra mlx
+      - name: Run 1-node e2e smoke
+        run: |
+          export EXO_TESTS=1
+          export EXO_DASHBOARD_DIR="$PWD/dashboard/"
+          export EXO_RESOURCES_DIR="$PWD/resources"
+          uv run pytest tests/test_1node.py -v --import-mode=importlib
+      # The full tests/ suite (2-node / 4-node / dashboard / resilience)
+      # needs multi-node clusters and is run locally / on demand:
+      #   uv run pytest tests/ -v --import-mode=importlib
+
+  slow:
+    name: slow suite (pytest -m slow) — nightly / manual
+    runs-on: macos-26
+    timeout-minutes: 120
+    # Only run on the nightly schedule or explicit dispatch, not every PR.
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          lfs: false
+      - name: Install uv
+        uses: astral-sh/setup-uv@v6
+      - name: Sync dependencies
+        run: uv sync --all-packages --extra mlx
+      - name: Run slow suite
+        run: |
+          export EXO_TESTS=1
+          export EXO_DASHBOARD_DIR="$PWD/dashboard/"
+          export EXO_RESOURCES_DIR="$PWD/resources"
+          uv run pytest src -m slow --import-mode=importlib -q
