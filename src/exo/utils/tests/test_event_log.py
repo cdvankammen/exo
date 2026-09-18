@@ -1,3 +1,4 @@
+import errno
 from pathlib import Path
 
 import pytest
@@ -194,3 +195,177 @@ def test_stale_close_of_empty_log_does_not_unlink_successor(log_dir: Path):
     assert len(list(successor.read_all())) == 1
 
     successor.close()
+
+
+def test_concurrent_append_and_read_are_serialized(log_dir: Path):
+    """Thread-safety regression: concurrent append/read on one DiskEventLog
+    must not raise (torn frames, OrderedDict-mutated-during-iteration, or
+    flush-of-closed-file) and reads must observe contiguous indices.
+    """
+    import threading
+
+    log = DiskEventLog(log_dir)
+    n_writers = 3
+    n_readers = 2
+    events_per_writer = 250
+    stop = threading.Event()
+    errors: list[BaseException] = []
+
+    def writer(wid: int) -> None:
+        try:
+            for _ in range(events_per_writer):
+                log.append(TestEvent())
+        except BaseException as e:  # pragma: no cover - failure path
+            errors.append(e)
+        finally:
+            stop.set()
+
+    def reader(rid: int) -> None:
+        try:
+            while not stop.is_set():
+                events = list(log.read_all())
+                # Every record must deserialize to a complete event and the
+                # two read paths must agree on the count (no torn frames).
+                assert all(isinstance(e, TestEvent) for e in events)
+                ranged = list(log.read_range(0, len(events)))
+                assert len(ranged) == len(events), (rid, len(ranged), len(events))
+        except BaseException as e:  # pragma: no cover - failure path
+            errors.append(e)
+
+    threads = [
+        *[threading.Thread(target=writer, args=(i,)) for i in range(n_writers)],
+        *[threading.Thread(target=reader, args=(i,)) for i in range(n_readers)],
+    ]
+    for t in threads:
+        t.start()
+    for t in threads:
+        t.join(timeout=30)
+
+    assert not errors, f"concurrent access raised: {errors!r}"
+    assert len(log) == n_writers * events_per_writer
+    final = list(log.read_all())
+    assert len(final) == len(log)
+    # UUIDs must all be unique (no duplicated/torn records)
+    assert len({e.event_id for e in final}) == len(final)
+
+    log.close()
+
+
+def test_concurrent_close_is_idempotent(log_dir: Path):
+    """close() racing threads must not raise or leave a half-rotated log."""
+    import threading
+
+    log = DiskEventLog(log_dir)
+    log.append(TestEvent())
+
+    errors: list[BaseException] = []
+    barrier = threading.Barrier(4)
+
+    def closer() -> None:
+        try:
+            barrier.wait()
+            log.close()
+        except BaseException as e:  # pragma: no cover - failure path
+            errors.append(e)
+
+    threads = [threading.Thread(target=closer) for _ in range(4)]
+    for t in threads:
+        t.start()
+    for t in threads:
+        t.join(timeout=15)
+
+    assert not errors, f"concurrent close raised: {errors!r}"
+    # active file rotated away exactly once (empty-log unlink suppressed by
+    # ownership check after first close)
+    assert not (log_dir / "events.bin").exists()
+    assert len(_archives(log_dir)) == 1
+
+
+# --- FIX(t_5b65f607): ENOSPC / unwritable disk must not crash the node ---
+
+
+def test_append_enospc_drops_event_and_survives(
+    log_dir: Path, monkeypatch: pytest.MonkeyPatch
+):
+    """A full disk (ENOSPC) during append must not raise; the event is dropped
+    and subsequent appends still work once the disk is writable again."""
+    log = DiskEventLog(log_dir)
+    try:
+        # Simulate a full disk on the first append.
+        def failing_write(data: bytes) -> int:
+            raise OSError(errno.ENOSPC, "No space left on device")
+
+        monkeypatch.setattr(
+            log._file, "write", failing_write  # pyright: ignore[reportPrivateUsage]
+        )
+        log.append(TestEvent())  # must not raise
+
+        # Disk "recovered" — the real file handle still works.
+        monkeypatch.undo()
+        log.append(TestEvent())
+        restored = list(log.read_all())
+        assert len(restored) == 1
+    finally:
+        log.close()
+
+
+def test_append_eacces_erofs_dropped(
+    log_dir: Path, monkeypatch: pytest.MonkeyPatch
+):
+    """EACCES / EROFS during append are treated like ENOSPC (drop, survive)."""
+    for err in (errno.EACCES, errno.EROFS):
+        log = DiskEventLog(log_dir)
+        try:
+            def failing_write(data: bytes, _err: int = err) -> int:
+                raise OSError(_err, "unwritable")
+
+            monkeypatch.setattr(
+                log._file, "write", failing_write  # pyright: ignore[reportPrivateUsage]
+            )
+            log.append(TestEvent())  # must not raise
+        finally:
+            monkeypatch.undo()
+            log.append(TestEvent())
+            assert len(log) == 1
+            log.close()
+
+
+def test_append_other_oserror_still_raises(
+    log_dir: Path, monkeypatch: pytest.MonkeyPatch
+):
+    """Non-disk OSErrors (e.g. EINVAL) must still propagate — we only swallow
+    disk-full / permission-class failures."""
+    log = DiskEventLog(log_dir)
+    try:
+        def failing_write(data: bytes) -> int:
+            raise OSError(errno.EINVAL, "Invalid argument")
+
+        monkeypatch.setattr(
+            log._file, "write", failing_write  # pyright: ignore[reportPrivateUsage]
+        )
+        with pytest.raises(OSError):
+            log.append(TestEvent())
+    finally:
+        monkeypatch.undo()
+        log.close()
+
+
+def test_close_enospc_does_not_crash(
+    log_dir: Path, monkeypatch: pytest.MonkeyPatch
+):
+    """close() during a full disk must not raise (rotation failure is
+    swallowed with a warning; the active file is left in place)."""
+    log = DiskEventLog(log_dir)
+    log.append(TestEvent())
+
+    def failing_rotate(source: object, directory: object) -> None:
+        raise OSError(errno.ENOSPC, "No space left on device")
+
+    monkeypatch.setattr(DiskEventLog, "_rotate", staticmethod(failing_rotate))
+    try:
+        log.close()  # must not raise
+    finally:
+        monkeypatch.undo()
+
+    # The active file remains (not rotated, not deleted).
+    assert (log_dir / "events.bin").exists()

@@ -8,6 +8,7 @@ private let hfEndpointKey = "EXOHFEndpoint"
 private let enableImageModelsKey = "EXOEnableImageModels"
 private let offlineModeKey = "EXOOfflineMode"
 private let fastSynchEnabledKey = "EXOFastSynchEnabled"
+private let autoRestartChildKey = "EXOAutoRestartChild"
 private let onboardingCompletedKey = "EXOOnboardingCompleted"
 private let openDashboardOnLaunchKey = "EXOOpenDashboardOnLaunch"
 private let defaultModelsDirKey = "EXODefaultModelsDir"
@@ -111,6 +112,22 @@ final class ExoProcessController: ObservableObject {
             UserDefaults.standard.set(fastSynchEnabled, forKey: fastSynchEnabledKey)
         }
     }
+    /// FIX(t_5b65f607): automatically relaunch the exo child process when it
+    /// terminates unexpectedly (e.g. the 2026-09-14 ENOSPC crash on mini1).
+    /// The Swift app shell used to survive while the exo engine stayed dead —
+    /// perceived as "app auto-shutdown with no errors". Default ON; the user
+    /// can disable it in Settings (EXOAutoRestartChild).
+    @Published var autoRestartChild: Bool = {
+        if UserDefaults.standard.object(forKey: autoRestartChildKey) == nil {
+            return true
+        }
+        return UserDefaults.standard.bool(forKey: autoRestartChildKey)
+    }()
+    {
+        didSet {
+            UserDefaults.standard.set(autoRestartChild, forKey: autoRestartChildKey)
+        }
+    }
     /// When true, the welcome popout auto-opens the web dashboard after its
     /// countdown. Default OFF — the popout still appears, but the browser
     /// stays closed unless the user clicks "Open" or enables this in Settings.
@@ -188,6 +205,11 @@ final class ExoProcessController: ObservableObject {
     private var pendingLaunchTask: Task<Void, Never>?
     private var stderrTail = ""  // last ~8KB of child stderr for failure diagnosis
 
+    /// FIX(t_5b65f607): auto-relaunch state for the exo child process.
+    private var childStartDate: Date?
+    private var manuallyStopped = false
+    private var relaunchCount = 0
+
     func launchIfNeeded() {
         guard process?.isRunning != true else { return }
         launch()
@@ -224,7 +246,13 @@ final class ExoProcessController: ObservableObject {
             child.terminationHandler = { [weak self] proc in
                 Task { @MainActor in
                     guard let self else { return }
+                    let exitCode = proc.terminationStatus
+                    let wasRunningLongEnough = self.childStartDate.map {
+                        Date().timeIntervalSince($0) >= 10
+                    } ?? false
                     self.process = nil
+                    self.childStartDate = nil
+
                     switch self.status {
                     case .stopped:
                         break
@@ -232,16 +260,44 @@ final class ExoProcessController: ObservableObject {
                         break
                     default:
                         let reason = self.extractStartupFailureReason(
-                            exitCode: proc.terminationStatus
+                            exitCode: exitCode
                         )
                         self.status = .failed(message: reason)
                         self.lastError = reason
+
+                        // FIX(t_5b65f607): auto-relaunch the exo child when it
+                        // dies unexpectedly (e.g. ENOSPC disk-full crash), the
+                        // same way a well-behaved service manager would. Avoid
+                        // relaunch storms: only relaunch if the child had been
+                        // running ≥10s (a sub-10s crash is a startup failure the
+                        // user should fix, not something to retry blindly), and
+                        // cap the number of automatic relaunches with backoff.
+                        if self.autoRestartChild
+                            && !self.manuallyStopped
+                            && wasRunningLongEnough
+                        {
+                            let delays: [TimeInterval] = [0, 10, 30, 60, 120]
+                            let attempt = self.relaunchCount
+                            guard attempt < delays.count else {
+                                self.relaunchCount = 0
+                                self.status = .failed(
+                                    message: reason + " (auto-restart exhausted)"
+                                )
+                                return
+                            }
+                            self.relaunchCount += 1
+                            let delay = delays[attempt]
+                            self.scheduleLaunch(after: delay)
+                        }
                     }
                 }
             }
 
             try child.run()
             process = child
+            childStartDate = Date()
+            manuallyStopped = false
+            relaunchCount = 0
             status = .running
 
             // Show welcome popout on every launch
@@ -323,6 +379,8 @@ final class ExoProcessController: ObservableObject {
             status = .stopped
             return
         }
+        // FIX(t_5b65f607): a manual stop must never trigger auto-relaunch.
+        manuallyStopped = true
         process.terminationHandler = nil
         status = .stopped
 

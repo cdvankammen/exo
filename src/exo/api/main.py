@@ -2631,7 +2631,14 @@ class API:
     async def _apply_state(self):
         with self.event_receiver as events:
             async for i_event in events:
-                self._event_log.append(i_event.event)
+                # FIX(t_5b65f607): an event-log write failure (e.g. ENOSPC) must
+                # never take down the whole API node. The log is a convenience
+                # facade over cluster state — drop the write, keep applying state.
+                try:
+                    self._event_log.append(i_event.event)
+                except Exception:
+                    logger.exception("Failed to persist event to disk log; continuing")
+
                 self.state = apply(self.state, i_event)
                 event = i_event.event
 

@@ -1,6 +1,9 @@
 import contextlib
+import errno
 import json
 import os
+import threading
+import time
 from collections import OrderedDict
 from collections.abc import Iterator
 from datetime import datetime, timezone
@@ -68,6 +71,12 @@ class DiskEventLog:
 
     Uses a bounded LRU cache of event index → byte offset for efficient
     random access without storing an offset per event.
+
+    NOT thread-safe: the internal file handle, ``_count``, and the offset
+    cache are mutated by ``append``/``read_all``/``read_range``/``close``.
+    Concurrent access from multiple threads (e.g. a FastAPI sync route in
+    the uvicorn threadpool while the anyio event loop appends) must be
+    serialized by the caller, or guarded with the internal ``_lock``.
     """
 
     def __init__(self, directory: Path) -> None:
@@ -76,6 +85,7 @@ class DiskEventLog:
         self._active_path = directory / "events.bin"
         self._offset_cache: OrderedDict[int, int] = OrderedDict()
         self._count: int = 0
+        self._lock = threading.RLock()
 
         # Rotate stale active file from a previous session/crash
         if self._active_path.exists():
@@ -84,6 +94,10 @@ class DiskEventLog:
         self._file: BufferedRandom = open(self._active_path, "w+b")  # noqa: SIM115
         file_stat = os.fstat(self._file.fileno())
         self._active_file_id = (file_stat.st_dev, file_stat.st_ino)
+
+        # Rate-limited warning state for ENOSPC/unwritable event log (FIX t_5b65f607)
+        self._last_io_warning_at = 0.0
+        self._io_warning_interval = 5.0  # seconds
 
     def _cache_offset(self, idx: int, offset: int) -> None:
         self._offset_cache[idx] = offset
@@ -114,44 +128,65 @@ class DiskEventLog:
         self._cache_offset(target_idx, f.tell())
 
     def append(self, event: Event) -> None:
-        packed = _serialize_event(event)
-        self._file.write(len(packed).to_bytes(_HEADER_SIZE, byteorder="big"))
-        self._file.write(packed)
-        self._count += 1
+        with self._lock:
+            packed = _serialize_event(event)
+            try:
+                self._file.write(len(packed).to_bytes(_HEADER_SIZE, byteorder="big"))
+                self._file.write(packed)
+                self._count += 1
+            except OSError as e:
+                # FIX(t_5b65f607): a full disk or unwritable event-log path must
+                # NOT kill the whole exo node. Drop the event with a warning and
+                # keep the process alive; the log is a convenience facade over
+                # cluster state, not a correctness-critical store. Errors are
+                # rate-limited to prevent log spam when the condition persists.
+                if e.errno in {errno.ENOSPC, errno.EACCES, errno.EROFS}:
+                    now = time.monotonic()
+                    if now - self._last_io_warning_at > self._io_warning_interval:
+                        logger.warning(
+                            f"DiskEventLog append failed ({e.errno} {e.strerror}); "
+                            "dropping event and continuing (exo stays alive)"
+                        )
+                        self._last_io_warning_at = now
+                    return
+                raise
 
     def read_range(self, start: int, end: int) -> Iterator[Event]:
         """Yield events from index start (inclusive) to end (exclusive)."""
-        end = min(end, self._count)
-        if start < 0 or end < 0 or start >= end:
-            return
+        with self._lock:
+            end = min(end, self._count)
+            if start < 0 or end < 0 or start >= end:
+                return
 
-        self._file.flush()
-        with open(self._active_path, "rb") as f:
-            self._seek_to(f, start)
-            for _ in range(end - start):
-                event = _read_record(f)
-                if event is None:
-                    break
-                yield event
+            self._file.flush()
+            with open(self._active_path, "rb") as f:
+                self._seek_to(f, start)
+                for _ in range(end - start):
+                    event = _read_record(f)
+                    if event is None:
+                        break
+                    yield event
 
-            # Cache where we ended up so the next sequential read is a hit
-            if end < self._count:
-                self._cache_offset(end, f.tell())
+                # Cache where we ended up so the next sequential read is a hit
+                if end < self._count:
+                    self._cache_offset(end, f.tell())
 
     def read_all(self) -> Iterator[Event]:
         """Yield all events from the log one at a time."""
-        if self._count == 0:
-            return
-        self._file.flush()
-        with open(self._active_path, "rb") as f:
-            for _ in range(self._count):
-                event = _read_record(f)
-                if event is None:
-                    break
-                yield event
+        with self._lock:
+            if self._count == 0:
+                return
+            self._file.flush()
+            with open(self._active_path, "rb") as f:
+                for _ in range(self._count):
+                    event = _read_record(f)
+                    if event is None:
+                        break
+                    yield event
 
     def __len__(self) -> int:
-        return self._count
+        with self._lock:
+            return self._count
 
     def _owns_active_path(self) -> bool:
         """Whether the active path still refers to the file this log opened.
@@ -168,9 +203,18 @@ class DiskEventLog:
 
     def close(self) -> None:
         """Close the file and rotate active file to compressed archive."""
-        if self._file.closed:
-            return
-        self._file.close()
+        with self._lock:
+            if self._file.closed:
+                return
+            try:
+                self._file.close()
+            except OSError as e:
+                # FIX(t_5b65f607): never let a broken handle or full disk turn
+                # shutdown into a crash.  At close() time there is nothing to
+                # recover — swallow and continue.
+                logger.warning(
+                    f"DiskEventLog close failed ({e.errno} {e.strerror}); continuing"
+                )
         if not self._owns_active_path():
             logger.warning(
                 f"Not rotating event log {self._active_path}: it no longer refers "
@@ -178,7 +222,16 @@ class DiskEventLog:
             )
             return
         if self._count > 0:
-            self._rotate(self._active_path, self._directory)
+            try:
+                self._rotate(self._active_path, self._directory)
+            except OSError as e:
+                # FIX(t_5b65f607): a full disk or broken handle during shutdown
+                # must not crash — leave the active file in place and continue.
+                logger.warning(
+                    f"DiskEventLog rotation failed ({e.errno} {e.strerror}); "
+                    "leaving active file in place"
+                )
+                return
         else:
             self._active_path.unlink()
 

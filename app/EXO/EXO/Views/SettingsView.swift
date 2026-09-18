@@ -16,6 +16,7 @@ struct SettingsView: View {
     @State private var pendingEnableImageModels = false
     @State private var pendingOfflineMode = false
     @State private var pendingFastSynchEnabled = false
+    @State private var pendingAutoRestartChild = false
     @State private var pendingOpenDashboardOnLaunch = false
     @State private var pendingDefaultModelsDir: String = ""
     @State private var pendingAdditionalModelsDirs: String = ""
@@ -56,6 +57,7 @@ struct SettingsView: View {
             pendingEnableImageModels = controller.enableImageModels
             pendingOfflineMode = controller.offlineMode
             pendingFastSynchEnabled = controller.fastSynchEnabled
+            pendingAutoRestartChild = controller.autoRestartChild
             pendingOpenDashboardOnLaunch = controller.openDashboardOnLaunch
             pendingDefaultModelsDir = controller.defaultModelsDir
             pendingAdditionalModelsDirs = controller.additionalModelsDirs
@@ -164,6 +166,13 @@ struct SettingsView: View {
                 Toggle("Fast Synch Enabled", isOn: $pendingFastSynchEnabled)
                 Text(
                     "Experimental: enables fast CPU to GPU synchronization. Can sometimes cause a \"GPU lock\" where inference hangs for ~10 seconds before starting. Necessary for low latency with RDMA and Tensor Parallelism."
+                )
+                .font(.caption)
+                .foregroundColor(.secondary)
+
+                Toggle("Auto-Restart exo on Unexpected Exit", isOn: $pendingAutoRestartChild)
+                Text(
+                    "FIX(t_5b65f607): If the exo engine process crashes (e.g. disk full), the app automatically relaunches it with backoff instead of staying dead."
                 )
                 .font(.caption)
                 .foregroundColor(.secondary)
@@ -643,6 +652,7 @@ struct SettingsView: View {
 
     private var hasAdvancedChanges: Bool {
         pendingFastSynchEnabled != controller.fastSynchEnabled
+            || pendingAutoRestartChild != controller.autoRestartChild
     }
 
     private var hasEnvironmentChanges: Bool {
@@ -669,6 +679,7 @@ struct SettingsView: View {
 
     private func applyAdvancedSettings() {
         controller.fastSynchEnabled = pendingFastSynchEnabled
+        controller.autoRestartChild = pendingAutoRestartChild
         restartIfRunning()
     }
 

@@ -5,7 +5,7 @@ Owns per-module level configuration, log rotation/compression, and the intercept
 import logging
 import os
 import sys
-from collections.abc import Callable, Iterator
+from collections.abc import Callable
 from pathlib import Path
 from typing import Protocol, cast
 
@@ -134,10 +134,12 @@ def _zstd_compress(filepath: str) -> None:
     source.unlink()
 
 
-def _once_then_never() -> Iterator[bool]:
-    yield True
-    while True:
-        yield False
+# FIX(t_5b65f607): exo.log previously used `_once_then_never()` as the loguru
+# rotation callback - the file rotated exactly ONCE per process, then grew
+# without bound. Combined with validation-error spam this filled the disk and
+# OSError 28 killed the node (2026-09-14 20:55:29 on mini1). Rotation is now
+# size-based (256 MiB) so a runaway log is bounded before it can exhaust disk.
+_LOG_ROTATION_BYTES = 256 * 1024 * 1024  # 256 MiB
 
 
 class InterceptLogger(HypercornLogger):
@@ -200,7 +202,15 @@ def logger_setup(log_file: Path | None, verbosity: int = 0):
         diagnose=False,
     )
     if log_file:
-        rotate_once = _once_then_never()
+        # FIX(t_5b65f607): replace one-shot rotation with a size predicate so
+        # exo.log is bounded even when validation-error spam drives it to GBs.
+        # loguru calls `rotation(message, record)` when a new message arrives;
+        # if it returns True the current file is rotated. We check file size.
+        import pathlib as _pl
+
+        def _size_rotation(_msg: object, _rec: object) -> bool:
+            return _pl.Path(str(log_file)).stat().st_size > _LOG_ROTATION_BYTES
+
         logger.add(
             log_file,
             format="[ {time:YYYY-MM-DD HH:mm:ss.SSS} | {level: <8} | {name}:{function}:{line} ] {message}",
