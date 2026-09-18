@@ -11,6 +11,7 @@ from exo.shared.types.commands import ForwarderCommand, ForwarderDownloadCommand
 from exo.shared.types.events import (
     GlobalForwarderEvent,
     LocalForwarderEvent,
+    PrefixIndexEvent,
 )
 from exo.utils.pydantic_ext import FrozenModel
 
@@ -52,4 +53,7 @@ CONNECTION_MESSAGES = TypedTopic(
 )
 DOWNLOAD_COMMANDS = TypedTopic(
     "download_commands", PublishPolicy.Always, ForwarderDownloadCommand
+)
+PREFIX_INDEX = TypedTopic(
+    "prefix_index", PublishPolicy.Always, PrefixIndexEvent
 )

@@ -146,6 +146,24 @@ class InstanceLinkDeleted(BaseEvent):
     link_id: InstanceLinkId
 
 
+class PrefixIndexEvent(BaseEvent):
+    """Cluster-wide prefix-cache index event (advisory, compact).
+
+    Published by a runner after it caches a prompt prefix (add/update of
+    the KV prefix cache), and absorbed by the worker-side
+    ``ClusterPrefixIndex`` (see ``exo.worker.engines.mlx.cluster_cache``).
+    Carries only hashes + lengths + identity — never KV tensors.
+    """
+
+    model_hash: str
+    chunks: tuple[str, ...]
+    token_count: int
+    node_id: str
+    instance_id: str
+    last_used: float = Field(default_factory=lambda: 0.0)
+    hits: int = 0
+
+
 Event = (
     TestEvent
     | TaskCreated
@@ -169,6 +187,7 @@ Event = (
     | CustomModelCardDeleted
     | InstanceLinkCreated
     | InstanceLinkDeleted
+    | PrefixIndexEvent
 )
 
 

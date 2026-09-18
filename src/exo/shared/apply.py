@@ -21,10 +21,10 @@ from exo.shared.types.events import (
     InstanceDeleted,
     InstanceLinkCreated,
     InstanceLinkDeleted,
-    MasterHeartbeat,
     NodeDownloadProgress,
     NodeGatheredInfo,
     NodeTimedOut,
+    PrefixIndexEvent,
     RunnerStatusUpdated,
     TaskAcknowledged,
     TaskCreated,
@@ -95,7 +95,7 @@ def event_apply(event: Event, state: State) -> State:
             | InputChunkReceived()
             | TracesCollected()
             | TracesMerged()
-            | MasterHeartbeat()
+            | PrefixIndexEvent()
         ):  # Pass-through events that don't modify state
             return state
         case CustomModelCardAdded():

@@ -3,6 +3,7 @@
 :class:`BaseTask` and subclasses for generation, downloads, model loading, group connect, warmup, cancellation, and shutdown."""
 
 from enum import Enum
+from typing import Any
 
 from pydantic import Field
 
@@ -114,6 +115,20 @@ class Shutdown(BaseTask):  # emitted by Worker
     runner_id: RunnerId
 
 
+class PrefixIndexSnapshotTask(BaseTask):  # emitted by Worker
+    """Event-sourced snapshot of the cluster-wide prefix index.
+
+    The worker maintains the authoritative :class:`ClusterPrefixIndex`
+    (fed by ``PrefixIndexEvent`` from the global event stream) and pushes a
+    compact snapshot down to each runner so the runner's local advisory
+    index is eventually consistent with the cluster. The runner consumes
+    this on startup and on refresh; this task is never sent to the master.
+    """
+
+    descriptors: list[dict[str, Any]]
+    """Snapshot of the index entries (see PrefixDescriptor.to_dict)."""
+
+
 Task = (
     CreateRunner
     | DownloadModel
@@ -125,6 +140,7 @@ Task = (
     | ImageGeneration
     | ImageEdits
     | Shutdown
+    | PrefixIndexSnapshotTask
 )
 TextTask = TextGeneration
 ImageTask = ImageGeneration | ImageEdits
