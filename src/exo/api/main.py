@@ -435,6 +435,48 @@ def _check_input_length(
         )
 
 
+def _check_responses_input_length(
+    request: ResponsesRequest,
+) -> None:
+    """Apply the input length guard to a Responses API request.
+
+    The Responses API carries its prompt in ``request.input`` (a string or a
+    list of input items) plus optional ``instructions``.  Both count toward
+    the prefill, so both are included in the character estimate.  Text parts
+    are counted; image parts are skipped (images bypass the token-based
+    prefill path, matching ``_estimate_message_chars``).
+    """
+    total_chars = 0
+    if isinstance(request.input, str):
+        total_chars += len(request.input)
+    else:
+        for item in request.input:
+            content = getattr(item, "content", None)
+            if isinstance(content, str):
+                total_chars += len(content)
+            elif isinstance(content, list):
+                for part in content:
+                    text = getattr(part, "text", None)
+                    if isinstance(text, str):
+                        total_chars += len(text)
+    if request.instructions:
+        total_chars += len(request.instructions)
+    est_tokens = max(1, total_chars // max(EXO_CHARS_PER_TOKEN, 1))
+    if est_tokens > EXO_MAX_INPUT_TOKENS:
+        raise ApiError(
+            status_code=400,
+            detail=(
+                f"Input too long: estimated {est_tokens:,} tokens "
+                f"(character limit exceeded: {total_chars:,} chars > "
+                f"{EXO_MAX_INPUT_TOKENS * EXO_CHARS_PER_TOKEN:,}). "
+                f"Reduce the input or set EXO_MAX_INPUT_TOKENS higher."
+            ),
+            error_code="INPUT_TOO_LONG",
+        )
+
+
+
+
 def _require_disaggregation_enabled() -> None:
     if not ENABLE_DISAGGREGATION:
         raise HTTPException(
@@ -2152,6 +2194,10 @@ class API:
         self, payload: ResponsesRequest
     ) -> ResponsesResponse | StreamingResponse:
         """OpenAI Responses API."""
+        # GitHub #560: reject oversized inputs before they reach the runner.
+        # The Responses API carries the prompt in `input` (string or item
+        # list) plus optional instructions; both count toward the prefill.
+        _check_responses_input_length(payload)
         task_params = await responses_request_to_text_generation(payload)
         validated_model = await self._validate_model_has_instance(task_params.model)
         task_params = task_params.model_copy(update={"model": validated_model})

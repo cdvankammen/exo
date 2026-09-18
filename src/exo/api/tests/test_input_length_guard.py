@@ -12,8 +12,16 @@ import pytest
 from exo.api.main import (
     ApiError,
     _check_input_length,
+    _check_responses_input_length,
     _estimate_message_chars,
 )
+from exo.api.types.openai_responses import (
+    ResponseInputItem,
+    ResponseInputMessage,
+    ResponseInputTextPart,
+    ResponsesRequest,
+)
+from exo.shared.types.common import ModelId
 
 
 # ---------------------------------------------------------------------------
@@ -109,3 +117,70 @@ class TestCheckInputLength:
         with pytest.raises(ApiError) as exc_info:
             _check_input_length(msgs)
         assert exc_info.value.error_code == "INPUT_TOO_LONG"
+
+
+# ---------------------------------------------------------------------------
+# _check_responses_input_length (OpenAI Responses API, /v1/responses)
+# ---------------------------------------------------------------------------
+
+class TestCheckResponsesInputLength:
+    _MODEL = ModelId("test-model")
+
+    def _request(
+        self,
+        input_: str | list[ResponseInputItem],
+        instructions: str | None = None,
+    ) -> ResponsesRequest:
+        return ResponsesRequest(model=self._MODEL, input=input_, instructions=instructions)
+
+    def test_short_string_input_passes(self) -> None:
+        _check_responses_input_length(self._request("Hello"))
+
+    def test_empty_string_input_passes(self) -> None:
+        _check_responses_input_length(self._request(""))
+
+    def test_short_message_list_passes(self) -> None:
+        items: list[ResponseInputItem] = [
+            ResponseInputMessage(role="user", content="Figure it out")
+        ]
+        req = self._request(items)
+        _check_responses_input_length(req)
+
+    def test_oversized_string_input_raises(self) -> None:
+        req = self._request("x" * 600_000)
+        with pytest.raises(ApiError) as exc_info:
+            _check_responses_input_length(req)
+        assert exc_info.value.status_code == 400
+        assert exc_info.value.error_code == "INPUT_TOO_LONG"
+        assert "Input too long" in exc_info.value.detail
+
+    def test_oversized_structured_input_raises(self) -> None:
+        """Structured input items must count toward the limit."""
+        items: list[ResponseInputItem] = [
+            ResponseInputMessage(
+                role="user", content=[ResponseInputTextPart(text="y" * 600_000)]
+            )
+        ]
+        req = self._request(items)
+        with pytest.raises(ApiError) as exc_info:
+            _check_responses_input_length(req)
+        assert exc_info.value.error_code == "INPUT_TOO_LONG"
+
+    def test_instructions_count_toward_limit(self) -> None:
+        """Optional instructions text also feeds the prefill and must count."""
+        # Just under the limit with input alone...
+        req = self._request("x" * 400_000)
+        _check_responses_input_length(req)  # 100k tokens, OK
+        # ...but instructions push it over.
+        req = self._request("x" * 400_000, instructions="y" * 200_000)
+        with pytest.raises(ApiError) as exc_info:
+            _check_responses_input_length(req)
+        assert exc_info.value.error_code == "INPUT_TOO_LONG"
+
+    def test_image_parts_skipped(self) -> None:
+        """Image parts bypass the token-based prefill path and are not counted."""
+        items: list[ResponseInputItem] = [
+            ResponseInputMessage(role="user", content="short text")
+        ]
+        req = self._request(items, instructions=None)
+        _check_responses_input_length(req)  # passes
