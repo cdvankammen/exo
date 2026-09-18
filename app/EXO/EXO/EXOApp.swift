@@ -74,6 +74,11 @@ struct EXOApp: App {
                 .onReceive(controller.$isFirstLaunchReady) { [weak controller] ready in
                     if ready {
                         guard let controller else { return }
+                        // Keep the unwrapped controller in a stable local so the
+                        // capture checker sees ONE consistent ownership (the
+                        // inner asyncAfter closure must not strongly recapture
+                        // while the outer scope declared weak).
+                        let strongController = controller
                         // Onboarding popout only ever shows once (first-ever
                         // launch). On every later launch, don't reshow it —
                         // but still honor "Open Dashboard on Launch" if the
@@ -84,12 +89,13 @@ struct EXOApp: App {
                             }
                             return
                         }
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
-                            self.firstLaunchPopout.onComplete = { [weak controller] in
-                                controller?.markOnboardingCompleted()
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) { [weak strongController] in
+                            guard let strongController else { return }
+                            self.firstLaunchPopout.onComplete = { [weak strongController] in
+                                strongController?.markOnboardingCompleted()
                             }
                             self.firstLaunchPopout.show(
-                                autoOpenDashboard: controller.openDashboardOnLaunch
+                                autoOpenDashboard: strongController.openDashboardOnLaunch
                             )
                         }
                     }
