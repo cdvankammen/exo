@@ -6,6 +6,7 @@ from exo.master.placement import (
     _rotate_metal_to_middle,  # type: ignore[reportPrivateUsage]
     get_transition_events,
     place_instance,
+    should_prefer_single_node,
 )
 from exo.master.placement_utils import get_mlx_jaccl_devices_matrix
 from exo.master.tests.conftest import (
@@ -28,6 +29,7 @@ from exo.shared.types.memory import Memory
 from exo.shared.types.multiaddr import Multiaddr
 from exo.shared.types.profiling import (
     NetworkInterfaceInfo,
+    NodeIdentity,
     NodeNetworkInfo,
     NodeRdmaCtlStatus,
 )
@@ -1813,6 +1815,200 @@ def test_pipeline_prefers_single_node_when_memory_sufficient(
     instance = list(placements.values())[0]
     assert len(instance.shard_assignments.node_to_runner) == 1
     assert node_a in instance.shard_assignments.node_to_runner
+
+
+def test_should_prefer_single_node_true_when_model_fits_fastest_node(
+    model_card: ModelCard,
+) -> None:
+    """Section 4.2: a model that fits the fastest node should prefer single-node.
+
+    The fastest node (by chip bandwidth) has enough memory to hold the whole
+    model, so Tensor parallelism's network all-gather overhead is not worth
+    it — the heuristic must return True.
+    """
+    node_a = NodeId()
+    node_b = NodeId()
+    node_memory = {
+        # node_b (the fastest chip) can hold the model; node_a (a slow chip)
+        # cannot. The heuristic keys on the fastest node that fits.
+        node_a: create_node_memory(100),  # too small
+        node_b: create_node_memory(1_000_000),
+    }
+    node_identities = {
+        node_a: NodeIdentity(model_id="M3", chip_id="M3", friendly_name="slow"),
+        node_b: NodeIdentity(model_id="M4 Max", chip_id="M4 Max", friendly_name="fast"),
+    }
+
+    assert should_prefer_single_node(model_card, node_memory, node_identities) is True
+
+
+def test_should_prefer_single_node_false_when_no_single_node_fits(
+    model_card: ModelCard,
+) -> None:
+    """When no node can hold the whole model, TP is genuinely needed → False."""
+    node_a = NodeId()
+    node_b = NodeId()
+    node_memory = {
+        node_a: create_node_memory(100),
+        node_b: create_node_memory(100),
+    }
+    node_identities = {
+        node_a: NodeIdentity(model_id="M4 Max", chip_id="M4 Max"),
+        node_b: NodeIdentity(model_id="M4 Max", chip_id="M4 Max"),
+    }
+
+    assert should_prefer_single_node(model_card, node_memory, node_identities) is False
+
+
+def test_should_prefer_single_node_false_without_node_identities(
+    model_card: ModelCard,
+) -> None:
+    """Without node identities the heuristic must not silently fire.
+
+    ``node_identities`` is the bandwidth signal; when the caller has not
+    supplied it (e.g. tests, early cluster), the conservative answer is
+    False — keep existing multi-node Tensor behaviour.
+    """
+    node_a = NodeId()
+    node_memory = {node_a: create_node_memory(1_000_000)}
+
+    assert should_prefer_single_node(model_card, node_memory, None) is False
+
+
+def test_tensor_prefers_single_node_when_model_fits_fastest_node(
+    model_card: ModelCard,
+) -> None:
+    """P1 #42: Tensor should downgrade to a single-node Pipeline when the
+    model fits the fastest node.
+
+    This is the end-to-end placement behaviour for the Section 4.2 heuristic:
+    with identities present and min_nodes=1 (the API's automatic
+    instance-combination loop), a model that fits one node must come back as
+    a 1-node Pipeline instance instead of a multi-node Tensor placement.
+    """
+    topology, node_a, node_b = _create_two_node_ring()
+    model_card = model_card.model_copy(
+        update={"storage_size": Memory.from_bytes(1000)}
+    )
+    node_memory = {
+        # node_a has more memory than node_b, so when both are same-speed by
+        # identity, the fastest/fitting node is node_a and we expect it alone.
+        node_a: create_node_memory(1_000_000),
+        node_b: create_node_memory(1_000_000),
+    }
+    node_network = {node_a: create_node_network(), node_b: create_node_network()}
+    node_identities = {
+        node_a: NodeIdentity(model_id="M4 Max", chip_id="M4 Max"),
+        node_b: NodeIdentity(model_id="M4 Max", chip_id="M4 Max"),
+    }
+
+    command = PlaceInstance(
+        command_id=CommandId(),
+        model_card=model_card,
+        sharding=Sharding.Tensor,
+        instance_meta=InstanceMeta.MlxRing,
+        min_nodes=1,
+    )
+
+    placements = place_instance(
+        command,
+        topology,
+        {},
+        node_memory,
+        node_network,
+        _metal_only(node_memory),
+        node_identities=node_identities,
+    )
+
+    assert len(placements) == 1
+    instance = list(placements.values())[0]
+    assert len(instance.shard_assignments.node_to_runner) == 1
+    assert node_a in instance.shard_assignments.node_to_runner
+
+
+def test_tensor_keeps_multi_node_when_model_does_not_fit_single_node(
+    model_card: ModelCard,
+) -> None:
+    """Tensor stays multi-node when no single node can hold the model."""
+    topology, node_a, node_b = _create_two_node_ring()
+    model_card = model_card.model_copy(
+        update={"storage_size": Memory.from_bytes(1000)}
+    )
+    node_memory = {
+        node_a: create_node_memory(600),
+        node_b: create_node_memory(600),
+    }
+    node_network = {node_a: create_node_network(), node_b: create_node_network()}
+    node_identities = {
+        node_a: NodeIdentity(model_id="M4 Max", chip_id="M4 Max"),
+        node_b: NodeIdentity(model_id="M4 Max", chip_id="M4 Max"),
+    }
+
+    command = PlaceInstance(
+        command_id=CommandId(),
+        model_card=model_card,
+        sharding=Sharding.Tensor,
+        instance_meta=InstanceMeta.MlxRing,
+        min_nodes=1,
+    )
+
+    placements = place_instance(
+        command,
+        topology,
+        {},
+        node_memory,
+        node_network,
+        _metal_only(node_memory),
+        node_identities=node_identities,
+    )
+
+    # Model does not fit one node → the heuristic is False → true multi-node
+    # Tensor placement with both nodes (hidden_size=30 divisible by 2).
+    assert len(placements) == 1
+    instance = list(placements.values())[0]
+    assert len(instance.shard_assignments.node_to_runner) == 2
+
+
+def test_tensor_explicit_multi_node_min_nodes_2_not_downgraded(
+    model_card: ModelCard,
+) -> None:
+    """When the user explicitly asks for multi-node Tensor (min_nodes=2),
+    the single-node heuristic must not override their choice."""
+    topology, node_a, node_b = _create_two_node_ring()
+    model_card = model_card.model_copy(
+        update={"storage_size": Memory.from_bytes(1000)}
+    )
+    node_memory = {
+        node_a: create_node_memory(1_000_000),
+        node_b: create_node_memory(1_000_000),
+    }
+    node_network = {node_a: create_node_network(), node_b: create_node_network()}
+    node_identities = {
+        node_a: NodeIdentity(model_id="M4 Max", chip_id="M4 Max"),
+        node_b: NodeIdentity(model_id="M4 Max", chip_id="M4 Max"),
+    }
+
+    command = PlaceInstance(
+        command_id=CommandId(),
+        model_card=model_card,
+        sharding=Sharding.Tensor,
+        instance_meta=InstanceMeta.MlxRing,
+        min_nodes=2,
+    )
+
+    placements = place_instance(
+        command,
+        topology,
+        {},
+        node_memory,
+        node_network,
+        _metal_only(node_memory),
+        node_identities=node_identities,
+    )
+
+    assert len(placements) == 1
+    instance = list(placements.values())[0]
+    assert len(instance.shard_assignments.node_to_runner) == 2
 
 
 def test_tensor_requested_on_single_node_raises_not_silent_downgrade(

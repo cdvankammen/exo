@@ -5,17 +5,20 @@ from typing import Sequence
 from exo.master.placement_utils import (
     Cycle,
     assign_shard_backends,
+    estimate_memory_bandwidth_gigabytes_per_second,
     estimate_ring_node_memory,
     filter_cycles_by_memory,
     filter_cycles_by_replicated_memory,
     get_mlx_jaccl_coordinators,
     get_mlx_jaccl_devices_matrix,
     get_mlx_ring_hosts_by_node,
+    get_link_bandwidths_for_cycle,
     get_shard_assignments,
     get_smallest_cycles,
 )
+from exo.shared.types.profiling import MemoryUsage, NodeIdentity
 from exo.shared.constants import EXO_ACTIVATION_MEMORY_FRACTION
-from exo.shared.models.model_cards import ModelId
+from exo.shared.models.model_cards import ModelCard, ModelId
 from exo.shared.topology import Topology
 from exo.shared.types.backends import Backend
 from exo.shared.types.commands import (
@@ -111,6 +114,62 @@ def _cycle_download_score(
         _get_node_download_fraction(node_id, model_id, download_status)
         for node_id in cycle
     )
+
+
+def should_prefer_single_node(
+    model_card: ModelCard,
+    node_memory: Mapping[NodeId, MemoryUsage],
+    node_identities: Mapping[NodeId, NodeIdentity] | None = None,
+) -> bool:
+    """Decide if a model that *could* run as multi-node Tensor parallelism
+    should instead run on a single node (Pipeline) because TP's communication
+    overhead would dominate its per-step savings (github-issues-mining Section 4.2).
+
+    TP shards every layer across all ranks: per token, every rank must
+    all-gather activations over the network, so per-step latency is
+    (work / N) + (network sync). For a model small enough to fit one node,
+    the network sync term for N ranks is usually larger than the compute
+    saved, making single-node strictly faster. We therefore prefer the
+    single-node cycle whenever the *fastest* node that can hold the whole
+    model (by estimated memory bandwidth) has enough memory to fit it.
+
+    ``MemoryUsage``/``NodeIdentity`` mirror the P1 #35 (GitHub #957)
+    water-filling signal: estimated memory bandwidth (GB/s) per chip from
+    ``estimate_memory_bandwidth_gigabytes_per_second``. Nodes without a
+    reported identity never count as fastest (their speed is unknown), and
+    identities that lack a bandwidth-table entry fall back to available
+    inference memory as a throughput proxy.
+
+    Returns False when the model does not fit any single node (TP is
+    genuinely required), when identities/memory are absent, or when the
+    user explicitly requested a multi-node Tensor placement (``min_nodes``
+    is not visible here; callers gate on that).
+    """
+    if not node_memory or not node_identities:
+        # Without identity data we have no bandwidth signal: stay
+        # conservative and keep the caller's multi-node Tensor behaviour.
+        return False
+
+    def _node_speed(node_id: NodeId, usage: MemoryUsage) -> float:
+        identity = node_identities.get(node_id)
+        if identity is None:
+            # No identity reported for this node: speed unknown. Never treat
+            # an unknown-speed node as fastest — that would be guessing.
+            return float("-inf")
+        bandwidth = estimate_memory_bandwidth_gigabytes_per_second(identity)
+        if bandwidth is not None:
+            return bandwidth
+        # Identity present but no bandwidth table entry (e.g. an uncommon
+        # chip): fall back to available inference memory as the throughput
+        # proxy. This is still bounded by identity presence, so nodes without
+        # identities can never win the tiebreak.
+        return float(usage.inference_available.in_bytes)
+
+    fastest_node = max(
+        node_memory.keys(),
+        key=lambda node_id: _node_speed(node_id, node_memory[node_id]),
+    )
+    return node_memory[fastest_node].inference_available >= model_card.storage_size
 
 
 def _cycle_accelerator_score(
@@ -298,6 +357,27 @@ def place_instance(
         if not command.model_card.supports_tensor and not command.force_override:
             raise ValueError(
                 f"Requested Tensor sharding but this model does not support tensor parallelism: {command.model_card.model_id}"
+            )
+        # P1 #42: TP single-node heuristic (github-issues-mining-2026-09-01.md
+        # Section 4.2). TP over the network is slower than single-node for
+        # models small enough to fit one node — the all-gather sync per step
+        # outweighs splitting the work. When the user did not target a
+        # specific node count (min_nodes <= 1), a model that fits the
+        # fastest node should run as a single-node Pipeline instead.
+        prefer_single = (
+            not command.force_override
+            and command.min_nodes <= 1
+            and node_identities is not None
+            and should_prefer_single_node(
+                command.model_card, node_memory, node_identities
+            )
+        )
+        if prefer_single:
+            command = command.model_copy(
+                update={
+                    "sharding": Sharding.Pipeline,
+                    "instance_meta": InstanceMeta.MlxRing,
+                }
             )
         # TODO: the condition here for tensor parallel is not correct, but it works good enough for now.
         # DeepSeek V4 is MQA (num_key_value_heads=1) but its sharding strategy
@@ -490,6 +570,9 @@ def place_instance(
         force_override=command.force_override,
         node_identities=node_identities,
         node_layers=command.node_layers,
+        link_bandwidths=get_link_bandwidths_for_cycle(
+            topology, selected_cycle.node_ids
+        ),
     )
 
     preferred_backends = [
