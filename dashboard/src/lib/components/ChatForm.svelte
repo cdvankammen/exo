@@ -14,6 +14,8 @@
     removeFromQueue,
     updateQueuedMessage,
     moveQueuedMessage,
+    queueParallelism,
+    setQueueParallelism,
     samplingParams,
     setSamplingParam,
   } from "$lib/stores/app.svelte";
@@ -266,6 +268,10 @@
   const canSend = $derived(
     message.trim().length > 0 || uploadedFiles.length > 0,
   );
+  // T24-card: queue mode label. 1 = sequential (offline default), >1 parallel.
+  const queueModeLabel = $derived(
+    queueParallelism() === 1 ? "sequential" : `parallel ×${queueParallelism()}`,
+  );
 </script>
 
 <!-- Hidden file input -->
@@ -506,6 +512,21 @@
             <span class="whitespace-nowrap"
               >{pendingQueue().length} queued</span
             >
+            <span
+              class="whitespace-nowrap text-exo-light-gray/70"
+              title="Queue drain mode — sequential sends one response at a time (offline default), parallel streams up to the set concurrency"
+              >· {queueModeLabel}</span
+            >
+            <button
+              type="button"
+              onclick={() =>
+                setQueueParallelism(queueParallelism() === 1 ? 2 : 1)}
+              class="ml-1 px-1 rounded border border-exo-yellow/40 text-exo-yellow hover:bg-exo-yellow/10 transition-colors cursor-pointer"
+              title="Toggle sequential / parallel queue draining"
+              aria-label="Toggle sequential / parallel queue draining"
+            >
+              {queueParallelism() === 1 ? "⇄" : "⇶"}
+            </button>
           </div>
           {#each pendingQueue() as q, qi (q.id)}
             <div class="flex items-center gap-1 group">
@@ -572,8 +593,9 @@
         </div>
       {/if}
 
-      <!-- T27: sampling controls (temperature/top_p/top_k/seed/max_tokens).
-           null = use the model card default; persisted across sessions. -->
+      <!-- T27: sampling controls (temperature/top_p/top_k/seed/max_tokens/
+           logit_bias). null/empty = use the model card default; persisted
+           across sessions. -->
       <div class="relative">
         <button
           type="button"
@@ -637,6 +659,54 @@
                   );
                 }}
                 class="w-24 bg-exo-medium-gray/60 border border-exo-light-gray/20 rounded px-1.5 py-0.5 text-right text-exo-yellow focus:outline-none focus:border-exo-yellow/60"
+              />
+            </label>
+            <label
+              class="flex flex-col gap-1 text-[11px] font-mono text-exo-light-gray"
+            >
+              <span
+                >Logit bias
+                <span class="text-exo-light-gray/50"
+                  >&#123;"token": bias&#125; JSON</span
+                ></span
+              >
+              <input
+                type="text"
+                value={
+                  samplingParams().logitBias !== null
+                    ? JSON.stringify(samplingParams().logitBias)
+                    : ""
+                }
+                placeholder={'{"1": 5, "100": -2} — empty = default'}
+                oninput={(e) => {
+                  const v = (e.currentTarget as HTMLInputElement).value.trim();
+                  if (v === "") {
+                    setSamplingParam("logitBias", null);
+                    return;
+                  }
+                  try {
+                    const parsed = JSON.parse(v) as Record<string, unknown>;
+                    // Validate: plain object, token keys integer strings, values integers.
+                    if (
+                      typeof parsed !== "object" ||
+                      parsed === null ||
+                      Array.isArray(parsed)
+                    ) {
+                      return;
+                    }
+                    const clean: Record<string, number> = {};
+                    for (const [k, val] of Object.entries(parsed)) {
+                      if (!/^\d+$/.test(k)) return;
+                      if (typeof val !== "number" || !Number.isInteger(val))
+                        return;
+                      clean[k] = val;
+                    }
+                    setSamplingParam("logitBias", clean);
+                  } catch {
+                    // Invalid JSON — ignore until it parses
+                  }
+                }}
+                class="w-full bg-exo-medium-gray/60 border border-exo-light-gray/20 rounded px-1.5 py-0.5 text-right text-exo-yellow focus:outline-none focus:border-exo-yellow/60 font-mono"
               />
             </label>
           </div>

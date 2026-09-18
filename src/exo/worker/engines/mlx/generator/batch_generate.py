@@ -381,6 +381,7 @@ class ExoBatchGenerator:
 
         logits_processors: list[Callable[[mx.array, mx.array], mx.array]] = (
             make_logits_processors(
+                logit_bias=task_params.logit_bias,
                 repetition_penalty=task_params.repetition_penalty,
                 repetition_context_size=task_params.repetition_context_size
                 if task_params.repetition_context_size is not None

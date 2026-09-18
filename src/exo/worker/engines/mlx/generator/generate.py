@@ -760,6 +760,7 @@ def mlx_generate(
 
     logits_processors: list[Callable[[mx.array, mx.array], mx.array]] = (
         make_logits_processors(
+            logit_bias=task.logit_bias,
             repetition_penalty=task.repetition_penalty,
             repetition_context_size=task.repetition_context_size
             if task.repetition_context_size is not None

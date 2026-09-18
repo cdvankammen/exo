@@ -133,6 +133,11 @@ class TextGenerationTaskParams(BaseModel, frozen=True):
     repetition_context_size: int | None = None
     presence_penalty: float | None = None
     frequency_penalty: float | None = None
+    # OpenAI-style additive logit bias: token-id -> bias. Plumbed straight into
+    # mlx_lm's make_logits_processors (applied as an additive offset on the
+    # raw logits before sampling). Only populated by adapters whose wire type
+    # exposes it (currently ChatCompletionRequest).
+    logit_bias: dict[str, int] | None = None
     images: list[Base64Image] = Field(default_factory=list)
     image_hashes: dict[int, Base64ImageHash] = Field(default_factory=dict)
     # T28: constrained decoding — when set to a JSON Schema (dict or JSON

@@ -10,13 +10,40 @@
 import { browser } from "$app/environment";
 
 // T27: sampling params persistence key + loader
-const SAMPLING_PARAMS_KEY = "exo-sampling-params-v1";
+const SAMPLING_PARAMS_KEY = "exo-sampling-params-v1";// T24-card: queue-parallelism persistence key. Separate key so the knob is
+// independent of sampling controls and survives store resets.
+const QUEUE_PARALLELISM_KEY = "exo-queue-parallelism-v1";
+const DEFAULT_QUEUE_PARALLELISM_ONLINE = 2;
+const DEFAULT_QUEUE_PARALLELISM_OFFLINE = 1;
+function loadQueueParallelism(): number {
+  if (!browser) return DEFAULT_QUEUE_PARALLELISM_ONLINE;
+  try {
+    const raw = localStorage.getItem(QUEUE_PARALLELISM_KEY);
+    if (raw !== null) {
+      const n = Number(raw);
+      if (Number.isInteger(n) && n >= 1 && n <= 8) return n;
+    }
+  } catch {
+    // fall through to default
+  }
+  // Offline (EXO_OFFLINE=true) defaults to sequential: the hub is disabled
+  // and every model is local, so one slow MLX runner is the norm.
+  try {
+    if (typeof process !== "undefined" && process.env?.EXO_OFFLINE === "true") {
+      return DEFAULT_QUEUE_PARALLELISM_OFFLINE;
+    }
+  } catch {
+    // process access can throw in some bundlers; ignore
+  }
+  return DEFAULT_QUEUE_PARALLELISM_ONLINE;
+}
 function loadSamplingParams(): {
   temperature: number | null;
   topP: number | null;
   topK: number | null;
   seed: number | null;
   maxTokens: number | null;
+  logitBias: Record<string, number> | null;
 } {
   const defaults = {
     temperature: null,
@@ -24,6 +51,7 @@ function loadSamplingParams(): {
     topK: null,
     seed: null,
     maxTokens: null,
+    logitBias: null,
   };
   if (!browser) return defaults;
   try {
@@ -318,6 +346,28 @@ export interface LogErrorEntry {
 
 export interface LogErrorsResponse {
   errors: LogErrorEntry[];
+  truncated: boolean;
+}
+
+/**
+ * A single line from a node's log, merged across all nodes by the
+ * `/v1/logs/all` endpoint.
+ */
+export interface LogAllEntry {
+  /** ISO timestamp of the log line (server-local time), e.g. 2026-08-08T06:03:28.551 */
+  timestamp: string;
+  /** ID of the node that produced the line. */
+  nodeId: string;
+  /** Human-friendly node name (falls back to the node id). */
+  nodeName: string;
+  /** Name of the source log file on the node (e.g. "main", "runner_stdout"). */
+  sourceLog: string;
+  /** The raw log line (ANSI codes stripped), without the timestamp prefix. */
+  content: string;
+}
+
+export interface LogAllResponse {
+  entries: LogAllEntry[];
   truncated: boolean;
 }
 
@@ -675,6 +725,7 @@ class AppStore {
     topK: number | null;
     seed: number | null;
     maxTokens: number | null;
+    logitBias: Record<string, number> | null;
   }>(loadSamplingParams());
 
   // Message queue: messages sent while one is generating are parked here and
@@ -2714,9 +2765,10 @@ class AppStore {
     // It will be sent automatically when a slot frees up (see the drain in
     // the finally block below). EXO_MAX_CONCURRENT_REQUESTS caps the backend;
     // we mirror a small concurrency limit here so parallel streams don't
-    // overwhelm the machine.
-    const MAX_PARALLEL = 2;
-    if (this.activeGenerations >= MAX_PARALLEL) {
+    // overwhelm the machine. Offline mode defaults to 1 (sequential) so a
+    // single slow local model streams one response at a time.
+    const maxParallel = this.queueParallelism;
+    if (this.activeGenerations >= maxParallel) {
       this.pendingQueue = [
         ...this.pendingQueue,
         {
@@ -2973,6 +3025,9 @@ class AppStore {
           ...(this.samplingParams.maxTokens !== null && {
             max_tokens: Math.round(this.samplingParams.maxTokens),
           }),
+          ...(this.samplingParams.logitBias !== null && {
+            logit_bias: this.samplingParams.logitBias,
+          }),
           stream: true,
           logprobs: true,
           top_logprobs: 5,
@@ -3183,9 +3238,12 @@ class AppStore {
       this.saveConversationsToStorage();
 
       // T26: decrement the in-flight counter, then drain as many queued
-      // messages as there are free parallel slots (up to MAX_PARALLEL).
+      // messages as there are free parallel slots (up to queueParallelism).
       this.activeGenerations = Math.max(0, this.activeGenerations - 1);
-      while (this.pendingQueue.length > 0 && this.activeGenerations < 2) {
+      while (
+        this.pendingQueue.length > 0 &&
+        this.activeGenerations < this.queueParallelism
+      ) {
         const next = this.pendingQueue.shift();
         if (!next) break;
         // Defer so activeGenerations is observably decremented before the
@@ -4046,6 +4104,18 @@ class AppStore {
   }
 
   /**
+   * Fetch the merged main log across ALL cluster nodes (pseudo-log
+   * "Main (All Nodes)"). Each line is tagged with its node id/name.
+   */
+  async getLogAll(lines = 1000): Promise<LogAllResponse> {
+    const response = await fetch(`/v1/logs/all?lines=${lines}`);
+    if (!response.ok) {
+      throw new Error(`Failed to fetch all-node logs: ${response.status}`);
+    }
+    return (await response.json()) as LogAllResponse;
+  }
+
+  /**
    * Get the URL for downloading the full raw log file
    */
   getLogRawUrl(name: string): string {
@@ -4125,6 +4195,20 @@ export const updateQueuedMessage = (queueId: string, content: string) =>
   appStore.updateQueuedMessage(queueId, content);
 export const moveQueuedMessage = (fromIndex: number, delta: number) =>
   appStore.moveQueuedMessage(fromIndex, delta);
+// T24-card: queue-parallelism knob (1 = sequential, up to 8). Persisted.
+export const queueParallelism = () => appStore.queueParallelism;
+export const setQueueParallelism = (n: number) => {
+  const clamped = Math.max(1, Math.min(8, Math.round(n)));
+  appStore.queueParallelism = clamped;
+  if (browser) {
+    try {
+      localStorage.setItem(QUEUE_PARALLELISM_KEY, String(clamped));
+    } catch {
+      // storage unavailable; in-memory value still applies
+    }
+  }
+  return clamped;
+};
 export const clearQueue = () => appStore.clearQueue();
 
 // T27: sampling controls
@@ -4261,3 +4345,4 @@ export const getLogTail = (name: string, lines?: number) =>
 export const getLogRawUrl = (name: string) => appStore.getLogRawUrl(name);
 export const listLogErrors = (level?: string, lines?: number) =>
   appStore.listLogErrors(level, lines);
+export const getLogAll = (lines?: number) => appStore.getLogAll(lines);
