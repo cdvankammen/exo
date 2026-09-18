@@ -4,11 +4,12 @@
   import { appStore } from "$lib/stores/app.svelte";
 
   // ── Live cluster state (detected values — read-only) ──────────────────────
-  let state = $state<{
+  type ClusterState = {
     nodeBackends: Record<string, string[]>;
     nodeMemory: Record<string, { ramTotal: { inBytes: number }; ramAvailable: { inBytes: number } }>;
     topologyNodes: string[];
-  }>({ nodeBackends: {}, nodeMemory: {}, topologyNodes: [] });
+  };
+  let state = $state<ClusterState>({ nodeBackends: {}, nodeMemory: {}, topologyNodes: [] });
   let loadError = $state<string | null>(null);
 
   // ── Editable EXO_* overrides (GET/PUT /v1/settings) ───────────────────────
@@ -16,6 +17,7 @@
     var: string;
     description: string;
     type: "bool" | "int" | "float" | "str";
+    group?: string;
     requires_restart: boolean;
     has_override: boolean;
     source: string | null;
@@ -112,6 +114,24 @@
 
   function boolValueLabel(raw: string): string {
     return raw === "1" || raw.toLowerCase() === "true" ? "on" : "off";
+  }
+
+  // ── Section grouping (card spec: Memory/KV, Cluster, Models, Debug + API) ─
+  const GROUP_ORDER = ["Memory/KV", "Cluster", "API", "Models", "Debug", "Other"] as const;
+
+  function entriesForGroup(group: string): SettingEntry[] {
+    return settings.filter((e) => (e.group ?? "Other") === group);
+  }
+
+  function groupColor(group: string): string {
+    switch (group) {
+      case "Memory/KV": return "border-purple-500/40 text-purple-400";
+      case "Cluster": return "border-blue-400/40 text-blue-400";
+      case "API": return "border-cyan-400/40 text-cyan-400";
+      case "Models": return "border-green-500/40 text-green-400";
+      case "Debug": return "border-orange-500/40 text-orange-400";
+      default: return "border-white/20 text-white/50";
+    }
   }
 
   async function loadState() {
@@ -431,82 +451,95 @@
     {:else if settings.length === 0}
       <p class="text-white/40 text-sm">Loading settings…</p>
     {:else}
-      <div class="border border-white/10 rounded-lg overflow-hidden">
-        <table class="w-full text-sm">
-          <thead>
-            <tr class="text-left text-white/50 text-xs uppercase tracking-wider border-b border-white/10">
-              <th class="px-4 py-2 font-mono">Variable</th>
-              <th class="px-4 py-2">Meaning</th>
-              <th class="px-4 py-2">Source</th>
-              <th class="px-4 py-2">Value</th>
-              <th class="px-4 py-2">Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {#each settings as entry (entry.var)}
-              <tr class="border-b border-white/5 last:border-0 hover:bg-white/[0.02]">
-                <td class="px-4 py-2 font-mono text-exo-light-gray whitespace-nowrap">
-                  {entry.var}
-                  {#if entry.requires_restart}
-                    <span
-                      class="ml-1 text-[9px] px-1.5 py-0.5 rounded border border-white/15 text-white/40 uppercase"
-                      title="Read when the node starts — save then restart the node for this to take effect">restart</span>
-                  {:else}
-                    <span
-                      class="ml-1 text-[9px] px-1.5 py-0.5 rounded border border-white/15 text-white/40 uppercase"
-                      title="Read dynamically at call time — applies to new runners without a node restart">new runners</span>
-                  {/if}
-                </td>
-                <td class="px-4 py-2 text-white/70">{entry.description}</td>
-                <td class="px-4 py-2">
-                  <span class="text-[10px] px-2 py-0.5 rounded border uppercase tracking-wider {sourceBadgeClass(entry.source)}">
-                    {entry.source ?? "unset"}
-                  </span>
-                </td>
-                <td class="px-4 py-2">
-                  {#if entry.type === "bool"}
-                    <button
-                      class="px-3 py-1 rounded border text-xs font-mono {boolChecked(entry)
-                        ? 'border-green-500/40 text-green-400 bg-green-500/10'
-                        : 'border-white/20 text-white/40'}"
-                      onclick={() => toggleBool(entry)}>{boolValueLabel(draftFor(entry))}</button>
-                  {:else}
-                    <input
-                      type="text"
-                      value={draftFor(entry)}
-                      placeholder={entry.type === "int" ? "integer" : "text"}
-                      class="bg-white/[0.04] border border-white/15 rounded px-2 py-1 text-xs font-mono text-exo-light-gray w-48 focus:outline-none focus:border-exo-yellow/50"
-                      oninput={(e) => (drafts[entry.var] = (e.currentTarget as HTMLInputElement).value)}
-                    />
-                  {/if}
-                  {#if entry.invalid}
-                    <span class="text-[10px] text-red-400 ml-1">invalid current value</span>
-                  {/if}
-                </td>
-                <td class="px-4 py-2 whitespace-nowrap">
-                  <button
-                    class="px-2.5 py-1 rounded border border-exo-yellow/40 text-exo-yellow text-xs hover:bg-exo-yellow/10 disabled:opacity-40"
-                    disabled={savingVar === entry.var}
-                    onclick={() => saveSetting(entry, draftFor(entry))}>Set</button>
-                  {#if entry.has_override}
-                    <button
-                      class="ml-1 px-2.5 py-1 rounded border border-white/20 text-white/50 text-xs hover:bg-white/5 disabled:opacity-40"
-                      disabled={savingVar === entry.var}
-                      onclick={() => clearSetting(entry)}>Clear</button>
-                  {/if}
-                </td>
-              </tr>
-              {#if savedMsg && savedMsg.var === entry.var}
-                <tr class="border-b border-white/5">
-                  <td colspan="5" class="px-4 py-1 text-xs {savedMsg.ok ? 'text-green-400' : 'text-red-400'}">
-                    {savedMsg.text}
-                  </td>
-                </tr>
-              {/if}
-            {/each}
-          </tbody>
-        </table>
-      </div>
+      {#each GROUP_ORDER as group (group)}
+        {@const groupEntries = entriesForGroup(group)}
+        {#if groupEntries.length > 0}
+          <div class="mb-4">
+            <div class="flex items-center gap-2 mb-2">
+              <span class="text-[10px] px-2 py-0.5 rounded border font-mono uppercase tracking-wider {groupColor(group)}">
+                {group}
+              </span>
+              <span class="text-xs text-white/40">{groupEntries.length} knob{groupEntries.length > 1 ? "s" : ""}</span>
+            </div>
+            <div class="border border-white/10 rounded-lg overflow-hidden">
+              <table class="w-full text-sm">
+                <thead>
+                  <tr class="text-left text-white/50 text-xs uppercase tracking-wider border-b border-white/10">
+                    <th class="px-4 py-2 font-mono">Variable</th>
+                    <th class="px-4 py-2">Meaning</th>
+                    <th class="px-4 py-2">Source</th>
+                    <th class="px-4 py-2">Value</th>
+                    <th class="px-4 py-2">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {#each groupEntries as entry (entry.var)}
+                    <tr class="border-b border-white/5 last:border-0 hover:bg-white/[0.02]">
+                      <td class="px-4 py-2 font-mono text-exo-light-gray whitespace-nowrap">
+                        {entry.var}
+                        {#if entry.requires_restart}
+                          <span
+                            class="ml-1 text-[9px] px-1.5 py-0.5 rounded border border-white/15 text-white/40 uppercase"
+                            title="Read when the node starts — save then restart the node for this to take effect">restart</span>
+                        {:else}
+                          <span
+                            class="ml-1 text-[9px] px-1.5 py-0.5 rounded border border-white/15 text-white/40 uppercase"
+                            title="Read dynamically at call time — applies to new runners without a node restart">new runners</span>
+                        {/if}
+                      </td>
+                      <td class="px-4 py-2 text-white/70">{entry.description}</td>
+                      <td class="px-4 py-2">
+                        <span class="text-[10px] px-2 py-0.5 rounded border uppercase tracking-wider {sourceBadgeClass(entry.source)}">
+                          {entry.source ?? "unset"}
+                        </span>
+                      </td>
+                      <td class="px-4 py-2">
+                        {#if entry.type === "bool"}
+                          <button
+                            class="px-3 py-1 rounded border text-xs font-mono {boolChecked(entry)
+                              ? 'border-green-500/40 text-green-400 bg-green-500/10'
+                              : 'border-white/20 text-white/40'}"
+                            onclick={() => toggleBool(entry)}>{boolValueLabel(draftFor(entry))}</button>
+                        {:else}
+                          <input
+                            type="text"
+                            value={draftFor(entry)}
+                            placeholder={entry.type === "int" ? "integer" : "text"}
+                            class="bg-white/[0.04] border border-white/15 rounded px-2 py-1 text-xs font-mono text-exo-light-gray w-48 focus:outline-none focus:border-exo-yellow/50"
+                            oninput={(e) => (drafts[entry.var] = (e.currentTarget as HTMLInputElement).value)}
+                          />
+                        {/if}
+                        {#if entry.invalid}
+                          <span class="text-[10px] text-red-400 ml-1">invalid current value</span>
+                        {/if}
+                      </td>
+                      <td class="px-4 py-2 whitespace-nowrap">
+                        <button
+                          class="px-2.5 py-1 rounded border border-exo-yellow/40 text-exo-yellow text-xs hover:bg-exo-yellow/10 disabled:opacity-40"
+                          disabled={savingVar === entry.var}
+                          onclick={() => saveSetting(entry, draftFor(entry))}>Set</button>
+                        {#if entry.has_override}
+                          <button
+                            class="ml-1 px-2.5 py-1 rounded border border-white/20 text-white/50 text-xs hover:bg-white/5 disabled:opacity-40"
+                            disabled={savingVar === entry.var}
+                            onclick={() => clearSetting(entry)}>Clear</button>
+                        {/if}
+                      </td>
+                    </tr>
+                    {#if savedMsg && savedMsg.var === entry.var}
+                      <tr class="border-b border-white/5">
+                        <td colspan="5" class="px-4 py-1 text-xs {savedMsg.ok ? 'text-green-400' : 'text-red-400'}">
+                          {savedMsg.text}
+                        </td>
+                      </tr>
+                    {/if}
+                  {/each}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        {/if}
+      {/each}
       <p class="text-[11px] text-white/35 mt-2">
         Precedence: override (this page) &gt; launch env var &gt; built-in default. Knobs marked
         <span class="uppercase text-white/45">restart</span> are read when the node starts — save,

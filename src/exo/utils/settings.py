@@ -32,7 +32,7 @@ SettingType = Literal["bool", "int", "float", "str"]
 class SettingSpec:
     """Catalog entry describing one known EXO_* variable."""
 
-    __slots__ = ("var", "type", "description", "default", "requires_restart")
+    __slots__ = ("var", "type", "description", "default", "requires_restart", "group")
 
     def __init__(
         self,
@@ -41,12 +41,14 @@ class SettingSpec:
         description: str,
         default: str | None = None,
         requires_restart: bool = True,
+        group: str = "Other",
     ) -> None:
         self.var = var
         self.type = value_type
         self.description = description
         self.default = default
         self.requires_restart = requires_restart
+        self.group = group
 
     def coerce(self, raw: str) -> bool | int | float | str:
         """Coerce a raw string to the spec's type, raising ValueError on bad input."""
@@ -72,51 +74,53 @@ CATALOG: dict[str, SettingSpec] = {
     spec.var: spec
     for spec in [
         # Memory / KV-cache
-        SettingSpec("EXO_KV_CACHE_BITS", "str", "KV cache quantization bits (4/8; unset = off)", None),
-        SettingSpec("EXO_KV_CACHE_GROUP_SIZE", "int", "KV cache quantization group size", "64"),
-        SettingSpec("EXO_MAX_KV_SIZE", "int", "RotatingKVCache max context (tokens); bounds KV-cache RAM (T9 #1860)", "16384"),
-        SettingSpec("EXO_KEEP_KV_SIZE", "int", "RotatingKVCache keep window (tokens); preserved prefix under rotation", "8000"),
-        SettingSpec("EXO_KV_DISK_PERSISTENCE", "bool", "SSD-as-RAM: persist KV cache to disk", "0"),
-        SettingSpec("EXO_KV_TIERED", "bool", "Tiered KV offload hot->warm->cold (GPU->RAM->disk)", "0"),
-        SettingSpec("EXO_KV_DISK_PATH", "str", "KV cache disk directory", None, requires_restart=False),
-        SettingSpec("EXO_KV_DISK_MAX_SIZE_GB", "int", "KV cache disk budget (GB)", None, requires_restart=False),
-        SettingSpec("EXO_KV_DISK_TTL_HOURS", "int", "KV cache expiry (hours)", None, requires_restart=False),
-        SettingSpec("EXO_MEMORY_THRESHOLD", "str", "RAM headroom reserved before prefill", None),
-        SettingSpec("EXO_PREFILL_MEMORY_THRESHOLD", "str", "Prefill-specific RAM headroom", None),
+        SettingSpec("EXO_KV_CACHE_BITS", "str", "KV cache quantization bits (4/8; unset = off)", None, group="Memory/KV"),
+        SettingSpec("EXO_KV_CACHE_GROUP_SIZE", "int", "KV cache quantization group size", "64", group="Memory/KV"),
+        SettingSpec("EXO_MAX_KV_SIZE", "int", "RotatingKVCache max context (tokens); bounds KV-cache RAM (T9 #1860)", "16384", group="Memory/KV"),
+        SettingSpec("EXO_KEEP_KV_SIZE", "int", "RotatingKVCache keep window (tokens); preserved prefix under rotation", "8000", group="Memory/KV"),
+        SettingSpec("EXO_KV_DISK_PERSISTENCE", "bool", "SSD-as-RAM: persist KV cache to disk", "0", group="Memory/KV"),
+        SettingSpec("EXO_KV_TIERED", "bool", "Tiered KV offload hot->warm->cold (GPU->RAM->disk)", "0", group="Memory/KV"),
+        SettingSpec("EXO_KV_DISK_PATH", "str", "KV cache disk directory", None, requires_restart=False, group="Memory/KV"),
+        SettingSpec("EXO_KV_DISK_MAX_SIZE_GB", "int", "KV cache disk budget (GB)", None, requires_restart=False, group="Memory/KV"),
+        SettingSpec("EXO_KV_DISK_TTL_HOURS", "int", "KV cache expiry (hours)", None, requires_restart=False, group="Memory/KV"),
+        SettingSpec("EXO_MEMORY_THRESHOLD", "str", "RAM headroom reserved before prefill", None, group="Memory/KV"),
+        SettingSpec("EXO_PREFILL_MEMORY_THRESHOLD", "str", "Prefill-specific RAM headroom", None, group="Memory/KV"),
         SettingSpec(
             "EXO_MEMORY_PRESSURE_THRESHOLD",
             "str",
             "OOM-prevention: emit error chunk when memory pressure % is at/above this (default 90.0)",
             None,
+            group="Memory/KV",
         ),
-        SettingSpec("EXO_PREFILL_STEP_SIZE", "int", "Prefill chunk size in tokens", "512", requires_restart=False),
-        SettingSpec("EXO_MAX_CHUNK_SIZE", "int", "Token chunk size", None),
+        SettingSpec("EXO_PREFILL_STEP_SIZE", "int", "Prefill chunk size in tokens", "512", requires_restart=False, group="Memory/KV"),
+        SettingSpec("EXO_MAX_CHUNK_SIZE", "int", "Token chunk size", None, group="Memory/KV"),
         # Cluster / placement
-        SettingSpec("EXO_MAX_CONCURRENT_REQUESTS", "int", "API concurrency limit", None, requires_restart=False),
-        SettingSpec("EXO_MAX_INSTANCE_RETRIES", "int", "Runner retry budget (note: hardcoded 5 in shared/constants.py — env NOT read)", "5"),
+        SettingSpec("EXO_MAX_CONCURRENT_REQUESTS", "int", "API concurrency limit", None, requires_restart=False, group="Cluster"),
+        SettingSpec("EXO_MAX_INSTANCE_RETRIES", "int", "Runner retry budget (note: hardcoded 5 in shared/constants.py — env NOT read)", "5", group="Cluster"),
         SettingSpec(
             "EXO_BOOTSTRAP_PEERS",
             "str",
             "Manual peer list, host[:port] comma-separated (e.g. tailscale-host:52414) — "
             "use when multicast discovery can't reach a peer (VPN, Tailscale, firewalled/corporate networks)",
             None,
+            group="Cluster",
         ),
-        SettingSpec("EXO_NODE_ZID", "str", "Fixed node identity (keypair seed)", None),
-        SettingSpec("EXO_ZENOH_NAMESPACE", "str", "Cluster namespace isolation", None),
+        SettingSpec("EXO_NODE_ZID", "str", "Fixed node identity (keypair seed)", None, group="Cluster"),
+        SettingSpec("EXO_ZENOH_NAMESPACE", "str", "Cluster namespace isolation", None, group="Cluster"),
         # API surface (T12/T23 — security-relevant)
-        SettingSpec("EXO_API_HOST", "str", "API bind address (0.0.0.0 = all interfaces; 127.0.0.1 = localhost only)", "0.0.0.0"),
-        SettingSpec("EXO_API_ADVERTISE_HOST", "str", "API address advertised to peers for cluster log/error views (default: auto-derive)", None),
-        SettingSpec("EXO_API_TOKEN", "str", "Optional bearer token for API auth (empty = no auth)", None),
+        SettingSpec("EXO_API_HOST", "str", "API bind address (0.0.0.0 = all interfaces; 127.0.0.1 = localhost only)", "0.0.0.0", group="API"),
+        SettingSpec("EXO_API_ADVERTISE_HOST", "str", "API address advertised to peers for cluster log/error views (default: auto-derive)", None, group="API"),
+        SettingSpec("EXO_API_TOKEN", "str", "Optional bearer token for API auth (empty = no auth)", None, group="API"),
         # Models
-        SettingSpec("EXO_MODELS_DIRS", "str", "Writable model directories (colon-separated)", None),
-        SettingSpec("EXO_MODELS_READ_ONLY_DIRS", "str", "Read-only model dirs (colon-separated)", None),
-        SettingSpec("EXO_ENABLE_IMAGE_MODELS", "bool", "Show image model cards", "0"),
-        SettingSpec("EXO_OFFLINE", "bool", "No network (Hub disabled)", "0"),
+        SettingSpec("EXO_MODELS_DIRS", "str", "Writable model directories (colon-separated)", None, group="Models"),
+        SettingSpec("EXO_MODELS_READ_ONLY_DIRS", "str", "Read-only model dirs (colon-separated)", None, group="Models"),
+        SettingSpec("EXO_ENABLE_IMAGE_MODELS", "bool", "Show image model cards", "0", group="Models"),
+        SettingSpec("EXO_OFFLINE", "bool", "No network (Hub disabled)", "0", group="Models"),
         # Debug / perf
-        SettingSpec("EXO_DSV4_FUSED_MOE", "bool", "DeepSeek V4 fused gate+up MoE", "1"),
-        SettingSpec("EXO_NO_BATCH", "bool", "Disable request batching (read at builder call time)", "0", requires_restart=False),
-        SettingSpec("EXO_FAST_SYNCH", "bool", "Metal fast synchronisation (read at runner bootstrap)", "1", requires_restart=False),
-        SettingSpec("EXO_TRACING_ENABLED", "bool", "Per-request tracing", "0"),
+        SettingSpec("EXO_DSV4_FUSED_MOE", "bool", "DeepSeek V4 fused gate+up MoE", "1", group="Debug"),
+        SettingSpec("EXO_NO_BATCH", "bool", "Disable request batching (read at builder call time)", "0", requires_restart=False, group="Debug"),
+        SettingSpec("EXO_FAST_SYNCH", "bool", "Metal fast synchronisation (read at runner bootstrap)", "1", requires_restart=False, group="Debug"),
+        SettingSpec("EXO_TRACING_ENABLED", "bool", "Per-request tracing", "0", group="Debug"),
     ]
 }
 
@@ -192,6 +196,7 @@ class SettingsManager:
                 "var": var,
                 "description": spec.description,
                 "type": spec.type,
+                "group": spec.group,
                 "requires_restart": spec.requires_restart,
                 "has_override": has_override,
                 "source": resolved[1] if resolved else None,

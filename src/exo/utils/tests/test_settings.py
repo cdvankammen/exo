@@ -129,9 +129,64 @@ def test_snapshot_includes_catalog_metadata(
     entry = next(e for e in entries if e["var"] == "EXO_KV_CACHE_BITS")
     assert entry["description"]
     assert entry["type"] == "str"
+    assert entry["group"] == "Memory/KV"
     assert entry["requires_restart"] is True
     # Opt-in knob with no default: unset resolves to None source.
     assert entry["source"] in ("default", "env", "override", None)
+
+
+def test_catalog_groups_match_design_sections() -> None:
+    """Every catalogued knob belongs to exactly one card-spec section.
+
+    Sections come from the card/packet contract: Memory/KV, Cluster, Models,
+    Debug — plus the API surface group (T12/T23 security-relevant knobs).
+    """
+    expected: dict[str, set[str]] = {
+        "Memory/KV": {
+            "EXO_KV_CACHE_BITS",
+            "EXO_KV_CACHE_GROUP_SIZE",
+            "EXO_MAX_KV_SIZE",
+            "EXO_KEEP_KV_SIZE",
+            "EXO_KV_DISK_PERSISTENCE",
+            "EXO_KV_TIERED",
+            "EXO_KV_DISK_PATH",
+            "EXO_KV_DISK_MAX_SIZE_GB",
+            "EXO_KV_DISK_TTL_HOURS",
+            "EXO_MEMORY_THRESHOLD",
+            "EXO_PREFILL_MEMORY_THRESHOLD",
+            "EXO_MEMORY_PRESSURE_THRESHOLD",
+            "EXO_PREFILL_STEP_SIZE",
+            "EXO_MAX_CHUNK_SIZE",
+        },
+        "Cluster": {
+            "EXO_MAX_CONCURRENT_REQUESTS",
+            "EXO_MAX_INSTANCE_RETRIES",
+            "EXO_BOOTSTRAP_PEERS",
+            "EXO_NODE_ZID",
+            "EXO_ZENOH_NAMESPACE",
+        },
+        "API": {
+            "EXO_API_HOST",
+            "EXO_API_ADVERTISE_HOST",
+            "EXO_API_TOKEN",
+        },
+        "Models": {
+            "EXO_MODELS_DIRS",
+            "EXO_MODELS_READ_ONLY_DIRS",
+            "EXO_ENABLE_IMAGE_MODELS",
+            "EXO_OFFLINE",
+        },
+        "Debug": {
+            "EXO_DSV4_FUSED_MOE",
+            "EXO_NO_BATCH",
+            "EXO_FAST_SYNCH",
+            "EXO_TRACING_ENABLED",
+        },
+    }
+    grouped: dict[str, set[str]] = {}
+    for var, spec in CATALOG.items():
+        grouped.setdefault(spec.group, set()).add(var)
+    assert grouped == expected
 
 
 def test_catalog_restart_semantics_match_read_sites() -> None:
