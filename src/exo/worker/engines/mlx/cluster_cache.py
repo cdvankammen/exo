@@ -155,6 +155,9 @@ class ClusterPrefixIndex:
             os.environ.get("EXO_CLUSTER_PREFIX_CACHE_TTL", "300")
         )
         self._entries: dict[_IndexKey, PrefixDescriptor] = {}
+        #: Logical descriptors, keyed by full chunk tuple. One entry per
+        #: distinct descriptor (independent of prefix-expansion views).
+        self._full: dict[_IndexKey, PrefixDescriptor] = {}
         self._lock = threading.RLock()
         self._hits = 0
         self._misses = 0
@@ -166,6 +169,7 @@ class ClusterPrefixIndex:
         """Drop all entries (runner restart / node leave)."""
         with self._lock:
             self._entries.clear()
+            self._full.clear()
 
     def put_from_event(self, event: "PrefixIndexEvent") -> None:
         """Record an index entry from a network ``PrefixIndexEvent``."""
@@ -218,6 +222,18 @@ class ClusterPrefixIndex:
                         last_used=desc.last_used,
                         hits=0,
                     )
+            # Store logical descriptor separately (not subject to prefix-collapse).
+            fkey = (desc.model_hash, desc.chunks)
+            prev = self._full.get(fkey)
+            self._full[fkey] = PrefixDescriptor(
+                model_hash=desc.model_hash,
+                chunks=desc.chunks,
+                token_count=desc.token_count,
+                node_id=desc.node_id,
+                instance_id=desc.instance_id,
+                last_used=time.time() if prev is not None else desc.last_used,
+                hits=(prev.hits + 1) if prev is not None else 0,
+            )
 
     def remove_node(self, node_id: str) -> int:
         """Drop all descriptors owned by ``node_id`` (node left / timed out)."""
@@ -225,6 +241,9 @@ class ClusterPrefixIndex:
             before = len(self._entries)
             self._entries = {
                 k: v for k, v in self._entries.items() if v.node_id != node_id
+            }
+            self._full = {
+                k: v for k, v in self._full.items() if v.node_id != node_id
             }
             return before - len(self._entries)
 
@@ -271,42 +290,9 @@ class ClusterPrefixIndex:
     # -- stats / maintenance -----------------------------------------------
 
     def descriptors(self) -> list[PrefixDescriptor]:
-        """Return a snapshot of all live descriptors (collapsed to leaves).
-
-        Prefix expansion inserts ``chunks[:i]`` for every ``i``, so one
-        logical descriptor appears under every prefix length. Only the
-        *deepest* key per ``(model_hash, full_chunks)`` is emitted; shorter
-        keys are prefix views of the same descriptor and are dropped. Keeps
-        the authoritative snapshot exactly one entry per logical descriptor.
-        """
+        """Return the logical descriptors (one per distinct stored prompt)."""
         with self._lock:
-            # Build the maximal-key set: key K is a leaf iff no other live
-            # key has the same model hash and a strictly longer chunk tuple
-            # whose first len(K.chunks) entries equal K.chunks.
-            all_keys = list(self._entries.keys())
-            leaves: list[_IndexKey] = []
-            for model_hash_, chunks in all_keys:
-                is_leaf = True
-                for other_model, other_chunks in all_keys:
-                    if other_model != model_hash_:
-                        continue
-                    if (
-                        len(other_chunks) > len(chunks)
-                        and other_chunks[: len(chunks)] == chunks
-                    ):
-                        is_leaf = False
-                        break
-                if is_leaf:
-                    leaves.append((model_hash_, chunks))
-            seen: dict[_IndexKey, PrefixDescriptor] = {}
-            for v in self._entries.values():
-                key = (v.model_hash, v.chunks)
-                if key not in leaves:
-                    continue
-                cur = seen.get(key)
-                if cur is None or len(v.chunks) > len(cur.chunks):
-                    seen[key] = v
-            return list(seen.values())
+            return list(self._full.values())
 
     @property
     def stats(self) -> dict[str, object]:
@@ -325,12 +311,33 @@ class ClusterPrefixIndex:
         stale = [k for k, v in self._entries.items() if now - v.last_used > self._ttl]
         for k in stale:
             del self._entries[k]
+        # Remove full descriptors whose expansion keys are all stale.
+        full_stale = [
+            fk for fk, fv in self._full.items()
+            if not any(k[0] == fk[0] and fk[1][:len(k[1])] == k[1] for k in self._entries)
+        ]
+        for fk in full_stale:
+            del self._full[fk]
 
     def _evict_lru_locked(self) -> None:
         if not self._entries:
             return
         lru_key = min(self._entries, key=lambda k: self._entries[k].last_used)
+        model_hash, chunks = lru_key
+        # Check if any other entry in _entries shares this full descriptor.
+        full_key = None
+        for fk, fv in self._full.items():
+            if fk[0] == model_hash and fk[1][:len(chunks)] == chunks:
+                full_key = fk
+                break
         del self._entries[lru_key]
+        if full_key is not None:
+            # If no other expansion keys for this full descriptor remain, evict it.
+            if not any(
+                k[0] == model_hash and full_key[1][:len(k[1])] == k[1]
+                for k in self._entries
+            ):
+                del self._full[full_key]
 
 
 # ---------------------------------------------------------------------------

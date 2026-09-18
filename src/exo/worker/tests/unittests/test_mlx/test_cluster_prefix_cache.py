@@ -35,13 +35,32 @@ from exo.worker.engines.mlx.cluster_cache import (
 
 # ── helpers ──────────────────────────────────────────────────────────────
 
+def _tokens(*blocks: list[int]) -> list[int]:
+    """Build a token list whose 256-token chunks equal the given blocks.
+
+    Real ``prefix_chunks`` groups tokens in ``_PREFIX_CHUNK_TOKENS`` (256)
+    blocks. Test descriptors must be built from token lists of exactly
+    256 tokens per chunk so that ``prefix_chunks(lookup_tokens)`` produces
+    the same chunk hashes stored by ``_desc``. This helper pads each block
+    to 256 tokens with distinguishable filler.
+    """
+    out: list[int] = []
+    for bi, block in enumerate(blocks):
+        block = list(block)
+        if len(block) < _PREFIX_CHUNK_TOKENS:
+            filler = _PREFIX_CHUNK_TOKENS - len(block)
+            # Use the block index as a filler base so different blocks never
+            # collide with each other (or with the real tokens).
+            block = block + [100_000 + bi * _PREFIX_CHUNK_TOKENS + i for i in range(filler)]
+        assert len(block) == _PREFIX_CHUNK_TOKENS
+        out.extend(block)
+    return out
+
+
 def _h(*token_blocks: list[int]) -> tuple[str, ...]:
-    """Compute sha256 block hashes exactly like prefix_chunks, one per block."""
-    out: list[str] = []
-    for block in token_blocks:
-        payload = ",".join(str(int(t)) for t in block).encode("utf-8")
-        out.append(hashlib.sha256(payload).hexdigest())
-    return tuple(out)
+    """Compute chunk hashes exactly like ``prefix_chunks`` for the given
+    256-token-aligned blocks (see ``_tokens``)."""
+    return tuple(prefix_chunks(_tokens(*token_blocks)))
 
 
 def _desc(
@@ -93,8 +112,8 @@ class TestPrefixChunks:
 
     def test_matches_helper(self) -> None:
         """Verify _h helper produces identical hashes to prefix_chunks."""
-        tokens = [10, 20, 30]
-        assert _h(tokens) == tuple(prefix_chunks(tokens))
+        tokens = _tokens([10, 20, 30])
+        assert _h([10, 20, 30]) == tuple(prefix_chunks(tokens))
 
 
 class TestModelHash:
@@ -113,7 +132,7 @@ class TestClusterPrefixIndex:
     def test_put_lookup_exact(self) -> None:
         idx = ClusterPrefixIndex(node_id="n1", max_entries=100)
         idx.put(_desc(chunks=_h([11], [22], [33]), node="n2", instance="i2"))
-        hit = idx.lookup("m", [11, 22, 33])
+        hit = idx.lookup("m", _tokens([11], [22], [33]))
         assert hit is not None
         assert hit.node_id == "n2"
         # descriptor's token_count reflects the full covered prompt length
@@ -123,21 +142,21 @@ class TestClusterPrefixIndex:
         idx = ClusterPrefixIndex(node_id="n1", max_entries=100)
         idx.put(_desc(chunks=_h([11], [22], [33]), node="n2", instance="i2"))
         # Query with a longer prompt: first 2 blocks match.
-        hit = idx.lookup("m", [11, 22, 99])
+        hit = idx.lookup("m", _tokens([11], [22], [99]))
         assert hit is not None
         assert len(hit.chunks) == 2  # prefix length in chunks
 
     def test_unknown_model_misses(self) -> None:
         idx = ClusterPrefixIndex(node_id="n1", max_entries=100)
         idx.put(_desc(chunks=_h([11])))
-        assert idx.lookup("other-model", [11]) is None
+        assert idx.lookup("other-model", _tokens([11])) is None
 
     def test_own_node_stored_by_index(self) -> None:
         """The index stores any descriptor (incl. own-node); the consume()
         guard is what rejects echoes of our own events."""
         idx = ClusterPrefixIndex(node_id="me", max_entries=100)
         idx.put(_desc(chunks=_h([11]), node="me", instance="i1"))
-        hit = idx.lookup("m", [11])
+        hit = idx.lookup("m", _tokens([11]))
         assert hit is not None
         assert hit.node_id == "me"
 
@@ -159,7 +178,7 @@ class TestClusterPrefixIndex:
         idx.put(_desc(chunks=_h([44]), node="n3", instance="i4"))
         assert len(idx.descriptors()) == 4
         # touch 11 so it is most recent
-        idx.lookup("m", [11])
+        idx.lookup("m", _tokens([11]))
         idx.put(_desc(chunks=_h([55]), node="n4", instance="i5"))
         descs = {d.chunks[0]: d for d in idx.descriptors()}
         # 22 was never touched -> evicted
@@ -177,13 +196,13 @@ class TestClusterPrefixIndex:
         idx.put(_desc(chunks=_h([11])))
         idx.clear()
         assert idx.descriptors() == []
-        assert idx.lookup("m", [11]) is None
+        assert idx.lookup("m", _tokens([11])) is None
 
     def test_ttl_eviction(self) -> None:
         idx = ClusterPrefixIndex(node_id="n1", max_entries=100, ttl=0.01)
         idx.put(_desc(chunks=_h([11]), node="n2", instance="i2"))
         time.sleep(0.02)
-        assert idx.lookup("m", [11]) is None
+        assert idx.lookup("m", _tokens([11])) is None
 
 
 # ── coordinator ──────────────────────────────────────────────────────────
@@ -233,7 +252,7 @@ class TestClusterPrefixCoordinator:
                 last_used=time.time(),
             )
         )
-        hit = idx.lookup("m", [11, 22])
+        hit = idx.lookup("m", _tokens([11], [22]))
         assert hit is not None
         assert hit.node_id == "n2"
 
@@ -256,11 +275,12 @@ class TestClusterPrefixCoordinator:
 
     def test_lookup_returns_peer_hint(self) -> None:
         idx = ClusterPrefixIndex(node_id="n1", max_entries=100)
-        idx.put(_desc(chunks=_h([11], [22]), node="n2", instance="i2"))
+        # The coordinator hashes model ids internally; store under the hash.
+        idx.put(_desc(model=model_hash("m"), chunks=_h([11], [22]), node="n2", instance="i2"))
         coord = ClusterPrefixCoordinator(
             node_id="n1", instance_id="i1", event_sender=None, index=idx
         )
-        hint = coord.lookup_peer("m", [11, 33])
+        hint = coord.lookup_peer("m", _tokens([11], [33]))
         assert hint is not None
         assert hint.node_id == "n2"
 
@@ -269,7 +289,7 @@ class TestClusterPrefixCoordinator:
         coord = ClusterPrefixCoordinator(
             node_id="n1", instance_id="i1", event_sender=None, index=idx
         )
-        assert coord.lookup_peer("m", [99]) is None
+        assert coord.lookup_peer("m", _tokens([99])) is None
 
 
 # ── union membership ─────────────────────────────────────────────────────
