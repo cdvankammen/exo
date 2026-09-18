@@ -5,9 +5,11 @@
     getLogTail,
     getLogRawUrl,
     listLogErrors,
+    getLogAll,
     nodeIdentities,
     type LogErrorEntry,
     type LogFileListItem,
+    type LogAllEntry,
   } from "$lib/stores/app.svelte";
   import HeaderNav from "$lib/components/HeaderNav.svelte";
 
@@ -15,6 +17,7 @@
     main: "Main Log",
     runner_stdout: "Runner Stdout",
     runner_stderr: "Runner Stderr",
+    all: "Main (All Nodes)",
   };
 
   const ERROR_LEVELS = ["CRITICAL", "ERROR", "WARNING"] as const;
@@ -378,6 +381,65 @@
     }
   }
 
+  // ── Jump-to-line (clickable error rows) ────────────────────────────────
+  // Row click: open the owning log file in tail view and scroll the matching
+  // line into view, flashing a highlight so the operator sees exactly where
+  // the error occurred.
+  let highlightLine = $state<number | null>(null);
+  let highlightTimer: ReturnType<typeof setTimeout> | undefined;
+
+  function clearHighlight() {
+    highlightLine = null;
+    if (highlightTimer) {
+      clearTimeout(highlightTimer);
+      highlightTimer = undefined;
+    }
+  }
+
+  function jumpToErrorLine(entry: LogErrorEntry) {
+    // Remote entries are addressed as "<node-prefix>::<file>". Only entries
+    // from THIS node (no prefix) map to a file we can open in the tail view.
+    const m = entry.sourceLog.match(NODE_PREFIX_RE);
+    if (m) return; // remote node — cannot open its file locally
+    const targetName = entry.sourceLog;
+    if (!logs.some((l) => l.name === targetName)) return;
+
+    clearHighlight();
+    // Tail view shows raw lines; clear the level filter so the target line
+    // is not hidden while we search for it.
+    tailLevelFilter = new Set();
+    selectedName = targetName;
+    viewMode = "tail";
+    stickToBottom = false;
+    refreshContent().then(() => {
+      // Wait one tick for the <pre> to re-render with the new content.
+      requestAnimationFrame(() => {
+        if (!logViewerEl) return;
+        const allLines = content.split("\n");
+        // Match on timestamp + first significant token of the message so
+        // identical messages at different times stay distinguishable.
+        const ts = entry.timestamp.trim();
+        const msgTok = entry.message.trim().split(/\s+/).slice(0, 3).join(" ");
+        const idx = allLines.findIndex(
+          (line) => line.includes(ts) || line.includes(msgTok),
+        );
+        if (idx < 0) {
+          stickToBottom = true;
+          return;
+        }
+        highlightLine = idx;
+        // Scroll the matching line to the middle of the viewer.
+        const pre = logViewerEl;
+        const lineHeight = (pre.querySelector("div")?.offsetHeight ?? 16) || 16;
+        pre.scrollTop = Math.max(0, idx * lineHeight - pre.clientHeight / 2);
+        clearTimeout(highlightTimer);
+        highlightTimer = setTimeout(() => {
+          highlightLine = null;
+        }, 4000);
+      });
+    });
+  }
+
   $effect(() => {
     if (refreshTimer) clearInterval(refreshTimer);
     if (autoRefresh) {
@@ -570,7 +632,17 @@
             <tbody>
               {#each nodeFilteredErrors as entry (entry.timestamp + entry.source + entry.message)}
                 <tr
-                  class="border-t border-exo-medium-gray/20 hover:bg-exo-yellow/5"
+                  class="border-t border-exo-medium-gray/20 hover:bg-exo-yellow/5 cursor-pointer transition-colors"
+                  role="button"
+                  tabindex="0"
+                  title="Open this line in the tail view"
+                  onclick={() => jumpToErrorLine(entry)}
+                  onkeydown={(e) => {
+                    if (e.key === "Enter" || e.key === " ") {
+                      e.preventDefault();
+                      jumpToErrorLine(entry);
+                    }
+                  }}
                 >
                   <td
                     class="px-3 py-1.5 whitespace-nowrap text-exo-light-gray/70"
@@ -694,8 +766,16 @@
       <pre
         bind:this={logViewerEl}
         onscroll={onLogScroll}
-        class="rounded border border-exo-medium-gray/30 bg-exo-black/50 p-4 text-xs font-mono text-exo-light-gray whitespace-pre-wrap break-words overflow-y-auto max-h-[70vh]">{filteredTailLines ||
-          (loadingContent ? "Loading..." : "No content.")}</pre>
+        class="rounded border border-exo-medium-gray/30 bg-exo-black/50 p-4 text-xs font-mono text-exo-light-gray whitespace-pre-wrap break-words overflow-y-auto max-h-[70vh]"
+      >{#each filteredTailLines.split("\n") as line, i (i)}
+          <div
+            class="log-line {i === highlightLine
+              ? 'bg-exo-yellow/20 text-white'
+              : ''}"
+            >{line || " "}</div
+          >
+        {/each}</pre
+      >
     {/if}
   </div>
 </div>
