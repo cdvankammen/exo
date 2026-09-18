@@ -551,6 +551,7 @@ class InfoGatherer:
             tg.start_soon(self._monitor_disk_usage, 30)
             tg.start_soon(self._monitor_node_backends, 60)
             tg.start_soon(self._monitor_node_config, 60)
+            tg.start_soon(self._monitor_node_api_info, 60)
 
             nc = await NodeConfig.gather()
             if nc is not None:
@@ -615,6 +616,29 @@ class InfoGatherer:
             except Exception as e:
                 logger.opt(exception=e).warning("Error gathering node config")
             await anyio.sleep(config_poll_interval)
+
+    async def _monitor_node_api_info(self, api_info_poll_interval: float):
+        """Periodically re-advertise this node's NodeApiInfo (API host/port).
+
+        NodeApiInfo is only gathered once at startup. If that first message is
+        lost (router still connecting) or the node restarts with a different
+        API port, peers keep probing the node at the wrong port and the
+        topology edge-deletion loop (worker/main.py ``_poll_connection_updates``)
+        removes any edge whose sink port doesn't match the advertised
+        ``expected_port`` — leaving the node with zero edges until every peer
+        restarts. Seen live 09-01: tryingexo Linux containers advertised
+        ``apiPort: 0`` and formed no outgoing edges. Re-sending on an interval
+        makes the API-port announcement self-healing.
+        """
+        while True:
+            try:
+                with fail_after(30):
+                    api_info = await NodeApiInfo.gather()
+                    if api_info is not None:
+                        await self.info_sender.send(api_info)
+            except Exception as e:
+                logger.opt(exception=e).warning("Error gathering node api info")
+            await anyio.sleep(api_info_poll_interval)
 
     async def _monitor_misc(self, misc_poll_interval: float):
         while True:
