@@ -1106,6 +1106,10 @@
     }
   }
   let instanceDownloadExpandedNodes = $state<Set<string>>(new Set());
+  // Runner diagnostics expansion state (collapsed by default; card shows the
+  // red-mono error line, and clicking "details" reveals the full diagnostics
+  // with their evidence lines).
+  let instanceErrorExpanded = $state(false);
 
   // Model picker modal state
   let isModelPickerOpen = $state(false);
@@ -1161,6 +1165,10 @@
       next.add(nodeId);
     }
     instanceDownloadExpandedNodes = next;
+  }
+
+  function toggleInstanceErrorDetails(): void {
+    instanceErrorExpanded = !instanceErrorExpanded;
   }
 
   // Compute highlighted nodes from hovered instance or hovered preview
@@ -2175,9 +2183,14 @@
   // Extract the failure reason from an instance's failed runner(s), if any.
   // RunnerFailed carries error_message + diagnostics[] (e.g. GPU timeout,
   // ring transport errors); this surfaces them on the FAILED card.
+  //
+  // IMPORTANT: each diagnostic on the wire is a TAGGED model — e.g.
+  // { RunnerMetalGpuTimeout: { message, evidence } } — NOT a plain string.
+  // Mapping `String` over the array yields "[object Object]" for every
+  // entry, so we unwrap each tagged value into { kind, message, evidence }.
   function getInstanceRunnerError(instanceWrapped: unknown): {
     errorMessage: string | null;
-    diagnostics: string[];
+    diagnostics: { kind: string; message: string; evidence: string[] }[];
     runnerIds: string[];
   } {
     const [, instance] = getTagged(instanceWrapped);
@@ -2196,12 +2209,48 @@
       if (!runner || typeof runner !== "object") continue;
       const rf = runner as {
         error_message?: string | null;
+        errorMessage?: string | null;
         diagnostics?: unknown;
       };
       const diags = Array.isArray(rf.diagnostics)
-        ? rf.diagnostics.map(String)
+        ? rf.diagnostics
+            .map((d) => {
+              if (typeof d === "string") {
+                return { kind: "diagnostic", message: d, evidence: [] };
+              }
+              if (!d || typeof d !== "object") return null;
+              const [diagKind, diagPayload] = getTagged(d);
+              if (!diagKind || !diagPayload || typeof diagPayload !== "object") {
+                return null;
+              }
+              const dp = diagPayload as {
+                message?: unknown;
+                evidence?: unknown;
+              };
+              const evidence = Array.isArray(dp.evidence)
+                ? dp.evidence.filter(
+                    (e): e is string => typeof e === "string",
+                  )
+                : [];
+              return {
+                kind: diagKind,
+                message:
+                  typeof dp.message === "string"
+                    ? dp.message
+                    : diagKind,
+                evidence,
+              };
+            })
+            .filter(
+              (d): d is { kind: string; message: string; evidence: string[] } =>
+                d !== null,
+            )
         : [];
-      return { errorMessage: rf.error_message ?? null, diagnostics: diags, runnerIds };
+      return {
+        errorMessage: rf.error_message ?? rf.errorMessage ?? null,
+        diagnostics: diags,
+        runnerIds,
+      };
     }
     return { errorMessage: null, diagnostics: [], runnerIds };
   }
@@ -5658,10 +5707,64 @@
                               {instanceRunnerError.errorMessage ?? "Model failed to load — see logs tab for details"}
                             </div>
                             {#if instanceRunnerError.diagnostics.length > 0}
-                              <div
-                                class="mt-1.5 text-[10px] font-mono text-red-300/60 leading-snug"
-                              >
-                                {instanceRunnerError.diagnostics.join(" • ")}
+                              <div class="mt-1.5">
+                                <button
+                                  type="button"
+                                  class="inline-flex items-center gap-1 text-[10px] font-mono text-red-300/70 hover:text-red-200 transition-colors cursor-pointer"
+                                  onclick={toggleInstanceErrorDetails}
+                                  aria-expanded={instanceErrorExpanded}
+                                >
+                                  <svg
+                                    class="w-3 h-3 transition-transform {instanceErrorExpanded
+                                      ? 'rotate-90'
+                                      : ''}"
+                                    viewBox="0 0 20 20"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                  >
+                                    <path
+                                      d="M7 4l6 6-6 6"
+                                      stroke-linecap="round"
+                                      stroke-linejoin="round"
+                                    />
+                                  </svg>
+                                  {instanceErrorExpanded
+                                    ? "Hide diagnostics"
+                                    : "Show diagnostics"}
+                                  ({instanceRunnerError.diagnostics.length})
+                                </button>
+                                {#if instanceErrorExpanded}
+                                  <div
+                                    class="mt-1.5 space-y-2 max-h-48 overflow-y-auto pr-1"
+                                  >
+                                    {#each instanceRunnerError.diagnostics as diag}
+                                      <div
+                                        class="rounded border border-red-500/20 bg-red-950/40 p-1.5"
+                                      >
+                                        <div
+                                          class="text-[10px] font-mono text-red-300/90 break-words leading-snug"
+                                        >
+                                          {diag.message}
+                                        </div>
+                                        {#if diag.evidence.length > 0}
+                                          <div
+                                            class="mt-1 text-[9px] font-mono text-red-300/50 leading-snug space-y-0.5"
+                                          >
+                                            {#each diag.evidence as line}
+                                              <div class="break-all">{line}</div>
+                                            {/each}
+                                          </div>
+                                        {/if}
+                                        <div
+                                          class="mt-0.5 text-[9px] font-mono text-red-300/40 uppercase tracking-wide"
+                                        >
+                                          {diag.kind}
+                                        </div>
+                                      </div>
+                                    {/each}
+                                  </div>
+                                {/if}
                               </div>
                             {/if}
                             <div class="mt-1.5 text-[9px] font-mono text-exo-light-gray/70">
@@ -7058,10 +7161,64 @@
                                 {instanceRunnerError.errorMessage ?? "Model failed to load — see logs tab for details"}
                               </div>
                               {#if instanceRunnerError.diagnostics.length > 0}
-                                <div
-                                  class="mt-1.5 text-[10px] font-mono text-red-300/60 leading-snug"
-                                >
-                                  {instanceRunnerError.diagnostics.join(" • ")}
+                                <div class="mt-1.5">
+                                  <button
+                                    type="button"
+                                    class="inline-flex items-center gap-1 text-[10px] font-mono text-red-300/70 hover:text-red-200 transition-colors cursor-pointer"
+                                    onclick={toggleInstanceErrorDetails}
+                                    aria-expanded={instanceErrorExpanded}
+                                  >
+                                    <svg
+                                      class="w-3 h-3 transition-transform {instanceErrorExpanded
+                                        ? 'rotate-90'
+                                        : ''}"
+                                      viewBox="0 0 20 20"
+                                      fill="none"
+                                      stroke="currentColor"
+                                      stroke-width="2"
+                                    >
+                                      <path
+                                        d="M7 4l6 6-6 6"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                      />
+                                    </svg>
+                                    {instanceErrorExpanded
+                                      ? "Hide diagnostics"
+                                      : "Show diagnostics"}
+                                    ({instanceRunnerError.diagnostics.length})
+                                  </button>
+                                  {#if instanceErrorExpanded}
+                                    <div
+                                      class="mt-1.5 space-y-2 max-h-48 overflow-y-auto pr-1"
+                                    >
+                                      {#each instanceRunnerError.diagnostics as diag}
+                                        <div
+                                          class="rounded border border-red-500/20 bg-red-950/40 p-1.5"
+                                        >
+                                          <div
+                                            class="text-[10px] font-mono text-red-300/90 break-words leading-snug"
+                                          >
+                                            {diag.message}
+                                          </div>
+                                          {#if diag.evidence.length > 0}
+                                            <div
+                                              class="mt-1 text-[9px] font-mono text-red-300/50 leading-snug space-y-0.5"
+                                            >
+                                              {#each diag.evidence as line}
+                                                <div class="break-all">{line}</div>
+                                              {/each}
+                                            </div>
+                                          {/if}
+                                          <div
+                                            class="mt-0.5 text-[9px] font-mono text-red-300/40 uppercase tracking-wide"
+                                          >
+                                            {diag.kind}
+                                          </div>
+                                        </div>
+                                      {/each}
+                                    </div>
+                                  {/if}
                                 </div>
                               {/if}
                               <div class="mt-1.5 text-[9px] font-mono text-exo-light-gray/70">
