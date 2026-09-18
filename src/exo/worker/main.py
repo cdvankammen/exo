@@ -8,6 +8,14 @@ from collections import defaultdict
 from datetime import datetime, timezone
 
 import anyio
+
+# Number of consecutive poll cycles an edge must be missed before it is
+# deleted from the topology. The connection poll runs every 2s, so a missed
+# edge is only dropped after ~6s of continuous non-discovery — absorbing
+# transient reachability blips that previously made healthy nodes flicker
+# in and out of the topology every few seconds.
+EDGE_DELETE_MISS_THRESHOLD = 3
+
 from anyio import fail_after, to_thread
 from loguru import logger
 
@@ -115,6 +123,12 @@ class Worker:
             node_id=self.node_id, max_entries=4096
         )
         self._cluster_prefix_dirty = False
+        # Consecutive failed probe counts per edge. An edge is only deleted from
+        # the topology after EDGE_DELETE_MISS_THRESHOLD consecutive polls where
+        # its sink IP was not rediscovered, absorbing transient reachability
+        # blips (API restart, one bad poll cycle) that previously caused the
+        # node to flicker in/out of the topology every few seconds.
+        self._edge_probe_failures: dict[SocketConnection, int] = {}
         self._stopped: anyio.Event = anyio.Event()
 
     async def run(self):
@@ -544,8 +558,19 @@ class Worker:
                     conn.sink not in conns
                     or conn.edge.sink_multiaddr.ip_address not in conns[conn.sink]
                 ):
+                    missed = self._edge_probe_failures.get(conn.edge, 0) + 1
+                    self._edge_probe_failures[conn.edge] = missed
+                    if missed < EDGE_DELETE_MISS_THRESHOLD:
+                        logger.debug(
+                            f"ping missed {conn=} ({missed}/{EDGE_DELETE_MISS_THRESHOLD} consecutive polls) — keeping edge"
+                        )
+                        continue
                     logger.debug(f"ping failed to discover {conn=}")
+                    del self._edge_probe_failures[conn.edge]
                     await self.event_sender.send(TopologyEdgeDeleted(conn=conn))
+                else:
+                    # Sink IP rediscovered — reset the miss counter.
+                    self._edge_probe_failures.pop(conn.edge, None)
 
             await anyio.sleep(poll_interval_seconds)
 

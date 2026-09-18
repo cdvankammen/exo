@@ -1,6 +1,7 @@
 from unittest.mock import AsyncMock, MagicMock, patch
 
 from exo.utils.info_gatherer.net_profile import (
+    _is_probeable,
     bandwidth_changed_materially,
     latency_changed_materially,
     probe_bandwidth,
@@ -87,3 +88,42 @@ async def test_probe_bandwidth_error_returns_none():
     mbps = await probe_bandwidth("10.0.0.1", client, api_port=52415)
 
     assert mbps is None
+
+
+# --- _is_probeable (loopback exclusion for peer probing) ---
+
+def test_is_probeable_excludes_ipv4_loopback():
+    assert _is_probeable("127.0.0.1") is False
+
+
+def test_is_probeable_excludes_ipv6_loopback():
+    assert _is_probeable("::1") is False
+
+
+def test_is_probeable_excludes_scoped_loopback_zone():
+    assert _is_probeable("fe80::1%lo0") is False
+    assert _is_probeable("fe80::1%lo") is False
+
+
+def test_is_probeable_excludes_localhost_name():
+    assert _is_probeable("localhost") is False
+
+
+def test_is_probeable_keeps_lan_addresses():
+    assert _is_probeable("10.2.0.51") is True
+    assert _is_probeable("192.168.1.107") is True
+
+
+def test_is_probeable_keeps_tailscale_and_link_local():
+    assert _is_probeable("100.96.109.61") is True
+    assert _is_probeable("169.254.203.10") is True
+    assert _is_probeable("fd7a:115c:a1e0::b32:6d3e") is True
+
+
+def test_is_probeable_keeps_non_loopback_scoped():
+    assert _is_probeable("fe80::855:c2ed:e48b:a777%en3") is True
+
+
+def test_is_probeable_keeps_unparseable_as_probe_attempt():
+    # Garbage should not silently drop a peer discovery attempt.
+    assert _is_probeable("garbage!!") is True

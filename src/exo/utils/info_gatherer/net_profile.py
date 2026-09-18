@@ -2,6 +2,7 @@
 
 Reachability/bandwidth probing and latency/bandwidth change detection (``probe_bandwidth()``, ``check_reachable()``, ``check_bandwidth()``)."""
 
+import ipaddress
 import time
 from collections import defaultdict
 from collections.abc import AsyncGenerator, Mapping
@@ -17,6 +18,31 @@ from exo.shared.types.profiling import NodeIdentity, NodeNetworkInfo
 from exo.utils.channels import Sender, channel
 
 REACHABILITY_ATTEMPTS = 3
+
+
+def _is_probeable(ip_str: str) -> bool:
+    """Whether an advertised interface address is worth probing as a peer target.
+
+    Loopback addresses (127.0.0.1, ::1) must never be probed: from a peer's
+    perspective 127.0.0.1 is ITSELF, so the probe always returns the probing
+    node's own node_id and gets rejected as an "unexpected node_id" —
+    wasting a probe slot every poll cycle and, on flaky links, contributing
+    to an empty discovery set (the stale-edge sweep then deletes healthy
+    edges to the peer).
+    """
+    # Scoped addresses like fe80::1%lo0 carry a zone suffix that ipaddress
+    # cannot parse; strip it before classification.
+    if "%" in ip_str:
+        ip_str, zone = ip_str.split("%", 1)
+        # The zone is the source interface name; a lo* zone means loopback.
+        if zone.startswith("lo"):
+            return False
+    if ip_str.lower() == "localhost":
+        return False
+    try:
+        return not ipaddress.ip_address(ip_str).is_loopback
+    except ValueError:
+        return True
 
 # Thresholds below which a latency change is treated as measurement noise
 LATENCY_NOISE_FLOOR_MS = 2.0
@@ -221,6 +247,8 @@ async def check_reachable(
                 if identity is not None and identity.api_port > 0:
                     target_api_port = identity.api_port
             for iface in node_network[node_id].interfaces:
+                if not _is_probeable(iface.ip_address):
+                    continue
                 tg.start_soon(
                     _probe, iface.ip_address, node_id, target_api_port, client, send.clone()
                 )
@@ -281,6 +309,8 @@ async def check_bandwidth(
                 if identity is not None and identity.api_port > 0:
                     target_api_port = identity.api_port
             for iface in node_network[node_id].interfaces:
+                if not _is_probeable(iface.ip_address):
+                    continue
                 tg.start_soon(
                     _probe, iface.ip_address, node_id, target_api_port, client, send.clone()
                 )
