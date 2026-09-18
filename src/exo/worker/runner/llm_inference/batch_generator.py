@@ -67,6 +67,43 @@ def _is_oom_error(exc: Exception) -> bool:
         return True
     return isinstance(exc, MemoryError)
 
+
+@dataclass
+class OomRecoveredError(Exception):
+    """Raised when an OOM was intercepted and the generator recovered.
+
+    Carries the degraded admission limit, the recovery reason, and any
+    results that were produced by the retried step so a caller (e.g. the
+    runner status machine) can surface a ``RunnerDegraded`` status without
+    losing output.
+    """
+
+    max_batch_size: int | None = None
+    reason: str = "OOM recovered"
+    results: list = field(default_factory=list)
+
+
+def _clear_oom_memory(kv_prefix_cache: object | None) -> None:
+    """Free memory after an OOM: clear the KV prefix cache, run the Python
+    GC and release the Metal/CUDA allocator cache.
+
+    The cache eviction gives a retried generation a clean slate (the OOM
+    was usually caused by cached prefixes pinning device memory).
+    """
+    import gc
+
+    try:
+        if kv_prefix_cache is not None and hasattr(kv_prefix_cache, "clear"):
+            kv_prefix_cache.clear()
+    except Exception:
+        pass
+    gc.collect()
+    try:
+        mx.clear_cache()
+    except Exception:
+        pass
+
+
 class GeneratorQueue[T]:
     def __init__(self):
         self._q = deque[T]()
@@ -224,21 +261,15 @@ class SequentialGenerator(Engine):
         except Exception as e:
             # P1 #39: OOM graceful degradation — evict KV cache and retry once
             # instead of crashing the runner with SIGABRT. The retry rebuilds
-            # the generator from scratch (fresh KV cache, no stale state).
-            if _is_oom_error(e) and self.kv_prefix_cache is not None:
+            # the generator from scratch (fresh KV cache, no stale state). On
+            # success the recovered output rides along in OomRecoveredError so
+            # nothing is lost; a second OOM escalates the original exception.
+            if _is_oom_error(e):
                 logger.warning(
                     f"OOM during generation for task {task.task_id}: {e}. "
                     "Evicting KV cache and retrying once."
                 )
-                try:
-                    self.kv_prefix_cache.clear()
-                    import gc
-
-                    gc.collect()
-                    mx.clear_cache()
-                except Exception:
-                    pass
-                # Rebuild the generator and retry one step
+                _clear_oom_memory(self.kv_prefix_cache)
                 try:
                     gen = self._build_generator(task)
                     queue = GeneratorQueue[GenerationResponse]()
@@ -262,23 +293,20 @@ class SequentialGenerator(Engine):
                     queue.push(response)
                     while (parsed := next(output_generator, None)) is not None:
                         output.append((task.task_id, parsed))
-                    return filter(
-                        lambda chunk: (
-                            not isinstance(chunk[1], GenerationChunk)
-                            or self.device_rank == 0
-                        ),
-                        itertools.chain(
-                            output,
-                            map(
-                                lambda t: (t, CancelledResponse()),
-                                self._cancelled_tasks,
-                            ),
-                        ),
+                    # The degraded generator recovered and produced output —
+                    # surface it through OomRecoveredError so the runner can
+                    # emit RunnerDegraded without losing the response.
+                    raise OomRecoveredError(
+                        max_batch_size=1,
+                        reason=f"OOM recovered: {e}",
+                        results=output,
                     )
+                except OomRecoveredError:
+                    raise
                 except Exception as retry_e:
                     self._send_error(task, retry_e)
                     self._active = None
-                    raise
+                    raise retry_e from e
             self._send_error(task, e)
             self._active = None
             raise
@@ -421,6 +449,9 @@ class BatchGenerator(Engine):
     _all_tasks: dict[TaskId, TextGeneration] = field(default_factory=dict, init=False)
     _queue: deque[TextGeneration] = field(default_factory=deque, init=False)
     _gen: ExoBatchGenerator = field(init=False)
+    # Current admission cap; halved by OOM recovery (P1 #39 / #2182) and
+    # used by step() to gate how many tasks are admitted per round.
+    _max_concurrent: int = field(default=EXO_MAX_CONCURRENT_REQUESTS, init=False)
     _active_tasks: dict[
         int,
         tuple[
@@ -489,8 +520,10 @@ class BatchGenerator(Engine):
         if not self._queue:
             self.agree_on_tasks()
 
-        # Submit any queued tasks to the engine
-        while self._queue and len(self._active_tasks) < EXO_MAX_CONCURRENT_REQUESTS:
+        # Submit any queued tasks to the engine (gated by the current
+        # admission cap — the cap is halved by OOM recovery, so after an OOM
+        # fewer tasks are admitted until the runner is restarted).
+        while self._queue and len(self._active_tasks) < self._max_concurrent:
             task = self._queue.popleft()
             try:
                 uid = self._start_task(task)
@@ -520,7 +553,51 @@ class BatchGenerator(Engine):
         if not self._gen.has_work:
             return self._apply_cancellations()
 
-        results = self._gen.step()
+        try:
+            results = self._gen.step()
+        except Exception as e:
+            # P1 #39: OOM graceful degradation — evict the KV cache, halve the
+            # admission limit, reset the engine and resubmit every active task
+            # from scratch instead of letting the OOM escape and crash-loop
+            # the runner. The halved max_batch_size is surfaced via
+            # OomRecoveredError so the runner can emit RunnerDegraded.
+            if not _is_oom_error(e):
+                raise
+            logger.warning(
+                f"OOM during batch step: {e}. Halving max concurrent requests "
+                f"from {EXO_MAX_CONCURRENT_REQUESTS} to "
+                f"{max(1, EXO_MAX_CONCURRENT_REQUESTS // 2)} and resetting."
+            )
+            _clear_oom_memory(self.kv_prefix_cache)
+            self._gen.reset()
+            new_limit = max(1, EXO_MAX_CONCURRENT_REQUESTS // 2)
+            self._max_concurrent = new_limit
+            # Resubmit every active task from scratch (partial progress lost).
+            active = list(self._active_tasks.items())
+            self._active_tasks.clear()
+            for _uid, (task, _, _) in active:
+                uid = self._start_task(task)
+                queue = GeneratorQueue[GenerationResponse]()
+                if task.task_params.bench:
+                    output_generator: Iterator[GenerationChunk | None] = map(
+                        lambda r: map_responses_to_chunks(r, self.model_id),
+                        queue.gen(),
+                    )
+                else:
+                    output_generator = apply_all_parsers(
+                        queue.gen(),
+                        apply_chat_template(self.tokenizer, task.task_params),
+                        self.tool_parser,
+                        self.tokenizer,
+                        type(self.model),
+                        self.model_id,
+                        task.task_params.tools,
+                    )
+                self._active_tasks[uid] = (task, queue, output_generator)
+            raise OomRecoveredError(
+                max_batch_size=new_limit,
+                reason=f"OOM recovered, batch size halved to {new_limit}",
+            ) from e
 
         output: list[
             tuple[TaskId, GenerationChunk | CancelledResponse | FinishedResponse]

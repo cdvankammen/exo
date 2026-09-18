@@ -66,6 +66,16 @@ class RunnerRunning(BaseRunnerStatus):
     """Runner is actively executing a task."""
 
 
+class RunnerDegraded(RunnerRunning):
+    """Runner is still executing but has degraded after an OOM: the KV cache
+    was cleared, the admission limit was halved, and active tasks were
+    restarted. Inherits from RunnerRunning so every isinstance-based consumer
+    (circuit breaker, dashboard, plan) treats the node as alive."""
+
+    max_batch_size: int | None = None
+    reason: str | None = None
+
+
 class RunnerShuttingDown(BaseRunnerStatus):
     """Runner is shutting down."""
 
@@ -90,6 +100,7 @@ RunnerStatus = (
     | RunnerWarmingUp
     | RunnerReady
     | RunnerRunning
+    | RunnerDegraded
     | RunnerShuttingDown
     | RunnerShutdown
     | RunnerFailed
