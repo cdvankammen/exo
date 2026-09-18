@@ -435,7 +435,7 @@ EXO provides Ollama API compatibility for tools like OpenWebUI.
 ### Ollama Chat
 
 **POST** `/ollama/api/chat`
-**POST** `/ollama/api/api/chat` (alias)
+**POST** `/ollama/api/api/chat` (alias, deprecated — see [DEPRECATIONS.md](../DEPRECATIONS.md))
 **POST** `/ollama/api/v1/chat` (alias)
 
 Execute a chat request using Ollama API format.
@@ -477,7 +477,7 @@ Ollama-compatible generation response.
 ### Ollama Tags
 
 **GET** `/ollama/api/tags`
-**GET** `/ollama/api/api/tags` (alias)
+**GET** `/ollama/api/api/tags` (alias, deprecated — see [DEPRECATIONS.md](../DEPRECATIONS.md))
 **GET** `/ollama/api/v1/tags` (alias)
 
 Returns list of downloaded models in Ollama tags format.
@@ -718,11 +718,11 @@ POST    /v1/responses
 
 # Text Generation (Ollama API)
 POST    /ollama/api/chat
-POST    /ollama/api/api/chat
+POST    /ollama/api/api/chat      # deprecated typo alias — see DEPRECATIONS.md
 POST    /ollama/api/v1/chat
 POST    /ollama/api/generate
 GET     /ollama/api/tags
-GET     /ollama/api/api/tags
+GET     /ollama/api/api/tags      # deprecated typo alias — see DEPRECATIONS.md
 GET     /ollama/api/v1/tags
 POST    /ollama/api/show
 GET     /ollama/api/ps

@@ -20,6 +20,7 @@ Policy (per cross-cutting deprecation analysis `t_99c1804c`):
 | Feature | Deprecated | Replacement | Tracking issue | Remove after |
 |---|---|---|---|---|
 | `allowMemoryOverride` dashboard boolean (`exo-allow-memory-override` localStorage key) | 2026-09-18 | tiered `memoryOverrideLevel` (`exo-memory-override-level`) | exo-explore/exo#2315 | >= v0.4.x |
+| `/ollama/api/api/chat` + `/ollama/api/api/tags` typo-alias routes | 2026-09-18 | canonical `/ollama/api/chat` + `/ollama/api/tags` | exo-explore/exo#2314 | >= v0.4.x |
 
 ## Notes
 
@@ -28,3 +29,9 @@ Policy (per cross-cutting deprecation analysis `t_99c1804c`):
   Added in fork commit `6b8d3a78`. Still wired to `force_override` on placement
   previews and instance launches. Back-compat shim: stays in sync while the
   replacement storage format lands; old call sites keep working.
+- **`/ollama/api/api/*` typo aliases** — doubled `/api/api` paths registered
+  silently since commit `addf73a14` (2026-02-20) for clients that copied the
+  wrong Ollama path. Every aliased response carries an `X-EXO-Deprecation:
+  true` header, an RFC 8594 `Deprecation` header, and a server-side warning
+  log. Remove only after the canonical routes have been stable for one
+  minor-version window.

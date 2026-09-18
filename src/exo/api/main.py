@@ -15,7 +15,16 @@ from uuid import uuid4
 
 import anyio
 from anyio import BrokenResourceError, ClosedResourceError
-from fastapi import FastAPI, File, Form, HTTPException, Query, Request, UploadFile
+from fastapi import (
+    FastAPI,
+    File,
+    Form,
+    HTTPException,
+    Query,
+    Request,
+    Response as FastAPIResponse,
+    UploadFile,
+)
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse, JSONResponse, Response, StreamingResponse
 from fastapi.staticfiles import StaticFiles
@@ -476,6 +485,15 @@ def _require_disaggregation_enabled() -> None:
         )
 
 
+# Deprecated Ollama typo-alias routes (blame addf73a14, 2026-02-20).
+# Kept for at least one minor-version window; see DEPRECATIONS.md and
+# https://github.com/exo-explore/exo/issues/2314.
+OLLAMA_TYPO_ALIAS_DEPRECATION_LINK = (
+    "https://github.com/exo-explore/exo/issues/2314"
+)
+OLLAMA_TYPO_ALIAS_DEPRECATION_HEADER = "X-EXO-Deprecation"
+
+
 class API:
     def __init__(
         self,
@@ -639,11 +657,19 @@ class API:
             self.chat_completions
         )
         self.app.post("/ollama/api/chat", response_model=None)(self.ollama_chat)
-        self.app.post("/ollama/api/api/chat", response_model=None)(self.ollama_chat)
+        # Deprecated typo alias (blame addf73a14, 2026-02-20) — kept for at
+        # least one minor-version window. See DEPRECATIONS.md and
+        # https://github.com/exo-explore/exo/issues/2314.
+        self.app.post(
+            "/ollama/api/api/chat", response_model=None
+        )(self._ollama_deprecated_alias(self.ollama_chat))
         self.app.post("/ollama/api/v1/chat", response_model=None)(self.ollama_chat)
         self.app.post("/ollama/api/generate", response_model=None)(self.ollama_generate)
         self.app.get("/ollama/api/tags")(self.ollama_tags)
-        self.app.get("/ollama/api/api/tags")(self.ollama_tags)
+        # Deprecated typo alias (blame addf73a14, 2026-02-20) — kept for at
+        # least one minor-version window. See DEPRECATIONS.md and
+        # https://github.com/exo-explore/exo/issues/2314.
+        self.app.get("/ollama/api/api/tags")(self._ollama_deprecated_alias(self.ollama_tags))
         self.app.get("/ollama/api/v1/tags")(self.ollama_tags)
         self.app.post("/ollama/api/show")(self.ollama_show)
         self.app.get("/ollama/api/ps")(self.ollama_ps)
@@ -2222,6 +2248,32 @@ class API:
                 ),
                 media_type="application/json",
             )
+
+    def _ollama_deprecated_alias(
+        self, handler: Callable[..., Awaitable[object]]
+    ) -> Callable[..., Awaitable[object]]:
+        """Mount-point wrapper for the deprecated /ollama/api/api/* typo aliases.
+
+        Keeps the route alive for one minor-version window while emitting an
+        explicit deprecation signal on every response. See DEPRECATIONS.md and
+        https://github.com/exo-explore/exo/issues/2314.
+        """
+
+        async def wrapper(request: Request, response: FastAPIResponse) -> object:
+            result = await handler(request)
+            response.headers[OLLAMA_TYPO_ALIAS_DEPRECATION_HEADER] = "true"
+            response.headers["Deprecation"] = (
+                f'version="0"; link="{OLLAMA_TYPO_ALIAS_DEPRECATION_LINK}"'
+            )
+            logger.warning(
+                "Deprecated Ollama typo-alias route hit: %s %s "
+                "(see DEPRECATIONS.md, exo-explore/exo#2314)",
+                request.method,
+                request.url.path,
+            )
+            return result
+
+        return wrapper
 
     async def _ollama_root(self) -> JSONResponse:
         """Respond to HEAD / from Ollama CLI connectivity checks."""
