@@ -24,7 +24,7 @@ from exo.shared.types.profiling import (
     NetworkInterfaceInfo,
     NodeNetworkInfo,
 )
-from exo.shared.types.topology import Connection, SocketConnection
+from exo.shared.types.topology import Connection, RDMAConnection, SocketConnection
 from exo.shared.types.worker.shards import (
     CfgShardMetadata,
     PipelineShardMetadata,
@@ -936,6 +936,110 @@ def test_find_ip_prioritised_unmeasured_falls_back_to_type_and_rfc1918() -> None
     assert result == "192.168.1.1"
 
 
+def test_find_ip_prioritised_asymmetric_topology_ring_falls_back_to_interfaces() -> None:
+    """Upstream exo-explore/exo#2077: a direction with only RDMAConnection
+    edges (no SocketConnection) must still resolve a reachable IP for ring
+    placement by falling back to the peer's advertised interfaces."""
+    dialer = NodeId()
+    listener = NodeId()
+    topology = Topology()
+    topology.add_node(dialer)
+    topology.add_node(listener)
+
+    # dialer -> listener: socket edges only (uplink direction, healthy)
+    topology.add_connection(
+        Connection(
+            source=dialer,
+            sink=listener,
+            edge=SocketConnection(
+                sink_multiaddr=Multiaddr(address="/ip4/169.254.1.2/tcp/2222")
+            ),
+        )
+    )
+    # listener -> dialer: RDMAConnection ONLY (the asymmetry from #2077)
+    topology.add_connection(
+        Connection(
+            source=listener,
+            sink=dialer,
+            edge=RDMAConnection(source_rdma_iface="en0", sink_rdma_iface="en0"),
+        )
+    )
+
+    # The dialer reports interfaces with mixed types and speeds.
+    dialer_network = NodeNetworkInfo(
+        interfaces=[
+            NetworkInterfaceInfo(
+                name="en5",
+                ip_address="10.0.0.2",
+                interface_type="ethernet",
+                link_speed_megabits=1000,
+            ),
+            NetworkInterfaceInfo(
+                name="en0",
+                ip_address="192.168.1.2",
+                interface_type="wifi",
+                link_speed_megabits=300,
+            ),
+            NetworkInterfaceInfo(
+                name="en6",
+                ip_address="169.254.1.2",
+                interface_type="thunderbolt",
+                link_speed_megabits=40000,
+            ),
+        ]
+    )
+    node_network = {dialer: dialer_network, listener: NodeNetworkInfo()}
+
+    from exo.master.placement_utils import find_ip_prioritised
+
+    # Healthy direction keeps its socket-edge behavior.
+    fwd = find_ip_prioritised(dialer, listener, topology, node_network, ring=True)
+    assert fwd == "169.254.1.2"
+
+    # RDMA-only reverse direction must fall back to interfaces: ring prefers
+    # the fastest nominal type -> thunderbolt interface IP.
+    rev_ring = find_ip_prioritised(listener, dialer, topology, node_network, ring=True)
+    assert rev_ring == "169.254.1.2"
+
+    # RDMA-only reverse direction, jaccl: prefers ethernet -> 10.0.0.2.
+    rev_jaccl = find_ip_prioritised(
+        listener, dialer, topology, node_network, ring=False
+    )
+    assert rev_jaccl == "10.0.0.2"
+
+
+def test_find_ip_prioritised_no_socket_edges_and_no_interfaces_returns_none() -> None:
+    """When a direction has no SocketConnection edges AND the peer reports no
+    interfaces, the result stays None (placement is genuinely impossible)."""
+    node_a = NodeId()
+    node_b = NodeId()
+    topology = Topology()
+    topology.add_node(node_a)
+    topology.add_node(node_b)
+    topology.add_connection(
+        Connection(
+            source=node_a,
+            sink=node_b,
+            edge=RDMAConnection(source_rdma_iface="en0", sink_rdma_iface="en0"),
+        )
+    )
+
+    from exo.master.placement_utils import find_ip_prioritised
+
+    assert (
+        find_ip_prioritised(
+            node_b, node_a, topology, {node_a: NodeNetworkInfo()}, ring=True
+        )
+        is None
+    )
+    assert (
+        find_ip_prioritised(
+            node_b, node_a, topology, {node_a: NodeNetworkInfo()}, ring=False
+        )
+        is None
+    )
+
+
 def test_assign_shard_backends_picks_first_preferred_backend_per_node():
     from exo.master.placement_utils import assign_shard_backends
     from exo.shared.types.worker.runners import RunnerId, ShardAssignments
@@ -1091,3 +1195,132 @@ class TestRingMemoryAdmission:
         )
         lowered = estimate_ring_node_memory(card)
         assert lowered < baseline
+
+
+def _three_node_triangle_topology() -> tuple[Topology, NodeId, NodeId, NodeId]:
+    """Fully-connected 3-node triangle (bidirectional edges on every pair).
+
+    Cycle inventory: three 2-cycles (one per edge pair) plus one 3-cycle.
+    """
+    node_a_id = NodeId()
+    node_b_id = NodeId()
+    node_c_id = NodeId()
+
+    topology = Topology()
+    topology.add_node(node_a_id)
+    topology.add_node(node_b_id)
+    topology.add_node(node_c_id)
+
+    for source, sink, ip in [
+        (node_a_id, node_b_id, 1),
+        (node_b_id, node_a_id, 2),
+        (node_a_id, node_c_id, 3),
+        (node_c_id, node_a_id, 4),
+        (node_b_id, node_c_id, 5),
+        (node_c_id, node_b_id, 6),
+    ]:
+        topology.add_connection(
+            Connection(source=source, sink=sink, edge=create_socket_connection(ip))
+        )
+    return topology, node_a_id, node_b_id, node_c_id
+
+
+def _non_singleton_cycles(topology: Topology) -> list:
+    return [c for c in topology.get_cycles() if len(c) != 1]
+
+
+def test_get_smallest_cycles_max_nodes_returns_exactly_n_when_present():
+    # arrange: triangle has 2-cycles AND a 3-cycle
+    topology, node_a_id, node_b_id, node_c_id = _three_node_triangle_topology()
+    cycles = _non_singleton_cycles(topology)
+
+    # act
+    selected = get_smallest_cycles(cycles, max_nodes=2)
+
+    # assert: only exactly-2 cycles — never the 3-cycle
+    assert selected
+    assert all(len(cycle) == 2 for cycle in selected)
+    assert all(
+        set(n for n in cycle) != {node_a_id, node_b_id, node_c_id}
+        for cycle in selected
+    )
+    # the full set covers every pair
+    pair_sets = {frozenset(n for n in cycle) for cycle in selected}
+    assert pair_sets == {
+        frozenset({node_a_id, node_b_id}),
+        frozenset({node_a_id, node_c_id}),
+        frozenset({node_b_id, node_c_id}),
+    }
+
+
+def test_get_smallest_cycles_max_nodes_prefers_exact_n_over_minimum():
+    # arrange: triangle with 2-cycles + 3-cycle; user wants 3 nodes
+    topology, node_a_id, node_b_id, node_c_id = _three_node_triangle_topology()
+    cycles = _non_singleton_cycles(topology)
+
+    # act
+    selected = get_smallest_cycles(cycles, max_nodes=3)
+
+    # assert: the exactly-3 cycles win over the smaller 2-cycles (a directed
+    # triangle yields two 3-cycles: a→b→c and a→c→b)
+    assert selected
+    assert all(len(cycle) == 3 for cycle in selected)
+    assert all(
+        set(n for n in cycle) == {node_a_id, node_b_id, node_c_id}
+        for cycle in selected
+    )
+
+
+def test_get_smallest_cycles_max_nodes_falls_back_when_no_exact_n():
+    # arrange: chain a-b-c has only 2-cycles; user asks for exactly 3
+    node_a_id = NodeId()
+    node_b_id = NodeId()
+    node_c_id = NodeId()
+
+    topology = Topology()
+    topology.add_node(node_a_id)
+    topology.add_node(node_b_id)
+    topology.add_node(node_c_id)
+    for source, sink, ip in [
+        (node_a_id, node_b_id, 1),
+        (node_b_id, node_a_id, 2),
+        (node_b_id, node_c_id, 3),
+        (node_c_id, node_b_id, 4),
+    ]:
+        topology.add_connection(
+            Connection(source=source, sink=sink, edge=create_socket_connection(ip))
+        )
+    cycles = _non_singleton_cycles(topology)
+    assert all(len(cycle) == 2 for cycle in cycles)
+
+    # act
+    selected = get_smallest_cycles(cycles, max_nodes=3)
+
+    # assert: no exactly-3 cycle -> falls back to the minimum (2)
+    assert selected
+    assert all(len(cycle) == 2 for cycle in selected)
+
+
+def test_get_smallest_cycles_max_nodes_empty_input_returns_empty():
+    # act
+    selected = get_smallest_cycles([], max_nodes=2)
+
+    # assert
+    assert selected == []
+
+
+def test_get_smallest_cycles_without_max_nodes_keeps_original_behavior():
+    # arrange: triangle 2-cycles + 3-cycle
+    topology, node_a_id, node_b_id, node_c_id = _three_node_triangle_topology()
+    cycles = _non_singleton_cycles(topology)
+
+    # act (legacy call — no max_nodes kwarg)
+    smallest = get_smallest_cycles(cycles)
+
+    # assert: minimum-size cycles only (the 2-cycles), unchanged behavior
+    assert smallest
+    assert all(len(cycle) == 2 for cycle in smallest)
+    assert all(
+        set(n for n in cycle) != {node_a_id, node_b_id, node_c_id}
+        for cycle in smallest
+    )

@@ -2230,3 +2230,238 @@ def test_manual_layer_allocation_rejects_insufficient_memory(
             node_network,
             _metal_only(node_memory),
         )
+
+
+def _three_node_triangle_topology() -> tuple[Topology, NodeId, NodeId, NodeId]:
+    """Fully-connected 3-node triangle with bidirectional socket edges.
+
+    Provides every 2-node pair as a valid cycle plus the full 3-node cycle,
+    so node selection can be exercised against a real multi-cycle topology.
+    """
+    node_a = NodeId()
+    node_b = NodeId()
+    node_c = NodeId()
+
+    topology = Topology()
+    for node in (node_a, node_b, node_c):
+        topology.add_node(node)
+    for source, sink, ip in [
+        (node_a, node_b, 1),
+        (node_b, node_a, 2),
+        (node_a, node_c, 3),
+        (node_c, node_a, 4),
+        (node_b, node_c, 5),
+        (node_c, node_b, 6),
+    ]:
+        topology.add_connection(
+            Connection(source=source, sink=sink, edge=create_socket_connection(ip))
+        )
+    return topology, node_a, node_b, node_c
+
+
+def test_node_selection_places_only_selected_nodes(
+    model_card: ModelCard,
+) -> None:
+    """Select 2 of 3 connected nodes; placement must use exactly those 2."""
+    topology, node_a, node_b, node_c = _three_node_triangle_topology()
+
+    # Model small enough that EVERY pair (and the full triple) has memory.
+    model_card = model_card.model_copy(update={"storage_size": Memory.from_bytes(100)})
+    node_memory = {
+        node_a: create_node_memory(1000),
+        node_b: create_node_memory(1000),
+        node_c: create_node_memory(1000),
+    }
+    node_network = {
+        node_a: create_node_network(),
+        node_b: create_node_network(),
+        node_c: create_node_network(),
+    }
+
+    command = place_instance_command(model_card=model_card)
+
+    # act: user selects exactly node_a + node_b
+    placements = place_instance(
+        command,
+        topology,
+        {},
+        node_memory,
+        node_network,
+        _metal_only(node_memory),
+        required_nodes={node_a, node_b},
+    )
+
+    # assert: placement lands ONLY on the selected pair
+    assert len(placements) == 1
+    instance = list(placements.values())[0]
+    assigned_nodes = set(instance.shard_assignments.node_to_runner.keys())
+    assert assigned_nodes == {node_a, node_b}
+    assert node_c not in assigned_nodes
+
+
+def test_node_selection_requires_exactly_selected_cycle_not_superset(
+    model_card: ModelCard,
+) -> None:
+    """A requested selection must not silently expand to a larger cycle.
+
+    Regression guard: candidate cycles are filtered with an exact-match
+    (== required_nodes), not issubset, so selecting A+B must never
+    resolve to the A+B+C 3-cycle.
+    """
+    topology, node_a, node_b, node_c = _three_node_triangle_topology()
+    model_card = model_card.model_copy(update={"storage_size": Memory.from_bytes(1000)})
+    node_memory = {
+        node_a: create_node_memory(1000),
+        node_b: create_node_memory(1000),
+        node_c: create_node_memory(1000),
+    }
+    node_network = {
+        node_a: create_node_network(),
+        node_b: create_node_network(),
+        node_c: create_node_network(),
+    }
+
+    command = place_instance_command(model_card=model_card)
+
+    # act
+    placements = place_instance(
+        command,
+        topology,
+        {},
+        node_memory,
+        node_network,
+        _metal_only(node_memory),
+        required_nodes={node_a, node_b},
+    )
+
+    # assert: exactly the selected pair — never the superset 3-cycle
+    assert len(placements) == 1
+    instance = list(placements.values())[0]
+    assigned_nodes = set(instance.shard_assignments.node_to_runner.keys())
+    assert assigned_nodes == {node_a, node_b}
+    assert len(assigned_nodes) == 2
+
+
+def test_node_selection_errors_when_selected_nodes_have_no_cycle(
+    model_card: ModelCard,
+) -> None:
+    """Selected nodes that are not connected in a cycle must fail loudly."""
+    node_a = NodeId()
+    node_b = NodeId()
+    node_c = NodeId()
+
+    # Chain a-b-c: node_a and node_c share NO direct cycle; b is the bridge.
+    topology = Topology()
+    for node in (node_a, node_b, node_c):
+        topology.add_node(node)
+    for source, sink, ip in [
+        (node_a, node_b, 1),
+        (node_b, node_a, 2),
+        (node_b, node_c, 3),
+        (node_c, node_b, 4),
+    ]:
+        topology.add_connection(
+            Connection(source=source, sink=sink, edge=create_socket_connection(ip))
+        )
+
+    model_card = model_card.model_copy(update={"storage_size": Memory.from_bytes(100)})
+    node_memory = {
+        node_a: create_node_memory(1000),
+        node_b: create_node_memory(1000),
+        node_c: create_node_memory(1000),
+    }
+    node_network = {
+        node_a: create_node_network(),
+        node_b: create_node_network(),
+        node_c: create_node_network(),
+    }
+
+    command = place_instance_command(model_card=model_card)
+
+    # act: select the disconnected pair {a, c}
+    with pytest.raises(ValueError, match="No cycles found with sufficient memory"):
+        place_instance(
+            command,
+            topology,
+            {},
+            node_memory,
+            node_network,
+            _metal_only(node_memory),
+            required_nodes={node_a, node_c},
+        )
+
+
+def test_node_selection_insufficient_memory_errors_without_force_override(
+    model_card: ModelCard,
+) -> None:
+    """A selected pair whose combined memory cannot hold the model errors."""
+    topology, node_a, node_b, node_c = _three_node_triangle_topology()
+
+    # 3000-byte model: combined selected-pair memory (2000) is insufficient,
+    # but adding node_c (3000 total) WOULD fit — proving selection is honored.
+    model_card = model_card.model_copy(update={"storage_size": Memory.from_bytes(3000)})
+    node_memory = {
+        node_a: create_node_memory(1000),
+        node_b: create_node_memory(1000),
+        node_c: create_node_memory(1000),
+    }
+    node_network = {
+        node_a: create_node_network(),
+        node_b: create_node_network(),
+        node_c: create_node_network(),
+    }
+
+    command = place_instance_command(model_card=model_card)
+
+    # act: selected pair cannot hold the model; no force override
+    with pytest.raises(ValueError, match="No cycles found with sufficient memory"):
+        place_instance(
+            command,
+            topology,
+            {},
+            node_memory,
+            node_network,
+            _metal_only(node_memory),
+            required_nodes={node_a, node_b},
+        )
+
+
+def test_node_selection_succeeds_with_force_override_when_insufficient(
+    model_card: ModelCard,
+) -> None:
+    """force_override lets an under-memory selected pair proceed anyway."""
+    topology, node_a, node_b, node_c = _three_node_triangle_topology()
+
+    model_card = model_card.model_copy(update={"storage_size": Memory.from_bytes(3000)})
+    node_memory = {
+        node_a: create_node_memory(1000),
+        node_b: create_node_memory(1000),
+        node_c: create_node_memory(1000),
+    }
+    node_network = {
+        node_a: create_node_network(),
+        node_b: create_node_network(),
+        node_c: create_node_network(),
+    }
+
+    command = place_instance_command(model_card=model_card).model_copy(
+        update={"force_override": True}
+    )
+
+    # act: same under-memory pair, but force_override bypasses the admission
+    placements = place_instance(
+        command,
+        topology,
+        {},
+        node_memory,
+        node_network,
+        _metal_only(node_memory),
+        required_nodes={node_a, node_b},
+    )
+
+    # assert: placement succeeds and still honors the selection
+    assert len(placements) == 1
+    instance = list(placements.values())[0]
+    assigned_nodes = set(instance.shard_assignments.node_to_runner.keys())
+    assert assigned_nodes == {node_a, node_b}
+    assert node_c not in assigned_nodes
