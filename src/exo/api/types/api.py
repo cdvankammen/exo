@@ -881,6 +881,53 @@ class LogTailResponse(FrozenModel):
     truncated: bool
 
 
+class LogNodeTailResponse(FrozenModel):
+    """Tail of a log file on a specific cluster node, as returned by
+    ``GET /v1/logs/{node_id}/{name}``.
+
+    The serving node proxies the request to the target node's own HTTP API
+    (advertised via ``NodeIdentity.api_host``/``api_port``), so the dashboard
+    can show any cluster node's logs without hitting CORS or per-node
+    connectivity issues from the browser. ``node_id`` is the full target node
+    id and ``node_name`` its friendly name (for selector labels); the payload
+    itself mirrors ``GET /v1/logs/{name}`` on the target node.
+    """
+
+    node_id: str
+    node_name: str
+    name: str
+    content: str
+    truncated: bool
+
+
+class LogAllEntry(FrozenModel):
+    """One log line from any cluster node, as returned by ``GET /v1/logs/all``.
+
+    ``node_id`` is the full node id (used for stable keys / filtering); the
+    full id is kept so the dashboard can resolve friendly names from
+    ``node_identities``. ``source_log`` names the per-node log file the line
+    came from (usually ``main``).
+    """
+
+    timestamp: str
+    node_id: str
+    node_name: str
+    source_log: str
+    content: str
+
+
+class LogAllResponse(FrozenModel):
+    """``GET /v1/logs/all`` response: merged, timestamp-sorted log lines.
+
+    The merge is best-effort: peers that do not advertise an API endpoint, or
+    that fail to respond, are skipped and their absence shows up as
+    ``truncated=True`` so operators know the view may be incomplete.
+    """
+
+    entries: list[LogAllEntry]
+    truncated: bool
+
+
 class LogErrorEntry(FrozenModel):
     """A single WARNING/ERROR/CRITICAL line parsed from a log file."""
 
