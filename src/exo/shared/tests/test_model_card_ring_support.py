@@ -3,21 +3,109 @@ from exo.shared.types.backends import Backend
 from exo.shared.types.memory import Memory
 
 
+# Must stay in lockstep with ring_attention._SUPPORTED_ATTENTION_TYPES:
+# (mlx_lm module, attention class) -> HF config.json architecture name.
+RING_ARCHITECTURES = [
+    # (mlx_lm.models.llama, Attention)
+    "LlamaForCausalLM",
+    # (mlx_lm.models.qwen3, Attention)
+    "Qwen3ForCausalLM",
+    # (mlx_lm.models.qwen2, Attention)
+    "Qwen2ForCausalLM",
+    # (mlx_lm.models.glm4, Glm4Attention)
+    "Glm4ForCausalLM",
+    # (mlx_lm.models.glm4_moe, Attention)
+    "Glm4MoeForCausalLM",
+    # (mlx_lm.models.glm4_moe_lite, Glm4MoeLiteAttention)
+    "Glm4MoeLiteForCausalLM",
+    # (mlx_lm.models.minimax, MiniMaxAttention)
+    "MiniMaxM2ForCausalLM",
+    # (mlx_lm.models.nemotron_h, NemotronHAttention)
+    "NemotronHForCausalLM",
+]
+
+NON_RING_ARCHITECTURES = [
+    # Tensor-supported but Ring-unsupported (sliding window, MoE-gated,
+    # softcapping, Mamba2-hybrid, etc. — see model_cards.py docstring).
+    "GlmMoeDsaForCausalLM",
+    "DeepseekV4ForCausalLM",
+    "DeepseekV32ForCausalLM",
+    "DeepseekV3ForCausalLM",
+    "Qwen3NextForCausalLM",
+    "Qwen3MoeForCausalLM",
+    "Qwen3_5MoeForConditionalGeneration",
+    "Qwen3_5ForConditionalGeneration",
+    "Qwen3VLForConditionalGeneration",
+    "MistralForCausalLM",
+    # Llama4 (chunked attention + qk-norm + temperature scaling) is
+    # tensor-supported but NOT ring-supported (ring engine is not verified
+    # against the chunked/masked no-rope attention).
+    "Llama4ForCausalLM",
+    "Llama4TextForCausalLM",
+    "GptOssForCausalLM",
+    "Step3p5ForCausalLM",
+    "Gemma4ForConditionalGeneration",
+    # Ring-unsupported families entirely outside the whitelist.
+    "Gemma2ForCausalLM",
+    "FalconForCausalLM",
+]
+
+
 def test_config_detects_verified_ring_architectures() -> None:
-    for architecture in ("LlamaForCausalLM", "Qwen3ForCausalLM"):
+    for architecture in RING_ARCHITECTURES:
         config = ConfigData.model_validate(
             {"architectures": [architecture], "num_hidden_layers": 1}
         )
 
-        assert config.supports_ring is True
+        assert config.supports_ring is True, architecture
 
 
 def test_config_rejects_unverified_ring_architecture() -> None:
-    config = ConfigData.model_validate(
-        {"architectures": ["Gemma2ForCausalLM"], "num_hidden_layers": 1}
-    )
+    for architecture in NON_RING_ARCHITECTURES:
+        config = ConfigData.model_validate(
+            {"architectures": [architecture], "num_hidden_layers": 1}
+        )
 
-    assert config.supports_ring is False
+        assert config.supports_ring is False, architecture
+
+
+def test_ring_whitelist_matches_engine_supported_attention_modules() -> None:
+    """Every ring engine whitelist entry must map to a ConfigData architecture.
+
+    Guards against drift: when ring_attention.py adds a new supported
+    (module, attention class) pair, this test fails until ConfigData
+    supports_ring covers the corresponding HF architecture name.
+
+    ring_attention.py imports mlx at module level, so skip gracefully in
+    environments without the MLX stack (the static lists above still run).
+    """
+    try:
+        from exo.worker.engines.mlx.ring_attention import _SUPPORTED_ATTENTION_TYPES
+    except ImportError:
+        return
+
+    # Module -> HF architecture name mapping (verified against mlx_lm source).
+    module_to_architecture = {
+        "mlx_lm.models.llama": "LlamaForCausalLM",
+        "mlx_lm.models.qwen3": "Qwen3ForCausalLM",
+        "mlx_lm.models.qwen2": "Qwen2ForCausalLM",
+        "mlx_lm.models.glm4": "Glm4ForCausalLM",
+        "mlx_lm.models.glm4_moe": "Glm4MoeForCausalLM",
+        "mlx_lm.models.glm4_moe_lite": "Glm4MoeLiteForCausalLM",
+        "mlx_lm.models.minimax": "MiniMaxM2ForCausalLM",
+        "mlx_lm.models.nemotron_h": "NemotronHForCausalLM",
+    }
+
+    for module, _attention_class in _SUPPORTED_ATTENTION_TYPES:
+        architecture = module_to_architecture[module]
+        config = ConfigData.model_validate(
+            {"architectures": [architecture], "num_hidden_layers": 1}
+        )
+
+        assert config.supports_ring is True, (
+            f"{module} is Ring-supported by the engine but "
+            f"{architecture} is missing from ConfigData.supports_ring"
+        )
 
 
 def test_model_card_defaults_ring_support_to_false() -> None:

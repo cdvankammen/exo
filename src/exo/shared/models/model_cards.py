@@ -335,10 +335,31 @@ class ConfigData(BaseModel):
 
     @property
     def supports_ring(self) -> bool:
-        """Whether the model uses an attention implementation verified for Ring."""
+        """Whether the model uses an attention implementation verified for Ring.
+
+        Mirrors ring_attention._SUPPORTED_ATTENTION_TYPES: the ring engine
+        verifies attention modules against a whitelist of
+        (mlx_lm module, attention class) pairs. Bundled TOML cards express
+        ring support via family, but HF-fetched configs (fetch_from_hf) have
+        no family — they rely on this architecture list, so it must stay in
+        lockstep with the engine whitelist.
+        """
         return self.architectures in [
             ["LlamaForCausalLM"],
             ["Qwen3ForCausalLM"],
+            # Ring engine: mlx_lm.models.llama/qwen3 (Attention)
+            ["Qwen2ForCausalLM"],
+            # Ring engine: mlx_lm.models.qwen2 (Attention)
+            ["Glm4ForCausalLM"],
+            # Ring engine: mlx_lm.models.glm4 (Glm4Attention)
+            ["Glm4MoeForCausalLM"],
+            # Ring engine: mlx_lm.models.glm4_moe (Attention)
+            ["Glm4MoeLiteForCausalLM"],
+            # Ring engine: mlx_lm.models.glm4_moe_lite (Glm4MoeLiteAttention)
+            ["MiniMaxM2ForCausalLM"],
+            # Ring engine: mlx_lm.models.minimax (MiniMaxAttention)
+            ["NemotronHForCausalLM"],
+            # Ring engine: mlx_lm.models.nemotron_h (NemotronHAttention)
         ]
 
     @model_validator(mode="before")
