@@ -51,6 +51,7 @@ from .api import LogErrorEntry as LogErrorEntry
 from .api import LogErrorsResponse as LogErrorsResponse
 from .api import LogFileListItem as LogFileListItem
 from .api import LogFileListResponse as LogFileListResponse
+from .api import LogNodeTailResponse as LogNodeTailResponse
 from .api import Logprobs as Logprobs
 from .api import LogprobsContentItem as LogprobsContentItem
 from .api import LogTailResponse as LogTailResponse
