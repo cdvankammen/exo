@@ -33,7 +33,7 @@ from exo.api.types import (
     Usage,
 )
 from exo.shared.types.common import ModelId
-from exo.shared.types.memory import Memory
+from exo.shared.types.memory import Memory, get_system_memory_total
 from exo.shared.types.text_generation import (
     InputMessage,
     InputMessageContent,
@@ -52,13 +52,16 @@ from exo.worker.engines.mlx.auto_parallel import (
     set_pipeline_queue_sends,
 )
 from exo.worker.engines.mlx.cache import (
+    MEMORY_THRESHOLD,
     CacheSnapshot,
     KVPrefixCache,
     copy_snapshot_entry,
     encode_prompt,
+    get_memory_used_percentage,
     has_non_kv_caches,
     is_non_trimmable_cache_entry,
     make_kv_cache,
+    measure_kv_cache_bytes_per_token,
     snapshot_ssm_states,
 )
 from exo.worker.engines.mlx.constants import (
@@ -590,11 +593,12 @@ def warmup_inference(
     tokenizer: TokenizerWrapper,
     group: mx.distributed.Group | None,
     model_id: ModelId,
-) -> int:
+) -> tuple[int, int]:
     """Run a short warmup generation so the engine is primed before use.
 
-    Returns the measured tokens-per-second of the warmup run (input length +
-    output tokens over wall time).
+    Returns a tuple of ``(check_for_cancel_every, bytes_per_token)`` where
+    ``bytes_per_token`` is the measured KV-cache memory consumption per token
+    used by the OOM-prevention budget check (#1626).
     """
     logger.info(f"warming up inference for instance: {model_id}")
 
@@ -653,7 +657,78 @@ def warmup_inference(
         f"runner checking for cancellation every {check_for_cancel_every} tokens"
     )
 
-    return check_for_cancel_every
+    # Measure KV-cache bytes per token from the warmup run (OOM prevention).
+    # We count the prompt + generated tokens; the warmup KV cache is short-lived
+    # and freed on model teardown, but the per-token figure is stable for a given
+    # model/layer config and is what the budget check multiplies by sequence
+    # length to predict growth.
+    try:
+        if hasattr(model, "layers"):
+            warmup_cache = [layer.cache for layer in model.layers if hasattr(layer, "cache")]
+            if warmup_cache:
+                bpt = measure_kv_cache_bytes_per_token(warmup_cache)  # type: ignore[arg-type]
+            else:
+                bpt = 0
+        else:
+            bpt = 0
+    except Exception:
+        bpt = 0  # measurement is best-effort; 0 disables the budget check
+    if bpt > 0:
+        logger.info(f"measured KV cache memory: {bpt} bytes/token")
+
+    return check_for_cancel_every, bpt
+
+
+def _check_memory_budget(
+    bytes_per_token: int,
+    total_sequence_tokens: int,
+    kv_prefix_cache: KVPrefixCache | None,
+) -> str | None:
+    """Check if enough memory is available for the estimated KV cache.
+
+    Uses the same memory pressure system as prefix cache eviction.
+    If memory would exceed the threshold, tries evicting prefix caches first.
+
+    Returns None if OK, or an error message string if OOM is predicted.
+    """
+    if bytes_per_token == 0:
+        return None
+
+    total_ram = get_system_memory_total().in_bytes
+    estimated_cache_bytes = bytes_per_token * total_sequence_tokens
+    current_pressure = (
+        kv_prefix_cache.get_memory_used_percentage()
+        if kv_prefix_cache is not None
+        else get_memory_used_percentage()
+    )
+    projected_pressure = current_pressure + (estimated_cache_bytes / total_ram)
+
+    logger.info(
+        f"Memory check: {total_sequence_tokens} tokens × {bytes_per_token} B/tok "
+        f"= {estimated_cache_bytes / (1024**2):.1f} MB, "
+        f"pressure {current_pressure:.1%} → projected {projected_pressure:.1%} "
+        f"(threshold {MEMORY_THRESHOLD:.1%})"
+    )
+
+    if projected_pressure <= MEMORY_THRESHOLD:
+        return None
+
+    # Try evicting all prefix caches
+    if kv_prefix_cache is not None:
+        evicted = kv_prefix_cache.force_evict_all()
+        if evicted > 0:
+            mx.clear_cache()
+            current_pressure = kv_prefix_cache.get_memory_used_percentage()
+            projected_pressure = current_pressure + (estimated_cache_bytes / total_ram)
+            if projected_pressure <= MEMORY_THRESHOLD:
+                return None
+
+    return (
+        f"Not enough memory: projected KV cache pressure would reach "
+        f"{projected_pressure:.1%} (threshold {MEMORY_THRESHOLD:.1%}). "
+        f"Estimated need: {estimated_cache_bytes / (1024**2):.1f} MB for "
+        f"{total_sequence_tokens} tokens at {bytes_per_token} B/token."
+    )
 
 
 def ban_token_ids(token_ids: list[int]) -> Callable[[mx.array, mx.array], mx.array]:
@@ -806,6 +881,7 @@ def mlx_generate(
     distributed_prompt_progress_callback: Callable[[], None] | None = None,
     on_generation_token: Callable[[], None] | None = None,
     vision_processor: VisionProcessor | None = None,
+    bytes_per_token: int = 0,
 ) -> Generator[GenerationResponse]:
     """Run a single text-generation task on this model and yield tokens.
 
@@ -1004,6 +1080,25 @@ def mlx_generate(
     )
 
     max_tokens = task.max_output_tokens or MAX_TOKENS
+    # OOM prevention (#1626): predict KV-cache growth before the decode loop.
+    # The prompt has already been prefilled and cached, so the remaining
+    # growth is roughly bytes_per_token × (max_tokens to be generated).
+    # If the projection would blow the memory budget, emit a friendly
+    # error chunk instead of crashing the process with a hard OOM.
+    memory_error = _check_memory_budget(
+        bytes_per_token,
+        len(prompt_tokens) - 1 + max_tokens,
+        kv_prefix_cache,
+    )
+    if memory_error is not None:
+        logger.warning(memory_error)
+        yield GenerationResponse(
+            text=memory_error,
+            token=0,
+            finish_reason="error",
+            usage=None,
+        )
+        return
     # Text decoded but not yet emitted because it could be the start of a stop
     # sequence spanning multiple tokens. See scan_stop_sequences.
     pending_stop_text = ""

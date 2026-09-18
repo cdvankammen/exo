@@ -202,6 +202,40 @@ class TestKVPrefix:
         assert len(cache.caches) == 1
         assert cache.prompts[0].item() == 2
 
+    def test_evict_for_prefill_keeps_the_entry_just_matched(self) -> None:
+        """Headroom eviction must not discard the hit prefill is about to reuse.
+
+        The lookup runs first, which marks the matched entry most recently used,
+        so LRU eviction reaches for the other entries instead. (Upstream PR
+        #2251 regression test — ported alongside the call-order fix.)
+        """
+        cache = KVPrefixCache(None)
+        # The stale entry is the more recently used one before the lookup, so
+        # evicting purely by LRU beforehand would have dropped the hit.
+        cache.prompts = [mx.array([1, 2, 3]), mx.array([9])]
+        cache.caches = [[KVCache()], [KVCache()]]
+        cache._snapshots = [None, None]
+        cache._media_regions = [[], []]
+        cache._last_used = [0, 1]
+        # _access_counter is monotonic and never behind _last_used in real use.
+        cache._access_counter = 1
+        cache.prefill_tps = [1.0, 2.0]
+
+        # A matching prompt means get_kv_cache never touches the model.
+        _, _, matched_index, _ = cache.get_kv_cache(
+            cast(Model, None), mx.array([1, 2, 3])
+        )
+        assert matched_index == 0
+
+        with (
+            patch("exo.worker.engines.mlx.cache._PREFILL_MEMORY_THRESHOLD", 0.70),
+            patch.object(cache, "get_memory_used_percentage", side_effect=[0.80, 0.65]),
+        ):
+            cache.evict_for_prefill()
+
+        assert len(cache.caches) == 1
+        assert cache.prompts[0].tolist() == [1, 2, 3]
+
 
 def _load_gpt_oss() -> tuple[Model, object]:
     from mlx_lm.utils import load_model
@@ -761,11 +795,11 @@ class TestPeriodicCleanup:
     def test_interval_gate_skips_early_reruns(self):
         """A cleanup that ran within the last interval must suppress all work —
         no eviction, no flush — even when memory pressure exists."""
-        from exo.worker.engines.mlx.cache import _MEMORY_THRESHOLD
+        from exo.worker.engines.mlx.cache import MEMORY_THRESHOLD
 
         with patch(
             "exo.worker.engines.mlx.cache.get_memory_used_percentage",
-            return_value=_MEMORY_THRESHOLD + 0.1,  # above threshold
+            return_value=MEMORY_THRESHOLD + 0.1,  # above threshold
         ):
             kv_prefix_cache = KVPrefixCache(None)
             kv_prefix_cache._last_cleanup_at = time.time()  # fresh => gate hits
@@ -776,11 +810,11 @@ class TestPeriodicCleanup:
     def test_cleanup_evicts_above_threshold(self):
         """Once the interval elapses, cleanup evicts LRU entries above the
         memory threshold and syncs the Metal cache."""
-        from exo.worker.engines.mlx.cache import _MEMORY_THRESHOLD
+        from exo.worker.engines.mlx.cache import MEMORY_THRESHOLD
 
         with patch(
             "exo.worker.engines.mlx.cache.get_memory_used_percentage",
-            return_value=_MEMORY_THRESHOLD + 0.1,
+            return_value=MEMORY_THRESHOLD + 0.1,
         ):
             kv_prefix_cache = KVPrefixCache(None)
             with patch.object(

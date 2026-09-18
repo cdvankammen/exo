@@ -64,7 +64,7 @@ def _default_memory_threshold() -> float:
     return 0.70
 
 
-_MEMORY_THRESHOLD = float(
+MEMORY_THRESHOLD = float(
     os.environ.get("EXO_MEMORY_THRESHOLD", _default_memory_threshold())
 )
 # Prefill needs temporary activation memory in addition to the persistent KV cache.
@@ -72,14 +72,14 @@ _MEMORY_THRESHOLD = float(
 _PREFILL_MEMORY_THRESHOLD = float(
     os.environ.get(
         "EXO_PREFILL_MEMORY_THRESHOLD",
-        max(0.0, _MEMORY_THRESHOLD - 0.10),
+        max(0.0, MEMORY_THRESHOLD - 0.10),
     )
 )
 
-if not 0.0 <= _PREFILL_MEMORY_THRESHOLD <= _MEMORY_THRESHOLD:
+if not 0.0 <= _PREFILL_MEMORY_THRESHOLD <= MEMORY_THRESHOLD:
     raise ValueError(
         "EXO_PREFILL_MEMORY_THRESHOLD must be between 0 and "
-        f"EXO_MEMORY_THRESHOLD ({_MEMORY_THRESHOLD})"
+        f"EXO_MEMORY_THRESHOLD ({MEMORY_THRESHOLD})"
     )
 
 
@@ -462,6 +462,19 @@ class KVPrefixCache:
         self._last_used.clear()
         self.prefill_tps.clear()
 
+    def force_evict_all(self) -> int:
+        """Evict every prefix-cache entry to free memory (OOM prevention).
+
+        Returns the number of entries evicted (0 if the cache was already empty).
+        """
+        count = len(self.caches)
+        self.clear()
+        if count > 0:
+            logger.info(
+                f"Force-evicted all {count} prefix cache entries due to memory pressure"
+            )
+        return count
+
     def set_cluster_hook(self, hook: Callable[[dict], None] | None) -> None:
         """Install (or clear) the cluster-index publish hook.
 
@@ -746,7 +759,7 @@ class KVPrefixCache:
 
     def _evict_if_needed(self):
         """Evict least recently used entries while memory usage is high."""
-        self._evict_until_below(_MEMORY_THRESHOLD, reason="memory usage")
+        self._evict_until_below(MEMORY_THRESHOLD, reason="memory usage")
 
     def evict_for_prefill(self) -> None:
         """Reserve activation headroom by evicting cached prefixes before prefill."""
@@ -1005,7 +1018,7 @@ class KVPrefixCache:
 
         1. Flush a dirty hot slot if idle (15s) and TTL/size-GC stale disk
            slots (``flush_to_disk``).
-        2. Evict LRU entries while above ``_MEMORY_THRESHOLD`` — the plain
+        2. Evict LRU entries while above ``MEMORY_THRESHOLD`` — the plain
            reuse of ``_evict_until_below``, which already ends with
            ``gc.collect()`` + ``mx.clear_cache()`` when anything was evicted.
         3. ``mx.clear_cache()`` unconditionally: snapshots can become stale
@@ -1028,7 +1041,7 @@ class KVPrefixCache:
         if self._disk_dir:
             self.flush_to_disk()
         # 2) Memory-pressure eviction (LRU + gc.collect + mx.clear_cache).
-        self._evict_until_below(_MEMORY_THRESHOLD, reason="periodic idle cleanup")
+        self._evict_until_below(MEMORY_THRESHOLD, reason="periodic idle cleanup")
         # 3) Ensure the Metal cache is synced even when nothing was evicted.
         mx.clear_cache()
 
@@ -1229,6 +1242,31 @@ def cache_length(cache: KVCacheType) -> int:
     return max((_entry_length(c) for c in cache), default=0)
 
 
+def measure_cache_bytes(cache: KVCacheType) -> int:
+    """Measure the resident bytes of a KV cache.
+
+    Handles every cache class used in this codebase (KVCache,
+    RotatingKVCache, QuantizedKVCache, ArraysCache, CacheList,
+    DeepseekV4Cache) via the ``nbytes`` property exposed by mlx-lm.
+    """
+    total = 0
+    for c in cache:
+        nbytes = getattr(c, "nbytes", None)
+        if callable(nbytes):
+            nbytes = nbytes()
+        if isinstance(nbytes, int):
+            total += nbytes
+    return total
+
+
+def measure_kv_cache_bytes_per_token(cache: KVCacheType) -> int:
+    """Estimated KV-cache bytes consumed per token across all local layers."""
+    offset = cache_length(cache)
+    if offset == 0:
+        return 0
+    return measure_cache_bytes(cache) // offset
+
+
 def get_prefix_length(prompt: mx.array, cached_prompt: mx.array) -> int:
     """Find the length of the common prefix between two token arrays."""
     n = min(int(prompt.shape[0]), int(cached_prompt.shape[0]))
@@ -1307,11 +1345,5 @@ def make_kv_cache(
                 for _ in model.layers
             ]
     else:
-        if KV_CACHE_BITS is not None:
-            logger.warning(
-                f"EXO_KV_CACHE_BITS={KV_CACHE_BITS} ignored: rotating KV cache "
-                f"({max_kv_size=}) does not support quantization "
-                f"(mlx_lm RotatingKVCache.to_quantized NYI)."
-            )
         logger.info(f"Using rotating KV cache with {max_kv_size=} with {keep=}")
         return [RotatingKVCache(max_size=max_kv_size, keep=keep) for _ in model.layers]

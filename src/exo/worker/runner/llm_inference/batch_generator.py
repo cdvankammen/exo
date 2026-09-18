@@ -163,6 +163,9 @@ class SequentialGenerator(Engine):
     event_sender: MpSender[Event]
     vision_processor: VisionProcessor | None = None
     check_for_cancel_every: int = 50
+    # KV-cache bytes per token measured during warmup (#1626). Used to gate
+    # generation with the memory budget check before decode starts.
+    _bytes_per_token: int = field(default=0, init=False)
 
     _cancelled_tasks: set[TaskId] = field(default_factory=set, init=False)
     _maybe_queue: list[TextGeneration] = field(default_factory=list, init=False)
@@ -183,7 +186,7 @@ class SequentialGenerator(Engine):
     ) = field(default=None, init=False)
 
     def warmup(self):
-        self.check_for_cancel_every = warmup_inference(
+        self.check_for_cancel_every, self._bytes_per_token = warmup_inference(
             model=self.model,
             tokenizer=self.tokenizer,
             group=self.group,
@@ -407,6 +410,7 @@ class SequentialGenerator(Engine):
             on_generation_token=on_generation_token,
             group=self.group,
             vision_processor=self.vision_processor,
+            bytes_per_token=self._bytes_per_token,
         )
 
     def close(self) -> None:
@@ -442,6 +446,9 @@ class BatchGenerator(Engine):
     event_sender: MpSender[Event]
     check_for_cancel_every: int = 50
     vision_processor: VisionProcessor | None = None
+    # KV-cache bytes per token measured during warmup (#1626). Used to gate
+    # generation with the memory budget check before decode starts.
+    _bytes_per_token: int = field(default=0, init=False)
 
     _cancelled_tasks: set[TaskId] = field(default_factory=set, init=False)
     _maybe_queue: list[TextGeneration] = field(default_factory=list, init=False)
@@ -471,7 +478,7 @@ class BatchGenerator(Engine):
         )
 
     def warmup(self):
-        self.check_for_cancel_every = warmup_inference(
+        self.check_for_cancel_every, self._bytes_per_token = warmup_inference(
             model=self.model,
             tokenizer=self.tokenizer,
             group=self.group,

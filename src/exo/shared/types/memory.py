@@ -3,6 +3,7 @@
 :class:`Memory` wraps RAM quantities with conversion/arithmetic methods used by placement and profiling."""
 
 from math import ceil
+import os
 from typing import Self, overload
 
 from exo.utils.pydantic_ext import FrozenModel
@@ -153,3 +154,52 @@ class Memory(FrozenModel):
             unit = "B"
 
         return f"{val:.2f} {unit}".rstrip("0").rstrip(".") + f" {unit}"
+
+
+# ---------------------------------------------------------------------------
+# Memory-pressure monitoring for OOM prevention (exo-explore/exo#1626).
+# Uses the Darwin-safe virtual_memory_statistics() helper, never raw psutil,
+# so these work on macOS 26 / Darwin 27 hosts.
+# ---------------------------------------------------------------------------
+
+def get_system_memory_total() -> Memory:
+    """Total system memory."""
+    from exo.utils.virtual_memory import virtual_memory_statistics
+
+    return Memory.from_bytes(virtual_memory_statistics().total_bytes)
+
+
+def get_system_memory_available() -> Memory:
+    """Currently available system memory."""
+    from exo.utils.virtual_memory import virtual_memory_statistics
+
+    return Memory.from_bytes(virtual_memory_statistics().available_bytes)
+
+
+def get_system_memory_used() -> Memory:
+    """Currently used system memory."""
+    from exo.utils.virtual_memory import virtual_memory_statistics
+
+    stats = virtual_memory_statistics()
+    return Memory.from_bytes(stats.total_bytes - stats.available_bytes)
+
+
+def get_memory_pressure_percent() -> float:
+    """Current memory pressure as a percentage (0-100)."""
+    from exo.utils.virtual_memory import virtual_memory_statistics
+
+    stats = virtual_memory_statistics()
+    return stats.used_fraction * 100.0
+
+
+def is_memory_pressure_high(threshold_percent: float | None = None) -> bool:
+    """True when current memory pressure is at/above the threshold."""
+    if threshold_percent is None:
+        threshold_percent = MEMORY_PRESSURE_THRESHOLD_PERCENT
+    return get_memory_pressure_percent() >= threshold_percent
+
+
+# Default memory pressure threshold for OOM prevention (90% used).
+MEMORY_PRESSURE_THRESHOLD_PERCENT = float(
+    os.environ.get("EXO_MEMORY_PRESSURE_THRESHOLD", "90.0")
+)
