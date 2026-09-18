@@ -855,6 +855,21 @@ class API:
         )
 
     async def place_instance(self, payload: PlaceInstanceParams):
+        if payload.force_override:
+            # Audit trail (API side): every instance launch that uses the
+            # force_override bypass is logged with a searchable marker so
+            # operators can see who/what/when without digging into the
+            # placement internals. The master additionally emits a
+            # PlacementForcedOverride event on GLOBAL_EVENTS.
+            logger.warning(
+                "force_override_bypass: instance launch requested with "
+                f"force_override=True for model {payload.model_id} "
+                f"(sharding={payload.sharding.value}, "
+                f"instance_meta={payload.instance_meta.value}, "
+                f"min_nodes={payload.min_nodes}, "
+                f"memory_tolerance={payload.memory_tolerance}, "
+                f"node_ids={sorted(str(n) for n in payload.node_ids) if payload.node_ids else None})"
+            )
         command = PlaceInstance(
             model_card=await ModelCard.load(payload.model_id),
             sharding=payload.sharding,
