@@ -383,7 +383,7 @@ def _allocate_and_validate_layers(
     model_card: ModelCard,
     force_override: bool = False,
     node_identities: Mapping[NodeId, NodeIdentity] | None = None,
-    link_bandwidths: list[float] | None = None,
+    link_bandwidths: list[float | None] | None = None,
 ) -> list[int]:
     # NOTE (memory-override feature, coordinated with RDMA multi-link commit):
     # The RDMA commit added `max_layers_per_node` caps (per-node memory limits
@@ -411,20 +411,23 @@ def _allocate_and_validate_layers(
     # Water-filling (P1 #35 / GitHub #957): when topology bandwidth is available
     # for every pipeline hop AND GPU bandwidth is known for every node, balance
     # the bottleneck between per-stage compute and inter-stage communication.
-    # Falls through to the greedy throughput allocator when links are unknown.
+    # Falls through to the greedy throughput allocator when any link is unknown.
     if (
         not force_override
         and caps is not None
         and link_bandwidths is not None
         and len(link_bandwidths) == len(node_ids)
         and all(bandwidth is not None for bandwidth in node_bandwidths)
+        and all(bandwidth is not None for bandwidth in link_bandwidths)
     ):
         layer_allocations = allocate_layers_by_water_filling(
             total_layers=model_card.n_layers,
             node_throughputs=[
                 bandwidth for bandwidth in node_bandwidths if bandwidth is not None
             ],
-            link_bandwidths=link_bandwidths,
+            link_bandwidths=[
+                bandwidth for bandwidth in link_bandwidths if bandwidth is not None
+            ],
             max_layers_per_node=caps,
         )
     elif not force_override and all(
@@ -511,6 +514,7 @@ def get_shard_assignments_for_pipeline_parallel(
     force_override: bool = False,
     node_identities: Mapping[NodeId, NodeIdentity] | None = None,
     node_layers: Mapping[NodeId, int] | None = None,
+    link_bandwidths: list[float | None] | None = None,
 ) -> ShardAssignments:
     """Create shard assignments for pipeline parallel execution."""
     world_size = len(cycle)
@@ -526,7 +530,8 @@ def get_shard_assignments_for_pipeline_parallel(
         )
     else:
         return _get_shard_assignments_for_pure_pipeline(
-            model_card, cycle, node_memory, force_override, node_identities, node_layers
+            model_card, cycle, node_memory, force_override, node_identities, node_layers,
+            link_bandwidths,
         )
 
 
@@ -603,6 +608,7 @@ def _get_shard_assignments_for_pure_pipeline(
     force_override: bool = False,
     node_identities: Mapping[NodeId, NodeIdentity] | None = None,
     node_layers: Mapping[NodeId, int] | None = None,
+    link_bandwidths: list[float | None] | None = None,
 ) -> ShardAssignments:
     """Create shard assignments for pure pipeline execution."""
     _validate_cycle(cycle)
@@ -616,6 +622,7 @@ def _get_shard_assignments_for_pure_pipeline(
             model_card,
             force_override,
             node_identities,
+            link_bandwidths,
         )
         if node_layers is None
         else _validate_manual_layer_allocations(
@@ -718,6 +725,7 @@ def get_shard_assignments(
     force_override: bool = False,
     node_identities: Mapping[NodeId, NodeIdentity] | None = None,
     node_layers: Mapping[NodeId, int] | None = None,
+    link_bandwidths: list[float | None] | None = None,
 ) -> ShardAssignments:
     match sharding:
         case Sharding.Pipeline:
@@ -728,6 +736,7 @@ def get_shard_assignments(
                 force_override=force_override,
                 node_identities=node_identities,
                 node_layers=node_layers,
+                link_bandwidths=link_bandwidths,
             )
         case Sharding.Tensor:
             return get_shard_assignments_for_tensor_parallel(
@@ -898,6 +907,46 @@ def _address_priority(ip: str) -> int:
         if 16 <= second_octet <= 31:
             return 0
     return 1
+
+
+def get_link_bandwidths_for_cycle(
+    topology: Topology,
+    cycle_node_ids: list[NodeId],
+) -> list[float | None]:
+    """Per-node effective outgoing link bandwidth (GB/s), or None when unknown.
+
+    For each node in the pipeline cycle, collects the measured bandwidth of
+    every outgoing socket hop to another node in the cycle and returns the
+    *minimum* (a node is only as fast as its slowest hop to the next stage).
+    Bandwidth is measured by the worker bandwidth poller
+    (``worker/main.py::_poll_bandwidth_updates``) and published as
+    ``SocketConnection.bandwidth_mbps`` (MiB/s); it is converted here to
+    GB/s (÷1024) to match the allocator's ``node_throughputs`` units.
+
+    Hops with no measured bandwidth yield ``None`` per node, which the caller
+    uses to fall back to compute-only allocation (matches the water-filling
+    allocator's graceful degradation). ``None`` is never fabricated into a
+    number.
+    """
+    result: list[float | None] = []
+    cycle_set = set(cycle_node_ids)
+    for node_id in cycle_node_ids:
+        hop_bandwidths: list[float] = []
+        for other in cycle_set:
+            if other == node_id:
+                continue
+            for connection in topology.get_all_connections_between(node_id, other):
+                if not isinstance(connection, SocketConnection):
+                    continue
+                if connection.bandwidth_mbps is not None:
+                    hop_bandwidths.append(connection.bandwidth_mbps)
+        if not hop_bandwidths:
+            result.append(None)
+        else:
+            # MiB/s -> GB/s. The allocator expects GB/s to match
+            # node_throughputs from estimate_memory_bandwidth_gigabytes_per_second.
+            result.append(min(hop_bandwidths) / 1024.0)
+    return result
 
 
 def get_mlx_ring_hosts_by_node(

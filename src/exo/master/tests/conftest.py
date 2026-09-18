@@ -25,9 +25,10 @@ def create_node_network() -> NodeNetworkInfo:
     )
 
 
-def create_socket_connection(ip: int, sink_port: int = 1234) -> SocketConnection:
+def create_socket_connection(ip: int, sink_port: int = 1234, bandwidth_mbps: float | None = None) -> SocketConnection:
     return SocketConnection(
         sink_multiaddr=Multiaddr(address=f"/ip4/169.254.0.{ip}/tcp/{sink_port}"),
+        bandwidth_mbps=bandwidth_mbps,
     )
 
 
