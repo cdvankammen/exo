@@ -10,8 +10,9 @@ from exo.shared.types.common import CommandId, Id, ModelId, NodeId, SessionId, S
 from exo.shared.types.instance_link import InstanceLink, InstanceLinkId
 from exo.shared.types.tasks import Task, TaskId, TaskStatus
 from exo.shared.types.worker.downloads import DownloadProgress
-from exo.shared.types.worker.instances import Instance, InstanceId
+from exo.shared.types.worker.instances import Instance, InstanceId, InstanceMeta
 from exo.shared.types.worker.runners import RunnerId, RunnerStatus
+from exo.shared.types.worker.shards import Sharding
 from exo.utils.info_gatherer.info_gatherer import GatheredInfo
 from exo.utils.pydantic_ext import FrozenModel, TaggedModel
 
@@ -164,6 +165,45 @@ class PrefixIndexEvent(BaseEvent):
     hits: int = 0
 
 
+class MasterHeartbeat(BaseEvent):
+    """Periodic liveness signal emitted by the master.
+
+    Carries no payload — its presence in the stream is the signal. Treated
+    as a pass-through event by ``exo.shared.apply`` (does not mutate state).
+    """
+
+
+class PlacementForcedOverride(BaseEvent):
+    """Audit record emitted whenever a placement used ``force_override=True``.
+
+    Force override deliberately bypasses placement guard rails, so every use
+    is recorded with enough context to answer *who*, *what*, and *which
+    check was skipped*. The event itself is a pass-through (does not mutate
+    :class:`~exo.shared.types.state.State`); it is indexed into the master
+    event log so it can be replayed and searched, and forwarded to every node
+    on ``GLOBAL_EVENTS`` so cluster-wide observers see the override.
+    """
+
+    command_id: CommandId
+    model_id: ModelId
+    sharding: Sharding
+    instance_meta: InstanceMeta
+    min_nodes: int
+    node_ids: list[str] | None = None
+    node_layers: dict[str, int] | None = None
+    memory_tolerance: float = 1.0
+    # Which specific checks were bypassed because force_override=True.
+    bypassed_guardrails: list[str]
+    # Who originated the request. The API sets this from the incoming HTTP
+    # request (dashboard session / API user); commands already in flight
+    # carry the originating SystemId.
+    source: str = "unknown"
+    # True when the override actually changed the outcome (e.g. a placement
+    # that would otherwise have been rejected). False when force_override was
+    # set but nothing was skipped in practice.
+    effective: bool = True
+
+
 Event = (
     TestEvent
     | TaskCreated
@@ -188,6 +228,8 @@ Event = (
     | InstanceLinkCreated
     | InstanceLinkDeleted
     | PrefixIndexEvent
+    | MasterHeartbeat
+    | PlacementForcedOverride
 )
 
 

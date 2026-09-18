@@ -9,12 +9,22 @@
   import { listLogErrors, getLogTail, type LogErrorEntry } from "$lib/stores/app.svelte";
 
   const LEVEL_STYLES: Record<string, string> = {
+    OVERRIDE: "text-orange-300 bg-orange-500/15 border-orange-500/40",
     CRITICAL: "text-red-300 bg-red-500/20 border-red-500/40",
     ERROR: "text-red-400 bg-red-500/10 border-red-500/30",
     WARNING: "text-yellow-300 bg-yellow-500/10 border-yellow-500/30",
   };
 
-  const LEVEL_ORDER = ["CRITICAL", "ERROR", "WARNING"] as const;
+  const LEVEL_ORDER = ["OVERRIDE", "CRITICAL", "ERROR", "WARNING"] as const;
+
+  // Force-override audit entries carry a fixed message prefix (emitted by
+  // placement.py / api/main.py). Detect them so the panel can render them
+  // with dedicated OVERRIDE styling (orange) instead of generic WARNING.
+  const OVERRIDE_MARKER = "force_override_bypass:";
+
+  function entryLevel(e: LogErrorEntry): string {
+    return e.message?.startsWith(OVERRIDE_MARKER) ? "OVERRIDE" : e.level;
+  }
   const EXPANDED_KEY = "exo-sidebar-logs-expanded";
   const ERRORS_SECTION_KEY = "exo-sidebar-logs-errors-section";
   const TAIL_SECTION_KEY = "exo-sidebar-logs-tail-section";
@@ -40,7 +50,7 @@
   const visibleErrors = $derived(
     [...errors]
       .filter((e) => !dismissedErrors.has(stableErrorKey(e)))
-      .sort((a, b) => levelRank(a.level) - levelRank(b.level))
+      .sort((a, b) => levelRank(entryLevel(a)) - levelRank(entryLevel(b)))
       .slice(0, 50),
   );
 
@@ -52,7 +62,7 @@
   // Stable key for dismiss matching: level + source + message (no timestamp).
   // This ensures the same error re-emitted across polls stays dismissed.
   function stableErrorKey(e: LogErrorEntry): string {
-    return `${e.level}::${e.source ?? "node"}::${e.message}`;
+    return `${entryLevel(e)}::${e.source ?? "node"}::${e.message}`;
   }
 
   function errorKey(e: LogErrorEntry): string {
@@ -94,7 +104,7 @@
   }
 
   const criticalCount = $derived(
-    errors.filter((e) => e.level === "CRITICAL" || e.level === "ERROR").length,
+    errors.filter((e) => entryLevel(e) === "CRITICAL" || entryLevel(e) === "ERROR").length,
   );
 
   function levelRank(level: string): number {
@@ -293,7 +303,7 @@
             {#each visibleErrors as e (stableErrorKey(e))}
               {@const isExpanded = expandedErrors.has(stableErrorKey(e))}
               <div
-                class="w-full text-left px-1.5 py-1 rounded border text-[10px] font-mono leading-snug transition-colors {LEVEL_STYLES[e.level] ?? 'text-exo-light-gray/70'} hover:border-exo-yellow/40"
+                class="w-full text-left px-1.5 py-1 rounded border text-[10px] font-mono leading-snug transition-colors {LEVEL_STYLES[entryLevel(e)] ?? 'text-exo-light-gray/70'} hover:border-exo-yellow/40"
               >
                 <div class="flex items-center gap-1.5">
                   <button
@@ -302,7 +312,7 @@
                     class="flex-1 flex items-center gap-1.5 text-left cursor-pointer"
                     title={isExpanded ? "Click to collapse" : "Click to expand full error"}
                   >
-                    <span class="uppercase font-bold">{e.level}</span>
+                    <span class="uppercase font-bold">{entryLevel(e)}</span>
                     <span class="text-exo-light-gray/70 truncate">{e.source ?? "node"}</span>
                     <span class="ml-auto flex-shrink-0 text-exo-light-gray/70" aria-hidden="true">
                       {isExpanded ? "▾" : "▸"}

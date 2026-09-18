@@ -54,6 +54,7 @@ from exo.shared.types.events import (
     LocalForwarderEvent,
     NodeGatheredInfo,
     NodeTimedOut,
+    PlacementForcedOverride,
     TaskCreated,
     TaskDeleted,
     TaskStatusUpdated,
@@ -429,6 +430,34 @@ class Master:
                                 self.state.instances, placement, self.state.tasks
                             )
                             generated_events.extend(transition_events)
+                            # Audit trail: whenever force_override was used,
+                            # emit a structured event so the override is
+                            # searchable in the event log and visible to all
+                            # nodes via GLOBAL_EVENTS. (The placement log
+                            # already carries a human-readable WARNING.)
+                            if command.force_override:
+                                generated_events.append(
+                                    PlacementForcedOverride(
+                                        command_id=command.command_id,
+                                        model_id=command.model_card.model_id,
+                                        sharding=command.sharding,
+                                        instance_meta=command.instance_meta,
+                                        min_nodes=command.min_nodes,
+                                        node_ids=(
+                                            [str(n) for n in sorted(command.node_ids)]
+                                            if command.node_ids
+                                            else None
+                                        ),
+                                        node_layers=(
+                                            {str(k): v for k, v in command.node_layers.items()}
+                                            if command.node_layers
+                                            else None
+                                        ),
+                                        memory_tolerance=command.memory_tolerance,
+                                        bypassed_guardrails=[],
+                                        source=str(forwarder_command.origin),
+                                    )
+                                )
                         case CreateInstance():
                             placement = add_instance_to_placements(
                                 command,

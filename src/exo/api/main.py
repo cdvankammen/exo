@@ -817,6 +817,7 @@ class API:
         self.app.get("/v1/logs/errors")(self.get_log_errors)
         self.app.get("/v1/logs/{name}")(self.get_log_tail)
         self.app.get("/v1/logs/{name}/raw")(self.get_log_raw)
+        self.app.get("/v1/logs/{node_id}/{name}")(self.get_log_node)
         self.app.get("/onboarding")(self.get_onboarding)
         self.app.post("/onboarding")(self.complete_onboarding)
         self.app.delete("/onboarding")(self.reset_onboarding)
@@ -3334,6 +3335,87 @@ class API:
                 )
             except Exception as exc:
                 logger.debug(f"Could not fetch errors from peer {host}:{port}: {exc}")
+
+    async def get_log_node(
+        self,
+        node_id: NodeId,
+        name: str,
+        lines: int = Query(default=1000, ge=1, le=50000),
+    ) -> LogNodeTailResponse:
+        """Return the tail of a log file on a specific cluster node.
+
+        The serving (master) node looks up the target node's API endpoint from
+        ``state.node_identities`` (``api_host`` / ``api_port``, advertised at
+        startup via ``info_gatherer.NodeApiInfo``) and proxies the request to
+        the target node's own ``GET /v1/logs/{name}``. This lets the dashboard
+        show any cluster node's logs through a single origin (no CORS or
+        per-node browser connectivity issues).
+
+        Unknown log names and unknown nodes return 404; unreachable targets
+        return 502. The response mirrors the local tail payload plus
+        ``node_id`` / ``node_name`` so the dashboard can bind the result to
+        its node selector.
+        """
+        # Local node shortcut: serve our own tail directly (no HTTP round-trip).
+        if str(node_id) == str(getattr(self, "node_id", "")):
+            local_tail = await self.get_log_tail(name=name, lines=lines)
+            return LogNodeTailResponse(
+                node_id=str(node_id),
+                node_name=self._node_name(str(node_id)),
+                **local_tail.model_dump(),
+            )
+
+        identities = getattr(self.state, "node_identities", {}) or {}
+        identity = identities.get(node_id)
+        if identity is None:
+            raise ApiError(
+                status_code=404,
+                detail=f"Node not found: {node_id}",
+                error_code="NODE_NOT_FOUND",
+            )
+        host = str(getattr(identity, "api_host", "") or "")
+        port = int(getattr(identity, "api_port", 0) or 0)
+        if not host or not port or host == "0.0.0.0":
+            raise ApiError(
+                status_code=404,
+                detail=f"Node {node_id} does not advertise an API endpoint",
+                error_code="NOT_FOUND",
+            )
+
+        import httpx
+
+        url = f"http://{host}:{port}/v1/logs/{name}?lines={lines}"
+        try:
+            async with httpx.AsyncClient(timeout=5.0) as client:
+                resp = await client.get(url)
+                resp.raise_for_status()
+                remote: dict[str, object] = resp.json()  # pyright: ignore[reportAny]
+        except httpx.HTTPStatusError as exc:
+            if exc.response.status_code == 404:
+                raise ApiError(
+                    status_code=404,
+                    detail=f"Log file not found on node {node_id}: {name}",
+                    error_code="NOT_FOUND",
+                ) from exc
+            raise ApiError(
+                status_code=502,
+                detail=f"Target node {node_id} returned HTTP {exc.response.status_code}",
+                error_code="PEER_UNREACHABLE",
+            ) from exc
+        except Exception as exc:
+            raise ApiError(
+                status_code=502,
+                detail=f"Could not reach node {node_id} at {host}:{port}: {exc}",
+                error_code="PEER_UNREACHABLE",
+            ) from exc
+
+        return LogNodeTailResponse(
+            node_id=node_id,
+            node_name=self._node_name(node_id),
+            name=str(remote.get("name", name)),
+            content=str(remote.get("content", "")),
+            truncated=bool(remote.get("truncated", False)),
+        )
 
     async def get_onboarding(self) -> JSONResponse:
         return JSONResponse({"completed": ONBOARDING_COMPLETE_FILE.exists()})
