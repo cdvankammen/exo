@@ -9,7 +9,7 @@ import math
 import os
 import time
 import uuid
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from typing import Any, Callable, Generator, cast, get_args
 
 import mlx.core as mx
@@ -665,10 +665,11 @@ def warmup_inference(
     try:
         if hasattr(model, "layers"):
             warmup_cache = [layer.cache for layer in model.layers if hasattr(layer, "cache")]
-            if warmup_cache:
-                bpt = measure_kv_cache_bytes_per_token(warmup_cache)  # type: ignore[arg-type]
-            else:
-                bpt = 0
+            bpt = (
+                measure_kv_cache_bytes_per_token(warmup_cache)  # type: ignore[arg-type]
+                if warmup_cache
+                else 0
+            )
         else:
             bpt = 0
     except Exception:

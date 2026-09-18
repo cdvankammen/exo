@@ -2,8 +2,8 @@
 
 :class:`Memory` wraps RAM quantities with conversion/arithmetic methods used by placement and profiling."""
 
-from math import ceil
 import os
+from math import ceil
 from typing import Self, overload
 
 from exo.utils.pydantic_ext import FrozenModel
