@@ -1,0 +1,49 @@
+name: uv-lock torch marker guard
+
+# Blocks PRs where `uv lock` on macOS re-introduced broken torch markers.
+# The marker regeneration trap: uv 0.12.x re-inserts `extra != 'mlx-cpu'`
+# negation clauses on torch/torchaudio/torchvision edges in uv.lock when
+# regenerated on macOS.  These break Linux resolution.  The guard catches
+# this before merge.
+#
+# Related: commit f48bdf86 (fix), commit 7546fbbd (regression via lock refresh)
+
+on:
+  pull_request:
+    paths:
+      - "uv.lock"
+      - "pyproject.toml"
+  push:
+    paths:
+      - "uv.lock"
+      - "pyproject.toml"
+
+jobs:
+  check-torch-markers:
+    name: torch marker integrity
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Verify torch markers in uv.lock
+        run: |
+          echo "Checking uv.lock for broken torch markers..."
+          if grep -q "extra != 'mlx-cpu' and extra != 'mlx-cuda12' and extra != 'mlx-cuda13'" uv.lock; then
+            echo "::error::BROKEN torch markers detected in uv.lock!"
+            echo ""
+            echo "uv 0.12.x re-introduced the broken negation clauses on"
+            echo "torch/torchaudio/torchvision in the exo package's requires-dist."
+            echo ""
+            echo "FIX: Run on macOS:"
+            echo "  python scripts/check-torch-markers.py --fix"
+            echo "  uv lock --check"
+            echo "  git add uv.lock && git commit"
+            echo ""
+            echo "Then re-run CI."
+            echo ""
+            echo "Broken lines:"
+            grep -n "extra != 'mlx-cpu' and extra != 'mlx-cuda12' and extra != 'mlx-cuda13'" uv.lock
+            exit 1
+          fi
+          echo "OK: torch markers are correct."
