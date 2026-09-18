@@ -930,6 +930,52 @@ class KVPrefixCache:
         self._flush_hot_slot()
         self._evict_stale_disk_slots()
 
+    @staticmethod
+    def _idle_cleanup_interval() -> float:
+        """Seconds between ``_periodic_cleanup`` runs (env-tunable)."""
+        return max(0.0, float(os.environ.get("EXO_KV_CLEANUP_INTERVAL_SECONDS", "60")))
+
+    def _periodic_cleanup(self) -> None:
+        """Idle-time memory sweep: flush/GC stale KV state, then reclaim Metal.
+
+        Call from any safe point (idle generator step, generation-queue
+        drain, runner shutdown). Python's GC alone does not release MLX's
+        Metal buffers: eviction paths already call ``gc.collect()`` +
+        ``mx.clear_cache()`` (af9e847e), but nothing runs them while a node
+        sits idle, so stale snapshots / rotated cache arrays can pin memory
+        indefinitely. This runs no more often than the configured interval
+        (default 60s) and is idempotent — the cheapest safe-point call is a
+        no-op when under threshold and within the interval.
+
+        1. Flush a dirty hot slot if idle (15s) and TTL/size-GC stale disk
+           slots (``flush_to_disk``).
+        2. Evict LRU entries while above ``_MEMORY_THRESHOLD`` — the plain
+           reuse of ``_evict_until_below``, which already ends with
+           ``gc.collect()`` + ``mx.clear_cache()`` when anything was evicted.
+        3. ``mx.clear_cache()`` unconditionally: snapshots can become stale
+           (dropped caches, replaced entries) without crossing the eviction
+           threshold; the Metal cache sync is what actually returns the
+           memory to the allocator.
+        """
+        now = _time.time()
+        if now - getattr(self, "_last_cleanup_at", 0.0) < self._idle_cleanup_interval():
+            return
+        self._last_cleanup_at = now
+
+        if not self.caches and not getattr(self, "_disk_dirty", False):
+            # Nothing resident to sweep; sync anyway so stale Metal buffers
+            # from prior activity are reclaimed.
+            mx.clear_cache()
+            return
+
+        # 1) Disk persistence: idle-flush the hot slot and GC stale slots.
+        if self._disk_dir:
+            self.flush_to_disk()
+        # 2) Memory-pressure eviction (LRU + gc.collect + mx.clear_cache).
+        self._evict_until_below(_MEMORY_THRESHOLD, reason="periodic idle cleanup")
+        # 3) Ensure the Metal cache is synced even when nothing was evicted.
+        mx.clear_cache()
+
     def _search_disk(self, prompt_tokens: mx.array) -> tuple[int | None, int]:
         """Return (slot_id, prefix_length) of the best on-disk prefix match."""
         disk_dir = self._disk_dir

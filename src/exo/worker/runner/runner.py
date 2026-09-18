@@ -325,6 +325,24 @@ class Runner:
         if kv is not None:
             kv.flush_to_disk(force=True)
 
+    def _periodic_kv_cleanup(self) -> None:
+        """Idle-time KV memory sweep; no-op for engines without a prefix cache.
+
+        Time-gated inside the cache (default 60s), so calling this from every
+        safe point is cheap. Catches both the plain cache and the tiered
+        wrapper (both expose ``_periodic_cleanup()``).
+        """
+        kv = getattr(self.generator, "kv_prefix_cache", None)
+        if kv is None:
+            return
+        periodic = getattr(kv, "_periodic_cleanup", None)
+        if periodic is None:
+            return
+        try:
+            periodic()
+        except Exception:
+            logger.warning("Periodic KV cleanup failed", exc_info=True)
+
     def shutdown(self, task: Task):
         logger.info("runner shutting down")
         self._flush_kv_cache_to_disk()
@@ -398,8 +416,11 @@ class Runner:
 
         # Generation queue drained — persist the hot KV slot while idle so a
         # later crash doesn't lose it (otherwise it is only flushed on
-        # conversation switch).
+        # conversation switch), and run the idle-time KV memory sweep so a
+        # node sitting between requests returns stale Metal buffers instead
+        # of pinning them.
         self._flush_kv_cache_to_disk()
+        self._periodic_kv_cleanup()
 
         self.update_status(RunnerReady(prefill_server_port=self._prefill_server_port))
         logger.info("runner ready")

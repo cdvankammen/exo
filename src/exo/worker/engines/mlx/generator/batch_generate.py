@@ -449,7 +449,25 @@ class ExoBatchGenerator:
     def step(self) -> list[tuple[int, GenerationResponse]]:
         """Advance the decode loop one step, returning new token responses."""
         if not self.has_work:
+            # Idle safe point: run the periodic KV cleanup (time-gated,
+            # no-op within the interval) so a node sitting idle returns
+            # stale Metal buffers instead of pinning them until the next
+            # eviction/threshold crossing.
+            if self.kv_prefix_cache is not None:
+                try:
+                    self.kv_prefix_cache._periodic_cleanup()
+                except Exception:
+                    logger.warning(
+                        "Periodic KV cleanup failed", exc_info=True
+                    )
             return []
+
+        # Interleave ring prefill with decode: run ONE chunk per pending ring
+        # task per step() call so a long ring prompt no longer blocks decode.
+        # When a task's chunks are exhausted, insert its decode seed into
+        # MlxBatchGenerator with the now-populated cache and remap its uid.
+        if self._pending_ring_inserts:
+            self._drain_ring_prefill_chunks()
 
         gb = self._mlx_gen._generation_batch
         needs_logprobs = any(

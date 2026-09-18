@@ -750,3 +750,65 @@ class TestTrimCacheDeepseekV4:
         # iterating a non-iterable cache in the CacheList fallback arm.
         trim_cache([v4], 50, None)
         assert v4.offset == 200
+
+
+class TestPeriodicCleanup:
+    """Locks in the idle-time memory sweep: a node sitting between requests
+    must run the time-gated cleanup (flush disk state, LRU-evict above the
+    memory threshold, sync the Metal cache), and must be a cheap no-op within
+    the configured interval."""
+
+    def test_interval_gate_skips_early_reruns(self):
+        """A cleanup that ran within the last interval must suppress all work —
+        no eviction, no flush — even when memory pressure exists."""
+        from exo.worker.engines.mlx.cache import _MEMORY_THRESHOLD
+
+        with patch(
+            "exo.worker.engines.mlx.cache.get_memory_used_percentage",
+            return_value=_MEMORY_THRESHOLD + 0.1,  # above threshold
+        ):
+            kv_prefix_cache = KVPrefixCache(None)
+            kv_prefix_cache._last_cleanup_at = time.time()  # fresh => gate hits
+            with patch.object(kv_prefix_cache, "_evict_until_below") as evict_mock:
+                kv_prefix_cache._periodic_cleanup()
+                assert evict_mock.call_count == 0  # suppressed by the gate
+
+    def test_cleanup_evicts_above_threshold(self):
+        """Once the interval elapses, cleanup evicts LRU entries above the
+        memory threshold and syncs the Metal cache."""
+        from exo.worker.engines.mlx.cache import _MEMORY_THRESHOLD
+
+        with patch(
+            "exo.worker.engines.mlx.cache.get_memory_used_percentage",
+            return_value=_MEMORY_THRESHOLD + 0.1,
+        ):
+            kv_prefix_cache = KVPrefixCache(None)
+            with patch.object(
+                kv_prefix_cache, "_evict_until_below"
+            ) as evict_mock, patch.object(
+                kv_prefix_cache, "flush_to_disk"
+            ) as flush_mock:
+                kv_prefix_cache._last_cleanup_at = 0.0  # force past the gate
+                kv_prefix_cache.caches = {0: None}
+                kv_prefix_cache._disk_dir = "/tmp/fake-kv-disk"  # mocked away
+                kv_prefix_cache._disk_dirty = True  # hot slot needs flushing
+                kv_prefix_cache._periodic_cleanup()
+                evict_mock.assert_called_once()
+                flush_mock.assert_called_once()
+
+    def test_cleanup_noop_below_threshold_within_interval(self):
+        """When under the memory threshold and inside the interval, cleanup
+        must be a no-op (the gate suppresses eviction and flushing)."""
+        with patch(
+            "exo.worker.engines.mlx.cache.get_memory_used_percentage",
+            return_value=0.0,
+        ):
+            kv_prefix_cache = KVPrefixCache(None)
+            kv_prefix_cache._disk_dirty = True  # disk state exists but is fresh
+            kv_prefix_cache._last_cleanup_at = time.time()
+            with patch.object(
+                kv_prefix_cache, "_evict_until_below"
+            ) as evict_mock, patch.object(kv_prefix_cache, "flush_to_disk") as flush_mock:
+                kv_prefix_cache._periodic_cleanup()
+                assert evict_mock.call_count == 0
+                assert flush_mock.call_count == 0
