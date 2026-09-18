@@ -1,5 +1,5 @@
 use pidfile_rs::{Pidfile, PidfileError};
-use pyo3::exceptions::PyException;
+use pyo3::exceptions::{PyException, PyRuntimeError};
 use pyo3::prelude::{PyModule, PyModuleMethods};
 use pyo3::{Bound, PyErr, PyResult, Python, pyclass, pymethods};
 use pyo3_stub_gen::derive::{gen_stub_pyclass, gen_stub_pymethods};
@@ -58,18 +58,16 @@ impl PyPidfileError {
 pub struct PyPidfile(Option<Pidfile>);
 
 impl PyPidfile {
-    #[inline(always)]
-    fn get(&self) -> &Pidfile {
+    fn get(&self) -> PyResult<&Pidfile> {
         self.0
             .as_ref()
-            .expect("cannot use resource after exiting context")
+            .ok_or_else(|| PyRuntimeError::new_err("cannot use resource after exiting context"))
     }
 
-    #[inline(always)]
-    fn get_mut(&mut self) -> &mut Pidfile {
+    fn get_mut(&mut self) -> PyResult<&mut Pidfile> {
         self.0
             .as_mut()
-            .expect("cannot use resource after exiting context")
+            .ok_or_else(|| PyRuntimeError::new_err("cannot use resource after exiting context"))
     }
 }
 
@@ -98,7 +96,7 @@ impl PyPidfile {
     ///
     /// The file is truncated before writing.
     fn write<'py>(&mut self, py: Python<'py>) -> PyResult<()> {
-        self.get_mut()
+        self.get_mut()?
             .write()
             .map_err(|e| PyPidfileError(e).into_pyerr(py))
     }
@@ -110,13 +108,19 @@ impl PyPidfile {
     /// raw file descriptor to the caller, and the file descriptor is only
     /// guaranteed to be valid while the original object has not yet been
     /// destroyed.
-    fn as_raw_fd(&self) -> RawFd {
-        self.get().as_raw_fd()
+    fn as_raw_fd(&self) -> PyResult<RawFd> {
+        Ok(self.get()?.as_raw_fd())
     }
 
     /// Closes the PID file and releases associated resources.
-    fn close(&mut self) {
+    fn close(&mut self) -> PyResult<()> {
+        if self.0.is_none() {
+            return Err(PyRuntimeError::new_err(
+                "cannot use resource after exiting context",
+            ));
+        }
         self.0 = None;
+        Ok(())
     }
 }
 

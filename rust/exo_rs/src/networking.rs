@@ -72,7 +72,9 @@ impl PyNetworkingHandle {
     ) -> PyResult<PyNetworkingHandle> {
         // todo: zenoh self assigned peers
         if listen_port == 0 {
-            todo!("cannot listen on port 0 yet");
+            return Err(PyValueError::new_err(
+                "cannot listen on port 0 yet (exo_rs: NetworkingHandle.new requires a fixed listen_port)",
+            ));
         }
         // create communication channels
         let (to_swarm, from_client) = mpsc::channel(1024);
