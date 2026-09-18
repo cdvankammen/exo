@@ -11,7 +11,7 @@ from pathlib import Path
 from subprocess import CalledProcessError
 
 import psutil
-from anyio import run_process
+from anyio import fail_after, run_process
 
 from exo.shared.types.profiling import InterfaceType, NetworkInterfaceInfo
 
@@ -194,14 +194,18 @@ async def get_network_interfaces() -> list[NetworkInterfaceInfo]:
 async def _get_cuda_gpu_name() -> str | None:
     """Name of the first CUDA GPU via nvidia-smi (e.g. "NVIDIA GeForce RTX 3090").
 
-    Returns None when nvidia-smi is unavailable or fails.
+    Returns None when nvidia-smi is unavailable or fails. The query is bounded
+    with fail_after() because a hung nvidia-smi (GPU driver in D-state) must
+    not stall static-node-info gathering indefinitely — the same hang class
+    that hard-killed nodes from profiling.py's unbounded subprocess.run().
     """
     try:
-        process = await run_process(
-            ["nvidia-smi", "--query-gpu=name", "--format=csv,noheader"],
-            check=False,
-        )
-    except (CalledProcessError, OSError):
+        with fail_after(5):
+            process = await run_process(
+                ["nvidia-smi", "--query-gpu=name", "--format=csv,noheader"],
+                check=False,
+            )
+    except (CalledProcessError, OSError, TimeoutError):
         return None
     if process.returncode != 0:
         return None
