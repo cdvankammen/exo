@@ -335,10 +335,27 @@ final class ExoProcessController: ObservableObject {
 
     /// Build a human-readable reason for an unexpected exit, replacing the
     /// bare "Exited with code N" with the actual cause when recognizable.
+    /// Reads the exo log tail, then delegates to the pure static version.
     private func extractStartupFailureReason(exitCode: Int32) -> String {
         let logTail = lastLogTail(
             Self.exoDirectoryURL.appendingPathComponent("exo_log/exo.log")
         )
+        return Self.extractStartupFailureReason(
+            exitCode: exitCode,
+            stderrTail: stderrTail,
+            logTail: logTail
+        )
+    }
+
+    /// Pure function: map a child-process exit to a human-readable reason.
+    /// Kept static, nonisolated and side-effect free so the signature
+    /// matching and fallback behavior are unit-testable without a live
+    /// Process or FileHandle (see EXOTests/EXOExitReasonTests.swift).
+    nonisolated static func extractStartupFailureReason(
+        exitCode: Int32,
+        stderrTail: String,
+        logTail: String
+    ) -> String {
         let combined = stderrTail + "\n" + logTail
 
         // Recognizable startup failures (most specific first).
@@ -351,6 +368,8 @@ final class ExoProcessController: ObservableObject {
             ("cannot open shared object file",
              "Missing native library (see exo log for details)"),
             ("ModuleNotFoundError", "Missing Python module — reinstall the app"),
+            ("ValidationError",
+             "Validation error — mismatched config/event schema (see exo log)"),
             ("Can not find locations of CUDA headers",
              "CUDA headers missing — install the CUDA toolkit"),
             ("cudaMallocManaged", "GPU error — CUDA driver/library mismatch"),
@@ -362,11 +381,14 @@ final class ExoProcessController: ObservableObject {
             }
         }
 
-        // Fall back to the most relevant line of the exo log.
-        let logLines = logTail.split(separator: "\n")
-        if let last = logLines.last(where: {
-            $0.contains("ERROR") || $0.contains("Traceback")
-                || $0.contains("Fatal")
+        // Fall back to the most relevant line seen on stderr or in the
+        // exo log (loguru levels: ERROR, CRITICAL; python: Traceback).
+        let candidateLines = (stderrTail + "\n" + logTail).split(separator: "\n")
+        if let last = candidateLines.last(where: { line in
+            let upper = line.uppercased()
+            return upper.contains("ERROR") || upper.contains("CRITICAL")
+                || upper.contains("TRACEBACK") || upper.contains("FATAL")
+                || upper.contains("EXCEPTION")
         }) {
             return String(last.prefix(300))
         }
