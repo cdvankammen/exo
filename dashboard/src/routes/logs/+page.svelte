@@ -24,6 +24,27 @@
     WARNING: "text-yellow-300 bg-yellow-500/10 border-yellow-500/30",
   };
 
+  // Tail-view level filter. Mirrors the backend line parser
+  // (src/exo/api/main.py: _LOG_LINE_RE / _ANSI_ESCAPE_RE) so the raw log
+  // tail can be filtered entirely client-side. Levels not present in the
+  // log (e.g. DEBUG when the server runs at INFO) simply never light up.
+  const TAIL_LEVELS = ["DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"] as const;
+  type TailLevel = (typeof TAIL_LEVELS)[number];
+  // Loguru file format (src/exo/shared/logging.py:216):
+  //   [ 2026-08-08 06:03:28.551 | INFO     | module:func:86 ] message
+  // ANSI codes are stripped first because the stderr variants are colored.
+  const ANSI_RE = /\x1b\[[0-9;]*m/g;
+  const LOG_LEVEL_RE = /^\s*\[\s*[\d\- :.A-Za-z]+\s*\|\s*([A-Z]+)\b/;
+  function parseTailLevel(line: string): TailLevel | null {
+    const m = line.replace(ANSI_RE, "").match(LOG_LEVEL_RE);
+    if (!m) return null;
+    const lvl = m[1].toUpperCase();
+    return (TAIL_LEVELS as readonly string[]).includes(lvl) ? (lvl as TailLevel) : null;
+  }
+  // Enabled tail levels. Empty = show everything (avoids hiding lines whose
+  // level cannot be parsed, e.g. runner_stdout interleaved raw output).
+  let tailLevelFilter = $state<Set<TailLevel>>(new Set());
+
   let logs = $state<LogFileListItem[]>([]);
   let selectedName = $state<string | null>(null);
   let content = $state<string>("");
@@ -68,6 +89,10 @@
     return prefix;
   }
 
+  const filteredErrors = $derived(
+    errors.filter((e) => errorLevelFilter.has(e.level)),
+  );
+
   // Node-filtered errors: when filter is empty, show all.
   const nodeFilteredErrors = $derived(
     errorNodeFilter.size === 0
@@ -95,6 +120,7 @@
           viewMode,
           selectedName,
           errorLevelFilter: [...errorLevelFilter],
+          tailLevelFilter: [...tailLevelFilter],
           stickToBottom,
           scrollTop: logViewerEl?.scrollTop ?? 0,
         }),
@@ -112,6 +138,7 @@
         viewMode?: "tail" | "errors";
         selectedName?: string | null;
         errorLevelFilter?: string[];
+        tailLevelFilter?: string[];
         stickToBottom?: boolean;
         scrollTop?: number;
       };
@@ -123,6 +150,13 @@
       }
       if (Array.isArray(saved.errorLevelFilter) && saved.errorLevelFilter.length > 0) {
         errorLevelFilter = new Set(saved.errorLevelFilter);
+      }
+      if (Array.isArray(saved.tailLevelFilter) && saved.tailLevelFilter.length > 0) {
+        tailLevelFilter = new Set(
+          saved.tailLevelFilter.filter(
+            (l): l is TailLevel => (TAIL_LEVELS as readonly string[]).includes(l),
+          ),
+        );
       }
       if (typeof saved.stickToBottom === "boolean") {
         stickToBottom = saved.stickToBottom;
@@ -138,9 +172,50 @@
 
   let pendingScrollTop = $state(0);
 
-  const filteredErrors = $derived(
-    errors.filter((e) => errorLevelFilter.has(e.level)),
+  // Tail view: number of parsed log lines per level (for the filter chips).
+  const tailLevelCounts = $derived.by(() => {
+    const counts: Record<string, number> = {};
+    for (const line of content.split("\n")) {
+      const lvl = parseTailLevel(line);
+      if (lvl) counts[lvl] = (counts[lvl] ?? 0) + 1;
+    }
+    return counts;
+  });
+
+  // Tail view: lines kept under the active filter. Continuation lines (no
+  // [LEVEL] header — tracebacks, wrapped text) are kept when the previous
+  // kept line was kept, so multi-line messages stay coherent.
+  const filteredTailLines = $derived.by(() => {
+    if (tailLevelFilter.size === 0) return content;
+    const lines = content.split("\n");
+    const kept: string[] = [];
+    let prevKept = false;
+    for (const line of lines) {
+      const lvl = parseTailLevel(line);
+      if (lvl !== null) {
+        prevKept = tailLevelFilter.has(lvl);
+        if (prevKept) kept.push(line);
+      } else if (prevKept) {
+        kept.push(line);
+      }
+    }
+    return kept.join("\n");
+  });
+
+  // Show an explicit hint when the level filter hides every line.
+  const tailFilterEmpty = $derived(
+    tailLevelFilter.size > 0 && filteredTailLines.trim().length === 0,
   );
+
+  function toggleTailLevel(level: TailLevel) {
+    const next = new Set(tailLevelFilter);
+    if (next.has(level)) {
+      next.delete(level);
+    } else {
+      next.add(level);
+    }
+    tailLevelFilter = next;
+  }
 
   // Persist on every state change — hash navigation (/#/logs) does NOT
   // unmount the page, so onDestroy never fires. Saving in an $effect that
@@ -154,6 +229,7 @@
       viewMode,
       selectedName,
       errorLevelFilter: [...errorLevelFilter],
+      tailLevelFilter: [...tailLevelFilter],
       stickToBottom,
     };
     if (persistenceReady) {
@@ -573,10 +649,52 @@
         </div>
       {/if}
 
+      <!-- Tail level filter chips: parse each line's [LEVEL] client-side. -->
+      <div class="flex items-center gap-2 flex-wrap">
+        <span class="text-xs font-mono uppercase text-exo-light-gray/70"
+          >Levels:</span
+        >
+        <button
+          type="button"
+          class="text-xs font-mono uppercase border px-3 py-1 rounded transition-colors {tailLevelFilter.size ===
+          0
+            ? 'text-exo-yellow border-exo-yellow/40 bg-exo-yellow/10'
+            : 'text-exo-light-gray/70 border-exo-medium-gray/30 hover:text-exo-light-gray'}"
+          onclick={() => (tailLevelFilter = new Set())}
+        >
+          All
+        </button>
+        {#each TAIL_LEVELS as level}
+          <button
+            type="button"
+            class="text-xs font-mono uppercase border px-3 py-1 rounded transition-colors {tailLevelFilter.has(
+              level,
+            )
+              ? (LEVEL_STYLES[level] ?? 'text-exo-yellow border-exo-yellow/40')
+              : 'text-exo-light-gray/70 border-exo-medium-gray/30 hover:text-exo-light-gray'}"
+            onclick={() => toggleTailLevel(level)}
+          >
+            {level}
+            <span class="ml-1 normal-case"
+              >({tailLevelCounts[level] ?? 0})</span
+            >
+          </button>
+        {/each}
+      </div>
+
+      {#if tailFilterEmpty}
+        <div
+          class="rounded border border-exo-medium-gray/30 bg-exo-black/30 p-4 text-center text-sm text-exo-light-gray font-mono"
+        >
+          No lines match the selected level filter. Clear or change levels to
+          see more.
+        </div>
+      {/if}
+
       <pre
         bind:this={logViewerEl}
         onscroll={onLogScroll}
-        class="rounded border border-exo-medium-gray/30 bg-exo-black/50 p-4 text-xs font-mono text-exo-light-gray whitespace-pre-wrap break-words overflow-y-auto max-h-[70vh]">{content ||
+        class="rounded border border-exo-medium-gray/30 bg-exo-black/50 p-4 text-xs font-mono text-exo-light-gray whitespace-pre-wrap break-words overflow-y-auto max-h-[70vh]">{filteredTailLines ||
           (loadingContent ? "Loading..." : "No content.")}</pre>
     {/if}
   </div>
