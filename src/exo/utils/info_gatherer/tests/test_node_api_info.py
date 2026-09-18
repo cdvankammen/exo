@@ -61,3 +61,53 @@ class TestMonitorNodeApiInfo:
             await gatherer._monitor_node_api_info(0.01)  # pyright: ignore[reportPrivateUsage]
 
         assert sender.statistics().current_buffer_used == 0
+
+
+class TestResolveAdvertiseHost:
+    async def test_explicit_override_wins(self, monkeypatch: pytest.MonkeyPatch) -> None:
+        """EXO_API_ADVERTISE_HOST set → used verbatim regardless of bind host."""
+        assert (
+            await ig.resolve_advertise_host("0.0.0.0", "10.0.0.5")
+            == "10.0.0.5"
+        )
+        assert await ig.resolve_advertise_host("127.0.0.1", "10.0.0.5") == "10.0.0.5"
+
+    async def test_wildcard_bind_derives_primary_ip(self, monkeypatch: pytest.MonkeyPatch) -> None:
+        """0.0.0.0 is not dialable by peers → fall back to a non-loopback IP."""
+        async def fake_primary() -> str:
+            return "192.168.1.50"
+        monkeypatch.setattr(ig, "_primary_non_loopback_ip", fake_primary)
+
+        assert await ig.resolve_advertise_host("0.0.0.0", None) == "192.168.1.50"
+        assert await ig.resolve_advertise_host("::", None) == "192.168.1.50"
+
+    async def test_loopback_bind_derives_primary_ip(self, monkeypatch: pytest.MonkeyPatch) -> None:
+        """127.0.0.1 bind (hardened) still advertises a peer-reachable address."""
+        async def fake_primary() -> str:
+            return "192.168.1.50"
+        monkeypatch.setattr(ig, "_primary_non_loopback_ip", fake_primary)
+
+        assert await ig.resolve_advertise_host("127.0.0.1", None) == "192.168.1.50"
+        assert await ig.resolve_advertise_host("::1", None) == "192.168.1.50"
+
+    async def test_concrete_bind_used_verbatim(self, monkeypatch: pytest.MonkeyPatch) -> None:
+        """A specific bind address (e.g. a fixed LAN IP) is the advertisement."""
+        async def fake_primary() -> str:
+            return "192.168.1.50"
+        monkeypatch.setattr(ig, "_primary_non_loopback_ip", fake_primary)
+
+        assert await ig.resolve_advertise_host("10.2.0.90", None) == "10.2.0.90"
+
+    async def test_gather_uses_advertise_host(self, monkeypatch: pytest.MonkeyPatch) -> None:
+        """NodeApiInfo.gather resolves through resolve_advertise_host."""
+        monkeypatch.setenv("EXO_API_PORT", "52415")
+        monkeypatch.setattr(ig, "resolve_advertise_host", _advertise_stub)
+
+        info = await ig.NodeApiInfo.gather()
+        assert info is not None
+        assert info.api_host == "stub.example"
+        assert info.api_port == 52415
+
+
+async def _advertise_stub(bind_host: str, advertise_override: str | None) -> str:
+    return "stub.example"

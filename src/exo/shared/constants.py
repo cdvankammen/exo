@@ -164,6 +164,19 @@ EXO_API_TOKEN: str | None = os.getenv("EXO_API_TOKEN", None)
 # Set to 127.0.0.1 to expose the API only on localhost (security).
 EXO_API_HOST: str = os.getenv("EXO_API_HOST", "0.0.0.0")
 
+# API advertise host (T12). Address peers use to reach this node's API for
+# cluster-wide views (logs/errors proxying). Default None = derive from the
+# bind host:
+#   - 0.0.0.0 / ::   -> the node's primary non-loopback LAN/Tailscale IP
+#                      (peers cannot dial 0.0.0.0 — it is not a real address)
+#   - 127.0.0.1 / ::1 -> same derivation (a hardened node still wants peers
+#                      to reach its API; the LAN IP is the advertisement)
+#   - any other     -> used verbatim (explicit advertise override, e.g. a
+#                      reverse proxy or a fixed cluster IP)
+# Set EXO_API_ADVERTISE_HOST explicitly when automatic derivation is wrong
+# (multi-homed hosts, NAT, or a dedicated ingress address).
+EXO_API_ADVERTISE_HOST: str | None = os.getenv("EXO_API_ADVERTISE_HOST", None)
+
 # Server-side tool execution (T13). Default ON = backward compatible.
 # Set EXO_ENABLE_SERVERSIDE_TOOLCALLS=0 to strip tools from requests
 # (security: a malicious prompt can't trigger server-side tool execution).

@@ -390,10 +390,55 @@ class NodeApiInfo(TaggedModel):
 
     @classmethod
     async def gather(cls) -> Self | None:
-        from exo.shared.constants import EXO_API_HOST
+        from exo.shared.constants import EXO_API_ADVERTISE_HOST, EXO_API_HOST
 
         api_port = int(os.getenv("EXO_API_PORT", "52415"))
-        return cls(api_host=EXO_API_HOST, api_port=api_port)
+        return cls(api_host=await resolve_advertise_host(EXO_API_HOST, EXO_API_ADVERTISE_HOST), api_port=api_port)
+
+
+async def resolve_advertise_host(bind_host: str, advertise_override: str | None) -> str:
+    """Pick the address peers should use to reach this node's HTTP API.
+
+    ``advertise_override`` (EXO_API_ADVERTISE_HOST) wins when set. Otherwise
+    wildcard bind hosts (0.0.0.0 / ::) and loopback binds (127.0.0.1 / ::1)
+    both fall back to the node's primary non-loopback IP — peers can neither
+    dial 0.0.0.0 nor reach another host's 127.0.0.1. A concrete bind host is
+    used verbatim.
+    """
+    if advertise_override:
+        return advertise_override
+    if bind_host in ("0.0.0.0", "::", "127.0.0.1", "::1", ""):
+        return await _primary_non_loopback_ip()
+    return bind_host
+
+
+async def _primary_non_loopback_ip() -> str:
+    """Best-effort primary non-loopback IPv4 of this host (LAN/Tailscale)."""
+    import socket
+
+    try:
+        hostname = socket.gethostname()
+        for info in socket.getaddrinfo(hostname, None, socket.AF_INET):
+            ip: str = str(info[4][0])
+            if not ip.startswith("127."):
+                return ip
+    except OSError:
+        pass
+    # Fallback: enumerate interfaces via psutil (no DNS dependency).
+    try:
+        import psutil
+
+        for iface, addrs in psutil.net_if_addrs().items():
+            if iface == "lo" or iface.startswith("lo"):
+                continue
+            for addr in addrs:
+                if addr.family == socket.AF_INET:
+                    candidate = str(addr.address)
+                    if not candidate.startswith("127."):
+                        return candidate
+    except Exception:
+        pass
+    return "127.0.0.1"
 
 
 class NodeDiskUsage(TaggedModel):

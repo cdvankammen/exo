@@ -22,6 +22,9 @@ def test_catalog_has_expected_knobs() -> None:
         "EXO_MAX_CONCURRENT_REQUESTS",
         "EXO_BOOTSTRAP_PEERS",
         "EXO_NODE_ZID",
+        "EXO_API_HOST",
+        "EXO_API_ADVERTISE_HOST",
+        "EXO_API_TOKEN",
         "EXO_OFFLINE",
         "EXO_TRACING_ENABLED",
     ):

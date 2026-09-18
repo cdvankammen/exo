@@ -103,6 +103,10 @@ CATALOG: dict[str, SettingSpec] = {
         ),
         SettingSpec("EXO_NODE_ZID", "str", "Fixed node identity (keypair seed)", None),
         SettingSpec("EXO_ZENOH_NAMESPACE", "str", "Cluster namespace isolation", None),
+        # API surface (T12/T23 — security-relevant)
+        SettingSpec("EXO_API_HOST", "str", "API bind address (0.0.0.0 = all interfaces; 127.0.0.1 = localhost only)", "0.0.0.0"),
+        SettingSpec("EXO_API_ADVERTISE_HOST", "str", "API address advertised to peers for cluster log/error views (default: auto-derive)", None),
+        SettingSpec("EXO_API_TOKEN", "str", "Optional bearer token for API auth (empty = no auth)", None),
         # Models
         SettingSpec("EXO_MODELS_DIRS", "str", "Writable model directories (colon-separated)", None),
         SettingSpec("EXO_MODELS_READ_ONLY_DIRS", "str", "Read-only model dirs (colon-separated)", None),
