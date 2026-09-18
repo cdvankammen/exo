@@ -233,6 +233,26 @@ def load_mlx_items(
         logger.info(f"Single device used for {bound_instance.instance}")
         model_path = build_model_path(bound_instance.bound_shard.model_card.model_id)
         start_time = time.perf_counter()
+        # GGUF models bypass mlx_lm's safetensors loader: load the weights
+        # directly via MLX's native GGUF support and translate them into an
+        # mlx_lm-compatible architecture.  The import is deliberately local —
+        # gguf -> gguf_tokenizer -> utils_mlx would otherwise form a cycle.
+        from exo.worker.engines.mlx.gguf import find_gguf_file, is_gguf_model, load_gguf
+
+        if is_gguf_model(model_path):
+            gguf_file = find_gguf_file(model_path)
+            assert gguf_file is not None, "is_gguf_model but find_gguf_file returned None"
+            logger.info("Loading GGUF model from %s", gguf_file)
+            model, tokenizer = load_gguf(
+                gguf_file,
+                model_path,
+                bound_instance.bound_shard.model_card.model_id,
+                trust_remote_code=TRUST_REMOTE_CODE,
+            )
+            logger.info(f"Time taken to load model: {(time.perf_counter() - start_time):.2f}s")
+            yield ModelLoadingResponse(layers_loaded=0, total=1)  # one-shot load
+            return cast(Model, model), tokenizer, None
+
         model, _ = load_model(model_path, lazy=True, strict=False)
         # Eval layers one by one for progress reporting
         try:
