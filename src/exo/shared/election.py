@@ -273,6 +273,19 @@ class Election:
                     isinstance(command, PromoteMaster)
                     and command.target_node_id == self.node_id
                 ):
+                    # T11 hard opt-out: a --no-master node (is_candidate=False)
+                    # must never be forced into the master role, even by an
+                    # explicit PromoteMaster command. Without this guard the
+                    # command would inflate seniority/clock and start a
+                    # campaign; a node that spawned as master (the default
+                    # current_session) would then propose itself and could win
+                    # a solo partition — breaking the worker-only contract.
+                    if not self.is_candidate:
+                        logger.warning(
+                            "PromoteMaster ignored: this node is a non-candidate "
+                            "(--no-master) and can never be master"
+                        )
+                        continue
                     self._force_promote()
 
     def _force_promote(self) -> None:

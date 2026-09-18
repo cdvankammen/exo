@@ -787,6 +787,54 @@ async def test_promote_master_ignored_for_other_node() -> None:
 
 
 @pytest.mark.anyio
+async def test_promote_master_ignored_for_non_candidate() -> None:
+    """
+    A PromoteMaster targeting a --no-master node (is_candidate=False) must be a
+    hard no-op: no seniority inflation, no clock bump, no campaign. The T11
+    decision-doc risk register declared 'PromoteMaster should NOT override
+    --no-master (hard opt-out)' — this test enforces it.
+    """
+    em_out_tx, _em_out_rx = channel[ElectionMessage]()
+    em_in_tx, em_in_rx = channel[ElectionMessage]()
+    er_tx, _er_rx = channel[ElectionResult]()
+    cm_tx, cm_rx = channel[ConnectionMessage]()
+    co_tx, co_rx = channel[ForwarderCommand]()
+
+    election = Election(
+        node_id=NodeId("worker-only"),
+        election_message_receiver=em_in_rx,
+        election_message_sender=em_out_tx,
+        election_result_sender=er_tx,
+        connection_message_receiver=cm_rx,
+        command_receiver=co_rx,
+        is_candidate=False,
+        seniority=5,
+    )
+
+    async with create_task_group() as tg:
+        with fail_after(2):
+            tg.start_soon(election.run)
+            initial_clock = election.clock
+            initial_seniority = election.seniority
+
+            # PromoteMaster targeting us (a non-candidate) must be ignored
+            await co_tx.send(
+                ForwarderCommand(
+                    origin=SystemId("api"),
+                    command=PromoteMaster(target_node_id=NodeId("worker-only")),
+                )
+            )
+            await sleep(0.2)
+            # No promotion side effects: clock and seniority unchanged.
+            assert election.clock == initial_clock
+            assert election.seniority == initial_seniority
+
+            em_in_tx.close()
+            cm_tx.close()
+            co_tx.close()
+
+
+@pytest.mark.anyio
 async def test_continuous_connection_messages_do_not_stack_campaigns() -> None:
     """
     A continuous trickle of connection messages must not start a new campaign
