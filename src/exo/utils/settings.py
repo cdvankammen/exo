@@ -72,19 +72,20 @@ CATALOG: dict[str, SettingSpec] = {
     spec.var: spec
     for spec in [
         # Memory / KV-cache
-        SettingSpec("EXO_KV_CACHE_BITS", "str", "KV cache quantization bits (4/8)", "4"),
+        SettingSpec("EXO_KV_CACHE_BITS", "str", "KV cache quantization bits (4/8; unset = off)", None),
         SettingSpec("EXO_KV_CACHE_GROUP_SIZE", "int", "KV cache quantization group size", "64"),
         SettingSpec("EXO_KV_DISK_PERSISTENCE", "bool", "SSD-as-RAM: persist KV cache to disk", "0"),
-        SettingSpec("EXO_KV_DISK_PATH", "str", "KV cache disk directory", None),
-        SettingSpec("EXO_KV_DISK_MAX_SIZE_GB", "int", "KV cache disk budget (GB)", None),
-        SettingSpec("EXO_KV_DISK_TTL_HOURS", "int", "KV cache expiry (hours)", None),
+        SettingSpec("EXO_KV_TIERED", "bool", "Tiered KV offload hot->warm->cold (GPU->RAM->disk)", "0"),
+        SettingSpec("EXO_KV_DISK_PATH", "str", "KV cache disk directory", None, requires_restart=False),
+        SettingSpec("EXO_KV_DISK_MAX_SIZE_GB", "int", "KV cache disk budget (GB)", None, requires_restart=False),
+        SettingSpec("EXO_KV_DISK_TTL_HOURS", "int", "KV cache expiry (hours)", None, requires_restart=False),
         SettingSpec("EXO_MEMORY_THRESHOLD", "str", "RAM headroom reserved before prefill", None),
         SettingSpec("EXO_PREFILL_MEMORY_THRESHOLD", "str", "Prefill-specific RAM headroom", None),
-        SettingSpec("EXO_PREFILL_STEP_SIZE", "int", "Prefill chunk size in tokens", "512"),
+        SettingSpec("EXO_PREFILL_STEP_SIZE", "int", "Prefill chunk size in tokens", "512", requires_restart=False),
         SettingSpec("EXO_MAX_CHUNK_SIZE", "int", "Token chunk size", None),
         # Cluster / placement
         SettingSpec("EXO_MAX_CONCURRENT_REQUESTS", "int", "API concurrency limit", None, requires_restart=False),
-        SettingSpec("EXO_MAX_INSTANCE_RETRIES", "int", "Runner retry budget", "5"),
+        SettingSpec("EXO_MAX_INSTANCE_RETRIES", "int", "Runner retry budget (note: hardcoded 5 in shared/constants.py — env NOT read)", "5"),
         SettingSpec(
             "EXO_BOOTSTRAP_PEERS",
             "str",
@@ -101,8 +102,8 @@ CATALOG: dict[str, SettingSpec] = {
         SettingSpec("EXO_OFFLINE", "bool", "No network (Hub disabled)", "0"),
         # Debug / perf
         SettingSpec("EXO_DSV4_FUSED_MOE", "bool", "DeepSeek V4 fused gate+up MoE", "1"),
-        SettingSpec("EXO_NO_BATCH", "bool", "Disable request batching", "0"),
-        SettingSpec("EXO_FAST_SYNCH", "bool", "Metal fast synchronisation", "1"),
+        SettingSpec("EXO_NO_BATCH", "bool", "Disable request batching (read at builder call time)", "0", requires_restart=False),
+        SettingSpec("EXO_FAST_SYNCH", "bool", "Metal fast synchronisation (read at runner bootstrap)", "1", requires_restart=False),
         SettingSpec("EXO_TRACING_ENABLED", "bool", "Per-request tracing", "0"),
     ]
 }
@@ -207,6 +208,32 @@ class SettingsManager:
                 spec.coerce(value)
                 self._overrides[var] = value
             self._save()
+
+    def apply_overrides_to_environ(self) -> None:
+        """Push persisted overrides into ``os.environ`` for child processes.
+
+        This is the bridge between the settings file and imports that read
+        ``os.environ`` at module-import time (e.g. runner subprocesses, which
+        re-import all engine modules fresh under the ``spawn`` start method).
+        It is deliberately *not* called on every ``PUT /v1/settings`` — the
+        current process's own import-time constants are already baked, so live
+        application would be a lie. The node start path calls this once before
+        spawning children.
+        """
+        with self._lock:
+            overrides = dict(self._overrides)
+        for var, value in overrides.items():
+            spec = CATALOG.get(var)
+            if spec is not None:
+                try:
+                    spec.coerce(value)
+                except ValueError:
+                    logger.warning(
+                        f"Skipping invalid override {var}={value!r} in environ bridge"
+                    )
+                    continue
+                os.environ[var] = value
+                logger.debug(f"Settings bridge: {var}={value} -> env")
 
 
 # Process-wide singleton; the API constructs it lazily so the settings file

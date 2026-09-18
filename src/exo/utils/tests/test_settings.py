@@ -1,4 +1,5 @@
 import json
+import os
 from pathlib import Path
 
 import pytest
@@ -56,10 +57,8 @@ def test_resolve_default_when_unset(
     monkeypatch.delenv("EXO_KV_CACHE_BITS", raising=False)
 
     resolved = settings_manager.resolve("EXO_KV_CACHE_BITS")
-    assert resolved is not None
-    value, source = resolved
-    assert value == "4"
-    assert source == "default"
+    # Opt-in feature: unset means OFF (None), not a default of 4.
+    assert resolved is None
 
 
 def test_resolve_unknown_var_returns_none(settings_manager: SettingsManager) -> None:
@@ -86,7 +85,8 @@ def test_apply_override_clears_with_none(settings_manager: SettingsManager) -> N
     settings_manager.apply_override("EXO_KV_CACHE_BITS", None)
 
     resolved = settings_manager.resolve("EXO_KV_CACHE_BITS")
-    assert resolved is not None and resolved[1] != "override"
+    # Override cleared and the opt-in knob has no default: fully unset.
+    assert resolved is None
 
 
 def test_overrides_persist_to_disk(tmp_path: Path) -> None:
@@ -118,7 +118,67 @@ def test_snapshot_includes_catalog_metadata(
     assert entry["description"]
     assert entry["type"] == "str"
     assert entry["requires_restart"] is True
-    assert entry["source"] in ("default", "env", "override")
+    # Opt-in knob with no default: unset resolves to None source.
+    assert entry["source"] in ("default", "env", "override", None)
+
+
+def test_catalog_restart_semantics_match_read_sites() -> None:
+    """UI truthfulness: dynamic-read vars must not carry the 'restart' badge.
+
+    Verified read sites (2026-09-18 audit, t_4db7e78a):
+    - EXO_KV_DISK_PATH / MAX_SIZE_GB / TTL_HOURS: os.environ.get inside methods
+      (mlx/cache.py, mlx/kv_offload.py) -> dynamic.
+    - EXO_PREFILL_STEP_SIZE: os.getenv inside prefill (mlx/generator/generate.py:477).
+    - EXO_NO_BATCH: builder call (mlx/builder.py:76).
+    - EXO_FAST_SYNCH: runner bootstrap (worker/runner/bootstrap.py:142).
+    """
+    dynamic = {
+        "EXO_KV_DISK_PATH",
+        "EXO_KV_DISK_MAX_SIZE_GB",
+        "EXO_KV_DISK_TTL_HOURS",
+        "EXO_PREFILL_STEP_SIZE",
+        "EXO_NO_BATCH",
+        "EXO_FAST_SYNCH",
+        "EXO_MAX_CONCURRENT_REQUESTS",
+    }
+    for var in dynamic:
+        spec = CATALOG[var]
+        assert spec.requires_restart is False, (
+            f"{var} is read dynamically and must not show 'restart'"
+        )
+    # Import-time knobs must keep the restart badge.
+    for var in ("EXO_KV_CACHE_BITS", "EXO_KV_TIERED", "EXO_MEMORY_THRESHOLD",
+                "EXO_MAX_CHUNK_SIZE", "EXO_MAX_INSTANCE_RETRIES", "EXO_OFFLINE",
+                "EXO_DSV4_FUSED_MOE", "EXO_TRACING_ENABLED"):
+        assert CATALOG[var].requires_restart is True, (
+            f"{var} is read at import time and must show 'restart'"
+        )
+
+
+def test_apply_overrides_to_environ(
+    settings_manager: SettingsManager, monkeypatch: MonkeyPatch
+) -> None:
+    monkeypatch.delenv("EXO_KV_CACHE_BITS", raising=False)
+    monkeypatch.delenv("EXO_KV_DISK_PERSISTENCE", raising=False)
+
+    settings_manager.apply_override("EXO_KV_CACHE_BITS", "4")
+    settings_manager.apply_override("EXO_KV_DISK_PERSISTENCE", "1")
+
+    settings_manager.apply_overrides_to_environ()
+
+    assert os.environ.get("EXO_KV_CACHE_BITS") == "4"
+    assert os.environ.get("EXO_KV_DISK_PERSISTENCE") == "1"
+
+
+def test_apply_overrides_to_environ_ignores_invalid(
+    settings_manager: SettingsManager, monkeypatch: MonkeyPatch
+) -> None:
+    monkeypatch.delenv("EXO_KV_DISK_PERSISTENCE", raising=False)
+    # A raw file written by hand can hold invalid values; the bridge must not
+    # crash the node start, just skip the offending override.
+    settings_manager._overrides["EXO_KV_DISK_PERSISTENCE"] = "not-a-bool"
+    settings_manager.apply_overrides_to_environ()
+    assert "EXO_KV_DISK_PERSISTENCE" not in os.environ
 
 
 def test_spec_coerce_bool() -> None:

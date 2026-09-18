@@ -450,7 +450,11 @@
                   {#if entry.requires_restart}
                     <span
                       class="ml-1 text-[9px] px-1.5 py-0.5 rounded border border-white/15 text-white/40 uppercase"
-                      title="Takes effect on the next node/runner start">restart</span>
+                      title="Read when the node starts — save then restart the node for this to take effect">restart</span>
+                  {:else}
+                    <span
+                      class="ml-1 text-[9px] px-1.5 py-0.5 rounded border border-white/15 text-white/40 uppercase"
+                      title="Read dynamically at call time — applies to new runners without a node restart">new runners</span>
                   {/if}
                 </td>
                 <td class="px-4 py-2 text-white/70">{entry.description}</td>
@@ -504,8 +508,11 @@
         </table>
       </div>
       <p class="text-[11px] text-white/35 mt-2">
-        Precedence: override (this page) &gt; launch env var &gt; built-in default. Most knobs apply to
-        new runners — restart the node for a full effect.
+        Precedence: override (this page) &gt; launch env var &gt; built-in default. Knobs marked
+        <span class="uppercase text-white/45">restart</span> are read when the node starts — save,
+        then restart the node for them to take effect. Knobs marked
+        <span class="uppercase text-white/45">new runners</span> are read at call time and apply to
+        newly spawned runners without a node restart.
       </p>
     {/if}
   </section>

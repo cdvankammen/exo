@@ -439,6 +439,13 @@ def main_inner(args: "Args"):
         )
     logger.info(f"EXO_ZENOH_NAMESPACE: {os.getenv('EXO_ZENOH_NAMESPACE')}")
 
+    # Settings bridge: push persisted settings.json overrides into os.environ
+    # so runner subprocesses (fresh-interpreter spawn) and dynamic env reads
+    # observe them. The current process's own import-time constants were
+    # already baked when its modules imported — those need a full restart.
+    # See findings t_4db7e78a-SETTINGS-ENV-BRIDGE.md for the boundary.
+    get_settings_manager().apply_overrides_to_environ()
+
     if args.offline:
         logger.info("Running in OFFLINE mode — no internet checks, local models only")
 
