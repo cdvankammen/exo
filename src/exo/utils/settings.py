@@ -74,6 +74,8 @@ CATALOG: dict[str, SettingSpec] = {
         # Memory / KV-cache
         SettingSpec("EXO_KV_CACHE_BITS", "str", "KV cache quantization bits (4/8; unset = off)", None),
         SettingSpec("EXO_KV_CACHE_GROUP_SIZE", "int", "KV cache quantization group size", "64"),
+        SettingSpec("EXO_MAX_KV_SIZE", "int", "RotatingKVCache max context (tokens); bounds KV-cache RAM (T9 #1860)", "16384"),
+        SettingSpec("EXO_KEEP_KV_SIZE", "int", "RotatingKVCache keep window (tokens); preserved prefix under rotation", "8000"),
         SettingSpec("EXO_KV_DISK_PERSISTENCE", "bool", "SSD-as-RAM: persist KV cache to disk", "0"),
         SettingSpec("EXO_KV_TIERED", "bool", "Tiered KV offload hot->warm->cold (GPU->RAM->disk)", "0"),
         SettingSpec("EXO_KV_DISK_PATH", "str", "KV cache disk directory", None, requires_restart=False),
@@ -81,6 +83,12 @@ CATALOG: dict[str, SettingSpec] = {
         SettingSpec("EXO_KV_DISK_TTL_HOURS", "int", "KV cache expiry (hours)", None, requires_restart=False),
         SettingSpec("EXO_MEMORY_THRESHOLD", "str", "RAM headroom reserved before prefill", None),
         SettingSpec("EXO_PREFILL_MEMORY_THRESHOLD", "str", "Prefill-specific RAM headroom", None),
+        SettingSpec(
+            "EXO_MEMORY_PRESSURE_THRESHOLD",
+            "str",
+            "OOM-prevention: emit error chunk when memory pressure % is at/above this (default 90.0)",
+            None,
+        ),
         SettingSpec("EXO_PREFILL_STEP_SIZE", "int", "Prefill chunk size in tokens", "512", requires_restart=False),
         SettingSpec("EXO_MAX_CHUNK_SIZE", "int", "Token chunk size", None),
         # Cluster / placement

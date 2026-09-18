@@ -16,6 +16,8 @@ def settings_manager(tmp_path: Path) -> SettingsManager:
 def test_catalog_has_expected_knobs() -> None:
     for var in (
         "EXO_KV_CACHE_BITS",
+        "EXO_MAX_KV_SIZE",
+        "EXO_KEEP_KV_SIZE",
         "EXO_KV_DISK_PERSISTENCE",
         "EXO_MAX_CONCURRENT_REQUESTS",
         "EXO_BOOTSTRAP_PEERS",
@@ -63,6 +65,13 @@ def test_resolve_default_when_unset(
 
 def test_resolve_unknown_var_returns_none(settings_manager: SettingsManager) -> None:
     assert settings_manager.resolve("EXO_NOT_A_REAL_VAR") is None
+
+
+def test_resolve_max_kv_size_default(settings_manager: SettingsManager) -> None:
+    """EXO_MAX_KV_SIZE defaults to 16384 and requires restart (import-time read)."""
+    assert settings_manager.resolve("EXO_MAX_KV_SIZE") == ("16384", "default")
+    assert CATALOG["EXO_MAX_KV_SIZE"].requires_restart is True
+    assert settings_manager.resolve("EXO_KEEP_KV_SIZE") == ("8000", "default")
 
 
 def test_apply_override_unknown_var_raises(
@@ -147,7 +156,8 @@ def test_catalog_restart_semantics_match_read_sites() -> None:
             f"{var} is read dynamically and must not show 'restart'"
         )
     # Import-time knobs must keep the restart badge.
-    for var in ("EXO_KV_CACHE_BITS", "EXO_KV_TIERED", "EXO_MEMORY_THRESHOLD",
+    for var in ("EXO_KV_CACHE_BITS", "EXO_MAX_KV_SIZE", "EXO_KEEP_KV_SIZE",
+                "EXO_KV_TIERED", "EXO_MEMORY_THRESHOLD",
                 "EXO_MAX_CHUNK_SIZE", "EXO_MAX_INSTANCE_RETRIES", "EXO_OFFLINE",
                 "EXO_DSV4_FUSED_MOE", "EXO_TRACING_ENABLED"):
         assert CATALOG[var].requires_restart is True, (
