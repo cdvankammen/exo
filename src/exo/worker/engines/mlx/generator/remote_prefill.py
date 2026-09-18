@@ -1,3 +1,7 @@
+"""Remote prefill entry point.
+
+``remote_prefill()`` runs prefill through the disaggregated pipeline and returns the resulting KV cache."""
+
 import time
 from collections.abc import Callable
 from typing import cast

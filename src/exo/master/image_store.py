@@ -1,3 +1,7 @@
+"""Disk-backed store for generated images on the master node.
+
+:class:`ImageStore` persists image generation results and maps response content types to file extensions."""
+
 import time
 from pathlib import Path
 

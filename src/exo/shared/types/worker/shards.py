@@ -1,3 +1,7 @@
+"""Shard metadata for distributed inference.
+
+:class:`Sharding` enum and per-strategy shard metadata (pipeline, cfg, tensor, ring)."""
+
 from enum import Enum
 from typing import TypeAlias, final
 

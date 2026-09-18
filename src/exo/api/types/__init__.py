@@ -1,3 +1,7 @@
+"""Re-exports of every public API schema type.
+
+Publishes all request/response/params models from :mod:`exo.api.types.api` so callers can import them from a single location."""
+
 from .api import AddCustomModelParams as AddCustomModelParams
 from .api import AddPeerParams as AddPeerParams
 from .api import AddPeerResponse as AddPeerResponse

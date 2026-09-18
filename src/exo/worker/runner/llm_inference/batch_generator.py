@@ -1,3 +1,7 @@
+"""Generation batching for runners.
+
+:class:`SequentialGenerator` and :class:`BatchGenerator` run (batched) generation with queueing, OOM handling, and debug-prompt hooks."""
+
 import itertools
 import os
 import re

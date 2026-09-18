@@ -1,3 +1,7 @@
+"""Asynchronous subprocess wrapper.
+
+:class:`AsyncProcess` runs subprocesses with captured stdio exposed as async streams (spawn, read/write, signalling, wait)."""
+
 from __future__ import annotations
 
 import contextlib

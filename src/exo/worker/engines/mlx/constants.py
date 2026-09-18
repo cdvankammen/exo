@@ -1,3 +1,7 @@
+"""MLX engine constants.
+
+Attention KV bits, memory thresholds, and related tuning knobs."""
+
 import os
 
 # TODO: Do we want so many constants?

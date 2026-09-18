@@ -1,3 +1,7 @@
+"""MLX KV-prefix cache machinery.
+
+Snapshot/copy/trim/encode helpers (:class:`KVPrefixCache`, ``trim_cache()``, ``make_kv_cache()``) with disk-offload support."""
+
 import contextlib
 import gc
 

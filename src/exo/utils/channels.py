@@ -1,3 +1,7 @@
+"""Async channel primitives.
+
+Sender/Receiver and multiprocessing MpSender/MpReceiver bridges plus the ``channel()``/``mp_channel()`` factories."""
+
 import contextlib
 import multiprocessing as mp
 from dataclasses import dataclass, field

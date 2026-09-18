@@ -1,3 +1,7 @@
+"""Image engine package for diffusion models.
+
+Builder, distributed model wrapper, generator, and patch-pipeline internals for Flux/Qwen image models."""
+
 from exo.worker.engines.image.builder import (
     ImageEngine,
     MfluxBuilder,

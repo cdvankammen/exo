@@ -1,3 +1,7 @@
+"""Concrete shard downloader implementations.
+
+Builds base/full shard plans and provides :class:`SingletonShardDownloader` (one-shot whole-model) and :class:`ResumableShardDownloader` (chunked, resumable) behind the ``exo_shard_downloader()`` factory."""
+
 import asyncio
 from asyncio import create_task
 from collections.abc import Awaitable

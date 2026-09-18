@@ -1,3 +1,7 @@
+"""Network profiling for peer ranking.
+
+Reachability/bandwidth probing and latency/bandwidth change detection (``probe_bandwidth()``, ``check_reachable()``, ``check_bandwidth()``)."""
+
 import time
 from collections import defaultdict
 from collections.abc import AsyncGenerator, Mapping

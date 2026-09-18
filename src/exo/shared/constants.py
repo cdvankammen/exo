@@ -1,3 +1,7 @@
+"""Central constants and path resolution.
+
+Defines config-home and model-directory resolution, tooling flags (``tools_enabled()``), and shared tunables used across the codebase."""
+
 import os
 import sys
 from pathlib import Path

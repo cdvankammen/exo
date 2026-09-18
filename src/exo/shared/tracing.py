@@ -1,3 +1,7 @@
+"""Structured tracing for exo events.
+
+Owns trace-event recording (``trace()``), the trace buffer, export/load helpers, and statistics aggregation (``compute_stats()``)."""
+
 from __future__ import annotations
 
 import json

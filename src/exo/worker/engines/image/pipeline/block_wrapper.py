@@ -1,3 +1,7 @@
+"""Patched transformer blocks for image inference.
+
+:class:`BlockWrapperMixin`, :class:`JointBlockWrapper`, and :class:`SingleBlockWrapper` patch blocks for patch-level (image) generation."""
+
 from abc import ABC, abstractmethod
 from enum import Enum
 from typing import Generic, Self, TypeVar

@@ -1,3 +1,7 @@
+"""Utility helpers.
+
+Type helpers (``ensure_type()``, ``todo()``), phantom-data machinery, and stdio descriptor constants."""
+
 from typing import Any, Type
 
 from .phantom import PhantomData

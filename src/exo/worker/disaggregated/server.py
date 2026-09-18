@@ -1,3 +1,7 @@
+"""Prefill server for disaggregated inference.
+
+:class:`PrefillServer` accepts prefill requests over sockets, runs them, and streams the resulting KV state back."""
+
 import socket
 import socketserver
 import threading

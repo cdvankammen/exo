@@ -1,3 +1,7 @@
+"""Pydantic base-class extensions.
+
+:class:`FrozenModel` (frozen, camelCase-serialising) and :class:`TaggedModel` (discriminated-union support)."""
+
 from typing import Any, Self
 
 from pydantic import BaseModel, ConfigDict, model_serializer, model_validator

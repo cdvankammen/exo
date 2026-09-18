@@ -1,3 +1,7 @@
+"""Vision support for the MLX engine.
+
+:class:`VisionEncoder`/:class:`VisionProcessor`, prompt building, media-region detection, and embedding creation for multimodal models."""
+
 import base64
 import contextlib
 import hashlib

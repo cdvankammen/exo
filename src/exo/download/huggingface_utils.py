@@ -1,3 +1,7 @@
+"""HuggingFace Hub helpers.
+
+Resolves the HF endpoint/home/token, builds auth headers, filters repo objects with allow patterns, and extracts layer numbers for sharded downloads."""
+
 import os
 from fnmatch import fnmatch
 from pathlib import Path

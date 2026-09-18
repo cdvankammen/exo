@@ -1,3 +1,7 @@
+"""FastAPI application exposing exo's HTTP API: chat completions, image generation, instance placement, downloads, traces, and logs.
+
+Owns the :class:`API` route class (90+ methods), request validation, error mapping, and the ``run_api`` entry point; also serves the dashboard and the OpenAI-compatible ``/v1`` endpoints."""
+
 import base64
 import contextlib
 import hashlib

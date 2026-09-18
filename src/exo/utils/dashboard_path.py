@@ -1,3 +1,7 @@
+"""Dashboard asset discovery.
+
+Locates the built dashboard and its resources in the repo or bundled app (``find_dashboard()``, ``find_resources()``)."""
+
 import sys
 from pathlib import Path
 from typing import cast

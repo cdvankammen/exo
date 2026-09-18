@@ -1,3 +1,7 @@
+"""Vendored DSML encoding.
+
+``encode_messages()`` and ``parse_dsml_output()`` for DeepSeek-style structured text."""
+
 import json
 import re
 from typing import Any

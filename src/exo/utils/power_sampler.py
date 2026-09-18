@@ -1,3 +1,7 @@
+"""Power sampling with energy integration.
+
+:class:`PowerSampler` samples power periodically; ``trapezoidal_energy()``/``trapezoidal_energy_range()`` integrate samples."""
+
 import time
 from collections import defaultdict
 from collections.abc import Callable, Mapping

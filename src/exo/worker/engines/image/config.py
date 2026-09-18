@@ -1,3 +1,7 @@
+"""Image model configuration.
+
+:class:`BlockType`, :class:`TransformerBlockConfig`, and :class:`ImageModelConfig` for Flux/Qwen image models."""
+
 from enum import Enum
 
 from pydantic import BaseModel

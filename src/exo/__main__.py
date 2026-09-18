@@ -1,3 +1,7 @@
+"""CLI entry point for the exo package.
+
+Parses bootstrap peers, constructs the distributed :class:`exo.main.Node`, and runs it until shutdown; also supports running inline Python snippets for debugging."""
+
 from __future__ import annotations
 
 import sys

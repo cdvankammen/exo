@@ -1,3 +1,7 @@
+"""Model card system.
+
+Owns the :class:`ModelCard` schema, config fetching (``fetch_config_data()``), vision-capability detection, sampling defaults, and the card cache."""
+
 import json
 from enum import Enum
 from typing import Annotated, Any

@@ -1,3 +1,7 @@
+"""InfoGatherer: collects node information for topology and placement.
+
+Gathers OS, network interfaces, backends, thunderbolt bridges, disk usage, and NVML/CUDA state into structured node info."""
+
 import os
 import re
 import shutil

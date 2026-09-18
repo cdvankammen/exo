@@ -1,3 +1,7 @@
+"""Event-apply functions: translate incoming swarm events into state mutations.
+
+Owns ``apply()`` plus per-event-type handlers (tasks, instances, topology, runners, nodes, custom model cards) and RDMA-control gating."""
+
 import copy
 from collections.abc import Mapping, Sequence
 from datetime import datetime
@@ -17,6 +21,7 @@ from exo.shared.types.events import (
     InstanceDeleted,
     InstanceLinkCreated,
     InstanceLinkDeleted,
+    MasterHeartbeat,
     NodeDownloadProgress,
     NodeGatheredInfo,
     NodeTimedOut,
@@ -90,6 +95,7 @@ def event_apply(event: Event, state: State) -> State:
             | InputChunkReceived()
             | TracesCollected()
             | TracesMerged()
+            | MasterHeartbeat()
         ):  # Pass-through events that don't modify state
             return state
         case CustomModelCardAdded():

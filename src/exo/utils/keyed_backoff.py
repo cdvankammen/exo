@@ -1,3 +1,7 @@
+"""Per-key exponential backoff.
+
+:class:`KeyedBackoff` tracks independent backoff state for retryable operations keyed by an arbitrary type."""
+
 import time
 from typing import final
 

@@ -1,3 +1,7 @@
+"""Engine interface and builder contract.
+
+:class:`Engine` defines the inference engine lifecycle; :class:`Builder` constructs engines for a task."""
+
 from abc import ABC, abstractmethod
 from collections.abc import Generator, Iterable
 from typing import BinaryIO

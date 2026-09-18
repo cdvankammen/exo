@@ -1,3 +1,7 @@
+"""Event resequencing buffers.
+
+:class:`OrderedBuffer` and :class:`MultiSourceBuffer` restore causal ordering for out-of-order multi-source streams."""
+
 from loguru import logger
 
 

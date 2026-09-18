@@ -1,3 +1,7 @@
+"""Stall detection watchdog.
+
+:class:`StallWatchdog` runs a background thread that dumps stack traces when an operation stalls past a threshold."""
+
 import faulthandler
 import os
 import sys

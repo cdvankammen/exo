@@ -1,3 +1,7 @@
+"""Serialisable types for connection updates and messages exchanged between routers.
+
+:class:`ConnectionMessage` wraps the Rust-side connection protocol payloads."""
+
 from exo_rs import FromSwarm
 
 from exo.utils.pydantic_ext import FrozenModel

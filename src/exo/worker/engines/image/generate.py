@@ -1,3 +1,7 @@
+"""Image generation entry points.
+
+``parse_size()``, ``warmup_image_generator()``, and ``generate_image()`` for the MFlux-backed engine."""
+
 import base64
 import io
 import random

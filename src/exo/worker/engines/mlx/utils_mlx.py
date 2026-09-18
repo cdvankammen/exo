@@ -1,3 +1,7 @@
+"""MLX engine utilities.
+
+Distributed init, model/tokenizer loading, chat-template rendering, DSML/V4 encodings, KV handling, and cleanup (``mlx_generate`` support stack)."""
+
 import json
 import os
 import re

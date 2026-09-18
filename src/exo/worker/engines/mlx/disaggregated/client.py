@@ -1,3 +1,7 @@
+"""Remote-prefill client.
+
+Fetches prefill results from a prefill server and ingests them into the local MLX cache (``remote_prefill_fetch()``)."""
+
 import socket
 from collections import defaultdict
 from collections.abc import Callable

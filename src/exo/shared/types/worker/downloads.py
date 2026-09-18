@@ -1,3 +1,7 @@
+"""Download progress types.
+
+Per-state progress models (pending/ongoing/complete/failed/stalled), safetensors index metadata, and file-list entries."""
+
 from datetime import timedelta
 from typing import Literal
 

@@ -1,3 +1,7 @@
+"""MLX-to-wire cache serialisation.
+
+Dtype mapping, array (de)serialisation, and KV-chunk injection into mlx-lm caches (``send_mlx_kv_cache()``, ``inject_kv_chunk()``)."""
+
 from typing import BinaryIO
 
 import mlx.core as mx

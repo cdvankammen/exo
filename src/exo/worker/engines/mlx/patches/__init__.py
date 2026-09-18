@@ -1,3 +1,7 @@
+"""MLX patch registry.
+
+``apply_mlx_patches()`` installs all vendored mlx-lm patches (CUDA compat, batch generation, Yarn RoPE)."""
+
 from exo.worker.engines.mlx.patches.cuda_compat import apply_cuda_compat_patches
 from exo.worker.engines.mlx.patches.opt_batch_gen import apply_batch_gen_patch
 from exo.worker.engines.mlx.patches.standard_yarn_rope import patch_yarn_rope

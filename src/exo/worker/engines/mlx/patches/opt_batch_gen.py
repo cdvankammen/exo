@@ -1,3 +1,7 @@
+"""mlx-lm batch-generation patch.
+
+``apply_batch_gen_patch()`` adds top-k logprob support to mlx-lm batch generation (:class:`BatchTopKLogprobs`)."""
+
 from dataclasses import dataclass, field
 from typing import cast
 

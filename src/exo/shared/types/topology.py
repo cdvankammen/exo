@@ -1,3 +1,7 @@
+"""Topology connection types.
+
+:class:`Cycle`, :class:`RDMAConnection`, :class:`SocketConnection`, and :class:`Connection` shared by the topology service."""
+
 from collections.abc import Iterator
 from dataclasses import dataclass
 

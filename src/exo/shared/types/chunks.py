@@ -1,3 +1,7 @@
+"""Streaming chunk types flowing from runners to the API.
+
+Token, error, tool-call, image, input-image, and prefill-progress chunks."""
+
 from collections.abc import Generator
 from typing import Any, Literal
 

@@ -1,3 +1,7 @@
+"""Thunderbolt topology types.
+
+Connection, identifier, and connectivity models parsed from the macOS IO registry."""
+
 import anyio
 from pydantic import BaseModel, Field
 

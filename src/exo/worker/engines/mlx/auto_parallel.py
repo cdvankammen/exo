@@ -1,3 +1,7 @@
+"""Automatic parallelism for MLX models.
+
+Pipeline and tensor sharding strategies, prefill flushing, TCP relay, and per-model sharding strategies (Llama/DeepSeek/Qwen/GLM/MiniMax/GPT-OSS/Nemotron/Gemma)."""
+
 import atexit as _atexit
 import os
 import socket as _socket

@@ -1,3 +1,7 @@
+"""Shard downloader interface and no-op implementation.
+
+Defines the :class:`ShardDownloader` ABC used by the coordinator and a :class:`NoopShardDownloader` fallback for local model directories."""
+
 from abc import ABC, abstractmethod
 from collections.abc import Awaitable
 from copy import copy

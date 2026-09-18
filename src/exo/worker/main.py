@@ -1,3 +1,7 @@
+"""Worker: per-node runtime host.
+
+:class:`Worker` owns runner lifecycle, planning, task dispatch, and the node event loop."""
+
 import hashlib
 from collections import defaultdict
 from datetime import datetime, timezone

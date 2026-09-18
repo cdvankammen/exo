@@ -1,3 +1,7 @@
+"""Startup banner printing.
+
+Prints the exo startup banner and opens/mentions the dashboard URL on first run (``print_startup_banner()``)."""
+
 import logging
 import os
 import sys

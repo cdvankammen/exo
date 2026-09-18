@@ -1,3 +1,7 @@
+"""Instance-link state types.
+
+:class:`InstanceLinkId` and :class:`InstanceLink` model inter-instance communication chains in the topology."""
+
 from exo.shared.types.common import Id
 from exo.shared.types.worker.instances import InstanceId
 from exo.utils.pydantic_ext import FrozenModel

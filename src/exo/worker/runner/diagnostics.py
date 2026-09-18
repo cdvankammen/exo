@@ -1,3 +1,7 @@
+"""Runner failure diagnostics.
+
+Classifies runner failures (Metal GPU timeout, ring transport errors, CUDA OOM, unknown) into structured diagnostic types."""
+
 from __future__ import annotations
 
 import errno

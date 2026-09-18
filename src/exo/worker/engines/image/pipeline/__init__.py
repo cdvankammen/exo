@@ -1,3 +1,7 @@
+"""Image patch pipeline package.
+
+Block wrappers, the patch KV cache, and the diffusion runner."""
+
 from exo.worker.engines.image.pipeline.block_wrapper import (
     BlockWrapperMode,
     JointBlockWrapper,

@@ -1,3 +1,7 @@
+"""Central manager for model downloads across the cluster.
+
+:class:`DownloadCoordinator` owns the download lifecycle (pending/ongoing/complete/failed/stalled), progress reporting, cancellation, and model-dir reconciliation."""
+
 from __future__ import annotations
 
 import contextlib

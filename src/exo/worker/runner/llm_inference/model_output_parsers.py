@@ -1,3 +1,7 @@
+"""Model output parsing.
+
+Maps model responses to chunks, counts reasoning tokens, and applies GPT-OSS/DeepSeek/thinking/tool-call parsers (``apply_all_parsers()``, ``map_responses_to_chunks()``)."""
+
 import hashlib
 import os
 import tempfile

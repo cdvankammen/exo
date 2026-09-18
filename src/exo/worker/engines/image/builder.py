@@ -1,3 +1,7 @@
+"""Image diffusion engine builder.
+
+:class:`MfluxBuilder` and :class:`ImageEngine` construct and run the image engine (prompt to generated image), including trace reporting."""
+
 import contextlib
 from collections import deque
 from collections.abc import Generator, Iterable

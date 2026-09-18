@@ -1,3 +1,7 @@
+"""Wire protocol for disaggregated prefill.
+
+Length-prefixed frames with typed messages (KV chunks, arrays state, done, error) and dtype helpers (``write_frame()``, ``read_frame()``)."""
+
 from typing import BinaryIO, Literal
 
 import msgspec

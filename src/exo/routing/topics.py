@@ -1,3 +1,7 @@
+"""Typed pub/sub topics with publish policies.
+
+Owns :class:`TypedTopic` and :class:`PublishPolicy` used by the router (admission-context and forwarder topics)."""
+
 from dataclasses import dataclass
 from enum import Enum
 

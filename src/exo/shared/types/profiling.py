@@ -1,3 +1,7 @@
+"""Performance profiling types and CUDA VRAM query helpers.
+
+Memory/disk/system/network profile models plus nvidia-smi/NVML-backed VRAM queries."""
+
 import ctypes
 import glob
 import os

@@ -1,3 +1,7 @@
+"""Scoped anyio task-group helper.
+
+:class:`TaskGroup` provides spawn/join semantics with error propagation as an async context manager."""
+
 from collections.abc import Awaitable, Callable
 from dataclasses import dataclass, field
 from types import TracebackType

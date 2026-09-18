@@ -1,3 +1,7 @@
+"""Runner supervision.
+
+:class:`RunnerSupervisor` spawns and supervises runner processes, streams their stdio, captures rotating logs, and handles shutdown signals."""
+
 import codecs
 import contextlib
 import signal
@@ -319,6 +323,17 @@ class RunnerSupervisor:
 
                 tg.start_soon(self._watch_runner)
                 tg.start_soon(self._forward_events)
+        except* (BrokenPipeError, OSError) as exc_group:
+            # A runner subprocess that dies mid-spawn (e.g. macOS
+            # multiprocessing `spawn` raising BrokenPipeError from
+            # `_flush_std_streams`) must NOT take down the whole node.
+            # Convert it into a RunnerFailed event so the master can
+            # re-place the instance, and keep the node alive.
+            # Note: task groups wrap exceptions in ExceptionGroup, so
+            # we need except* (PEP 654) to unwrap them.
+            for exc in exc_group.exceptions:
+                logger.error(f"Runner process spawn failed: {exc}")
+            await self._check_runner(exc_group.exceptions[0])
         finally:
             logger.info("Runner supervisor shutting down")
             if not self._cancel_watch_runner.cancel_called:

@@ -1,3 +1,7 @@
+"""Diffusion sampling runner.
+
+:class:`DiffusionRunner` runs the patch-wise diffusion loop with CFG branches, patch heights, and token index calculations."""
+
 from collections.abc import Callable, Iterator
 from dataclasses import dataclass
 from math import ceil

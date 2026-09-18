@@ -1,3 +1,7 @@
+"""Runner: the per-instance inference process.
+
+Owns the task loop, model handling, generation streaming, and exit codes (:class:`Runner`, ``Runner.main``)."""
+
 import queue
 import threading
 import time

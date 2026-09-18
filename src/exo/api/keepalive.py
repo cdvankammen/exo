@@ -1,3 +1,7 @@
+"""SSE keep-alive helper for long-lived API streams.
+
+Provides ``with_sse_keepalive()``, which periodically emits comment frames so proxies do not drop idle streaming connections."""
+
 from collections.abc import AsyncIterator
 from typing import Final
 

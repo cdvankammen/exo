@@ -1,3 +1,7 @@
+"""Serialised node state snapshot.
+
+:class:`State` captures models, tasks, topology, downloads, and configuration exchanged when nodes connect."""
+
 from collections.abc import Mapping, Sequence
 from datetime import datetime
 from typing import Any, cast

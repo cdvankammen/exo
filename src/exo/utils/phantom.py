@@ -1,3 +1,7 @@
+"""Phantom data type machinery.
+
+Zero-size marker types (``PhantomData``) for type-level annotations that store nothing at runtime."""
+
 class _PhantomData[*T]:
     """
     Internal machinery of the phantom data - it stores nothing.

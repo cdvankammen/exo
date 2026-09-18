@@ -1,3 +1,7 @@
+"""Prefill serving for one request.
+
+``run_prefill_for_request()`` runs a prompt through prefill and returns the KV state for the disaggregated server."""
+
 import time
 
 import mlx.core as mx

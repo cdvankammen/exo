@@ -1,3 +1,7 @@
+"""Per-node action planning.
+
+``plan()`` decides what a node should do next: create/kill runners, load models, download, warm up, or cancel tasks."""
+
 # pyright: reportUnusedImport = false
 
 from collections.abc import Mapping, Sequence
@@ -318,6 +322,19 @@ def _load_model(
                 for nid in shard_assignments.node_to_runner
             )
             if not all_local_downloads_complete:
+                continue
+
+            # Ghost-completion guard: DownloadCompleted events may persist
+            # in the log even though the files were deleted or never fully
+            # written.  Verify the model directory actually exists before
+            # attempting to load — if it doesn't, skip this runner so
+            # _download_model (which also detects ghosts) can re-download.
+            model_card = runner.bound_instance.bound_shard.model_card
+            normalized = shard_assignments.model_id.normalize()
+            if not any(
+                (d / normalized).is_dir()
+                for d in (*EXO_MODELS_READ_ONLY_DIRS, *EXO_MODELS_DIRS)
+            ) or resolve_existing_model(shard_assignments.model_id, model_card) is None:
                 continue
 
         is_single_node_instance = len(instance.shard_assignments.runner_to_shard) == 1

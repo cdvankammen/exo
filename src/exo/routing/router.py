@@ -1,3 +1,7 @@
+"""Topic-based publish/subscribe message routing between nodes.
+
+:class:`TopicRouter` and :class:`Router` own subscription management, connection handling, malformed-event recording, and node zid resolution for the swarm."""
+
 import json
 import os
 from copy import copy
@@ -237,6 +241,7 @@ class Router:
                             logger.trace(
                                 f"Received message on {topic} with payload {data}"
                             )
+
                             if topic not in self.topic_routers:
                                 logger.warning(
                                     f"Received message on unknown or inactive topic {topic}"

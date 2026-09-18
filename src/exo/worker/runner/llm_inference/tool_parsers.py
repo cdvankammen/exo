@@ -1,3 +1,7 @@
+"""Tool-call parsing.
+
+Schema-coerced extraction of tool calls from model output (``make_mlx_parser()``, ``make_json_parser()``, ``infer_tool_parser()``)."""
+
 import json
 import math
 from dataclasses import dataclass

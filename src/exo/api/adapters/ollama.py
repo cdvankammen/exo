@@ -1,3 +1,7 @@
+"""Ollama API adapter: converts between exo task params and the Ollama wire format.
+
+Owns request/response mapping for both the chat and ``/api/generate`` endpoints plus their streaming generators (``ollama_request_to_text_generation``, ``generate_ollama_chat_stream``, ``generate_ollama_generate_stream``)."""
+
 from __future__ import annotations
 
 import json

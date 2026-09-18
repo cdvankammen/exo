@@ -1,3 +1,7 @@
+"""Patch-level image KV cache.
+
+:class:`ImagePatchKVCache` stores image K/V with patch-level updates for diffusion images."""
+
 import mlx.core as mx
 
 

@@ -1,3 +1,7 @@
+"""Logging setup and interception.
+
+Owns per-module level configuration, log rotation/compression, and the intercept handlers behind ``logger_setup()`` / ``logger_cleanup()``."""
+
 import logging
 import os
 import sys

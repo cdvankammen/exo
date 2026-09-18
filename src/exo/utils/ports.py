@@ -1,3 +1,7 @@
+"""Ephemeral port selection.
+
+``random_ephemeral_port()`` picks a safe OS ephemeral port for local listeners."""
+
 import random
 
 

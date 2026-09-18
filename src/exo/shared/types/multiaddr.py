@@ -1,3 +1,7 @@
+"""Multi-address type for node addressing.
+
+:class:`Multiaddr` parses and formats multi-address strings used by topology connections."""
+
 import re
 from typing import ClassVar
 

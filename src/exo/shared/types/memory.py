@@ -1,3 +1,7 @@
+"""Memory value type with arithmetic helpers.
+
+:class:`Memory` wraps RAM quantities with conversion/arithmetic methods used by placement and profiling."""
+
 from math import ceil
 from typing import Self, overload
 

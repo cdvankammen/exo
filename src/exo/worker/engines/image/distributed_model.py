@@ -1,3 +1,7 @@
+"""Distributed image model wrapper.
+
+:class:`DistributedImageModel` shards the image transformer across nodes for multi-node image inference."""
+
 from collections.abc import Callable, Generator
 from pathlib import Path
 from typing import Any, Literal

@@ -1,3 +1,7 @@
+"""Runner process bootstrap.
+
+``entrypoint()``, shard-backend application, orphan watchdog, and CUDA-home setup for runner subprocesses."""
+
 import importlib.util
 import os
 import resource

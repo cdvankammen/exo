@@ -1,3 +1,7 @@
+"""Cluster topology graph and RDMA cycle computation.
+
+:class:`Topology` (built on rustworkx) tracks nodes and connections, computes RDMA cycles, and produces :class:`TopologySnapshot` snapshots."""
+
 import contextlib
 from collections.abc import Mapping, Sequence
 from dataclasses import dataclass, field

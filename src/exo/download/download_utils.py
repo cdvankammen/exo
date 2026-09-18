@@ -1,3 +1,7 @@
+"""Shared helpers for downloading models from HuggingFace Hub.
+
+Owns weight-map resolution, file-list fetching with caching and retry, download-progress mapping, hash calculation, disk-space checks, and the low-level ``download_shard()`` entry point."""
+
 import asyncio
 import hashlib
 import os

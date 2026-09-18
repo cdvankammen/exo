@@ -1,3 +1,7 @@
+"""macmon metrics parsing.
+
+Parses raw macmon output into structured memory/performance metrics (:class:`MacmonMetrics`)."""
+
 from typing import Self
 
 from pydantic import BaseModel

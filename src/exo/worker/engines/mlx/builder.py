@@ -1,3 +1,7 @@
+"""MLX engine builder.
+
+:class:`MlxBuilder` constructs the MLX engine: model loading, memory limits, and warmup."""
+
 import contextlib
 import os
 from collections.abc import Generator

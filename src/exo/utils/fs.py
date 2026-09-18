@@ -1,3 +1,7 @@
+"""Filesystem helpers.
+
+Safe delete-if-exists, parent/directory creation, and temporary path generation."""
+
 import contextlib
 import os
 import pathlib

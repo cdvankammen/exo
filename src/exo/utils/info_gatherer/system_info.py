@@ -1,3 +1,7 @@
+"""System information helpers.
+
+OS version/build, friendly names, network-interface classification, model/chip detection, and CUDA GPU names."""
+
 import platform
 import re
 import socket
