@@ -67,6 +67,7 @@ from exo.api.types.openai_responses import (
     ToolSearchOutputInputItem,
     WebSearchCallInputItem,
 )
+from exo.shared.constants import tools_enabled
 from exo.shared.logging import logger
 from exo.shared.types.chunks import (
     ErrorChunk,
@@ -361,8 +362,10 @@ async def responses_request_to_text_generation(
     # The responses API often does not provide tool args nested under a "function" field.
     # Since we follow the chat completions format of tools in the backend (for MLX chat templates)
     # we need to normalise to this format.
+    # T13: gate server-side tool forwarding on EXO_ENABLE_SERVERSIDE_TOOLCALLS
+    # (default ON = backward compatible; 0/false/no/off strips tools).
     normalised_tools: list[dict[str, Any]] | None = None
-    if request.tools:
+    if request.tools and tools_enabled():
         normalised_tools = []
         for tool in request.tools:
             if "function" in tool:

@@ -11,6 +11,7 @@ from exo.api.types.claude_api import (
     ClaudeMessage,
     ClaudeMessagesRequest,
     ClaudeTextBlock,
+    ClaudeToolDefinition,
 )
 from exo.shared.types.common import ModelId
 
@@ -201,3 +202,35 @@ class TestClaudeMessagesRequestValidation:
                     "max_tokens": 100,
                 }
             )
+
+
+class TestClaudeToolsGate:
+    """T13: EXO_ENABLE_SERVERSIDE_TOOLCALLS gates tool forwarding."""
+
+    def _request_with_tool(self) -> ClaudeMessagesRequest:
+        return ClaudeMessagesRequest(
+            model=ModelId("claude-3-opus"),
+            max_tokens=100,
+            messages=[ClaudeMessage(role="user", content="Hello")],
+            tools=[
+                ClaudeToolDefinition(
+                    name="get_weather",
+                    description="Get weather",
+                    input_schema={
+                        "type": "object",
+                        "properties": {"location": {"type": "string"}},
+                    },
+                )
+            ],
+        )
+
+    async def test_tools_forwarded_by_default(self, monkeypatch: pytest.MonkeyPatch):
+        monkeypatch.delenv("EXO_ENABLE_SERVERSIDE_TOOLCALLS", raising=False)
+        params = await claude_request_to_text_generation(self._request_with_tool())
+        assert params.tools is not None
+        assert params.tools[0]["function"]["name"] == "get_weather"
+
+    async def test_tools_stripped_when_disabled(self, monkeypatch: pytest.MonkeyPatch):
+        monkeypatch.setenv("EXO_ENABLE_SERVERSIDE_TOOLCALLS", "0")
+        params = await claude_request_to_text_generation(self._request_with_tool())
+        assert params.tools is None

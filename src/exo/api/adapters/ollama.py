@@ -18,6 +18,7 @@ from exo.api.types.ollama_api import (
     OllamaToolCall,
     OllamaToolFunction,
 )
+from exo.shared.constants import tools_enabled
 from exo.shared.types.chunks import (
     ErrorChunk,
     PrefillProgressChunk,
@@ -175,7 +176,9 @@ def ollama_request_to_text_generation(
         stop=options.stop if options else None,
         seed=options.seed if options else None,
         stream=request.stream,
-        tools=request.tools,
+        # T13: gate server-side tool forwarding on EXO_ENABLE_SERVERSIDE_TOOLCALLS
+        # (default ON = backward compatible; 0/false/no/off strips tools).
+        tools=request.tools if tools_enabled() else None,
         enable_thinking=request.think,
         chat_template_messages=chat_template_messages
         if chat_template_messages
