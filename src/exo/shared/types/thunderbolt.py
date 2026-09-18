@@ -93,9 +93,14 @@ class ThunderboltConnectivity(BaseModel, extra="ignore"):
 
     @classmethod
     async def gather(cls) -> list[ThunderboltConnectivityData] | None:
-        proc = await anyio.run_process(
-            ["system_profiler", "SPThunderboltDataType", "-json"], check=False
-        )
+        try:
+            with anyio.fail_after(15):
+                proc = await anyio.run_process(
+                    ["system_profiler", "SPThunderboltDataType", "-json"],
+                    check=False,
+                )
+        except (TimeoutError, OSError):
+            return None
         if proc.returncode != 0:
             return None
         # Saving you from PascalCase while avoiding too much pydantic

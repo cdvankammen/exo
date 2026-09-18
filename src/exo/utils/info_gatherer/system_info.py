@@ -56,8 +56,9 @@ async def get_os_build_version() -> str:
         return "Unknown"
 
     try:
-        process = await run_process(["sw_vers", "-buildVersion"])
-    except CalledProcessError:
+        with fail_after(5):
+            process = await run_process(["sw_vers", "-buildVersion"])
+    except (CalledProcessError, TimeoutError, OSError):
         return "Unknown"
 
     return process.stdout.decode("utf-8", errors="replace").strip() or "Unknown"
@@ -75,8 +76,9 @@ async def get_friendly_name() -> str:
         return hostname
 
     try:
-        process = await run_process(["scutil", "--get", "ComputerName"])
-    except CalledProcessError:
+        with fail_after(5):
+            process = await run_process(["scutil", "--get", "ComputerName"])
+    except (CalledProcessError, TimeoutError, OSError):
         return hostname
 
     return process.stdout.decode("utf-8", errors="replace").strip() or hostname
@@ -88,8 +90,9 @@ async def _get_interface_types_from_networksetup() -> dict[str, InterfaceType]:
         return _linux_interface_types()
 
     try:
-        result = await run_process(["networksetup", "-listallhardwareports"])
-    except CalledProcessError:
+        with fail_after(5):
+            result = await run_process(["networksetup", "-listallhardwareports"])
+    except (CalledProcessError, TimeoutError, OSError):
         return {}
 
     types: dict[str, InterfaceType] = {}
@@ -164,6 +167,12 @@ async def get_network_interfaces() -> list[NetworkInterfaceInfo]:
     timestamp_ns = time.time_ns()
 
     for iface, services in psutil.net_if_addrs().items():
+        # Loopback is never a valid peer probe target and including it in
+        # node_network makes every peer waste a probe on 127.0.0.1, which
+        # resolves to the PROBING node's own API (self-loopback) and is
+        # rejected as an identity mismatch. Exclude it at the source.
+        if iface in ("lo", "lo0") or iface.startswith("lo"):
+            continue
         interface_type = interface_types.get(iface, "unknown")
         link_speed_megabits: int | None = None
         if is_linux:
@@ -231,13 +240,14 @@ async def get_model_and_chip() -> tuple[str, str]:
         return (model, chip)
 
     try:
-        process = await run_process(
-            [
-                "system_profiler",
-                "SPHardwareDataType",
-            ]
-        )
-    except CalledProcessError:
+        with fail_after(10):
+            process = await run_process(
+                [
+                    "system_profiler",
+                    "SPHardwareDataType",
+                ]
+            )
+    except (CalledProcessError, TimeoutError, OSError):
         return (model, chip)
 
     # less interested in errors here because this value should be hard coded

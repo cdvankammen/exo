@@ -51,12 +51,20 @@ IS_DARWIN = sys.platform == "darwin"
 async def _get_thunderbolt_devices() -> set[str] | None:
     """Get Thunderbolt interface device names (e.g., en2, en3) from hardware ports.
 
-    Returns None if the networksetup command fails.
+    Returns None if the networksetup command fails or times out.
     """
-    result = await anyio.run_process(
-        ["networksetup", "-listallhardwareports"],
-        check=False,
-    )
+    try:
+        with fail_after(5):
+            result = await anyio.run_process(
+                ["networksetup", "-listallhardwareports"],
+                check=False,
+            )
+    except (TimeoutError, OSError) as e:
+        logger.opt(exception=e).warning(
+            "networksetup -listallhardwareports timed out or failed; "
+            "treating Thunderbolt devices as unknown"
+        )
+        return None
     if result.returncode != 0:
         logger.warning(
             f"networksetup -listallhardwareports failed with code "
@@ -84,12 +92,20 @@ async def _get_thunderbolt_devices() -> set[str] | None:
 async def _get_bridge_services() -> dict[str, str] | None:
     """Get mapping of bridge device -> service name from network service order.
 
-    Returns None if the networksetup command fails.
+    Returns None if the networksetup command fails or times out.
     """
-    result = await anyio.run_process(
-        ["networksetup", "-listnetworkserviceorder"],
-        check=False,
-    )
+    try:
+        with fail_after(5):
+            result = await anyio.run_process(
+                ["networksetup", "-listnetworkserviceorder"],
+                check=False,
+            )
+    except (TimeoutError, OSError) as e:
+        logger.opt(exception=e).warning(
+            "networksetup -listnetworkserviceorder timed out or failed; "
+            "treating bridge services as unknown"
+        )
+        return None
     if result.returncode != 0:
         logger.warning(
             f"networksetup -listnetworkserviceorder failed with code "
@@ -129,11 +145,22 @@ async def _get_bridge_services() -> dict[str, str] | None:
 
 
 async def _get_bridge_members(bridge_device: str) -> set[str]:
-    """Get member interfaces of a bridge device via ifconfig."""
-    result = await anyio.run_process(
-        ["ifconfig", bridge_device],
-        check=False,
-    )
+    """Get member interfaces of a bridge device via ifconfig.
+
+    Returns an empty set if the command fails or times out.
+    """
+    try:
+        with fail_after(5):
+            result = await anyio.run_process(
+                ["ifconfig", bridge_device],
+                check=False,
+            )
+    except (TimeoutError, OSError) as e:
+        logger.opt(exception=e).warning(
+            f"ifconfig {bridge_device} timed out or failed; "
+            "treating bridge members as empty"
+        )
+        return set()
     if result.returncode != 0:
         logger.debug(f"ifconfig {bridge_device} failed with code {result.returncode}")
         return set()
@@ -167,12 +194,20 @@ async def _find_thunderbolt_bridge(
 async def _is_service_enabled(service_name: str) -> bool | None:
     """Check if a network service is enabled.
 
-    Returns True if enabled, False if disabled, None on error.
+    Returns True if enabled, False if disabled, None on error/timeout.
     """
-    result = await anyio.run_process(
-        ["networksetup", "-getnetworkserviceenabled", service_name],
-        check=False,
-    )
+    try:
+        with fail_after(5):
+            result = await anyio.run_process(
+                ["networksetup", "-getnetworkserviceenabled", service_name],
+                check=False,
+            )
+    except (TimeoutError, OSError) as e:
+        logger.opt(exception=e).warning(
+            f"networksetup -getnetworkserviceenabled '{service_name}' "
+            "timed out or failed; treating service state as unknown"
+        )
+        return None
     if result.returncode != 0:
         logger.warning(
             f"networksetup -getnetworkserviceenabled '{service_name}' "
@@ -448,17 +483,33 @@ class NodeDiskUsage(TaggedModel):
 
     @classmethod
     async def gather(cls) -> Self:
+        # abandon_on_cancel=True: shutil.disk_usage can block indefinitely on
+        # a hung network/FUSE mount; without it, fail_after() in the monitor
+        # loop only logs the timeout while the worker thread keeps running.
         return cls(
             disk_usage=await to_thread.run_sync(
-                DiskUsage.from_path, EXO_DEFAULT_MODELS_DIR
+                DiskUsage.from_path,
+                EXO_DEFAULT_MODELS_DIR,
+                abandon_on_cancel=True,
             )
         )
 
 
 async def _gather_iface_map() -> dict[str, str] | None:
-    proc = await anyio.run_process(
-        ["networksetup", "-listallhardwareports"], check=False
-    )
+    """Map hardware-port names to device names (e.g. Wi-Fi -> en0).
+
+    Returns None if the networksetup command fails or times out.
+    """
+    try:
+        with fail_after(5):
+            proc = await anyio.run_process(
+                ["networksetup", "-listallhardwareports"], check=False
+            )
+    except (TimeoutError, OSError) as e:
+        logger.opt(exception=e).warning(
+            "networksetup -listallhardwareports (iface map) timed out or failed"
+        )
+        return None
     if proc.returncode != 0:
         return None
 
