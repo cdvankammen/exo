@@ -699,7 +699,10 @@ class AppStore {
   debugMode = $state(false);
   topologyOnlyMode = $state(false);
   /** When true, models that exceed available memory are not blocked — placement
-   *  previews are fetched with force_override so oversized models can be loaded. */
+   *  previews are fetched with force_override so oversized models can be loaded.
+   *  @deprecated Use the tiered memoryOverrideLevel (exo-memory-override-level)
+   *  localStorage key instead. Tracked in exo-explore/exo#2315 and
+   *  DEPRECATIONS.md — remove after one minor-version window. */
   allowMemoryOverride = $state(false);
   chatSidebarVisible = $state(true); // Shown by default
   mobileChatSidebarOpen = $state(false); // Mobile drawer state
@@ -814,6 +817,11 @@ class AppStore {
     }
   }
 
+  /**
+   * @deprecated Legacy boolean storage. Keep in sync with the tiered
+   * `exo-memory-override-level` key so old call sites still work; remove per
+   * DEPRECATIONS.md / exo-explore/exo#2315.
+   */
   private loadAllowMemoryOverrideFromStorage() {
     try {
       const stored = localStorage.getItem("exo-allow-memory-override");
@@ -825,6 +833,7 @@ class AppStore {
     }
   }
 
+  /** @deprecated See loadAllowMemoryOverrideFromStorage. */
   private saveAllowMemoryOverrideToStorage() {
     try {
       localStorage.setItem(
@@ -3988,6 +3997,7 @@ export const setDebugMode = (enabled: boolean) =>
 export const toggleTopologyOnlyMode = () => appStore.toggleTopologyOnlyMode();
 export const setTopologyOnlyMode = (enabled: boolean) =>
   appStore.setTopologyOnlyMode(enabled);
+/** @deprecated Use memoryOverrideLevel instead — see DEPRECATIONS.md / exo-explore/exo#2315. */
 export const allowMemoryOverride = () => appStore.allowMemoryOverride;
 export const toggleAllowMemoryOverride = () =>
   appStore.toggleAllowMemoryOverride();

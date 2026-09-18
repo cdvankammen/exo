@@ -75,6 +75,7 @@
     totalMemoryGB: number;
     usedMemoryGB: number;
     /** When true, models that exceed available memory are not blocked. */
+    /** @deprecated Legacy boolean — replaced by tiered memoryOverrideLevel (DEPRECATIONS.md, exo-explore/exo#2315). */
     allowMemoryOverride?: boolean;
     onToggleAllowMemoryOverride?: () => void;
     downloadsData?: Record<string, unknown[]>;

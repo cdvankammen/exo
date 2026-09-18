@@ -92,6 +92,7 @@
   const loadingPreviews = $derived(isLoadingPreviews());
   const debugEnabled = $derived(debugMode());
   const topologyOnlyEnabled = $derived(topologyOnlyMode());
+  /** @deprecated Legacy boolean gate — replaced by tiered memoryOverrideLevel (DEPRECATIONS.md, exo-explore/exo#2315). */
   const memoryOverrideEnabled = $derived(allowMemoryOverride());
   const sidebarVisible = $derived(chatSidebarVisible());
   const mobileChatOpen = $derived(mobileChatSidebarOpen());
