@@ -6,6 +6,7 @@ import logging
 import os
 import sys
 from collections.abc import Callable
+from functools import partial
 from pathlib import Path
 from typing import Protocol, cast
 
@@ -142,6 +143,20 @@ def _zstd_compress(filepath: str) -> None:
 _LOG_ROTATION_BYTES = 256 * 1024 * 1024  # 256 MiB
 
 
+def _size_rotation(log_file: Path, message: object = None, record: object = None) -> bool:
+    """Rotate ``exo.log`` once it exceeds ``_LOG_ROTATION_BYTES``.
+
+    loguru invokes the rotation callback as ``rotation(message, record)``
+    before writing each message; returning True rotates the active file.
+    The first parameter is bound via ``functools.partial`` at sink-add time
+    so the callback itself stays a plain module-level predicate.
+    """
+    try:
+        return log_file.stat().st_size > _LOG_ROTATION_BYTES
+    except OSError:
+        return False
+
+
 class InterceptLogger(HypercornLogger):
     def __init__(self, config: Config):
         super().__init__(config)
@@ -206,11 +221,6 @@ def logger_setup(log_file: Path | None, verbosity: int = 0):
         # exo.log is bounded even when validation-error spam drives it to GBs.
         # loguru calls `rotation(message, record)` when a new message arrives;
         # if it returns True the current file is rotated. We check file size.
-        import pathlib as _pl
-
-        def _size_rotation(_msg: object, _rec: object) -> bool:
-            return _pl.Path(str(log_file)).stat().st_size > _LOG_ROTATION_BYTES
-
         logger.add(
             log_file,
             format="[ {time:YYYY-MM-DD HH:mm:ss.SSS} | {level: <8} | {name}:{function}:{line} ] {message}",
@@ -219,7 +229,7 @@ def logger_setup(log_file: Path | None, verbosity: int = 0):
             colorize=False,
             enqueue=True,
             diagnose=False,
-            rotation=lambda _, __: next(rotate_once),
+            rotation=partial(_size_rotation, Path(log_file)),
             retention=_MAX_LOG_ARCHIVES,
             compression=_zstd_compress,
         )
