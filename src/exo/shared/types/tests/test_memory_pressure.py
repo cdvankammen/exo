@@ -75,3 +75,26 @@ def test_direct_construction_keeps_defaults() -> None:
 
     assert usage.ram_used.in_bytes == 0  # default; from_bytes is the canonical path
     assert usage.pressure == 0.0
+
+
+def test_swap_available_clamped_when_usage_exceeds_total() -> None:
+    """A meter (e.g. macmon) can transiently report swap_usage > swap_total;
+    swap_available must be clamped to 0, never negative."""
+    usage = MemoryUsage.from_bytes(
+        ram_total=1000,
+        ram_available=500,
+        swap_total=1000,
+        swap_available=-500,
+    )
+    assert usage.swap_available.in_bytes == 0
+
+
+def test_swap_available_clamped_at_total_when_above() -> None:
+    """An over-reporting meter must not create swap_available > swap_total."""
+    usage = MemoryUsage.from_bytes(
+        ram_total=1000,
+        ram_available=500,
+        swap_total=1000,
+        swap_available=1500,
+    )
+    assert usage.swap_available.in_bytes == 1000

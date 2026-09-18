@@ -726,19 +726,28 @@ class InfoGatherer:
             await anyio.sleep(disk_poll_interval)
 
     async def _monitor_macmon(self, macmon_interval: float):
+        # Single-active-monitor semantics: only ONE memory event source may
+        # run at a time (macmon OR psutil fallback). A fallback is armed
+        # before the retry loop is entered; the loop then RETURNS instead of
+        # re-arming or continuing, so a macmon crash cannot leave both a
+        # retrying macmon loop and a psutil monitor publishing conflicting
+        # MemoryUsage/MacmonMetrics events (the pre-existing _psutil_enabled
+        # flag alone never stopped the outer while-loop from re-running).
         if (
             macmon_path := os.getenv("EXO_MACMON_PATH") or shutil.which("macmon")
         ) is None:
             logger.warning(
                 "macmon not found, falling back to psutil for memory monitoring"
             )
-            self._tg.start_soon(self._monitor_memory_usage, 1)
+            if not self._psutil_enabled:
+                self._tg.start_soon(self._monitor_memory_usage, 1)
             return
         if not await self._can_read_macmon_metrics(macmon_path):
             logger.warning(
                 f"macmon at {macmon_path} is unusable, falling back to psutil memory monitoring"
             )
-            self._tg.start_soon(self._monitor_memory_usage, 1)
+            if not self._psutil_enabled:
+                self._tg.start_soon(self._monitor_memory_usage, 1)
             return
         # macmon pipe --interval [interval in ms]
         # Timeout: if macmon produces no output for this many seconds, restart it.
@@ -764,13 +773,25 @@ class InfoGatherer:
                                 delimiter=b"\n", max_bytes=8 * 1024
                             )
                             text = data.decode("utf-8", errors="replace").strip()
+                            if not text:
+                                # macmon can emit an occasional empty line;
+                                # skip it rather than failing JSON parse.
+                                continue
+                            # macmon output is line-delimited: one JSON
+                            # object per line (preflight validates line 0).
+                            # Parse per-line so a stray multi-line blob or
+                            # trailing whitespace never corrupts the stream.
                             metrics = MacmonMetrics.from_raw_json(text)
                         await self.info_sender.send(metrics)
             except TimeoutError:
                 logger.warning(
                     f"MacMon produced no output for {read_timeout}s, restarting"
                 )
-                self._tg.start_soon(self._monitor_memory_usage, 1)
+                # Hand over to the psutil fallback; do NOT keep retrying
+                # macmon alongside it (single-active-monitor semantics).
+                if not self._psutil_enabled:
+                    self._tg.start_soon(self._monitor_memory_usage, 1)
+                return
             except CalledProcessError as e:
                 stderr_msg = "no stderr"
                 stderr_output = cast(bytes | str | None, e.stderr)
@@ -783,7 +804,9 @@ class InfoGatherer:
                 logger.warning(
                     f"MacMon failed with return code {e.returncode}: {stderr_msg}"
                 )
-                self._tg.start_soon(self._monitor_memory_usage, 1)
+                if not self._psutil_enabled:
+                    self._tg.start_soon(self._monitor_memory_usage, 1)
+                return
             except ProcessLookupError:
                 # usually throws by the process' context manager on exit
                 # when we ctrl+c, hence usually should be ignored;
@@ -792,7 +815,9 @@ class InfoGatherer:
                 logger.warning(
                     "Macmon process not found - shutting down macmon monitor"
                 )
+                return
             except Exception as e:
                 logger.opt(exception=e).warning("Error in macmon monitor")
-                self._tg.start_soon(self._monitor_memory_usage, 1)
-            await anyio.sleep(macmon_interval)
+                if not self._psutil_enabled:
+                    self._tg.start_soon(self._monitor_memory_usage, 1)
+                return

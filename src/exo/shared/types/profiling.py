@@ -49,6 +49,10 @@ class MemoryUsage(FrozenModel):
     ) -> Self:
         used_bytes = max(ram_total - ram_available, 0)
         pressure = used_bytes / ram_total if ram_total > 0 else 0.0
+        # swap_available must never go negative or exceed total when a meter
+        # transiently reports swap_usage > swap_total (macmon can); clamp to
+        # [0, swap_total] at the conversion boundary like the ram side.
+        swap_available = max(0, min(swap_available, swap_total))
         return cls(
             ram_total=Memory.from_bytes(ram_total),
             ram_available=Memory.from_bytes(ram_available),
