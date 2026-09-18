@@ -2,7 +2,6 @@ from exo.shared.models.model_cards import ConfigData, ModelCard, ModelId, ModelT
 from exo.shared.types.backends import Backend
 from exo.shared.types.memory import Memory
 
-
 # Must stay in lockstep with ring_attention._SUPPORTED_ATTENTION_TYPES:
 # (mlx_lm module, attention class) -> HF config.json architecture name.
 RING_ARCHITECTURES = [
@@ -67,6 +66,29 @@ def test_config_rejects_unverified_ring_architecture() -> None:
         )
 
         assert config.supports_ring is False, architecture
+
+
+# Must stay in lockstep with ConfigData.supports_tensor (model_cards.py):
+# architectures validated for the tensor-parallel engine path
+# (placement.py gates on supports_tensor; auto_parallel dispatches to
+# GenericShardingStrategy, which structurally validates q/k/v/o_proj +
+# mlp gate/down/up_proj before sharding).
+TENSOR_ARCHITECTURES = [
+    # Trained-on + verified through the tensor engine path (R&D t_2b5ba2eb:
+    # mlx_lm gemma2 = full attention, no sliding window; softcapping is
+    # rank-local per-tensor; GenericShardingStrategy structural validation
+    # passes empirically).
+    "Gemma2ForCausalLM",
+]
+
+
+def test_config_detects_tensor_supported_architectures() -> None:
+    for architecture in TENSOR_ARCHITECTURES:
+        config = ConfigData.model_validate(
+            {"architectures": [architecture], "num_hidden_layers": 1}
+        )
+
+        assert config.supports_tensor is True, architecture
 
 
 def test_ring_whitelist_matches_engine_supported_attention_modules() -> None:
