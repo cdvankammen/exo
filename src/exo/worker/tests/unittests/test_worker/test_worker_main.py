@@ -71,6 +71,7 @@ from exo.worker.tests.constants import (
     MODEL_A_ID,
     NODE_A,
     NODE_B,
+    NODE_C,
     RUNNER_1_ID,
     TASK_1_ID,
 )
@@ -717,3 +718,145 @@ async def test_poll_emits_nothing_when_probe_fails() -> None:
     events = await _run_poll_once(harness, fail=True)
 
     assert events == []
+
+
+# ---------------------------------------------------------------------------
+# 4-node cluster: TOPO_EDGE_COUNT > 0 regression (t_763918f8)
+# ---------------------------------------------------------------------------
+
+NODE_D = NodeId("dddddddd-dddd-4ddd-8ddd-dddddddddddd")
+
+
+def _make_4node_state(
+    *, loopback_node: NodeId | None = None,
+) -> tuple[State, list[tuple[NodeId, str, int]]]:
+    """A 4-node cluster state: node A is self; B/C/D are healthy peers with
+    non-loopback IPs; optionally one node advertises ONLY loopback (the
+    pre-fix defect path). Returns (state, advertised (node, ip, port))."""
+    nodes: list[tuple[NodeId, str, int]] = [
+        (NODE_A, "10.0.0.1", 4001),
+        (NODE_B, "10.0.0.2", 4002),
+        (NODE_C, "10.0.0.3", 4003),
+        (NODE_D, "10.0.0.4", 4004),
+    ]
+    if loopback_node is not None:
+        nodes = [
+            (nid, "127.0.0.1", port) if nid == loopback_node else (nid, ip, port)
+            for nid, ip, port in nodes
+        ]
+    state = State(
+        node_network={
+            nid: NodeNetworkInfo(
+                interfaces=[NetworkInterfaceInfo(name="en0", ip_address=ip)]
+            )
+            for nid, ip, _port in nodes
+        },
+        node_identities={
+            nid: NodeIdentity(api_host=ip, api_port=port)
+            for nid, ip, port in nodes
+        },
+    )
+    for nid, _ip, _port in nodes:
+        state.topology.add_node(nid)
+    return state, nodes
+
+
+async def _run_real_poll_once(
+    harness: _Harness,
+    *,
+    handler: Any,
+    iterations: float = 1.0,
+) -> list[Event]:
+    """Drive one _poll_connection_updates iteration with the REAL
+    check_reachable, using an httpx.MockTransport as the HTTP layer."""
+    import httpx
+    import exo.worker.main as worker_main
+    from exo.utils.info_gatherer import net_profile
+
+    transport = httpx.MockTransport(handler)
+    client = httpx.AsyncClient(transport=transport)
+
+    real_client_init = net_profile.httpx.AsyncClient
+    net_profile.httpx.AsyncClient = lambda *a, **k: client  # type: ignore[assignment]
+
+    results: list[Event] = []
+
+    async def _collect() -> None:
+        with harness.event_receiver:
+            async for ev in harness.event_receiver:
+                results.append(ev)
+
+    original = worker_main.check_reachable
+
+    async def _real_poll(*args: Any, **kwargs: Any) -> Any:
+        async for item in net_profile.check_reachable(*args, **kwargs):
+            yield item
+
+    worker_main.check_reachable = _real_poll  # type: ignore[assignment]
+
+    try:
+        async with anyio.create_task_group() as tg:
+            tg.start_soon(_collect)
+            await anyio.sleep(0)
+            tg.start_soon(harness.worker._poll_connection_updates)
+            await anyio.sleep(iterations)
+            tg.cancel_scope.cancel()
+    finally:
+        worker_main.check_reachable = original
+        net_profile.httpx.AsyncClient = real_client_init  # type: ignore[assignment]
+        await client.aclose()
+    return results
+
+
+@pytest.mark.anyio
+async def test_poll_4node_cluster_forms_edges_for_healthy_peers() -> None:
+    """A 4-node cluster where every node advertises a non-loopback address
+    forms edges: the probing node A discovers B, C and D and emits
+    TopologyEdgeCreated for each (TOPO_EDGE_COUNT > 0)."""
+    state, nodes = _make_4node_state()
+    harness = _Harness(state=state)
+
+    by_ip = {ip: nid for nid, ip, _port in nodes}
+
+    def _handler(request: Any) -> Any:
+        import httpx
+
+        host = request.url.host
+        nid = by_ip.get(host)
+        if nid is None:
+            return httpx.Response(404)
+        return httpx.Response(200, text=str(nid))
+
+    events = await _run_real_poll_once(harness, handler=_handler)
+
+    created = [ev for ev in events if isinstance(ev, TopologyEdgeCreated)]
+    sinks = {ev.conn.sink for ev in created}
+    assert len(created) == 3, f"expected 3 edges, got {len(created)}: {sinks}"
+    assert sinks == {NODE_B, NODE_C, NODE_D}
+
+
+@pytest.mark.anyio
+async def test_poll_4node_loopback_node_gets_zero_edges() -> None:
+    """A node advertising ONLY loopback (pre-fix 127.0.0.1 fallback) must not
+    be discovered: peers probe their OWN loopback, the identity check fails,
+    and that node receives no edge. Healthy peers still form edges."""
+    state, nodes = _make_4node_state(loopback_node=NODE_D)
+    harness = _Harness(state=state)
+
+    by_ip = {ip: nid for nid, ip, _port in nodes if ip != "127.0.0.1"}
+
+    def _handler(request: Any) -> Any:
+        import httpx
+
+        host = request.url.host
+        nid = by_ip.get(host)
+        if nid is None:
+            return httpx.Response(200, text=str(NODE_A))  # loopback = own id
+        return httpx.Response(200, text=str(nid))
+
+    events = await _run_real_poll_once(harness, handler=_handler)
+
+    created = [ev for ev in events if isinstance(ev, TopologyEdgeCreated)]
+    sinks = {ev.conn.sink for ev in created}
+    assert NODE_D not in sinks, f"loopback-advertising node must get 0 edges: {sinks}"
+    assert len(created) == 2, f"expected 2 healthy edges, got {len(created)}: {sinks}"

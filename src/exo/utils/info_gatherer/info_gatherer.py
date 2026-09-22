@@ -428,10 +428,24 @@ class NodeApiInfo(TaggedModel):
         from exo.shared.constants import EXO_API_ADVERTISE_HOST, EXO_API_HOST
 
         api_port = int(os.getenv("EXO_API_PORT", "52415"))
-        return cls(api_host=await resolve_advertise_host(EXO_API_HOST, EXO_API_ADVERTISE_HOST), api_port=api_port)
+        api_host = await resolve_advertise_host(EXO_API_HOST, EXO_API_ADVERTISE_HOST)
+        if api_host is None:
+            # No peer-reachable address could be derived. Advertising
+            # 127.0.0.1 here would make every peer probe ITS OWN loopback,
+            # which answers with the prober's node_id -> identity mismatch
+            # -> this node could never acquire topology edges (the
+            # TOPO_EDGE_COUNT=0 cluster failure). Advertise nothing; ops can
+            # set EXO_API_ADVERTISE_HOST explicitly to force an address.
+            logger.warning(
+                "Could not derive a non-loopback API advertise host; "
+                "skipping NodeApiInfo advertisement. Set EXO_API_ADVERTISE_HOST "
+                "to force a peer-reachable address."
+            )
+            return None
+        return cls(api_host=api_host, api_port=api_port)
 
 
-async def resolve_advertise_host(bind_host: str, advertise_override: str | None) -> str:
+async def resolve_advertise_host(bind_host: str, advertise_override: str | None) -> str | None:
     """Pick the address peers should use to reach this node's HTTP API.
 
     ``advertise_override`` (EXO_API_ADVERTISE_HOST) wins when set. Otherwise
@@ -439,6 +453,11 @@ async def resolve_advertise_host(bind_host: str, advertise_override: str | None)
     both fall back to the node's primary non-loopback IP — peers can neither
     dial 0.0.0.0 nor reach another host's 127.0.0.1. A concrete bind host is
     used verbatim.
+
+    Returns None when no non-loopback address can be derived — the caller
+    must then advertise nothing rather than 127.0.0.1 (a loopback
+    advertisement makes every peer probe its own loopback and the identity
+    check always fails, so the node can never join the topology edge graph).
     """
     if advertise_override:
         return advertise_override
@@ -447,8 +466,13 @@ async def resolve_advertise_host(bind_host: str, advertise_override: str | None)
     return bind_host
 
 
-async def _primary_non_loopback_ip() -> str:
-    """Best-effort primary non-loopback IPv4 of this host (LAN/Tailscale)."""
+async def _primary_non_loopback_ip() -> str | None:
+    """Best-effort primary non-loopback IPv4 of this host (LAN/Tailscale).
+
+    Returns None when only loopback addresses exist (or all lookups fail)
+    — never 127.0.0.1, which is not dialable by peers. Callers must treat
+    None as "advertise nothing" (see ``resolve_advertise_host``).
+    """
     import socket
 
     try:
@@ -473,7 +497,7 @@ async def _primary_non_loopback_ip() -> str:
                         return candidate
     except Exception:
         pass
-    return "127.0.0.1"
+    return None
 
 
 class NodeDiskUsage(TaggedModel):

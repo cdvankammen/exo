@@ -108,6 +108,91 @@ class TestResolveAdvertiseHost:
         assert info.api_host == "stub.example"
         assert info.api_port == 52415
 
+    # ------------------------------------------------------------------
+    # Zero-edge regression: never advertise loopback as a peer-reachable
+    # API host. A 127.0.0.1 advertisement makes every peer probe ITS OWN
+    # loopback, which answers with the prober's node_id -> identity
+    # mismatch -> that node can never acquire topology edges, so a
+    # 4-node cluster stays at TOPO_EDGE_COUNT=0 (or partial mesh).
+    # (See hermesResearch/Exo-research/V2/notes/topology-zero-edges-root-cause.md)
+    # ------------------------------------------------------------------
+
+    async def test_missing_primary_ip_advertises_nothing_not_loopback(
+        self, monkeypatch: pytest.MonkeyPatch
+    ) -> None:
+        """When no non-loopback IP can be derived, resolve_advertise_host
+        must return None (advertise nothing) rather than silently falling
+        back to 127.0.0.1, which poisons every peer's probe."""
+        async def no_primary() -> str | None:
+            return None
+
+        monkeypatch.setattr(ig, "_primary_non_loopback_ip", no_primary)
+
+        assert await ig.resolve_advertise_host("0.0.0.0", None) is None
+        assert await ig.resolve_advertise_host("127.0.0.1", None) is None
+        assert await ig.resolve_advertise_host("::", None) is None
+        assert await ig.resolve_advertise_host("::1", None) is None
+
+    async def test_primary_non_loopback_ip_never_returns_loopback(
+        self, monkeypatch: pytest.MonkeyPatch
+    ) -> None:
+        """The low-level derivation must never fabricate 127.0.0.1 as a
+        peer-reachable address. With getaddrinfo and psutil both failing
+        (or reporting only loopback), it returns None so the caller can
+        decide to advertise nothing instead of poisoning peers."""
+        import socket
+
+        # Path 1: getaddrinfo fails, psutil enumerates only loopback -> None
+        def _boom_getaddrinfo(*a: object, **k: object) -> list[object]:
+            raise socket.gaierror("boom")
+
+        monkeypatch.setattr(socket, "getaddrinfo", _boom_getaddrinfo)
+
+        import psutil
+
+        class _FakeAddrs:
+            def __init__(self, family: int, address: str) -> None:
+                self.family = family
+                self.address = address
+
+        monkeypatch.setattr(
+            psutil,
+            "net_if_addrs",
+            lambda: {"lo0": [_FakeAddrs(socket.AF_INET, "127.0.0.1")]},
+        )
+
+        assert await ig._primary_non_loopback_ip() is None
+
+    async def test_gather_skips_node_api_info_when_no_advertise_host(
+        self, monkeypatch: pytest.MonkeyPatch
+    ) -> None:
+        """NodeApiInfo.gather returns None when no peer-reachable host can be
+        derived — the node does not advertise itself rather than advertising
+        a loopback address that would break edge formation cluster-wide."""
+        monkeypatch.setenv("EXO_API_HOST", "0.0.0.0")
+        monkeypatch.setenv("EXO_API_ADVERTISE_HOST", "")
+        monkeypatch.setenv("EXO_API_PORT", "52415")
+        monkeypatch.setattr(ig, "resolve_advertise_host", _none_stub)
+
+        info = await ig.NodeApiInfo.gather()
+        assert info is None
+
+    async def test_explicit_override_wins_even_when_primary_missing(
+        self, monkeypatch: pytest.MonkeyPatch
+    ) -> None:
+        """EXO_API_ADVERTISE_HOST is the user's explicit escape hatch — it
+        must still win when automatic derivation fails."""
+        async def no_primary() -> str | None:
+            return None
+
+        monkeypatch.setattr(ig, "_primary_non_loopback_ip", no_primary)
+
+        assert await ig.resolve_advertise_host("0.0.0.0", "10.2.0.55") == "10.2.0.55"
+
 
 async def _advertise_stub(bind_host: str, advertise_override: str | None) -> str:
     return "stub.example"
+
+
+async def _none_stub(bind_host: str, advertise_override: str | None) -> str | None:
+    return None
