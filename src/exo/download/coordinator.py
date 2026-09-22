@@ -202,6 +202,21 @@ class DownloadCoordinator:
                     case CancelDownload(model_id=model_id):
                         await self._cancel_download(model_id)
 
+    def _clear_download_state(self, model_id: ModelId) -> None:
+        """Drop every per-model bookkeeping entry for a cancelled/deleted download.
+
+        Cancellation must leave no stale watchdog state behind: the stall
+        watchdog reads ``_last_download_bytes``/``_download_started_at``/
+        ``_last_progress_time`` and the cancelled handler consults
+        ``_stalled_models`` — any leftover entry makes the next download of the
+        same model appear stalled or keeps zombie UI state (T53, stress test
+        ``test_concurrent_cancel_leaves_no_watchdog_state_behind``).
+        """
+        self._last_download_bytes.pop(model_id, None)
+        self._download_started_at.pop(model_id, None)
+        self._last_progress_time.pop(model_id, None)
+        self._stalled_models.discard(model_id)
+
     async def _cancel_download(self, model_id: ModelId) -> None:
         if model_id in self.active_downloads:
             logger.info(f"Cancelling download for {model_id}")
@@ -227,7 +242,7 @@ class DownloadCoordinator:
             # Drop the local status so a re-download of the same model is not
             # blocked/stuck by the stale entry (port of PR #1614).
             del self.download_status[model_id]
-            self._last_progress_time.pop(model_id, None)
+        self._clear_download_state(model_id)
 
     async def _start_download(
         self, shard: ShardMetadata, force_override: bool = False
@@ -377,7 +392,7 @@ class DownloadCoordinator:
                     self._stalled_models.discard(model_id)
                 elif model_id in self.download_status:
                     del self.download_status[model_id]
-                self._last_progress_time.pop(model_id, None)
+                self._clear_download_state(model_id)
             finally:
                 self.active_downloads.pop(model_id, None)
 
@@ -478,6 +493,7 @@ class DownloadCoordinator:
             except (anyio.BrokenResourceError, anyio.ClosedResourceError):
                 return
             del self.download_status[model_id]
+        self._clear_download_state(model_id)
 
     async def _emit_existing_download_progress(self) -> None:
         while True:
