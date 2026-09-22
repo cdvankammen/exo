@@ -1091,6 +1091,34 @@ async def download_shard(
             file_progress={},
         )
         return EXO_DEFAULT_MODELS_DIR / model_id.normalize(), not_started_progress
+    except HuggingFaceAuthenticationError:
+        if not skip_download:
+            # Real download: surface the auth failure to the coordinator so the
+            # user sees DownloadFailed with the HF_TOKEN guidance message.
+            raise
+        # Status-check path only: auth-gated repos (e.g. GLM-4.7-8bit-gs32)
+        # must not spam the logs or fail the status scan — they simply can't
+        # be checked without a token. Treat as not_started; inference is not
+        # blocked by this.
+        logger.info(
+            f"Model {model_id} requires authentication to check download "
+            "status — set HF_TOKEN to enable (inference is not blocked)."
+        )
+        not_started_progress = RepoDownloadProgress(
+            repo_id=str(model_id),
+            repo_revision=revision,
+            shard=shard,
+            completed_files=0,
+            total_files=0,
+            downloaded=Memory.from_bytes(0),
+            downloaded_this_session=Memory.from_bytes(0),
+            total=Memory.from_bytes(0),
+            overall_speed=0.0,
+            overall_eta=timedelta(0),
+            status="not_started",
+            file_progress={},
+        )
+        return EXO_DEFAULT_MODELS_DIR / model_id.normalize(), not_started_progress
     filtered_file_list = list(
         filter_repo_objects(
             file_list,

@@ -11,6 +11,7 @@ from typing import AsyncIterator, Callable
 from loguru import logger
 
 from exo.download.download_utils import (
+    HuggingFaceAuthenticationError,
     RepoDownloadProgress,
     download_shard,
 )
@@ -273,8 +274,12 @@ class ResumableShardDownloader(ShardDownloader):
         for task in asyncio.as_completed(tasks):
             try:
                 yield await task
+            except HuggingFaceAuthenticationError:
+                # Auth-gated repos (e.g. GLM-4.7-8bit-gs32) — skip silently;
+                # the user needs HF_TOKEN, and this is NOT a block for inference.
+                logger.info("Skipping download status for auth-gated model (set HF_TOKEN to enable)")
             except Exception as e:
-                logger.warning(f"Error downloading shard: {type(e).__name__}")
+                logger.warning(f"Error fetching download status: {type(e).__name__}: {e}")
 
     async def get_shard_download_status_for_shard(
         self, shard: ShardMetadata
