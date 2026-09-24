@@ -882,3 +882,71 @@ async def test_continuous_connection_messages_do_not_stack_campaigns() -> None:
             em_in_tx.close()
             cm_tx.close()
             co_tx.close()
+
+
+@pytest.mark.anyio
+async def test_winner_gets_durable_seniority_edge_stops_ping_pong() -> None:
+    """
+    Regression test for the durable-seniority-edge fix (commit 801cd9f7).
+
+    A winner that was already at the same seniority as its strongest peer
+    used to exit the round WITHOUT a seniority edge under the old rule
+    `max(seniority, len(candidates))`: in a tied 2-node round the candidate
+    list has length 2, so a winner already at seniority 2 stayed at 2. The
+    next tied round then fell to the commands_seen tiebreak, which alternates
+    as different nodes see commands — master ping-pong ("elected master"
+    log spam, the anti-flapping bug).
+
+    The winner must leave the round STRICTLY above the highest peer
+    seniority it has ever seen (`max_peer_seen + 1`), so every subsequent
+    round keeps resolving to the same master.
+
+    Drives the real _campaign path (message in -> round resolves -> result)
+    with a clean tied 2-candidate list, asserting the seniority edge that
+    the old rule failed to produce.
+    """
+    em_out_tx, _em_out_rx = channel[ElectionMessage]()
+    em_in_tx, em_in_rx = channel[ElectionMessage]()
+    er_tx, er_rx = channel[ElectionResult]()
+    cm_tx, cm_rx = channel[ConnectionMessage]()
+    co_tx, co_rx = channel[ForwarderCommand]()
+
+    election = Election(
+        node_id=NodeId("B"),
+        election_message_receiver=em_in_rx,
+        election_message_sender=em_out_tx,
+        election_result_sender=er_tx,
+        connection_message_receiver=cm_rx,
+        command_receiver=co_rx,
+        is_candidate=True,
+        # B and A both converge to seniority 2 (the tie state from which the
+        # old rule could never escape: max(2, len(candidates)=2) == 2).
+        seniority=2,
+    )
+    # B is master; B has seen A campaign at seniority 2.
+    election._max_peer_seniority_seen = 2  # type: ignore[reportPrivateUsage]
+
+    async with create_task_group() as tg:
+        with fail_after(2):
+            tg.start_soon(election.run)
+            # A campaigns at clock 1, seniority 2 — a tied round. B is a
+            # candidate too, so the candidate list resolves to [A(2), B(2)]
+            # and B wins only on the master_node_id tiebreak (B < A), not on
+            # seniority. Under the old rule B would exit still at 2.
+            await em_in_tx.send(em(clock=1, seniority=2, node_id="A"))
+
+            result = await er_rx.receive()
+            assert result.session_id.master_node_id == NodeId("B")
+
+            em_in_tx.close()
+            cm_tx.close()
+            co_tx.close()
+
+    # The durable edge: the winner must now be strictly above the strongest
+    # peer seniority it has ever seen (2 + 1), so the next equal-seniority
+    # round cannot tie again and flip the master on the commands_seen
+    # tiebreak. Old rule gave max(2, len(candidates)=2) == 2 — no edge, flap.
+    assert election.seniority == 3, (
+        "winner must gain a durable seniority edge over the strongest peer "
+        f"observed (expected 3, got {election.seniority})"
+    )
