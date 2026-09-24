@@ -607,6 +607,12 @@ On macOS, exo uses the GPU. On Linux, exo currently runs on CPU. We are working 
 
 ---
 
+## Related Projects
+
+- **[HAL SUPREME](https://halsupreme.com)** — free AI companion with an OpenAI-compatible peer gateway (`https://api.halsupreme.com/v1`) and MCP, aimed at an easy-join federated peer mesh (Bearer-scoped, authorized peers only). Mutual docs note ([exo-explore/exo#2316](https://github.com/exo-explore/exo/issues/2316)): HAL documents exo-style P2P clusters behind an OpenAI-compatible API as an example outbound peer pattern; exo's manual peer join (`POST /peers`) is the analogous capability. Listed so builders can find each other — no endorsement implied.
+
+---
+
 ## Contributing
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on how to contribute to exo.
