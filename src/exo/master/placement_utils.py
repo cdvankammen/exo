@@ -1,5 +1,4 @@
 import os
-
 from collections.abc import Generator, Mapping, Sequence
 
 from loguru import logger
@@ -24,6 +23,36 @@ from exo.shared.types.worker.shards import (
 )
 
 
+def node_effective_available_memory(node_memory: MemoryUsage) -> Memory:
+    """Effective memory a placement should budget per node.
+
+    Delegates to :meth:`MemoryUsage.inference_available`, which bounds the
+    budget by free VRAM as well as RAM on a discrete-GPU node: MLX CUDA runs
+    one GPU per process, so a node cannot spend its summed VRAM on a single
+    model shard.
+
+    Note this is the *scalar* accelerator reading, not the per-device
+    ``largest_device_available``. Sharding modes that legitimately span devices
+    would want the summed figure, but no caller of this function knows its
+    sharding mode, so that distinction is not resolved here.
+    """
+    return node_memory.inference_available
+
+
+def _effective_memory_bytes(node_memory: Mapping[NodeId, MemoryUsage]) -> dict[NodeId, int]:
+    """Precompute each node's effective available memory in raw bytes.
+
+    Reading the pydantic ``inference_available`` property costs a property
+    lookup plus a ``min()`` and a ``Memory`` construction, all of which are
+    pure per-node work. Doing it once up front lets the per-cycle loops below
+    do a plain dict lookup and integer add instead.
+    """
+    return {
+        node_id: node_effective_available_memory(mem).in_bytes
+        for node_id, mem in node_memory.items()
+    }
+
+
 def filter_cycles_by_memory(
     cycles: list[Cycle],
     node_memory: Mapping[NodeId, MemoryUsage],
@@ -36,15 +65,19 @@ def filter_cycles_by_memory(
     # 0.5 = admit cycles holding at least half the model, etc. force_override
     # bypasses the check entirely.
     required_bytes = required_memory.in_bytes * max(memory_tolerance, 0.0)
-    for cycle in cycles:
-        if not all(node in node_memory for node in cycle):
-            continue
 
-        total_mem = sum(
-            (node_memory[node_id].ram_available for node_id in cycle.node_ids),
-            start=Memory(),
-        )
-        if force_override or total_mem.in_bytes >= required_bytes:
+    effective_bytes: dict[NodeId, int] = _effective_memory_bytes(node_memory)
+
+    for cycle in cycles:
+        # A single pass: any node without a report disqualifies the cycle, so
+        # the lookup that raises also decides membership — no separate scan.
+        # This stays ahead of the force_override check: an unreported node is
+        # still disqualifying when the memory check is bypassed.
+        try:
+            total_bytes = sum(effective_bytes[node_id] for node_id in cycle.node_ids)
+        except KeyError:
+            continue
+        if force_override or total_bytes >= required_bytes:
             filtered_cycles.append(cycle)
     return filtered_cycles
 
@@ -408,7 +441,10 @@ def _compute_total_memory(
     force_override: bool = False,
 ) -> Memory:
     total_memory = sum(
-        (node_memory[node_id].ram_available for node_id in node_ids),
+        (
+            node_effective_available_memory(node_memory[node_id])
+            for node_id in node_ids
+        ),
         start=Memory(),
     )
     if not force_override and total_memory.in_bytes == 0:
@@ -435,7 +471,7 @@ def _allocate_and_validate_layers(
         None
         if force_override
         else [
-            (node_memory[node_id].ram_available.in_bytes * model_card.n_layers)
+            (node_effective_available_memory(node_memory[node_id]).in_bytes * model_card.n_layers)
             // model_card.storage_size.in_bytes
             for node_id in node_ids
         ]
@@ -489,7 +525,7 @@ def _allocate_and_validate_layers(
         layer_allocations = allocate_layers_proportionally(
             total_layers=model_card.n_layers,
             memory_fractions=[
-                node_memory[node_id].ram_available / total_memory
+                node_effective_available_memory(node_memory[node_id]) / total_memory
                 for node_id in node_ids
             ],
             max_layers_per_node=caps,
@@ -501,7 +537,7 @@ def _allocate_and_validate_layers(
     for i, node_id in enumerate(node_ids):
         node_layers = layer_allocations[i]
         required_memory = (total_storage * node_layers) // total_layers
-        available_memory = node_memory[node_id].ram_available
+        available_memory = node_effective_available_memory(node_memory[node_id])
         if not force_override and required_memory > available_memory:
             raise ValueError(
                 f"Node {i} ({node_id}) has insufficient memory: "
@@ -537,7 +573,7 @@ def _validate_manual_layer_allocations(
         zip(node_ids, allocations, strict=True)
     ):
         required_memory = (model_card.storage_size * layer_count) // model_card.n_layers
-        available_memory = node_memory[node_id].ram_available
+        available_memory = node_effective_available_memory(node_memory[node_id])
         if not force_override and required_memory > available_memory:
             raise ValueError(
                 f"Node {index} ({node_id}) has insufficient memory: "

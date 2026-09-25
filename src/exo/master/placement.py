@@ -18,6 +18,7 @@ from exo.master.placement_utils import (
     get_mlx_ring_hosts_by_node,
     get_shard_assignments,
     get_smallest_cycles,
+    node_effective_available_memory,
 )
 from exo.shared.circuit_breaker import NodeCircuitBreaker, NodeCircuitState
 from exo.shared.constants import EXO_ACTIVATION_MEMORY_FRACTION
@@ -69,6 +70,13 @@ INSTANCE_META_BACKENDS: dict[InstanceMeta, list[Backend]] = {
     InstanceMeta.MlxRing: [Backend.MlxMetal, Backend.MlxCuda, Backend.MlxCpu],
     InstanceMeta.MlxJaccl: [Backend.MlxMetal],
 }
+
+# Stand-in for a node the master has no memory report for. MemoryUsage is
+# frozen, so one shared instance is safe to reuse as a mapping default; it is
+# built once here instead of per cycle element in the scoring key below.
+_MISSING_NODE_MEMORY = MemoryUsage.from_bytes(
+    ram_total=0, ram_available=0, swap_total=0, swap_available=0
+)
 
 
 def add_instance_to_placements(
@@ -593,9 +601,9 @@ def place_instance(
             ),
             sum(
                 (
-                    node_memory.get(
-                        node_id, MemoryUsage.from_bytes(ram_total=0, ram_available=0, swap_total=0, swap_available=0)
-                    ).ram_available
+                    node_effective_available_memory(
+                        node_memory.get(node_id, _MISSING_NODE_MEMORY)
+                    )
                     for node_id in cycle
                 ),
                 start=Memory(),

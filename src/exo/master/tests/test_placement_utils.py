@@ -1,6 +1,7 @@
 import pytest
 
 from exo.master.placement_utils import (
+    Cycle,
     allocate_layers_proportionally,
     estimate_ring_node_memory,
     filter_cycles_by_memory,
@@ -9,6 +10,7 @@ from exo.master.placement_utils import (
     get_shard_assignments,
     get_shard_assignments_for_pipeline_parallel,
     get_smallest_cycles,
+    node_effective_available_memory,
 )
 from exo.master.tests.conftest import (
     create_node_memory,
@@ -21,6 +23,8 @@ from exo.shared.types.common import NodeId
 from exo.shared.types.memory import Memory
 from exo.shared.types.multiaddr import Multiaddr
 from exo.shared.types.profiling import (
+    GpuMemoryInfo,
+    MemoryUsage,
     NetworkInterfaceInfo,
     NodeNetworkInfo,
 )
@@ -1324,3 +1328,77 @@ def test_get_smallest_cycles_without_max_nodes_keeps_original_behavior():
         set(n for n in cycle) != {node_a_id, node_b_id, node_c_id}
         for cycle in smallest
     )
+
+
+class TestNodeEffectiveAvailableMemory:
+    def test_gpu_node_uses_inference_available(self) -> None:
+        """GPU node: placement sees min(RAM, VRAM), not the per-device figure.
+
+        Two devices with unequal free VRAM keep this from being a tautology:
+        ``largest_device_available`` (9 GB) and ``summed_device_available``
+        (17 GB) both differ from ``inference_available`` (12 GB), so the
+        assertion pins which of the three the helper returns.
+        """
+        usage = MemoryUsage.from_bytes(
+            ram_total=64_000_000_000,
+            ram_available=60_000_000_000,
+            swap_total=0,
+            swap_available=0,
+            accelerator_total=24_000_000_000,
+            accelerator_available=12_000_000_000,
+            accelerator_devices=[
+                GpuMemoryInfo.from_bytes(
+                    index=0, total=16_000_000_000, free=9_000_000_000
+                ),
+                GpuMemoryInfo.from_bytes(
+                    index=1, total=8_000_000_000, free=8_000_000_000
+                ),
+            ],
+        )
+        assert usage.largest_device_available.in_bytes == 9_000_000_000
+        assert usage.summed_device_available.in_bytes == 17_000_000_000
+        assert node_effective_available_memory(usage) == Memory.from_bytes(
+            12_000_000_000
+        )
+
+    def test_cpu_node_uses_ram(self) -> None:
+        """CPU node: no accelerator report, so system RAM is the budget."""
+        assert node_effective_available_memory(
+            create_node_memory(50_000_000_000)
+        ) == Memory.from_bytes(50_000_000_000)
+
+    def test_vram_starved_node_is_bounded_by_accelerator(self) -> None:
+        """A RAM-rich / VRAM-poor node budgets by VRAM, the actual behavior change.
+
+        Before the switch to ``inference_available`` this node's 128 GB of RAM
+        would have admitted a 20 GB model it cannot actually hold.
+        """
+        usage = MemoryUsage.from_bytes(
+            ram_total=128_000_000_000,
+            ram_available=128_000_000_000,
+            swap_total=0,
+            swap_available=0,
+            accelerator_total=24_000_000_000,
+            accelerator_available=12_000_000_000,
+            accelerator_devices=[
+                GpuMemoryInfo.from_bytes(
+                    index=0, total=24_000_000_000, free=12_000_000_000
+                )
+            ],
+        )
+        assert node_effective_available_memory(usage) == Memory.from_bytes(
+            12_000_000_000
+        )
+
+        node_id = NodeId()
+        cycle = Cycle(node_ids=[node_id])
+        # 20 GB of model does not fit the 12 GB of free VRAM, despite 128 GB RAM.
+        assert (
+            filter_cycles_by_memory(
+                [cycle], {node_id: usage}, Memory.from_bytes(20_000_000_000)
+            )
+            == []
+        )
+        assert filter_cycles_by_memory(
+            [cycle], {node_id: usage}, Memory.from_bytes(12_000_000_000)
+        ) == [cycle]
