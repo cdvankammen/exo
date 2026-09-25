@@ -167,9 +167,24 @@ class Topology:
     def replace_all_out_rdma_connections(
         self, source: NodeId, new_connections: Sequence[Connection]
     ) -> None:
-        for conn_idx in self._graph.out_edge_indices(self._vertex_indices[source]):
-            if isinstance(self._graph.get_edge_data_by_index(conn_idx), RDMAConnection):
-                self._graph.remove_edge_from_index(conn_idx)
+        # Collect-then-remove: rustworkx edge indices are invalidated by
+        # remove_edge_from_index (a removed index becomes a hole — and on
+        # other rustworkx versions, remaining indices shift). Removing while
+        # iterating the live out_edge_indices view can therefore hit a stale
+        # index and delete the wrong edge or raise IndexError. Materialize the
+        # RDMA edge indices first, then remove — same pattern as
+        # remove_all_rdma_connections_touching.
+        rdma_edge_idxs = [
+            edge_idx
+            for edge_idx in self._graph.out_edge_indices(
+                self._vertex_indices[source]
+            )
+            if isinstance(
+                self._graph.get_edge_data_by_index(edge_idx), RDMAConnection
+            )
+        ]
+        for edge_idx in rdma_edge_idxs:
+            self._graph.remove_edge_from_index(edge_idx)
         for conn in new_connections:
             self.add_connection(conn)
 
