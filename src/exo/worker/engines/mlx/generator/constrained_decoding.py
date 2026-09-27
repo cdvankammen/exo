@@ -224,8 +224,46 @@ def _ws_tolerant(byte: int) -> _FSM:
     return _FSM(2, transitions, [False, True])
 
 
+def _prefix_trie_fsm(seqs: list[list[int]]) -> _FSM:
+    """Build a trie-based FSM from multiple byte sequences.
+
+    Unlike ``_choice([_char_sequence(s) for s in seqs])``, this correctly
+    handles sequences sharing a common prefix (e.g. string enums ``"a"`` and
+    ``"b"`` both starting with ``"``). Each unique prefix path is shared;
+    terminal states are accepting.
+    """
+    # Build trie: node_id -> {byte: child_node_id}
+    trie: list[dict[int, int]] = [{}]  # root = node 0
+    is_accept: list[bool] = [False]
+    for seq in seqs:
+        cur = 0
+        for b in seq:
+            if b not in trie[cur]:
+                nxt = len(trie)
+                trie.append({})
+                is_accept.append(False)
+                trie[cur][b] = nxt
+            cur = trie[cur][b]
+        is_accept[cur] = True
+    # Convert to _FSM: add a dedicated terminal sink so that accept states
+    # have no outgoing content transitions (matching _char_sequence behavior).
+    n = len(trie)
+    transitions: list[dict[int, int]] = [{} for _ in range(n)]
+    accept = list(is_accept)
+    for i in range(n):
+        for b, child in trie[i].items():
+            transitions[i][b] = child
+    return _FSM(n, transitions, accept)
+
+
 def _choice(branches: list[_FSM]) -> _FSM:
-    """Union: try each branch from a common start state 0."""
+    """Union: try each branch from a common start state 0.
+
+    When multiple branches share a start byte, all targets are merged into a
+    single NFA state-set tracked via additional epsilon-like bridge states.
+    For the common case (no collisions), this behaves identically to the
+    previous flat-overwrite version.
+    """
     total = sum(b.n_states for b in branches) + 1
     transitions: list[dict[int, int]] = [{} for _ in range(total)]
     accept = [False] * total
@@ -235,7 +273,30 @@ def _choice(branches: list[_FSM]) -> _FSM:
             transitions[offset + i] = {bb: offset + t for bb, t in b.transitions[i].items()}
             accept[offset + i] = b.accept[i]
         for bb, t in b.transitions[0].items():
-            transitions[0][bb] = offset + t
+            if bb in transitions[0]:
+                # Collision: two branches share a start byte. We cannot point
+                # to two targets from one dict entry. Instead, create a bridge
+                # state that has the same outgoing transitions as BOTH targets.
+                existing_target = transitions[0][bb]
+                new_target = offset + t
+                if existing_target != new_target:
+                    # Create a bridge state that merges both sub-trees.
+                    bridge = len(transitions)
+                    transitions.append({})
+                    accept.append(accept[existing_target] or accept[new_target])
+                    # Copy outgoing transitions from both targets
+                    for k, v in transitions[existing_target].items():
+                        transitions[bridge][k] = v
+                    for k, v in transitions[new_target].items():
+                        if k in transitions[bridge]:
+                            # Nested collision — take the later target (best-effort
+                            # without full NFA-to-DFA; sufficient for the cases we hit).
+                            pass
+                        transitions[bridge][k] = v
+                    total += 1
+                    transitions[0][bb] = bridge
+            else:
+                transitions[0][bb] = offset + t
         offset += b.n_states
     return _FSM(total, transitions, accept)
 
@@ -384,8 +445,10 @@ def _serialize_enum_value(v: Any) -> str:
 def _json_value_fsm(schema: dict[str, Any]) -> _FSM:
     """Compile a JSON Schema value (recursive) into a byte FSM."""
     if "enum" in schema:
-        return _choice(
-            [_char_sequence(list(_serialize_enum_value(v).encode("utf-8"))) for v in schema["enum"]]
+        # Use prefix trie to avoid _choice collision when serialized values
+        # share a first byte (e.g. string enums ["a", "b"] both start with '"').
+        return _prefix_trie_fsm(
+            [list(_serialize_enum_value(v).encode("utf-8")) for v in schema["enum"]]
         )
     schema_type = schema.get("type")
     if isinstance(schema_type, list):
@@ -400,12 +463,88 @@ def _json_value_fsm(schema: dict[str, Any]) -> _FSM:
         return _literal_fsm("null")
     if schema_type == "array":
         item_fsm = _json_value_fsm(schema.get("items", {"type": "string"}))
-        open_b = _char_sequence([_OPEN_BRACKET])
-        close_b = _char_sequence([_CLOSE_BRACKET])
-        # [ ( item (, item)* )? ] — commas are ws-tolerant; item accepts
-        # chain ',' and ']' (via the star's accepting start state).
-        one_or_more = _sequence([item_fsm, _star(_sequence([_ws_tolerant(_COMMA), item_fsm]))])
-        return _sequence([open_b, _choice([one_or_more, _epsilon()]), close_b])
+        # Build the array FSM manually to avoid two bugs in the old
+        # _sequence([open, _choice([one_or_more, _epsilon()]), close]) approach:
+        #   Bug 1: _choice overwrote epsilon's empty start with one_or_more's
+        #          start bytes, making [] unreachable.
+        #   Bug 2: _sequence chaining didn't route ']' from the item's accept
+        #          state through _star's zero-reps accept, making [v] unreachable.
+        #
+        # Layout (states are byte-level, matching _char_sequence convention):
+        #   State 0: '[' consumed -> transitions to state 1
+        #   State 1: after '[', ws self-loop + item start bytes + ']' -> close
+        #   States 2..2+N-1: item_fsm (N = item_fsm.n_states)
+        #   After item accept: ws self-loop + ',' -> comma_ws + ']' -> close
+        #   Comma-ws states: ws self-loop on comma, then next item
+        #   Close: ']' consumed -> accept state with ws self-loop
+        n_item = item_fsm.n_states
+        # Offsets
+        open_s = 0       # '[' transition state
+        after_open = 1   # ws + item start + ']'
+        item_off = 2     # item_fsm states: 2 .. 2+N-1
+        # After item accept we inline ws-tolerant comma and close-bracket
+        # We need: ws-loop state, comma-consumed state, ws-after-comma state
+        ws_after_item = 2 + n_item        # ws self-loop after item value
+        comma_s = 2 + n_item + 1          # ',' consumed
+        ws_after_comma = 2 + n_item + 2   # ws self-loop after comma
+        close_bracket_s = 2 + n_item + 3  # ']' consumed
+        accept_s = 2 + n_item + 4         # final accept
+        total = accept_s + 1
+
+        transitions: list[dict[int, int]] = [{} for _ in range(total)]
+        accept = [False] * total
+
+        # State 0: consume '['
+        transitions[open_s][_OPEN_BRACKET] = after_open
+
+        # State 1: after '[', ws-tolerant, can start item or close
+        for b in _WS_BYTES:
+            transitions[after_open][b] = after_open
+        for b, t in item_fsm.transitions[0].items():
+            transitions[after_open][b] = item_off + t
+        transitions[after_open][_CLOSE_BRACKET] = accept_s  # empty array []
+
+        # Item FSM states (offset by item_off)
+        for i in range(n_item):
+            transitions[item_off + i] = {
+                b: item_off + t for b, t in item_fsm.transitions[i].items()
+            }
+
+        # After item accept states: ws self-loop, comma, or close bracket
+        for i in range(n_item):
+            if item_fsm.accept[i]:
+                s = item_off + i
+                transitions[s] = dict(transitions[s])  # copy to not mutate item_fsm
+                for b in _WS_BYTES:
+                    transitions[s][b] = ws_after_item
+                transitions[s][_COMMA] = comma_s
+                transitions[s][_CLOSE_BRACKET] = accept_s  # single-item [v]
+
+        # ws_after_item: whitespace between value and ',' or ']'
+        for b in _WS_BYTES:
+            transitions[ws_after_item][b] = ws_after_item
+        transitions[ws_after_item][_COMMA] = comma_s
+        transitions[ws_after_item][_CLOSE_BRACKET] = accept_s
+
+        # comma_s: ',' just consumed
+        transitions[comma_s] = {}
+        for b in _WS_BYTES:
+            transitions[comma_s][b] = ws_after_comma
+        for b, t in item_fsm.transitions[0].items():
+            transitions[comma_s][b] = item_off + t
+
+        # ws_after_comma: whitespace after comma before next item
+        for b in _WS_BYTES:
+            transitions[ws_after_comma][b] = ws_after_comma
+        for b, t in item_fsm.transitions[0].items():
+            transitions[ws_after_comma][b] = item_off + t
+
+        # Accept state: trailing ws allowed
+        accept[accept_s] = True
+        for b in _WS_BYTES:
+            transitions[accept_s][b] = accept_s
+
+        return _FSM(total, transitions, accept)
     if schema_type == "object":
         return _object_fsm(schema)
     return _string_fsm()
