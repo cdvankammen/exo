@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import contextlib
 from dataclasses import dataclass, field
+from itertools import count
 from pathlib import Path
 
 import anyio
@@ -45,6 +46,17 @@ from exo.shared.types.worker.downloads import (
 from exo.shared.types.worker.shards import PipelineShardMetadata, ShardMetadata
 from exo.utils.channels import Receiver, Sender
 from exo.utils.task_group import TaskGroup
+
+_RESCAN_INTERVAL_SECONDS = 60
+# Each rescan re-announces models with files on this node, so state the master
+# dropped (e.g. after timing this node out) heals within a minute. Models that were
+# never downloaded (the other ~120 known cards) are only announced when they change,
+# and on every this-many-th scan as a safety net.
+_FULL_RESCAN_EVERY = 10
+
+
+def _has_local_files(status: DownloadProgress) -> bool:
+    return not (isinstance(status, DownloadPending) and status.downloaded.in_bytes == 0)
 
 
 @dataclass
@@ -218,6 +230,14 @@ class DownloadCoordinator:
                 logger.debug(
                     f"Download for {model_id} already in progress, complete, or failed, skipping"
                 )
+                # Workers only ask when the cluster state lacks this status (e.g. the
+                # master dropped it after timing this node out), so repeat it.
+                with contextlib.suppress(
+                    anyio.BrokenResourceError, anyio.ClosedResourceError
+                ):
+                    await self.event_sender.send(
+                        NodeDownloadProgress(download_progress=status)
+                    )
                 return
 
         # Check all model directories for pre-existing complete models
@@ -402,8 +422,25 @@ class DownloadCoordinator:
                 return
             del self.download_status[model_id]
 
+    async def _announce(self, status: DownloadProgress, *, force: bool) -> bool:
+        """Record `status`, sending it to the cluster if it changed or `force` is set.
+
+        Returns False if the event channel is gone, which ends the rescan loop.
+        """
+        model_id = status.shard_metadata.model_card.model_id
+        changed = self.download_status.get(model_id) != status
+        self.download_status[model_id] = status
+        if not (changed or force):
+            return True
+        try:
+            await self.event_sender.send(NodeDownloadProgress(download_progress=status))
+        except (anyio.BrokenResourceError, anyio.ClosedResourceError):
+            return False
+        return True
+
     async def _emit_existing_download_progress(self) -> None:
-        while True:
+        for scan in count():
+            resend_unchanged = scan % _FULL_RESCAN_EVERY == 0
             try:
                 logger.debug(
                     "DownloadCoordinator: Fetching and emitting existing download progress..."
@@ -479,12 +516,9 @@ class DownloadCoordinator:
                     else:
                         continue
 
-                    self.download_status[progress.shard.model_card.model_id] = status
-                    try:
-                        await self.event_sender.send(
-                            NodeDownloadProgress(download_progress=status)
-                        )
-                    except (anyio.BrokenResourceError, anyio.ClosedResourceError):
+                    if not await self._announce(
+                        status, force=resend_unchanged or _has_local_files(status)
+                    ):
                         return
                 # Scan read-only directories for pre-downloaded models
                 if EXO_MODELS_READ_ONLY_DIRS:
@@ -514,12 +548,9 @@ class DownloadCoordinator:
                                     path_shard, found, card.storage_size
                                 )
                             )
-                            self.download_status[mid] = path_completed
-                            try:
-                                await self.event_sender.send(
-                                    NodeDownloadProgress(download_progress=path_completed)
-                                )
-                            except (anyio.BrokenResourceError, anyio.ClosedResourceError):
+                            if not await self._announce(
+                                path_completed, force=resend_unchanged
+                            ):
                                 return
 
                 logger.debug(
@@ -529,4 +560,4 @@ class DownloadCoordinator:
                 logger.error(
                     f"DownloadCoordinator: Error emitting existing download progress: {e}"
                 )
-            await anyio.sleep(60)
+            await anyio.sleep(_RESCAN_INTERVAL_SECONDS)
