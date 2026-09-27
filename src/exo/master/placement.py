@@ -19,6 +19,7 @@ from exo.master.placement_utils import (
     get_shard_assignments,
     get_smallest_cycles,
     should_prefer_single_node,
+    get_tinygrad_pipeline_hosts_by_node,
 )
 from exo.shared.models.model_cards import ModelId
 from exo.shared.topology import Topology
@@ -59,6 +60,7 @@ from exo.shared.types.worker.instances import (
     InstanceMeta,
     MlxJacclInstance,
     MlxRingInstance,
+    TinygradInstance,
 )
 from exo.shared.types.worker.shards import Sharding
 from exo.utils.ports import random_ephemeral_port
@@ -66,6 +68,15 @@ from exo.utils.ports import random_ephemeral_port
 INSTANCE_META_BACKENDS: dict[InstanceMeta, list[Backend]] = {
     InstanceMeta.MlxRing: [Backend.MlxMetal, Backend.MlxCuda, Backend.MlxCpu],
     InstanceMeta.MlxJaccl: [Backend.MlxMetal],
+    InstanceMeta.Tinygrad: [
+        Backend.TinygradAmd,
+        Backend.TinygradMetal,
+        Backend.TinygradCuda,
+        Backend.TinygradCpu,
+        Backend.WinAMD,
+        Backend.WinCUDA,
+        Backend.WinCPU,
+    ],
 }
 
 
@@ -227,6 +238,14 @@ def place_instance(
         raise ValueError(
             f"Model does not declare Ring attention support: {command.model_card.model_id}"
         )
+
+    # Tensor parallel is not implemented for tinygrad. Rewrite before the
+    # tensor divisibility filter so a multi-node cycle still places layers.
+    if (
+        command.instance_meta == InstanceMeta.Tinygrad
+        and command.sharding != Sharding.Pipeline
+    ):
+        command = command.model_copy(update={"sharding": Sharding.Pipeline})
 
     cycles = topology.get_cycles()
     candidate_cycles = list(filter(lambda it: len(it) >= command.min_nodes, cycles))
@@ -468,6 +487,10 @@ def place_instance(
                 f"available for {command.model_card.model_id}. Use Pipeline "
                 f"sharding, or connect more nodes."
             )
+
+    # A tinygrad node must keep its instance meta, so it never takes
+    # the MlxRing/Pipeline downgrade below.
+    if len(selected_cycle) == 1 and command.instance_meta != InstanceMeta.Tinygrad:
         command = command.model_copy(
             update={
                 "instance_meta": InstanceMeta.MlxRing,
@@ -546,6 +569,27 @@ def place_instance(
                 hosts_by_node=hosts_by_node,
                 ephemeral_port=ephemeral_port,
             )
+        case InstanceMeta.Tinygrad:
+            device_backend_by_node = {
+                node_id: _select_tinygrad_backend(
+                    node_id, node_backends, required_backends
+                )
+                for node_id in selected_cycle
+            }
+            ephemeral_port = random_ephemeral_port()
+            hosts_by_node = get_tinygrad_pipeline_hosts_by_node(
+                selected_cycle=selected_cycle,
+                cycle_digraph=cycle_digraph,
+                ephemeral_port=ephemeral_port,
+                node_network=node_network,
+            )
+            target_instances[instance_id] = TinygradInstance(
+                instance_id=instance_id,
+                shard_assignments=shard_assignments,
+                device_backend_by_node=device_backend_by_node,
+                hosts_by_node=hosts_by_node,
+                ephemeral_port=ephemeral_port,
+            )
 
     return target_instances
 
@@ -575,6 +619,29 @@ def _prefer_socket_reachable_rank_zero(cycle: Cycle, topology: Topology) -> Cycl
     if best_index == 0:
         return cycle
     return Cycle(node_ids=cycle.node_ids[best_index:] + cycle.node_ids[:best_index])
+
+def _select_tinygrad_backend(
+    node_id: NodeId,
+    node_backends: Mapping[NodeId, list[Backend]],
+    required_backends: set[Backend],
+) -> Backend:
+    """Pick the tinygrad backend advertised by ``node_id``.
+
+    The first advertised backend that the model and the tinygrad instance
+    meta both accept wins. The operating system is not consulted.
+
+    Raises:
+        ValueError: The master command handler and the placement HTTP
+            endpoint surface this when a node has no remaining tinygrad
+            backend. The cycle filter should have removed that node already.
+    """
+    for backend in node_backends.get(node_id, []):
+        if backend in required_backends:
+            return backend
+    raise ValueError(
+        f"Node {node_id} has no tinygrad backend in "
+        f"{sorted(backend.value for backend in required_backends)}"
+    )
 
 
 def delete_instance(

@@ -1,6 +1,5 @@
 import importlib.util
 import os
-import resource
 import sys
 import threading
 import time
@@ -119,6 +118,20 @@ def _ensure_cuda_home() -> None:
             return
 
 
+def _raise_file_descriptor_limit() -> None:
+    """Raise the open-file limit on Unix.
+
+    Windows has no ``resource`` module, so a runner started from the Windows
+    launcher skips this and continues.
+    """
+    if sys.platform == "win32":
+        return
+    import resource
+
+    soft, hard = resource.getrlimit(resource.RLIMIT_NOFILE)
+    resource.setrlimit(resource.RLIMIT_NOFILE, (min(max(soft, 2048), hard), hard))
+
+
 def entrypoint(
     bound_instance: BoundInstance,
     event_sender: MpSender[Event | RunnerTerminationError],
@@ -131,9 +144,7 @@ def entrypoint(
 
     _ensure_cuda_home()
     _start_orphan_watchdog()
-
-    soft, hard = resource.getrlimit(resource.RLIMIT_NOFILE)
-    resource.setrlimit(resource.RLIMIT_NOFILE, (min(max(soft, 2048), hard), hard))
+    _raise_file_descriptor_limit()
 
     fast_synch_override = os.environ.get("EXO_FAST_SYNCH")
     if sys.platform == "darwin":
@@ -149,30 +160,17 @@ def entrypoint(
     try:
         event_sender_downcast: MpSender[Event] = cast(MpSender[Event], event_sender)
 
-        apply_shard_backend(bound_instance.bound_shard.backend)
-
+        from exo.backends.registry import resolve_builder
         from exo.worker.runner.runner import Runner
 
-        builder: Builder
-        if bound_instance.is_image_model:
-            from exo.worker.engines.image.builder import MfluxBuilder
+        apply_shard_backend(bound_instance.bound_shard.backend)
 
-            builder = MfluxBuilder(
-                event_sender_downcast, cancel_receiver, bound_instance.bound_shard
-            )
-        else:
-            from exo.worker.engines.mlx.patches import apply_mlx_patches
-
-            apply_mlx_patches()
-
-            from exo.worker.engines.mlx.builder import MlxBuilder
-
-            # evil sharing of the event sender
-            builder = MlxBuilder(
-                model_id=bound_instance.bound_shard.model_card.model_id,
-                event_sender=event_sender_downcast,
-                cancel_receiver=cancel_receiver,
-            )
+        # evil sharing of the event sender
+        builder: Builder = resolve_builder(
+            bound_instance,
+            event_sender_downcast,
+            cancel_receiver,
+        )
 
         runner = Runner(bound_instance, builder, event_sender_downcast, task_receiver)
         runner.main()

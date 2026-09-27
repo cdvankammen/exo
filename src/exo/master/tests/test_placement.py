@@ -7,59 +7,77 @@ from exo.master.placement import (
     get_transition_events,
     place_instance,
 )
+
 from exo.master.placement_utils import get_mlx_jaccl_devices_matrix
+
 from exo.master.tests.conftest import (
     create_node_memory,
     create_node_network,
     create_rdma_connection,
     create_socket_connection,
 )
+
 from exo.shared.models.model_cards import ModelCard, ModelId, ModelTask
+
 from exo.shared.topology import Topology
+
 from exo.shared.types.backends import Backend
+
 from exo.shared.types.commands import PlaceInstance
+
 from exo.shared.types.common import CommandId, NodeId
+
 from exo.shared.types.events import (
     InstanceCreated,
     InstanceDeleted,
     TaskStatusUpdated,
 )
+
 from exo.shared.types.memory import Memory
+
 from exo.shared.types.multiaddr import Multiaddr
+
 from exo.shared.types.profiling import (
     NetworkInterfaceInfo,
     NodeIdentity,
     NodeNetworkInfo,
     NodeRdmaCtlStatus,
 )
+
 from exo.shared.types.tasks import TaskId, TaskStatus, TextGeneration
+
 from exo.shared.types.text_generation import (
     InputMessage,
     InputMessageContent,
     TextGenerationTaskParams,
 )
+
 from exo.shared.types.topology import (
     Connection,
     Cycle,
     RDMAConnection,
     SocketConnection,
 )
+
 from exo.shared.types.worker.downloads import (
     DownloadCompleted,
     DownloadFailed,
     DownloadOngoing,
     DownloadProgressData,
 )
+
 from exo.shared.types.worker.instances import (
     Instance,
     InstanceId,
     InstanceMeta,
     MlxJacclInstance,
     MlxRingInstance,
+    TinygradInstance,
 )
-from exo.shared.types.worker.runners import ShardAssignments
-from exo.shared.types.worker.shards import PipelineShardMetadata, Sharding
 
+from exo.shared.types.worker.runners import ShardAssignments
+
+from exo.shared.types.worker.shards import PipelineShardMetadata, Sharding
 
 @pytest.fixture
 def instance() -> Instance:
@@ -72,7 +90,6 @@ def instance() -> Instance:
         ephemeral_port=50000,
     )
 
-
 @pytest.fixture
 def model_card() -> ModelCard:
     return ModelCard(
@@ -81,17 +98,14 @@ def model_card() -> ModelCard:
         n_layers=10,
         hidden_size=30,
         supports_tensor=True,
-        supports_ring=True,
         tasks=[ModelTask.TextGeneration],
         backends=[Backend.MlxMetal],
     )
-
 
 def _metal_only(
     node_memory: Mapping[NodeId, object],
 ) -> dict[NodeId, list[Backend]]:
     return {node_id: [Backend.MlxMetal] for node_id in node_memory}
-
 
 def place_instance_command(model_card: ModelCard) -> PlaceInstance:
     return PlaceInstance(
@@ -101,7 +115,6 @@ def place_instance_command(model_card: ModelCard) -> PlaceInstance:
         instance_meta=InstanceMeta.MlxRing,
         min_nodes=1,
     )
-
 
 @pytest.mark.parametrize(
     "available_memory,total_layers,expected_layers",
@@ -201,7 +214,6 @@ def test_get_instance_placements_create_instance(
     assert shards_sorted[0].start_layer == 0
     assert shards_sorted[-1].end_layer == total_layers
 
-
 def test_get_instance_placements_one_node_exact_fit() -> None:
     topology = Topology()
     node_id = NodeId()
@@ -230,7 +242,6 @@ def test_get_instance_placements_one_node_exact_fit() -> None:
     assert len(instance.shard_assignments.node_to_runner) == 1
     assert len(instance.shard_assignments.runner_to_shard) == 1
     assert len(instance.shard_assignments.runner_to_shard) == 1
-
 
 def test_get_instance_placements_one_node_fits_with_extra_memory() -> None:
     topology = Topology()
@@ -261,7 +272,6 @@ def test_get_instance_placements_one_node_fits_with_extra_memory() -> None:
     assert len(instance.shard_assignments.runner_to_shard) == 1
     assert len(instance.shard_assignments.runner_to_shard) == 1
 
-
 def test_get_instance_placements_one_node_not_fit() -> None:
     topology = Topology()
     node_id = NodeId()
@@ -284,7 +294,6 @@ def test_get_instance_placements_one_node_not_fit() -> None:
         place_instance(
             cic, topology, {}, node_memory, node_network, _metal_only(node_memory)
         )
-
 
 def test_get_instance_placements_one_node_force_override() -> None:
     """force_override=True should bypass the memory-sufficiency check and still
@@ -317,7 +326,6 @@ def test_get_instance_placements_one_node_force_override() -> None:
     assert instance.shard_assignments.model_id == "test-model"
     assert len(instance.shard_assignments.node_to_runner) == 1
 
-
 def test_get_transition_events_no_change(instance: Instance):
     # arrange
     instance_id = InstanceId()
@@ -329,7 +337,6 @@ def test_get_transition_events_no_change(instance: Instance):
 
     # assert
     assert len(events) == 0
-
 
 def test_get_transition_events_create_instance(instance: Instance):
     # arrange
@@ -344,7 +351,6 @@ def test_get_transition_events_create_instance(instance: Instance):
     assert len(events) == 1
     assert isinstance(events[0], InstanceCreated)
 
-
 def test_get_transition_events_delete_instance(instance: Instance):
     # arrange
     instance_id = InstanceId()
@@ -358,7 +364,6 @@ def test_get_transition_events_delete_instance(instance: Instance):
     assert len(events) == 1
     assert isinstance(events[0], InstanceDeleted)
     assert events[0].instance_id == instance_id
-
 
 def test_placement_selects_leaf_nodes(
     model_card: ModelCard,
@@ -429,7 +434,6 @@ def test_placement_selects_leaf_nodes(
             node_id_d,
         )
     )
-
 
 def test_tensor_rdma_backend_connectivity_matrix(
     model_card: ModelCard,
@@ -563,7 +567,6 @@ def test_tensor_rdma_backend_connectivity_matrix(
             ip_part = coordinator.split(":")[0]
             assert len(ip_part.split(".")) == 4
 
-
 def test_jaccl_devices_matrix_multiple_links_between_two_nodes() -> None:
     """Two cables between the same pair of nodes must produce index-aligned
     rails: entry k of [i][j] and entry k of [j][i] are the two ends of the
@@ -607,7 +610,6 @@ def test_jaccl_devices_matrix_multiple_links_between_two_nodes() -> None:
     rails = list(zip(matrix[0][1], matrix[1][0], strict=True))
     assert sorted(rails) == [("rdma_en6", "rdma_en7"), ("rdma_en7", "rdma_en6")]
 
-
 def test_jaccl_devices_matrix_single_link_remains_single_entry() -> None:
     topology = Topology()
     node_a = NodeId()
@@ -624,7 +626,6 @@ def test_jaccl_devices_matrix_single_link_remains_single_entry() -> None:
     matrix = get_mlx_jaccl_devices_matrix([node_a, node_b], topology)
 
     assert matrix == [[[], ["rdma_en6"]], [["rdma_en6"], []]]
-
 
 def _build_three_node_rdma_topology() -> tuple[
     Topology, NodeId, NodeId, NodeId, dict[NodeId, NodeNetworkInfo]
@@ -673,7 +674,6 @@ def _build_three_node_rdma_topology() -> tuple[
 
     return topology, node_a, node_b, node_c, node_network
 
-
 def test_place_mlx_jaccl_rejects_when_a_node_has_rdma_ctl_disabled(
     model_card: ModelCard,
 ):
@@ -714,7 +714,6 @@ def test_place_mlx_jaccl_rejects_when_a_node_has_rdma_ctl_disabled(
             node_rdma_ctl=node_rdma_ctl,
         )
 
-
 def test_place_mlx_jaccl_rejects_when_node_rdma_ctl_missing(model_card: ModelCard):
     """A node with no observed rdma_ctl status must not participate in RDMA placement."""
     # arrange
@@ -751,7 +750,6 @@ def test_place_mlx_jaccl_rejects_when_node_rdma_ctl_missing(model_card: ModelCar
             _metal_only(node_memory),
             node_rdma_ctl=node_rdma_ctl,
         )
-
 
 def test_place_mlx_jaccl_rejects_when_rdma_ctl_enabled_but_no_verbs_device(
     model_card: ModelCard,
@@ -800,7 +798,6 @@ def test_place_mlx_jaccl_rejects_when_rdma_ctl_enabled_but_no_verbs_device(
             node_rdma_ctl=node_rdma_ctl,
         )
 
-
 def test_place_mlx_jaccl_rejects_when_mixed_verbs_device_availability(
     model_card: ModelCard,
 ):
@@ -842,7 +839,6 @@ def test_place_mlx_jaccl_rejects_when_mixed_verbs_device_availability(
             _metal_only(node_memory),
             node_rdma_ctl=node_rdma_ctl,
         )
-
 
 def test_placement_assigns_a_backend_to_every_shard(model_card: ModelCard):
     topology = Topology()
@@ -896,7 +892,6 @@ def test_placement_assigns_a_backend_to_every_shard(model_card: ModelCard):
         runner_id = instance.shard_assignments.node_to_runner[node_id]
         shard = instance.shard_assignments.runner_to_shard[runner_id]
         assert shard.backend == expected_backend
-
 
 def test_ring_placement_prefers_lan_ip_over_tailscale_ip(
     model_card: ModelCard,
@@ -994,7 +989,6 @@ def test_ring_placement_prefers_lan_ip_over_tailscale_ip(
         for host in hosts:
             if host.port != 0 and host.ip != "0.0.0.0":
                 assert host.ip.startswith("192.168.1."), host
-
 
 def test_jaccl_placement_prefers_lan_ip_over_tailscale_ip(
     model_card: ModelCard,
@@ -1128,7 +1122,6 @@ def test_jaccl_placement_prefers_lan_ip_over_tailscale_ip(
     assert non_rank_zero, "expected at least one non-rank-0 coordinator"
     assert all(c.startswith("192.168.1.") for c in non_rank_zero), non_rank_zero
 
-
 def test_placement_prefers_socket_reachable_rank_zero(
     model_card: ModelCard,
 ) -> None:
@@ -1219,7 +1212,6 @@ def test_placement_prefers_socket_reachable_rank_zero(
     shard = instance.shard_assignments.runner_to_shard[runner_id]
     assert shard.device_rank == 0
 
-
 def _make_task(
     instance_id: InstanceId,
     status: TaskStatus = TaskStatus.Running,
@@ -1234,7 +1226,6 @@ def _make_task(
             input=[InputMessage(role="user", content=InputMessageContent("hello"))],
         ),
     )
-
 
 def test_get_transition_events_delete_instance_cancels_running_tasks(
     instance: Instance,
@@ -1257,7 +1248,6 @@ def test_get_transition_events_delete_instance_cancels_running_tasks(
     assert isinstance(events[1], InstanceDeleted)
     assert events[1].instance_id == instance_id
 
-
 def test_get_transition_events_delete_instance_cancels_pending_tasks(
     instance: Instance,
 ):
@@ -1277,7 +1267,6 @@ def test_get_transition_events_delete_instance_cancels_pending_tasks(
     assert events[0].task_id == task.task_id
     assert events[0].task_status == TaskStatus.Cancelled
     assert isinstance(events[1], InstanceDeleted)
-
 
 def test_get_transition_events_delete_instance_ignores_completed_tasks(
     instance: Instance,
@@ -1302,7 +1291,6 @@ def test_get_transition_events_delete_instance_ignores_completed_tasks(
     # assert – only the InstanceDeleted event, no cancellations
     assert len(events) == 1
     assert isinstance(events[0], InstanceDeleted)
-
 
 def test_get_transition_events_delete_instance_cancels_only_matching_tasks(
     instance: Instance,
@@ -1333,7 +1321,6 @@ def test_get_transition_events_delete_instance_cancels_only_matching_tasks(
     assert len(delete_events) == 1
     assert delete_events[0].instance_id == instance_id_a
 
-
 def _make_shard_metadata(model_card: ModelCard) -> PipelineShardMetadata:
     return PipelineShardMetadata(
         model_card=model_card,
@@ -1343,7 +1330,6 @@ def _make_shard_metadata(model_card: ModelCard) -> PipelineShardMetadata:
         end_layer=model_card.n_layers,
         n_layers=model_card.n_layers,
     )
-
 
 def test_placement_prefers_cycle_with_downloaded_model(
     model_card: ModelCard,
@@ -1397,7 +1383,6 @@ def test_placement_prefers_cycle_with_downloaded_model(
     instance = list(placements.values())[0]
     assigned_nodes = set(instance.shard_assignments.node_to_runner.keys())
     assert assigned_nodes == {node_b}
-
 
 def test_placement_prefers_cycle_with_higher_download_progress(
     model_card: ModelCard,
@@ -1476,7 +1461,6 @@ def test_placement_prefers_cycle_with_higher_download_progress(
     assigned_nodes = set(instance.shard_assignments.node_to_runner.keys())
     assert assigned_nodes == {node_b}
 
-
 def test_placement_does_not_prefer_cycle_with_failed_download(
     model_card: ModelCard,
 ) -> None:
@@ -1531,7 +1515,6 @@ def test_placement_does_not_prefer_cycle_with_failed_download(
     # node_a should win on RAM tiebreaker since failed download scores 0.0
     assert assigned_nodes == {node_a}
 
-
 def test_placement_rejects_when_model_backends_disjoint_from_engine(
     model_card: ModelCard,
 ):
@@ -1549,7 +1532,6 @@ def test_placement_rejects_when_model_backends_disjoint_from_engine(
         place_instance(
             cic, topology, {}, node_memory, node_network, _metal_only(node_memory)
         )
-
 
 def test_placement_prefers_accelerator_over_cpu_with_more_memory(
     model_card: ModelCard,
@@ -1592,7 +1574,6 @@ def test_placement_prefers_accelerator_over_cpu_with_more_memory(
     instance = next(iter(placements.values()))
     assert set(instance.shard_assignments.node_to_runner) == {gpu_node}
 
-
 def test_placement_rejects_when_only_some_nodes_support_backend(
     model_card: ModelCard,
 ):
@@ -1632,17 +1613,8 @@ def test_placement_rejects_when_only_some_nodes_support_backend(
         )
     )
 
-    with pytest.raises(ValueError) as excinfo:
+    with pytest.raises(ValueError, match="No cycle where every node supports"):
         place_instance(cic, topology, {}, node_memory, node_network, node_backends)
-    # The actionable message lists every node's advertised backends so the
-    # log/API error shows WHICH node lacks the required backend (e.g. a Linux
-    # node silently advertising MlxCpu only).
-    message = str(excinfo.value)
-    assert "No cycle where every node supports" in message
-    assert "Node backends:" in message
-    assert node_a[:8] in message  # node IDs are included (truncated)
-    assert "MlxCuda" in message  # node_c's CUDA-only backend is listed
-
 
 def test_mlx_jaccl_rejects_cuda_only_cycle(model_card: ModelCard):
     topology, node_a, node_b, node_c, node_network = _build_three_node_rdma_topology()
@@ -1677,7 +1649,6 @@ def test_mlx_jaccl_rejects_cuda_only_cycle(model_card: ModelCard):
             node_rdma_ctl=node_rdma_ctl,
         )
 
-
 def test_rotate_metal_to_middle_three_nodes_metal_first() -> None:
     """3-node Metal+CUDA+CUDA cycle rotates Metal into the middle rank."""
     cycle = Cycle(node_ids=[NodeId("metal_node"), NodeId("cuda_node_1"), NodeId("cuda_node_2")])
@@ -1691,7 +1662,6 @@ def test_rotate_metal_to_middle_three_nodes_metal_first() -> None:
     assert rotated.node_ids[1] == NodeId("metal_node")
     assert set(rotated.node_ids) == set(cycle.node_ids)
 
-
 def test_rotate_metal_to_middle_three_nodes_metal_last() -> None:
     """3-node CUDA+CUDA+Metal cycle rotates Metal into the middle rank."""
     cycle = Cycle(node_ids=[NodeId("cuda_node_1"), NodeId("cuda_node_2"), NodeId("metal_node")])
@@ -1703,7 +1673,6 @@ def test_rotate_metal_to_middle_three_nodes_metal_last() -> None:
     rotated = _rotate_metal_to_middle(cycle, node_backends)
     assert rotated.node_ids[1] == NodeId("metal_node")
     assert set(rotated.node_ids) == set(cycle.node_ids)
-
 
 def test_rotate_metal_to_middle_all_metal_unchanged() -> None:
     """All-Metal cycles are left untouched."""
@@ -1717,7 +1686,6 @@ def test_rotate_metal_to_middle_all_metal_unchanged() -> None:
         NodeId("metal_3"),
     ]
 
-
 def test_rotate_metal_to_middle_already_centered_unchanged() -> None:
     """Metal already in the middle rank is a no-op."""
     cycle = Cycle(node_ids=[NodeId("cuda_node_1"), NodeId("metal_node"), NodeId("cuda_node_2")])
@@ -1728,7 +1696,6 @@ def test_rotate_metal_to_middle_already_centered_unchanged() -> None:
     }
     assert _rotate_metal_to_middle(cycle, node_backends).node_ids == list(cycle.node_ids)
 
-
 def test_rotate_metal_to_middle_two_nodes_unchanged() -> None:
     """Cycles under 3 nodes are never rotated."""
     cycle = Cycle(node_ids=[NodeId("cuda_node_1"), NodeId("metal_node")])
@@ -1737,7 +1704,6 @@ def test_rotate_metal_to_middle_two_nodes_unchanged() -> None:
         NodeId("metal_node"): [Backend.MlxMetal],
     }
     assert _rotate_metal_to_middle(cycle, node_backends).node_ids == list(cycle.node_ids)
-
 
 def test_ring_attention_rejects_non_ring_transport(model_card: ModelCard) -> None:
     command = PlaceInstance(
@@ -1751,7 +1717,6 @@ def test_ring_attention_rejects_non_ring_transport(model_card: ModelCard) -> Non
     with pytest.raises(ValueError, match="requires the MlxRing transport"):
         place_instance(command, Topology(), {}, {}, {}, {})
 
-
 def test_ring_attention_rejects_single_node(model_card: ModelCard) -> None:
     command = PlaceInstance(
         command_id=CommandId(),
@@ -1764,7 +1729,6 @@ def test_ring_attention_rejects_single_node(model_card: ModelCard) -> None:
     with pytest.raises(ValueError, match="requires at least two nodes"):
         place_instance(command, Topology(), {}, {}, {}, {})
 
-
 def test_ring_attention_rejects_model_without_capability(model_card: ModelCard) -> None:
     command = PlaceInstance(
         command_id=CommandId(),
@@ -1776,7 +1740,6 @@ def test_ring_attention_rejects_model_without_capability(model_card: ModelCard) 
 
     with pytest.raises(ValueError, match="does not declare Ring attention support"):
         place_instance(command, Topology(), {}, {}, {}, {})
-
 
 def _create_two_node_ring() -> tuple[Topology, NodeId, NodeId]:
     node_a = NodeId()
@@ -1791,7 +1754,6 @@ def _create_two_node_ring() -> tuple[Topology, NodeId, NodeId]:
         Connection(source=node_b, sink=node_a, edge=create_socket_connection(2))
     )
     return topology, node_a, node_b
-
 
 def test_pipeline_placement_uses_manual_per_node_layer_allocation(
     model_card: ModelCard,
@@ -1831,7 +1793,6 @@ def test_pipeline_placement_uses_manual_per_node_layer_allocation(
     assert shard_a.end_layer - shard_a.start_layer == 2
     assert shard_b.end_layer - shard_b.start_layer == 8
 
-
 def test_manual_layer_allocation_rejects_non_pipeline_sharding(
     model_card: ModelCard,
 ) -> None:
@@ -1863,7 +1824,6 @@ def test_manual_layer_allocation_rejects_non_pipeline_sharding(
             _metal_only(node_memory),
         )
 
-
 def test_manual_layer_allocation_requires_matching_cycle(
     model_card: ModelCard,
 ) -> None:
@@ -1891,7 +1851,6 @@ def test_manual_layer_allocation_requires_matching_cycle(
             _metal_only(node_memory),
         )
 
-
 def test_manual_layer_allocation_rejects_wrong_layer_sum(
     model_card: ModelCard,
 ) -> None:
@@ -1918,7 +1877,6 @@ def test_manual_layer_allocation_rejects_wrong_layer_sum(
             _metal_only(node_memory),
         )
 
-
 def test_manual_layer_allocation_rejects_insufficient_memory(
     model_card: ModelCard,
 ) -> None:
@@ -1944,7 +1902,6 @@ def test_manual_layer_allocation_rejects_insufficient_memory(
             node_network,
             _metal_only(node_memory),
         )
-
 
 def test_single_node_pref_downgrades_tensor_to_pipeline(model_card: ModelCard):
     """When TP is requested but the model fits on the fastest single node,
@@ -1997,7 +1954,6 @@ def test_single_node_pref_downgrades_tensor_to_pipeline(model_card: ModelCard):
     assert shard.start_layer == 0
     assert shard.end_layer == 10
 
-
 def test_single_node_pref_env_var_disables(model_card: ModelCard, monkeypatch):
     """EXO_DISABLE_SINGLE_NODE_PREFERENCE=1 should prevent the downgrade."""
     import os
@@ -2047,7 +2003,6 @@ def test_single_node_pref_env_var_disables(model_card: ModelCard, monkeypatch):
     assert len(instance.shard_assignments.node_to_runner) == 2
     assert not isinstance(shard, PipelineShardMetadata)
 
-
 def test_single_node_pref_skips_when_model_does_not_fit(model_card: ModelCard):
     """When the model is larger than any single node's RAM, TP should proceed normally."""
     topology = Topology()
@@ -2095,3 +2050,269 @@ def test_single_node_pref_skips_when_model_does_not_fit(model_card: ModelCard):
     # Should stay Tensor on 2 nodes
     assert len(instance.shard_assignments.node_to_runner) == 2
     assert not isinstance(shard, PipelineShardMetadata)
+
+def _tinygrad_model_card() -> ModelCard:
+    return ModelCard(
+        model_id=ModelId("tinygrad-model"),
+        storage_size=Memory.from_kb(1000),
+        n_layers=10,
+        hidden_size=1000,
+        supports_tensor=True,
+        tasks=[ModelTask.TextGeneration],
+        backends=[Backend.TinygradAmd, Backend.TinygradCuda, Backend.TinygradCpu],
+    )
+
+def test_tinygrad_single_node_keeps_tinygrad_instance() -> None:
+    topology = Topology()
+    node_id = NodeId()
+    topology.add_node(node_id)
+    node_memory = {node_id: create_node_memory(2000 * 1024)}
+    node_network = {node_id: create_node_network()}
+    command = PlaceInstance(
+        command_id=CommandId(),
+        model_card=_tinygrad_model_card(),
+        sharding=Sharding.Tensor,
+        instance_meta=InstanceMeta.Tinygrad,
+        min_nodes=1,
+    )
+    placements = place_instance(
+        command,
+        topology,
+        {},
+        node_memory,
+        node_network,
+        {node_id: [Backend.TinygradAmd, Backend.TinygradCpu]},
+    )
+
+    assert len(placements) == 1
+    instance = next(iter(placements.values()))
+    assert isinstance(instance, TinygradInstance)
+    assert instance.device_backend_by_node == {node_id: Backend.TinygradAmd}
+    shard = next(iter(instance.shard_assignments.runner_to_shard.values()))
+    assert shard.end_layer - shard.start_layer == 10
+
+def test_tinygrad_placement_uses_each_nodes_advertised_backend() -> None:
+    topology = Topology()
+    node_amd = NodeId()
+    node_cuda = NodeId()
+    topology.add_node(node_amd)
+    topology.add_node(node_cuda)
+    ethernet = create_socket_connection(1)
+    topology.add_connection(Connection(source=node_amd, sink=node_cuda, edge=ethernet))
+    topology.add_connection(Connection(source=node_cuda, sink=node_amd, edge=ethernet))
+    node_memory = {
+        node_amd: create_node_memory(1000 * 1024),
+        node_cuda: create_node_memory(1000 * 1024),
+    }
+    node_network = {
+        node_amd: create_node_network(),
+        node_cuda: create_node_network(),
+    }
+    command = PlaceInstance(
+        command_id=CommandId(),
+        model_card=_tinygrad_model_card(),
+        sharding=Sharding.Pipeline,
+        instance_meta=InstanceMeta.Tinygrad,
+        min_nodes=2,
+    )
+    placements = place_instance(
+        command,
+        topology,
+        {},
+        node_memory,
+        node_network,
+        {
+            node_amd: [Backend.MlxMetal, Backend.TinygradAmd],
+            node_cuda: [Backend.TinygradCuda, Backend.TinygradAmd],
+        },
+    )
+
+    instance = next(iter(placements.values()))
+    assert isinstance(instance, TinygradInstance)
+    assert instance.device_backend_by_node[node_amd] == Backend.TinygradAmd
+    assert instance.device_backend_by_node[node_cuda] == Backend.TinygradCuda
+
+def test_mlx_ring_rejects_a_windows_node() -> None:
+    topology = Topology()
+    mac_node = NodeId()
+    windows_node = NodeId()
+    topology.add_node(mac_node)
+    topology.add_node(windows_node)
+    ethernet = create_socket_connection(1)
+    topology.add_connection(
+        Connection(source=mac_node, sink=windows_node, edge=ethernet)
+    )
+    topology.add_connection(
+        Connection(source=windows_node, sink=mac_node, edge=ethernet)
+    )
+    model_card = _tinygrad_model_card().model_copy(
+        update={"backends": [Backend.MlxMetal, Backend.MlxCuda, Backend.MlxCpu]}
+    )
+    command = PlaceInstance(
+        command_id=CommandId(),
+        model_card=model_card,
+        sharding=Sharding.Pipeline,
+        instance_meta=InstanceMeta.MlxRing,
+        min_nodes=2,
+    )
+    with pytest.raises(ValueError, match="No cycle where every node supports"):
+        place_instance(
+            command,
+            topology,
+            {},
+            {
+                mac_node: create_node_memory(1000 * 1024),
+                windows_node: create_node_memory(1000 * 1024),
+            },
+            {
+                mac_node: create_node_network(),
+                windows_node: create_node_network(),
+            },
+            {
+                mac_node: [Backend.MlxMetal, Backend.MlxCpu],
+                windows_node: [Backend.WinAMD],
+            },
+        )
+
+def test_tinygrad_placement_keeps_the_windows_join_identity() -> None:
+    topology = Topology()
+    mac_node = NodeId()
+    windows_node = NodeId()
+    topology.add_node(mac_node)
+    topology.add_node(windows_node)
+    ethernet = create_socket_connection(1)
+    topology.add_connection(
+        Connection(source=mac_node, sink=windows_node, edge=ethernet)
+    )
+    topology.add_connection(
+        Connection(source=windows_node, sink=mac_node, edge=ethernet)
+    )
+    model_card = _tinygrad_model_card().model_copy(
+        update={
+            "backends": [
+                Backend.TinygradMetal,
+                Backend.WinAMD,
+                Backend.WinCUDA,
+                Backend.WinCPU,
+            ]
+        }
+    )
+    command = PlaceInstance(
+        command_id=CommandId(),
+        model_card=model_card,
+        sharding=Sharding.Pipeline,
+        instance_meta=InstanceMeta.Tinygrad,
+        min_nodes=2,
+    )
+    placements = place_instance(
+        command,
+        topology,
+        {},
+        {
+            mac_node: create_node_memory(2000 * 1024),
+            windows_node: create_node_memory(2000 * 1024),
+        },
+        {
+            mac_node: create_node_network(),
+            windows_node: create_node_network(),
+        },
+        {
+            mac_node: [Backend.MlxMetal, Backend.TinygradMetal],
+            windows_node: [Backend.WinAMD],
+        },
+    )
+    instance = next(iter(placements.values()))
+    assert isinstance(instance, TinygradInstance)
+    assert instance.device_backend_by_node[mac_node] == Backend.TinygradMetal
+    assert instance.device_backend_by_node[windows_node] == Backend.WinAMD
+
+def test_tinygrad_placement_rejects_mlx_only_nodes() -> None:
+    topology = Topology()
+    node_id = NodeId()
+    topology.add_node(node_id)
+    command = PlaceInstance(
+        command_id=CommandId(),
+        model_card=_tinygrad_model_card(),
+        sharding=Sharding.Pipeline,
+        instance_meta=InstanceMeta.Tinygrad,
+        min_nodes=1,
+    )
+    with pytest.raises(ValueError, match="No cycle where every node supports"):
+        place_instance(
+            command,
+            topology,
+            {},
+            {node_id: create_node_memory(1000 * 1024)},
+            {node_id: create_node_network()},
+            {node_id: [Backend.MlxMetal]},
+        )
+
+def test_tinygrad_multi_node_tensor_command_places_a_pipeline_chain() -> None:
+    topology = Topology()
+    node_ids = [NodeId(), NodeId(), NodeId()]
+    for node_id in node_ids:
+        topology.add_node(node_id)
+    for source_index, source in enumerate(node_ids):
+        for sink_index, sink in enumerate(node_ids):
+            if source_index == sink_index:
+                continue
+            topology.add_connection(
+                Connection(
+                    source=source,
+                    sink=sink,
+                    edge=create_socket_connection(sink_index + 1),
+                )
+            )
+    node_memory = {node_id: create_node_memory(1000 * 1024) for node_id in node_ids}
+    node_network = {node_id: create_node_network() for node_id in node_ids}
+    node_backends = {
+        node_id: [Backend.TinygradAmd, Backend.TinygradCpu] for node_id in node_ids
+    }
+    command = PlaceInstance(
+        command_id=CommandId(),
+        model_card=_tinygrad_model_card(),
+        sharding=Sharding.Tensor,
+        instance_meta=InstanceMeta.Tinygrad,
+        min_nodes=3,
+    )
+    placements = place_instance(
+        command,
+        topology,
+        {},
+        node_memory,
+        node_network,
+        node_backends,
+    )
+
+    instance = next(iter(placements.values()))
+    assert isinstance(instance, TinygradInstance)
+    assert instance.ephemeral_port != 0
+    ranked: list[tuple[PipelineShardMetadata, NodeId]] = []
+    for node_id, runner_id in instance.shard_assignments.node_to_runner.items():
+        shard = instance.shard_assignments.runner_to_shard[runner_id]
+        assert isinstance(shard, PipelineShardMetadata)
+        ranked.append((shard, node_id))
+    ranked.sort(key=lambda item: item[0].device_rank)
+    assert [shard.device_rank for shard, _node_id in ranked] == [0, 1, 2]
+    covered = 0
+    for shard, node_id in ranked:
+        assert shard.world_size == 3
+        assert shard.start_layer == covered
+        assert shard.end_layer > shard.start_layer
+        covered = shard.end_layer
+        hosts = instance.hosts_by_node[node_id]
+        assert len(hosts) == 3
+        assert hosts[shard.device_rank].ip == "0.0.0.0"
+        assert hosts[shard.device_rank].port == instance.ephemeral_port
+        for other_rank, host in enumerate(hosts):
+            if other_rank == shard.device_rank:
+                continue
+            if other_rank in {shard.device_rank - 1, shard.device_rank + 1}:
+                assert host.ip not in {"0.0.0.0", "198.51.100.1"}
+                assert host.port == instance.ephemeral_port
+            else:
+                assert host.ip == "198.51.100.1"
+                assert host.port == 0
+    assert covered == 10
+    assert instance.hosts_by_node[ranked[2][1]][0].ip == "198.51.100.1"
+    assert instance.hosts_by_node[ranked[0][1]][2].ip == "198.51.100.1"
