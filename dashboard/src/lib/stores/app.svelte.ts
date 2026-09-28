@@ -8,6 +8,10 @@
  */
 
 import { browser } from "$app/environment";
+import {
+  extractApiErrorMessage,
+  readApiErrorMessage,
+} from "$lib/utils/api_errors";
 
 // T27: sampling params persistence key + loader
 const SAMPLING_PARAMS_KEY = "exo-sampling-params-v1";
@@ -1903,8 +1907,7 @@ class AppStore {
       });
 
       if (!response.ok) {
-        const errorText = await response.text();
-        throw new Error(`API error: ${response.status} - ${errorText}`);
+        throw new Error(await readApiErrorMessage(response));
       }
 
       const reader = response.body?.getReader();
@@ -2128,8 +2131,7 @@ class AppStore {
       });
 
       if (!response.ok) {
-        const errorText = await response.text();
-        throw new Error(`${response.status} - ${errorText}`);
+        throw new Error(await readApiErrorMessage(response));
       }
 
       const reader = response.body?.getReader();
@@ -2350,6 +2352,7 @@ class AppStore {
   /**
    * Parse an SSE stream and invoke a callback for each parsed JSON chunk.
    * Handles buffering, line splitting, and conversation deletion checks.
+   * Throws with the server's message if the stream contains an error chunk.
    *
    * @param reader - The stream reader from fetch response.body.getReader()
    * @param targetConversationId - The conversation ID to check for deletion
@@ -2402,12 +2405,16 @@ class AppStore {
           const data = trimmed.slice(6);
           if (data === "[DONE]") continue;
 
+          let streamError: string | null = null;
           try {
             const parsed = JSON.parse(data) as T;
-            onChunk(parsed);
+            // The server reports mid-stream failures as an `error` chunk
+            streamError = extractApiErrorMessage(parsed);
+            if (!streamError) onChunk(parsed);
           } catch {
             // Skip malformed JSON
           }
+          if (streamError) throw new Error(streamError);
         }
       }
     }
@@ -2416,12 +2423,15 @@ class AppStore {
     if (buffer.trim() && this.conversationExists(targetConversationId)) {
       const trimmed = buffer.trim();
       if (trimmed.startsWith("data: ") && trimmed.slice(6) !== "[DONE]") {
+        let streamError: string | null = null;
         try {
           const parsed = JSON.parse(trimmed.slice(6)) as T;
-          onChunk(parsed);
+          streamError = extractApiErrorMessage(parsed);
+          if (!streamError) onChunk(parsed);
         } catch {
           // Skip malformed JSON
         }
+        if (streamError) throw new Error(streamError);
       }
     }
   }
@@ -2778,8 +2788,7 @@ class AppStore {
       });
 
       if (!response.ok) {
-        const errorText = await response.text();
-        throw new Error(`API error: ${response.status} - ${errorText}`);
+        throw new Error(await readApiErrorMessage(response));
       }
 
       const reader = response.body?.getReader();
@@ -3157,8 +3166,7 @@ class AppStore {
       });
 
       if (!response.ok) {
-        const errorText = await response.text();
-        throw new Error(`API error: ${response.status} - ${errorText}`);
+        throw new Error(await readApiErrorMessage(response));
       }
 
       // Streaming requires both stream=true AND partialImages > 0
@@ -3445,8 +3453,7 @@ class AppStore {
       });
 
       if (!apiResponse.ok) {
-        const errorText = await apiResponse.text();
-        throw new Error(`API error: ${apiResponse.status} - ${errorText}`);
+        throw new Error(await readApiErrorMessage(apiResponse));
       }
 
       // Streaming requires both stream=true AND partialImages > 0
