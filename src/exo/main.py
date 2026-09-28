@@ -66,6 +66,7 @@ class Node:
         )
         await router.register_topic(topics.GLOBAL_EVENTS)
         await router.register_topic(topics.LOCAL_EVENTS)
+        await router.register_topic(topics.STATE_SNAPSHOTS)
         await router.register_topic(topics.COMMANDS)
         await router.register_topic(topics.ELECTION_MESSAGES)
         await router.register_topic(topics.CONNECTION_MESSAGES)
@@ -80,6 +81,7 @@ class Node:
             command_sender=router.sender(topics.COMMANDS),
             external_outbound=router.sender(topics.LOCAL_EVENTS),
             external_inbound=router.receiver(topics.GLOBAL_EVENTS),
+            snapshot_inbound=router.receiver(topics.STATE_SNAPSHOTS),
         )
 
         logger.info(f"Starting node {node_id}")
@@ -135,6 +137,7 @@ class Node:
                 session_id,
                 event_sender=event_router.sender(),
                 global_event_sender=router.sender(topics.GLOBAL_EVENTS),
+                snapshot_sender=router.sender(topics.STATE_SNAPSHOTS),
                 local_event_receiver=router.receiver(topics.LOCAL_EVENTS),
                 command_receiver=router.receiver(topics.COMMANDS),
                 download_command_sender=router.sender(topics.DOWNLOAD_COMMANDS),
@@ -281,6 +284,7 @@ class Node:
                         self.router.sender(topics.COMMANDS),
                         self.router.receiver(topics.GLOBAL_EVENTS),
                         self.router.sender(topics.LOCAL_EVENTS),
+                        self.router.receiver(topics.STATE_SNAPSHOTS),
                     )
 
                 if (
@@ -309,6 +313,7 @@ class Node:
                         result.session_id,
                         event_sender=self.event_router.sender(),
                         global_event_sender=self.router.sender(topics.GLOBAL_EVENTS),
+                        snapshot_sender=self.router.sender(topics.STATE_SNAPSHOTS),
                         local_event_receiver=self.router.receiver(topics.LOCAL_EVENTS),
                         command_receiver=self.router.receiver(topics.COMMANDS),
                         download_command_sender=self.router.sender(

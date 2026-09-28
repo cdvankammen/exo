@@ -46,6 +46,7 @@ from exo.shared.types.topology import Connection, RDMAConnection
 from exo.shared.types.worker.downloads import DownloadProgress
 from exo.shared.types.worker.instances import Instance, InstanceId
 from exo.shared.types.worker.runners import (
+    RunnerDegraded,
     RunnerId,
     RunnerReady,
     RunnerShutdown,
