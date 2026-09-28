@@ -3736,9 +3736,14 @@ class AppStore {
       );
       if (!response.ok) {
         const errorText = await response.text();
-        throw new Error(
-          `Failed to delete download: ${response.status} - ${errorText}`,
-        );
+        let message = errorText || `${response.status} ${response.statusText}`;
+        try {
+          const detail = (JSON.parse(errorText) as { detail?: unknown }).detail;
+          if (typeof detail === "string" && detail) message = detail;
+        } catch {
+          // Not JSON; keep the raw body
+        }
+        throw new Error(message);
       }
     } catch (error) {
       console.error("Error deleting download:", error);
