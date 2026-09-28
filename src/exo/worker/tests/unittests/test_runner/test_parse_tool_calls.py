@@ -200,6 +200,19 @@ class TestParseToolCalls:
         args = json.loads(results[0].tool_calls[0].arguments)  # pyright: ignore[reportAny]
         assert args == {"action": "output", "id": "0"}
 
+    def test_integer_schema_accepts_a_whole_number_written_as_a_decimal(self):
+        from exo.worker.runner.llm_inference.tool_parsers import (
+            _coerce_tool_arg_with_schema,
+        )
+
+        schema = {"type": "integer"}
+        assert _coerce_tool_arg_with_schema("1.0", schema) == 1
+        assert _coerce_tool_arg_with_schema(" 1.0 ", schema) == 1
+        assert _coerce_tool_arg_with_schema(1.0, schema) == 1
+        assert _coerce_tool_arg_with_schema("0", schema) == 0
+        assert _coerce_tool_arg_with_schema("1.5", schema) == "1.5"
+        assert _coerce_tool_arg_with_schema(True, schema) is True
+
 
 def _markup_leak_parser(_text: str) -> dict[str, Any]:
     """Mimics a format parser that leaked protocol markup into the call."""
