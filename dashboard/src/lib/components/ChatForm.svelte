@@ -31,6 +31,7 @@
     modelTasks?: Record<string, string[]>;
     modelCapabilities?: Record<string, string[]>;
     onSend?: () => void;
+    /** Return (or resolve to) false if the message was not sent or queued; it is put back in the input. */
     onAutoSend: (
       content: string,
       files?: {
@@ -40,7 +41,7 @@
         textContent?: string;
         preview?: string;
       }[],
-    ) => void;
+    ) => void | boolean | Promise<void | boolean>;
     onOpenModelPicker?: () => void;
     modelDisplayOverride?: string;
   }
@@ -225,7 +226,15 @@
 
     // Parent controls all send logic (including image routing,
     // launching non-running models before sending, etc.)
-    onAutoSend(content, files);
+    const accepted = onAutoSend(content, files);
+    // Put the message back if the parent couldn't send or queue it
+    // (e.g. the user declined a download or the launch failed)
+    void Promise.resolve(accepted).then((ok) => {
+      if (ok === false && !message && uploadedFiles.length === 0) {
+        message = content;
+        uploadedFiles = files;
+      }
+    });
     onSend?.();
     setTimeout(() => textareaRef?.focus(), 10);
   }
