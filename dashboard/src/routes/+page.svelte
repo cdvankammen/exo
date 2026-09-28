@@ -510,7 +510,7 @@
     }
   });
 
-  // ── Step 4: "A device disconnects... exo self-heals" — full disconnect+heal sequence ──
+  // ── Step 4: "A device disconnects... relaunch on the remaining devices" ──
   $effect(() => {
     if (onboardingStep === 4) {
       showContinueButton = false;
@@ -538,13 +538,13 @@
         combinedLabelOpacity.set(0);
       }, 1600);
 
-      // Phase 2: Self-heal — crossfade title + subtitle
+      // Phase 2: Relaunch on what is left — crossfade title + subtitle
       const t4 = setTimeout(() => {
         titleOpacity.set(0, { duration: 250 });
         subtitleOpacity.set(0, { duration: 250 });
       }, 2550);
       const t4b = setTimeout(() => {
-        stepTitle = "exo self-heals";
+        stepTitle = "Relaunch on the remaining devices";
         titleOpacity.set(1, { duration: 400 });
         subtitleOpacity.set(1, { duration: 400 });
       }, 2800);
@@ -2187,6 +2187,7 @@
     const wrappedInstance = instanceData[instanceId];
     const deletedInstanceModelId = getInstanceModelId(wrappedInstance);
     const wasSelected = selectedChatModel() === deletedInstanceModelId;
+    userDeletedInstanceIds.add(instanceId);
 
     try {
       const response = await fetch(`/instance/${instanceId}`, {
@@ -2195,6 +2196,7 @@
       });
 
       if (!response.ok) {
+        userDeletedInstanceIds.delete(instanceId);
         console.error("Failed to delete instance:", response.status);
         addToast({ type: "error", message: "Failed to eject instance" });
         return;
@@ -2230,6 +2232,7 @@
         }
       }
     } catch (error) {
+      userDeletedInstanceIds.delete(instanceId);
       console.error("Error deleting instance:", error);
     }
   }
@@ -2738,6 +2741,47 @@
     }
 
     previousInstanceStatuses = currentStatuses;
+  });
+
+  // ── Instances that disappear without being deleted from this dashboard ──
+  // The master removes an instance when one of its devices leaves the cluster
+  // and doesn't relaunch it, so say so and offer to relaunch.
+  const userDeletedInstanceIds = new Set<string>();
+  let previousInstanceSnapshot: Record<
+    string,
+    { modelId: string; nodeIds: string[] }
+  > = {};
+
+  $effect(() => {
+    const current: typeof previousInstanceSnapshot = {};
+    for (const [id, inst] of Object.entries(instanceData)) {
+      current[id] = {
+        modelId: getInstanceModelId(inst),
+        nodeIds: [...unwrapInstanceNodes(inst)],
+      };
+    }
+    const connectedNodeIds = new Set(Object.keys(data?.nodes ?? {}));
+    for (const [id, lost] of Object.entries(previousInstanceSnapshot)) {
+      if (current[id] || userDeletedInstanceIds.delete(id)) continue;
+      if (lost.modelId === "Unknown" || lost.modelId === "Unknown Model")
+        continue;
+      const shortName = lost.modelId.split("/").pop() ?? lost.modelId;
+      const deviceLeft =
+        connectedNodeIds.size > 0 &&
+        lost.nodeIds.some((nodeId) => !connectedNodeIds.has(nodeId));
+      addToast({
+        type: "warning",
+        message: deviceLeft
+          ? `${shortName} stopped — a device left the cluster`
+          : `${shortName} stopped`,
+        persistent: deviceLeft,
+        action: {
+          label: "Relaunch",
+          onClick: () => launchModelForChat(lost.modelId, "picker", true),
+        },
+      });
+    }
+    previousInstanceSnapshot = current;
   });
 
   // ── Connection status toasts ──
@@ -4249,8 +4293,8 @@
                 The model is automatically distributed. Each device handles a
                 piece.
               {:else if onboardingStep === 4}
-                {stepTitle === "exo self-heals"
-                  ? "exo automatically redistributes the model so inference continues without interruption."
+                {stepTitle === "Relaunch on the remaining devices"
+                  ? "Models using that device stop. You can relaunch them on the devices that are left."
                   : "Devices can leave anytime. Laptops close, machines restart."}
               {:else}
                 &nbsp;
