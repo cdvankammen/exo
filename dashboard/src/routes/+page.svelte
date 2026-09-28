@@ -1847,6 +1847,28 @@
     };
   }
 
+  // Models fully downloaded on at least one node
+  function getDownloadedModelIds(): Set<string> {
+    const ids = new Set<string>();
+    for (const nodeDownloads of Object.values(downloadsData ?? {})) {
+      if (!Array.isArray(nodeDownloads)) continue;
+      for (const entry of nodeDownloads) {
+        const [kind, payload] = getTagged(entry);
+        if (
+          kind !== "DownloadCompleted" ||
+          !payload ||
+          typeof payload !== "object"
+        )
+          continue;
+        const modelId = extractModelIdFromDownload(
+          payload as Record<string, unknown>,
+        );
+        if (modelId) ids.add(modelId);
+      }
+    }
+    return ids;
+  }
+
   function getModelDownloadStatus(
     modelId: string,
     nodeIds?: string[],
@@ -2941,7 +2963,7 @@
     modelId: string,
     category: string,
     skipCreate = false,
-  ) {
+  ): Promise<boolean> {
     userForcedIdle = false;
     pendingChatModelId = modelId;
     selectedChatCategory = category;
@@ -2951,7 +2973,7 @@
       setSelectedChatModel(modelId);
       if (!skipCreate) createConversation();
       chatLaunchState = "ready";
-      return;
+      return true;
     }
 
     // Already has an instance (downloading/loading) — attach to its progress
@@ -2965,7 +2987,7 @@
       } else {
         chatLaunchState = "launching";
       }
-      return;
+      return true;
     }
 
     chatLaunchState = "launching";
@@ -2981,7 +3003,7 @@
           message: `Failed to get placements: ${await readApiErrorMessage(res)}`,
         });
         chatLaunchState = "idle";
-        return;
+        return false;
       }
       const data: { previews: PlacementPreview[] } = await res.json();
       const placement = pickOptimalPlacement(data.previews);
@@ -2991,7 +3013,7 @@
           message: "No valid placement found for this model",
         });
         chatLaunchState = "idle";
-        return;
+        return false;
       }
 
       // Launch the instance
@@ -3009,16 +3031,18 @@
           message: `Failed to launch: ${await readApiErrorMessage(launchRes)}`,
         });
         chatLaunchState = "idle";
-        return;
+        return false;
       }
 
       setSelectedChatModel(modelId);
       recordRecentLaunch(modelId);
       if (!skipCreate) createConversation();
       chatLaunchState = "downloading";
+      return true;
     } catch (error) {
       addToast({ type: "error", message: `Network error: ${error}` });
       chatLaunchState = "idle";
+      return false;
     }
   }
 
@@ -3032,7 +3056,7 @@
       textContent?: string;
       preview?: string;
     }[],
-  ) {
+  ): Promise<boolean> {
     // Clear forced-idle so restore effect resumes normal operation
     userForcedIdle = false;
 
@@ -3061,11 +3085,16 @@
       family: m.family ?? "",
       quantization: m.quantization ?? "",
     }));
-    const autoModel = pickAutoModel(
-      modelInfos,
-      totalMem,
-      memoryOverrideEnabled,
-    );
+    // Prefer models already downloaded on the cluster, so typing a message
+    // doesn't quietly start a large download
+    const downloadedModelIds = getDownloadedModelIds();
+    const autoModel =
+      pickAutoModel(
+        modelInfos.filter((m) => downloadedModelIds.has(m.id)),
+        totalMem,
+        memoryOverrideEnabled,
+      ) ??
+      pickAutoModel(modelInfos, totalMem, memoryOverrideEnabled);
 
     // Prefer running model unless auto-pick is a strictly better tier
     if (bestRunning) {
@@ -3077,7 +3106,7 @@
         setSelectedChatModel(bestRunning.id);
         if (!chatStarted) createConversation();
         routeMessage(content, files);
-        return;
+        return true;
       }
     }
 
@@ -3086,7 +3115,7 @@
         type: "error",
         message: "No model fits in your available memory",
       });
-      return;
+      return false;
     }
 
     // Check if the chosen auto model is already running
@@ -3094,7 +3123,7 @@
       setSelectedChatModel(autoModel.id);
       if (!chatStarted) createConversation();
       routeMessage(content, files);
-      return;
+      return true;
     }
 
     // Already has an instance (downloading/loading) — attach to its progress
@@ -3103,14 +3132,14 @@
       setSelectedChatModel(autoModel.id);
       pendingChatModelId = autoModel.id;
       if (!chatStarted) createConversation();
-      pendingAutoMessage = { content, files };
+      pendingAutoMessage = { content, files, modelId: autoModel.id };
       const dlStatus = getModelDownloadStatus(autoModel.id);
       if (dlStatus.isDownloading) {
         chatLaunchState = "downloading";
       } else {
         chatLaunchState = "launching";
       }
-      return;
+      return true;
     }
 
     // Need to launch first, then send
@@ -3128,14 +3157,40 @@
           message: `Failed to get placements: ${await readApiErrorMessage(res)}`,
         });
         chatLaunchState = "idle";
-        return;
+        return false;
       }
       const data: { previews: PlacementPreview[] } = await res.json();
-      const placement = pickOptimalPlacement(data.previews);
+      // Prefer a placement on devices that already have the model
+      const isDownloadedOn = (preview: PlacementPreview) => {
+        const nodeIds = [...unwrapInstanceNodes(preview.instance)];
+        const completed = getModelDownloadStatus(
+          autoModel.id,
+          nodeIds,
+        ).perNode.filter((node) => node.status === "completed").length;
+        return nodeIds.length > 0 && completed === nodeIds.length;
+      };
+      const placement =
+        pickOptimalPlacement(data.previews.filter(isDownloadedOn)) ??
+        pickOptimalPlacement(data.previews);
       if (!placement) {
         addToast({ type: "error", message: "No valid placement found" });
         chatLaunchState = "idle";
-        return;
+        return false;
+      }
+
+      // Ask before starting a download the user didn't choose
+      if (!isDownloadedOn(placement)) {
+        const sizeGB = autoModel.storage_size_megabytes / 1024;
+        const name = autoModel.name || autoModel.id.split("/").pop();
+        if (
+          !confirm(
+            `Download ${name} (${sizeGB >= 10 ? Math.round(sizeGB) : sizeGB.toFixed(1)} GB)?\n\n` +
+              "It isn't downloaded yet. Your message will be sent when it's ready.",
+          )
+        ) {
+          chatLaunchState = "idle";
+          return false;
+        }
       }
 
       const launchRes = await fetch("/instance", {
@@ -3152,7 +3207,7 @@
           message: `Failed to launch: ${await readApiErrorMessage(launchRes)}`,
         });
         chatLaunchState = "idle";
-        return;
+        return false;
       }
 
       setSelectedChatModel(autoModel.id);
@@ -3161,16 +3216,19 @@
       chatLaunchState = "downloading";
 
       // Queue the message to send once model is ready
-      pendingAutoMessage = { content, files };
+      pendingAutoMessage = { content, files, modelId: autoModel.id };
+      return true;
     } catch (error) {
       addToast({ type: "error", message: `Network error: ${error}` });
       chatLaunchState = "idle";
+      return false;
     }
   }
 
-  // Pending message to send after auto-launch completes
+  // Pending message to send after auto-launch completes, and the model it waits for
   let pendingAutoMessage = $state<{
     content: string;
+    modelId: string;
     files?: {
       id: string;
       name: string;
@@ -3245,11 +3303,13 @@
     // Check if model is now ready
     if (hasRunningInstance(pendingChatModelId)) {
       chatLaunchState = "ready";
-      // Send pending auto message if any
+      // Send pending auto message if any (only to the model it was queued for)
       if (pendingAutoMessage) {
         const msg = pendingAutoMessage;
         pendingAutoMessage = null;
-        routeMessage(msg.content, msg.files);
+        if (msg.modelId === pendingChatModelId) {
+          routeMessage(msg.content, msg.files);
+        }
       }
       return;
     }
@@ -3266,6 +3326,26 @@
     // Check if currently downloading
     if (chatLaunchDownload) {
       chatLaunchState = "downloading";
+    }
+  });
+
+  // Drop a queued message if the model it's waiting for fails to start
+  $effect(() => {
+    const queued = pendingAutoMessage;
+    if (!queued) return;
+    let instancesForModel = 0;
+    let failedInstances = 0;
+    for (const [id, inst] of Object.entries(instanceData)) {
+      if (getInstanceModelId(inst) !== queued.modelId) continue;
+      instancesForModel++;
+      if (getInstanceDownloadStatus(id, inst).isFailed) failedInstances++;
+    }
+    if (instancesForModel > 0 && failedInstances === instancesForModel) {
+      pendingAutoMessage = null;
+      addToast({
+        type: "error",
+        message: `Message not sent: ${queued.modelId.split("/").pop()} failed to start`,
+      });
     }
   });
 
@@ -3322,19 +3402,19 @@
       textContent?: string;
       preview?: string;
     }[],
-  ) {
+  ): boolean | Promise<boolean> {
     const model = selectedChatModel();
 
     // Model is selected and running — send directly
     if (model && hasRunningInstance(model)) {
       chatLaunchState = "ready";
       routeMessage(content, files);
-      return;
+      return true;
     }
 
     // Model is selected but NOT running — launch it, queue the message
     if (model) {
-      pendingAutoMessage = { content, files };
+      pendingAutoMessage = { content, files, modelId: model };
       userForcedIdle = false;
       // The selected model is already being placed or loaded; keep the queued
       // message and let the existing launch state effects send it once ready.
@@ -3343,14 +3423,21 @@
         chatLaunchState !== "idle" &&
         chatLaunchState !== "ready"
       ) {
-        return;
+        return true;
       }
-      launchModelForChat(model, "picker", messages().length > 0);
-      return;
+      return launchModelForChat(model, "picker", messages().length > 0).then(
+        (launched) => {
+          // Don't keep a message queued for a launch that failed
+          if (!launched && pendingAutoMessage?.modelId === model) {
+            pendingAutoMessage = null;
+          }
+          return launched;
+        },
+      );
     }
 
     // No model selected — fall through to auto-pick
-    handleAutoSend(content, files);
+    return handleAutoSend(content, files);
   }
 
   // Helper to get the number of nodes in a placement preview
@@ -6425,6 +6512,43 @@
                         style="width: {chatLaunchLoadProgress?.percentage ??
                           0}%"
                       ></div>
+                    </div>
+                  </div>
+                {/if}
+
+                {#if pendingAutoMessage}
+                  {@const attachmentCount =
+                    pendingAutoMessage.files?.length ?? 0}
+                  <!-- Queued message, sent automatically once the model is ready -->
+                  <div class="w-full flex flex-col items-end gap-1.5">
+                    <div
+                      class="command-panel rounded-lg rounded-tr-sm px-4 py-3 max-w-full"
+                    >
+                      <p
+                        class="text-sm text-white/80 whitespace-pre-wrap break-words line-clamp-4"
+                      >
+                        {pendingAutoMessage.content}
+                      </p>
+                      {#if attachmentCount > 0}
+                        <p
+                          class="text-[10px] text-exo-light-gray/60 font-mono mt-1"
+                        >
+                          + {attachmentCount}
+                          {attachmentCount === 1 ? "attachment" : "attachments"}
+                        </p>
+                      {/if}
+                    </div>
+                    <div
+                      class="flex items-center gap-3 text-[10px] font-mono uppercase tracking-wider text-exo-light-gray/60"
+                    >
+                      <span>Sends when the model is ready</span>
+                      <button
+                        type="button"
+                        onclick={() => (pendingAutoMessage = null)}
+                        class="uppercase text-exo-light-gray hover:text-exo-yellow transition-colors cursor-pointer"
+                      >
+                        Don't send
+                      </button>
                     </div>
                   </div>
                 {/if}
