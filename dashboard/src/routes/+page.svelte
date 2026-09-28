@@ -5445,7 +5445,11 @@
                             >{id.slice(0, 8).toUpperCase()}</span
                           >
                         </div>
-                        <EjectButton {id} onConfirm={ejectInstance} />
+                        <EjectButton
+                          {id}
+                          modelName={instanceModelId}
+                          onConfirm={ejectInstance}
+                        />
                       </div>
                       <div class="pl-2">
                         <div
@@ -6682,7 +6686,11 @@
                               >{id.slice(0, 8).toUpperCase()}</span
                             >
                           </div>
-                          <EjectButton {id} onConfirm={ejectInstance} />
+                          <EjectButton
+                            {id}
+                            modelName={instanceModelId}
+                            onConfirm={ejectInstance}
+                          />
                         </div>
                         <div class="pl-2">
                           <div
