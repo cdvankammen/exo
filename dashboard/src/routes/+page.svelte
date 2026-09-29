@@ -74,6 +74,7 @@
   } from "$lib/stores/app.svelte";
   import { addToast, dismissByMessage } from "$lib/stores/toast.svelte";
   import { readApiErrorMessage } from "$lib/utils/api_errors";
+  import { getNodesWithModelDownloaded } from "$lib/utils/downloads";
   import HeaderNav from "$lib/components/HeaderNav.svelte";
   import DeviceIcon from "$lib/components/DeviceIcon.svelte";
   import { fade, fly, slide } from "svelte/transition";
@@ -3225,6 +3226,69 @@
     }
   }
 
+  // ── Download confirmation for auto-picked models ──
+  type DownloadChoice = "download" | "alternative" | "cancel";
+  let downloadChoicePrompt = $state<{
+    modelName: string;
+    sizeLabel: string;
+    partlyDownloaded: boolean;
+    alternativeName: string | null;
+    alternativeRunning: boolean;
+    autoPicked: boolean;
+    resolve: (choice: DownloadChoice) => void;
+  } | null>(null);
+
+  function askDownloadChoice(
+    modelId: string,
+    alternativeId: string | null,
+    alternativeRunning: boolean,
+    // false when the user picked the model (e.g. a recommendation card)
+    autoPicked = true,
+  ): Promise<DownloadChoice> {
+    // Only one prompt at a time: an older one counts as cancelled
+    if (downloadChoicePrompt) answerDownloadChoice("cancel");
+    const model = models.find((m) => m.id === modelId);
+    const sizeGB = model ? getModelSizeGB(model) : 0;
+    // Furthest partial download of this model on any device
+    const partPercent = Math.max(
+      0,
+      ...getModelDownloadStatus(modelId)
+        .perNode.filter((node) => node.status !== "completed")
+        .map((node) => node.percentage),
+    );
+    const formatGB = (gb: number) =>
+      gb >= 10 ? `${Math.round(gb)}` : gb.toFixed(1);
+    const shortName = (id: string) => id.split("/").pop() ?? id;
+    return new Promise((resolve) => {
+      downloadChoicePrompt = {
+        modelName: shortName(modelId),
+        sizeLabel:
+          partPercent > 0
+            ? `${formatGB(sizeGB * (1 - partPercent / 100))} of ${formatGB(sizeGB)} GB left`
+            : `${formatGB(sizeGB)} GB`,
+        partlyDownloaded: partPercent > 0,
+        alternativeName: alternativeId ? shortName(alternativeId) : null,
+        alternativeRunning,
+        autoPicked,
+        resolve,
+      };
+    });
+  }
+
+  // Open the prompt as a modal (the rest of the page is inert, so nothing
+  // can be typed behind it) and focus the safe choice: the alternative if
+  // there is one, otherwise Cancel
+  function showDownloadChoiceDialog(dialog: HTMLDialogElement) {
+    dialog.showModal();
+    dialog.querySelector<HTMLButtonElement>("[data-default-choice]")?.focus();
+  }
+
+  function answerDownloadChoice(choice: DownloadChoice) {
+    const prompt = downloadChoicePrompt;
+    downloadChoicePrompt = null;
+    prompt?.resolve(choice);
+  }
+
   // Pending message to send after auto-launch completes, and the model it waits for
   let pendingAutoMessage = $state<{
     content: string;
@@ -3364,9 +3428,67 @@
     return false;
   });
 
-  // Handle model selection from ChatModelSelector
-  function handleChatModelSelect(modelId: string, category: string) {
+  // Whether each model is running or on disk, for the New Chat
+  // recommendation cards
+  const chatModelStatus = $derived.by(() => {
+    const status: Record<string, "running" | "downloaded"> = {};
+    for (const model of models) {
+      if (hasRunningInstance(model.id)) status[model.id] = "running";
+      else if (getNodesWithModelDownloaded(downloadsData, model.id).length > 0)
+        status[model.id] = "downloaded";
+    }
+    return status;
+  });
+
+  // Downloads smaller than this start without asking
+  const CONFIRM_CARD_DOWNLOAD_ABOVE_GB = 1;
+
+  // Handle model selection from ChatModelSelector. A card launches its model
+  // in one click, so ask before that starts a large download, offering the
+  // running model (or the best downloaded one) instead.
+  async function handleChatModelSelect(modelId: string, category: string) {
+    const model = models.find((m) => m.id === modelId);
+    const needsDownload =
+      !hasExistingInstance(modelId) &&
+      getNodesWithModelDownloaded(downloadsData, modelId).length === 0 &&
+      (model ? getModelSizeGB(model) : 0) > CONFIRM_CARD_DOWNLOAD_ABOVE_GB;
+    if (needsDownload) {
+      const alternativeId =
+        bestRunningModelId ?? bestDownloadedModelId(modelId);
+      const choice = await askDownloadChoice(
+        modelId,
+        alternativeId,
+        alternativeId !== null && alternativeId === bestRunningModelId,
+        false,
+      );
+      if (choice === "cancel") return;
+      if (choice === "alternative" && alternativeId) {
+        launchModelForChat(alternativeId, category);
+        return;
+      }
+    }
     launchModelForChat(modelId, category);
+  }
+
+  // Best model (by the auto-pick tiers) that's on disk and fits, other than
+  // excludeId
+  function bestDownloadedModelId(excludeId: string): string | null {
+    const downloaded = models
+      .filter(
+        (m) =>
+          m.id !== excludeId &&
+          getNodesWithModelDownloaded(downloadsData, m.id).length > 0,
+      )
+      .map((m) => ({
+        id: m.id,
+        name: m.name ?? "",
+        base_model: m.base_model ?? "",
+        storage_size_megabytes: m.storage_size_megabytes ?? 0,
+        capabilities: m.capabilities ?? [],
+        family: m.family ?? "",
+        quantization: m.quantization ?? "",
+      }));
+    return pickAutoModel(downloaded, availableMemoryGB())?.id ?? null;
   }
 
   // Handle "+ Add Model" from ChatModelSelector
@@ -5044,6 +5166,67 @@
     {/if}
   {/if}
 
+  {#if downloadChoicePrompt}
+    <!-- Asked before auto-pick starts a download. Modal: Escape cancels. -->
+    <dialog
+      use:showDownloadChoiceDialog
+      oncancel={(event) => {
+        event.preventDefault();
+        answerDownloadChoice("cancel");
+      }}
+      aria-labelledby="download-choice-title"
+      class="m-auto w-[calc(100%-2rem)] max-w-md bg-exo-dark-gray text-white border border-exo-yellow/20 rounded-lg shadow-2xl p-5 font-mono backdrop:bg-black/60"
+    >
+      <h3 id="download-choice-title" class="text-sm text-white mb-2">
+        Download {downloadChoicePrompt.modelName} ({downloadChoicePrompt.sizeLabel})?
+      </h3>
+      <p class="text-xs text-exo-light-gray/80 mb-5 leading-relaxed">
+        {#if downloadChoicePrompt.autoPicked}
+          It's the best model that fits, but it isn't {downloadChoicePrompt.partlyDownloaded
+            ? "fully "
+            : ""}downloaded yet. Your message will be sent when it's ready.
+        {:else}
+          It isn't {downloadChoicePrompt.partlyDownloaded
+            ? "fully "
+            : ""}downloaded yet, so you can chat once the download finishes and
+          it has loaded.
+        {/if}
+      </p>
+      <div class="flex flex-wrap justify-end gap-2">
+        <button
+          type="button"
+          onclick={() => answerDownloadChoice("cancel")}
+          data-default-choice={downloadChoicePrompt.alternativeName
+            ? undefined
+            : true}
+          class="px-3 py-1.5 text-xs text-exo-light-gray hover:text-white border border-exo-medium-gray/50 rounded cursor-pointer focus:outline-none focus-visible:ring-1 focus-visible:ring-exo-yellow"
+        >
+          Cancel
+        </button>
+        {#if downloadChoicePrompt.alternativeName}
+          <button
+            type="button"
+            onclick={() => answerDownloadChoice("alternative")}
+            data-default-choice
+            class="px-3 py-1.5 text-xs text-exo-yellow border border-exo-yellow/40 hover:bg-exo-yellow/10 rounded cursor-pointer focus:outline-none focus-visible:ring-1 focus-visible:ring-exo-yellow"
+          >
+            Use {downloadChoicePrompt.alternativeName}
+            ({downloadChoicePrompt.alternativeRunning
+              ? "running"
+              : "downloaded"})
+          </button>
+        {/if}
+        <button
+          type="button"
+          onclick={() => answerDownloadChoice("download")}
+          class="px-3 py-1.5 text-xs bg-exo-yellow text-exo-black hover:bg-exo-yellow/90 rounded cursor-pointer focus:outline-none focus-visible:ring-1 focus-visible:ring-white"
+        >
+          Download
+        </button>
+      </div>
+    </dialog>
+  {/if}
+
   <!-- ═══════════════════════════════════════════════════════ -->
   <!-- MAIN DASHBOARD (always rendered, behind onboarding)    -->
   <!-- ═══════════════════════════════════════════════════════ -->
@@ -6642,6 +6825,7 @@
                 }))}
                 clusterLabel={chatClusterLabel}
                 totalMemoryGB={availableMemoryGB()}
+                modelStatus={chatModelStatus}
                 onSelect={handleChatModelSelect}
                 onAddModel={handleChatAddModel}
               />
