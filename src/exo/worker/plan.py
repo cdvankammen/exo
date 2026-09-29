@@ -35,6 +35,7 @@ from exo.shared.types.worker.instances import BoundInstance, Instance, InstanceI
 from exo.shared.types.worker.runners import (
     RunnerConnected,
     RunnerConnecting,
+    RunnerDegraded,
     RunnerFailed,
     RunnerId,
     RunnerIdle,
