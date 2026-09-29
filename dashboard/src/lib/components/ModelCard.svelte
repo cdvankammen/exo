@@ -31,6 +31,8 @@
     tags?: string[];
     apiPreview?: PlacementPreview | null;
     modelIdOverride?: string | null;
+    /** An instance of this model already exists, so launching adds a second copy */
+    existingInstance?: "running" | "starting" | null;
   }
 
   let {
@@ -45,6 +47,7 @@
     tags = [],
     apiPreview = null,
     modelIdOverride = null,
+    existingInstance = null,
   }: Props = $props();
 
   // Estimate memory requirements from model name
@@ -1034,6 +1037,14 @@
       </div>
     {/if}
 
+    {#if existingInstance && canFit && !isLaunching}
+      <p class="text-xs font-mono text-exo-light-gray/70 mb-2">
+        {existingInstance === "running"
+          ? "This model is already running."
+          : "This model is already starting."}
+      </p>
+    {/if}
+
     <!-- Launch Button -->
     {#if isLaunching}
       <button
@@ -1046,7 +1057,7 @@
           ></span>
           LAUNCHING...
         </span>
-      </button>
+</button>
     {:else if !canFit}
       <div class="flex flex-col gap-2">
         {#if onForceLaunch}
@@ -1075,7 +1086,11 @@
         disabled={isLaunching}
         class="w-full py-2 text-sm font-mono tracking-wider uppercase border transition-all duration-200 bg-transparent text-exo-light-gray border-exo-light-gray/40 hover:text-exo-yellow hover:border-exo-yellow/50 cursor-pointer"
       >
-        ▸ LAUNCH
+        {#if existingInstance}
+          ▸ LAUNCH ANOTHER COPY
+        {:else}
+          ▸ LAUNCH
+        {/if}
       </button>
     {/if}
   </div>
