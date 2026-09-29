@@ -44,6 +44,12 @@ class PlaceInstance(BaseCommand):
     # users who explicitly want to attempt loading a model that exceeds the
     # reported available memory ("load the model anyway").
     force_override: bool = False
+    # Fraction of node memory that must be available (0.0-1.0). Passed through
+    # from the API params so that placement decisions respect client tolerance.
+    memory_tolerance: float = 1.0
+    # Optional explicit node selection. When set, restrict placement to these
+    # nodes only (ignored if empty or None).
+    node_ids: list[NodeId] | None = None
 
 
 class CreateInstance(BaseCommand):

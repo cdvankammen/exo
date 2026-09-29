@@ -714,6 +714,20 @@ class API:
         )
 
     async def place_instance(self, payload: PlaceInstanceParams):
+        # Refuse, with the reason, a placement the cluster can't hold. The master
+        # would reject the command too, but only in its own log, so the caller
+        # never found out. The check is built from the same fields as the command
+        # below, so it decides with the inputs the master will.
+        await self._check_placement(
+            model_id=payload.model_id,
+            sharding=payload.sharding,
+            instance_meta=payload.instance_meta,
+            min_nodes=payload.min_nodes,
+            force_override=payload.force_override,
+            memory_tolerance=payload.memory_tolerance,
+            node_layers=payload.node_layers,
+            node_ids=payload.node_ids,
+        )
         command = PlaceInstance(
             model_card=await ModelCard.load(payload.model_id),
             sharding=payload.sharding,
@@ -758,19 +772,30 @@ class API:
             model_card=model_card,
         )
 
-    async def get_placement(
+    async def _check_placement(
         self,
         model_id: ModelId,
         sharding: Sharding = Sharding.Pipeline,
         instance_meta: InstanceMeta = InstanceMeta.MlxRing,
         min_nodes: int = 1,
-        force_override: bool = Query(default=False),
-        memory_tolerance: float = Query(default=1.0, ge=0.0, le=1.0),
-    ) -> Instance:
+        force_override: bool = False,
+        memory_tolerance: float = 1.0,
+        node_layers: dict[NodeId, int] | None = None,
+        node_ids: list[NodeId] | None = None,
+    ) -> dict[InstanceId, Instance]:
+        """Run the placement the master would run, raising if it cannot place.
+
+        The check is the same ``get_instance_placements`` call the master makes
+        when it processes a ``PlaceInstance`` command, built from the same fields,
+        so a refusal here carries the reason the master would have logged.
+
+        Raises ``ApiError`` (400) with that reason instead of letting the request
+        succeed and the master fail silently in its own log.
+        """
         model_card = await ModelCard.load(model_id)
 
         try:
-            placements = get_instance_placements(
+            return get_instance_placements(
                 PlaceInstance(
                     model_card=model_card,
                     sharding=sharding,
@@ -778,6 +803,8 @@ class API:
                     min_nodes=min_nodes,
                     force_override=force_override,
                     memory_tolerance=memory_tolerance,
+                    node_layers=node_layers,
+                    node_ids=node_ids,
                 ),
                 node_memory=self.state.node_memory,
                 node_network=self.state.node_network,
@@ -792,6 +819,26 @@ class API:
             raise ApiError(
                 status_code=400, detail=str(exc), error_code="PLACEMENT_FAILED"
             ) from exc
+
+    async def get_placement(
+        self,
+        model_id: ModelId,
+        sharding: Sharding = Sharding.Pipeline,
+        instance_meta: InstanceMeta = InstanceMeta.MlxRing,
+        min_nodes: int = 1,
+        force_override: bool = Query(default=False),
+        memory_tolerance: float = Query(default=1.0, ge=0.0, le=1.0),
+        node_ids: Annotated[list[NodeId] | None, Query()] = None,
+    ) -> Instance:
+        placements = await self._check_placement(
+            model_id=model_id,
+            sharding=sharding,
+            instance_meta=instance_meta,
+            min_nodes=min_nodes,
+            force_override=force_override,
+            memory_tolerance=memory_tolerance,
+            node_ids=node_ids,
+        )
 
         current_ids = set(self.state.instances.keys())
         new_ids = [

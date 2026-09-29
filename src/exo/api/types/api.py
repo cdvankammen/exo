@@ -315,10 +315,14 @@ class PlaceInstanceParams(WarnExtraModel):
     # When True, bypass memory-sufficiency checks and attempt to place/load
     # the model anyway.
     force_override: bool = False
+    # Fraction of node memory that must be available (0.0-1.0).
+    memory_tolerance: float = 1.0
     # Optional explicit per-node layer allocation (Pipeline sharding only).
     # Keys must exactly match a connected pipeline cycle and sum to the
     # model's layer count.
     node_layers: dict[NodeId, int] | None = None
+    # Optional explicit node selection for placement.
+    node_ids: list[NodeId] | None = None
 
 
 class CreateInstanceParams(WarnExtraModel):
