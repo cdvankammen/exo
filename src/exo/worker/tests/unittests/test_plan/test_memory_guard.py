@@ -67,8 +67,6 @@ def _base_kwargs():
         instances=instances,
         all_runners=all_runners,
         tasks={},
-        input_chunk_buffer={},
-        image_cache={},
         instance_backoff=KeyedBackoff(),
         download_backoff=KeyedBackoff(),
     )
