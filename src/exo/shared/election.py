@@ -1,3 +1,4 @@
+from collections import Counter
 from typing import Self
 
 import anyio
@@ -34,6 +35,8 @@ class ElectionMessage(FrozenModel):
     seniority: int
     proposed_session: SessionId
     commands_seen: int
+    # The session the sender is in, so an election can keep the master most nodes follow
+    following: SessionId | None = None
 
     # Could eventually include a list of neighbour nodes for centrality
     def __lt__(self, other: Self) -> bool:
@@ -48,6 +51,37 @@ class ElectionMessage(FrozenModel):
                 self.proposed_session.master_node_id
                 < other.proposed_session.master_node_id
             )
+
+
+def choose_master(candidates: list[ElectionMessage]) -> ElectionMessage:
+    """The winner of an election round.
+
+    Changing master resets the whole cluster: every instance is stopped and every running
+    request fails. So if most of the round's candidates follow a master that is standing in
+    it, that master stays. Without this a master that comes back from sleep, a freeze or a
+    partition takes over again from the one elected while it was gone, because it is more
+    senior, and the cluster is reset a second time. Otherwise the most senior candidate wins.
+
+    A candidate promoted explicitly (PromoteMaster, --force-master) is exempt from the
+    majority rule: the operator asked for that node to become master, so seniority decides
+    as it always has. Without the exemption every peer still follows the sitting master, so
+    the majority rule would silently override the operator and leave the API a no-op.
+    """
+    # An explicit promotion is a senior candidate that outranks the majority rule entirely.
+    if any(c.seniority >= FORCE_MASTER_SENIORITY for c in candidates):
+        return max(candidates)
+    # Every candidate proposes its own node as master, so this is each node's latest message
+    latest = {c.proposed_session.master_node_id: c for c in candidates}
+    followed = Counter(c.following for c in latest.values() if c.following is not None)
+    for session, followers in followed.most_common(1):
+        master = latest.get(session.master_node_id)
+        if (
+            2 * followers > len(latest)
+            and master is not None
+            and master.proposed_session == session
+        ):
+            return master
+    return max(candidates)
 
 
 class ElectionResult(FrozenModel):
@@ -337,7 +371,7 @@ class Election:
                 await anyio.sleep(0)
 
                 # Election finished!
-                elected = max(candidates)
+                elected = choose_master(candidates)
                 logger.debug(f"Election queue {candidates}")
                 logger.debug(f"Elected: {elected}")
                 if (
@@ -412,6 +446,7 @@ class Election:
                 clock=c,
                 seniority=self.seniority,
                 commands_seen=self.commands_seen,
+                following=self.current_session,
             )
         return ElectionMessage(
             proposed_session=(
@@ -422,4 +457,5 @@ class Election:
             clock=c,
             seniority=self.seniority,
             commands_seen=self.commands_seen,
+            following=self.current_session,
         )
