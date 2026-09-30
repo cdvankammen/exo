@@ -11,6 +11,7 @@ from exo.shared.types.text_generation import (
     TextGenerationTaskParams,
 )
 from exo.utils.channels import channel
+from exo.utils.task_group import TaskGroup
 
 IMAGE = Base64Image("aGVsbG8gd29ybGQ=")
 
@@ -20,6 +21,10 @@ async def test_an_image_is_sent_again_with_every_request_that_uses_it() -> None:
     api.paused = False
     api._system_id = SystemId()  # pyright: ignore[reportPrivateUsage]
     api.command_sender, commands = channel[ForwarderCommand]()
+    # _send checks the task group before starting a request's resend supervisor
+    # (upstream #2362); a never-entered group means it is not running, so this
+    # test still sees one SendInputChunk + TextGeneration per request.
+    api._tg = TaskGroup()  # pyright: ignore[reportPrivateUsage]
     params = TextGenerationTaskParams(
         model=ModelId("test-org/vision-model"),
         input=[InputMessage(role="user", content=InputMessageContent("What's this?"))],
