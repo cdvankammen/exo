@@ -107,6 +107,15 @@ class TopicRouter[T: FrozenModel]:
         self.senders -= to_clear
 
     async def publish_bytes(self, data: bytes):
+        # Upstream b3c16ea0 splits this into a narrow `except ValueError` around
+        # `deserialize` and lets a `publish` failure propagate. The fork's own #2360
+        # port already wraps both halves in a catch-all that logs, records the drop for
+        # the dashboard warning chip and returns, so the "an unreadable message must not
+        # stop the receive loop" half of that fix is already satisfied here (strictly more
+        # so). Keeping the fork's version preserves the malformed-event log the dashboard
+        # reads, which upstream has no equivalent of. The root cause of the crash this PR
+        # reports -- a tuple `evidence` rejected by strict-mode pydantic on JSON arrival --
+        # is fixed in worker/runner/diagnostics.py, not here.
         try:
             await self.publish(self.topic.deserialize(data))
         except Exception as e:

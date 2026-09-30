@@ -4,7 +4,9 @@ import errno
 import os
 import re
 from collections import deque
-from typing import final
+from typing import Annotated, final
+
+from pydantic import Field
 
 from exo.utils.pydantic_ext import TaggedModel
 
@@ -37,7 +39,8 @@ _OOM_LINE_RE = re.compile(
 
 class BaseRunnerDiagnostic(TaggedModel):
     message: str
-    evidence: tuple[str, ...] = ()
+    # Not strict: JSON has no tuples, so a diagnostic sent to another node arrives as a list
+    evidence: Annotated[tuple[str, ...], Field(strict=False)] = ()
 
 
 class RunnerMetalGpuTimeout(BaseRunnerDiagnostic):
