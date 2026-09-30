@@ -530,6 +530,33 @@ class BatchGenerator(Engine):
             if tid != CANCEL_ALL_TASKS and tid not in already_cancelled:
                 results.append((tid, CancelledResponse()))
 
+        # A cancelled task that hasn't started must never start: the runner has already
+        # forgotten it. The cancellation is agreed, so every rank drops the same tasks.
+        self._queue = deque(
+            task
+            for task in self._queue
+            if not cancel_all and task.task_id not in self._cancelled_tasks
+        )
+        self._maybe_queue = [
+            task
+            for task in self._maybe_queue
+            if not cancel_all and task.task_id not in self._cancelled_tasks
+        ]
+        # A task agreement started a decode step ago (``_overlap_agreement``) is still
+        # in flight and holds the tasks as they were THEN. Without this the next
+        # ``_finish_task_gather`` re-extends the queue with the cancelled task, which
+        # then starts anyway - the hang this port exists to fix. ``gather.tasks`` is
+        # this rank's own snapshot, so rewriting it is safe; the cancelled ids were
+        # agreed on every rank, so every rank drops the same ones.
+        if self._task_gather is not None:
+            if cancel_all:
+                self._task_gather.tasks.clear()
+            else:
+                self._task_gather.tasks[:] = [
+                    task
+                    for task in self._task_gather.tasks
+                    if task.task_id not in self._cancelled_tasks
+                ]
         self._cancelled_tasks.clear()
         return iter(results)
 
