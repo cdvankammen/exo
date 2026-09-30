@@ -1,3 +1,4 @@
+import time
 from datetime import datetime, timedelta, timezone
 
 import anyio
@@ -83,6 +84,16 @@ from exo.utils.disk_event_log import DiskEventLog
 from exo.utils.event_buffer import MultiSourceBuffer
 from exo.utils.task_group import TaskGroup
 
+# Every node reports its info about once a second. A node the master hasn't heard from for
+# this long is treated as gone (crashed, frozen, asleep or cut off), and its instances are
+# deleted so that requests on them end with an error instead of waiting. On four busy nodes
+# (800 events/s) a healthy node's reports were never more than 6.3 s apart.
+NODE_SILENCE_TIMEOUT = timedelta(seconds=15)
+# How often the master looks for silent nodes and for instances that lost a node
+PLAN_INTERVAL = 1.0
+# How long to wait for a removal to be applied before sending it again
+REMOVAL_RESEND_INTERVAL = 5.0
+
 
 def orphaned_download_node_ids(state: State) -> set[NodeId]:
     """Return download owners that are no longer members of the topology."""
@@ -161,6 +172,9 @@ class Master:
         self._multi_buffer = MultiSourceBuffer[SystemId, Event]()
         self._event_log = DiskEventLog(EXO_EVENT_LOG_DIR / "master")
         self._pending_traces: dict[TaskId, dict[int, list[TraceEventData]]] = {}
+        # When a removal was last sent, for nodes and instances not yet removed from the state
+        self._removing_nodes: dict[NodeId, float] = {}
+        self._deleting_instances: dict[InstanceId, float] = {}
         self._expected_ranks: dict[TaskId, set[int]] = {}
 
     async def run(self):
@@ -530,61 +544,91 @@ class Master:
 
     # These plan loops are the cracks showing in our event sourcing architecture - more things could be commands
     async def _plan(self) -> None:
-        node_inactivity_timeout = timedelta(seconds=5)
-        tick_interval_seconds = 1.0
-
         while True:
-            # Garbage-collect downloads left behind by node IDs that disappeared
-            # before the master observed a last-seen timeout for them.
-            # A node that is actively heartbeating (recent last_seen) but has
-            # stale download entries is REJOINING, not retired — don't send
-            # NodeTimedOut for it or it will be removed from topology again
-            # the instant it re-announces (stable node IDs + one-shot
-            # announcements make this a real race, seen live 08-07).
-            now = datetime.now(tz=timezone.utc)
-            for node_id in orphaned_download_node_ids(self.state):
-                last = self.state.last_seen.get(node_id)
-                if last is not None and now - last < node_inactivity_timeout:
-                    continue
+            await self._plan_once()
+            await anyio.sleep(PLAN_INTERVAL)
+
+    async def _plan_once(self) -> None:
+        now = datetime.now(tz=timezone.utc)
+
+        # A node the master hasn't heard from for NODE_SILENCE_TIMEOUT is treated as
+        # gone (crashed, frozen, asleep or cut off) and is removed from the topology.
+        silent = {
+            node_id: now - seen
+            for node_id, seen in self.state.last_seen.items()
+            if now - seen > NODE_SILENCE_TIMEOUT
+        }
+        for node_id, silence in silent.items():
+            if self._resend_due(self._removing_nodes, node_id):
+                logger.info(
+                    f"Manually removing node {node_id} due to inactivity "
+                    f"({silence.total_seconds():.0f}s without hearing from it)"
+                )
+                await self.event_sender.send(NodeTimedOut(node_id=node_id))
+
+        # Garbage-collect downloads left behind by node IDs that disappeared
+        # before the master observed a last-seen timeout for them.
+        # A node that is actively heartbeating (recent last_seen) but has
+        # stale download entries is REJOINING, not retired - don't send
+        # NodeTimedOut for it or it will be removed from topology again
+        # the instant it re-announces (stable node IDs + one-shot
+        # announcements make this a real race, seen live 08-07).
+        for node_id in orphaned_download_node_ids(self.state):
+            last = self.state.last_seen.get(node_id)
+            if last is not None and now - last < NODE_SILENCE_TIMEOUT:
+                continue
+            if self._resend_due(self._removing_nodes, node_id):
                 logger.info(f"Removing downloads belonging to retired node {node_id}")
                 await self.event_sender.send(NodeTimedOut(node_id=node_id))
 
-            # kill broken instances
-            connected_node_ids = set(self.state.topology.list_nodes())
-            for instance_id, instance in self.state.instances.items():
-                for node_id in instance.shard_assignments.node_to_runner:
-                    if node_id not in connected_node_ids:
-                        logger.warning(
-                            f"Deleting instance {instance_id}: node {node_id} "
-                            "is no longer in topology"
-                        )
-                        await self.event_sender.send(
-                            InstanceDeleted(instance_id=instance_id)
-                        )
-                        break
-                else:
-                    # Keep instances with failed runners visible so users can
-                    # read the error (RunnerFailed carries error_message +
-                    # diagnostics and the dashboard renders it on FAILED
-                    # cards). The runner process is already dead, so the
-                    # instance is harmless — the user ejects it explicitly.
-                    for rid in instance.shard_assignments.node_to_runner.values():
-                        failed = self.state.runners.get(rid)
-                        if isinstance(failed, RunnerFailed):
-                            logger.warning(
-                                f"Instance {instance_id} runner {rid} failed: "
-                                f"{failed.error_message}"
-                            )
-                            break
+        # An instance that lost a node can't serve anything, so delete it straight away,
+        # without waiting for the node's removal to be applied. Silent nodes count as
+        # gone here even before their removal lands, so a dead node's instances fail
+        # their requests in one pass instead of one tick per node removal.
+        connected = set(self.state.topology.list_nodes()) - silent.keys()
+        for instance_id, instance in self.state.instances.items():
+            if any(
+                node_id not in connected
+                for node_id in instance.shard_assignments.node_to_runner
+            ) and self._resend_due(self._deleting_instances, instance_id):
+                logger.warning(
+                    f"Deleting instance {instance_id}: a node it is placed on "
+                    "is no longer in topology"
+                )
+                await self.event_sender.send(InstanceDeleted(instance_id=instance_id))
+            # Keep instances with failed runners visible so users can
+            # read the error (RunnerFailed carries error_message +
+            # diagnostics and the dashboard renders it on FAILED
+            # cards). The runner process is already dead, so the
+            # instance is harmless - the user ejects it explicitly.
+            for rid in instance.shard_assignments.node_to_runner.values():
+                failed = self.state.runners.get(rid)
+                if isinstance(failed, RunnerFailed):
+                    logger.warning(
+                        f"Instance {instance_id} runner {rid} failed: "
+                        f"{failed.error_message}"
+                    )
+                    break
 
-            # time out dead nodes
-            for node_id, time in self.state.last_seen.items():
-                now = datetime.now(tz=timezone.utc)
-                if now - time > node_inactivity_timeout:
-                    logger.info(f"Manually removing node {node_id} due to inactivity")
-                    await self.event_sender.send(NodeTimedOut(node_id=node_id))
+        # Forget what has been applied
+        self._removing_nodes = {
+            k: v for k, v in self._removing_nodes.items() if k in self.state.last_seen
+        }
+        self._deleting_instances = {
+            k: v
+            for k, v in self._deleting_instances.items()
+            if k in self.state.instances
+        }
 
-            await anyio.sleep(tick_interval_seconds)
+    @staticmethod
+    def _resend_due[K](sent: dict[K, float], key: K) -> bool:
+        """Whether to send a removal for key: not sent yet, or sent a while ago and still
+        not applied."""
+        now = time.monotonic()
+        if key in sent and now - sent[key] < REMOVAL_RESEND_INTERVAL:
+            return False
+        sent[key] = now
+        return True
 
     async def _event_processor(self) -> None:
         with self.local_event_receiver as local_events:
