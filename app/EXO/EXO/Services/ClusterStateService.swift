@@ -15,6 +15,20 @@ final class ClusterStateService: ObservableObject {
     private let baseURL: URL
     private let endpoint: URL
 
+    // Guard against overlapping /models requests. `fetchSnapshot` re-requests
+    // models on every 0.5s tick while the list is empty, and a cold boot can
+    // leave it empty for a long time (see `modelsRetryFloor`). Without this
+    // flag every tick starts another request even while the previous one is
+    // still in flight, so concurrency grows without bound whenever /models is
+    // slower than the poll interval.
+    private var modelsFetchInFlight = false
+
+    // Wall-clock floor before another /models attempt is allowed. Set after a
+    // failed attempt so a failing or slow /models degrades to a slow retry
+    // instead of hammering the endpoint twice a second.
+    private var lastModelsAttempt: Date = .distantPast
+    private let modelsRetryFloor: TimeInterval = 30
+
     init(
         baseURL: URL = URL(string: "http://127.0.0.1:52415")!,
         session: URLSession = ClusterStateService.makeNonCachingSession()
@@ -84,6 +98,37 @@ final class ClusterStateService: ObservableObject {
             }
         } catch {
             // Silently ignore - localNodeId will remain nil and retry on next poll
+        }
+    }
+
+    /// Fetches the model list at most once at a time, and no more often than
+    /// `modelsRetryFloor`.
+    ///
+    /// `fetchSnapshot` fires this from the 0.5s poll whenever the list is
+    /// still empty, so both guards are required: without the in-flight flag a
+    /// `/models` endpoint slower than the poll interval accumulates concurrent
+    /// requests without bound, and without the floor a fast failure or an
+    /// empty list turns into a 2Hz retry loop.
+    func fetchModels() async {
+        if modelsFetchInFlight { return }
+        if Date().timeIntervalSince(lastModelsAttempt) < modelsRetryFloor { return }
+
+        modelsFetchInFlight = true
+        lastModelsAttempt = Date()
+        defer { modelsFetchInFlight = false }
+
+        do {
+            let url = baseURL.appendingPathComponent("models")
+            let (data, response) = try await session.data(from: url)
+            guard let httpResponse = response as? HTTPURLResponse,
+                (200..<300).contains(httpResponse.statusCode)
+            else {
+                throw URLError(.badServerResponse)
+            }
+            let list = try decoder.decode(ModelListResponse.self, from: data)
+            modelOptions = list.data.map { ModelOption(id: $0.id, displayName: $0.name ?? $0.id) }
+        } catch {
+            lastError = "Failed to load models: \(error.localizedDescription)"
         }
     }
 
@@ -157,22 +202,6 @@ final class ClusterStateService: ObservableObject {
             await fetchSnapshot()
         } catch {
             lastError = "Failed to launch instance: \(error.localizedDescription)"
-        }
-    }
-
-    func fetchModels() async {
-        do {
-            let url = baseURL.appendingPathComponent("models")
-            let (data, response) = try await session.data(from: url)
-            guard let httpResponse = response as? HTTPURLResponse,
-                (200..<300).contains(httpResponse.statusCode)
-            else {
-                throw URLError(.badServerResponse)
-            }
-            let list = try decoder.decode(ModelListResponse.self, from: data)
-            modelOptions = list.data.map { ModelOption(id: $0.id, displayName: $0.name ?? $0.id) }
-        } catch {
-            lastError = "Failed to load models: \(error.localizedDescription)"
         }
     }
 }
