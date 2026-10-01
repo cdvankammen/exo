@@ -80,6 +80,8 @@ CATALOG: dict[str, SettingSpec] = {
         SettingSpec("EXO_KV_DISK_TTL_HOURS", "int", "KV cache expiry (hours)", None),
         SettingSpec("EXO_MEMORY_THRESHOLD", "str", "RAM headroom reserved before prefill", None),
         SettingSpec("EXO_PREFILL_MEMORY_THRESHOLD", "str", "Prefill-specific RAM headroom", None),
+        SettingSpec("EXO_PREFIX_CACHE_MAX_ENTRIES", "int", "Max cached prompts kept per node", "64"),
+        SettingSpec("EXO_PREFIX_CACHE_MAX_BYTES", "int", "Prefix cache byte budget (default 10% of RAM)", None),
         SettingSpec("EXO_PREFILL_STEP_SIZE", "int", "Prefill chunk size in tokens", "512"),
         SettingSpec("EXO_MAX_CHUNK_SIZE", "int", "Token chunk size", None),
         # Cluster / placement

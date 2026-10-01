@@ -184,16 +184,20 @@ class TestKVPrefix:
         cache._snapshots = [None, None]
         cache._media_regions = [[], []]
         cache._last_used = [0, 1]
+        cache._entry_bytes = [0, 0]
         cache.prefill_tps = [1.0, 2.0]
 
+        # The module-level get_memory_used_percentage is the seam since #2368:
+        # _over_limit reads it directly (a hit/over-budget decision has to be
+        # identical on every rank, so the rank-max lives in _over_limit, not in
+        # the instance method this used to patch).
         with (
             patch(
                 "exo.worker.engines.mlx.cache._PREFILL_MEMORY_THRESHOLD",
                 0.70,
             ),
-            patch.object(
-                cache,
-                "get_memory_used_percentage",
+            patch(
+                "exo.worker.engines.mlx.cache.get_memory_used_percentage",
                 side_effect=[0.80, 0.65],
             ),
         ):
