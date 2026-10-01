@@ -1,5 +1,6 @@
 import asyncio
 import hashlib
+import json
 import os
 import random
 import shutil
@@ -85,6 +86,14 @@ _RATE_LIMIT_MAX_SLEEP_SECS = 300.0
 
 # 24h. Manually clear the cache (or `delete_model`) to force a refresh.
 _FILE_LIST_CACHE_TTL_SECS = 24 * 60 * 60
+
+# A 401/403 from HF is not a transient error: without a token it will keep
+# failing identically forever, and retrying it every minute is pure waste on a
+# node that is only *scanning* for existing downloads (see #2376). Remember the
+# refusal on disk for an hour so the scan stays quiet, and re-probe after that
+# in case the user has since set HF_TOKEN.
+# `delete_model` clears the cache dir for a model, which also drops this.
+_AUTH_FAILURE_CACHE_TTL_SECS = 60 * 60
 
 
 async def _build_auth_error_message(status_code: int, model_id: ModelId) -> str:
@@ -294,7 +303,9 @@ def _delete_model_path(path: Path, *, delete_symlink_target: bool) -> bool:
         path.unlink()
         if delete_symlink_target and target.exists():
             if not _looks_like_model_dir(target):
-                raise OSError(f"Refusing to delete symlink target that does not look like a model directory: {target}")
+                raise OSError(
+                    f"Refusing to delete symlink target that does not look like a model directory: {target}"
+                )
             shutil.rmtree(target, ignore_errors=False)
         return True
 
@@ -331,9 +342,7 @@ async def delete_model(model_id: ModelId) -> bool:
 
     # Clear cache from default dir
     cache_dir = EXO_DEFAULT_MODELS_DIR / "caches" / normalized
-    await asyncio.to_thread(
-        _delete_model_path, cache_dir, delete_symlink_target=False
-    )
+    await asyncio.to_thread(_delete_model_path, cache_dir, delete_symlink_target=False)
 
     return deleted
 
@@ -473,6 +482,62 @@ async def _build_file_list_from_local_directory(
     return None
 
 
+async def _auth_failure_is_fresh(auth_fail_file: Path) -> bool:
+    # A token appearing in the environment is the user's answer to the error we
+    # logged; honour the refusal only while there is still no way to succeed.
+    if await get_hf_token() is not None:
+        await _clear_auth_failure(auth_fail_file)
+        return False
+    if not await aios.path.exists(auth_fail_file):
+        return False
+    try:
+        fail_age = time.time() - (await aios.stat(auth_fail_file)).st_mtime
+    except OSError:
+        return False
+    return fail_age < _AUTH_FAILURE_CACHE_TTL_SECS
+
+
+async def _record_auth_failure(auth_fail_file: Path, message: str) -> None:
+    try:
+        async with aiofiles.open(auth_fail_file, "w") as f:
+            await f.write(json.dumps({"message": message, "ts": time.time()}))
+    except OSError:
+        pass
+
+
+async def _clear_auth_failure(auth_fail_file: Path) -> None:
+    try:
+        if await aios.path.exists(auth_fail_file):
+            await aios.unlink(auth_fail_file)
+    except OSError:
+        pass
+
+
+async def _file_list_without_internet(
+    model_id: ModelId, recursive: bool, cache_file: Path
+) -> list[FileListEntry]:
+    """Best local answer for a model whose HF file list we are not re-fetching.
+
+    Same fallbacks as the offline path: the stale cache if we have one, else the
+    on-disk model directory, else no file list at all.
+    """
+    if await aios.path.exists(cache_file):
+        try:
+            async with aiofiles.open(cache_file, "r") as f:
+                return TypeAdapter(list[FileListEntry]).validate_json(await f.read())
+        except Exception:
+            pass
+    local_file_list = await _build_file_list_from_local_directory(model_id, recursive)
+    if local_file_list is not None:
+        logger.warning(
+            f"No internet and no cached file list for {model_id} - using local file list"
+        )
+        return local_file_list
+    raise FileNotFoundError(
+        f"No internet connection and no cached file list for {model_id}"
+    )
+
+
 async def fetch_file_list_with_cache(
     model_id: ModelId,
     revision: str = "main",
@@ -482,6 +547,9 @@ async def fetch_file_list_with_cache(
 ) -> list[FileListEntry]:
     target_dir = await ensure_cache_dir(model_id)
     cache_file = target_dir / f"{model_id.normalize()}--{revision}--file_list.json"
+    auth_fail_file = (
+        target_dir / f"{model_id.normalize()}--{revision}--file_list.auth_fail.json"
+    )
 
     # cache survives process restarts so cold starts don't re-burst HF
     if await aios.path.exists(cache_file):
@@ -492,6 +560,20 @@ async def fetch_file_list_with_cache(
         if cache_age < _FILE_LIST_CACHE_TTL_SECS:
             async with aiofiles.open(cache_file, "r") as f:
                 return TypeAdapter(list[FileListEntry]).validate_json(await f.read())
+
+    # A recent 401/403 means HF will refuse identically until the user sets a
+    # token, so don't ask again: the status scan re-runs every 60 s and would
+    # otherwise re-auth-fail forever for a model nobody selected (#2376).
+    # Debug, not warning: the actionable auth error was already logged once when
+    # the refusal was first recorded, and repeating it every minute is the noise
+    # this fixes.
+    if await _auth_failure_is_fresh(auth_fail_file):
+        logger.debug(
+            f"Not re-checking Hugging Face for {model_id}: authentication failed "
+            f"within the last {_AUTH_FAILURE_CACHE_TTL_SECS // 60} minutes "
+            f"(set HF_TOKEN to retry now)"
+        )
+        return await _file_list_without_internet(model_id, recursive, cache_file)
 
     if skip_internet:
         if await aios.path.exists(cache_file):
@@ -520,8 +602,12 @@ async def fetch_file_list_with_cache(
             await f.write(
                 TypeAdapter(list[FileListEntry]).dump_json(file_list).decode()
             )
+        await _clear_auth_failure(auth_fail_file)
         return file_list
     except Exception as e:
+        if isinstance(e, HuggingFaceAuthenticationError):
+            # Remember the refusal so the next 60 s status scan does not re-ask HF.
+            await _record_auth_failure(auth_fail_file, str(e))
         logger.opt(exception=e).warning(
             "Ran into exception when fetching file list from HF."
         )
@@ -898,8 +984,8 @@ async def _download_file(
             except Exception as e:
                 logger.error(f"Error removing partial file {partial_path}: {e}")
             raise Exception(
-            f"Downloaded file {target_dir / path} has hash {final_hash} but remote hash is {remote_hash}"
-        )
+                f"Downloaded file {target_dir / path} has hash {final_hash} but remote hash is {remote_hash}"
+            )
     await aios.rename(partial_path, target_dir / path)
     on_progress(length, length, True)
     return target_dir / path
