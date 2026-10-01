@@ -37,6 +37,7 @@ from exo.worker.engines.mlx.generator.generate import (
     mlx_generate,
     warmup_inference,
 )
+from exo.worker.engines.mlx.generator.prefill_budget import PrefillBudgetError
 from exo.worker.engines.mlx.types import Model
 from exo.worker.engines.mlx.utils_mlx import (
     apply_chat_template,
@@ -199,6 +200,19 @@ class SequentialGenerator(Engine):
                 output.append((task.task_id, parsed))
 
         except (StopIteration, PrefillCancelled):
+            output.append((task.task_id, FinishedResponse()))
+            self._active = None
+            if self._queue:
+                self._start_next()
+
+        except PrefillBudgetError as e:
+            # #2374: this request provably cannot fit in GPU memory. Failing
+            # the task keeps the runner and the whole instance alive -- the
+            # alternative (letting it raise) is the SIGABRT + instance reset
+            # this check exists to prevent. Only rank 0 emits the ErrorChunk
+            # (see _send_error), so the user sees the message once.
+            logger.warning(f"Task rejected by prefill budget guard: {e}")
+            self._send_error(task, e)
             output.append((task.task_id, FinishedResponse()))
             self._active = None
             if self._queue:

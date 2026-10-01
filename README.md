@@ -362,6 +362,63 @@ EXO_LIBP2P_NAMESPACE=my-dev-cluster uv run exo
 
 ---
 
+### Long prompts on macOS: the GPU wired limit
+
+On Apple Silicon, macOS caps how much memory the GPU may wire up
+(`iogpu.wired_limit_mb`). Left at the default it reports `0`, meaning the
+system picks the limit automatically — roughly 75% of physical RAM. exo pins
+the Metal wired limit to MLX's recommended working-set size, which lands at
+that same ceiling.
+
+The practical consequence: a prompt long enough that **model weights + KV
+cache + activations** exceed the wired limit cannot be prefilled. MLX
+allocations that overrun the limit are not a catchable Python exception —
+they abort the process from the Metal completion queue (`signal=6`,
+SIGABRT), and the instance has to reset.
+
+exo now estimates the peak prefill footprint from the live weight
+allocation, the KV geometry, and the prompt length *before* prefill starts.
+If the request cannot fit, the task fails with a message naming the
+shortfall and what actually raises the ceiling — the runner and the rest of
+the instance stay up:
+
+```
+Prefill does not fit in the GPU memory limit: this request needs about
+11968 MB (19,000 prompt tokens + 8192 MB of model weights) but only
+10912 MB is usable on this node. At most about 9,612 tokens can be
+prefilled in a single request here. Split the input into smaller
+requests, lower EXO_MAX_KV_SIZE, or raise the system wired limit with
+`sudo sysctl iogpu.wired_limit_mb=<MB>`.
+```
+
+To raise the ceiling (persistent across reboots, on macOS):
+
+```bash
+# Inspect the current limit
+sysctl iogpu.wired_limit_mb
+
+# Raise it (MB). Takes effect for new processes; restart exo afterwards.
+sudo sysctl -w iogpu.wired_limit_mb=24576
+```
+
+Raising it too far destabilises the machine — macOS swaps or the GPU driver
+aborts under memory pressure, so prefer the smallest value that fits your
+longest prompt. Knobs that reduce the footprint instead of raising the
+ceiling:
+
+| Knob | Where | Effect |
+|------|-------|--------|
+| `EXO_MAX_KV_SIZE` | env | Caps total KV cache tokens (default `16384`). Lowering it bounds cache growth in long conversations. |
+| `EXO_KV_CACHE_BITS` | dashboard setting | Quantises the KV cache (e.g. `8`). The largest saving per token. |
+| Split the prompt | — | Two requests under the ceiling beat one request over it. |
+
+`EXO_MAX_KV_SIZE` bounds how far a conversation can grow, while the wired
+limit bounds a single prefill. If a short prompt already fails, the shard
+resident on that node is too large for it — use a smaller quantization or
+spread the model over more nodes.
+
+---
+
 ### Using the API
 
 exo provides multiple API-compatible interfaces for maximum compatibility with existing tools:

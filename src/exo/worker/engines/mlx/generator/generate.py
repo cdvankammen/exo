@@ -64,6 +64,7 @@ from exo.worker.engines.mlx.constants import (
 from exo.worker.engines.mlx.generator.constrained_decoding import (
     ConstrainedDecodingProcessor,
 )
+from exo.worker.engines.mlx.generator.prefill_budget import check_prefill_budget
 from exo.worker.engines.mlx.generator.remote_prefill import remote_prefill
 from exo.worker.engines.mlx.generator.stop_sequences import scan_stop_sequences
 from exo.worker.engines.mlx.ring_attention import (
@@ -174,6 +175,41 @@ def _has_pipeline_communication_layer(model: Model):
         if isinstance(layer, (PipelineFirstLayer, PipelineLastLayer)):
             return True
     return False
+
+
+def _enforce_prefill_budget(
+    *,
+    model: Model,
+    cache: KVCacheType,
+    num_tokens: int,
+) -> None:
+    """Raise PrefillBudgetError if this prefill cannot fit in GPU memory.
+
+    See `prefill_budget` for why this exists (#2374). The KV layer count
+    comes from the live cache rather than the model config, because the cache
+    is what actually holds KV state for this shard -- on a pipeline split
+    that is a fraction of the model's total layers.
+
+    Raises nothing but PrefillBudgetError. The check is advisory
+    infrastructure; a bug in the estimate must not take down generation, so
+    any other failure degrades to a debug log.
+    """
+    try:
+        kv_layers = sum(1 for c in cache if not is_non_trimmable_cache_entry(c))
+        if kv_layers <= 0:
+            return
+        exceeded = check_prefill_budget(
+            model=get_inner_model(model),
+            prompt_tokens=num_tokens,
+            kv_layers=kv_layers,
+            kv_bits=KV_CACHE_BITS,
+        )
+    except Exception:
+        logger.debug("Prefill budget check failed; continuing", exc_info=True)
+        return
+
+    if exceeded is not None:
+        raise exceeded
 
 
 def pipeline_parallel_prefill(
@@ -350,6 +386,14 @@ def prefill(
     prefill_step_size = int(
         get_settings_manager().get_value("EXO_PREFILL_STEP_SIZE", "4096")
     )
+
+    # #2374: a prompt whose weights + KV cache + activations exceed the GPU
+    # wired limit aborts the process from the Metal completion queue
+    # (SIGABRT, signal 6) -- there is no Python exception to catch, and exo
+    # then resets the whole instance. Refuse up front with an actionable
+    # error instead. The report is against pipeline_parallel_prefill, but
+    # every prefill path shares the same ceiling, so the guard runs for all.
+    _enforce_prefill_budget(model=model, cache=cache, num_tokens=num_tokens)
 
     try:
         mx_barrier(group)
