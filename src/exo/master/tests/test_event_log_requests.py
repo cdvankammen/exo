@@ -132,3 +132,24 @@ async def test_request_from_the_future_is_ignored() -> None:
 
         assert harness.global_events.collect() == []
         assert harness.snapshots.collect() == []
+
+
+async def test_a_snapshot_is_sent_when_asked_for_even_if_the_events_could_be_replayed() -> (
+    None
+):
+    async with running_master() as harness:
+        requester = SystemId()
+        # An index the master could still replay, so only the snapshot flag can
+        # make it send a snapshot
+        await harness.commands.send(
+            ForwarderCommand(
+                origin=requester,
+                command=RequestEventLog(since_idx=N_EVENTS - 3, snapshot=True),
+            )
+        )
+        with anyio.fail_after(5):
+            snapshot = await harness.snapshots.receive()
+
+        assert snapshot.requester == requester
+        assert snapshot.state.last_event_applied_idx == N_EVENTS - 1
+        assert harness.global_events.collect() == []
