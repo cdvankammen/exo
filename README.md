@@ -156,6 +156,13 @@ This starts the exo dashboard and API at http://localhost:52415/
 sudo apt update
 sudo apt install nodejs npm
 
+# Install the C toolchain and CPython headers. `uv sync --extra mlx-cpu`
+# builds miniaudio (via mlx-vlm) from source and needs pyconfig.h plus a
+# working C compiler; without these the sync fails and every later
+# `uv run exo` silently re-syncs WITHOUT your extra, so the runner then
+# dies with "No module named 'mlx'".
+sudo apt install python3-dev build-essential
+
 # Install uv
 curl -LsSf https://astral.sh/uv/install.sh | sh
 
@@ -189,11 +196,12 @@ git clone https://github.com/exo-explore/exo
 cd exo/dashboard && npm install && npm run build && cd ..
 
 # Install Python dependencies with the MLX backend for your hardware
-# (NVIDIA: --extra mlx-cuda13 or --extra mlx-cuda12)
+# (NVIDIA CUDA 13: --extra mlx-cuda13 | CUDA 12: --extra mlx-cuda12)
 uv sync --extra mlx-cpu
 
-# Run exo
-uv run exo
+# Run exo — pass the SAME extra here. A bare `uv run exo` re-syncs without
+# it, so the runner then dies on import with "No module named 'mlx'".
+uv run --extra mlx-cpu exo
 ```
 
 This starts the exo dashboard and API at http://localhost:52415/
@@ -586,6 +594,37 @@ The tool outputs performance metrics including prompt tokens per second (prompt_
 ## Hardware Accelerator Support
 
 On macOS, exo uses the GPU. On Linux, exo currently runs on CPU. We are working on extending hardware accelerator support. If you'd like support for a new hardware platform, please [search for an existing feature request](https://github.com/exo-explore/exo/issues) and add a thumbs up so we know what hardware is important to the community.
+
+### CPU-only Linux: expect one core, not all of them
+
+**A 4-bit model on a CPU-only Linux node uses a single core.** This is not a
+misconfiguration and there is no setting that changes it. Measured on MLX
+0.32.x, with `avg_threads = (user+sys CPU time) / wall` as the number of
+concurrently active threads:
+
+| kernel | avg active threads |
+| --- | --- |
+| `mx.quantized_matmul` (4-bit / 8-bit weights — what most models use) | **1.00** |
+| float `matmul` (unquantized weights, cblas/BLAS) | ~1.9 on a 10-core host (scales with cores) |
+
+Only the unquantized float path reaches a threaded BLAS. The quantized kernels
+in MLX's CPU backend contain no threading at all, so `OMP_NUM_THREADS` and
+`OPENBLAS_NUM_THREADS` change nothing there (verified: both stay pinned at 1.00
+with the variables set to the core count). MLX exposes no thread-count knob for
+this path.
+
+What this means in practice:
+
+- **Quantized models on CPU are effectively single-core.** A 9B 4-bit model on a
+  32-thread Xeon will read as ~3% total CPU — that is one saturated core, not a
+  broken node. Judge the speed, not the utilization.
+- **Unquantized models do use multiple cores.** If you need CPU throughput, use
+  a model with float weights. It uses more RAM but runs many times faster.
+- **For real throughput on Linux, use an NVIDIA GPU** (`--extra mlx-cuda12` /
+  `--extra mlx-cuda13`) or join a cluster of Apple Silicon nodes over the
+  network — both parallelize properly.
+
+See [exo-explore/exo#2382](https://github.com/exo-explore/exo/issues/2382).
 
 ---
 
