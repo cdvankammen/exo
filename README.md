@@ -206,7 +206,7 @@ uv run --extra mlx-cpu exo
 
 This starts the exo dashboard and API at http://localhost:52415/
 
-**Important note for Linux users:** Currently, exo runs on CPU on Linux. GPU support for Linux platforms is under development. If you'd like to see support for your specific Linux hardware, please [search for existing feature requests](https://github.com/exo-explore/exo/issues) or create a new one.
+**Important note for Linux users:** Currently, exo runs on the MLX CPU backend on Linux. Large-model inference can be slow, and CPU core utilization depends on the model operations and backend. GPU support for Linux platforms is under development. If you'd like to see support for your specific Linux hardware, please [search for existing feature requests](https://github.com/exo-explore/exo/issues) or create a new one.
 
 **Configuration Options:**
 
