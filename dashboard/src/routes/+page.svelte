@@ -1301,15 +1301,22 @@
     modelId: string,
     onSelectedDevices = false,
   ): string {
-    if (error.startsWith("No cycles found with sufficient memory")) {
-      const model = models.find((m) => m.id === modelId);
-      const sizeGB = model ? getModelSizeGB(model) : 0;
-      const where = onSelectedDevices
-        ? "on the selected devices"
-        : "on your devices";
-      return sizeGB > 0
-        ? `Not enough free memory ${where} (needs ${Math.ceil(sizeGB)} GB)`
-        : `Not enough free memory ${where}`;
+    const whereNodes = onSelectedDevices
+      ? "the selected devices"
+      : "your devices";
+    // place_instance now names the shortfall: "<model> needs N GB, but
+    // connected nodes have at most M GB free between them". Keep both numbers
+    // and say which devices they refer to.
+    if (error.startsWith("Not enough memory: ")) {
+      return error
+        .slice("Not enough memory: ".length)
+        .replace("connected nodes", whereNodes);
+    }
+    if (
+      error === "The chosen nodes aren't all connected to each other" &&
+      onSelectedDevices
+    ) {
+      return "The selected devices aren't all connected to each other";
     }
     if (error.startsWith("Requested RDMA")) {
       return "RDMA needs devices connected over Thunderbolt 5 with RDMA enabled";
