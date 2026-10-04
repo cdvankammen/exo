@@ -1,4 +1,5 @@
 import hashlib
+import time
 from collections import defaultdict
 from collections.abc import Mapping
 from datetime import datetime, timezone
@@ -73,6 +74,9 @@ from exo.worker.runner.supervisor import RunnerSupervisor
 CUSTOM_CARD_SYNC_INTERVAL = 1.0
 CUSTOM_CARD_ANNOUNCE_INTERVAL = 10.0
 
+# How long the worker waits for an instance it asked to delete to go, before asking again
+DELETION_REQUEST_RETRY = 10.0
+
 
 class Worker:
     def __init__(
@@ -112,6 +116,8 @@ class Worker:
         self._instance_backoff: KeyedBackoff[InstanceId] = KeyedBackoff(
             base=0.5, cap=10.0
         )
+        # When this worker last asked for an instance it gave up on to be deleted
+        self._deletion_requested: dict[InstanceId, float] = {}
         self._stopped: anyio.Event = anyio.Event()
 
         # The latest information of each kind gathered about this node, so that a new
@@ -182,6 +188,7 @@ class Worker:
 
                 if isinstance(event, InstanceDeleted):
                     self._instance_backoff.reset(event.instance_id)
+                    self._deletion_requested.pop(event.instance_id, None)
 
                 # Buffer input image chunks for image editing
                 if isinstance(event, InputChunkReceived):
@@ -330,15 +337,24 @@ class Worker:
             if isinstance(task, CreateRunner):
                 iid = task.instance_id
                 if self._instance_backoff.attempts(iid) >= EXO_MAX_INSTANCE_RETRIES:
-                    logger.warning(
-                        f"Instance {iid} exceeded {EXO_MAX_INSTANCE_RETRIES} retries, requesting deletion"
-                    )
-                    await self.command_sender.send(
-                        ForwarderCommand(
-                            origin=self._system_id,
-                            command=DeleteInstance(instance_id=iid),
+                    # Plan comes back to this instance every 0.1 s until it is deleted: ask
+                    # once, and again only if it is still here after a while (the request
+                    # may have been lost, e.g. while the master changed)
+                    requested_at = self._deletion_requested.get(iid)
+                    if (
+                        requested_at is None
+                        or time.monotonic() - requested_at >= DELETION_REQUEST_RETRY
+                    ):
+                        logger.warning(
+                            f"Instance {iid} exceeded {EXO_MAX_INSTANCE_RETRIES} retries, requesting deletion"
                         )
-                    )
+                        self._deletion_requested[iid] = time.monotonic()
+                        await self.command_sender.send(
+                            ForwarderCommand(
+                                origin=self._system_id,
+                                command=DeleteInstance(instance_id=iid),
+                            )
+                        )
                     continue
 
             logger.info(f"Worker plan: {task.__class__.__name__}")
