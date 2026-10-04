@@ -950,3 +950,81 @@ async def test_winner_gets_durable_seniority_edge_stops_ping_pong() -> None:
         "winner must gain a durable seniority edge over the strongest peer "
         f"observed (expected 3, got {election.seniority})"
     )
+
+
+@pytest.mark.anyio
+async def test_durable_seniority_edge_2node_no_flip_across_rounds() -> None:
+    """
+    2-node wired test: A and B both start at seniority 2 (tied). B is master.
+    In each round, trigger an election (connection/message) between them.
+    With durable edge, B wins and keeps winning across N rounds with no flip.
+    """
+    # node A
+    a_out_tx, a_out_rx = channel[ElectionMessage]()
+    a_in_tx, a_in_rx = channel[ElectionMessage]()
+    a_res_tx, a_res_rx = channel[ElectionResult]()
+    _a_cm_tx, a_cm_rx = channel[ConnectionMessage]()
+    _a_cmd_tx, a_cmd_rx = channel[ForwarderCommand]()
+
+    # node B
+    b_out_tx, b_out_rx = channel[ElectionMessage]()
+    b_in_tx, b_in_rx = channel[ElectionMessage]()
+    b_res_tx, b_res_rx = channel[ElectionResult]()
+    _b_cm_tx, b_cm_rx = channel[ConnectionMessage]()
+    _b_cmd_tx, b_cmd_rx = channel[ForwarderCommand]()
+
+    node_a = Election(
+        node_id=NodeId("A"),
+        election_message_receiver=a_in_rx,
+        election_message_sender=a_out_tx,
+        election_result_sender=a_res_tx,
+        connection_message_receiver=a_cm_rx,
+        command_receiver=a_cmd_rx,
+        is_candidate=True,
+        seniority=2,
+    )
+    node_b = Election(
+        node_id=NodeId("B"),
+        election_message_receiver=b_in_rx,
+        election_message_sender=b_out_tx,
+        election_result_sender=b_res_tx,
+        connection_message_receiver=b_cm_rx,
+        command_receiver=b_cmd_rx,
+        is_candidate=True,
+        seniority=2,
+    )
+
+    elections = {NodeId("A"): node_a, NodeId("B"): node_b}
+
+    async def a_to_b():
+        with a_out_rx as msgs:
+            async for m in msgs:
+                await b_in_tx.send(m)
+
+    async def b_to_a():
+        with b_out_rx as msgs:
+            async for m in msgs:
+                await a_in_tx.send(m)
+
+    async with create_task_group() as tg:
+        with fail_after(5):
+            tg.start_soon(node_a.run)
+            tg.start_soon(node_b.run)
+            tg.start_soon(a_to_b)
+            tg.start_soon(b_to_a)
+
+            # B starts as master
+            node_b.current_session = SessionId(master_node_id=NodeId("B"), election_clock=0)
+            node_a.current_session = SessionId(master_node_id=NodeId("B"), election_clock=0)
+
+            winners = []
+            for c in range(1, 5):
+                # equal-clock re-proposal of A (not current master)
+                await a_in_tx.send(em(clock=c, seniority=2, node_id="A"))
+                # collect until both see result for this context? easier: wait for both to settle
+                await sleep(0.2)
+                winners.append((node_a.current_session.master_node_id, node_b.current_session.master_node_id))
+            assert all(w[0] == w[1] for w in winners)
+            assert all(w[0] == NodeId("B") for w in winners)
+            assert node_b.seniority > 2
+            tg.cancel_scope.cancel()
