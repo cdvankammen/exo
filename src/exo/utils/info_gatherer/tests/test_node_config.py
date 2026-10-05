@@ -11,8 +11,17 @@ The loop assertions below require MORE THAN ONE iteration. An earlier
 revision asserted ``calls >= 1``, which a loop that returns after a single
 iteration also satisfies — so the "periodic" behaviour was never actually
 verified (proved by a negative control that mutated each loop to
-``return`` immediately and still passed). The ``calls >= 3`` / buffer
-assertions are what make this a periodicity test.
+``return`` immediately and still passed). The ``calls >= 3`` assertions are
+what make this a periodicity test.
+
+TIMING: the loop is stopped by CANCELLING IT once enough iterations have
+happened, not by a wall-clock budget. An earlier revision ran the loop
+under ``anyio.move_on_after(0.1)`` and asserted 3 iterations of a 10ms tick.
+That couples the assertion to machine speed: under CPU contention a tick
+can exceed its budget, the deadline fires first, and a perfectly correct
+loop fails (observed once in ~40 runs on a loaded 10-core host, and it is
+inherent to shared-CI-runner timing). The deadline is now only a safety net
+that should never fire; the assertions themselves are load-independent.
 """
 
 import anyio
@@ -21,11 +30,10 @@ import pytest
 import exo.utils.info_gatherer.info_gatherer as ig
 from exo.utils.channels import channel
 
-# Enough ticks inside the 0.1s budget that a healthy loop (10ms interval)
-# reaches many more than MIN_ITERATIONS, while a one-shot loop cannot.
-TICK_SECONDS = 0.01
-RUN_SECONDS = 0.1
+TICK_SECONDS = 0.0
 MIN_ITERATIONS = 3
+# Safety net only: the cancel below ends the loop long before this.
+DEADLINE_SECONDS = 30.0
 
 
 class TestMonitorNodeConfig:
@@ -38,16 +46,20 @@ class TestMonitorNodeConfig:
 
         calls = 0
 
-        async def fake_gather() -> ig.NodeConfig | None:
-            nonlocal calls
-            calls += 1
-            return ig.NodeConfig()
+        with anyio.CancelScope() as scope:
 
-        monkeypatch.setattr(ig.NodeConfig, "gather", fake_gather)
+            async def fake_gather() -> ig.NodeConfig | None:
+                nonlocal calls
+                calls += 1
+                if calls > MIN_ITERATIONS:
+                    scope.cancel()  # enough full iterations are done
+                return ig.NodeConfig()
 
-        gatherer = ig.InfoGatherer(info_sender=sender)
-        with anyio.move_on_after(RUN_SECONDS):
-            await gatherer._monitor_node_config(TICK_SECONDS)  # pyright: ignore[reportPrivateUsage]
+            monkeypatch.setattr(ig.NodeConfig, "gather", fake_gather)
+
+            gatherer = ig.InfoGatherer(info_sender=sender)
+            with anyio.move_on_after(DEADLINE_SECONDS):
+                await gatherer._monitor_node_config(TICK_SECONDS)  # pyright: ignore[reportPrivateUsage]
 
         # >1 iteration: proves the announcement repeats, not just that it fired.
         assert calls >= MIN_ITERATIONS, (
@@ -66,16 +78,20 @@ class TestMonitorNodeConfig:
 
         calls = 0
 
-        async def fake_gather() -> ig.NodeConfig | None:
-            nonlocal calls
-            calls += 1
-            return None
+        with anyio.CancelScope() as scope:
 
-        monkeypatch.setattr(ig.NodeConfig, "gather", fake_gather)
+            async def fake_gather() -> ig.NodeConfig | None:
+                nonlocal calls
+                calls += 1
+                if calls > MIN_ITERATIONS:
+                    scope.cancel()
+                return None
 
-        gatherer = ig.InfoGatherer(info_sender=sender)
-        with anyio.move_on_after(RUN_SECONDS):
-            await gatherer._monitor_node_config(TICK_SECONDS)  # pyright: ignore[reportPrivateUsage]
+            monkeypatch.setattr(ig.NodeConfig, "gather", fake_gather)
+
+            gatherer = ig.InfoGatherer(info_sender=sender)
+            with anyio.move_on_after(DEADLINE_SECONDS):
+                await gatherer._monitor_node_config(TICK_SECONDS)  # pyright: ignore[reportPrivateUsage]
 
         # The loop must keep re-gathering even though every gather failed —
         # a one-shot loop would stop after the first failure and never recover.
