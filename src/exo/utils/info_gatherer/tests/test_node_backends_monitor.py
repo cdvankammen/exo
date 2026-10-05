@@ -8,10 +8,9 @@ re-sends it on an interval so the advertisement self-heals within one poll
 interval (fix 9299909c, same class as the NodeConfig re-announce dead4e88
 and the NodeApiInfo re-announce 36d58099).
 
-The gather-once behaviour itself is covered by TestNodeBackendsGather in
-src/exo/utils/tests/test_node_backends.py; these tests cover the periodic
-re-announcement loop, which had no direct coverage anywhere in history
-(verified: `git log --all -S '_monitor_node_backends' -- '*test*'` is empty).
+These tests cover the periodic re-announcement loop, which had no direct
+coverage anywhere in history (verified: `git log --all -S
+'_monitor_node_backends' -- '*test*'` is empty).
 
 The loop assertions require MORE THAN ONE iteration. Asserting ``calls >= 1``
 would also pass for a loop that returns after a single send, so it does not
