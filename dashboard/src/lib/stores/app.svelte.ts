@@ -112,6 +112,11 @@ export interface NodeInfo {
     memory?: {
       ram_usage: number;
       ram_total: number;
+      accelerator_devices?: Array<{
+        index: number;
+        total: number;
+        free: number;
+      }>;
     };
     temp?: {
       gpu_temp_avg: number;
@@ -168,6 +173,13 @@ interface RawMemoryUsage {
   ramAvailable?: { inBytes: number };
   swapTotal?: { inBytes: number };
   swapAvailable?: { inBytes: number };
+  acceleratorTotal?: { inBytes: number };
+  acceleratorAvailable?: { inBytes: number };
+  acceleratorDevices?: Array<{
+    index?: number;
+    total?: { inBytes: number };
+    free?: { inBytes: number };
+  }>;
 }
 
 interface RawSystemPerformanceProfile {
@@ -262,6 +274,11 @@ export interface PlacementPreviewResponse {
 }
 
 // Node compatibility from /instance/node-compatibility endpoint
+//
+// `compatible` is a POSITIVE verdict only — a node that is merely unselected
+// reports `selected: false` and is NEUTRAL. Render green only when
+// `compatible && selected`; never infer green from `compatible` alone
+// (that inference is what made phantom node_ids show a false green).
 export interface NodeCompatibilityEntry {
   node_id: string;
   friendly_name: string;
@@ -271,6 +288,7 @@ export interface NodeCompatibilityEntry {
   ram_total_gb: number | null;
   backends: string[] | null;
   in_topology: boolean;
+  selected: boolean;
 }
 
 export interface NodeCompatibilityResponse {
@@ -281,6 +299,10 @@ export interface NodeCompatibilityResponse {
   num_nodes: number | null;
   required_backends: string[];
   nodes: NodeCompatibilityEntry[];
+  // Ids the client asked about, and the subset the cluster did not
+  // recognise (a stale node filter) — drop these from the filter.
+  requested_node_ids: string[];
+  dropped_node_ids: string[];
 }
 
 interface ImageApiResponse {
@@ -617,6 +639,12 @@ function transformTopology(
         memory: {
           ram_usage: ramUsage,
           ram_total: ramTotal,
+          accelerator_devices:
+            memory?.acceleratorDevices?.map((dev) => ({
+              index: dev.index ?? 0,
+              total: dev.total?.inBytes ?? 0,
+              free: dev.free?.inBytes ?? 0,
+            })) ?? [],
         },
         temp:
           system?.temp !== undefined
@@ -1837,6 +1865,19 @@ class AppStore {
       }
       const data: NodeCompatibilityResponse = await response.json();
       this.nodeCompatibility = data;
+      // The API drops node ids the cluster does not recognise and echoes them
+      // back. Clear them from the filter so a stale selection (a node that left
+      // the cluster, a rotated id) cannot keep skewing the per-node math.
+      if (data.dropped_node_ids?.length) {
+        const dropped = new Set(data.dropped_node_ids);
+        this.previewNodeFilter = new Set(
+          [...this.previewNodeFilter].filter((id) => !dropped.has(id)),
+        );
+        console.warn(
+          "Dropped unknown node ids from node filter:",
+          data.dropped_node_ids,
+        );
+      }
     } catch (error) {
       console.error("Error fetching node compatibility:", error);
       this.nodeCompatibility = null;
@@ -2156,6 +2197,12 @@ class AppStore {
           stream: true,
           logprobs: true,
           top_logprobs: 5,
+          temperature: this.samplingParams.temperature ?? 0.7,
+          ...(this.samplingParams.topP !== null && { top_p: this.samplingParams.topP }),
+          ...(this.samplingParams.topK !== null && { top_k: Math.round(this.samplingParams.topK) }),
+          ...(this.samplingParams.seed !== null && { seed: Math.round(this.samplingParams.seed) }),
+          ...(this.samplingParams.maxTokens !== null && { max_tokens: Math.round(this.samplingParams.maxTokens) }),
+          ...(this.samplingParams.logitBias !== null && { logit_bias: this.samplingParams.logitBias }),
         }),
       });
 
@@ -2381,6 +2428,12 @@ class AppStore {
           stream: true,
           logprobs: true,
           top_logprobs: 5,
+          temperature: this.samplingParams.temperature ?? 0.7,
+          ...(this.samplingParams.topP !== null && { top_p: this.samplingParams.topP }),
+          ...(this.samplingParams.topK !== null && { top_k: Math.round(this.samplingParams.topK) }),
+          ...(this.samplingParams.seed !== null && { seed: Math.round(this.samplingParams.seed) }),
+          ...(this.samplingParams.maxTokens !== null && { max_tokens: Math.round(this.samplingParams.maxTokens) }),
+          ...(this.samplingParams.logitBias !== null && { logit_bias: this.samplingParams.logitBias }),
         }),
       });
 

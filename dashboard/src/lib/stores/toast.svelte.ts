@@ -93,7 +93,9 @@ export function toasts(): Toast[] {
  * should never show that verbatim.
  *
  * Handles:
- * - JSON bodies: {"detail": "..."} (FastAPI) / {"error_message": "..."}
+ * - JSON bodies: {"error": {"message": "..."}} (exo's unified ErrorResponse
+ *   envelope — what EVERY non-2xx now returns, including 422s) /
+ *   {"detail": "..."} (raw FastAPI) / {"error_message": "..."}
  * - pydantic validation arrays: {"detail": [{"loc":..., "msg": "..."}, ...]}
  * - Python tracebacks: keeps the FINAL line (the actual exception message)
  * - plain text: collapses whitespace + truncates
@@ -106,10 +108,25 @@ export function truncateErrorMessage(raw: string, maxLength = 200): string {
   // JSON error bodies (FastAPI style)
   if (message.startsWith("{") || message.startsWith("[")) {
     try {
-      const parsed = JSON.parse(message) as {
+ const parsed = JSON.parse(message) as {
         detail?: unknown;
         error_message?: unknown;
+        error?: { message?: unknown } | string;
       };
+      // exo's unified ErrorResponse envelope (src/exo/api/types/api.py).
+      // Checked FIRST: it is the shape every non-2xx returns once F2 unified
+      // 422s onto the same contract, and a raw dump of it in a toast is
+      // unreadable. An envelope WITHOUT a string message is left alone so
+      // the detail / error_message fallbacks below still get a turn —
+      // stringifying the object here would be exactly the raw-JSON noise
+      // this function exists to strip.
+      const envelope = parsed.error;
+      if (typeof envelope === "string") {
+        message = envelope;
+      } else if (envelope && typeof envelope === "object") {
+        const inner = (envelope as { message?: unknown }).message;
+        if (typeof inner === "string") message = inner;
+      }
       const detail = parsed.detail;
       if (typeof detail === "string") {
         message = detail;
