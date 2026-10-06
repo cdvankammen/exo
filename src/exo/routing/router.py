@@ -37,6 +37,23 @@ from .topics import CONNECTION_MESSAGES, PublishPolicy, TypedTopic
 _MALFORMED_EVENT_LOG: list[dict[str, str | float]] = []
 _MALFORMED_EVENT_LOG_MAX = 20
 
+# Throttle logging of malformed events. A peer whose bundle predates a schema
+# change produces one error PER MESSAGE, forever: measured 407,046 pydantic
+# error blocks (254 MB of log) on one node in a single day, purely from a
+# version-skewed peer. The exception text is identical every time, so logging it
+# per-event buys nothing and fills the disk. Log the first N, then only every
+# Nth, keeping the warning chip (which has its own bound) unaffected.
+_MALFORMED_LOG_FIRST = 5
+_MALFORMED_LOG_EVERY = 1000
+_malformed_seen: dict[str, int] = {}
+
+
+def _should_log_malformed(topic: str) -> bool:
+    """Return True when this malformed event on `topic` deserves a log line."""
+    n = _malformed_seen.get(topic, 0) + 1
+    _malformed_seen[topic] = n
+    return n <= _MALFORMED_LOG_FIRST or n % _MALFORMED_LOG_EVERY == 0
+
 
 def record_malformed_event(topic: str, error: str) -> None:
     """Record a dropped malformed event (bounded ring buffer)."""
@@ -117,9 +134,12 @@ class TopicRouter[T: FrozenModel]:
             # A malformed/desynced event (e.g. an old bundle sending a schema
             # this version can't parse) must never kill the whole process.
             # Log it, record it for the UI warning, and drop just this event.
-            logger.warning(
-                f"Dropping malformed event on {self.topic.topic}: {e}"
-            )
+            # Logging is throttled: a version-skewed peer emits one of these per
+            # message forever, which filled 254 MB of disk in a day.
+            if _should_log_malformed(self.topic.topic):
+                logger.warning(
+                    f"Dropping malformed event on {self.topic.topic}: {e}"
+                )
             record_malformed_event(self.topic.topic, repr(e))
 
     def new_sender(self) -> Sender[T]:
