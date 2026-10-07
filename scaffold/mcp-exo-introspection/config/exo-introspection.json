@@ -1,0 +1,10 @@
+{
+  "name": "exo-introspection",
+  "description": "Read-only exo cluster introspection: list_nodes, get_topology, explain_placement, get_download_status",
+  "command": "/Users/chris/Documents/GitHub/exo/.venv/bin/python",
+  "args": ["-m", "exo_introspection"],
+  "env": {
+    "EXO_MCP_BASE_URL": ""
+  },
+  "type": "stdio"
+}
