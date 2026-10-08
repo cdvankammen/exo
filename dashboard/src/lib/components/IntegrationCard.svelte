@@ -1,5 +1,6 @@
 <script lang="ts">
   import { copyText } from "$lib/utils/clipboard";
+  import WidgetFrame from "./WidgetFrame.svelte";
 
   interface Props {
     title: string;
@@ -32,14 +33,11 @@
   }
 </script>
 
-<div
-  class="border border-exo-light-gray/20 rounded-lg bg-exo-medium-gray/20 overflow-hidden"
->
-  <div class="flex items-center justify-between px-5 py-4">
-    <div>
-      <h3 class="text-white text-sm font-semibold tracking-wide">{title}</h3>
-      <p class="text-exo-light-gray/60 text-xs mt-0.5 font-mono">{subtitle}</p>
-    </div>
+<!-- W2: props in, markup out — shell/title row/toolbar come from WidgetFrame;
+     description + config block are the body (children), so their DOM stays
+     exactly where it was: siblings between the header row and the frame edge. -->
+<WidgetFrame {title} {subtitle}>
+  {#snippet toolbar()}
     <button
       onclick={copyToClipboard}
       class="px-3 py-1.5 text-xs rounded border transition-all duration-200 cursor-pointer
@@ -51,7 +49,7 @@
     >
       {copied ? "Copied!" : failed ? "Copy failed" : "Copy"}
     </button>
-  </div>
+  {/snippet}
   {#if description}
     <p class="text-exo-light-gray/70 text-xs px-5 pb-3">{description}</p>
   {/if}
@@ -59,4 +57,4 @@
     <pre
       class="text-xs text-exo-light-gray/90 font-mono p-4 overflow-x-auto whitespace-pre">{config}</pre>
   </div>
-</div>
+</WidgetFrame>
