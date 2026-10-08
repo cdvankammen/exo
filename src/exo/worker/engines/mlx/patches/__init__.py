@@ -1,3 +1,4 @@
+from exo.worker.engines.mlx.deepseek_v4_mtp import patch_deepseek_v4_hidden_capture
 from exo.worker.engines.mlx.patches.deepseek_v4_cache_extend import (
     patch_deepseek_v4_cache_extend,
 )
@@ -31,3 +32,4 @@ def apply_mlx_patches() -> None:
     patch_deepseek_v4_indexer()
     patch_deepseek_v4_decode_kernels()
     patch_switch_lhs_indices()
+    patch_deepseek_v4_hidden_capture()

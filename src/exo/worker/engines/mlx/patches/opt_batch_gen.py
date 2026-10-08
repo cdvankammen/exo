@@ -5,6 +5,13 @@ from typing import cast
 import mlx.core as mx
 from mlx_lm.generate import GenerationBatch, PromptProcessingBatch, generation_stream
 
+from exo.worker.engines.mlx.deepseek_v4_speculative import (
+    after_normal_step,
+    flush,
+    patch_speculative_batch,
+    speculative_step,
+)
+
 _PRECOMPUTE_TOP_K = 20
 
 
@@ -79,6 +86,12 @@ def _lazy_cache_metadata(cache: list[object]) -> list[mx.array]:
 
 
 def _patched_step(self: GenerationBatch) -> tuple[list[int], list[mx.array]]:
+    if _get_buffer(self).needs_topk:
+        flush(self)
+    else:
+        speculative = speculative_step(self)
+        if speculative is not None:
+            return speculative
     self._current_tokens = self._next_tokens
     self._current_logprobs = self._next_logprobs
     inputs = self._current_tokens
@@ -113,6 +126,7 @@ def _patched_step(self: GenerationBatch) -> tuple[list[int], list[mx.array]]:
 
     self._next_tokens = sampled
     self._next_logprobs = logprobs
+    draft = after_normal_step(self, sampled) if not buf.needs_topk else None
 
     if buf.needs_topk:
         batch_size = len(self.uids)
@@ -143,6 +157,8 @@ def _patched_step(self: GenerationBatch) -> tuple[list[int], list[mx.array]]:
             self._next_logprobs,
             *_lazy_cache_metadata(self.prompt_cache),
         )
+    if draft is not None:
+        mx.async_eval(draft)
 
     current_lp = self._current_logprobs
     if isinstance(current_lp, mx.array):
@@ -182,3 +198,4 @@ def _prompt_after_decode_step(
 def apply_batch_gen_patch() -> None:
     GenerationBatch._step = _patched_step
     PromptProcessingBatch.prompt = _prompt_after_decode_step
+    patch_speculative_batch()
