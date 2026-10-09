@@ -5,7 +5,7 @@ from collections.abc import Mapping
 from datetime import datetime, timezone
 
 import anyio
-from anyio import fail_after, to_thread
+from anyio import current_time, fail_after, to_thread
 from loguru import logger
 
 from exo.api.types import ImageEditsTaskParams
@@ -34,6 +34,7 @@ from exo.shared.types.events import (
     InstanceDeleted,
     NodeDownloadProgress,
     NodeGatheredInfo,
+    NodeTimedOut,
     RunnerStatusUpdated,
     StateSnapshot,
     TaskCreated,
@@ -62,7 +63,19 @@ from exo.shared.types.worker.downloads import DownloadCompleted
 from exo.shared.types.worker.instances import InstanceId
 from exo.shared.types.worker.runners import RunnerId, RunnerReady
 from exo.utils.channels import Receiver, Sender, channel
-from exo.utils.info_gatherer.info_gatherer import GatheredInfo, InfoGatherer
+from exo.utils.info_gatherer.info_gatherer import (
+    GatheredInfo,
+    InfoGatherer,
+    MacThunderboltIdentifiers,
+    MiscData,
+    NodeBackends,
+    NodeConfig,
+    NodeDiskUsage,
+    NodeNetworkInterfaces,
+    RdmaCtlStatus,
+    StaticNodeInformation,
+    ThunderboltBridgeInfo,
+)
 from exo.utils.info_gatherer.net_profile import check_reachable
 from exo.utils.keyed_backoff import KeyedBackoff
 from exo.utils.task_group import TaskGroup
@@ -76,6 +89,26 @@ CUSTOM_CARD_ANNOUNCE_INTERVAL = 10.0
 
 # How long the worker waits for an instance it asked to delete to go, before asking again
 DELETION_REQUEST_RETRY = 10.0
+
+
+# Info whose effect on the state depends only on this node's own report, so
+# re-sending an unchanged value is a no-op. MacThunderboltConnections is left
+# out: it resolves against the other nodes' identifiers, so its repeats rebuild
+# RDMA edges after a peer rejoins.
+_SELF_CONTAINED_INFO = (
+    NodeNetworkInterfaces,
+    MacThunderboltIdentifiers,
+    RdmaCtlStatus,
+    ThunderboltBridgeInfo,
+    NodeConfig,
+    MiscData,
+    StaticNodeInformation,
+    NodeDiskUsage,
+    NodeBackends,
+)
+# Gathered info doubles as the liveness heartbeat (the master times nodes out
+# after 30 s), so unchanged info is still sent if nothing else was this recently.
+_HEARTBEAT_SECONDS = 10.0
 
 
 class Worker:
@@ -122,6 +155,9 @@ class Worker:
 
         # The latest information of each kind gathered about this node, so that a new
         # master can be told all of it: some of it is only gathered once
+        # Keep last-sent copies of self-contained info for deduplication
+        self._last_sent_info: dict[str, GatheredInfo] = {}
+        self._last_info_time: float = 0.0
         self._gathered: dict[type[GatheredInfo], GatheredInfo] = {}
         # After a change of master, the session whose state this worker waits for before
         # acting on the cluster state again
@@ -160,6 +196,16 @@ class Worker:
         with recv as info_stream:
             async for info in info_stream:
                 self._gathered[type(info)] = info
+                kind = type(info).__name__
+                now = current_time()
+                if (
+                    isinstance(info, _SELF_CONTAINED_INFO)
+                    and self._last_sent_info.get(kind) == info
+                    and now - self._last_info_time < _HEARTBEAT_SECONDS
+                ):
+                    continue
+                self._last_sent_info[kind] = info
+                self._last_info_time = now
                 await self._send_info(info)
 
     async def _send_info(self, info: GatheredInfo) -> None:
@@ -189,6 +235,10 @@ class Worker:
                 if isinstance(event, InstanceDeleted):
                     self._instance_backoff.reset(event.instance_id)
                     self._deletion_requested.pop(event.instance_id, None)
+
+                # The timeout dropped this node's info from the state.
+                if isinstance(event, NodeTimedOut) and event.node_id == self.node_id:
+                    self._last_sent_info.clear()
 
                 # Our runner for an instance has started: the attempts before it no longer
                 # count towards giving up on the instance, which is for one that can't start

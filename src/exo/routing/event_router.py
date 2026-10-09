@@ -107,7 +107,9 @@ class EventRouter:
         return send
 
     def receiver(self) -> Receiver[IndexedEvent | StateSnapshot]:
-        assert not self._tg.is_running()
+        # The router lives for the whole node, so consumers can be created at any
+        # time; a consumer created while it is running still gets every event and
+        # snapshot delivered from now on (it just misses anything already buffered).
         send, recv = channel[IndexedEvent | StateSnapshot](
             error_override_config=_ERROR_CFG
         )

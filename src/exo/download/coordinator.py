@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from itertools import count
 from pathlib import Path
 
 import anyio
@@ -32,7 +31,9 @@ from exo.shared.types.commands import (
 from exo.shared.types.common import NodeId
 from exo.shared.types.events import (
     Event,
+    IndexedEvent,
     NodeDownloadProgress,
+    NodeTimedOut,
 )
 from exo.shared.types.memory import Memory
 from exo.shared.types.worker.downloads import (
@@ -46,17 +47,6 @@ from exo.shared.types.worker.shards import PipelineShardMetadata, ShardMetadata
 from exo.utils.channels import Receiver, Sender
 from exo.utils.task_group import TaskGroup
 
-_RESCAN_INTERVAL_SECONDS = 60
-# Each rescan re-announces models with files on this node, so state the master
-# dropped (e.g. after timing this node out) heals within a minute. Models that were
-# never downloaded (the other ~120 known cards) are only announced when they change,
-# and on every this-many-th scan as a safety net.
-_FULL_RESCAN_EVERY = 10
-
-
-def _has_local_files(status: DownloadProgress) -> bool:
-    return not (isinstance(status, DownloadPending) and status.downloaded.in_bytes == 0)
-
 
 @dataclass
 class DownloadCoordinator:
@@ -65,10 +55,18 @@ class DownloadCoordinator:
     download_command_receiver: Receiver[ForwarderDownloadCommand]
     event_sender: Sender[Event]
     offline: bool = False
+    # Indexed cluster events, used to skip rescan results the state already holds.
+    event_receiver: Receiver[IndexedEvent] | None = None
+    rescan_interval_seconds: float = 60.0
 
     # Local state
     download_status: dict[ModelId, DownloadProgress] = field(default_factory=dict)
     active_downloads: dict[ModelId, anyio.CancelScope] = field(default_factory=dict)
+
+    # This node's download statuses as the cluster state holds them
+    _published_status: dict[ModelId, DownloadProgress] = field(
+        init=False, default_factory=dict
+    )
 
     _tg: TaskGroup = field(init=False, default_factory=TaskGroup)
     _stopped: anyio.Event = field(init=False, default_factory=anyio.Event)
@@ -155,6 +153,8 @@ class DownloadCoordinator:
             async with self._tg as tg:
                 tg.start_soon(self._command_processor)
                 tg.start_soon(self._emit_existing_download_progress)
+                if self.event_receiver is not None:
+                    tg.start_soon(self._track_published_status, self.event_receiver)
         except* (EventRouterBrokenResourceError, EventRouterClosedResourceError):
             # Event router has been closed (try-star syntax handles error groups)
             pass
@@ -162,6 +162,8 @@ class DownloadCoordinator:
             # don't forget to clean up resources
             self.download_command_receiver.close()
             self.event_sender.close()
+            if self.event_receiver is not None:
+                self.event_receiver.close()
 
             self._stopped.set()
 
@@ -373,17 +375,31 @@ class DownloadCoordinator:
             )
             del self.download_status[model_id]
 
-    async def _announce(self, status: DownloadProgress, *, force: bool) -> None:
-        """Record `status`, sending it to the cluster if it changed or `force` is set."""
-        model_id = status.shard_metadata.model_card.model_id
-        changed = self.download_status.get(model_id) != status
-        self.download_status[model_id] = status
-        if changed or force:
-            await self.event_sender.send(NodeDownloadProgress(download_progress=status))
+    async def _track_published_status(
+        self, event_receiver: Receiver[IndexedEvent]
+    ) -> None:
+        """Mirror this node's entries in ``State.downloads``.
+
+        The rescan reports every known model each minute. Re-sending a status
+        the state already holds changes nothing but still grows the event log
+        that every joining node replays, so the rescan skips those. A timeout
+        removes this node's entries from the state, so they are sent again.
+        """
+        with event_receiver as events:
+            async for indexed in events:
+                event = indexed.event
+                if (
+                    isinstance(event, NodeDownloadProgress)
+                    and event.download_progress.node_id == self.node_id
+                ):
+                    progress = event.download_progress
+                    model_id = progress.shard_metadata.model_card.model_id
+                    self._published_status[model_id] = progress
+                elif isinstance(event, NodeTimedOut) and event.node_id == self.node_id:
+                    self._published_status.clear()
 
     async def _emit_existing_download_progress(self) -> None:
-        for scan in count():
-            resend_unchanged = scan % _FULL_RESCAN_EVERY == 0
+        while True:
             try:
                 logger.debug(
                     "DownloadCoordinator: Fetching and emitting existing download progress..."
@@ -459,8 +475,11 @@ class DownloadCoordinator:
                     else:
                         continue
 
-                    await self._announce(
-                        status, force=resend_unchanged or _has_local_files(status)
+                    self.download_status[model_id] = status
+                    if self._published_status.get(model_id) == status:
+                        continue
+                    await self.event_sender.send(
+                        NodeDownloadProgress(download_progress=status)
                     )
                 # Scan read-only directories for pre-downloaded models
                 if EXO_MODELS_READ_ONLY_DIRS:
@@ -490,7 +509,10 @@ class DownloadCoordinator:
                                     path_shard, found, card.storage_size
                                 )
                             )
-                            await self._announce(path_completed, force=resend_unchanged)
+                            self.download_status[mid] = path_completed
+                            await self.event_sender.send(
+                                NodeDownloadProgress(download_progress=path_completed)
+                            )
 
                 logger.debug(
                     "DownloadCoordinator: Done emitting existing download progress."
@@ -499,4 +521,4 @@ class DownloadCoordinator:
                 logger.error(
                     f"DownloadCoordinator: Error emitting existing download progress: {e}"
                 )
-            await anyio.sleep(_RESCAN_INTERVAL_SECONDS)
+            await anyio.sleep(self.rescan_interval_seconds)
