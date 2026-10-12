@@ -695,6 +695,10 @@
   });
 
   let onboardingError = $state<string | null>(null);
+  // (#2428) Model currently being pre-flighted on step 6. The Downloading
+  // screen (step 7) only appears once the backend confirms the placement, so
+  // a placement rejection can no longer make the download screen "disappear".
+  let onboardingLaunchingId = $state<string | null>(null);
   // The instance launched from onboarding, so a failure can send the user back
   let onboardingInstanceId = $state<string | null>(null);
   let onboardingInstanceSeen = $state(false);
@@ -789,12 +793,31 @@
     }
   });
 
+  // Turn a placement rejection into actionable guidance instead of a bare
+  // backend string. The most common rejection is a model that does not fit
+  // the network's memory (#2428).
+  function formatOnboardingLaunchError(modelId: string, rawError: string): string {
+    if (/memory/i.test(rawError)) {
+      const model = models.find((m) => m.id === modelId);
+      const sizeGB = getModelSizeGB(model ?? { id: modelId });
+      const totalGB = clusterTotalMemoryGB();
+      const availableGB = availableMemoryGB();
+      return `${modelId} needs about ${sizeGB.toFixed(1)} GB but this network only has ${totalGB.toFixed(1)} GB of memory in total (${availableGB.toFixed(1)} GB free right now). Pick a smaller model, or add another device.`;
+    }
+    return `Failed to get placement: ${rawError}`;
+  }
+
   async function onboardingLaunchModel(modelId: string) {
     onboardingModelId = modelId;
     onboardingError = null;
     resetOnboardingLaunchTracking();
     selectPreviewModel(modelId);
-    onboardingStep = 7;
+    // (#2428) Pre-flight the placement BEFORE showing the Downloading screen.
+    // Setting step 7 optimistically meant that when the backend rejected the
+    // model (e.g. it does not fit the network's memory once activation
+    // overhead is accounted for) the wizard flipped straight back to the model
+    // list, which users experienced as "the download screen disappears
+    // mid-download and the model never loads".
     // Launch via standard placement API (same as main dashboard)
     // Single-node: force Pipeline/Ring regardless of persisted defaults
     const nodeCount = topologyData()
@@ -802,17 +825,20 @@
       : 1;
     const sharding = nodeCount <= 1 ? "Pipeline" : selectedSharding;
     const instanceType = nodeCount <= 1 ? "MlxRing" : selectedInstanceType;
+    onboardingLaunchingId = modelId;
     try {
       const placementResponse = await fetch(
         `/instance/placement?model_id=${encodeURIComponent(modelId)}&sharding=${sharding}&instance_meta=${instanceType}&min_nodes=1`,
       );
       if (!placementResponse.ok) {
         const errorText = await readApiErrorMessage(placementResponse);
-        onboardingError = `Failed to get placement: ${errorText}`;
+        onboardingError = formatOnboardingLaunchError(modelId, errorText);
         onboardingStep = 6;
         return;
       }
       const instanceData = await placementResponse.json();
+      // Placement confirmed — the download can actually start, show step 7.
+      onboardingStep = 7;
       const response = await fetch("/instance", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -848,6 +874,8 @@
     } catch (error) {
       onboardingError = `Network error: ${error}`;
       onboardingStep = 6;
+    } finally {
+      onboardingLaunchingId = null;
     }
   }
 
@@ -5156,11 +5184,13 @@
               {#each onboardingModels as model}
                 {@const sizeGB = getModelSizeGB(model)}
                 {@const fitsNow = hasEnoughMemory(model)}
+                {@const launching = onboardingLaunchingId === model.id}
                 {@const tags = modelTags()[model.id] || []}
                 <button
                   type="button"
                   onclick={() => onboardingLaunchModel(model.id)}
-                  class="w-full flex items-center justify-between gap-4 px-5 py-4 rounded-xl border transition-all duration-200 cursor-pointer {fitsNow
+                  disabled={onboardingLaunchingId !== null}
+                  class="w-full flex items-center justify-between gap-4 px-5 py-4 rounded-xl border transition-all duration-200 cursor-pointer disabled:opacity-50 disabled:cursor-wait {fitsNow
                     ? 'border-white/10 bg-white/5 hover:border-exo-yellow/50 hover:bg-exo-yellow/5'
                     : 'border-white/10 bg-white/[0.02] hover:border-white/20 opacity-60'}"
                 >
@@ -5185,19 +5215,25 @@
                     <span class="text-xs font-mono text-white/50"
                       >{sizeGB >= 1 ? sizeGB.toFixed(0) : sizeGB.toFixed(1)} GB</span
                     >
-                    <svg
-                      class="w-4 h-4 text-white/40"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                      stroke-width="2"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        d="M9 5l7 7-7 7"
-                      />
-                    </svg>
+                    {#if launching}
+                      <span
+                        class="w-4 h-4 border-2 border-exo-yellow/30 border-t-exo-yellow rounded-full animate-spin"
+                      ></span>
+                    {:else}
+                      <svg
+                        class="w-4 h-4 text-white/40"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        stroke-width="2"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          d="M9 5l7 7-7 7"
+                        />
+                      </svg>
+                    {/if}
                   </div>
                 </button>
               {/each}
