@@ -148,14 +148,39 @@ final class ExoProcessController: ObservableObject {
     private var runtimeDirectoryURL: URL?
     private var pendingLaunchTask: Task<Void, Never>?
 
+    /// Finishes once the exo that was last stopped has exited.
+    private var stoppingTask: Task<Void, Never>?
+    /// A start that is waiting for `stoppingTask`.
+    private var launchAfterStopTask: Task<Void, Never>?
+
     func launchIfNeeded() {
         guard process?.isRunning != true else { return }
         launch()
     }
 
     func launch() {
+        guard process?.isRunning != true else { return }
+        // A stopped exo holds the lock on ~/.exo/exo.pid until it has exited,
+        // which can take seconds, and an exo started before then quits at
+        // once ("daemon already running"). So Save & Restart, or switching
+        // exo off and on quickly, waits for the old one, showing Starting….
+        if let stopping = stoppingTask {
+            cancelPendingLaunch()
+            status = .starting
+            lastError = nil
+            launchAfterStopTask?.cancel()
+            launchAfterStopTask = Task { [weak self] in
+                await stopping.value
+                guard let self, !Task.isCancelled else { return }
+                if self.stoppingTask == stopping {
+                    self.stoppingTask = nil
+                }
+                self.launchAfterStopTask = nil
+                self.launch()
+            }
+            return
+        }
         do {
-            guard process?.isRunning != true else { return }
             cancelPendingLaunch()
             status = .starting
             lastError = nil
@@ -208,6 +233,8 @@ final class ExoProcessController: ObservableObject {
     }
 
     func stop() {
+        launchAfterStopTask?.cancel()
+        launchAfterStopTask = nil
         guard let process else {
             status = .stopped
             return
@@ -223,27 +250,32 @@ final class ExoProcessController: ObservableObject {
         let proc = process
         self.process = nil
 
-        Task.detached {
+        stoppingTask = Task.detached {
             proc.interrupt()
-
-            for _ in 0..<50 {
-                if !proc.isRunning { return }
-                try? await Task.sleep(nanoseconds: 100_000_000)
-            }
-
+            if await Self.waitForExit(of: proc, seconds: 5) { return }
             if proc.isRunning {
                 proc.terminate()
             }
-
-            for _ in 0..<30 {
-                if !proc.isRunning { return }
-                try? await Task.sleep(nanoseconds: 100_000_000)
-            }
-
+            if await Self.waitForExit(of: proc, seconds: 3) { return }
             if proc.isRunning {
                 kill(proc.processIdentifier, SIGKILL)
             }
+            _ = await Self.waitForExit(of: proc, seconds: 2)
         }
+    }
+
+    /// Waits up to `seconds` for `process` to exit, and says whether it has.
+    /// Uses a deadline rather than counting sleeps, which take longer than
+    /// asked on a busy Mac.
+    nonisolated static func waitForExit(of process: Process, seconds: Int) async -> Bool {
+        let deadline = ContinuousClock.now + .seconds(seconds)
+        while process.isRunning {
+            if ContinuousClock.now >= deadline {
+                return false
+            }
+            try? await Task.sleep(for: .milliseconds(100))
+        }
+        return true
     }
 
     func restart() {
