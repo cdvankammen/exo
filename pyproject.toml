@@ -48,7 +48,7 @@ dev = [
 build = ["nanobind"]
 mlx-none = ["anyio"]
 mlx = [
-  "mlx==0.32.0",
+  "mlx>=0.32.0",
   "mlx-lm",
   "mlx-vlm>=0.3.11",
   "mflux==0.17.5",
@@ -94,7 +94,7 @@ exo-rs = { workspace = true }
 # fork of the resolution then falls through to the PyPI `mlx` bindings,
 # which are built against PyPI mlx-cpu.
 mlx = [
-  { git = "https://github.com/rltakashige/mlx-jaccl-fix-small-recv.git", branch = "address-rdma-gpu-locks", marker = "sys_platform == 'darwin'" },
+  { git = "https://github.com/ml-explore/mlx.git", rev = "0e3ff3643b1c3719f78814b98e0d222afbad867c", marker = "sys_platform == 'darwin'" },
   { url = "https://github.com/rltakashige/mlx-jaccl-fix-small-recv/releases/download/mlx_cuda/mlx-0.32.0-cp313-cp313-manylinux_2_35_aarch64.whl", extra = "mlx-cuda12", marker = "sys_platform == 'linux' and platform_machine == 'aarch64'" },
   { url = "https://github.com/rltakashige/mlx-jaccl-fix-small-recv/releases/download/mlx_cuda/mlx-0.32.0-cp313-cp313-manylinux_2_35_x86_64.whl", extra = "mlx-cuda12", marker = "sys_platform == 'linux' and platform_machine != 'aarch64'" },
   { url = "https://github.com/rltakashige/mlx-jaccl-fix-small-recv/releases/download/mlx_cuda/mlx-0.32.0-cp313-cp313-manylinux_2_35_aarch64.whl", extra = "mlx-cuda13", marker = "sys_platform == 'linux' and platform_machine == 'aarch64'" },
