@@ -29,6 +29,7 @@ from exo.shared.types.events import (
     LocalForwarderEvent,
     NodeGatheredInfo,
     RunnerStatusUpdated,
+    StateSnapshot,
 )
 from exo.shared.types.memory import Memory
 from exo.shared.types.profiling import MemoryUsage
@@ -110,6 +111,7 @@ async def test_master_keeps_a_deployed_model_running(monkeypatch: pytest.MonkeyP
         session_id,
         event_sender=event_sender,
         global_event_sender=global_sender,
+        snapshot_sender=channel[StateSnapshot]()[0],
         local_event_receiver=local_receiver,
         command_receiver=command_receiver,
         download_command_sender=download_sender,
