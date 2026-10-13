@@ -379,6 +379,10 @@ def main_inner(args: "Args"):
         os.environ["EXO_FAST_SYNCH"] = "false"
         logger.info("FAST_SYNCH forced OFF")
 
+    # Expose the API port so the info gatherer can advertise this node's
+    # endpoint to the cluster (reachability probes then dial the right port).
+    os.environ["EXO_API_PORT"] = str(args.api_port)
+
     node = anyio.run(Node.create, args)
     try:
         anyio.run(node.run)

@@ -63,7 +63,7 @@ from exo.shared.types.worker.instances import InstanceId
 from exo.shared.types.worker.runners import RunnerId, RunnerReady
 from exo.utils.channels import Receiver, Sender, channel
 from exo.utils.info_gatherer.info_gatherer import GatheredInfo, InfoGatherer
-from exo.utils.info_gatherer.net_profile import check_reachable
+from exo.utils.info_gatherer.net_profile import check_reachable, resolve_peer_port
 from exo.utils.keyed_backoff import KeyedBackoff
 from exo.utils.task_group import TaskGroup
 from exo.worker.plan import plan
@@ -577,16 +577,22 @@ class Worker:
                 self.node_id,
                 self.state.node_network,
                 api_port=self.api_port,
+                node_identities=self.state.node_identities,
             ):
                 if ip in conns[nid]:
                     continue
                 conns[nid].add(ip)
+                # Use the peer's advertised port so the edge matches the
+                # port actually probed (fixes §12 0-edge bug).
+                peer_port = resolve_peer_port(
+                    self.state.node_identities, nid, self.api_port
+                )
                 edge = SocketConnection(
                     # nonsense multiaddr
-                    sink_multiaddr=Multiaddr(address=f"/ip4/{ip}/tcp/{self.api_port}")
+                    sink_multiaddr=Multiaddr(address=f"/ip4/{ip}/tcp/{peer_port}")
                     if "." in ip
                     # nonsense multiaddr
-                    else Multiaddr(address=f"/ip6/{ip}/tcp/{self.api_port}"),
+                    else Multiaddr(address=f"/ip6/{ip}/tcp/{peer_port}"),
                 )
                 if edge not in edges:
                     logger.debug(f"ping discovered {edge=}")

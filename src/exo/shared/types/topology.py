@@ -26,7 +26,7 @@ class SocketConnection(FrozenModel):
     sink_multiaddr: Multiaddr
 
     def __hash__(self):
-        return hash(self.sink_multiaddr.ip_address)
+        return hash((self.sink_multiaddr.ip_address, self.sink_multiaddr.port))
 
 
 class Connection(FrozenModel):

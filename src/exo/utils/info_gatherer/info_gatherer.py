@@ -320,6 +320,21 @@ class MiscData(TaggedModel):
         return cls(friendly_name=await get_friendly_name())
 
 
+class NodeApiInfo(TaggedModel):
+    """Where this node's HTTP API listens, so cluster-wide views (logs/errors)
+    can reach every node. Populated once at startup from the node's launch args."""
+
+    api_host: str
+    api_port: int
+
+    @classmethod
+    async def gather(cls) -> Self | None:
+        from exo.shared.constants import EXO_API_HOST
+
+        api_port = int(os.getenv("EXO_API_PORT", "52415"))
+        return cls(api_host=EXO_API_HOST, api_port=api_port)
+
+
 class NodeDiskUsage(TaggedModel):
     """Disk space information for the models directory."""
 
@@ -393,6 +408,7 @@ GatheredInfo = (
     | ThunderboltBridgeInfo
     | NodeConfig
     | MiscData
+    | NodeApiInfo
     | StaticNodeInformation
     | NodeDiskUsage
     | NodeBackends
@@ -458,6 +474,10 @@ class InfoGatherer:
             nc = await NodeConfig.gather()
             if nc is not None:
                 await self.info_sender.send(nc)
+
+            api_info = await NodeApiInfo.gather()
+            if api_info is not None:
+                await self.info_sender.send(api_info)
 
             await self.info_sender.send(await NodeBackends.gather())
 
@@ -528,14 +548,24 @@ class InfoGatherer:
             await anyio.sleep(memory_poll_rate)
 
     async def _watch_system_info(self, interface_watcher_interval: float):
+        # Emit once eagerly at startup so the first probe cycle has
+        # network data immediately (removes the 0-10s window where GATE 1
+        # always trips and produces zero edges — §12.3).
+        try:
+            with fail_after(10):
+                nics = await get_network_interfaces()
+                await self.info_sender.send(NodeNetworkInterfaces(ifaces=nics))
+        except Exception as e:
+            logger.opt(exception=e).warning("Error gathering network interfaces")
+
         while True:
+            await anyio.sleep(interface_watcher_interval)
             try:
                 with fail_after(10):
                     nics = await get_network_interfaces()
                     await self.info_sender.send(NodeNetworkInterfaces(ifaces=nics))
             except Exception as e:
                 logger.opt(exception=e).warning("Error gathering network interfaces")
-            await anyio.sleep(interface_watcher_interval)
 
     async def _monitor_thunderbolt_bridge_status(
         self, thunderbolt_bridge_poll_interval: float

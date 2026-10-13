@@ -8,10 +8,31 @@ from loguru import logger
 
 from exo.shared.topology import Topology
 from exo.shared.types.common import NodeId
-from exo.shared.types.profiling import NodeNetworkInfo
+from exo.shared.types.profiling import NodeIdentity, NodeNetworkInfo
 from exo.utils.channels import Sender, channel
 
 REACHABILITY_ATTEMPTS = 3
+
+
+def resolve_peer_port(
+    node_identities: Mapping[NodeId, NodeIdentity] | None,
+    node_id: NodeId,
+    fallback_port: int,
+) -> int:
+    """Return the peer's advertised api_port, or *fallback_port* when unknown.
+
+    A ``NodeIdentity`` with ``api_port == 0`` means the node did not declare
+    a port, so we fall back — matching the pre-§12 behaviour.  When
+    *node_identities* is ``None`` or *node_id* is absent the fallback is
+    used directly.
+    """
+    if (
+        node_identities is not None
+        and node_id in node_identities
+        and node_identities[node_id].api_port != 0
+    ):
+        return node_identities[node_id].api_port
+    return fallback_port
 
 
 async def check_reachability(
@@ -29,7 +50,7 @@ async def check_reachability(
         url = f"http://{target_ip}:{api_port}/node_id"
 
     remote_node_id = None
-    last_error = None
+    last_error: Exception | None = None
 
     for _ in range(REACHABILITY_ATTEMPTS):
         try:
@@ -46,19 +67,17 @@ async def check_reachability(
             remote_node_id = NodeId(body)
             break
 
-        # expected failure cases
+        # expected failure cases — track all of them so we can warn on the
+        # last attempt (§12.4: silent 0-edge must surface at WARNING level)
         except (
             httpx.TimeoutException,
             httpx.NetworkError,
-        ):
-            await anyio.sleep(1)
-
-        # other failures should be logged on last attempt
-        except httpx.HTTPError as e:
+            httpx.HTTPError,
+        ) as e:
             last_error = e
             await anyio.sleep(1)
 
-    if last_error is not None:
+    if last_error is not None and remote_node_id is None:
         logger.warning(
             f"connect error {type(last_error).__name__} from {target_ip} after {REACHABILITY_ATTEMPTS} attempts; treating as down"
         )
@@ -67,7 +86,7 @@ async def check_reachability(
         return
 
     if remote_node_id != expected_node_id:
-        logger.debug(
+        logger.warning(
             f"Discovered node with unexpected node_id; "
             f"ip={target_ip}, expected_node_id={expected_node_id}, "
             f"remote_node_id={remote_node_id}"
@@ -84,8 +103,15 @@ async def check_reachable(
     self_node_id: NodeId,
     node_network: Mapping[NodeId, NodeNetworkInfo],
     api_port: int,
+    node_identities: Mapping[NodeId, NodeIdentity] | None = None,
 ) -> AsyncGenerator[tuple[str, NodeId], None]:
-    """Yield (ip, node_id) pairs as reachability probes complete."""
+    """Yield (ip, node_id) pairs as reachability probes complete.
+
+    When ``node_identities`` is provided, each peer's advertised ``api_port``
+    is used for probes instead of the caller's ``api_port``.  This fixes the
+    silent 0-edge failure when peers run on different ports (Docker port maps,
+    user overrides, NAT DNAT rules).
+    """
 
     send, recv = channel[tuple[str, NodeId]]()
 
@@ -100,12 +126,15 @@ async def check_reachable(
     async def _probe(
         target_ip: str,
         expected_node_id: NodeId,
+        peer_api_port: int,
         client: httpx.AsyncClient,
         send: Sender[tuple[str, NodeId]],
     ) -> None:
         async with send:
             out: defaultdict[NodeId, set[str]] = defaultdict(set)
-            await check_reachability(target_ip, expected_node_id, out, client, api_port)
+            await check_reachability(
+                target_ip, expected_node_id, out, client, peer_api_port
+            )
             if expected_node_id in out:
                 await send.send((target_ip, expected_node_id))
 
@@ -118,8 +147,11 @@ async def check_reachable(
                 continue
             if node_id == self_node_id:
                 continue
+            peer_port = resolve_peer_port(node_identities, node_id, api_port)
             for iface in node_network[node_id].interfaces:
-                tg.start_soon(_probe, iface.ip_address, node_id, client, send.clone())
+                tg.start_soon(
+                    _probe, iface.ip_address, node_id, peer_port, client, send.clone()
+                )
         send.close()
 
         with recv:
