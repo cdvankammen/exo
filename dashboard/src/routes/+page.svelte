@@ -1340,6 +1340,22 @@
         .slice("Not enough memory: ".length)
         .replace("connected nodes", whereNodes);
     }
+    // place_instance names which node is short on its equal tensor shard:
+    // "Tensor sharding splits <model> into equal slices across N nodes: every
+    // node must hold X GB, but node <id> has only Y GB available". Reword for
+    // the device list and use the friendly device name, not its identifier.
+    if (error.startsWith("Tensor sharding splits ")) {
+      const match = error.match(
+        /^Tensor sharding splits .+ into equal slices across (\d+) nodes: every node must hold ([\d.]+ GB), but node ([0-9a-f-]{36}) has only ([\d.]+ GB) available$/,
+      );
+      if (!match) return error;
+      const [, nodes, share, nodeId, free] = match;
+      return (
+        `Tensor sharding splits the model into equal slices across ${nodes} devices: ` +
+        `every ${onSelectedDevices ? "selected device" : "device"} must hold ${share}, ` +
+        `but ${getNodeName(nodeId)} has only ${free} free`
+      );
+    }
     if (
       error === "The chosen nodes aren't all connected to each other" &&
       onSelectedDevices

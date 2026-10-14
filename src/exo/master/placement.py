@@ -137,6 +137,51 @@ def _not_enough_memory(
     )
 
 
+def _tensor_share_fits(
+    cycle: Cycle,
+    storage_size: Memory,
+    node_memory: Mapping[NodeId, MemoryUsage],
+) -> bool:
+    """Whether every node in the cycle can hold its even share of the weights.
+
+    Tensor sharding splits the model evenly, so each node must be able to hold
+    storage_size // len(cycle) by itself. The sum across the cycle is not enough:
+    a cycle can pass filter_cycles_by_memory and still leave its smallest node
+    short, which only surfaces as a runner aborting while it loads its share.
+    """
+    share = storage_size.in_bytes // len(cycle)
+    return all(
+        node_memory[node_id].ram_available.in_bytes >= share for node_id in cycle
+    )
+
+
+def _tensor_share_does_not_fit(
+    command: PlaceInstance,
+    cycles: Sequence[Cycle],
+    node_memory: Mapping[NodeId, MemoryUsage],
+) -> str:
+    """Name the node that misses its share, in the roomiest cycle, with numbers.
+
+    Reports the cycle with the largest smallest-node memory (the best shot at
+    fitting) so the numbers explain why no candidate cycle can take the model.
+    """
+    best_cycle = max(
+        cycles,
+        key=lambda cycle: min(
+            node_memory[node_id].ram_available.in_bytes for node_id in cycle
+        ),
+    )
+    node_id = min(best_cycle, key=lambda node: node_memory[node].ram_available.in_bytes)
+    share = Memory.from_bytes(
+        command.model_card.storage_size.in_bytes // len(best_cycle)
+    )
+    return (
+        f"Tensor sharding splits {command.model_card.model_id} into equal slices "
+        f"across {len(best_cycle)} nodes: every node must hold {share.in_gb:.1f} GB, "
+        f"but node {node_id} has only {node_memory[node_id].ram_available.in_gb:.1f} GB available"
+    )
+
+
 # Runners whose memory is already in their node's report (loaded), or about to be freed
 _NOT_PENDING = (
     RunnerLoaded,
@@ -256,6 +301,20 @@ def place_instance(
                 f"{f', num_key_value_heads={kv_heads}' if kv_heads is not None else ''}"
                 f" across candidate cycles"
             )
+        # Even slices: every node must hold storage_size // len(cycle) on its own.
+        # The per-cycle memory sum above can pass while the smallest node is short.
+        cycles_where_every_node_holds_its_share = [
+            cycle
+            for cycle in cycles_with_sufficient_memory
+            if _tensor_share_fits(cycle, command.model_card.storage_size, node_memory)
+        ]
+        if not cycles_where_every_node_holds_its_share:
+            raise ValueError(
+                _tensor_share_does_not_fit(
+                    command, cycles_with_sufficient_memory, node_memory
+                )
+            )
+        cycles_with_sufficient_memory = cycles_where_every_node_holds_its_share
     if command.sharding == Sharding.Pipeline and command.model_card.model_id == ModelId(
         "mlx-community/DeepSeek-V3.1-8bit"
     ):

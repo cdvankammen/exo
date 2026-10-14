@@ -1421,3 +1421,148 @@ def test_which_runners_hold_memory_they_have_not_taken_yet() -> None:
         RunnerShuttingDown(),
     ):
         assert free_gb(status) == 10.0, status
+
+
+# Tensor sharding gives every node an equal slice of the weights. A node that
+# cannot hold its slice has to be refused up front (#2430): otherwise the
+# placement passes and the node's runner aborts while loading its share.
+
+
+def _connected_pair_with_memory(
+    memory_a: int, memory_b: int
+) -> tuple[
+    Topology, dict[NodeId, MemoryUsage], dict[NodeId, NodeNetworkInfo], NodeId, NodeId
+]:
+    a, b = NodeId(), NodeId()
+    topology = _connected([a, b])
+    node_memory = {a: create_node_memory(memory_a), b: create_node_memory(memory_b)}
+    node_network = {n: create_node_network() for n in (a, b)}
+    return topology, node_memory, node_network, a, b
+
+
+def test_tensor_sharding_is_refused_when_a_node_cannot_hold_its_even_share() -> None:
+    # Issue #2430: the even 25 GB slice does not fit in the 20 GB node, even
+    # though the two nodes have 80 GB free between them.
+    topology, node_memory, node_network, small, large = _connected_pair_with_memory(
+        20 * GB, 60 * GB
+    )
+
+    with pytest.raises(ValueError) as error:
+        _place(
+            _model_of("model-a", 50 * GB),
+            topology,
+            {},
+            node_memory,
+            node_network,
+            {},
+            sharding=Sharding.Tensor,
+            min_nodes=2,
+        )
+
+    assert str(error.value) == (
+        "Tensor sharding splits model-a into equal slices across 2 nodes: "
+        f"every node must hold 25.0 GB, but node {small} has only 20.0 GB available"
+    )
+
+
+def test_tensor_sharding_prefers_the_cycle_where_every_node_holds_its_share() -> None:
+    # [20, 60] has more memory in total, but a 25 GB even slice does not fit in
+    # the 20 GB node, so the [35, 35] pair has to win.
+    small, big, a, b = NodeId(), NodeId(), NodeId(), NodeId()
+    topology = _connected([small, big], [a, b])
+    node_memory = {
+        small: create_node_memory(20 * GB),
+        big: create_node_memory(60 * GB),
+        a: create_node_memory(35 * GB),
+        b: create_node_memory(35 * GB),
+    }
+    node_network = {n: create_node_network() for n in (small, big, a, b)}
+
+    _, instance = _place(
+        _model_of("model-a", 50 * GB),
+        topology,
+        {},
+        node_memory,
+        node_network,
+        {},
+        sharding=Sharding.Tensor,
+        min_nodes=2,
+    )
+
+    assert _nodes_of(instance) == {a, b}
+
+
+def test_tensor_sharding_allows_a_node_to_hold_exactly_its_share() -> None:
+    topology, node_memory, node_network, a, b = _connected_pair_with_memory(
+        25 * GB, 25 * GB
+    )
+
+    _, instance = _place(
+        _model_of("model-a", 50 * GB),
+        topology,
+        {},
+        node_memory,
+        node_network,
+        {},
+        sharding=Sharding.Tensor,
+        min_nodes=2,
+    )
+
+    assert _nodes_of(instance) == {a, b}
+
+
+def test_tensor_sharding_reports_the_roomiest_cycles_tightest_node() -> None:
+    # Both pairs fail: [20, 31] tops out at 20 GB and [23, 28] at 23 GB, so the
+    # better shot is [23, 28] and its 23 GB node is the one to name.
+    a, b, c, d = NodeId(), NodeId(), NodeId(), NodeId()
+    topology = _connected([a, b], [c, d])
+    node_memory = {
+        a: create_node_memory(20 * GB),
+        b: create_node_memory(31 * GB),
+        c: create_node_memory(23 * GB),
+        d: create_node_memory(28 * GB),
+    }
+    node_network = {n: create_node_network() for n in (a, b, c, d)}
+
+    with pytest.raises(ValueError) as error:
+        _place(
+            _model_of("model-a", 50 * GB),
+            topology,
+            {},
+            node_memory,
+            node_network,
+            {},
+            sharding=Sharding.Tensor,
+            min_nodes=2,
+        )
+
+    assert str(error.value) == (
+        "Tensor sharding splits model-a into equal slices across 2 nodes: "
+        f"every node must hold 25.0 GB, but node {c} has only 23.0 GB available"
+    )
+
+
+def test_tensor_sharding_still_reports_geometry_before_memory() -> None:
+    # hidden_size 7 cannot be split over 2 nodes; that is the blocker to report,
+    # not the memory that would also be short.
+    topology, node_memory, node_network, _, _ = _connected_pair_with_memory(
+        20 * GB, 60 * GB
+    )
+    model = _model_of("model-a", 50 * GB).model_copy(update={"hidden_size": 7})
+
+    with pytest.raises(ValueError) as error:
+        _place(
+            model,
+            topology,
+            {},
+            node_memory,
+            node_network,
+            {},
+            sharding=Sharding.Tensor,
+            min_nodes=2,
+        )
+
+    assert (
+        str(error.value)
+        == "No tensor sharding found for model with hidden_size=7 across candidate cycles"
+    )
