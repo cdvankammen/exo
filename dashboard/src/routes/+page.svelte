@@ -2104,6 +2104,35 @@
     };
   }
 
+  // The few instance states people act on, for display only. Logic keeps
+  // using the raw statusText (READY, WARMING UP, ...); debug mode shows it
+  // next to the label.
+  type InstanceStatusLabel =
+    | "Downloading"
+    | "Starting"
+    | "Ready"
+    | "Error"
+    | "Stopping";
+
+  function getInstanceStatusLabel(statusText: string): InstanceStatusLabel {
+    switch (statusText) {
+      case "DOWNLOADING":
+        return "Downloading";
+      case "READY":
+      case "LOADED":
+      case "RUNNING":
+        return "Ready";
+      case "FAILED":
+        return "Error";
+      case "SHUTDOWN":
+      case "SHUTTING DOWN":
+        return "Stopping";
+      default:
+        // Every state before ready: PREPARING, INITIALIZING, LOADING, ...
+        return "Starting";
+    }
+  }
+
   // Derive instance status from runners
   // Get color class for a status
   function getStatusColor(statusText: string): string {
@@ -2281,16 +2310,11 @@
     const deletedInstanceModelId = getInstanceModelId(instanceData[instanceId]);
     const shortName =
       deletedInstanceModelId.split("/").pop() ?? deletedInstanceModelId;
-    if (
-      !confirm(
-        `Delete the ${shortName} instance (${instanceId.slice(0, 8).toUpperCase()})?`,
-      )
-    )
-      return;
+    if (!confirm(`Stop ${shortName}? Downloaded files are kept.`)) return;
     const wasSelected = selectedChatModel() === deletedInstanceModelId;
 
     if (!(await requestInstanceDeletion(instanceId))) {
-      addToast({ type: "error", message: "Failed to delete instance" });
+      addToast({ type: "error", message: `Failed to stop ${shortName}` });
     } else if (wasSelected) {
       // If we deleted the currently selected model, switch to another available model
       // Find another instance that isn't the one we just deleted
@@ -5871,6 +5895,7 @@
                     instance,
                   )}
                   {@const statusText = downloadInfo.statusText}
+                  {@const statusLabel = getInstanceStatusLabel(statusText)}
                   {@const isDownloading = downloadInfo.isDownloading}
                   {@const isFailed = statusText === "FAILED"}
                   {@const isLoading = statusText === "LOADING"}
@@ -5881,6 +5906,8 @@
                   {@const isRunning = statusText === "RUNNING"}
                   <!-- Instance Card -->
                   {@const instanceModelId = getInstanceModelId(instance)}
+                  {@const instanceModelName =
+                    instanceModelId.split("/").pop() || instanceModelId}
                   {@const instanceInfo = getInstanceInfo(instance)}
                   {@const instanceConnections =
                     getInstanceConnections(instance)}
@@ -5971,9 +5998,9 @@
                               : 'border-teal-500/30 border-l-teal-400 group-hover:border-teal-500/50'} p-3"
                     >
                       <div class="flex justify-between items-start mb-2 pl-2">
-                        <div class="flex items-center gap-2">
+                        <div class="flex items-center gap-2 min-w-0">
                           <div
-                            class="w-1.5 h-1.5 {isDownloading
+                            class="w-1.5 h-1.5 flex-shrink-0 {isDownloading
                               ? 'bg-blue-400 animate-pulse'
                               : isFailed
                                 ? 'bg-red-400'
@@ -5984,28 +6011,24 @@
                                     : 'bg-teal-400'} rounded-full shadow-[0_0_6px_currentColor]"
                           ></div>
                           <span
-                            class="text-exo-light-gray font-mono text-sm tracking-wider"
-                            >{id.slice(0, 8).toUpperCase()}</span
+                            class="text-exo-yellow font-mono text-sm truncate"
+                            title={instanceModelId}>{instanceModelName}</span
                           >
                         </div>
                         <button
+                          title="Stop this model. Downloaded files are kept."
                           onclick={(e) => {
-                            // Don't let the card's handlers select the model being deleted
+                            // Don't let the card's handlers select the model being stopped
                             e.stopPropagation();
                             deleteInstance(id);
                           }}
                           onkeydown={(e) => e.stopPropagation()}
-                          class="text-xs px-2 py-1 font-mono tracking-wider uppercase border border-red-500/30 text-red-400 hover:bg-red-500/20 hover:text-red-400 hover:border-red-500/50 transition-all duration-200 cursor-pointer"
+                          class="flex-shrink-0 text-xs px-2 py-1 font-mono tracking-wider uppercase border border-red-500/30 text-red-400 hover:bg-red-500/20 hover:text-red-400 hover:border-red-500/50 transition-all duration-200 cursor-pointer"
                         >
-                          DELETE
+                          Stop
                         </button>
                       </div>
                       <div class="pl-2">
-                        <div
-                          class="text-exo-yellow text-xs font-mono tracking-wide truncate"
-                        >
-                          {getInstanceModelId(instance)}
-                        </div>
                         <div
                           class="flex items-center gap-2 text-white/60 text-xs font-mono"
                         >
@@ -6023,7 +6046,7 @@
                                     ? 'bg-green-500/15 text-green-400'
                                     : 'bg-teal-500/15 text-teal-400'}"
                           >
-                            {statusText}
+                            {statusLabel}
                           </span>
                         </div>
                         {#if instanceModelId && instanceModelId !== "Unknown" && instanceModelId !== "Unknown Model"}
@@ -6057,6 +6080,12 @@
                             {instanceInfo.nodeNames.join(", ")}
                           </div>
                         {/if}
+                        <div
+                          class="text-white/40 text-[10px] font-mono tracking-wider"
+                          title="Instance {id}"
+                        >
+                          ID {id.slice(0, 8).toUpperCase()}
+                        </div>
                         {#if debugEnabled && instanceConnections.length > 0}
                           <div class="mt-2 space-y-1">
                             {#each instanceConnections as conn}
@@ -6289,9 +6318,13 @@
                             <div
                               class="text-xs {getStatusColor(
                                 downloadInfo.statusText,
-                              )} font-mono tracking-wider"
+                              )} font-mono tracking-wider uppercase"
                             >
-                              {downloadInfo.statusText}
+                              {statusLabel}
+                              {#if debugEnabled && statusText !== statusLabel.toUpperCase()}
+                                <span class="text-white/40">({statusText})</span
+                                >
+                              {/if}
                             </div>
                             {#if isLoading}
                               {@const loadStatus =
@@ -7092,6 +7125,7 @@
                       instance,
                     )}
                     {@const statusText = downloadInfo.statusText}
+                    {@const statusLabel = getInstanceStatusLabel(statusText)}
                     {@const isDownloading = downloadInfo.isDownloading}
                     {@const isFailed = statusText === "FAILED"}
                     {@const isLoading = statusText === "LOADING"}
@@ -7102,6 +7136,8 @@
                     {@const isRunning = statusText === "RUNNING"}
                     <!-- Instance Card -->
                     {@const instanceModelId = getInstanceModelId(instance)}
+                    {@const instanceModelName =
+                      instanceModelId.split("/").pop() || instanceModelId}
                     {@const instanceInfo = getInstanceInfo(instance)}
                     {@const instanceConnections =
                       getInstanceConnections(instance)}
@@ -7191,9 +7227,9 @@
                                 : 'border-teal-500/30 border-l-teal-400'} p-3"
                       >
                         <div class="flex justify-between items-start mb-2 pl-2">
-                          <div class="flex items-center gap-2">
+                          <div class="flex items-center gap-2 min-w-0">
                             <div
-                              class="w-1.5 h-1.5 {isDownloading
+                              class="w-1.5 h-1.5 flex-shrink-0 {isDownloading
                                 ? 'bg-blue-400 animate-pulse'
                                 : isFailed
                                   ? 'bg-red-400'
@@ -7204,28 +7240,24 @@
                                       : 'bg-teal-400'} rounded-full shadow-[0_0_6px_currentColor]"
                             ></div>
                             <span
-                              class="text-exo-light-gray font-mono text-sm tracking-wider"
-                              >{id.slice(0, 8).toUpperCase()}</span
+                              class="text-exo-yellow font-mono text-sm truncate"
+                              title={instanceModelId}>{instanceModelName}</span
                             >
                           </div>
                           <button
+                            title="Stop this model. Downloaded files are kept."
                             onclick={(e) => {
-                              // Don't let the card's handlers select the model being deleted
+                              // Don't let the card's handlers select the model being stopped
                               e.stopPropagation();
                               deleteInstance(id);
                             }}
                             onkeydown={(e) => e.stopPropagation()}
-                            class="text-xs px-2 py-1 font-mono tracking-wider uppercase border border-red-500/30 text-red-400 hover:bg-red-500/20 hover:text-red-400 hover:border-red-500/50 transition-all duration-200 cursor-pointer"
+                            class="flex-shrink-0 text-xs px-2 py-1 font-mono tracking-wider uppercase border border-red-500/30 text-red-400 hover:bg-red-500/20 hover:text-red-400 hover:border-red-500/50 transition-all duration-200 cursor-pointer"
                           >
-                            DELETE
+                            Stop
                           </button>
                         </div>
                         <div class="pl-2">
-                          <div
-                            class="text-exo-yellow text-xs font-mono tracking-wide truncate"
-                          >
-                            {getInstanceModelId(instance)}
-                          </div>
                           <div
                             class="flex items-center gap-2 text-white/60 text-xs font-mono"
                           >
@@ -7243,7 +7275,7 @@
                                       ? 'bg-green-500/15 text-green-400'
                                       : 'bg-teal-500/15 text-teal-400'}"
                             >
-                              {statusText}
+                              {statusLabel}
                             </span>
                           </div>
                           {#if instanceModelId && instanceModelId !== "Unknown" && instanceModelId !== "Unknown Model"}
@@ -7277,6 +7309,12 @@
                               {instanceInfo.nodeNames.join(", ")}
                             </div>
                           {/if}
+                          <div
+                            class="text-white/40 text-[10px] font-mono tracking-wider"
+                            title="Instance {id}"
+                          >
+                            ID {id.slice(0, 8).toUpperCase()}
+                          </div>
                           {#if debugEnabled && instanceConnections.length > 0}
                             <div class="mt-2 space-y-1">
                               {#each instanceConnections as conn}
@@ -7517,9 +7555,14 @@
                               <div
                                 class="text-xs {getStatusColor(
                                   downloadInfo.statusText,
-                                )} font-mono tracking-wider"
+                                )} font-mono tracking-wider uppercase"
                               >
-                                {downloadInfo.statusText}
+                                {statusLabel}
+                                {#if debugEnabled && statusText !== statusLabel.toUpperCase()}
+                                  <span class="text-white/40"
+                                    >({statusText})</span
+                                  >
+                                {/if}
                               </div>
                               {#if isLoading}
                                 {@const loadStatus =
