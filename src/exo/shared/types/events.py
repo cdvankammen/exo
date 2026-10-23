@@ -72,6 +72,20 @@ class InstanceDeleted(BaseEvent):
     instance_id: InstanceId
 
 
+class InstanceReplacedAtomically(BaseEvent):
+    old_instance_id: InstanceId
+    new_instance: Instance
+
+    def __eq__(self, other: object) -> bool:
+        if isinstance(other, InstanceReplacedAtomically):
+            return (
+                self.old_instance_id == other.old_instance_id
+                and self.new_instance == other.new_instance
+                and self.event_id == other.event_id
+            )
+        return False
+
+
 class RunnerStatusUpdated(BaseEvent):
     runner_id: RunnerId
     runner_status: RunnerStatus
@@ -179,6 +193,7 @@ Event = (
     | TaskAcknowledged
     | InstanceCreated
     | InstanceDeleted
+    | InstanceReplacedAtomically
     | RunnerStatusUpdated
     | NodeTimedOut
     | NodeGatheredInfo

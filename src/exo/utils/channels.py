@@ -24,7 +24,6 @@ from anyio.streams.memory import (
 from anyio.streams.memory import (
     MemoryObjectSendStream as AnyioSender,
 )
-
 try:
     from anyio.streams.memory import (
         MemoryObjectStreamState,
@@ -33,7 +32,6 @@ except ImportError:
     from anyio.streams.memory import (  # type: ignore[attr-defined]
         _MemoryObjectStreamState as MemoryObjectStreamState,
     )
-
 AnyioState = MemoryObjectStreamState
 
 
