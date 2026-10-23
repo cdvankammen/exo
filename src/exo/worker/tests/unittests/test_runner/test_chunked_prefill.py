@@ -99,26 +99,34 @@ class _MockFinder:
         return None
 
 
-if not any(isinstance(f, _MockFinder) for f in sys.meta_path):
-    sys.meta_path.insert(0, _MockFinder())
-
-from exo.shared.types.chunks import TokenChunk
-from exo.shared.types.common import CommandId, ModelId
-from exo.shared.types.tasks import TaskId, TaskStatus, TextGeneration
-from exo.shared.types.text_generation import (
-    InputMessage,
-    InputMessageContent,
-    TextGenerationTaskParams,
-)
-from exo.shared.types.worker.instances import InstanceId
-from exo.shared.types.worker.runner_response import (
-    CancelledResponse,
-    GenerationResponse,
-)
-from exo.worker.runner.llm_inference.batch_generator import (
-    BatchGenerator,
-    GeneratorQueue,
-)
+# Scope the mock finder strictly to this module's imports. Leaving it in
+# sys.meta_path would leak into every test collected afterwards in the same
+# session and hand them _MockModule objects where plain strings are expected.
+_finder = _MockFinder()
+sys.meta_path.insert(0, _finder)
+try:
+    from exo.shared.types.chunks import TokenChunk
+    from exo.shared.types.common import CommandId, ModelId
+    from exo.shared.types.tasks import TaskId, TaskStatus, TextGeneration
+    from exo.shared.types.text_generation import (
+        InputMessage,
+        InputMessageContent,
+        TextGenerationTaskParams,
+    )
+    from exo.shared.types.worker.instances import InstanceId
+    from exo.shared.types.worker.runner_response import (
+        CancelledResponse,
+        GenerationResponse,
+    )
+    from exo.worker.runner.llm_inference.batch_generator import (
+        BatchGenerator,
+        GeneratorQueue,
+    )
+    from exo.worker.runner.llm_inference.model_output_parsers import (
+        map_responses_to_chunks,
+    )
+finally:
+    sys.meta_path.remove(_finder)
 
 
 def _make_text_generation(prompt: str = "hello") -> TextGeneration:
@@ -246,11 +254,6 @@ def _setup_runner(gen: Any) -> BatchGenerator:
     runner.agree_on_cancellations = lambda: None
     runner._send_error = lambda task, e: None
     return runner
-
-
-from exo.worker.runner.llm_inference.model_output_parsers import (
-    map_responses_to_chunks,
-)
 
 
 def test_chunked_prefill_does_not_block_active_decode_batch() -> None:
