@@ -3,7 +3,7 @@ import os
 try:
     import resource
 except ImportError:
-    resource = None
+    resource = None  # type: ignore
 import traceback
 from dataclasses import dataclass
 from typing import Self, cast
