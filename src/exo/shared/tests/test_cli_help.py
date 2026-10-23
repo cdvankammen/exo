@@ -9,7 +9,6 @@ from exo.main import Args
 
 _DEVELOPER_FLAGS = (
     "--no-batch",
-    "--bootstrap-peers",
     "--fast-synch",
     "--no-fast-synch",
 )
