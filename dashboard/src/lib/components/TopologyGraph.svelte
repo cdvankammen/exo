@@ -319,6 +319,9 @@
         | "rdma"
         | "virtual"
         | "unknown";
+      latencyMs?: number;
+      bandwidthCapacityMbps?: number;
+      usedBandwidthMbps?: number;
     };
     type PairEntry = {
       a: string;
@@ -391,6 +394,9 @@
         missingIface,
         connectionType: connType,
         connectionCategory: connCat,
+        latencyMs: edge.latencyMs,
+        bandwidthCapacityMbps: edge.bandwidthCapacityMbps,
+        usedBandwidthMbps: edge.usedBandwidthMbps,
       });
 
       // Update primary connection type based on hardware hierarchy:
@@ -444,8 +450,8 @@
         entry.primaryCategory === "rdma";
       const isWireless = entry.primaryCategory === "wifi";
 
-      // Styled connection link
-      linksGroup
+      // Styled connection link (with telemetry tooltip)
+      const baseLine = linksGroup
         .append("line")
         .attr("x1", posA.x)
         .attr("y1", posA.y)
@@ -456,6 +462,47 @@
         .attr("stroke-width", isHighSpeed ? "2.2" : "1.4")
         .attr("stroke-dasharray", isWireless ? "2,4" : isHighSpeed ? "6,3" : "4,4")
         .attr("stroke-opacity", isHighSpeed ? "0.85" : "0.55");
+
+      // Extract telemetry information if available (TODO #4 and #5)
+      const connWithTelemetry =
+        entry.connections.find(
+          (c) =>
+            (c.latencyMs !== undefined && c.latencyMs > 0) ||
+            (c.usedBandwidthMbps !== undefined && c.usedBandwidthMbps > 0),
+        ) || entry.connections[0];
+
+      const latencyVal = connWithTelemetry?.latencyMs;
+      const bwUsageVal = connWithTelemetry?.usedBandwidthMbps;
+      const bwCapVal = connWithTelemetry?.bandwidthCapacityMbps;
+
+      const latencyStr =
+        latencyVal !== undefined && latencyVal > 0
+          ? `${latencyVal.toFixed(1)} ms`
+          : undefined;
+      const bwUsageStr =
+        bwUsageVal !== undefined && bwUsageVal > 0
+          ? `${bwUsageVal.toFixed(1)} MB/s`
+          : undefined;
+      const bwCapStr =
+        bwCapVal !== undefined && bwCapVal > 0
+          ? bwCapVal >= 1000
+            ? `${(bwCapVal / 1000).toFixed(0)} Gbps`
+            : `${bwCapVal.toFixed(0)} Mbps`
+          : undefined;
+
+      const tooltipParts: string[] = [];
+      const linkNames = entry.connections
+        .map(
+          (c) =>
+            `${getNodeLabel(c.from)} \u2192 ${getNodeLabel(c.to)} (${c.ifaceLabel})`,
+        )
+        .join(", ");
+      tooltipParts.push(`Link: ${linkNames}`);
+      if (latencyStr) tooltipParts.push(`Latency (RTT): ${latencyStr}`);
+      if (bwUsageStr) tooltipParts.push(`Bandwidth Usage: ${bwUsageStr}`);
+      if (bwCapStr) tooltipParts.push(`Link Capacity: ${bwCapStr}`);
+
+      baseLine.append("title").text(tooltipParts.join("\n"));
 
       // Calculate midpoint and direction for arrows and badges
       const dx = posB.x - posA.x;
@@ -533,16 +580,53 @@
         .attr("font-weight", "600")
         .text(badgeText);
 
-      // Detailed tooltip via SVG title
+      // Detailed tooltip via SVG title (includes telemetry if available)
       const tooltipInfo = entry.connections
         .map(
           (c) =>
             `${c.from.slice(0, 8)} \u2192 ${c.to.slice(0, 8)}: ${c.connectionType || entry.primaryType} (${c.ip} ${c.ifaceLabel})`,
         )
         .join("\n");
+      const badgeTooltipParts = [`Connection: ${entry.primaryType}`, tooltipInfo];
+      if (latencyStr) badgeTooltipParts.push(`Latency (RTT): ${latencyStr}`);
+      if (bwUsageStr) badgeTooltipParts.push(`Bandwidth Usage: ${bwUsageStr}`);
+      if (bwCapStr) badgeTooltipParts.push(`Link Capacity: ${bwCapStr}`);
       badge
         .append("title")
-        .text(`Connection: ${entry.primaryType}\n${tooltipInfo}`);
+        .text(badgeTooltipParts.join("\n"));
+
+      // Render link telemetry badge at midpoint if telemetry is available (TODO #4 and #5)
+      if (latencyStr || bwUsageStr) {
+        const telemetryBadgeParts = [bwUsageStr, latencyStr].filter(Boolean);
+        const telemetryBadgeText = telemetryBadgeParts.join(" · ");
+        const telemetryBadgeGroup = linksGroup
+          .append("g")
+          .attr("class", "link-telemetry-badge")
+          .attr("transform", `translate(${mx}, ${my - badgeHeight / 2 - 12})`);
+
+        const telemetryBadgeWidth = telemetryBadgeText.length * 6.2 + 14;
+        telemetryBadgeGroup
+          .append("rect")
+          .attr("x", -telemetryBadgeWidth / 2)
+          .attr("y", -9)
+          .attr("width", telemetryBadgeWidth)
+          .attr("height", 18)
+          .attr("rx", 9)
+          .attr("fill", "rgba(18, 18, 24, 0.88)")
+          .attr("stroke", "rgba(255, 255, 255, 0.18)")
+          .attr("stroke-width", "0.75");
+
+        telemetryBadgeGroup
+          .append("text")
+          .attr("text-anchor", "middle")
+          .attr("dominant-baseline", "central")
+          .attr("font-size", 9)
+          .attr("font-family", "SF Mono, Menlo, monospace")
+          .attr("fill", "rgba(255, 255, 255, 0.85)")
+          .text(telemetryBadgeText);
+
+        telemetryBadgeGroup.append("title").text(tooltipParts.join("\n"));
+      }
 
       // Collect debug labels for later positioning at edges
       if (debugEnabled && entry.connections.length > 0) {
@@ -620,7 +704,13 @@
         quadrantEdges.forEach((edge) => {
           edge.connections.forEach((conn) => {
             const arrow = getArrow(conn.from, conn.to);
-            const label = `${arrow} ${conn.ip} ${conn.ifaceLabel}`;
+            let label = `${arrow} ${conn.ip} ${conn.ifaceLabel}`;
+            if (conn.latencyMs !== undefined && conn.latencyMs > 0) {
+              label += ` \u00b7 ${conn.latencyMs.toFixed(1)}ms`;
+            }
+            if (conn.usedBandwidthMbps !== undefined && conn.usedBandwidthMbps > 0) {
+              label += ` \u00b7 ${conn.usedBandwidthMbps.toFixed(1)}MB/s`;
+            }
             debugLabelsGroup
               .append("text")
               .attr("x", baseX)

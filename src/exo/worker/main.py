@@ -2,7 +2,7 @@ import hashlib
 import time
 from collections import defaultdict
 from collections.abc import Mapping
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
 import anyio
 from anyio import current_time, fail_after, to_thread
@@ -71,12 +71,16 @@ from exo.utils.info_gatherer.info_gatherer import (
     NodeBackends,
     NodeConfig,
     NodeDiskUsage,
+    NodeLinkTelemetryData,
     NodeNetworkInterfaces,
     RdmaCtlStatus,
     StaticNodeInformation,
     ThunderboltBridgeInfo,
 )
-from exo.utils.info_gatherer.net_profile import check_reachable
+from exo.utils.info_gatherer.net_profile import (
+    check_reachable,
+    link_telemetry_registry,
+)
 from exo.utils.keyed_backoff import KeyedBackoff
 from exo.utils.task_group import TaskGroup
 from exo.worker.plan import plan
@@ -212,7 +216,7 @@ class Worker:
         await self.event_sender.send(
             NodeGatheredInfo(
                 node_id=self.node_id,
-                when=str(datetime.now(tz=timezone.utc)),
+                when=str(datetime.now(tz=UTC)),
                 info=info,
             )
         )
@@ -619,9 +623,9 @@ class Worker:
 
     async def _poll_connection_updates(self):
         while True:
-            edges = set(
+            edges = {
                 conn.edge for conn in self.state.topology.out_edges(self.node_id)
-            )
+            }
             conns: defaultdict[NodeId, set[str]] = defaultdict(set)
             async for ip, nid in check_reachable(
                 self.state.topology,
@@ -659,5 +663,18 @@ class Worker:
                 ):
                     logger.debug(f"ping failed to discover {conn=}")
                     await self.event_sender.send(TopologyEdgeDeleted(conn=conn))
+
+            # Profiled link telemetry broadcast (TODO #4 and #5)
+            telemetry = link_telemetry_registry.generate_node_telemetry(
+                self.node_id, self.state.node_network
+            )
+            if telemetry.links:
+                await self.event_sender.send(
+                    NodeGatheredInfo(
+                        node_id=self.node_id,
+                        when=str(datetime.now(tz=UTC)),
+                        info=NodeLinkTelemetryData(telemetry=telemetry),
+                    )
+                )
 
             await anyio.sleep(10)
