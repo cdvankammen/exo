@@ -24,7 +24,10 @@ from anyio.streams.memory import (
 from anyio.streams.memory import (
     MemoryObjectSendStream as AnyioSender,
 )
+<<<<<<< HEAD
 import time
+=======
+>>>>>>> e6be24f2 (fix(master): validate per-device memory in tensor parallel placement to prevent OOM crash loops)
 try:
     from anyio.streams.memory import (
         MemoryObjectStreamState,
@@ -33,6 +36,10 @@ except ImportError:
     from anyio.streams.memory import (  # type: ignore[attr-defined]
         _MemoryObjectStreamState as MemoryObjectStreamState,
     )
+<<<<<<< HEAD
+=======
+
+>>>>>>> e6be24f2 (fix(master): validate per-device memory in tensor parallel placement to prevent OOM crash loops)
 AnyioState = MemoryObjectStreamState
 
 
