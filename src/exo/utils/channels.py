@@ -28,11 +28,16 @@ try:
     from anyio.streams.memory import (
         MemoryObjectStreamState,
     )
-except ImportError:
-    from anyio.streams.memory import (  # type: ignore[attr-defined]
-        _MemoryObjectStreamState as MemoryObjectStreamState,
+    from anyio.streams.memory import (
+        MemoryObjectStreamState as AnyioState,
     )
-AnyioState = MemoryObjectStreamState
+except ImportError:
+
+    class MemoryObjectStreamState:  # type: ignore[no-redef]
+        def __class_getitem__(cls, item: object) -> object:
+            return cls
+
+    AnyioState = MemoryObjectStreamState  # type: ignore[misc, assignment]
 
 
 @dataclass(eq=False)
