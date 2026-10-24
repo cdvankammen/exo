@@ -1,0 +1,182 @@
+{
+ "projectRoot": "/Users/chris/Documents/GitHub/exo",
+ "batchFiles": [
+  {
+   "path": ".clauderules",
+   "language": "unknown",
+   "sizeLines": 62,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".cursorrules",
+   "language": "unknown",
+   "sizeLines": 64,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".envrc",
+   "language": "unknown",
+   "sizeLines": 1,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".feeder/tasks.db",
+   "language": "db",
+   "sizeLines": 142,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".githooks/post-checkout",
+   "language": "unknown",
+   "sizeLines": 3,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".githooks/post-commit",
+   "language": "unknown",
+   "sizeLines": 3,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".githooks/post-merge",
+   "language": "unknown",
+   "sizeLines": 3,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".githooks/pre-push",
+   "language": "unknown",
+   "sizeLines": 3,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".github/CODEOWNERS",
+   "language": "unknown",
+   "sizeLines": 3,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".github/ISSUE_TEMPLATE/bug_report.md",
+   "language": "markdown",
+   "sizeLines": 43,
+   "fileCategory": "docs"
+  },
+  {
+   "path": ".github/ISSUE_TEMPLATE/feature_request.md",
+   "language": "markdown",
+   "sizeLines": 11,
+   "fileCategory": "docs"
+  },
+  {
+   "path": ".github/actions/conditional-commit/action.yml",
+   "language": "yaml",
+   "sizeLines": 16,
+   "fileCategory": "config"
+  },
+  {
+   "path": ".github/actions/format/action.yml",
+   "language": "yaml",
+   "sizeLines": 10,
+   "fileCategory": "config"
+  },
+  {
+   "path": ".github/actions/lint-check/action.yml",
+   "language": "yaml",
+   "sizeLines": 10,
+   "fileCategory": "config"
+  },
+  {
+   "path": ".github/actions/lint/action.yml",
+   "language": "yaml",
+   "sizeLines": 10,
+   "fileCategory": "config"
+  },
+  {
+   "path": ".github/actions/regenerate-protobufs/action.yml",
+   "language": "yaml",
+   "sizeLines": 10,
+   "fileCategory": "config"
+  },
+  {
+   "path": ".github/actions/setup-python-uv/action.yml",
+   "language": "yaml",
+   "sizeLines": 20,
+   "fileCategory": "config"
+  },
+  {
+   "path": ".github/actions/unit-test/action.yml",
+   "language": "yaml",
+   "sizeLines": 12,
+   "fileCategory": "config"
+  },
+  {
+   "path": ".github/actions/verify-clean/action.yml",
+   "language": "yaml",
+   "sizeLines": 19,
+   "fileCategory": "config"
+  },
+  {
+   "path": ".github/pull_request_template.md",
+   "language": "markdown",
+   "sizeLines": 23,
+   "fileCategory": "docs"
+  },
+  {
+   "path": ".mnemo/graph.lbug",
+   "language": "lbug",
+   "sizeLines": 1196,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".mnemo/parse-cache.json",
+   "language": "json",
+   "sizeLines": 0,
+   "fileCategory": "config"
+  },
+  {
+   "path": ".python-version",
+   "language": "unknown",
+   "sizeLines": 1,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".swift-format",
+   "language": "swift",
+   "sizeLines": 6,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".typings/.gitkeep",
+   "language": "unknown",
+   "sizeLines": 0,
+   "fileCategory": "code"
+  }
+ ],
+ "batchImportData": {
+  ".clauderules": [],
+  ".cursorrules": [],
+  ".envrc": [],
+  ".feeder/tasks.db": [],
+  ".githooks/post-checkout": [],
+  ".githooks/post-commit": [],
+  ".githooks/post-merge": [],
+  ".githooks/pre-push": [],
+  ".github/CODEOWNERS": [],
+  ".github/ISSUE_TEMPLATE/bug_report.md": [],
+  ".github/ISSUE_TEMPLATE/feature_request.md": [],
+  ".github/actions/conditional-commit/action.yml": [],
+  ".github/actions/format/action.yml": [],
+  ".github/actions/lint-check/action.yml": [],
+  ".github/actions/lint/action.yml": [],
+  ".github/actions/regenerate-protobufs/action.yml": [],
+  ".github/actions/setup-python-uv/action.yml": [],
+  ".github/actions/unit-test/action.yml": [],
+  ".github/actions/verify-clean/action.yml": [],
+  ".github/pull_request_template.md": [],
+  ".mnemo/graph.lbug": [],
+  ".mnemo/parse-cache.json": [],
+  ".python-version": [],
+  ".swift-format": [],
+  ".typings/.gitkeep": []
+ }
+}

@@ -1,0 +1,2730 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 25,
+  "filesSkipped": [],
+  "analysisOutcomes": {
+    "structure": {
+      "succeeded": 25,
+      "failed": 0
+    },
+    "callGraph": {
+      "succeeded": 25,
+      "failed": 0,
+      "skipped": 0
+    }
+  },
+  "results": [
+    {
+      "path": ".typings/mlx/core/random/__init__.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 301,
+      "nonEmptyLines": 254,
+      "functions": [
+        {
+          "name": "bernoulli",
+          "startLine": 6,
+          "endLine": 28,
+          "params": [
+            "p",
+            "shape",
+            "key",
+            "stream"
+          ]
+        },
+        {
+          "name": "categorical",
+          "startLine": 30,
+          "endLine": 60,
+          "params": [
+            "logits",
+            "axis",
+            "shape",
+            "num_samples",
+            "key",
+            "stream"
+          ]
+        },
+        {
+          "name": "gumbel",
+          "startLine": 62,
+          "endLine": 84,
+          "params": [
+            "shape",
+            "dtype",
+            "key",
+            "stream"
+          ]
+        },
+        {
+          "name": "key",
+          "startLine": 86,
+          "endLine": 95,
+          "params": [
+            "seed"
+          ]
+        },
+        {
+          "name": "laplace",
+          "startLine": 97,
+          "endLine": 118,
+          "params": [
+            "shape",
+            "dtype",
+            "loc",
+            "scale",
+            "key",
+            "stream"
+          ]
+        },
+        {
+          "name": "multivariate_normal",
+          "startLine": 120,
+          "endLine": 149,
+          "params": [
+            "mean",
+            "cov",
+            "shape",
+            "dtype",
+            "key",
+            "stream"
+          ]
+        },
+        {
+          "name": "normal",
+          "startLine": 151,
+          "endLine": 178,
+          "params": [
+            "shape",
+            "dtype",
+            "loc",
+            "scale",
+            "key",
+            "stream"
+          ]
+        },
+        {
+          "name": "permutation",
+          "startLine": 180,
+          "endLine": 199,
+          "params": [
+            "x",
+            "axis",
+            "key",
+            "stream"
+          ]
+        },
+        {
+          "name": "randint",
+          "startLine": 201,
+          "endLine": 225,
+          "params": [
+            "low",
+            "high",
+            "shape",
+            "dtype",
+            "key",
+            "stream"
+          ]
+        },
+        {
+          "name": "seed",
+          "startLine": 227,
+          "endLine": 233,
+          "params": [
+            "seed"
+          ]
+        },
+        {
+          "name": "split",
+          "startLine": 235,
+          "endLine": 245,
+          "params": [
+            "key",
+            "num",
+            "stream"
+          ]
+        },
+        {
+          "name": "truncated_normal",
+          "startLine": 247,
+          "endLine": 273,
+          "params": [
+            "lower",
+            "upper",
+            "shape",
+            "dtype",
+            "key",
+            "stream"
+          ]
+        },
+        {
+          "name": "uniform",
+          "startLine": 275,
+          "endLine": 301,
+          "params": [
+            "low",
+            "high",
+            "shape",
+            "dtype",
+            "key",
+            "stream"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "bernoulli",
+          "line": 6,
+          "isDefault": false
+        },
+        {
+          "name": "categorical",
+          "line": 30,
+          "isDefault": false
+        },
+        {
+          "name": "gumbel",
+          "line": 62,
+          "isDefault": false
+        },
+        {
+          "name": "key",
+          "line": 86,
+          "isDefault": false
+        },
+        {
+          "name": "laplace",
+          "line": 97,
+          "isDefault": false
+        },
+        {
+          "name": "multivariate_normal",
+          "line": 120,
+          "isDefault": false
+        },
+        {
+          "name": "normal",
+          "line": 151,
+          "isDefault": false
+        },
+        {
+          "name": "permutation",
+          "line": 180,
+          "isDefault": false
+        },
+        {
+          "name": "randint",
+          "line": 201,
+          "isDefault": false
+        },
+        {
+          "name": "seed",
+          "line": 227,
+          "isDefault": false
+        },
+        {
+          "name": "split",
+          "line": 235,
+          "isDefault": false
+        },
+        {
+          "name": "truncated_normal",
+          "line": 247,
+          "isDefault": false
+        },
+        {
+          "name": "uniform",
+          "line": 275,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 13,
+        "functionCount": 13,
+        "classCount": 0
+      }
+    },
+    {
+      "path": ".typings/mlx/nn/__init__.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 5,
+      "nonEmptyLines": 4,
+      "metrics": {
+        "importCount": 4,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": ".typings/mlx/nn/init.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 284,
+      "nonEmptyLines": 218,
+      "functions": [
+        {
+          "name": "constant",
+          "startLine": 9,
+          "endLine": 27,
+          "params": [
+            "value",
+            "dtype"
+          ]
+        },
+        {
+          "name": "normal",
+          "startLine": 29,
+          "endLine": 52,
+          "params": [
+            "mean",
+            "std",
+            "dtype"
+          ]
+        },
+        {
+          "name": "uniform",
+          "startLine": 54,
+          "endLine": 77,
+          "params": [
+            "low",
+            "high",
+            "dtype"
+          ]
+        },
+        {
+          "name": "identity",
+          "startLine": 79,
+          "endLine": 96,
+          "params": [
+            "dtype"
+          ]
+        },
+        {
+          "name": "glorot_normal",
+          "startLine": 98,
+          "endLine": 129,
+          "params": [
+            "dtype"
+          ]
+        },
+        {
+          "name": "glorot_uniform",
+          "startLine": 131,
+          "endLine": 162,
+          "params": [
+            "dtype"
+          ]
+        },
+        {
+          "name": "he_normal",
+          "startLine": 164,
+          "endLine": 201,
+          "params": [
+            "dtype"
+          ]
+        },
+        {
+          "name": "he_uniform",
+          "startLine": 203,
+          "endLine": 242,
+          "params": [
+            "dtype"
+          ]
+        },
+        {
+          "name": "sparse",
+          "startLine": 244,
+          "endLine": 269,
+          "params": [
+            "sparsity",
+            "mean",
+            "std",
+            "dtype"
+          ]
+        },
+        {
+          "name": "orthogonal",
+          "startLine": 271,
+          "endLine": 284,
+          "params": [
+            "gain",
+            "dtype"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "constant",
+          "line": 9,
+          "isDefault": false
+        },
+        {
+          "name": "normal",
+          "line": 29,
+          "isDefault": false
+        },
+        {
+          "name": "uniform",
+          "line": 54,
+          "isDefault": false
+        },
+        {
+          "name": "identity",
+          "line": 79,
+          "isDefault": false
+        },
+        {
+          "name": "glorot_normal",
+          "line": 98,
+          "isDefault": false
+        },
+        {
+          "name": "glorot_uniform",
+          "line": 131,
+          "isDefault": false
+        },
+        {
+          "name": "he_normal",
+          "line": 164,
+          "isDefault": false
+        },
+        {
+          "name": "he_uniform",
+          "line": 203,
+          "isDefault": false
+        },
+        {
+          "name": "sparse",
+          "line": 244,
+          "isDefault": false
+        },
+        {
+          "name": "orthogonal",
+          "line": 271,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 10,
+        "functionCount": 10,
+        "classCount": 0
+      }
+    },
+    {
+      "path": ".typings/mlx/nn/layers/__init__.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 16,
+      "nonEmptyLines": 16,
+      "metrics": {
+        "importCount": 16,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": ".typings/mlx/nn/layers/activations.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 523,
+      "nonEmptyLines": 376,
+      "functions": [
+        {
+          "name": "sigmoid",
+          "startLine": 12,
+          "endLine": 17,
+          "params": [
+            "x"
+          ]
+        },
+        {
+          "name": "relu",
+          "startLine": 20,
+          "endLine": 24,
+          "params": [
+            "x"
+          ]
+        },
+        {
+          "name": "relu2",
+          "startLine": 27,
+          "endLine": 31,
+          "params": [
+            "x"
+          ]
+        },
+        {
+          "name": "relu6",
+          "startLine": 34,
+          "endLine": 38,
+          "params": [
+            "x"
+          ]
+        },
+        {
+          "name": "leaky_relu",
+          "startLine": 41,
+          "endLine": 45,
+          "params": [
+            "x",
+            "negative_slope"
+          ]
+        },
+        {
+          "name": "log_softmax",
+          "startLine": 48,
+          "endLine": 52,
+          "params": [
+            "x",
+            "axis"
+          ]
+        },
+        {
+          "name": "elu",
+          "startLine": 55,
+          "endLine": 59,
+          "params": [
+            "x",
+            "alpha"
+          ]
+        },
+        {
+          "name": "softmax",
+          "startLine": 62,
+          "endLine": 66,
+          "params": [
+            "x",
+            "axis"
+          ]
+        },
+        {
+          "name": "softplus",
+          "startLine": 69,
+          "endLine": 73,
+          "params": [
+            "x"
+          ]
+        },
+        {
+          "name": "softsign",
+          "startLine": 76,
+          "endLine": 80,
+          "params": [
+            "x"
+          ]
+        },
+        {
+          "name": "softshrink",
+          "startLine": 83,
+          "endLine": 92,
+          "params": [
+            "x",
+            "lambd"
+          ]
+        },
+        {
+          "name": "celu",
+          "startLine": 95,
+          "endLine": 100,
+          "params": [
+            "x",
+            "alpha"
+          ]
+        },
+        {
+          "name": "silu",
+          "startLine": 103,
+          "endLine": 108,
+          "params": [
+            "x"
+          ]
+        },
+        {
+          "name": "log_sigmoid",
+          "startLine": 111,
+          "endLine": 115,
+          "params": [
+            "x"
+          ]
+        },
+        {
+          "name": "gelu",
+          "startLine": 118,
+          "endLine": 128,
+          "params": [
+            "x"
+          ]
+        },
+        {
+          "name": "gelu_approx",
+          "startLine": 131,
+          "endLine": 143,
+          "params": [
+            "x"
+          ]
+        },
+        {
+          "name": "gelu_fast_approx",
+          "startLine": 146,
+          "endLine": 163,
+          "params": [
+            "x"
+          ]
+        },
+        {
+          "name": "glu",
+          "startLine": 165,
+          "endLine": 176,
+          "params": [
+            "x",
+            "axis"
+          ]
+        },
+        {
+          "name": "step",
+          "startLine": 179,
+          "endLine": 193,
+          "params": [
+            "x",
+            "threshold"
+          ]
+        },
+        {
+          "name": "selu",
+          "startLine": 196,
+          "endLine": 208,
+          "params": [
+            "x"
+          ]
+        },
+        {
+          "name": "prelu",
+          "startLine": 211,
+          "endLine": 218,
+          "params": [
+            "x",
+            "alpha"
+          ]
+        },
+        {
+          "name": "mish",
+          "startLine": 221,
+          "endLine": 231,
+          "params": [
+            "x"
+          ]
+        },
+        {
+          "name": "hardswish",
+          "startLine": 234,
+          "endLine": 239,
+          "params": [
+            "x"
+          ]
+        },
+        {
+          "name": "hard_tanh",
+          "startLine": 242,
+          "endLine": 246,
+          "params": [
+            "x",
+            "min_val",
+            "max_val"
+          ]
+        },
+        {
+          "name": "hard_shrink",
+          "startLine": 249,
+          "endLine": 258,
+          "params": [
+            "x",
+            "lambd"
+          ]
+        },
+        {
+          "name": "softmin",
+          "startLine": 261,
+          "endLine": 265,
+          "params": [
+            "x",
+            "axis"
+          ]
+        },
+        {
+          "name": "tanh",
+          "startLine": 267,
+          "endLine": 271,
+          "params": [
+            "x"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "GLU",
+          "startLine": 273,
+          "endLine": 286,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        },
+        {
+          "name": "Sigmoid",
+          "startLine": 289,
+          "endLine": 294,
+          "methods": [],
+          "properties": []
+        },
+        {
+          "name": "Mish",
+          "startLine": 297,
+          "endLine": 305,
+          "methods": [],
+          "properties": []
+        },
+        {
+          "name": "ReLU",
+          "startLine": 308,
+          "endLine": 313,
+          "methods": [],
+          "properties": []
+        },
+        {
+          "name": "ReLU2",
+          "startLine": 316,
+          "endLine": 320,
+          "methods": [],
+          "properties": []
+        },
+        {
+          "name": "ReLU6",
+          "startLine": 323,
+          "endLine": 327,
+          "methods": [],
+          "properties": []
+        },
+        {
+          "name": "LeakyReLU",
+          "startLine": 329,
+          "endLine": 338,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        },
+        {
+          "name": "ELU",
+          "startLine": 340,
+          "endLine": 350,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        },
+        {
+          "name": "Softmax",
+          "startLine": 353,
+          "endLine": 357,
+          "methods": [],
+          "properties": []
+        },
+        {
+          "name": "Softplus",
+          "startLine": 360,
+          "endLine": 364,
+          "methods": [],
+          "properties": []
+        },
+        {
+          "name": "Softsign",
+          "startLine": 367,
+          "endLine": 371,
+          "methods": [],
+          "properties": []
+        },
+        {
+          "name": "Softshrink",
+          "startLine": 373,
+          "endLine": 382,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        },
+        {
+          "name": "CELU",
+          "startLine": 384,
+          "endLine": 395,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        },
+        {
+          "name": "SiLU",
+          "startLine": 398,
+          "endLine": 402,
+          "methods": [],
+          "properties": []
+        },
+        {
+          "name": "LogSoftmax",
+          "startLine": 405,
+          "endLine": 409,
+          "methods": [],
+          "properties": []
+        },
+        {
+          "name": "LogSigmoid",
+          "startLine": 412,
+          "endLine": 416,
+          "methods": [],
+          "properties": []
+        },
+        {
+          "name": "PReLU",
+          "startLine": 418,
+          "endLine": 430,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        },
+        {
+          "name": "GELU",
+          "startLine": 432,
+          "endLine": 460,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        },
+        {
+          "name": "Tanh",
+          "startLine": 463,
+          "endLine": 467,
+          "methods": [],
+          "properties": []
+        },
+        {
+          "name": "Hardswish",
+          "startLine": 470,
+          "endLine": 474,
+          "methods": [],
+          "properties": []
+        },
+        {
+          "name": "Step",
+          "startLine": 476,
+          "endLine": 492,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        },
+        {
+          "name": "SELU",
+          "startLine": 495,
+          "endLine": 499,
+          "methods": [],
+          "properties": []
+        },
+        {
+          "name": "HardTanh",
+          "startLine": 502,
+          "endLine": 506,
+          "methods": [],
+          "properties": []
+        },
+        {
+          "name": "HardShrink",
+          "startLine": 509,
+          "endLine": 516,
+          "methods": [],
+          "properties": []
+        },
+        {
+          "name": "Softmin",
+          "startLine": 519,
+          "endLine": 523,
+          "methods": [],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "sigmoid",
+          "line": 11,
+          "isDefault": false
+        },
+        {
+          "name": "relu",
+          "line": 19,
+          "isDefault": false
+        },
+        {
+          "name": "relu2",
+          "line": 26,
+          "isDefault": false
+        },
+        {
+          "name": "relu6",
+          "line": 33,
+          "isDefault": false
+        },
+        {
+          "name": "leaky_relu",
+          "line": 40,
+          "isDefault": false
+        },
+        {
+          "name": "log_softmax",
+          "line": 47,
+          "isDefault": false
+        },
+        {
+          "name": "elu",
+          "line": 54,
+          "isDefault": false
+        },
+        {
+          "name": "softmax",
+          "line": 61,
+          "isDefault": false
+        },
+        {
+          "name": "softplus",
+          "line": 68,
+          "isDefault": false
+        },
+        {
+          "name": "softsign",
+          "line": 75,
+          "isDefault": false
+        },
+        {
+          "name": "softshrink",
+          "line": 82,
+          "isDefault": false
+        },
+        {
+          "name": "celu",
+          "line": 94,
+          "isDefault": false
+        },
+        {
+          "name": "silu",
+          "line": 102,
+          "isDefault": false
+        },
+        {
+          "name": "log_sigmoid",
+          "line": 110,
+          "isDefault": false
+        },
+        {
+          "name": "gelu",
+          "line": 117,
+          "isDefault": false
+        },
+        {
+          "name": "gelu_approx",
+          "line": 130,
+          "isDefault": false
+        },
+        {
+          "name": "gelu_fast_approx",
+          "line": 145,
+          "isDefault": false
+        },
+        {
+          "name": "glu",
+          "line": 165,
+          "isDefault": false
+        },
+        {
+          "name": "step",
+          "line": 178,
+          "isDefault": false
+        },
+        {
+          "name": "selu",
+          "line": 195,
+          "isDefault": false
+        },
+        {
+          "name": "prelu",
+          "line": 210,
+          "isDefault": false
+        },
+        {
+          "name": "mish",
+          "line": 220,
+          "isDefault": false
+        },
+        {
+          "name": "hardswish",
+          "line": 233,
+          "isDefault": false
+        },
+        {
+          "name": "hard_tanh",
+          "line": 241,
+          "isDefault": false
+        },
+        {
+          "name": "hard_shrink",
+          "line": 248,
+          "isDefault": false
+        },
+        {
+          "name": "softmin",
+          "line": 260,
+          "isDefault": false
+        },
+        {
+          "name": "tanh",
+          "line": 267,
+          "isDefault": false
+        },
+        {
+          "name": "GLU",
+          "line": 273,
+          "isDefault": false
+        },
+        {
+          "name": "Sigmoid",
+          "line": 288,
+          "isDefault": false
+        },
+        {
+          "name": "Mish",
+          "line": 296,
+          "isDefault": false
+        },
+        {
+          "name": "ReLU",
+          "line": 307,
+          "isDefault": false
+        },
+        {
+          "name": "ReLU2",
+          "line": 315,
+          "isDefault": false
+        },
+        {
+          "name": "ReLU6",
+          "line": 322,
+          "isDefault": false
+        },
+        {
+          "name": "LeakyReLU",
+          "line": 329,
+          "isDefault": false
+        },
+        {
+          "name": "ELU",
+          "line": 340,
+          "isDefault": false
+        },
+        {
+          "name": "Softmax",
+          "line": 352,
+          "isDefault": false
+        },
+        {
+          "name": "Softplus",
+          "line": 359,
+          "isDefault": false
+        },
+        {
+          "name": "Softsign",
+          "line": 366,
+          "isDefault": false
+        },
+        {
+          "name": "Softshrink",
+          "line": 373,
+          "isDefault": false
+        },
+        {
+          "name": "CELU",
+          "line": 384,
+          "isDefault": false
+        },
+        {
+          "name": "SiLU",
+          "line": 397,
+          "isDefault": false
+        },
+        {
+          "name": "LogSoftmax",
+          "line": 404,
+          "isDefault": false
+        },
+        {
+          "name": "LogSigmoid",
+          "line": 411,
+          "isDefault": false
+        },
+        {
+          "name": "PReLU",
+          "line": 418,
+          "isDefault": false
+        },
+        {
+          "name": "GELU",
+          "line": 432,
+          "isDefault": false
+        },
+        {
+          "name": "Tanh",
+          "line": 462,
+          "isDefault": false
+        },
+        {
+          "name": "Hardswish",
+          "line": 469,
+          "isDefault": false
+        },
+        {
+          "name": "Step",
+          "line": 476,
+          "isDefault": false
+        },
+        {
+          "name": "SELU",
+          "line": 494,
+          "isDefault": false
+        },
+        {
+          "name": "HardTanh",
+          "line": 501,
+          "isDefault": false
+        },
+        {
+          "name": "HardShrink",
+          "line": 508,
+          "isDefault": false
+        },
+        {
+          "name": "Softmin",
+          "line": 518,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 52,
+        "functionCount": 27,
+        "classCount": 25
+      }
+    },
+    {
+      "path": ".typings/mlx/nn/layers/base.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 397,
+      "nonEmptyLines": 316,
+      "classes": [
+        {
+          "name": "Module",
+          "startLine": 9,
+          "endLine": 397,
+          "methods": [
+            "__call__",
+            "__init__",
+            "__getitem__",
+            "get",
+            "training",
+            "state",
+            "__repr__",
+            "__getattr__",
+            "__setattr__",
+            "__delattr__",
+            "load_weights",
+            "save_weights",
+            "is_module",
+            "valid_child_filter",
+            "valid_parameter_filter",
+            "trainable_parameter_filter",
+            "filter_and_map",
+            "parameters",
+            "trainable_parameters",
+            "children",
+            "leaf_modules",
+            "update",
+            "apply",
+            "update_modules",
+            "apply_to_modules",
+            "modules",
+            "named_modules",
+            "freeze",
+            "unfreeze",
+            "train",
+            "eval",
+            "set_dtype"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "Module",
+          "line": 9,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mlx/nn/layers/containers.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 21,
+      "nonEmptyLines": 16,
+      "classes": [
+        {
+          "name": "Sequential",
+          "startLine": 10,
+          "endLine": 21,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "Sequential",
+          "line": 10,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mlx/nn/layers/convolution.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 120,
+      "nonEmptyLines": 105,
+      "classes": [
+        {
+          "name": "Conv1d",
+          "startLine": 10,
+          "endLine": 48,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": [
+            "weight",
+            "bias",
+            "groups"
+          ]
+        },
+        {
+          "name": "Conv2d",
+          "startLine": 50,
+          "endLine": 85,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        },
+        {
+          "name": "Conv3d",
+          "startLine": 87,
+          "endLine": 120,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "Conv1d",
+          "line": 10,
+          "isDefault": false
+        },
+        {
+          "name": "Conv2d",
+          "line": 50,
+          "isDefault": false
+        },
+        {
+          "name": "Conv3d",
+          "line": 87,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 3,
+        "functionCount": 0,
+        "classCount": 3
+      }
+    },
+    {
+      "path": ".typings/mlx/nn/layers/convolution_transpose.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 119,
+      "nonEmptyLines": 105,
+      "classes": [
+        {
+          "name": "ConvTranspose1d",
+          "startLine": 10,
+          "endLine": 44,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        },
+        {
+          "name": "ConvTranspose2d",
+          "startLine": 46,
+          "endLine": 81,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        },
+        {
+          "name": "ConvTranspose3d",
+          "startLine": 83,
+          "endLine": 119,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "ConvTranspose1d",
+          "line": 10,
+          "isDefault": false
+        },
+        {
+          "name": "ConvTranspose2d",
+          "line": 46,
+          "isDefault": false
+        },
+        {
+          "name": "ConvTranspose3d",
+          "line": 83,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 3,
+        "functionCount": 0,
+        "classCount": 3
+      }
+    },
+    {
+      "path": ".typings/mlx/nn/layers/distributed.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 227,
+      "nonEmptyLines": 202,
+      "functions": [
+        {
+          "name": "sum_gradients",
+          "startLine": 13,
+          "endLine": 16,
+          "params": [
+            "group"
+          ]
+        },
+        {
+          "name": "shard_inplace",
+          "startLine": 17,
+          "endLine": 46,
+          "params": [
+            "module",
+            "sharding",
+            "segments",
+            "group"
+          ]
+        },
+        {
+          "name": "shard_linear",
+          "startLine": 48,
+          "endLine": 70,
+          "params": [
+            "module",
+            "sharding",
+            "segments",
+            "group"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "AllToShardedLinear",
+          "startLine": 72,
+          "endLine": 102,
+          "methods": [
+            "__init__",
+            "__call__",
+            "from_linear"
+          ],
+          "properties": []
+        },
+        {
+          "name": "ShardedToAllLinear",
+          "startLine": 104,
+          "endLine": 137,
+          "methods": [
+            "__init__",
+            "__call__",
+            "from_linear"
+          ],
+          "properties": []
+        },
+        {
+          "name": "QuantizedAllToShardedLinear",
+          "startLine": 139,
+          "endLine": 181,
+          "methods": [
+            "__init__",
+            "unfreeze",
+            "__call__",
+            "from_quantized_linear"
+          ],
+          "properties": []
+        },
+        {
+          "name": "QuantizedShardedToAllLinear",
+          "startLine": 183,
+          "endLine": 227,
+          "methods": [
+            "__init__",
+            "unfreeze",
+            "__call__",
+            "from_quantized_linear"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "sum_gradients",
+          "line": 12,
+          "isDefault": false
+        },
+        {
+          "name": "shard_inplace",
+          "line": 17,
+          "isDefault": false
+        },
+        {
+          "name": "shard_linear",
+          "line": 48,
+          "isDefault": false
+        },
+        {
+          "name": "AllToShardedLinear",
+          "line": 72,
+          "isDefault": false
+        },
+        {
+          "name": "ShardedToAllLinear",
+          "line": 104,
+          "isDefault": false
+        },
+        {
+          "name": "QuantizedAllToShardedLinear",
+          "line": 139,
+          "isDefault": false
+        },
+        {
+          "name": "QuantizedShardedToAllLinear",
+          "line": 183,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 7,
+        "functionCount": 3,
+        "classCount": 4
+      }
+    },
+    {
+      "path": ".typings/mlx/nn/layers/dropout.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 65,
+      "nonEmptyLines": 52,
+      "classes": [
+        {
+          "name": "Dropout",
+          "startLine": 8,
+          "endLine": 19,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        },
+        {
+          "name": "Dropout2d",
+          "startLine": 21,
+          "endLine": 44,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        },
+        {
+          "name": "Dropout3d",
+          "startLine": 46,
+          "endLine": 65,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "Dropout",
+          "line": 8,
+          "isDefault": false
+        },
+        {
+          "name": "Dropout2d",
+          "line": 21,
+          "isDefault": false
+        },
+        {
+          "name": "Dropout3d",
+          "line": 46,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 3,
+        "functionCount": 0,
+        "classCount": 3
+      }
+    },
+    {
+      "path": ".typings/mlx/nn/layers/embedding.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 34,
+      "nonEmptyLines": 27,
+      "classes": [
+        {
+          "name": "Embedding",
+          "startLine": 10,
+          "endLine": 34,
+          "methods": [
+            "__init__",
+            "__call__",
+            "as_linear",
+            "to_quantized"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "Embedding",
+          "line": 10,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mlx/nn/layers/linear.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 80,
+      "nonEmptyLines": 59,
+      "classes": [
+        {
+          "name": "Identity",
+          "startLine": 12,
+          "endLine": 20,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        },
+        {
+          "name": "Linear",
+          "startLine": 22,
+          "endLine": 52,
+          "methods": [
+            "__init__",
+            "__call__",
+            "to_quantized"
+          ],
+          "properties": [
+            "weight",
+            "bias"
+          ]
+        },
+        {
+          "name": "Bilinear",
+          "startLine": 54,
+          "endLine": 80,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "Identity",
+          "line": 12,
+          "isDefault": false
+        },
+        {
+          "name": "Linear",
+          "line": 22,
+          "isDefault": false
+        },
+        {
+          "name": "Bilinear",
+          "line": 54,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 3,
+        "functionCount": 0,
+        "classCount": 3
+      }
+    },
+    {
+      "path": ".typings/mlx/nn/layers/normalization.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 197,
+      "nonEmptyLines": 150,
+      "classes": [
+        {
+          "name": "InstanceNorm",
+          "startLine": 8,
+          "endLine": 41,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        },
+        {
+          "name": "LayerNorm",
+          "startLine": 43,
+          "endLine": 69,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        },
+        {
+          "name": "RMSNorm",
+          "startLine": 71,
+          "endLine": 95,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": [
+            "weight"
+          ]
+        },
+        {
+          "name": "GroupNorm",
+          "startLine": 97,
+          "endLine": 134,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        },
+        {
+          "name": "BatchNorm",
+          "startLine": 136,
+          "endLine": 197,
+          "methods": [
+            "__init__",
+            "unfreeze",
+            "__call__"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "InstanceNorm",
+          "line": 8,
+          "isDefault": false
+        },
+        {
+          "name": "LayerNorm",
+          "line": 43,
+          "isDefault": false
+        },
+        {
+          "name": "RMSNorm",
+          "line": 71,
+          "isDefault": false
+        },
+        {
+          "name": "GroupNorm",
+          "line": 97,
+          "isDefault": false
+        },
+        {
+          "name": "BatchNorm",
+          "line": 136,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 5,
+        "functionCount": 0,
+        "classCount": 5
+      }
+    },
+    {
+      "path": ".typings/mlx/nn/layers/pooling.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 242,
+      "nonEmptyLines": 204,
+      "classes": [
+        {
+          "name": "_Pool",
+          "startLine": 10,
+          "endLine": 14,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        },
+        {
+          "name": "_Pool1d",
+          "startLine": 16,
+          "endLine": 24,
+          "methods": [
+            "__init__"
+          ],
+          "properties": []
+        },
+        {
+          "name": "_Pool2d",
+          "startLine": 26,
+          "endLine": 34,
+          "methods": [
+            "__init__"
+          ],
+          "properties": []
+        },
+        {
+          "name": "_Pool3d",
+          "startLine": 36,
+          "endLine": 44,
+          "methods": [
+            "__init__"
+          ],
+          "properties": []
+        },
+        {
+          "name": "MaxPool1d",
+          "startLine": 46,
+          "endLine": 72,
+          "methods": [
+            "__init__"
+          ],
+          "properties": []
+        },
+        {
+          "name": "AvgPool1d",
+          "startLine": 74,
+          "endLine": 100,
+          "methods": [
+            "__init__"
+          ],
+          "properties": []
+        },
+        {
+          "name": "MaxPool2d",
+          "startLine": 102,
+          "endLine": 135,
+          "methods": [
+            "__init__"
+          ],
+          "properties": []
+        },
+        {
+          "name": "AvgPool2d",
+          "startLine": 137,
+          "endLine": 170,
+          "methods": [
+            "__init__"
+          ],
+          "properties": []
+        },
+        {
+          "name": "MaxPool3d",
+          "startLine": 172,
+          "endLine": 206,
+          "methods": [
+            "__init__"
+          ],
+          "properties": []
+        },
+        {
+          "name": "AvgPool3d",
+          "startLine": 208,
+          "endLine": 242,
+          "methods": [
+            "__init__"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "_Pool",
+          "line": 10,
+          "isDefault": false
+        },
+        {
+          "name": "_Pool1d",
+          "line": 16,
+          "isDefault": false
+        },
+        {
+          "name": "_Pool2d",
+          "line": 26,
+          "isDefault": false
+        },
+        {
+          "name": "_Pool3d",
+          "line": 36,
+          "isDefault": false
+        },
+        {
+          "name": "MaxPool1d",
+          "line": 46,
+          "isDefault": false
+        },
+        {
+          "name": "AvgPool1d",
+          "line": 74,
+          "isDefault": false
+        },
+        {
+          "name": "MaxPool2d",
+          "line": 102,
+          "isDefault": false
+        },
+        {
+          "name": "AvgPool2d",
+          "line": 137,
+          "isDefault": false
+        },
+        {
+          "name": "MaxPool3d",
+          "line": 172,
+          "isDefault": false
+        },
+        {
+          "name": "AvgPool3d",
+          "line": 208,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 10,
+        "functionCount": 0,
+        "classCount": 10
+      }
+    },
+    {
+      "path": ".typings/mlx/nn/layers/positional_encoding.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 80,
+      "nonEmptyLines": 70,
+      "classes": [
+        {
+          "name": "RoPE",
+          "startLine": 10,
+          "endLine": 32,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        },
+        {
+          "name": "SinusoidalPositionalEncoding",
+          "startLine": 34,
+          "endLine": 62,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        },
+        {
+          "name": "ALiBi",
+          "startLine": 64,
+          "endLine": 80,
+          "methods": [
+            "create_alibi_matrix",
+            "create_alibi_slope",
+            "__call__"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "RoPE",
+          "line": 10,
+          "isDefault": false
+        },
+        {
+          "name": "SinusoidalPositionalEncoding",
+          "line": 34,
+          "isDefault": false
+        },
+        {
+          "name": "ALiBi",
+          "line": 64,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 3,
+        "functionCount": 0,
+        "classCount": 3
+      }
+    },
+    {
+      "path": ".typings/mlx/nn/layers/quantized.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 127,
+      "nonEmptyLines": 113,
+      "functions": [
+        {
+          "name": "quantize",
+          "startLine": 10,
+          "endLine": 40,
+          "params": [
+            "model",
+            "group_size",
+            "bits",
+            "mode",
+            "class_predicate"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "QuantizedEmbedding",
+          "startLine": 42,
+          "endLine": 85,
+          "methods": [
+            "__init__",
+            "__call__",
+            "as_linear",
+            "from_embedding"
+          ],
+          "properties": []
+        },
+        {
+          "name": "QuantizedLinear",
+          "startLine": 87,
+          "endLine": 127,
+          "methods": [
+            "__init__",
+            "__call__",
+            "from_linear"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "quantize",
+          "line": 10,
+          "isDefault": false
+        },
+        {
+          "name": "QuantizedEmbedding",
+          "line": 42,
+          "isDefault": false
+        },
+        {
+          "name": "QuantizedLinear",
+          "line": 87,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 3,
+        "functionCount": 1,
+        "classCount": 2
+      }
+    },
+    {
+      "path": ".typings/mlx/nn/layers/recurrent.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 113,
+      "nonEmptyLines": 87,
+      "classes": [
+        {
+          "name": "RNN",
+          "startLine": 10,
+          "endLine": 44,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        },
+        {
+          "name": "GRU",
+          "startLine": 46,
+          "endLine": 76,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        },
+        {
+          "name": "LSTM",
+          "startLine": 78,
+          "endLine": 113,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "RNN",
+          "line": 10,
+          "isDefault": false
+        },
+        {
+          "name": "GRU",
+          "line": 46,
+          "isDefault": false
+        },
+        {
+          "name": "LSTM",
+          "line": 78,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 3,
+        "functionCount": 0,
+        "classCount": 3
+      }
+    },
+    {
+      "path": ".typings/mlx/nn/layers/transformer.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 168,
+      "nonEmptyLines": 153,
+      "classes": [
+        {
+          "name": "MultiHeadAttention",
+          "startLine": 10,
+          "endLine": 57,
+          "methods": [
+            "__init__",
+            "__call__",
+            "create_additive_causal_mask"
+          ],
+          "properties": []
+        },
+        {
+          "name": "TransformerEncoderLayer",
+          "startLine": 59,
+          "endLine": 69,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        },
+        {
+          "name": "TransformerEncoder",
+          "startLine": 71,
+          "endLine": 83,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        },
+        {
+          "name": "TransformerDecoderLayer",
+          "startLine": 85,
+          "endLine": 95,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        },
+        {
+          "name": "TransformerDecoder",
+          "startLine": 97,
+          "endLine": 109,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        },
+        {
+          "name": "Transformer",
+          "startLine": 111,
+          "endLine": 168,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "MultiHeadAttention",
+          "line": 10,
+          "isDefault": false
+        },
+        {
+          "name": "TransformerEncoderLayer",
+          "line": 59,
+          "isDefault": false
+        },
+        {
+          "name": "TransformerEncoder",
+          "line": 71,
+          "isDefault": false
+        },
+        {
+          "name": "TransformerDecoderLayer",
+          "line": 85,
+          "isDefault": false
+        },
+        {
+          "name": "TransformerDecoder",
+          "line": 97,
+          "isDefault": false
+        },
+        {
+          "name": "Transformer",
+          "line": 111,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 6,
+        "functionCount": 0,
+        "classCount": 6
+      }
+    },
+    {
+      "path": ".typings/mlx/nn/layers/upsample.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 87,
+      "nonEmptyLines": 77,
+      "functions": [
+        {
+          "name": "upsample_nearest",
+          "startLine": 10,
+          "endLine": 10,
+          "params": [
+            "x",
+            "scale_factor"
+          ]
+        },
+        {
+          "name": "upsample_linear",
+          "startLine": 11,
+          "endLine": 14,
+          "params": [
+            "x",
+            "scale_factor",
+            "align_corners"
+          ]
+        },
+        {
+          "name": "upsample_cubic",
+          "startLine": 15,
+          "endLine": 18,
+          "params": [
+            "x",
+            "scale_factor",
+            "align_corners"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "Upsample",
+          "startLine": 20,
+          "endLine": 87,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "upsample_nearest",
+          "line": 10,
+          "isDefault": false
+        },
+        {
+          "name": "upsample_linear",
+          "line": 11,
+          "isDefault": false
+        },
+        {
+          "name": "upsample_cubic",
+          "line": 15,
+          "isDefault": false
+        },
+        {
+          "name": "Upsample",
+          "line": 20,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 4,
+        "functionCount": 3,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mlx/nn/losses.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 419,
+      "nonEmptyLines": 342,
+      "functions": [
+        {
+          "name": "cross_entropy",
+          "startLine": 11,
+          "endLine": 54,
+          "params": [
+            "logits",
+            "targets",
+            "weights",
+            "axis",
+            "label_smoothing",
+            "reduction"
+          ]
+        },
+        {
+          "name": "binary_cross_entropy",
+          "startLine": 56,
+          "endLine": 97,
+          "params": [
+            "inputs",
+            "targets",
+            "weights",
+            "with_logits",
+            "reduction"
+          ]
+        },
+        {
+          "name": "l1_loss",
+          "startLine": 99,
+          "endLine": 113,
+          "params": [
+            "predictions",
+            "targets",
+            "reduction"
+          ]
+        },
+        {
+          "name": "mse_loss",
+          "startLine": 115,
+          "endLine": 129,
+          "params": [
+            "predictions",
+            "targets",
+            "reduction"
+          ]
+        },
+        {
+          "name": "nll_loss",
+          "startLine": 131,
+          "endLine": 146,
+          "params": [
+            "inputs",
+            "targets",
+            "axis",
+            "reduction"
+          ]
+        },
+        {
+          "name": "gaussian_nll_loss",
+          "startLine": 148,
+          "endLine": 182,
+          "params": [
+            "inputs",
+            "targets",
+            "vars",
+            "full",
+            "eps",
+            "reduction"
+          ]
+        },
+        {
+          "name": "kl_div_loss",
+          "startLine": 184,
+          "endLine": 205,
+          "params": [
+            "inputs",
+            "targets",
+            "axis",
+            "reduction"
+          ]
+        },
+        {
+          "name": "smooth_l1_loss",
+          "startLine": 207,
+          "endLine": 239,
+          "params": [
+            "predictions",
+            "targets",
+            "beta",
+            "reduction"
+          ]
+        },
+        {
+          "name": "triplet_loss",
+          "startLine": 241,
+          "endLine": 273,
+          "params": [
+            "anchors",
+            "positives",
+            "negatives",
+            "axis",
+            "p",
+            "margin",
+            "eps",
+            "reduction"
+          ]
+        },
+        {
+          "name": "hinge_loss",
+          "startLine": 275,
+          "endLine": 294,
+          "params": [
+            "inputs",
+            "targets",
+            "reduction"
+          ]
+        },
+        {
+          "name": "huber_loss",
+          "startLine": 296,
+          "endLine": 320,
+          "params": [
+            "inputs",
+            "targets",
+            "delta",
+            "reduction"
+          ]
+        },
+        {
+          "name": "log_cosh_loss",
+          "startLine": 322,
+          "endLine": 347,
+          "params": [
+            "inputs",
+            "targets",
+            "reduction"
+          ]
+        },
+        {
+          "name": "cosine_similarity_loss",
+          "startLine": 349,
+          "endLine": 376,
+          "params": [
+            "x1",
+            "x2",
+            "axis",
+            "eps",
+            "reduction"
+          ]
+        },
+        {
+          "name": "margin_ranking_loss",
+          "startLine": 378,
+          "endLine": 419,
+          "params": [
+            "inputs1",
+            "inputs2",
+            "targets",
+            "margin",
+            "reduction"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "cross_entropy",
+          "line": 11,
+          "isDefault": false
+        },
+        {
+          "name": "binary_cross_entropy",
+          "line": 56,
+          "isDefault": false
+        },
+        {
+          "name": "l1_loss",
+          "line": 99,
+          "isDefault": false
+        },
+        {
+          "name": "mse_loss",
+          "line": 115,
+          "isDefault": false
+        },
+        {
+          "name": "nll_loss",
+          "line": 131,
+          "isDefault": false
+        },
+        {
+          "name": "gaussian_nll_loss",
+          "line": 148,
+          "isDefault": false
+        },
+        {
+          "name": "kl_div_loss",
+          "line": 184,
+          "isDefault": false
+        },
+        {
+          "name": "smooth_l1_loss",
+          "line": 207,
+          "isDefault": false
+        },
+        {
+          "name": "triplet_loss",
+          "line": 241,
+          "isDefault": false
+        },
+        {
+          "name": "hinge_loss",
+          "line": 275,
+          "isDefault": false
+        },
+        {
+          "name": "huber_loss",
+          "line": 296,
+          "isDefault": false
+        },
+        {
+          "name": "log_cosh_loss",
+          "line": 322,
+          "isDefault": false
+        },
+        {
+          "name": "cosine_similarity_loss",
+          "line": 349,
+          "isDefault": false
+        },
+        {
+          "name": "margin_ranking_loss",
+          "line": 378,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 14,
+        "functionCount": 14,
+        "classCount": 0
+      }
+    },
+    {
+      "path": ".typings/mlx/nn/utils.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 73,
+      "nonEmptyLines": 61,
+      "functions": [
+        {
+          "name": "value_and_grad",
+          "startLine": 11,
+          "endLine": 26,
+          "params": [
+            "model",
+            "fn"
+          ]
+        },
+        {
+          "name": "checkpoint",
+          "startLine": 28,
+          "endLine": 44,
+          "params": [
+            "module",
+            "fn"
+          ]
+        },
+        {
+          "name": "average_gradients",
+          "startLine": 46,
+          "endLine": 73,
+          "params": [
+            "gradients",
+            "group",
+            "all_reduce_size",
+            "communication_type",
+            "communication_stream"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "value_and_grad",
+          "line": 11,
+          "isDefault": false
+        },
+        {
+          "name": "checkpoint",
+          "line": 28,
+          "isDefault": false
+        },
+        {
+          "name": "average_gradients",
+          "line": 46,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 3,
+        "functionCount": 3,
+        "classCount": 0
+      }
+    },
+    {
+      "path": ".typings/mlx/utils.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 192,
+      "nonEmptyLines": 151,
+      "functions": [
+        {
+          "name": "tree_map",
+          "startLine": 9,
+          "endLine": 47,
+          "params": [
+            "fn",
+            "tree",
+            "is_leaf"
+          ]
+        },
+        {
+          "name": "tree_map_with_path",
+          "startLine": 49,
+          "endLine": 81,
+          "params": [
+            "fn",
+            "tree",
+            "is_leaf",
+            "path"
+          ]
+        },
+        {
+          "name": "tree_flatten",
+          "startLine": 83,
+          "endLine": 122,
+          "params": [
+            "tree",
+            "prefix",
+            "is_leaf",
+            "destination"
+          ]
+        },
+        {
+          "name": "tree_unflatten",
+          "startLine": 124,
+          "endLine": 145,
+          "params": [
+            "tree"
+          ]
+        },
+        {
+          "name": "tree_reduce",
+          "startLine": 147,
+          "endLine": 176,
+          "params": [
+            "fn",
+            "tree",
+            "initializer",
+            "is_leaf"
+          ]
+        },
+        {
+          "name": "tree_merge",
+          "startLine": 178,
+          "endLine": 192,
+          "params": [
+            "tree_a",
+            "tree_b",
+            "merge_fn"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "tree_map",
+          "line": 9,
+          "isDefault": false
+        },
+        {
+          "name": "tree_map_with_path",
+          "line": 49,
+          "isDefault": false
+        },
+        {
+          "name": "tree_flatten",
+          "line": 83,
+          "isDefault": false
+        },
+        {
+          "name": "tree_unflatten",
+          "line": 124,
+          "isDefault": false
+        },
+        {
+          "name": "tree_reduce",
+          "line": 147,
+          "isDefault": false
+        },
+        {
+          "name": "tree_merge",
+          "line": 178,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 6,
+        "functionCount": 6,
+        "classCount": 0
+      }
+    },
+    {
+      "path": ".typings/mlx_lm/__init__.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 3,
+      "nonEmptyLines": 3,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": ".typings/mlx_lm/_version.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 5,
+      "nonEmptyLines": 4,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    }
+  ]
+}

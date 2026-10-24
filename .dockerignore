@@ -1,0 +1,66 @@
+# Git
+.git
+.gitignore
+
+# Python
+__pycache__
+*.py[cod]
+*$py.class
+*.so
+.Python
+.venv/
+venv/
+ENV/
+*.egg-info/
+dist/
+build/
+
+# Rust
+target/
+**/*.rs.bk
+
+# Node
+dashboard/node_modules/
+dashboard/.svelte-kit/
+dashboard/build/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Docker
+docker-compose*.yml
+!docker/docker-compose.yml
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+
+# Documentation
+docs/
+*.md
+!docker/README.md
+
+# Misc
+*.log
+.tmp/
+tmp/
+.hypothesis/
+.ruff_cache/
+.typings/
+.mnemo/
+.ua/
+.agents/
+.claude/
+.clauderules
+.cursorrules
+.envrc

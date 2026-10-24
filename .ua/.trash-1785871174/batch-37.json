@@ -1,0 +1,4747 @@
+{
+ "nodes": [
+  {
+   "id": "file:.typings/mlx/core/random/__init__.pyi",
+   "type": "file",
+   "name": "__init__.pyi",
+   "filePath": ".typings/mlx/core/random/__init__.pyi",
+   "summary": "Defines 13 function(s) and 0 class(es) for .typings/mlx/core/random/__init__.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "file:.typings/mlx/nn/__init__.pyi",
+   "type": "file",
+   "name": "__init__.pyi",
+   "filePath": ".typings/mlx/nn/__init__.pyi",
+   "summary": "__init__.pyi \u2014 code file in the exo project.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:.typings/mlx/nn/init.pyi",
+   "type": "file",
+   "name": "init.pyi",
+   "filePath": ".typings/mlx/nn/init.pyi",
+   "summary": "Defines 10 function(s) and 0 class(es) for .typings/mlx/nn/init.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "file:.typings/mlx/nn/layers/__init__.pyi",
+   "type": "file",
+   "name": "__init__.pyi",
+   "filePath": ".typings/mlx/nn/layers/__init__.pyi",
+   "summary": "__init__.pyi \u2014 code file in the exo project.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:.typings/mlx/nn/layers/activations.pyi",
+   "type": "file",
+   "name": "activations.pyi",
+   "filePath": ".typings/mlx/nn/layers/activations.pyi",
+   "summary": "Defines 27 function(s) and 25 class(es) for .typings/mlx/nn/layers/activations.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "file:.typings/mlx/nn/layers/base.pyi",
+   "type": "file",
+   "name": "base.pyi",
+   "filePath": ".typings/mlx/nn/layers/base.pyi",
+   "summary": "Defines 0 function(s) and 1 class(es) for .typings/mlx/nn/layers/base.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "file:.typings/mlx/nn/layers/containers.pyi",
+   "type": "file",
+   "name": "containers.pyi",
+   "filePath": ".typings/mlx/nn/layers/containers.pyi",
+   "summary": "Defines 0 function(s) and 1 class(es) for .typings/mlx/nn/layers/containers.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.typings/mlx/nn/layers/convolution.pyi",
+   "type": "file",
+   "name": "convolution.pyi",
+   "filePath": ".typings/mlx/nn/layers/convolution.pyi",
+   "summary": "Defines 0 function(s) and 3 class(es) for .typings/mlx/nn/layers/convolution.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.typings/mlx/nn/layers/convolution_transpose.pyi",
+   "type": "file",
+   "name": "convolution_transpose.pyi",
+   "filePath": ".typings/mlx/nn/layers/convolution_transpose.pyi",
+   "summary": "Defines 0 function(s) and 3 class(es) for .typings/mlx/nn/layers/convolution_transpose.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.typings/mlx/nn/layers/distributed.pyi",
+   "type": "file",
+   "name": "distributed.pyi",
+   "filePath": ".typings/mlx/nn/layers/distributed.pyi",
+   "summary": "Defines 3 function(s) and 4 class(es) for .typings/mlx/nn/layers/distributed.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "file:.typings/mlx/nn/layers/dropout.pyi",
+   "type": "file",
+   "name": "dropout.pyi",
+   "filePath": ".typings/mlx/nn/layers/dropout.pyi",
+   "summary": "Defines 0 function(s) and 3 class(es) for .typings/mlx/nn/layers/dropout.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.typings/mlx/nn/layers/embedding.pyi",
+   "type": "file",
+   "name": "embedding.pyi",
+   "filePath": ".typings/mlx/nn/layers/embedding.pyi",
+   "summary": "Defines 0 function(s) and 1 class(es) for .typings/mlx/nn/layers/embedding.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.typings/mlx/nn/layers/linear.pyi",
+   "type": "file",
+   "name": "linear.pyi",
+   "filePath": ".typings/mlx/nn/layers/linear.pyi",
+   "summary": "Defines 0 function(s) and 3 class(es) for .typings/mlx/nn/layers/linear.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.typings/mlx/nn/layers/normalization.pyi",
+   "type": "file",
+   "name": "normalization.pyi",
+   "filePath": ".typings/mlx/nn/layers/normalization.pyi",
+   "summary": "Defines 0 function(s) and 5 class(es) for .typings/mlx/nn/layers/normalization.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.typings/mlx/nn/layers/pooling.pyi",
+   "type": "file",
+   "name": "pooling.pyi",
+   "filePath": ".typings/mlx/nn/layers/pooling.pyi",
+   "summary": "Defines 0 function(s) and 10 class(es) for .typings/mlx/nn/layers/pooling.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "file:.typings/mlx/nn/layers/positional_encoding.pyi",
+   "type": "file",
+   "name": "positional_encoding.pyi",
+   "filePath": ".typings/mlx/nn/layers/positional_encoding.pyi",
+   "summary": "Defines 0 function(s) and 3 class(es) for .typings/mlx/nn/layers/positional_encoding.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.typings/mlx/nn/layers/quantized.pyi",
+   "type": "file",
+   "name": "quantized.pyi",
+   "filePath": ".typings/mlx/nn/layers/quantized.pyi",
+   "summary": "Defines 1 function(s) and 2 class(es) for .typings/mlx/nn/layers/quantized.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.typings/mlx/nn/layers/recurrent.pyi",
+   "type": "file",
+   "name": "recurrent.pyi",
+   "filePath": ".typings/mlx/nn/layers/recurrent.pyi",
+   "summary": "Defines 0 function(s) and 3 class(es) for .typings/mlx/nn/layers/recurrent.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.typings/mlx/nn/layers/transformer.pyi",
+   "type": "file",
+   "name": "transformer.pyi",
+   "filePath": ".typings/mlx/nn/layers/transformer.pyi",
+   "summary": "Defines 0 function(s) and 6 class(es) for .typings/mlx/nn/layers/transformer.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.typings/mlx/nn/layers/upsample.pyi",
+   "type": "file",
+   "name": "upsample.pyi",
+   "filePath": ".typings/mlx/nn/layers/upsample.pyi",
+   "summary": "Defines 3 function(s) and 1 class(es) for .typings/mlx/nn/layers/upsample.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.typings/mlx/nn/losses.pyi",
+   "type": "file",
+   "name": "losses.pyi",
+   "filePath": ".typings/mlx/nn/losses.pyi",
+   "summary": "Defines 14 function(s) and 0 class(es) for .typings/mlx/nn/losses.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "file:.typings/mlx/nn/utils.pyi",
+   "type": "file",
+   "name": "utils.pyi",
+   "filePath": ".typings/mlx/nn/utils.pyi",
+   "summary": "Defines 3 function(s) and 0 class(es) for .typings/mlx/nn/utils.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.typings/mlx/utils.pyi",
+   "type": "file",
+   "name": "utils.pyi",
+   "filePath": ".typings/mlx/utils.pyi",
+   "summary": "Defines 6 function(s) and 0 class(es) for .typings/mlx/utils.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.typings/mlx_lm/__init__.pyi",
+   "type": "file",
+   "name": "__init__.pyi",
+   "filePath": ".typings/mlx_lm/__init__.pyi",
+   "summary": "__init__.pyi \u2014 code file in the exo project.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:.typings/mlx_lm/_version.pyi",
+   "type": "file",
+   "name": "_version.pyi",
+   "filePath": ".typings/mlx_lm/_version.pyi",
+   "summary": "_version.pyi \u2014 code file in the exo project.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:.typings/mlx/core/random/__init__.pyi:bernoulli",
+   "type": "function",
+   "name": "bernoulli",
+   "filePath": ".typings/mlx/core/random/__init__.pyi",
+   "lineRange": [
+    6,
+    28
+   ],
+   "summary": "Function bernoulli in .typings/mlx/core/random/__init__.pyi.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:.typings/mlx/core/random/__init__.pyi:categorical",
+   "type": "function",
+   "name": "categorical",
+   "filePath": ".typings/mlx/core/random/__init__.pyi",
+   "lineRange": [
+    30,
+    60
+   ],
+   "summary": "Function categorical in .typings/mlx/core/random/__init__.pyi.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:.typings/mlx/core/random/__init__.pyi:gumbel",
+   "type": "function",
+   "name": "gumbel",
+   "filePath": ".typings/mlx/core/random/__init__.pyi",
+   "lineRange": [
+    62,
+    84
+   ],
+   "summary": "Function gumbel in .typings/mlx/core/random/__init__.pyi.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:.typings/mlx/core/random/__init__.pyi:key",
+   "type": "function",
+   "name": "key",
+   "filePath": ".typings/mlx/core/random/__init__.pyi",
+   "lineRange": [
+    86,
+    95
+   ],
+   "summary": "Function key in .typings/mlx/core/random/__init__.pyi.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:.typings/mlx/core/random/__init__.pyi:laplace",
+   "type": "function",
+   "name": "laplace",
+   "filePath": ".typings/mlx/core/random/__init__.pyi",
+   "lineRange": [
+    97,
+    118
+   ],
+   "summary": "Function laplace in .typings/mlx/core/random/__init__.pyi.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:.typings/mlx/core/random/__init__.pyi:multivariate_normal",
+   "type": "function",
+   "name": "multivariate_normal",
+   "filePath": ".typings/mlx/core/random/__init__.pyi",
+   "lineRange": [
+    120,
+    149
+   ],
+   "summary": "Function multivariate_normal in .typings/mlx/core/random/__init__.pyi.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:.typings/mlx/core/random/__init__.pyi:normal",
+   "type": "function",
+   "name": "normal",
+   "filePath": ".typings/mlx/core/random/__init__.pyi",
+   "lineRange": [
+    151,
+    178
+   ],
+   "summary": "Function normal in .typings/mlx/core/random/__init__.pyi.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:.typings/mlx/core/random/__init__.pyi:permutation",
+   "type": "function",
+   "name": "permutation",
+   "filePath": ".typings/mlx/core/random/__init__.pyi",
+   "lineRange": [
+    180,
+    199
+   ],
+   "summary": "Function permutation in .typings/mlx/core/random/__init__.pyi.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:.typings/mlx/core/random/__init__.pyi:randint",
+   "type": "function",
+   "name": "randint",
+   "filePath": ".typings/mlx/core/random/__init__.pyi",
+   "lineRange": [
+    201,
+    225
+   ],
+   "summary": "Function randint in .typings/mlx/core/random/__init__.pyi.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:.typings/mlx/core/random/__init__.pyi:seed",
+   "type": "function",
+   "name": "seed",
+   "filePath": ".typings/mlx/core/random/__init__.pyi",
+   "lineRange": [
+    227,
+    233
+   ],
+   "summary": "Function seed in .typings/mlx/core/random/__init__.pyi.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:.typings/mlx/core/random/__init__.pyi:split",
+   "type": "function",
+   "name": "split",
+   "filePath": ".typings/mlx/core/random/__init__.pyi",
+   "lineRange": [
+    235,
+    245
+   ],
+   "summary": "Function split in .typings/mlx/core/random/__init__.pyi.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:.typings/mlx/core/random/__init__.pyi:truncated_normal",
+   "type": "function",
+   "name": "truncated_normal",
+   "filePath": ".typings/mlx/core/random/__init__.pyi",
+   "lineRange": [
+    247,
+    273
+   ],
+   "summary": "Function truncated_normal in .typings/mlx/core/random/__init__.pyi.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:.typings/mlx/core/random/__init__.pyi:uniform",
+   "type": "function",
+   "name": "uniform",
+   "filePath": ".typings/mlx/core/random/__init__.pyi",
+   "lineRange": [
+    275,
+    301
+   ],
+   "summary": "Function uniform in .typings/mlx/core/random/__init__.pyi.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:.typings/mlx/nn/init.pyi:constant",
+   "type": "function",
+   "name": "constant",
+   "filePath": ".typings/mlx/nn/init.pyi",
+   "lineRange": [
+    9,
+    27
+   ],
+   "summary": "Function constant in .typings/mlx/nn/init.pyi.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:.typings/mlx/nn/init.pyi:normal",
+   "type": "function",
+   "name": "normal",
+   "filePath": ".typings/mlx/nn/init.pyi",
+   "lineRange": [
+    29,
+    52
+   ],
+   "summary": "Function normal in .typings/mlx/nn/init.pyi.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:.typings/mlx/nn/init.pyi:uniform",
+   "type": "function",
+   "name": "uniform",
+   "filePath": ".typings/mlx/nn/init.pyi",
+   "lineRange": [
+    54,
+    77
+   ],
+   "summary": "Function uniform in .typings/mlx/nn/init.pyi.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:.typings/mlx/nn/init.pyi:identity",
+   "type": "function",
+   "name": "identity",
+   "filePath": ".typings/mlx/nn/init.pyi",
+   "lineRange": [
+    79,
+    96
+   ],
+   "summary": "Function identity in .typings/mlx/nn/init.pyi.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:.typings/mlx/nn/init.pyi:glorot_normal",
+   "type": "function",
+   "name": "glorot_normal",
+   "filePath": ".typings/mlx/nn/init.pyi",
+   "lineRange": [
+    98,
+    129
+   ],
+   "summary": "Function glorot_normal in .typings/mlx/nn/init.pyi.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:.typings/mlx/nn/init.pyi:glorot_uniform",
+   "type": "function",
+   "name": "glorot_uniform",
+   "filePath": ".typings/mlx/nn/init.pyi",
+   "lineRange": [
+    131,
+    162
+   ],
+   "summary": "Function glorot_uniform in .typings/mlx/nn/init.pyi.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:.typings/mlx/nn/init.pyi:he_normal",
+   "type": "function",
+   "name": "he_normal",
+   "filePath": ".typings/mlx/nn/init.pyi",
+   "lineRange": [
+    164,
+    201
+   ],
+   "summary": "Function he_normal in .typings/mlx/nn/init.pyi.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:.typings/mlx/nn/init.pyi:he_uniform",
+   "type": "function",
+   "name": "he_uniform",
+   "filePath": ".typings/mlx/nn/init.pyi",
+   "lineRange": [
+    203,
+    242
+   ],
+   "summary": "Function he_uniform in .typings/mlx/nn/init.pyi.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:.typings/mlx/nn/init.pyi:sparse",
+   "type": "function",
+   "name": "sparse",
+   "filePath": ".typings/mlx/nn/init.pyi",
+   "lineRange": [
+    244,
+    269
+   ],
+   "summary": "Function sparse in .typings/mlx/nn/init.pyi.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:.typings/mlx/nn/init.pyi:orthogonal",
+   "type": "function",
+   "name": "orthogonal",
+   "filePath": ".typings/mlx/nn/init.pyi",
+   "lineRange": [
+    271,
+    284
+   ],
+   "summary": "Function orthogonal in .typings/mlx/nn/init.pyi.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:.typings/mlx/nn/layers/activations.pyi:sigmoid",
+   "type": "function",
+   "name": "sigmoid",
+   "filePath": ".typings/mlx/nn/layers/activations.pyi",
+   "lineRange": [
+    12,
+    17
+   ],
+   "summary": "Function sigmoid in .typings/mlx/nn/layers/activations.pyi.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:.typings/mlx/nn/layers/activations.pyi:relu",
+   "type": "function",
+   "name": "relu",
+   "filePath": ".typings/mlx/nn/layers/activations.pyi",
+   "lineRange": [
+    20,
+    24
+   ],
+   "summary": "Function relu in .typings/mlx/nn/layers/activations.pyi.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:.typings/mlx/nn/layers/activations.pyi:relu2",
+   "type": "function",
+   "name": "relu2",
+   "filePath": ".typings/mlx/nn/layers/activations.pyi",
+   "lineRange": [
+    27,
+    31
+   ],
+   "summary": "Function relu2 in .typings/mlx/nn/layers/activations.pyi.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:.typings/mlx/nn/layers/activations.pyi:relu6",
+   "type": "function",
+   "name": "relu6",
+   "filePath": ".typings/mlx/nn/layers/activations.pyi",
+   "lineRange": [
+    34,
+    38
+   ],
+   "summary": "Function relu6 in .typings/mlx/nn/layers/activations.pyi.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:.typings/mlx/nn/layers/activations.pyi:leaky_relu",
+   "type": "function",
+   "name": "leaky_relu",
+   "filePath": ".typings/mlx/nn/layers/activations.pyi",
+   "lineRange": [
+    41,
+    45
+   ],
+   "summary": "Function leaky_relu in .typings/mlx/nn/layers/activations.pyi.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:.typings/mlx/nn/layers/activations.pyi:log_softmax",
+   "type": "function",
+   "name": "log_softmax",
+   "filePath": ".typings/mlx/nn/layers/activations.pyi",
+   "lineRange": [
+    48,
+    52
+   ],
+   "summary": "Function log_softmax in .typings/mlx/nn/layers/activations.pyi.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:.typings/mlx/nn/layers/activations.pyi:elu",
+   "type": "function",
+   "name": "elu",
+   "filePath": ".typings/mlx/nn/layers/activations.pyi",
+   "lineRange": [
+    55,
+    59
+   ],
+   "summary": "Function elu in .typings/mlx/nn/layers/activations.pyi.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:.typings/mlx/nn/layers/activations.pyi:softmax",
+   "type": "function",
+   "name": "softmax",
+   "filePath": ".typings/mlx/nn/layers/activations.pyi",
+   "lineRange": [
+    62,
+    66
+   ],
+   "summary": "Function softmax in .typings/mlx/nn/layers/activations.pyi.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:.typings/mlx/nn/layers/activations.pyi:softplus",
+   "type": "function",
+   "name": "softplus",
+   "filePath": ".typings/mlx/nn/layers/activations.pyi",
+   "lineRange": [
+    69,
+    73
+   ],
+   "summary": "Function softplus in .typings/mlx/nn/layers/activations.pyi.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:.typings/mlx/nn/layers/activations.pyi:softsign",
+   "type": "function",
+   "name": "softsign",
+   "filePath": ".typings/mlx/nn/layers/activations.pyi",
+   "lineRange": [
+    76,
+    80
+   ],
+   "summary": "Function softsign in .typings/mlx/nn/layers/activations.pyi.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:.typings/mlx/nn/layers/activations.pyi:softshrink",
+   "type": "function",
+   "name": "softshrink",
+   "filePath": ".typings/mlx/nn/layers/activations.pyi",
+   "lineRange": [
+    83,
+    92
+   ],
+   "summary": "Function softshrink in .typings/mlx/nn/layers/activations.pyi.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:.typings/mlx/nn/layers/activations.pyi:celu",
+   "type": "function",
+   "name": "celu",
+   "filePath": ".typings/mlx/nn/layers/activations.pyi",
+   "lineRange": [
+    95,
+    100
+   ],
+   "summary": "Function celu in .typings/mlx/nn/layers/activations.pyi.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:.typings/mlx/nn/layers/activations.pyi:silu",
+   "type": "function",
+   "name": "silu",
+   "filePath": ".typings/mlx/nn/layers/activations.pyi",
+   "lineRange": [
+    103,
+    108
+   ],
+   "summary": "Function silu in .typings/mlx/nn/layers/activations.pyi.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:.typings/mlx/nn/layers/activations.pyi:log_sigmoid",
+   "type": "function",
+   "name": "log_sigmoid",
+   "filePath": ".typings/mlx/nn/layers/activations.pyi",
+   "lineRange": [
+    111,
+    115
+   ],
+   "summary": "Function log_sigmoid in .typings/mlx/nn/layers/activations.pyi.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:.typings/mlx/nn/layers/activations.pyi:gelu",
+   "type": "function",
+   "name": "gelu",
+   "filePath": ".typings/mlx/nn/layers/activations.pyi",
+   "lineRange": [
+    118,
+    128
+   ],
+   "summary": "Function gelu in .typings/mlx/nn/layers/activations.pyi.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:.typings/mlx/nn/layers/activations.pyi:gelu_approx",
+   "type": "function",
+   "name": "gelu_approx",
+   "filePath": ".typings/mlx/nn/layers/activations.pyi",
+   "lineRange": [
+    131,
+    143
+   ],
+   "summary": "Function gelu_approx in .typings/mlx/nn/layers/activations.pyi.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:.typings/mlx/nn/layers/activations.pyi:gelu_fast_approx",
+   "type": "function",
+   "name": "gelu_fast_approx",
+   "filePath": ".typings/mlx/nn/layers/activations.pyi",
+   "lineRange": [
+    146,
+    163
+   ],
+   "summary": "Function gelu_fast_approx in .typings/mlx/nn/layers/activations.pyi.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:.typings/mlx/nn/layers/activations.pyi:glu",
+   "type": "function",
+   "name": "glu",
+   "filePath": ".typings/mlx/nn/layers/activations.pyi",
+   "lineRange": [
+    165,
+    176
+   ],
+   "summary": "Function glu in .typings/mlx/nn/layers/activations.pyi.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:.typings/mlx/nn/layers/activations.pyi:step",
+   "type": "function",
+   "name": "step",
+   "filePath": ".typings/mlx/nn/layers/activations.pyi",
+   "lineRange": [
+    179,
+    193
+   ],
+   "summary": "Function step in .typings/mlx/nn/layers/activations.pyi.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:.typings/mlx/nn/layers/activations.pyi:selu",
+   "type": "function",
+   "name": "selu",
+   "filePath": ".typings/mlx/nn/layers/activations.pyi",
+   "lineRange": [
+    196,
+    208
+   ],
+   "summary": "Function selu in .typings/mlx/nn/layers/activations.pyi.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:.typings/mlx/nn/layers/activations.pyi:prelu",
+   "type": "function",
+   "name": "prelu",
+   "filePath": ".typings/mlx/nn/layers/activations.pyi",
+   "lineRange": [
+    211,
+    218
+   ],
+   "summary": "Function prelu in .typings/mlx/nn/layers/activations.pyi.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:.typings/mlx/nn/layers/activations.pyi:mish",
+   "type": "function",
+   "name": "mish",
+   "filePath": ".typings/mlx/nn/layers/activations.pyi",
+   "lineRange": [
+    221,
+    231
+   ],
+   "summary": "Function mish in .typings/mlx/nn/layers/activations.pyi.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:.typings/mlx/nn/layers/activations.pyi:hardswish",
+   "type": "function",
+   "name": "hardswish",
+   "filePath": ".typings/mlx/nn/layers/activations.pyi",
+   "lineRange": [
+    234,
+    239
+   ],
+   "summary": "Function hardswish in .typings/mlx/nn/layers/activations.pyi.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:.typings/mlx/nn/layers/activations.pyi:hard_tanh",
+   "type": "function",
+   "name": "hard_tanh",
+   "filePath": ".typings/mlx/nn/layers/activations.pyi",
+   "lineRange": [
+    242,
+    246
+   ],
+   "summary": "Function hard_tanh in .typings/mlx/nn/layers/activations.pyi.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:.typings/mlx/nn/layers/activations.pyi:hard_shrink",
+   "type": "function",
+   "name": "hard_shrink",
+   "filePath": ".typings/mlx/nn/layers/activations.pyi",
+   "lineRange": [
+    249,
+    258
+   ],
+   "summary": "Function hard_shrink in .typings/mlx/nn/layers/activations.pyi.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:.typings/mlx/nn/layers/activations.pyi:softmin",
+   "type": "function",
+   "name": "softmin",
+   "filePath": ".typings/mlx/nn/layers/activations.pyi",
+   "lineRange": [
+    261,
+    265
+   ],
+   "summary": "Function softmin in .typings/mlx/nn/layers/activations.pyi.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:.typings/mlx/nn/layers/activations.pyi:tanh",
+   "type": "function",
+   "name": "tanh",
+   "filePath": ".typings/mlx/nn/layers/activations.pyi",
+   "lineRange": [
+    267,
+    271
+   ],
+   "summary": "Function tanh in .typings/mlx/nn/layers/activations.pyi.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx/nn/layers/activations.pyi:GLU",
+   "type": "class",
+   "name": "GLU",
+   "filePath": ".typings/mlx/nn/layers/activations.pyi",
+   "lineRange": [
+    273,
+    286
+   ],
+   "summary": "Class GLU in .typings/mlx/nn/layers/activations.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx/nn/layers/activations.pyi:Sigmoid",
+   "type": "class",
+   "name": "Sigmoid",
+   "filePath": ".typings/mlx/nn/layers/activations.pyi",
+   "lineRange": [
+    289,
+    294
+   ],
+   "summary": "Class Sigmoid in .typings/mlx/nn/layers/activations.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx/nn/layers/activations.pyi:Mish",
+   "type": "class",
+   "name": "Mish",
+   "filePath": ".typings/mlx/nn/layers/activations.pyi",
+   "lineRange": [
+    297,
+    305
+   ],
+   "summary": "Class Mish in .typings/mlx/nn/layers/activations.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx/nn/layers/activations.pyi:ReLU",
+   "type": "class",
+   "name": "ReLU",
+   "filePath": ".typings/mlx/nn/layers/activations.pyi",
+   "lineRange": [
+    308,
+    313
+   ],
+   "summary": "Class ReLU in .typings/mlx/nn/layers/activations.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx/nn/layers/activations.pyi:ReLU2",
+   "type": "class",
+   "name": "ReLU2",
+   "filePath": ".typings/mlx/nn/layers/activations.pyi",
+   "lineRange": [
+    316,
+    320
+   ],
+   "summary": "Class ReLU2 in .typings/mlx/nn/layers/activations.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx/nn/layers/activations.pyi:ReLU6",
+   "type": "class",
+   "name": "ReLU6",
+   "filePath": ".typings/mlx/nn/layers/activations.pyi",
+   "lineRange": [
+    323,
+    327
+   ],
+   "summary": "Class ReLU6 in .typings/mlx/nn/layers/activations.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx/nn/layers/activations.pyi:LeakyReLU",
+   "type": "class",
+   "name": "LeakyReLU",
+   "filePath": ".typings/mlx/nn/layers/activations.pyi",
+   "lineRange": [
+    329,
+    338
+   ],
+   "summary": "Class LeakyReLU in .typings/mlx/nn/layers/activations.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx/nn/layers/activations.pyi:ELU",
+   "type": "class",
+   "name": "ELU",
+   "filePath": ".typings/mlx/nn/layers/activations.pyi",
+   "lineRange": [
+    340,
+    350
+   ],
+   "summary": "Class ELU in .typings/mlx/nn/layers/activations.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx/nn/layers/activations.pyi:Softmax",
+   "type": "class",
+   "name": "Softmax",
+   "filePath": ".typings/mlx/nn/layers/activations.pyi",
+   "lineRange": [
+    353,
+    357
+   ],
+   "summary": "Class Softmax in .typings/mlx/nn/layers/activations.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx/nn/layers/activations.pyi:Softplus",
+   "type": "class",
+   "name": "Softplus",
+   "filePath": ".typings/mlx/nn/layers/activations.pyi",
+   "lineRange": [
+    360,
+    364
+   ],
+   "summary": "Class Softplus in .typings/mlx/nn/layers/activations.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx/nn/layers/activations.pyi:Softsign",
+   "type": "class",
+   "name": "Softsign",
+   "filePath": ".typings/mlx/nn/layers/activations.pyi",
+   "lineRange": [
+    367,
+    371
+   ],
+   "summary": "Class Softsign in .typings/mlx/nn/layers/activations.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx/nn/layers/activations.pyi:Softshrink",
+   "type": "class",
+   "name": "Softshrink",
+   "filePath": ".typings/mlx/nn/layers/activations.pyi",
+   "lineRange": [
+    373,
+    382
+   ],
+   "summary": "Class Softshrink in .typings/mlx/nn/layers/activations.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx/nn/layers/activations.pyi:CELU",
+   "type": "class",
+   "name": "CELU",
+   "filePath": ".typings/mlx/nn/layers/activations.pyi",
+   "lineRange": [
+    384,
+    395
+   ],
+   "summary": "Class CELU in .typings/mlx/nn/layers/activations.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx/nn/layers/activations.pyi:SiLU",
+   "type": "class",
+   "name": "SiLU",
+   "filePath": ".typings/mlx/nn/layers/activations.pyi",
+   "lineRange": [
+    398,
+    402
+   ],
+   "summary": "Class SiLU in .typings/mlx/nn/layers/activations.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx/nn/layers/activations.pyi:LogSoftmax",
+   "type": "class",
+   "name": "LogSoftmax",
+   "filePath": ".typings/mlx/nn/layers/activations.pyi",
+   "lineRange": [
+    405,
+    409
+   ],
+   "summary": "Class LogSoftmax in .typings/mlx/nn/layers/activations.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx/nn/layers/activations.pyi:LogSigmoid",
+   "type": "class",
+   "name": "LogSigmoid",
+   "filePath": ".typings/mlx/nn/layers/activations.pyi",
+   "lineRange": [
+    412,
+    416
+   ],
+   "summary": "Class LogSigmoid in .typings/mlx/nn/layers/activations.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx/nn/layers/activations.pyi:PReLU",
+   "type": "class",
+   "name": "PReLU",
+   "filePath": ".typings/mlx/nn/layers/activations.pyi",
+   "lineRange": [
+    418,
+    430
+   ],
+   "summary": "Class PReLU in .typings/mlx/nn/layers/activations.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx/nn/layers/activations.pyi:GELU",
+   "type": "class",
+   "name": "GELU",
+   "filePath": ".typings/mlx/nn/layers/activations.pyi",
+   "lineRange": [
+    432,
+    460
+   ],
+   "summary": "Class GELU in .typings/mlx/nn/layers/activations.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx/nn/layers/activations.pyi:Tanh",
+   "type": "class",
+   "name": "Tanh",
+   "filePath": ".typings/mlx/nn/layers/activations.pyi",
+   "lineRange": [
+    463,
+    467
+   ],
+   "summary": "Class Tanh in .typings/mlx/nn/layers/activations.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx/nn/layers/activations.pyi:Hardswish",
+   "type": "class",
+   "name": "Hardswish",
+   "filePath": ".typings/mlx/nn/layers/activations.pyi",
+   "lineRange": [
+    470,
+    474
+   ],
+   "summary": "Class Hardswish in .typings/mlx/nn/layers/activations.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx/nn/layers/activations.pyi:Step",
+   "type": "class",
+   "name": "Step",
+   "filePath": ".typings/mlx/nn/layers/activations.pyi",
+   "lineRange": [
+    476,
+    492
+   ],
+   "summary": "Class Step in .typings/mlx/nn/layers/activations.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx/nn/layers/activations.pyi:SELU",
+   "type": "class",
+   "name": "SELU",
+   "filePath": ".typings/mlx/nn/layers/activations.pyi",
+   "lineRange": [
+    495,
+    499
+   ],
+   "summary": "Class SELU in .typings/mlx/nn/layers/activations.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx/nn/layers/activations.pyi:HardTanh",
+   "type": "class",
+   "name": "HardTanh",
+   "filePath": ".typings/mlx/nn/layers/activations.pyi",
+   "lineRange": [
+    502,
+    506
+   ],
+   "summary": "Class HardTanh in .typings/mlx/nn/layers/activations.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx/nn/layers/activations.pyi:HardShrink",
+   "type": "class",
+   "name": "HardShrink",
+   "filePath": ".typings/mlx/nn/layers/activations.pyi",
+   "lineRange": [
+    509,
+    516
+   ],
+   "summary": "Class HardShrink in .typings/mlx/nn/layers/activations.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx/nn/layers/activations.pyi:Softmin",
+   "type": "class",
+   "name": "Softmin",
+   "filePath": ".typings/mlx/nn/layers/activations.pyi",
+   "lineRange": [
+    519,
+    523
+   ],
+   "summary": "Class Softmin in .typings/mlx/nn/layers/activations.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx/nn/layers/base.pyi:Module",
+   "type": "class",
+   "name": "Module",
+   "filePath": ".typings/mlx/nn/layers/base.pyi",
+   "lineRange": [
+    9,
+    397
+   ],
+   "summary": "Class Module in .typings/mlx/nn/layers/base.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "class:.typings/mlx/nn/layers/containers.pyi:Sequential",
+   "type": "class",
+   "name": "Sequential",
+   "filePath": ".typings/mlx/nn/layers/containers.pyi",
+   "lineRange": [
+    10,
+    21
+   ],
+   "summary": "Class Sequential in .typings/mlx/nn/layers/containers.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx/nn/layers/convolution.pyi:Conv1d",
+   "type": "class",
+   "name": "Conv1d",
+   "filePath": ".typings/mlx/nn/layers/convolution.pyi",
+   "lineRange": [
+    10,
+    48
+   ],
+   "summary": "Class Conv1d in .typings/mlx/nn/layers/convolution.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx/nn/layers/convolution.pyi:Conv2d",
+   "type": "class",
+   "name": "Conv2d",
+   "filePath": ".typings/mlx/nn/layers/convolution.pyi",
+   "lineRange": [
+    50,
+    85
+   ],
+   "summary": "Class Conv2d in .typings/mlx/nn/layers/convolution.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx/nn/layers/convolution.pyi:Conv3d",
+   "type": "class",
+   "name": "Conv3d",
+   "filePath": ".typings/mlx/nn/layers/convolution.pyi",
+   "lineRange": [
+    87,
+    120
+   ],
+   "summary": "Class Conv3d in .typings/mlx/nn/layers/convolution.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx/nn/layers/convolution_transpose.pyi:ConvTranspose1d",
+   "type": "class",
+   "name": "ConvTranspose1d",
+   "filePath": ".typings/mlx/nn/layers/convolution_transpose.pyi",
+   "lineRange": [
+    10,
+    44
+   ],
+   "summary": "Class ConvTranspose1d in .typings/mlx/nn/layers/convolution_transpose.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx/nn/layers/convolution_transpose.pyi:ConvTranspose2d",
+   "type": "class",
+   "name": "ConvTranspose2d",
+   "filePath": ".typings/mlx/nn/layers/convolution_transpose.pyi",
+   "lineRange": [
+    46,
+    81
+   ],
+   "summary": "Class ConvTranspose2d in .typings/mlx/nn/layers/convolution_transpose.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx/nn/layers/convolution_transpose.pyi:ConvTranspose3d",
+   "type": "class",
+   "name": "ConvTranspose3d",
+   "filePath": ".typings/mlx/nn/layers/convolution_transpose.pyi",
+   "lineRange": [
+    83,
+    119
+   ],
+   "summary": "Class ConvTranspose3d in .typings/mlx/nn/layers/convolution_transpose.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:.typings/mlx/nn/layers/distributed.pyi:sum_gradients",
+   "type": "function",
+   "name": "sum_gradients",
+   "filePath": ".typings/mlx/nn/layers/distributed.pyi",
+   "lineRange": [
+    13,
+    16
+   ],
+   "summary": "Function sum_gradients in .typings/mlx/nn/layers/distributed.pyi.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:.typings/mlx/nn/layers/distributed.pyi:shard_inplace",
+   "type": "function",
+   "name": "shard_inplace",
+   "filePath": ".typings/mlx/nn/layers/distributed.pyi",
+   "lineRange": [
+    17,
+    46
+   ],
+   "summary": "Function shard_inplace in .typings/mlx/nn/layers/distributed.pyi.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:.typings/mlx/nn/layers/distributed.pyi:shard_linear",
+   "type": "function",
+   "name": "shard_linear",
+   "filePath": ".typings/mlx/nn/layers/distributed.pyi",
+   "lineRange": [
+    48,
+    70
+   ],
+   "summary": "Function shard_linear in .typings/mlx/nn/layers/distributed.pyi.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx/nn/layers/distributed.pyi:AllToShardedLinear",
+   "type": "class",
+   "name": "AllToShardedLinear",
+   "filePath": ".typings/mlx/nn/layers/distributed.pyi",
+   "lineRange": [
+    72,
+    102
+   ],
+   "summary": "Class AllToShardedLinear in .typings/mlx/nn/layers/distributed.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx/nn/layers/distributed.pyi:ShardedToAllLinear",
+   "type": "class",
+   "name": "ShardedToAllLinear",
+   "filePath": ".typings/mlx/nn/layers/distributed.pyi",
+   "lineRange": [
+    104,
+    137
+   ],
+   "summary": "Class ShardedToAllLinear in .typings/mlx/nn/layers/distributed.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx/nn/layers/distributed.pyi:QuantizedAllToShardedLinear",
+   "type": "class",
+   "name": "QuantizedAllToShardedLinear",
+   "filePath": ".typings/mlx/nn/layers/distributed.pyi",
+   "lineRange": [
+    139,
+    181
+   ],
+   "summary": "Class QuantizedAllToShardedLinear in .typings/mlx/nn/layers/distributed.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx/nn/layers/distributed.pyi:QuantizedShardedToAllLinear",
+   "type": "class",
+   "name": "QuantizedShardedToAllLinear",
+   "filePath": ".typings/mlx/nn/layers/distributed.pyi",
+   "lineRange": [
+    183,
+    227
+   ],
+   "summary": "Class QuantizedShardedToAllLinear in .typings/mlx/nn/layers/distributed.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx/nn/layers/dropout.pyi:Dropout",
+   "type": "class",
+   "name": "Dropout",
+   "filePath": ".typings/mlx/nn/layers/dropout.pyi",
+   "lineRange": [
+    8,
+    19
+   ],
+   "summary": "Class Dropout in .typings/mlx/nn/layers/dropout.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx/nn/layers/dropout.pyi:Dropout2d",
+   "type": "class",
+   "name": "Dropout2d",
+   "filePath": ".typings/mlx/nn/layers/dropout.pyi",
+   "lineRange": [
+    21,
+    44
+   ],
+   "summary": "Class Dropout2d in .typings/mlx/nn/layers/dropout.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx/nn/layers/dropout.pyi:Dropout3d",
+   "type": "class",
+   "name": "Dropout3d",
+   "filePath": ".typings/mlx/nn/layers/dropout.pyi",
+   "lineRange": [
+    46,
+    65
+   ],
+   "summary": "Class Dropout3d in .typings/mlx/nn/layers/dropout.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx/nn/layers/embedding.pyi:Embedding",
+   "type": "class",
+   "name": "Embedding",
+   "filePath": ".typings/mlx/nn/layers/embedding.pyi",
+   "lineRange": [
+    10,
+    34
+   ],
+   "summary": "Class Embedding in .typings/mlx/nn/layers/embedding.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx/nn/layers/linear.pyi:Identity",
+   "type": "class",
+   "name": "Identity",
+   "filePath": ".typings/mlx/nn/layers/linear.pyi",
+   "lineRange": [
+    12,
+    20
+   ],
+   "summary": "Class Identity in .typings/mlx/nn/layers/linear.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx/nn/layers/linear.pyi:Linear",
+   "type": "class",
+   "name": "Linear",
+   "filePath": ".typings/mlx/nn/layers/linear.pyi",
+   "lineRange": [
+    22,
+    52
+   ],
+   "summary": "Class Linear in .typings/mlx/nn/layers/linear.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx/nn/layers/linear.pyi:Bilinear",
+   "type": "class",
+   "name": "Bilinear",
+   "filePath": ".typings/mlx/nn/layers/linear.pyi",
+   "lineRange": [
+    54,
+    80
+   ],
+   "summary": "Class Bilinear in .typings/mlx/nn/layers/linear.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx/nn/layers/normalization.pyi:InstanceNorm",
+   "type": "class",
+   "name": "InstanceNorm",
+   "filePath": ".typings/mlx/nn/layers/normalization.pyi",
+   "lineRange": [
+    8,
+    41
+   ],
+   "summary": "Class InstanceNorm in .typings/mlx/nn/layers/normalization.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx/nn/layers/normalization.pyi:LayerNorm",
+   "type": "class",
+   "name": "LayerNorm",
+   "filePath": ".typings/mlx/nn/layers/normalization.pyi",
+   "lineRange": [
+    43,
+    69
+   ],
+   "summary": "Class LayerNorm in .typings/mlx/nn/layers/normalization.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx/nn/layers/normalization.pyi:RMSNorm",
+   "type": "class",
+   "name": "RMSNorm",
+   "filePath": ".typings/mlx/nn/layers/normalization.pyi",
+   "lineRange": [
+    71,
+    95
+   ],
+   "summary": "Class RMSNorm in .typings/mlx/nn/layers/normalization.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx/nn/layers/normalization.pyi:GroupNorm",
+   "type": "class",
+   "name": "GroupNorm",
+   "filePath": ".typings/mlx/nn/layers/normalization.pyi",
+   "lineRange": [
+    97,
+    134
+   ],
+   "summary": "Class GroupNorm in .typings/mlx/nn/layers/normalization.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx/nn/layers/normalization.pyi:BatchNorm",
+   "type": "class",
+   "name": "BatchNorm",
+   "filePath": ".typings/mlx/nn/layers/normalization.pyi",
+   "lineRange": [
+    136,
+    197
+   ],
+   "summary": "Class BatchNorm in .typings/mlx/nn/layers/normalization.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "class:.typings/mlx/nn/layers/pooling.pyi:_Pool",
+   "type": "class",
+   "name": "_Pool",
+   "filePath": ".typings/mlx/nn/layers/pooling.pyi",
+   "lineRange": [
+    10,
+    14
+   ],
+   "summary": "Class _Pool in .typings/mlx/nn/layers/pooling.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx/nn/layers/pooling.pyi:_Pool1d",
+   "type": "class",
+   "name": "_Pool1d",
+   "filePath": ".typings/mlx/nn/layers/pooling.pyi",
+   "lineRange": [
+    16,
+    24
+   ],
+   "summary": "Class _Pool1d in .typings/mlx/nn/layers/pooling.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx/nn/layers/pooling.pyi:_Pool2d",
+   "type": "class",
+   "name": "_Pool2d",
+   "filePath": ".typings/mlx/nn/layers/pooling.pyi",
+   "lineRange": [
+    26,
+    34
+   ],
+   "summary": "Class _Pool2d in .typings/mlx/nn/layers/pooling.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx/nn/layers/pooling.pyi:_Pool3d",
+   "type": "class",
+   "name": "_Pool3d",
+   "filePath": ".typings/mlx/nn/layers/pooling.pyi",
+   "lineRange": [
+    36,
+    44
+   ],
+   "summary": "Class _Pool3d in .typings/mlx/nn/layers/pooling.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx/nn/layers/pooling.pyi:MaxPool1d",
+   "type": "class",
+   "name": "MaxPool1d",
+   "filePath": ".typings/mlx/nn/layers/pooling.pyi",
+   "lineRange": [
+    46,
+    72
+   ],
+   "summary": "Class MaxPool1d in .typings/mlx/nn/layers/pooling.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx/nn/layers/pooling.pyi:AvgPool1d",
+   "type": "class",
+   "name": "AvgPool1d",
+   "filePath": ".typings/mlx/nn/layers/pooling.pyi",
+   "lineRange": [
+    74,
+    100
+   ],
+   "summary": "Class AvgPool1d in .typings/mlx/nn/layers/pooling.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx/nn/layers/pooling.pyi:MaxPool2d",
+   "type": "class",
+   "name": "MaxPool2d",
+   "filePath": ".typings/mlx/nn/layers/pooling.pyi",
+   "lineRange": [
+    102,
+    135
+   ],
+   "summary": "Class MaxPool2d in .typings/mlx/nn/layers/pooling.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx/nn/layers/pooling.pyi:AvgPool2d",
+   "type": "class",
+   "name": "AvgPool2d",
+   "filePath": ".typings/mlx/nn/layers/pooling.pyi",
+   "lineRange": [
+    137,
+    170
+   ],
+   "summary": "Class AvgPool2d in .typings/mlx/nn/layers/pooling.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx/nn/layers/pooling.pyi:MaxPool3d",
+   "type": "class",
+   "name": "MaxPool3d",
+   "filePath": ".typings/mlx/nn/layers/pooling.pyi",
+   "lineRange": [
+    172,
+    206
+   ],
+   "summary": "Class MaxPool3d in .typings/mlx/nn/layers/pooling.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx/nn/layers/pooling.pyi:AvgPool3d",
+   "type": "class",
+   "name": "AvgPool3d",
+   "filePath": ".typings/mlx/nn/layers/pooling.pyi",
+   "lineRange": [
+    208,
+    242
+   ],
+   "summary": "Class AvgPool3d in .typings/mlx/nn/layers/pooling.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx/nn/layers/positional_encoding.pyi:RoPE",
+   "type": "class",
+   "name": "RoPE",
+   "filePath": ".typings/mlx/nn/layers/positional_encoding.pyi",
+   "lineRange": [
+    10,
+    32
+   ],
+   "summary": "Class RoPE in .typings/mlx/nn/layers/positional_encoding.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx/nn/layers/positional_encoding.pyi:SinusoidalPositionalEncoding",
+   "type": "class",
+   "name": "SinusoidalPositionalEncoding",
+   "filePath": ".typings/mlx/nn/layers/positional_encoding.pyi",
+   "lineRange": [
+    34,
+    62
+   ],
+   "summary": "Class SinusoidalPositionalEncoding in .typings/mlx/nn/layers/positional_encoding.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx/nn/layers/positional_encoding.pyi:ALiBi",
+   "type": "class",
+   "name": "ALiBi",
+   "filePath": ".typings/mlx/nn/layers/positional_encoding.pyi",
+   "lineRange": [
+    64,
+    80
+   ],
+   "summary": "Class ALiBi in .typings/mlx/nn/layers/positional_encoding.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:.typings/mlx/nn/layers/quantized.pyi:quantize",
+   "type": "function",
+   "name": "quantize",
+   "filePath": ".typings/mlx/nn/layers/quantized.pyi",
+   "lineRange": [
+    10,
+    40
+   ],
+   "summary": "Function quantize in .typings/mlx/nn/layers/quantized.pyi.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx/nn/layers/quantized.pyi:QuantizedEmbedding",
+   "type": "class",
+   "name": "QuantizedEmbedding",
+   "filePath": ".typings/mlx/nn/layers/quantized.pyi",
+   "lineRange": [
+    42,
+    85
+   ],
+   "summary": "Class QuantizedEmbedding in .typings/mlx/nn/layers/quantized.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx/nn/layers/quantized.pyi:QuantizedLinear",
+   "type": "class",
+   "name": "QuantizedLinear",
+   "filePath": ".typings/mlx/nn/layers/quantized.pyi",
+   "lineRange": [
+    87,
+    127
+   ],
+   "summary": "Class QuantizedLinear in .typings/mlx/nn/layers/quantized.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx/nn/layers/recurrent.pyi:RNN",
+   "type": "class",
+   "name": "RNN",
+   "filePath": ".typings/mlx/nn/layers/recurrent.pyi",
+   "lineRange": [
+    10,
+    44
+   ],
+   "summary": "Class RNN in .typings/mlx/nn/layers/recurrent.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx/nn/layers/recurrent.pyi:GRU",
+   "type": "class",
+   "name": "GRU",
+   "filePath": ".typings/mlx/nn/layers/recurrent.pyi",
+   "lineRange": [
+    46,
+    76
+   ],
+   "summary": "Class GRU in .typings/mlx/nn/layers/recurrent.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx/nn/layers/recurrent.pyi:LSTM",
+   "type": "class",
+   "name": "LSTM",
+   "filePath": ".typings/mlx/nn/layers/recurrent.pyi",
+   "lineRange": [
+    78,
+    113
+   ],
+   "summary": "Class LSTM in .typings/mlx/nn/layers/recurrent.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx/nn/layers/transformer.pyi:MultiHeadAttention",
+   "type": "class",
+   "name": "MultiHeadAttention",
+   "filePath": ".typings/mlx/nn/layers/transformer.pyi",
+   "lineRange": [
+    10,
+    57
+   ],
+   "summary": "Class MultiHeadAttention in .typings/mlx/nn/layers/transformer.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx/nn/layers/transformer.pyi:TransformerEncoderLayer",
+   "type": "class",
+   "name": "TransformerEncoderLayer",
+   "filePath": ".typings/mlx/nn/layers/transformer.pyi",
+   "lineRange": [
+    59,
+    69
+   ],
+   "summary": "Class TransformerEncoderLayer in .typings/mlx/nn/layers/transformer.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx/nn/layers/transformer.pyi:TransformerEncoder",
+   "type": "class",
+   "name": "TransformerEncoder",
+   "filePath": ".typings/mlx/nn/layers/transformer.pyi",
+   "lineRange": [
+    71,
+    83
+   ],
+   "summary": "Class TransformerEncoder in .typings/mlx/nn/layers/transformer.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx/nn/layers/transformer.pyi:TransformerDecoderLayer",
+   "type": "class",
+   "name": "TransformerDecoderLayer",
+   "filePath": ".typings/mlx/nn/layers/transformer.pyi",
+   "lineRange": [
+    85,
+    95
+   ],
+   "summary": "Class TransformerDecoderLayer in .typings/mlx/nn/layers/transformer.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx/nn/layers/transformer.pyi:TransformerDecoder",
+   "type": "class",
+   "name": "TransformerDecoder",
+   "filePath": ".typings/mlx/nn/layers/transformer.pyi",
+   "lineRange": [
+    97,
+    109
+   ],
+   "summary": "Class TransformerDecoder in .typings/mlx/nn/layers/transformer.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx/nn/layers/transformer.pyi:Transformer",
+   "type": "class",
+   "name": "Transformer",
+   "filePath": ".typings/mlx/nn/layers/transformer.pyi",
+   "lineRange": [
+    111,
+    168
+   ],
+   "summary": "Class Transformer in .typings/mlx/nn/layers/transformer.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:.typings/mlx/nn/layers/upsample.pyi:upsample_nearest",
+   "type": "function",
+   "name": "upsample_nearest",
+   "filePath": ".typings/mlx/nn/layers/upsample.pyi",
+   "lineRange": [
+    10,
+    10
+   ],
+   "summary": "Function upsample_nearest in .typings/mlx/nn/layers/upsample.pyi.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:.typings/mlx/nn/layers/upsample.pyi:upsample_linear",
+   "type": "function",
+   "name": "upsample_linear",
+   "filePath": ".typings/mlx/nn/layers/upsample.pyi",
+   "lineRange": [
+    11,
+    14
+   ],
+   "summary": "Function upsample_linear in .typings/mlx/nn/layers/upsample.pyi.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:.typings/mlx/nn/layers/upsample.pyi:upsample_cubic",
+   "type": "function",
+   "name": "upsample_cubic",
+   "filePath": ".typings/mlx/nn/layers/upsample.pyi",
+   "lineRange": [
+    15,
+    18
+   ],
+   "summary": "Function upsample_cubic in .typings/mlx/nn/layers/upsample.pyi.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx/nn/layers/upsample.pyi:Upsample",
+   "type": "class",
+   "name": "Upsample",
+   "filePath": ".typings/mlx/nn/layers/upsample.pyi",
+   "lineRange": [
+    20,
+    87
+   ],
+   "summary": "Class Upsample in .typings/mlx/nn/layers/upsample.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:.typings/mlx/nn/losses.pyi:cross_entropy",
+   "type": "function",
+   "name": "cross_entropy",
+   "filePath": ".typings/mlx/nn/losses.pyi",
+   "lineRange": [
+    11,
+    54
+   ],
+   "summary": "Function cross_entropy in .typings/mlx/nn/losses.pyi.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:.typings/mlx/nn/losses.pyi:binary_cross_entropy",
+   "type": "function",
+   "name": "binary_cross_entropy",
+   "filePath": ".typings/mlx/nn/losses.pyi",
+   "lineRange": [
+    56,
+    97
+   ],
+   "summary": "Function binary_cross_entropy in .typings/mlx/nn/losses.pyi.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:.typings/mlx/nn/losses.pyi:l1_loss",
+   "type": "function",
+   "name": "l1_loss",
+   "filePath": ".typings/mlx/nn/losses.pyi",
+   "lineRange": [
+    99,
+    113
+   ],
+   "summary": "Function l1_loss in .typings/mlx/nn/losses.pyi.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:.typings/mlx/nn/losses.pyi:mse_loss",
+   "type": "function",
+   "name": "mse_loss",
+   "filePath": ".typings/mlx/nn/losses.pyi",
+   "lineRange": [
+    115,
+    129
+   ],
+   "summary": "Function mse_loss in .typings/mlx/nn/losses.pyi.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:.typings/mlx/nn/losses.pyi:nll_loss",
+   "type": "function",
+   "name": "nll_loss",
+   "filePath": ".typings/mlx/nn/losses.pyi",
+   "lineRange": [
+    131,
+    146
+   ],
+   "summary": "Function nll_loss in .typings/mlx/nn/losses.pyi.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:.typings/mlx/nn/losses.pyi:gaussian_nll_loss",
+   "type": "function",
+   "name": "gaussian_nll_loss",
+   "filePath": ".typings/mlx/nn/losses.pyi",
+   "lineRange": [
+    148,
+    182
+   ],
+   "summary": "Function gaussian_nll_loss in .typings/mlx/nn/losses.pyi.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:.typings/mlx/nn/losses.pyi:kl_div_loss",
+   "type": "function",
+   "name": "kl_div_loss",
+   "filePath": ".typings/mlx/nn/losses.pyi",
+   "lineRange": [
+    184,
+    205
+   ],
+   "summary": "Function kl_div_loss in .typings/mlx/nn/losses.pyi.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:.typings/mlx/nn/losses.pyi:smooth_l1_loss",
+   "type": "function",
+   "name": "smooth_l1_loss",
+   "filePath": ".typings/mlx/nn/losses.pyi",
+   "lineRange": [
+    207,
+    239
+   ],
+   "summary": "Function smooth_l1_loss in .typings/mlx/nn/losses.pyi.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:.typings/mlx/nn/losses.pyi:triplet_loss",
+   "type": "function",
+   "name": "triplet_loss",
+   "filePath": ".typings/mlx/nn/losses.pyi",
+   "lineRange": [
+    241,
+    273
+   ],
+   "summary": "Function triplet_loss in .typings/mlx/nn/losses.pyi.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:.typings/mlx/nn/losses.pyi:hinge_loss",
+   "type": "function",
+   "name": "hinge_loss",
+   "filePath": ".typings/mlx/nn/losses.pyi",
+   "lineRange": [
+    275,
+    294
+   ],
+   "summary": "Function hinge_loss in .typings/mlx/nn/losses.pyi.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:.typings/mlx/nn/losses.pyi:huber_loss",
+   "type": "function",
+   "name": "huber_loss",
+   "filePath": ".typings/mlx/nn/losses.pyi",
+   "lineRange": [
+    296,
+    320
+   ],
+   "summary": "Function huber_loss in .typings/mlx/nn/losses.pyi.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:.typings/mlx/nn/losses.pyi:log_cosh_loss",
+   "type": "function",
+   "name": "log_cosh_loss",
+   "filePath": ".typings/mlx/nn/losses.pyi",
+   "lineRange": [
+    322,
+    347
+   ],
+   "summary": "Function log_cosh_loss in .typings/mlx/nn/losses.pyi.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:.typings/mlx/nn/losses.pyi:cosine_similarity_loss",
+   "type": "function",
+   "name": "cosine_similarity_loss",
+   "filePath": ".typings/mlx/nn/losses.pyi",
+   "lineRange": [
+    349,
+    376
+   ],
+   "summary": "Function cosine_similarity_loss in .typings/mlx/nn/losses.pyi.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:.typings/mlx/nn/losses.pyi:margin_ranking_loss",
+   "type": "function",
+   "name": "margin_ranking_loss",
+   "filePath": ".typings/mlx/nn/losses.pyi",
+   "lineRange": [
+    378,
+    419
+   ],
+   "summary": "Function margin_ranking_loss in .typings/mlx/nn/losses.pyi.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:.typings/mlx/nn/utils.pyi:value_and_grad",
+   "type": "function",
+   "name": "value_and_grad",
+   "filePath": ".typings/mlx/nn/utils.pyi",
+   "lineRange": [
+    11,
+    26
+   ],
+   "summary": "Function value_and_grad in .typings/mlx/nn/utils.pyi.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:.typings/mlx/nn/utils.pyi:checkpoint",
+   "type": "function",
+   "name": "checkpoint",
+   "filePath": ".typings/mlx/nn/utils.pyi",
+   "lineRange": [
+    28,
+    44
+   ],
+   "summary": "Function checkpoint in .typings/mlx/nn/utils.pyi.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:.typings/mlx/nn/utils.pyi:average_gradients",
+   "type": "function",
+   "name": "average_gradients",
+   "filePath": ".typings/mlx/nn/utils.pyi",
+   "lineRange": [
+    46,
+    73
+   ],
+   "summary": "Function average_gradients in .typings/mlx/nn/utils.pyi.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:.typings/mlx/utils.pyi:tree_map",
+   "type": "function",
+   "name": "tree_map",
+   "filePath": ".typings/mlx/utils.pyi",
+   "lineRange": [
+    9,
+    47
+   ],
+   "summary": "Function tree_map in .typings/mlx/utils.pyi.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:.typings/mlx/utils.pyi:tree_map_with_path",
+   "type": "function",
+   "name": "tree_map_with_path",
+   "filePath": ".typings/mlx/utils.pyi",
+   "lineRange": [
+    49,
+    81
+   ],
+   "summary": "Function tree_map_with_path in .typings/mlx/utils.pyi.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:.typings/mlx/utils.pyi:tree_flatten",
+   "type": "function",
+   "name": "tree_flatten",
+   "filePath": ".typings/mlx/utils.pyi",
+   "lineRange": [
+    83,
+    122
+   ],
+   "summary": "Function tree_flatten in .typings/mlx/utils.pyi.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:.typings/mlx/utils.pyi:tree_unflatten",
+   "type": "function",
+   "name": "tree_unflatten",
+   "filePath": ".typings/mlx/utils.pyi",
+   "lineRange": [
+    124,
+    145
+   ],
+   "summary": "Function tree_unflatten in .typings/mlx/utils.pyi.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:.typings/mlx/utils.pyi:tree_reduce",
+   "type": "function",
+   "name": "tree_reduce",
+   "filePath": ".typings/mlx/utils.pyi",
+   "lineRange": [
+    147,
+    176
+   ],
+   "summary": "Function tree_reduce in .typings/mlx/utils.pyi.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:.typings/mlx/utils.pyi:tree_merge",
+   "type": "function",
+   "name": "tree_merge",
+   "filePath": ".typings/mlx/utils.pyi",
+   "lineRange": [
+    178,
+    192
+   ],
+   "summary": "Function tree_merge in .typings/mlx/utils.pyi.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  }
+ ],
+ "edges": [
+  {
+   "source": "file:.typings/mlx/core/random/__init__.pyi",
+   "target": "function:.typings/mlx/core/random/__init__.pyi:bernoulli",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/core/random/__init__.pyi",
+   "target": "function:.typings/mlx/core/random/__init__.pyi:bernoulli",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/core/random/__init__.pyi",
+   "target": "function:.typings/mlx/core/random/__init__.pyi:categorical",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/core/random/__init__.pyi",
+   "target": "function:.typings/mlx/core/random/__init__.pyi:categorical",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/core/random/__init__.pyi",
+   "target": "function:.typings/mlx/core/random/__init__.pyi:gumbel",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/core/random/__init__.pyi",
+   "target": "function:.typings/mlx/core/random/__init__.pyi:gumbel",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/core/random/__init__.pyi",
+   "target": "function:.typings/mlx/core/random/__init__.pyi:key",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/core/random/__init__.pyi",
+   "target": "function:.typings/mlx/core/random/__init__.pyi:key",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/core/random/__init__.pyi",
+   "target": "function:.typings/mlx/core/random/__init__.pyi:laplace",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/core/random/__init__.pyi",
+   "target": "function:.typings/mlx/core/random/__init__.pyi:laplace",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/core/random/__init__.pyi",
+   "target": "function:.typings/mlx/core/random/__init__.pyi:multivariate_normal",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/core/random/__init__.pyi",
+   "target": "function:.typings/mlx/core/random/__init__.pyi:multivariate_normal",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/core/random/__init__.pyi",
+   "target": "function:.typings/mlx/core/random/__init__.pyi:normal",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/core/random/__init__.pyi",
+   "target": "function:.typings/mlx/core/random/__init__.pyi:normal",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/core/random/__init__.pyi",
+   "target": "function:.typings/mlx/core/random/__init__.pyi:permutation",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/core/random/__init__.pyi",
+   "target": "function:.typings/mlx/core/random/__init__.pyi:permutation",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/core/random/__init__.pyi",
+   "target": "function:.typings/mlx/core/random/__init__.pyi:randint",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/core/random/__init__.pyi",
+   "target": "function:.typings/mlx/core/random/__init__.pyi:randint",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/core/random/__init__.pyi",
+   "target": "function:.typings/mlx/core/random/__init__.pyi:seed",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/core/random/__init__.pyi",
+   "target": "function:.typings/mlx/core/random/__init__.pyi:seed",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/core/random/__init__.pyi",
+   "target": "function:.typings/mlx/core/random/__init__.pyi:split",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/core/random/__init__.pyi",
+   "target": "function:.typings/mlx/core/random/__init__.pyi:split",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/core/random/__init__.pyi",
+   "target": "function:.typings/mlx/core/random/__init__.pyi:truncated_normal",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/core/random/__init__.pyi",
+   "target": "function:.typings/mlx/core/random/__init__.pyi:truncated_normal",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/core/random/__init__.pyi",
+   "target": "function:.typings/mlx/core/random/__init__.pyi:uniform",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/core/random/__init__.pyi",
+   "target": "function:.typings/mlx/core/random/__init__.pyi:uniform",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/nn/init.pyi",
+   "target": "function:.typings/mlx/nn/init.pyi:constant",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/nn/init.pyi",
+   "target": "function:.typings/mlx/nn/init.pyi:constant",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/nn/init.pyi",
+   "target": "function:.typings/mlx/nn/init.pyi:normal",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/nn/init.pyi",
+   "target": "function:.typings/mlx/nn/init.pyi:normal",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/nn/init.pyi",
+   "target": "function:.typings/mlx/nn/init.pyi:uniform",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/nn/init.pyi",
+   "target": "function:.typings/mlx/nn/init.pyi:uniform",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/nn/init.pyi",
+   "target": "function:.typings/mlx/nn/init.pyi:identity",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/nn/init.pyi",
+   "target": "function:.typings/mlx/nn/init.pyi:identity",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/nn/init.pyi",
+   "target": "function:.typings/mlx/nn/init.pyi:glorot_normal",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/nn/init.pyi",
+   "target": "function:.typings/mlx/nn/init.pyi:glorot_normal",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/nn/init.pyi",
+   "target": "function:.typings/mlx/nn/init.pyi:glorot_uniform",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/nn/init.pyi",
+   "target": "function:.typings/mlx/nn/init.pyi:glorot_uniform",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/nn/init.pyi",
+   "target": "function:.typings/mlx/nn/init.pyi:he_normal",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/nn/init.pyi",
+   "target": "function:.typings/mlx/nn/init.pyi:he_normal",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/nn/init.pyi",
+   "target": "function:.typings/mlx/nn/init.pyi:he_uniform",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/nn/init.pyi",
+   "target": "function:.typings/mlx/nn/init.pyi:he_uniform",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/nn/init.pyi",
+   "target": "function:.typings/mlx/nn/init.pyi:sparse",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/nn/init.pyi",
+   "target": "function:.typings/mlx/nn/init.pyi:sparse",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/nn/init.pyi",
+   "target": "function:.typings/mlx/nn/init.pyi:orthogonal",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/nn/init.pyi",
+   "target": "function:.typings/mlx/nn/init.pyi:orthogonal",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/activations.pyi",
+   "target": "function:.typings/mlx/nn/layers/activations.pyi:sigmoid",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/activations.pyi",
+   "target": "function:.typings/mlx/nn/layers/activations.pyi:sigmoid",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/activations.pyi",
+   "target": "function:.typings/mlx/nn/layers/activations.pyi:relu",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/activations.pyi",
+   "target": "function:.typings/mlx/nn/layers/activations.pyi:relu",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/activations.pyi",
+   "target": "function:.typings/mlx/nn/layers/activations.pyi:relu2",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/activations.pyi",
+   "target": "function:.typings/mlx/nn/layers/activations.pyi:relu2",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/activations.pyi",
+   "target": "function:.typings/mlx/nn/layers/activations.pyi:relu6",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/activations.pyi",
+   "target": "function:.typings/mlx/nn/layers/activations.pyi:relu6",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/activations.pyi",
+   "target": "function:.typings/mlx/nn/layers/activations.pyi:leaky_relu",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/activations.pyi",
+   "target": "function:.typings/mlx/nn/layers/activations.pyi:leaky_relu",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/activations.pyi",
+   "target": "function:.typings/mlx/nn/layers/activations.pyi:log_softmax",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/activations.pyi",
+   "target": "function:.typings/mlx/nn/layers/activations.pyi:log_softmax",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/activations.pyi",
+   "target": "function:.typings/mlx/nn/layers/activations.pyi:elu",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/activations.pyi",
+   "target": "function:.typings/mlx/nn/layers/activations.pyi:elu",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/activations.pyi",
+   "target": "function:.typings/mlx/nn/layers/activations.pyi:softmax",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/activations.pyi",
+   "target": "function:.typings/mlx/nn/layers/activations.pyi:softmax",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/activations.pyi",
+   "target": "function:.typings/mlx/nn/layers/activations.pyi:softplus",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/activations.pyi",
+   "target": "function:.typings/mlx/nn/layers/activations.pyi:softplus",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/activations.pyi",
+   "target": "function:.typings/mlx/nn/layers/activations.pyi:softsign",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/activations.pyi",
+   "target": "function:.typings/mlx/nn/layers/activations.pyi:softsign",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/activations.pyi",
+   "target": "function:.typings/mlx/nn/layers/activations.pyi:softshrink",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/activations.pyi",
+   "target": "function:.typings/mlx/nn/layers/activations.pyi:softshrink",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/activations.pyi",
+   "target": "function:.typings/mlx/nn/layers/activations.pyi:celu",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/activations.pyi",
+   "target": "function:.typings/mlx/nn/layers/activations.pyi:celu",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/activations.pyi",
+   "target": "function:.typings/mlx/nn/layers/activations.pyi:silu",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/activations.pyi",
+   "target": "function:.typings/mlx/nn/layers/activations.pyi:silu",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/activations.pyi",
+   "target": "function:.typings/mlx/nn/layers/activations.pyi:log_sigmoid",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/activations.pyi",
+   "target": "function:.typings/mlx/nn/layers/activations.pyi:log_sigmoid",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/activations.pyi",
+   "target": "function:.typings/mlx/nn/layers/activations.pyi:gelu",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/activations.pyi",
+   "target": "function:.typings/mlx/nn/layers/activations.pyi:gelu",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/activations.pyi",
+   "target": "function:.typings/mlx/nn/layers/activations.pyi:gelu_approx",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/activations.pyi",
+   "target": "function:.typings/mlx/nn/layers/activations.pyi:gelu_approx",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/activations.pyi",
+   "target": "function:.typings/mlx/nn/layers/activations.pyi:gelu_fast_approx",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/activations.pyi",
+   "target": "function:.typings/mlx/nn/layers/activations.pyi:gelu_fast_approx",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/activations.pyi",
+   "target": "function:.typings/mlx/nn/layers/activations.pyi:glu",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/activations.pyi",
+   "target": "function:.typings/mlx/nn/layers/activations.pyi:glu",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/activations.pyi",
+   "target": "function:.typings/mlx/nn/layers/activations.pyi:step",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/activations.pyi",
+   "target": "function:.typings/mlx/nn/layers/activations.pyi:step",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/activations.pyi",
+   "target": "function:.typings/mlx/nn/layers/activations.pyi:selu",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/activations.pyi",
+   "target": "function:.typings/mlx/nn/layers/activations.pyi:selu",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/activations.pyi",
+   "target": "function:.typings/mlx/nn/layers/activations.pyi:prelu",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/activations.pyi",
+   "target": "function:.typings/mlx/nn/layers/activations.pyi:prelu",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/activations.pyi",
+   "target": "function:.typings/mlx/nn/layers/activations.pyi:mish",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/activations.pyi",
+   "target": "function:.typings/mlx/nn/layers/activations.pyi:mish",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/activations.pyi",
+   "target": "function:.typings/mlx/nn/layers/activations.pyi:hardswish",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/activations.pyi",
+   "target": "function:.typings/mlx/nn/layers/activations.pyi:hardswish",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/activations.pyi",
+   "target": "function:.typings/mlx/nn/layers/activations.pyi:hard_tanh",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/activations.pyi",
+   "target": "function:.typings/mlx/nn/layers/activations.pyi:hard_tanh",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/activations.pyi",
+   "target": "function:.typings/mlx/nn/layers/activations.pyi:hard_shrink",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/activations.pyi",
+   "target": "function:.typings/mlx/nn/layers/activations.pyi:hard_shrink",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/activations.pyi",
+   "target": "function:.typings/mlx/nn/layers/activations.pyi:softmin",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/activations.pyi",
+   "target": "function:.typings/mlx/nn/layers/activations.pyi:softmin",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/activations.pyi",
+   "target": "function:.typings/mlx/nn/layers/activations.pyi:tanh",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/activations.pyi",
+   "target": "function:.typings/mlx/nn/layers/activations.pyi:tanh",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/activations.pyi",
+   "target": "class:.typings/mlx/nn/layers/activations.pyi:GLU",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/activations.pyi",
+   "target": "class:.typings/mlx/nn/layers/activations.pyi:GLU",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/activations.pyi",
+   "target": "class:.typings/mlx/nn/layers/activations.pyi:Sigmoid",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/activations.pyi",
+   "target": "class:.typings/mlx/nn/layers/activations.pyi:Sigmoid",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/activations.pyi",
+   "target": "class:.typings/mlx/nn/layers/activations.pyi:Mish",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/activations.pyi",
+   "target": "class:.typings/mlx/nn/layers/activations.pyi:Mish",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/activations.pyi",
+   "target": "class:.typings/mlx/nn/layers/activations.pyi:ReLU",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/activations.pyi",
+   "target": "class:.typings/mlx/nn/layers/activations.pyi:ReLU",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/activations.pyi",
+   "target": "class:.typings/mlx/nn/layers/activations.pyi:ReLU2",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/activations.pyi",
+   "target": "class:.typings/mlx/nn/layers/activations.pyi:ReLU2",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/activations.pyi",
+   "target": "class:.typings/mlx/nn/layers/activations.pyi:ReLU6",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/activations.pyi",
+   "target": "class:.typings/mlx/nn/layers/activations.pyi:ReLU6",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/activations.pyi",
+   "target": "class:.typings/mlx/nn/layers/activations.pyi:LeakyReLU",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/activations.pyi",
+   "target": "class:.typings/mlx/nn/layers/activations.pyi:LeakyReLU",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/activations.pyi",
+   "target": "class:.typings/mlx/nn/layers/activations.pyi:ELU",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/activations.pyi",
+   "target": "class:.typings/mlx/nn/layers/activations.pyi:ELU",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/activations.pyi",
+   "target": "class:.typings/mlx/nn/layers/activations.pyi:Softmax",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/activations.pyi",
+   "target": "class:.typings/mlx/nn/layers/activations.pyi:Softmax",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/activations.pyi",
+   "target": "class:.typings/mlx/nn/layers/activations.pyi:Softplus",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/activations.pyi",
+   "target": "class:.typings/mlx/nn/layers/activations.pyi:Softplus",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/activations.pyi",
+   "target": "class:.typings/mlx/nn/layers/activations.pyi:Softsign",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/activations.pyi",
+   "target": "class:.typings/mlx/nn/layers/activations.pyi:Softsign",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/activations.pyi",
+   "target": "class:.typings/mlx/nn/layers/activations.pyi:Softshrink",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/activations.pyi",
+   "target": "class:.typings/mlx/nn/layers/activations.pyi:Softshrink",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/activations.pyi",
+   "target": "class:.typings/mlx/nn/layers/activations.pyi:CELU",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/activations.pyi",
+   "target": "class:.typings/mlx/nn/layers/activations.pyi:CELU",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/activations.pyi",
+   "target": "class:.typings/mlx/nn/layers/activations.pyi:SiLU",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/activations.pyi",
+   "target": "class:.typings/mlx/nn/layers/activations.pyi:SiLU",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/activations.pyi",
+   "target": "class:.typings/mlx/nn/layers/activations.pyi:LogSoftmax",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/activations.pyi",
+   "target": "class:.typings/mlx/nn/layers/activations.pyi:LogSoftmax",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/activations.pyi",
+   "target": "class:.typings/mlx/nn/layers/activations.pyi:LogSigmoid",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/activations.pyi",
+   "target": "class:.typings/mlx/nn/layers/activations.pyi:LogSigmoid",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/activations.pyi",
+   "target": "class:.typings/mlx/nn/layers/activations.pyi:PReLU",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/activations.pyi",
+   "target": "class:.typings/mlx/nn/layers/activations.pyi:PReLU",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/activations.pyi",
+   "target": "class:.typings/mlx/nn/layers/activations.pyi:GELU",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/activations.pyi",
+   "target": "class:.typings/mlx/nn/layers/activations.pyi:GELU",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/activations.pyi",
+   "target": "class:.typings/mlx/nn/layers/activations.pyi:Tanh",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/activations.pyi",
+   "target": "class:.typings/mlx/nn/layers/activations.pyi:Tanh",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/activations.pyi",
+   "target": "class:.typings/mlx/nn/layers/activations.pyi:Hardswish",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/activations.pyi",
+   "target": "class:.typings/mlx/nn/layers/activations.pyi:Hardswish",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/activations.pyi",
+   "target": "class:.typings/mlx/nn/layers/activations.pyi:Step",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/activations.pyi",
+   "target": "class:.typings/mlx/nn/layers/activations.pyi:Step",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/activations.pyi",
+   "target": "class:.typings/mlx/nn/layers/activations.pyi:SELU",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/activations.pyi",
+   "target": "class:.typings/mlx/nn/layers/activations.pyi:SELU",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/activations.pyi",
+   "target": "class:.typings/mlx/nn/layers/activations.pyi:HardTanh",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/activations.pyi",
+   "target": "class:.typings/mlx/nn/layers/activations.pyi:HardTanh",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/activations.pyi",
+   "target": "class:.typings/mlx/nn/layers/activations.pyi:HardShrink",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/activations.pyi",
+   "target": "class:.typings/mlx/nn/layers/activations.pyi:HardShrink",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/activations.pyi",
+   "target": "class:.typings/mlx/nn/layers/activations.pyi:Softmin",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/activations.pyi",
+   "target": "class:.typings/mlx/nn/layers/activations.pyi:Softmin",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/base.pyi",
+   "target": "class:.typings/mlx/nn/layers/base.pyi:Module",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/base.pyi",
+   "target": "class:.typings/mlx/nn/layers/base.pyi:Module",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/containers.pyi",
+   "target": "class:.typings/mlx/nn/layers/containers.pyi:Sequential",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/containers.pyi",
+   "target": "class:.typings/mlx/nn/layers/containers.pyi:Sequential",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/convolution.pyi",
+   "target": "class:.typings/mlx/nn/layers/convolution.pyi:Conv1d",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/convolution.pyi",
+   "target": "class:.typings/mlx/nn/layers/convolution.pyi:Conv1d",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/convolution.pyi",
+   "target": "class:.typings/mlx/nn/layers/convolution.pyi:Conv2d",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/convolution.pyi",
+   "target": "class:.typings/mlx/nn/layers/convolution.pyi:Conv2d",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/convolution.pyi",
+   "target": "class:.typings/mlx/nn/layers/convolution.pyi:Conv3d",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/convolution.pyi",
+   "target": "class:.typings/mlx/nn/layers/convolution.pyi:Conv3d",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/convolution_transpose.pyi",
+   "target": "class:.typings/mlx/nn/layers/convolution_transpose.pyi:ConvTranspose1d",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/convolution_transpose.pyi",
+   "target": "class:.typings/mlx/nn/layers/convolution_transpose.pyi:ConvTranspose1d",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/convolution_transpose.pyi",
+   "target": "class:.typings/mlx/nn/layers/convolution_transpose.pyi:ConvTranspose2d",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/convolution_transpose.pyi",
+   "target": "class:.typings/mlx/nn/layers/convolution_transpose.pyi:ConvTranspose2d",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/convolution_transpose.pyi",
+   "target": "class:.typings/mlx/nn/layers/convolution_transpose.pyi:ConvTranspose3d",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/convolution_transpose.pyi",
+   "target": "class:.typings/mlx/nn/layers/convolution_transpose.pyi:ConvTranspose3d",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/distributed.pyi",
+   "target": "function:.typings/mlx/nn/layers/distributed.pyi:sum_gradients",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/distributed.pyi",
+   "target": "function:.typings/mlx/nn/layers/distributed.pyi:sum_gradients",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/distributed.pyi",
+   "target": "function:.typings/mlx/nn/layers/distributed.pyi:shard_inplace",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/distributed.pyi",
+   "target": "function:.typings/mlx/nn/layers/distributed.pyi:shard_inplace",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/distributed.pyi",
+   "target": "function:.typings/mlx/nn/layers/distributed.pyi:shard_linear",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/distributed.pyi",
+   "target": "function:.typings/mlx/nn/layers/distributed.pyi:shard_linear",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/distributed.pyi",
+   "target": "class:.typings/mlx/nn/layers/distributed.pyi:AllToShardedLinear",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/distributed.pyi",
+   "target": "class:.typings/mlx/nn/layers/distributed.pyi:AllToShardedLinear",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/distributed.pyi",
+   "target": "class:.typings/mlx/nn/layers/distributed.pyi:ShardedToAllLinear",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/distributed.pyi",
+   "target": "class:.typings/mlx/nn/layers/distributed.pyi:ShardedToAllLinear",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/distributed.pyi",
+   "target": "class:.typings/mlx/nn/layers/distributed.pyi:QuantizedAllToShardedLinear",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/distributed.pyi",
+   "target": "class:.typings/mlx/nn/layers/distributed.pyi:QuantizedAllToShardedLinear",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/distributed.pyi",
+   "target": "class:.typings/mlx/nn/layers/distributed.pyi:QuantizedShardedToAllLinear",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/distributed.pyi",
+   "target": "class:.typings/mlx/nn/layers/distributed.pyi:QuantizedShardedToAllLinear",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/dropout.pyi",
+   "target": "class:.typings/mlx/nn/layers/dropout.pyi:Dropout",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/dropout.pyi",
+   "target": "class:.typings/mlx/nn/layers/dropout.pyi:Dropout",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/dropout.pyi",
+   "target": "class:.typings/mlx/nn/layers/dropout.pyi:Dropout2d",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/dropout.pyi",
+   "target": "class:.typings/mlx/nn/layers/dropout.pyi:Dropout2d",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/dropout.pyi",
+   "target": "class:.typings/mlx/nn/layers/dropout.pyi:Dropout3d",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/dropout.pyi",
+   "target": "class:.typings/mlx/nn/layers/dropout.pyi:Dropout3d",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/embedding.pyi",
+   "target": "class:.typings/mlx/nn/layers/embedding.pyi:Embedding",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/embedding.pyi",
+   "target": "class:.typings/mlx/nn/layers/embedding.pyi:Embedding",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/linear.pyi",
+   "target": "class:.typings/mlx/nn/layers/linear.pyi:Identity",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/linear.pyi",
+   "target": "class:.typings/mlx/nn/layers/linear.pyi:Identity",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/linear.pyi",
+   "target": "class:.typings/mlx/nn/layers/linear.pyi:Linear",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/linear.pyi",
+   "target": "class:.typings/mlx/nn/layers/linear.pyi:Linear",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/linear.pyi",
+   "target": "class:.typings/mlx/nn/layers/linear.pyi:Bilinear",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/linear.pyi",
+   "target": "class:.typings/mlx/nn/layers/linear.pyi:Bilinear",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/normalization.pyi",
+   "target": "class:.typings/mlx/nn/layers/normalization.pyi:InstanceNorm",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/normalization.pyi",
+   "target": "class:.typings/mlx/nn/layers/normalization.pyi:InstanceNorm",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/normalization.pyi",
+   "target": "class:.typings/mlx/nn/layers/normalization.pyi:LayerNorm",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/normalization.pyi",
+   "target": "class:.typings/mlx/nn/layers/normalization.pyi:LayerNorm",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/normalization.pyi",
+   "target": "class:.typings/mlx/nn/layers/normalization.pyi:RMSNorm",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/normalization.pyi",
+   "target": "class:.typings/mlx/nn/layers/normalization.pyi:RMSNorm",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/normalization.pyi",
+   "target": "class:.typings/mlx/nn/layers/normalization.pyi:GroupNorm",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/normalization.pyi",
+   "target": "class:.typings/mlx/nn/layers/normalization.pyi:GroupNorm",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/normalization.pyi",
+   "target": "class:.typings/mlx/nn/layers/normalization.pyi:BatchNorm",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/normalization.pyi",
+   "target": "class:.typings/mlx/nn/layers/normalization.pyi:BatchNorm",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/pooling.pyi",
+   "target": "class:.typings/mlx/nn/layers/pooling.pyi:_Pool",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/pooling.pyi",
+   "target": "class:.typings/mlx/nn/layers/pooling.pyi:_Pool",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/pooling.pyi",
+   "target": "class:.typings/mlx/nn/layers/pooling.pyi:_Pool1d",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/pooling.pyi",
+   "target": "class:.typings/mlx/nn/layers/pooling.pyi:_Pool1d",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/pooling.pyi",
+   "target": "class:.typings/mlx/nn/layers/pooling.pyi:_Pool2d",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/pooling.pyi",
+   "target": "class:.typings/mlx/nn/layers/pooling.pyi:_Pool2d",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/pooling.pyi",
+   "target": "class:.typings/mlx/nn/layers/pooling.pyi:_Pool3d",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/pooling.pyi",
+   "target": "class:.typings/mlx/nn/layers/pooling.pyi:_Pool3d",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/pooling.pyi",
+   "target": "class:.typings/mlx/nn/layers/pooling.pyi:MaxPool1d",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/pooling.pyi",
+   "target": "class:.typings/mlx/nn/layers/pooling.pyi:MaxPool1d",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/pooling.pyi",
+   "target": "class:.typings/mlx/nn/layers/pooling.pyi:AvgPool1d",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/pooling.pyi",
+   "target": "class:.typings/mlx/nn/layers/pooling.pyi:AvgPool1d",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/pooling.pyi",
+   "target": "class:.typings/mlx/nn/layers/pooling.pyi:MaxPool2d",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/pooling.pyi",
+   "target": "class:.typings/mlx/nn/layers/pooling.pyi:MaxPool2d",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/pooling.pyi",
+   "target": "class:.typings/mlx/nn/layers/pooling.pyi:AvgPool2d",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/pooling.pyi",
+   "target": "class:.typings/mlx/nn/layers/pooling.pyi:AvgPool2d",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/pooling.pyi",
+   "target": "class:.typings/mlx/nn/layers/pooling.pyi:MaxPool3d",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/pooling.pyi",
+   "target": "class:.typings/mlx/nn/layers/pooling.pyi:MaxPool3d",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/pooling.pyi",
+   "target": "class:.typings/mlx/nn/layers/pooling.pyi:AvgPool3d",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/pooling.pyi",
+   "target": "class:.typings/mlx/nn/layers/pooling.pyi:AvgPool3d",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/positional_encoding.pyi",
+   "target": "class:.typings/mlx/nn/layers/positional_encoding.pyi:RoPE",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/positional_encoding.pyi",
+   "target": "class:.typings/mlx/nn/layers/positional_encoding.pyi:RoPE",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/positional_encoding.pyi",
+   "target": "class:.typings/mlx/nn/layers/positional_encoding.pyi:SinusoidalPositionalEncoding",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/positional_encoding.pyi",
+   "target": "class:.typings/mlx/nn/layers/positional_encoding.pyi:SinusoidalPositionalEncoding",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/positional_encoding.pyi",
+   "target": "class:.typings/mlx/nn/layers/positional_encoding.pyi:ALiBi",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/positional_encoding.pyi",
+   "target": "class:.typings/mlx/nn/layers/positional_encoding.pyi:ALiBi",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/quantized.pyi",
+   "target": "function:.typings/mlx/nn/layers/quantized.pyi:quantize",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/quantized.pyi",
+   "target": "function:.typings/mlx/nn/layers/quantized.pyi:quantize",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/quantized.pyi",
+   "target": "class:.typings/mlx/nn/layers/quantized.pyi:QuantizedEmbedding",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/quantized.pyi",
+   "target": "class:.typings/mlx/nn/layers/quantized.pyi:QuantizedEmbedding",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/quantized.pyi",
+   "target": "class:.typings/mlx/nn/layers/quantized.pyi:QuantizedLinear",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/quantized.pyi",
+   "target": "class:.typings/mlx/nn/layers/quantized.pyi:QuantizedLinear",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/recurrent.pyi",
+   "target": "class:.typings/mlx/nn/layers/recurrent.pyi:RNN",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/recurrent.pyi",
+   "target": "class:.typings/mlx/nn/layers/recurrent.pyi:RNN",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/recurrent.pyi",
+   "target": "class:.typings/mlx/nn/layers/recurrent.pyi:GRU",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/recurrent.pyi",
+   "target": "class:.typings/mlx/nn/layers/recurrent.pyi:GRU",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/recurrent.pyi",
+   "target": "class:.typings/mlx/nn/layers/recurrent.pyi:LSTM",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/recurrent.pyi",
+   "target": "class:.typings/mlx/nn/layers/recurrent.pyi:LSTM",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/transformer.pyi",
+   "target": "class:.typings/mlx/nn/layers/transformer.pyi:MultiHeadAttention",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/transformer.pyi",
+   "target": "class:.typings/mlx/nn/layers/transformer.pyi:MultiHeadAttention",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/transformer.pyi",
+   "target": "class:.typings/mlx/nn/layers/transformer.pyi:TransformerEncoderLayer",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/transformer.pyi",
+   "target": "class:.typings/mlx/nn/layers/transformer.pyi:TransformerEncoderLayer",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/transformer.pyi",
+   "target": "class:.typings/mlx/nn/layers/transformer.pyi:TransformerEncoder",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/transformer.pyi",
+   "target": "class:.typings/mlx/nn/layers/transformer.pyi:TransformerEncoder",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/transformer.pyi",
+   "target": "class:.typings/mlx/nn/layers/transformer.pyi:TransformerDecoderLayer",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/transformer.pyi",
+   "target": "class:.typings/mlx/nn/layers/transformer.pyi:TransformerDecoderLayer",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/transformer.pyi",
+   "target": "class:.typings/mlx/nn/layers/transformer.pyi:TransformerDecoder",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/transformer.pyi",
+   "target": "class:.typings/mlx/nn/layers/transformer.pyi:TransformerDecoder",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/transformer.pyi",
+   "target": "class:.typings/mlx/nn/layers/transformer.pyi:Transformer",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/transformer.pyi",
+   "target": "class:.typings/mlx/nn/layers/transformer.pyi:Transformer",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/upsample.pyi",
+   "target": "function:.typings/mlx/nn/layers/upsample.pyi:upsample_nearest",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/upsample.pyi",
+   "target": "function:.typings/mlx/nn/layers/upsample.pyi:upsample_nearest",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/upsample.pyi",
+   "target": "function:.typings/mlx/nn/layers/upsample.pyi:upsample_linear",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/upsample.pyi",
+   "target": "function:.typings/mlx/nn/layers/upsample.pyi:upsample_linear",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/upsample.pyi",
+   "target": "function:.typings/mlx/nn/layers/upsample.pyi:upsample_cubic",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/upsample.pyi",
+   "target": "function:.typings/mlx/nn/layers/upsample.pyi:upsample_cubic",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/upsample.pyi",
+   "target": "class:.typings/mlx/nn/layers/upsample.pyi:Upsample",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/nn/layers/upsample.pyi",
+   "target": "class:.typings/mlx/nn/layers/upsample.pyi:Upsample",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/nn/losses.pyi",
+   "target": "function:.typings/mlx/nn/losses.pyi:cross_entropy",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/nn/losses.pyi",
+   "target": "function:.typings/mlx/nn/losses.pyi:cross_entropy",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/nn/losses.pyi",
+   "target": "function:.typings/mlx/nn/losses.pyi:binary_cross_entropy",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/nn/losses.pyi",
+   "target": "function:.typings/mlx/nn/losses.pyi:binary_cross_entropy",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/nn/losses.pyi",
+   "target": "function:.typings/mlx/nn/losses.pyi:l1_loss",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/nn/losses.pyi",
+   "target": "function:.typings/mlx/nn/losses.pyi:l1_loss",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/nn/losses.pyi",
+   "target": "function:.typings/mlx/nn/losses.pyi:mse_loss",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/nn/losses.pyi",
+   "target": "function:.typings/mlx/nn/losses.pyi:mse_loss",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/nn/losses.pyi",
+   "target": "function:.typings/mlx/nn/losses.pyi:nll_loss",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/nn/losses.pyi",
+   "target": "function:.typings/mlx/nn/losses.pyi:nll_loss",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/nn/losses.pyi",
+   "target": "function:.typings/mlx/nn/losses.pyi:gaussian_nll_loss",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/nn/losses.pyi",
+   "target": "function:.typings/mlx/nn/losses.pyi:gaussian_nll_loss",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/nn/losses.pyi",
+   "target": "function:.typings/mlx/nn/losses.pyi:kl_div_loss",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/nn/losses.pyi",
+   "target": "function:.typings/mlx/nn/losses.pyi:kl_div_loss",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/nn/losses.pyi",
+   "target": "function:.typings/mlx/nn/losses.pyi:smooth_l1_loss",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/nn/losses.pyi",
+   "target": "function:.typings/mlx/nn/losses.pyi:smooth_l1_loss",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/nn/losses.pyi",
+   "target": "function:.typings/mlx/nn/losses.pyi:triplet_loss",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/nn/losses.pyi",
+   "target": "function:.typings/mlx/nn/losses.pyi:triplet_loss",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/nn/losses.pyi",
+   "target": "function:.typings/mlx/nn/losses.pyi:hinge_loss",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/nn/losses.pyi",
+   "target": "function:.typings/mlx/nn/losses.pyi:hinge_loss",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/nn/losses.pyi",
+   "target": "function:.typings/mlx/nn/losses.pyi:huber_loss",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/nn/losses.pyi",
+   "target": "function:.typings/mlx/nn/losses.pyi:huber_loss",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/nn/losses.pyi",
+   "target": "function:.typings/mlx/nn/losses.pyi:log_cosh_loss",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/nn/losses.pyi",
+   "target": "function:.typings/mlx/nn/losses.pyi:log_cosh_loss",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/nn/losses.pyi",
+   "target": "function:.typings/mlx/nn/losses.pyi:cosine_similarity_loss",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/nn/losses.pyi",
+   "target": "function:.typings/mlx/nn/losses.pyi:cosine_similarity_loss",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/nn/losses.pyi",
+   "target": "function:.typings/mlx/nn/losses.pyi:margin_ranking_loss",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/nn/losses.pyi",
+   "target": "function:.typings/mlx/nn/losses.pyi:margin_ranking_loss",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/nn/utils.pyi",
+   "target": "function:.typings/mlx/nn/utils.pyi:value_and_grad",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/nn/utils.pyi",
+   "target": "function:.typings/mlx/nn/utils.pyi:value_and_grad",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/nn/utils.pyi",
+   "target": "function:.typings/mlx/nn/utils.pyi:checkpoint",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/nn/utils.pyi",
+   "target": "function:.typings/mlx/nn/utils.pyi:checkpoint",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/nn/utils.pyi",
+   "target": "function:.typings/mlx/nn/utils.pyi:average_gradients",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/nn/utils.pyi",
+   "target": "function:.typings/mlx/nn/utils.pyi:average_gradients",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/utils.pyi",
+   "target": "function:.typings/mlx/utils.pyi:tree_map",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/utils.pyi",
+   "target": "function:.typings/mlx/utils.pyi:tree_map",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/utils.pyi",
+   "target": "function:.typings/mlx/utils.pyi:tree_map_with_path",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/utils.pyi",
+   "target": "function:.typings/mlx/utils.pyi:tree_map_with_path",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/utils.pyi",
+   "target": "function:.typings/mlx/utils.pyi:tree_flatten",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/utils.pyi",
+   "target": "function:.typings/mlx/utils.pyi:tree_flatten",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/utils.pyi",
+   "target": "function:.typings/mlx/utils.pyi:tree_unflatten",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/utils.pyi",
+   "target": "function:.typings/mlx/utils.pyi:tree_unflatten",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/utils.pyi",
+   "target": "function:.typings/mlx/utils.pyi:tree_reduce",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/utils.pyi",
+   "target": "function:.typings/mlx/utils.pyi:tree_reduce",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx/utils.pyi",
+   "target": "function:.typings/mlx/utils.pyi:tree_merge",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx/utils.pyi",
+   "target": "function:.typings/mlx/utils.pyi:tree_merge",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  }
+ ]
+}

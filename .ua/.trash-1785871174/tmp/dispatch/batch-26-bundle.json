@@ -1,0 +1,61 @@
+{
+ "projectRoot": "/Users/chris/Documents/GitHub/exo",
+ "projectName": "exo",
+ "projectDescription": "exo connects all your devices into an AI cluster, enabling distributed inference of frontier LLMs (and image models) across multiple devices. It uses MLX as the inference backend with automatic device discovery, topology-aware tensor parallelism, RDMA-over-Thunderbolt support, and OpenAI/Claude/Ollama-compatible APIs.",
+ "languages": [
+  "Python",
+  "TypeScript",
+  "Svelte",
+  "Rust",
+  "Swift",
+  "Shell",
+  "Nix",
+  "Markdown",
+  "TOML",
+  "YAML",
+  "JSON"
+ ],
+ "skillDir": "/Users/chris/.understand-anything/repo/understand-anything-plugin/skills/understand",
+ "totalBatches": 46,
+ "batchIndex": 26,
+ "batchFiles": [
+  {
+   "path": "tmp/prompt.txt",
+   "language": "txt",
+   "sizeLines": 46,
+   "fileCategory": "docs"
+  },
+  {
+   "path": "tmp/run_exo_on.sh",
+   "language": "shell",
+   "sizeLines": 53,
+   "fileCategory": "script"
+  },
+  {
+   "path": "tmp/run_llm.sh",
+   "language": "shell",
+   "sizeLines": 24,
+   "fileCategory": "script"
+  },
+  {
+   "path": "tmp/set_rdma_network_config.sh",
+   "language": "shell",
+   "sizeLines": 47,
+   "fileCategory": "script"
+  },
+  {
+   "path": "tmp/test_trust_remote_code_attack.sh",
+   "language": "shell",
+   "sizeLines": 149,
+   "fileCategory": "script"
+  }
+ ],
+ "batchImportData": {
+  "tmp/prompt.txt": [],
+  "tmp/run_exo_on.sh": [],
+  "tmp/run_llm.sh": [],
+  "tmp/set_rdma_network_config.sh": [],
+  "tmp/test_trust_remote_code_attack.sh": []
+ },
+ "neighborMap": {}
+}

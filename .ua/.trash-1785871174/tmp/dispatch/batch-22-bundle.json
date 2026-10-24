@@ -1,0 +1,166 @@
+{
+ "projectRoot": "/Users/chris/Documents/GitHub/exo",
+ "projectName": "exo",
+ "projectDescription": "exo connects all your devices into an AI cluster, enabling distributed inference of frontier LLMs (and image models) across multiple devices. It uses MLX as the inference backend with automatic device discovery, topology-aware tensor parallelism, RDMA-over-Thunderbolt support, and OpenAI/Claude/Ollama-compatible APIs.",
+ "languages": [
+  "Python",
+  "TypeScript",
+  "Svelte",
+  "Rust",
+  "Swift",
+  "Shell",
+  "Nix",
+  "Markdown",
+  "TOML",
+  "YAML",
+  "JSON"
+ ],
+ "skillDir": "/Users/chris/.understand-anything/repo/understand-anything-plugin/skills/understand",
+ "totalBatches": 46,
+ "batchIndex": 22,
+ "batchFiles": [
+  {
+   "path": "resources/inference_model_cards/mlx-community--Qwen3.5-122B-A10B-8bit.toml",
+   "language": "toml",
+   "sizeLines": 35,
+   "fileCategory": "config"
+  },
+  {
+   "path": "resources/inference_model_cards/mlx-community--Qwen3.5-122B-A10B-bf16.toml",
+   "language": "toml",
+   "sizeLines": 35,
+   "fileCategory": "config"
+  },
+  {
+   "path": "resources/inference_model_cards/mlx-community--Qwen3.5-27B-4bit.toml",
+   "language": "toml",
+   "sizeLines": 35,
+   "fileCategory": "config"
+  },
+  {
+   "path": "resources/inference_model_cards/mlx-community--Qwen3.5-27B-8bit.toml",
+   "language": "toml",
+   "sizeLines": 35,
+   "fileCategory": "config"
+  },
+  {
+   "path": "resources/inference_model_cards/mlx-community--Qwen3.5-2B-MLX-8bit.toml",
+   "language": "toml",
+   "sizeLines": 35,
+   "fileCategory": "config"
+  },
+  {
+   "path": "resources/inference_model_cards/mlx-community--Qwen3.5-35B-A3B-4bit.toml",
+   "language": "toml",
+   "sizeLines": 35,
+   "fileCategory": "config"
+  },
+  {
+   "path": "resources/inference_model_cards/mlx-community--Qwen3.5-35B-A3B-8bit.toml",
+   "language": "toml",
+   "sizeLines": 35,
+   "fileCategory": "config"
+  },
+  {
+   "path": "resources/inference_model_cards/mlx-community--Qwen3.5-397B-A17B-4bit.toml",
+   "language": "toml",
+   "sizeLines": 35,
+   "fileCategory": "config"
+  },
+  {
+   "path": "resources/inference_model_cards/mlx-community--Qwen3.5-397B-A17B-6bit.toml",
+   "language": "toml",
+   "sizeLines": 35,
+   "fileCategory": "config"
+  },
+  {
+   "path": "resources/inference_model_cards/mlx-community--Qwen3.5-397B-A17B-8bit.toml",
+   "language": "toml",
+   "sizeLines": 35,
+   "fileCategory": "config"
+  },
+  {
+   "path": "resources/inference_model_cards/mlx-community--Qwen3.5-9B-4bit.toml",
+   "language": "toml",
+   "sizeLines": 35,
+   "fileCategory": "config"
+  },
+  {
+   "path": "resources/inference_model_cards/mlx-community--Qwen3.5-9B-8bit.toml",
+   "language": "toml",
+   "sizeLines": 35,
+   "fileCategory": "config"
+  },
+  {
+   "path": "resources/inference_model_cards/mlx-community--Qwen3.6-27B-4bit.toml",
+   "language": "toml",
+   "sizeLines": 35,
+   "fileCategory": "config"
+  },
+  {
+   "path": "resources/inference_model_cards/mlx-community--Qwen3.6-27B-8bit.toml",
+   "language": "toml",
+   "sizeLines": 35,
+   "fileCategory": "config"
+  },
+  {
+   "path": "resources/inference_model_cards/mlx-community--Qwen3.6-27B-bf16.toml",
+   "language": "toml",
+   "sizeLines": 35,
+   "fileCategory": "config"
+  },
+  {
+   "path": "resources/inference_model_cards/mlx-community--Qwen3.6-35B-A3B-4bit.toml",
+   "language": "toml",
+   "sizeLines": 35,
+   "fileCategory": "config"
+  },
+  {
+   "path": "resources/inference_model_cards/mlx-community--Qwen3.6-35B-A3B-5bit.toml",
+   "language": "toml",
+   "sizeLines": 35,
+   "fileCategory": "config"
+  },
+  {
+   "path": "resources/inference_model_cards/mlx-community--Qwen3.6-35B-A3B-8bit.toml",
+   "language": "toml",
+   "sizeLines": 35,
+   "fileCategory": "config"
+  },
+  {
+   "path": "resources/inference_model_cards/mlx-community--Qwen3.6-35B-A3B-bf16.toml",
+   "language": "toml",
+   "sizeLines": 35,
+   "fileCategory": "config"
+  },
+  {
+   "path": "resources/inference_model_cards/mlx-community--Step-3.5-Flash-4bit.toml",
+   "language": "toml",
+   "sizeLines": 27,
+   "fileCategory": "config"
+  }
+ ],
+ "batchImportData": {
+  "resources/inference_model_cards/mlx-community--Qwen3.5-122B-A10B-8bit.toml": [],
+  "resources/inference_model_cards/mlx-community--Qwen3.5-122B-A10B-bf16.toml": [],
+  "resources/inference_model_cards/mlx-community--Qwen3.5-27B-4bit.toml": [],
+  "resources/inference_model_cards/mlx-community--Qwen3.5-27B-8bit.toml": [],
+  "resources/inference_model_cards/mlx-community--Qwen3.5-2B-MLX-8bit.toml": [],
+  "resources/inference_model_cards/mlx-community--Qwen3.5-35B-A3B-4bit.toml": [],
+  "resources/inference_model_cards/mlx-community--Qwen3.5-35B-A3B-8bit.toml": [],
+  "resources/inference_model_cards/mlx-community--Qwen3.5-397B-A17B-4bit.toml": [],
+  "resources/inference_model_cards/mlx-community--Qwen3.5-397B-A17B-6bit.toml": [],
+  "resources/inference_model_cards/mlx-community--Qwen3.5-397B-A17B-8bit.toml": [],
+  "resources/inference_model_cards/mlx-community--Qwen3.5-9B-4bit.toml": [],
+  "resources/inference_model_cards/mlx-community--Qwen3.5-9B-8bit.toml": [],
+  "resources/inference_model_cards/mlx-community--Qwen3.6-27B-4bit.toml": [],
+  "resources/inference_model_cards/mlx-community--Qwen3.6-27B-8bit.toml": [],
+  "resources/inference_model_cards/mlx-community--Qwen3.6-27B-bf16.toml": [],
+  "resources/inference_model_cards/mlx-community--Qwen3.6-35B-A3B-4bit.toml": [],
+  "resources/inference_model_cards/mlx-community--Qwen3.6-35B-A3B-5bit.toml": [],
+  "resources/inference_model_cards/mlx-community--Qwen3.6-35B-A3B-8bit.toml": [],
+  "resources/inference_model_cards/mlx-community--Qwen3.6-35B-A3B-bf16.toml": [],
+  "resources/inference_model_cards/mlx-community--Step-3.5-Flash-4bit.toml": []
+ },
+ "neighborMap": {}
+}

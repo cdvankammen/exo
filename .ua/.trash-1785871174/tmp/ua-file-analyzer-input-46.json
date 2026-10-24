@@ -1,0 +1,14 @@
+{
+ "projectRoot": "/Users/chris/Documents/GitHub/exo",
+ "batchFiles": [
+  {
+   "path": "tools/src/exo_tools/__init__.py",
+   "language": "python",
+   "sizeLines": 0,
+   "fileCategory": "code"
+  }
+ ],
+ "batchImportData": {
+  "tools/src/exo_tools/__init__.py": []
+ }
+}

@@ -1,0 +1,182 @@
+{
+ "projectRoot": "/Users/chris/Documents/GitHub/exo",
+ "batchFiles": [
+  {
+   "path": ".typings/mflux/models/flux/model/flux_vae/encoder/down_block_1.pyi",
+   "language": "python",
+   "sizeLines": 10,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".typings/mflux/models/flux/model/flux_vae/encoder/down_block_2.pyi",
+   "language": "python",
+   "sizeLines": 10,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".typings/mflux/models/flux/model/flux_vae/encoder/down_block_3.pyi",
+   "language": "python",
+   "sizeLines": 10,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".typings/mflux/models/flux/model/flux_vae/encoder/down_block_4.pyi",
+   "language": "python",
+   "sizeLines": 10,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".typings/mflux/models/flux/model/flux_vae/encoder/down_sampler.pyi",
+   "language": "python",
+   "sizeLines": 10,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".typings/mflux/models/flux/model/flux_vae/encoder/encoder.pyi",
+   "language": "python",
+   "sizeLines": 10,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".typings/mflux/models/flux/model/flux_vae/vae.pyi",
+   "language": "python",
+   "sizeLines": 15,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".typings/mflux/models/flux/model/redux_encoder/redux_encoder.pyi",
+   "language": "python",
+   "sizeLines": 10,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".typings/mflux/models/flux/model/siglip_vision_transformer/siglip_encoder.pyi",
+   "language": "python",
+   "sizeLines": 10,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".typings/mflux/models/flux/model/siglip_vision_transformer/siglip_encoder_layer.pyi",
+   "language": "python",
+   "sizeLines": 10,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".typings/mflux/models/flux/model/siglip_vision_transformer/siglip_mlp.pyi",
+   "language": "python",
+   "sizeLines": 10,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".typings/mflux/models/flux/model/siglip_vision_transformer/siglip_multi_head_attention_pooling_head.pyi",
+   "language": "python",
+   "sizeLines": 10,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".typings/mflux/models/flux/model/siglip_vision_transformer/siglip_sdpa_attention.pyi",
+   "language": "python",
+   "sizeLines": 16,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".typings/mflux/models/flux/model/siglip_vision_transformer/siglip_vision_embeddings.pyi",
+   "language": "python",
+   "sizeLines": 13,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".typings/mflux/models/flux/model/siglip_vision_transformer/siglip_vision_transformer.pyi",
+   "language": "python",
+   "sizeLines": 10,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".typings/mflux/models/flux/variants/__init__.pyi",
+   "language": "python",
+   "sizeLines": 7,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".typings/mflux/models/flux/variants/concept_attention/attention_data.pyi",
+   "language": "python",
+   "sizeLines": 39,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".typings/mflux/models/flux/variants/concept_attention/joint_attention_concept.pyi",
+   "language": "python",
+   "sizeLines": 17,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".typings/mflux/models/flux/variants/concept_attention/joint_transformer_block_concept.pyi",
+   "language": "python",
+   "sizeLines": 28,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".typings/mflux/models/flux/variants/concept_attention/transformer_concept.pyi",
+   "language": "python",
+   "sizeLines": 29,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".typings/mflux/models/flux/variants/controlnet/transformer_controlnet.pyi",
+   "language": "python",
+   "sizeLines": 25,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".typings/mflux/models/flux/variants/kontext/__init__.pyi",
+   "language": "python",
+   "sizeLines": 7,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".typings/mflux/models/flux/variants/kontext/flux_kontext.pyi",
+   "language": "python",
+   "sizeLines": 49,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".typings/mflux/models/flux/variants/kontext/kontext_util.pyi",
+   "language": "python",
+   "sizeLines": 16,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".typings/mflux/models/flux/variants/txt2img/flux.pyi",
+   "language": "python",
+   "sizeLines": 53,
+   "fileCategory": "code"
+  }
+ ],
+ "batchImportData": {
+  ".typings/mflux/models/flux/model/flux_vae/encoder/down_block_1.pyi": [],
+  ".typings/mflux/models/flux/model/flux_vae/encoder/down_block_2.pyi": [],
+  ".typings/mflux/models/flux/model/flux_vae/encoder/down_block_3.pyi": [],
+  ".typings/mflux/models/flux/model/flux_vae/encoder/down_block_4.pyi": [],
+  ".typings/mflux/models/flux/model/flux_vae/encoder/down_sampler.pyi": [],
+  ".typings/mflux/models/flux/model/flux_vae/encoder/encoder.pyi": [],
+  ".typings/mflux/models/flux/model/flux_vae/vae.pyi": [],
+  ".typings/mflux/models/flux/model/redux_encoder/redux_encoder.pyi": [],
+  ".typings/mflux/models/flux/model/siglip_vision_transformer/siglip_encoder.pyi": [],
+  ".typings/mflux/models/flux/model/siglip_vision_transformer/siglip_encoder_layer.pyi": [],
+  ".typings/mflux/models/flux/model/siglip_vision_transformer/siglip_mlp.pyi": [],
+  ".typings/mflux/models/flux/model/siglip_vision_transformer/siglip_multi_head_attention_pooling_head.pyi": [],
+  ".typings/mflux/models/flux/model/siglip_vision_transformer/siglip_sdpa_attention.pyi": [],
+  ".typings/mflux/models/flux/model/siglip_vision_transformer/siglip_vision_embeddings.pyi": [],
+  ".typings/mflux/models/flux/model/siglip_vision_transformer/siglip_vision_transformer.pyi": [],
+  ".typings/mflux/models/flux/variants/__init__.pyi": [],
+  ".typings/mflux/models/flux/variants/concept_attention/attention_data.pyi": [],
+  ".typings/mflux/models/flux/variants/concept_attention/joint_attention_concept.pyi": [],
+  ".typings/mflux/models/flux/variants/concept_attention/joint_transformer_block_concept.pyi": [],
+  ".typings/mflux/models/flux/variants/concept_attention/transformer_concept.pyi": [],
+  ".typings/mflux/models/flux/variants/controlnet/transformer_controlnet.pyi": [],
+  ".typings/mflux/models/flux/variants/kontext/__init__.pyi": [],
+  ".typings/mflux/models/flux/variants/kontext/flux_kontext.pyi": [],
+  ".typings/mflux/models/flux/variants/kontext/kontext_util.pyi": [],
+  ".typings/mflux/models/flux/variants/txt2img/flux.pyi": []
+ }
+}

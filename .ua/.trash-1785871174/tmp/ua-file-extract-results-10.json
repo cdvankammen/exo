@@ -1,0 +1,1057 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 4,
+  "filesSkipped": [],
+  "analysisOutcomes": {
+    "structure": {
+      "succeeded": 4,
+      "failed": 0
+    },
+    "callGraph": {
+      "succeeded": 4,
+      "failed": 0,
+      "skipped": 0
+    }
+  },
+  "results": [
+    {
+      "path": "rust/exo_rs/src/allow_threading.rs",
+      "language": "rust",
+      "fileCategory": "code",
+      "totalLines": 37,
+      "nonEmptyLines": 32,
+      "functions": [
+        {
+          "name": "new",
+          "startLine": 21,
+          "endLine": 23,
+          "params": [
+            "f"
+          ]
+        },
+        {
+          "name": "poll",
+          "startLine": 33,
+          "endLine": 36,
+          "params": [
+            "self",
+            "cx"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "AllowThreads",
+          "startLine": 15,
+          "endLine": 15,
+          "methods": [],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "AllowThreads",
+          "line": 15,
+          "isDefault": false
+        },
+        {
+          "name": "new",
+          "line": 21,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "new",
+          "callee": "Self",
+          "lineNumber": 22
+        },
+        {
+          "caller": "poll",
+          "callee": "cx.waker",
+          "lineNumber": 34
+        },
+        {
+          "caller": "poll",
+          "callee": "Python::attach",
+          "lineNumber": 35
+        },
+        {
+          "caller": "poll",
+          "callee": "py.detach",
+          "lineNumber": 35
+        },
+        {
+          "caller": "poll",
+          "callee": "self.project().0.poll",
+          "lineNumber": 35
+        },
+        {
+          "caller": "poll",
+          "callee": "self.project",
+          "lineNumber": 35
+        },
+        {
+          "caller": "poll",
+          "callee": "Context::from_waker",
+          "lineNumber": 35
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 2,
+        "functionCount": 2,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "rust/exo_rs/src/lib.rs",
+      "language": "rust",
+      "fileCategory": "code",
+      "totalLines": 170,
+      "nonEmptyLines": 148,
+      "functions": [
+        {
+          "name": "main_module",
+          "startLine": 150,
+          "endLine": 168,
+          "params": [
+            "m"
+          ]
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "pybytes",
+          "callee": "Python::attach",
+          "lineNumber": 33
+        },
+        {
+          "caller": "pybytes",
+          "callee": "PyBytes::new(py, self).unbind",
+          "lineNumber": 33
+        },
+        {
+          "caller": "pybytes",
+          "callee": "PyBytes::new",
+          "lineNumber": 33
+        },
+        {
+          "caller": "pyerr",
+          "callee": "self.map_err",
+          "lineNumber": 43
+        },
+        {
+          "caller": "pyerr",
+          "callee": "PyRuntimeError::new_err",
+          "lineNumber": 43
+        },
+        {
+          "caller": "pyerr",
+          "callee": "e.to_string",
+          "lineNumber": 43
+        },
+        {
+          "caller": "allow_threads_py",
+          "callee": "AllowThreads::new",
+          "lineNumber": 53
+        },
+        {
+          "caller": "receiver_channel_closed",
+          "callee": "PyConnectionError::new_err",
+          "lineNumber": 62
+        },
+        {
+          "caller": "write_unraisable",
+          "callee": "Python::attach",
+          "lineNumber": 69
+        },
+        {
+          "caller": "write_unraisable",
+          "callee": "self.write_unraisable_with",
+          "lineNumber": 69
+        },
+        {
+          "caller": "write_unraisable_with",
+          "callee": "Some",
+          "lineNumber": 74
+        },
+        {
+          "caller": "write_unraisable_with",
+          "callee": "e.write_unraisable",
+          "lineNumber": 77
+        },
+        {
+          "caller": "spawn_with_scope",
+          "callee": "pyo3_async_runtimes::tokio::get_current_locals",
+          "lineNumber": 91
+        },
+        {
+          "caller": "spawn_with_scope",
+          "callee": "Ok",
+          "lineNumber": 92
+        },
+        {
+          "caller": "spawn_with_scope",
+          "callee": "self.spawn",
+          "lineNumber": 92
+        },
+        {
+          "caller": "spawn_with_scope",
+          "callee": "pyo3_async_runtimes::tokio::scope",
+          "lineNumber": 92
+        },
+        {
+          "caller": "send_py",
+          "callee": "self.send(value)\n                .await.map_err",
+          "lineNumber": 104
+        },
+        {
+          "caller": "send_py",
+          "callee": "self.send",
+          "lineNumber": 104
+        },
+        {
+          "caller": "send_py",
+          "callee": "PyErr::receiver_channel_closed",
+          "lineNumber": 106
+        },
+        {
+          "caller": "recv_py",
+          "callee": "self.recv().await.ok_or_else",
+          "lineNumber": 114
+        },
+        {
+          "caller": "recv_py",
+          "callee": "self.recv",
+          "lineNumber": 114
+        },
+        {
+          "caller": "recv_many_py",
+          "callee": "Vec::with_capacity",
+          "lineNumber": 124
+        },
+        {
+          "caller": "recv_many_py",
+          "callee": "self.recv_many",
+          "lineNumber": 125
+        },
+        {
+          "caller": "recv_many_py",
+          "callee": "Err",
+          "lineNumber": 129
+        },
+        {
+          "caller": "recv_many_py",
+          "callee": "PyErr::receiver_channel_closed",
+          "lineNumber": 129
+        },
+        {
+          "caller": "recv_many_py",
+          "callee": "Ok",
+          "lineNumber": 132
+        },
+        {
+          "caller": "try_recv_py",
+          "callee": "self.try_recv",
+          "lineNumber": 137
+        },
+        {
+          "caller": "try_recv_py",
+          "callee": "Ok",
+          "lineNumber": 138
+        },
+        {
+          "caller": "try_recv_py",
+          "callee": "Some",
+          "lineNumber": 138
+        },
+        {
+          "caller": "try_recv_py",
+          "callee": "Ok",
+          "lineNumber": 139
+        },
+        {
+          "caller": "try_recv_py",
+          "callee": "Err",
+          "lineNumber": 140
+        },
+        {
+          "caller": "try_recv_py",
+          "callee": "PyErr::receiver_channel_closed",
+          "lineNumber": 140
+        },
+        {
+          "caller": "main_module",
+          "callee": "pyo3_log::init",
+          "lineNumber": 152
+        },
+        {
+          "caller": "main_module",
+          "callee": "tokio::runtime::Builder::new_multi_thread",
+          "lineNumber": 153
+        },
+        {
+          "caller": "main_module",
+          "callee": "builder.enable_all",
+          "lineNumber": 154
+        },
+        {
+          "caller": "main_module",
+          "callee": "pyo3_async_runtimes::tokio::init",
+          "lineNumber": 155
+        },
+        {
+          "caller": "main_module",
+          "callee": "pidfile_submodule",
+          "lineNumber": 160
+        },
+        {
+          "caller": "main_module",
+          "callee": "networking_submodule",
+          "lineNumber": 162
+        },
+        {
+          "caller": "main_module",
+          "callee": "Ok",
+          "lineNumber": 167
+        }
+      ],
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 0,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "rust/exo_rs/src/networking.rs",
+      "language": "rust",
+      "fileCategory": "code",
+      "totalLines": 197,
+      "nonEmptyLines": 174,
+      "functions": [
+        {
+          "name": "from",
+          "startLine": 31,
+          "endLine": 40,
+          "params": [
+            "value"
+          ]
+        },
+        {
+          "name": "from_session",
+          "startLine": 44,
+          "endLine": 54,
+          "params": [
+            "session"
+          ]
+        },
+        {
+          "name": "new",
+          "startLine": 67,
+          "endLine": 102,
+          "params": [
+            "identity",
+            "namespace",
+            "listen_port",
+            "discovery_service_port"
+          ]
+        },
+        {
+          "name": "recv",
+          "startLine": 107,
+          "endLine": 118,
+          "params": [
+            "py"
+          ]
+        },
+        {
+          "name": "gossipsub_subscribe",
+          "startLine": 125,
+          "endLine": 142,
+          "params": [
+            "topic"
+          ]
+        },
+        {
+          "name": "gossipsub_unsubscribe",
+          "startLine": 147,
+          "endLine": 163,
+          "params": [
+            "topic"
+          ]
+        },
+        {
+          "name": "gossipsub_publish",
+          "startLine": 168,
+          "endLine": 189,
+          "params": [
+            "topic",
+            "data"
+          ]
+        },
+        {
+          "name": "networking_submodule",
+          "startLine": 192,
+          "endLine": 197,
+          "params": [
+            "m"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "PyNetworkingHandle",
+          "startLine": 18,
+          "endLine": 22,
+          "methods": [
+            "from_session",
+            "new",
+            "recv",
+            "gossipsub_subscribe",
+            "gossipsub_unsubscribe",
+            "gossipsub_publish"
+          ],
+          "properties": [
+            "to_swarm",
+            "swarm"
+          ]
+        },
+        {
+          "name": "PyFromSwarm",
+          "startLine": 26,
+          "endLine": 29,
+          "methods": [
+            "from"
+          ],
+          "properties": [
+            "Connection",
+            "Message"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "PyNetworkingHandle",
+          "line": 18,
+          "isDefault": false
+        },
+        {
+          "name": "PyFromSwarm",
+          "line": 26,
+          "isDefault": false
+        },
+        {
+          "name": "from_session",
+          "line": 44,
+          "isDefault": false
+        },
+        {
+          "name": "new",
+          "line": 67,
+          "isDefault": false
+        },
+        {
+          "name": "recv",
+          "line": 107,
+          "isDefault": false
+        },
+        {
+          "name": "gossipsub_subscribe",
+          "line": 125,
+          "isDefault": false
+        },
+        {
+          "name": "gossipsub_unsubscribe",
+          "line": 147,
+          "isDefault": false
+        },
+        {
+          "name": "gossipsub_publish",
+          "line": 168,
+          "isDefault": false
+        },
+        {
+          "name": "networking_submodule",
+          "line": 192,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "from",
+          "callee": "data.pybytes",
+          "lineNumber": 37
+        },
+        {
+          "caller": "from_session",
+          "callee": "mpsc::channel",
+          "lineNumber": 45
+        },
+        {
+          "caller": "from_session",
+          "callee": "Arc::new",
+          "lineNumber": 51
+        },
+        {
+          "caller": "from_session",
+          "callee": "Mutex::new",
+          "lineNumber": 51
+        },
+        {
+          "caller": "from_session",
+          "callee": "swarm.into_stream",
+          "lineNumber": 51
+        },
+        {
+          "caller": "new",
+          "callee": "mpsc::channel",
+          "lineNumber": 78
+        },
+        {
+          "caller": "new",
+          "callee": "is_valid_zid",
+          "lineNumber": 81
+        },
+        {
+          "caller": "new",
+          "callee": "Err",
+          "lineNumber": 82
+        },
+        {
+          "caller": "new",
+          "callee": "PyValueError::new_err",
+          "lineNumber": 82
+        },
+        {
+          "caller": "new",
+          "callee": "pyo3_async_runtimes::tokio::get_runtime()\n            .block_on(create_swarm(\n                identity,\n                namespace,\n                from_client,\n                listen_port,\n                discovery_service_port,\n            )).pyerr",
+          "lineNumber": 88
+        },
+        {
+          "caller": "new",
+          "callee": "pyo3_async_runtimes::tokio::get_runtime().block_on",
+          "lineNumber": 88
+        },
+        {
+          "caller": "new",
+          "callee": "pyo3_async_runtimes::tokio::get_runtime",
+          "lineNumber": 88
+        },
+        {
+          "caller": "new",
+          "callee": "create_swarm",
+          "lineNumber": 89
+        },
+        {
+          "caller": "new",
+          "callee": "Ok",
+          "lineNumber": 98
+        },
+        {
+          "caller": "new",
+          "callee": "Arc::new",
+          "lineNumber": 99
+        },
+        {
+          "caller": "new",
+          "callee": "Mutex::new",
+          "lineNumber": 99
+        },
+        {
+          "caller": "new",
+          "callee": "swarm.into_stream",
+          "lineNumber": 99
+        },
+        {
+          "caller": "recv",
+          "callee": "Arc::clone",
+          "lineNumber": 108
+        },
+        {
+          "caller": "recv",
+          "callee": "pyo3_async_runtimes::tokio::future_into_py",
+          "lineNumber": 109
+        },
+        {
+          "caller": "recv",
+          "callee": "swarm\n                .try_lock()\n                .map_err(|_| PyRuntimeError::new_err(\"called recv twice concurrently\"))?\n                .next()\n                .await\n                .ok_or(PyErr::receiver_channel_closed()).map",
+          "lineNumber": 110
+        },
+        {
+          "caller": "recv",
+          "callee": "swarm\n                .try_lock()\n                .map_err(|_| PyRuntimeError::new_err(\"called recv twice concurrently\"))?\n                .next()\n                .await.ok_or",
+          "lineNumber": 110
+        },
+        {
+          "caller": "recv",
+          "callee": "swarm\n                .try_lock()\n                .map_err(|_| PyRuntimeError::new_err(\"called recv twice concurrently\"))?.next",
+          "lineNumber": 110
+        },
+        {
+          "caller": "recv",
+          "callee": "swarm\n                .try_lock().map_err",
+          "lineNumber": 110
+        },
+        {
+          "caller": "recv",
+          "callee": "swarm.try_lock",
+          "lineNumber": 110
+        },
+        {
+          "caller": "recv",
+          "callee": "PyRuntimeError::new_err",
+          "lineNumber": 112
+        },
+        {
+          "caller": "recv",
+          "callee": "PyErr::receiver_channel_closed",
+          "lineNumber": 115
+        },
+        {
+          "caller": "gossipsub_subscribe",
+          "callee": "oneshot::channel",
+          "lineNumber": 126
+        },
+        {
+          "caller": "gossipsub_subscribe",
+          "callee": "self.to_swarm\n            .send_py(ToSwarm::Subscribe {\n                topic,\n                result_sender: tx,\n            }).allow_threads_py",
+          "lineNumber": 129
+        },
+        {
+          "caller": "gossipsub_subscribe",
+          "callee": "self.to_swarm.send_py",
+          "lineNumber": 129
+        },
+        {
+          "caller": "gossipsub_subscribe",
+          "callee": "rx.allow_threads_py() // allow-threads-aware async call\n            .await\n            .map_err(|_| PyErr::receiver_channel_closed())?.pyerr",
+          "lineNumber": 138
+        },
+        {
+          "caller": "gossipsub_subscribe",
+          "callee": "rx.allow_threads_py() // allow-threads-aware async call\n            .await.map_err",
+          "lineNumber": 138
+        },
+        {
+          "caller": "gossipsub_subscribe",
+          "callee": "rx.allow_threads_py",
+          "lineNumber": 138
+        },
+        {
+          "caller": "gossipsub_subscribe",
+          "callee": "PyErr::receiver_channel_closed",
+          "lineNumber": 140
+        },
+        {
+          "caller": "gossipsub_unsubscribe",
+          "callee": "oneshot::channel",
+          "lineNumber": 148
+        },
+        {
+          "caller": "gossipsub_unsubscribe",
+          "callee": "self.to_swarm\n            .send_py(ToSwarm::Unsubscribe {\n                topic,\n                result_sender: tx,\n            }).allow_threads_py",
+          "lineNumber": 151
+        },
+        {
+          "caller": "gossipsub_unsubscribe",
+          "callee": "self.to_swarm.send_py",
+          "lineNumber": 151
+        },
+        {
+          "caller": "gossipsub_unsubscribe",
+          "callee": "rx.allow_threads_py() // allow-threads-aware async call\n            .await.map_err",
+          "lineNumber": 160
+        },
+        {
+          "caller": "gossipsub_unsubscribe",
+          "callee": "rx.allow_threads_py",
+          "lineNumber": 160
+        },
+        {
+          "caller": "gossipsub_unsubscribe",
+          "callee": "PyErr::receiver_channel_closed",
+          "lineNumber": 162
+        },
+        {
+          "caller": "gossipsub_publish",
+          "callee": "oneshot::channel",
+          "lineNumber": 169
+        },
+        {
+          "caller": "gossipsub_publish",
+          "callee": "Python::attach",
+          "lineNumber": 172
+        },
+        {
+          "caller": "gossipsub_publish",
+          "callee": "Vec::from",
+          "lineNumber": 172
+        },
+        {
+          "caller": "gossipsub_publish",
+          "callee": "data.as_bytes",
+          "lineNumber": 172
+        },
+        {
+          "caller": "gossipsub_publish",
+          "callee": "self.to_swarm\n            .send_py(ToSwarm::Publish {\n                topic,\n                data,\n                result_sender: tx,\n            }).allow_threads_py",
+          "lineNumber": 173
+        },
+        {
+          "caller": "gossipsub_publish",
+          "callee": "self.to_swarm.send_py",
+          "lineNumber": 173
+        },
+        {
+          "caller": "gossipsub_publish",
+          "callee": "rx\n            .allow_threads_py() // allow-threads-aware async call\n            .await\n            .map_err(|_| PyErr::receiver_channel_closed())?.map_err",
+          "lineNumber": 183
+        },
+        {
+          "caller": "gossipsub_publish",
+          "callee": "rx\n            .allow_threads_py() // allow-threads-aware async call\n            .await.map_err",
+          "lineNumber": 183
+        },
+        {
+          "caller": "gossipsub_publish",
+          "callee": "rx.allow_threads_py",
+          "lineNumber": 183
+        },
+        {
+          "caller": "gossipsub_publish",
+          "callee": "PyErr::receiver_channel_closed",
+          "lineNumber": 186
+        },
+        {
+          "caller": "gossipsub_publish",
+          "callee": "PyRuntimeError::new_err",
+          "lineNumber": 187
+        },
+        {
+          "caller": "gossipsub_publish",
+          "callee": "e.to_string",
+          "lineNumber": 187
+        },
+        {
+          "caller": "gossipsub_publish",
+          "callee": "Ok",
+          "lineNumber": 188
+        },
+        {
+          "caller": "networking_submodule",
+          "callee": "m.add_class::<PyNetworkingHandle>",
+          "lineNumber": 193
+        },
+        {
+          "caller": "networking_submodule",
+          "callee": "m.add_class::<PyFromSwarm>",
+          "lineNumber": 194
+        },
+        {
+          "caller": "networking_submodule",
+          "callee": "Ok",
+          "lineNumber": 196
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 9,
+        "functionCount": 8,
+        "classCount": 2
+      }
+    },
+    {
+      "path": "rust/exo_rs/src/pidfile.rs",
+      "language": "rust",
+      "fileCategory": "code",
+      "totalLines": 128,
+      "nonEmptyLines": 114,
+      "functions": [
+        {
+          "name": "into_pyerr",
+          "startLine": 18,
+          "endLine": 23,
+          "params": [
+            "py"
+          ]
+        },
+        {
+          "name": "__repr__",
+          "startLine": 29,
+          "endLine": 31,
+          "params": []
+        },
+        {
+          "name": "__str__",
+          "startLine": 33,
+          "endLine": 35,
+          "params": []
+        },
+        {
+          "name": "get",
+          "startLine": 62,
+          "endLine": 66,
+          "params": []
+        },
+        {
+          "name": "get_mut",
+          "startLine": 69,
+          "endLine": 73,
+          "params": []
+        },
+        {
+          "name": "py_new",
+          "startLine": 85,
+          "endLine": 95,
+          "params": [
+            "py",
+            "path",
+            "mode"
+          ]
+        },
+        {
+          "name": "write",
+          "startLine": 100,
+          "endLine": 104,
+          "params": [
+            "py"
+          ]
+        },
+        {
+          "name": "as_raw_fd",
+          "startLine": 113,
+          "endLine": 115,
+          "params": []
+        },
+        {
+          "name": "close",
+          "startLine": 118,
+          "endLine": 120,
+          "params": []
+        },
+        {
+          "name": "pidfile_submodule",
+          "startLine": 123,
+          "endLine": 128,
+          "params": [
+            "m"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "PyPidfileError",
+          "startLine": 14,
+          "endLine": 14,
+          "methods": [
+            "into_pyerr",
+            "__repr__",
+            "__str__"
+          ],
+          "properties": []
+        },
+        {
+          "name": "PyPidfile",
+          "startLine": 58,
+          "endLine": 58,
+          "methods": [
+            "get",
+            "get_mut",
+            "py_new",
+            "write",
+            "as_raw_fd",
+            "close"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "PyPidfileError",
+          "line": 14,
+          "isDefault": false
+        },
+        {
+          "name": "PyPidfile",
+          "line": 58,
+          "isDefault": false
+        },
+        {
+          "name": "pidfile_submodule",
+          "line": 123,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "into_pyerr",
+          "callee": "Bound::new",
+          "lineNumber": 19
+        },
+        {
+          "caller": "into_pyerr",
+          "callee": "PyErr::from_value",
+          "lineNumber": 20
+        },
+        {
+          "caller": "into_pyerr",
+          "callee": "err.into_any",
+          "lineNumber": 20
+        },
+        {
+          "caller": "__str__",
+          "callee": "self.0.to_string",
+          "lineNumber": 34
+        },
+        {
+          "caller": "get",
+          "callee": "self.0\n            .as_ref().expect",
+          "lineNumber": 63
+        },
+        {
+          "caller": "get",
+          "callee": "self.0.as_ref",
+          "lineNumber": 63
+        },
+        {
+          "caller": "get_mut",
+          "callee": "self.0\n            .as_mut().expect",
+          "lineNumber": 70
+        },
+        {
+          "caller": "get_mut",
+          "callee": "self.0.as_mut",
+          "lineNumber": 70
+        },
+        {
+          "caller": "py_new",
+          "callee": "path.parent",
+          "lineNumber": 87
+        },
+        {
+          "caller": "py_new",
+          "callee": "fs::create_dir_all(parent).map_err",
+          "lineNumber": 88
+        },
+        {
+          "caller": "py_new",
+          "callee": "fs::create_dir_all",
+          "lineNumber": 88
+        },
+        {
+          "caller": "py_new",
+          "callee": "PyPidfileError(PidfileError::Io(e)).into_pyerr",
+          "lineNumber": 89
+        },
+        {
+          "caller": "py_new",
+          "callee": "PyPidfileError",
+          "lineNumber": 89
+        },
+        {
+          "caller": "py_new",
+          "callee": "PidfileError::Io",
+          "lineNumber": 89
+        },
+        {
+          "caller": "py_new",
+          "callee": "Pidfile::new(&path, Permissions::from_mode(mode)).map_err",
+          "lineNumber": 92
+        },
+        {
+          "caller": "py_new",
+          "callee": "Pidfile::new",
+          "lineNumber": 92
+        },
+        {
+          "caller": "py_new",
+          "callee": "Permissions::from_mode",
+          "lineNumber": 92
+        },
+        {
+          "caller": "py_new",
+          "callee": "PyPidfileError(e).into_pyerr",
+          "lineNumber": 93
+        },
+        {
+          "caller": "py_new",
+          "callee": "PyPidfileError",
+          "lineNumber": 93
+        },
+        {
+          "caller": "py_new",
+          "callee": "Ok",
+          "lineNumber": 94
+        },
+        {
+          "caller": "py_new",
+          "callee": "Self",
+          "lineNumber": 94
+        },
+        {
+          "caller": "py_new",
+          "callee": "Some",
+          "lineNumber": 94
+        },
+        {
+          "caller": "write",
+          "callee": "self.get_mut()\n            .write().map_err",
+          "lineNumber": 101
+        },
+        {
+          "caller": "write",
+          "callee": "self.get_mut().write",
+          "lineNumber": 101
+        },
+        {
+          "caller": "write",
+          "callee": "self.get_mut",
+          "lineNumber": 101
+        },
+        {
+          "caller": "write",
+          "callee": "PyPidfileError(e).into_pyerr",
+          "lineNumber": 103
+        },
+        {
+          "caller": "write",
+          "callee": "PyPidfileError",
+          "lineNumber": 103
+        },
+        {
+          "caller": "as_raw_fd",
+          "callee": "self.get().as_raw_fd",
+          "lineNumber": 114
+        },
+        {
+          "caller": "as_raw_fd",
+          "callee": "self.get",
+          "lineNumber": 114
+        },
+        {
+          "caller": "pidfile_submodule",
+          "callee": "m.add_class::<PyPidfileError>",
+          "lineNumber": 124
+        },
+        {
+          "caller": "pidfile_submodule",
+          "callee": "m.add_class::<PyPidfile>",
+          "lineNumber": 125
+        },
+        {
+          "caller": "pidfile_submodule",
+          "callee": "Ok",
+          "lineNumber": 127
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 3,
+        "functionCount": 10,
+        "classCount": 2
+      }
+    }
+  ]
+}

@@ -1,0 +1,116 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 3,
+  "filesSkipped": [],
+  "analysisOutcomes": {
+    "structure": {
+      "succeeded": 3,
+      "failed": 0
+    },
+    "callGraph": {
+      "succeeded": 0,
+      "failed": 0,
+      "skipped": 3
+    }
+  },
+  "results": [
+    {
+      "path": "resources/inference_model_cards/mlx-community--llama-3.3-70b-instruct-fp16.toml",
+      "language": "toml",
+      "fileCategory": "config",
+      "totalLines": 21,
+      "nonEmptyLines": 19,
+      "sections": [
+        {
+          "heading": "storage_size",
+          "level": 1,
+          "line": 14
+        },
+        {
+          "heading": "sampling_defaults",
+          "level": 1,
+          "line": 19
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 2
+      }
+    },
+    {
+      "path": "resources/inference_model_cards/moonshotai--Kimi-K2.6.toml",
+      "language": "toml",
+      "fileCategory": "config",
+      "totalLines": 33,
+      "nonEmptyLines": 29,
+      "sections": [
+        {
+          "heading": "storage_size",
+          "level": 1,
+          "line": 14
+        },
+        {
+          "heading": "vision",
+          "level": 1,
+          "line": 17
+        },
+        {
+          "heading": "sampling_defaults",
+          "level": 1,
+          "line": 24
+        },
+        {
+          "heading": "sampling_defaults.non_thinking",
+          "level": 2,
+          "line": 30
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 4
+      }
+    },
+    {
+      "path": "resources/inference_model_cards/moonshotai--Kimi-K2.7-Code.toml",
+      "language": "toml",
+      "fileCategory": "config",
+      "totalLines": 36,
+      "nonEmptyLines": 32,
+      "sections": [
+        {
+          "heading": "storage_size",
+          "level": 1,
+          "line": 14
+        },
+        {
+          "heading": "vision",
+          "level": 1,
+          "line": 20
+        },
+        {
+          "heading": "sampling_defaults",
+          "level": 1,
+          "line": 28
+        },
+        {
+          "heading": "sampling_defaults.non_thinking",
+          "level": 2,
+          "line": 33
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 4
+      }
+    }
+  ]
+}

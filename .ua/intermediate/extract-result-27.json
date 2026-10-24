@@ -1,0 +1,3955 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 25,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": ".typings/mlx_lm/models/bitlinear_layers.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 26,
+      "nonEmptyLines": 22,
+      "functions": [
+        {
+          "name": "bitnet_quantize",
+          "startLine": 7,
+          "endLine": 7,
+          "params": [
+            "model",
+            "quantization_config"
+          ]
+        },
+        {
+          "name": "make_bitlinear_kernel",
+          "startLine": 8,
+          "endLine": 13,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "BitLinear",
+          "startLine": 17,
+          "endLine": 26,
+          "methods": [
+            "__init__",
+            "execute_matmul_kernel",
+            "__call__"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "bitnet_quantize",
+          "line": 7,
+          "isDefault": false
+        },
+        {
+          "name": "make_bitlinear_kernel",
+          "line": 8,
+          "isDefault": false
+        },
+        {
+          "name": "BitLinear",
+          "line": 17,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 3,
+        "functionCount": 2,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mlx_lm/models/cache.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 352,
+      "nonEmptyLines": 318,
+      "functions": [
+        {
+          "name": "make_prompt_cache",
+          "startLine": 23,
+          "endLine": 37,
+          "params": [
+            "model",
+            "max_kv_size"
+          ]
+        },
+        {
+          "name": "save_prompt_cache",
+          "startLine": 39,
+          "endLine": 50,
+          "params": [
+            "file_name",
+            "cache",
+            "metadata"
+          ]
+        },
+        {
+          "name": "load_prompt_cache",
+          "startLine": 52,
+          "endLine": 64,
+          "params": [
+            "file_name",
+            "return_metadata"
+          ]
+        },
+        {
+          "name": "can_trim_prompt_cache",
+          "startLine": 66,
+          "endLine": 69,
+          "params": [
+            "cache"
+          ]
+        },
+        {
+          "name": "trim_prompt_cache",
+          "startLine": 71,
+          "endLine": 84,
+          "params": [
+            "cache",
+            "num_tokens"
+          ]
+        },
+        {
+          "name": "create_attention_mask",
+          "startLine": 86,
+          "endLine": 88,
+          "params": [
+            "N",
+            "offset",
+            "return_array",
+            "window_size"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "Cache",
+          "startLine": 11,
+          "endLine": 21,
+          "methods": [
+            "update_and_fetch",
+            "state",
+            "state"
+          ],
+          "properties": [
+            "keys",
+            "values",
+            "offset"
+          ]
+        },
+        {
+          "name": "_BaseCache",
+          "startLine": 90,
+          "endLine": 105,
+          "methods": [
+            "state",
+            "state",
+            "meta_state",
+            "meta_state",
+            "trim",
+            "is_trimmable",
+            "from_state"
+          ],
+          "properties": [
+            "keys",
+            "values",
+            "offset"
+          ]
+        },
+        {
+          "name": "ConcatenateKVCache",
+          "startLine": 107,
+          "endLine": 126,
+          "methods": [
+            "__init__",
+            "update_and_fetch",
+            "state",
+            "state",
+            "is_trimmable",
+            "trim",
+            "make_mask"
+          ],
+          "properties": []
+        },
+        {
+          "name": "QuantizedKVCache",
+          "startLine": 128,
+          "endLine": 148,
+          "methods": [
+            "__init__",
+            "update_and_fetch",
+            "state",
+            "state",
+            "meta_state",
+            "meta_state",
+            "is_trimmable",
+            "trim",
+            "make_mask"
+          ],
+          "properties": []
+        },
+        {
+          "name": "KVCache",
+          "startLine": 150,
+          "endLine": 169,
+          "methods": [
+            "__init__",
+            "update_and_fetch",
+            "state",
+            "state",
+            "is_trimmable",
+            "trim",
+            "to_quantized",
+            "make_mask"
+          ],
+          "properties": []
+        },
+        {
+          "name": "RotatingKVCache",
+          "startLine": 171,
+          "endLine": 208,
+          "methods": [
+            "__init__",
+            "_trim",
+            "update_and_fetch",
+            "state",
+            "state",
+            "meta_state",
+            "meta_state",
+            "is_trimmable",
+            "trim",
+            "to_quantized",
+            "make_mask"
+          ],
+          "properties": [
+            "keys",
+            "values",
+            "keep",
+            "max_size",
+            "_idx"
+          ]
+        },
+        {
+          "name": "ArraysCache",
+          "startLine": 210,
+          "endLine": 230,
+          "methods": [
+            "__init__",
+            "__setitem__",
+            "__getitem__",
+            "state",
+            "state",
+            "filter",
+            "extend",
+            "make_mask"
+          ],
+          "properties": []
+        },
+        {
+          "name": "MambaCache",
+          "startLine": 232,
+          "endLine": 233,
+          "methods": [
+            "__init__"
+          ],
+          "properties": []
+        },
+        {
+          "name": "ChunkedKVCache",
+          "startLine": 235,
+          "endLine": 247,
+          "methods": [
+            "__init__",
+            "maybe_trim_front",
+            "update_and_fetch",
+            "trim",
+            "meta_state",
+            "meta_state"
+          ],
+          "properties": []
+        },
+        {
+          "name": "CacheList",
+          "startLine": 249,
+          "endLine": 268,
+          "methods": [
+            "__init__",
+            "__getitem__",
+            "is_trimmable",
+            "trim",
+            "state",
+            "state",
+            "filter",
+            "extend"
+          ],
+          "properties": []
+        },
+        {
+          "name": "BatchKVCache",
+          "startLine": 270,
+          "endLine": 301,
+          "methods": [
+            "__init__",
+            "update_and_fetch",
+            "state",
+            "state",
+            "is_trimmable",
+            "trim",
+            "make_mask",
+            "filter",
+            "extend"
+          ],
+          "properties": [
+            "step",
+            "keys",
+            "values",
+            "offset",
+            "left_padding",
+            "_idx"
+          ]
+        },
+        {
+          "name": "BatchRotatingKVCache",
+          "startLine": 303,
+          "endLine": 352,
+          "methods": [
+            "__init__",
+            "_trim",
+            "_update_in_place",
+            "_update_concat",
+            "update_and_fetch",
+            "state",
+            "state",
+            "meta_state",
+            "meta_state",
+            "is_trimmable",
+            "trim",
+            "to_quantized",
+            "make_mask",
+            "filter",
+            "extend"
+          ],
+          "properties": [
+            "step",
+            "keys",
+            "values",
+            "offset",
+            "left_padding",
+            "max_size",
+            "_idx",
+            "_offset",
+            "rotated",
+            "_lengths"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "Cache",
+          "line": 11,
+          "isDefault": false
+        },
+        {
+          "name": "make_prompt_cache",
+          "line": 23,
+          "isDefault": false
+        },
+        {
+          "name": "save_prompt_cache",
+          "line": 39,
+          "isDefault": false
+        },
+        {
+          "name": "load_prompt_cache",
+          "line": 52,
+          "isDefault": false
+        },
+        {
+          "name": "can_trim_prompt_cache",
+          "line": 66,
+          "isDefault": false
+        },
+        {
+          "name": "trim_prompt_cache",
+          "line": 71,
+          "isDefault": false
+        },
+        {
+          "name": "create_attention_mask",
+          "line": 86,
+          "isDefault": false
+        },
+        {
+          "name": "_BaseCache",
+          "line": 90,
+          "isDefault": false
+        },
+        {
+          "name": "ConcatenateKVCache",
+          "line": 107,
+          "isDefault": false
+        },
+        {
+          "name": "QuantizedKVCache",
+          "line": 128,
+          "isDefault": false
+        },
+        {
+          "name": "KVCache",
+          "line": 150,
+          "isDefault": false
+        },
+        {
+          "name": "RotatingKVCache",
+          "line": 171,
+          "isDefault": false
+        },
+        {
+          "name": "ArraysCache",
+          "line": 210,
+          "isDefault": false
+        },
+        {
+          "name": "MambaCache",
+          "line": 232,
+          "isDefault": false
+        },
+        {
+          "name": "ChunkedKVCache",
+          "line": 235,
+          "isDefault": false
+        },
+        {
+          "name": "CacheList",
+          "line": 249,
+          "isDefault": false
+        },
+        {
+          "name": "BatchKVCache",
+          "line": 270,
+          "isDefault": false
+        },
+        {
+          "name": "BatchRotatingKVCache",
+          "line": 303,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 18,
+        "functionCount": 6,
+        "classCount": 12
+      }
+    },
+    {
+      "path": ".typings/mlx_lm/models/deepseek_v3.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 160,
+      "nonEmptyLines": 141,
+      "classes": [
+        {
+          "name": "ModelArgs",
+          "startLine": 14,
+          "endLine": 43,
+          "methods": [],
+          "properties": [
+            "model_type",
+            "vocab_size",
+            "hidden_size",
+            "intermediate_size",
+            "moe_intermediate_size",
+            "num_hidden_layers",
+            "num_attention_heads",
+            "num_key_value_heads",
+            "n_shared_experts",
+            "n_routed_experts",
+            "routed_scaling_factor",
+            "kv_lora_rank",
+            "q_lora_rank",
+            "qk_rope_head_dim",
+            "v_head_dim",
+            "qk_nope_head_dim",
+            "topk_method",
+            "scoring_func",
+            "norm_topk_prob",
+            "n_group",
+            "topk_group",
+            "num_experts_per_tok",
+            "moe_layer_freq",
+            "first_k_dense_replace",
+            "max_position_embeddings",
+            "rms_norm_eps",
+            "rope_theta",
+            "rope_scaling",
+            "attention_bias"
+          ]
+        },
+        {
+          "name": "DeepseekV3Attention",
+          "startLine": 45,
+          "endLine": 77,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": [
+            "config",
+            "hidden_size",
+            "num_heads",
+            "max_position_embeddings",
+            "rope_theta",
+            "q_lora_rank",
+            "qk_rope_head_dim",
+            "kv_lora_rank",
+            "v_head_dim",
+            "qk_nope_head_dim",
+            "q_head_dim",
+            "scale",
+            "q_proj",
+            "q_a_proj",
+            "q_a_layernorm",
+            "q_b_proj",
+            "kv_a_proj_with_mqa",
+            "kv_a_layernorm",
+            "embed_q",
+            "unembed_out",
+            "o_proj",
+            "rope"
+          ]
+        },
+        {
+          "name": "DeepseekV3MLP",
+          "startLine": 79,
+          "endLine": 93,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": [
+            "config",
+            "hidden_size",
+            "intermediate_size",
+            "gate_proj",
+            "up_proj",
+            "down_proj"
+          ]
+        },
+        {
+          "name": "MoEGate",
+          "startLine": 95,
+          "endLine": 107,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": [
+            "config",
+            "top_k",
+            "norm_topk_prob",
+            "n_routed_experts",
+            "routed_scaling_factor",
+            "n_group",
+            "topk_group",
+            "weight",
+            "e_score_correction_bias"
+          ]
+        },
+        {
+          "name": "DeepseekV3MoE",
+          "startLine": 109,
+          "endLine": 118,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": [
+            "config",
+            "num_experts_per_tok",
+            "switch_mlp",
+            "gate",
+            "shared_experts",
+            "sharding_group"
+          ]
+        },
+        {
+          "name": "DeepseekV3DecoderLayer",
+          "startLine": 120,
+          "endLine": 132,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": [
+            "self_attn",
+            "mlp",
+            "input_layernorm",
+            "post_attention_layernorm"
+          ]
+        },
+        {
+          "name": "DeepseekV3Model",
+          "startLine": 134,
+          "endLine": 145,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": [
+            "vocab_size",
+            "embed_tokens",
+            "layers",
+            "norm"
+          ]
+        },
+        {
+          "name": "Model",
+          "startLine": 147,
+          "endLine": 160,
+          "methods": [
+            "__init__",
+            "__call__",
+            "sanitize",
+            "layers"
+          ],
+          "properties": [
+            "model_type",
+            "model",
+            "lm_head"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "ModelArgs",
+          "line": 13,
+          "isDefault": false
+        },
+        {
+          "name": "DeepseekV3Attention",
+          "line": 45,
+          "isDefault": false
+        },
+        {
+          "name": "DeepseekV3MLP",
+          "line": 79,
+          "isDefault": false
+        },
+        {
+          "name": "MoEGate",
+          "line": 95,
+          "isDefault": false
+        },
+        {
+          "name": "DeepseekV3MoE",
+          "line": 109,
+          "isDefault": false
+        },
+        {
+          "name": "DeepseekV3DecoderLayer",
+          "line": 120,
+          "isDefault": false
+        },
+        {
+          "name": "DeepseekV3Model",
+          "line": 134,
+          "isDefault": false
+        },
+        {
+          "name": "Model",
+          "line": 147,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 8,
+        "functionCount": 0,
+        "classCount": 8
+      }
+    },
+    {
+      "path": ".typings/mlx_lm/models/deepseek_v4.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 280,
+      "nonEmptyLines": 249,
+      "classes": [
+        {
+          "name": "ModelArgs",
+          "startLine": 14,
+          "endLine": 42,
+          "methods": [],
+          "properties": [
+            "model_type",
+            "vocab_size",
+            "hidden_size",
+            "intermediate_size",
+            "moe_intermediate_size",
+            "num_hidden_layers",
+            "num_attention_heads",
+            "num_key_value_heads",
+            "n_shared_experts",
+            "n_routed_experts",
+            "num_experts_per_tok",
+            "head_dim",
+            "qk_rope_head_dim",
+            "q_lora_rank",
+            "o_lora_rank",
+            "o_groups",
+            "sliding_window",
+            "hc_mult",
+            "hc_sinkhorn_iters",
+            "hc_eps",
+            "compress_ratios",
+            "compress_rope_theta",
+            "rope_theta",
+            "rope_scaling",
+            "rms_norm_eps",
+            "swiglu_limit",
+            "attention_bias",
+            "max_position_embeddings"
+          ]
+        },
+        {
+          "name": "DeepseekV4RoPE",
+          "startLine": 44,
+          "endLine": 59,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": [
+            "dims",
+            "freqs"
+          ]
+        },
+        {
+          "name": "HyperConnection",
+          "startLine": 61,
+          "endLine": 73,
+          "methods": [
+            "__init__"
+          ],
+          "properties": [
+            "dim",
+            "hc_mult",
+            "norm_eps"
+          ]
+        },
+        {
+          "name": "HyperHead",
+          "startLine": 75,
+          "endLine": 86,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": [
+            "dim",
+            "hc_mult"
+          ]
+        },
+        {
+          "name": "Compressor",
+          "startLine": 88,
+          "endLine": 114,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": [
+            "dim",
+            "head_dim",
+            "rope_head_dim",
+            "compress_ratio",
+            "overlap",
+            "wkv_gate",
+            "ape",
+            "norm",
+            "rope"
+          ]
+        },
+        {
+          "name": "Indexer",
+          "startLine": 116,
+          "endLine": 122,
+          "methods": [
+            "__init__"
+          ],
+          "properties": []
+        },
+        {
+          "name": "_CompressorBranch",
+          "startLine": 124,
+          "endLine": 135,
+          "methods": [
+            "__init__"
+          ],
+          "properties": [
+            "buffer_kv",
+            "buffer_gate",
+            "prev_kv",
+            "prev_gate",
+            "pool",
+            "buffer_lengths",
+            "pool_lengths",
+            "buffer_count",
+            "_new_pool_lengths"
+          ]
+        },
+        {
+          "name": "DeepseekV4Cache",
+          "startLine": 137,
+          "endLine": 168,
+          "methods": [
+            "__init__",
+            "update_and_fetch",
+            "is_trimmable",
+            "trim",
+            "empty",
+            "size",
+            "prepare",
+            "finalize",
+            "filter",
+            "extend",
+            "extract",
+            "merge"
+          ],
+          "properties": [
+            "local",
+            "offset",
+            "keys",
+            "values",
+            "state",
+            "meta_state",
+            "nbytes",
+            "_branches",
+            "_pending_lengths"
+          ]
+        },
+        {
+          "name": "V4Attention",
+          "startLine": 170,
+          "endLine": 202,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": [
+            "args",
+            "layer_id",
+            "dim",
+            "n_heads",
+            "head_dim",
+            "rope_head_dim",
+            "nope_head_dim",
+            "n_groups",
+            "q_lora_rank",
+            "o_lora_rank",
+            "window",
+            "eps",
+            "scale",
+            "compress_ratio",
+            "wqkv_a",
+            "q_norm",
+            "wq_b",
+            "kv_norm",
+            "attn_sink",
+            "wo_a",
+            "wo_b",
+            "rope",
+            "compressor",
+            "indexer"
+          ]
+        },
+        {
+          "name": "DeepseekV4MLP",
+          "startLine": 204,
+          "endLine": 215,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": [
+            "gate_proj",
+            "up_proj",
+            "down_proj"
+          ]
+        },
+        {
+          "name": "MoEGate",
+          "startLine": 217,
+          "endLine": 223,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": [
+            "weight"
+          ]
+        },
+        {
+          "name": "DeepseekV4MoE",
+          "startLine": 225,
+          "endLine": 232,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": [
+            "num_experts_per_tok",
+            "switch_mlp",
+            "gate",
+            "shared_experts"
+          ]
+        },
+        {
+          "name": "DeepseekV4Block",
+          "startLine": 234,
+          "endLine": 248,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": [
+            "attn_norm",
+            "attn",
+            "hc_attn",
+            "ffn_norm",
+            "ffn",
+            "hc_ffn"
+          ]
+        },
+        {
+          "name": "DeepseekV4Model",
+          "startLine": 250,
+          "endLine": 263,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": [
+            "args",
+            "vocab_size",
+            "embed_tokens",
+            "layers",
+            "norm",
+            "hc_head"
+          ]
+        },
+        {
+          "name": "Model",
+          "startLine": 265,
+          "endLine": 280,
+          "methods": [
+            "__init__",
+            "__call__",
+            "sanitize",
+            "make_cache",
+            "layers"
+          ],
+          "properties": [
+            "args",
+            "model_type",
+            "model",
+            "lm_head"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "ModelArgs",
+          "line": 13,
+          "isDefault": false
+        },
+        {
+          "name": "DeepseekV4RoPE",
+          "line": 44,
+          "isDefault": false
+        },
+        {
+          "name": "HyperConnection",
+          "line": 61,
+          "isDefault": false
+        },
+        {
+          "name": "HyperHead",
+          "line": 75,
+          "isDefault": false
+        },
+        {
+          "name": "Compressor",
+          "line": 88,
+          "isDefault": false
+        },
+        {
+          "name": "Indexer",
+          "line": 116,
+          "isDefault": false
+        },
+        {
+          "name": "_CompressorBranch",
+          "line": 124,
+          "isDefault": false
+        },
+        {
+          "name": "DeepseekV4Cache",
+          "line": 137,
+          "isDefault": false
+        },
+        {
+          "name": "V4Attention",
+          "line": 170,
+          "isDefault": false
+        },
+        {
+          "name": "DeepseekV4MLP",
+          "line": 204,
+          "isDefault": false
+        },
+        {
+          "name": "MoEGate",
+          "line": 217,
+          "isDefault": false
+        },
+        {
+          "name": "DeepseekV4MoE",
+          "line": 225,
+          "isDefault": false
+        },
+        {
+          "name": "DeepseekV4Block",
+          "line": 234,
+          "isDefault": false
+        },
+        {
+          "name": "DeepseekV4Model",
+          "line": 250,
+          "isDefault": false
+        },
+        {
+          "name": "Model",
+          "line": 265,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 15,
+        "functionCount": 0,
+        "classCount": 15
+      }
+    },
+    {
+      "path": ".typings/mlx_lm/models/gated_delta.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 35,
+      "nonEmptyLines": 33,
+      "functions": [
+        {
+          "name": "compute_g",
+          "startLine": 5,
+          "endLine": 5,
+          "params": [
+            "A_log",
+            "a",
+            "dt_bias"
+          ]
+        },
+        {
+          "name": "gated_delta_update",
+          "startLine": 6,
+          "endLine": 17,
+          "params": [
+            "q",
+            "k",
+            "v",
+            "a",
+            "b",
+            "A_log",
+            "dt_bias",
+            "state",
+            "mask",
+            "use_kernel"
+          ]
+        },
+        {
+          "name": "gated_delta_ops",
+          "startLine": 18,
+          "endLine": 26,
+          "params": [
+            "q",
+            "k",
+            "v",
+            "g",
+            "beta",
+            "state",
+            "mask"
+          ]
+        },
+        {
+          "name": "gated_delta_kernel",
+          "startLine": 27,
+          "endLine": 35,
+          "params": [
+            "q",
+            "k",
+            "v",
+            "g",
+            "beta",
+            "state",
+            "mask"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "compute_g",
+          "line": 5,
+          "isDefault": false
+        },
+        {
+          "name": "gated_delta_update",
+          "line": 6,
+          "isDefault": false
+        },
+        {
+          "name": "gated_delta_ops",
+          "line": 18,
+          "isDefault": false
+        },
+        {
+          "name": "gated_delta_kernel",
+          "line": 27,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 4,
+        "functionCount": 4,
+        "classCount": 0
+      }
+    },
+    {
+      "path": ".typings/mlx_lm/models/gemma4_text.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 179,
+      "nonEmptyLines": 161,
+      "classes": [
+        {
+          "name": "ModelArgs",
+          "startLine": 12,
+          "endLine": 45,
+          "methods": [
+            "__post_init__"
+          ],
+          "properties": [
+            "model_type",
+            "hidden_size",
+            "num_hidden_layers",
+            "intermediate_size",
+            "num_attention_heads",
+            "head_dim",
+            "global_head_dim",
+            "global_partial_rotary_factor",
+            "rms_norm_eps",
+            "vocab_size",
+            "vocab_size_per_layer_input",
+            "num_key_value_heads",
+            "num_global_key_value_heads",
+            "num_kv_shared_layers",
+            "pad_token_id",
+            "hidden_size_per_layer_input",
+            "rope_traditional",
+            "partial_rotary_factor",
+            "rope_parameters",
+            "sliding_window",
+            "sliding_window_pattern",
+            "max_position_embeddings",
+            "attention_k_eq_v",
+            "final_logit_softcapping",
+            "use_double_wide_mlp",
+            "enable_moe_block",
+            "num_experts",
+            "top_k_experts",
+            "moe_intermediate_size",
+            "layer_types",
+            "tie_word_embeddings"
+          ]
+        },
+        {
+          "name": "MLP",
+          "startLine": 47,
+          "endLine": 53,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": [
+            "gate_proj",
+            "down_proj",
+            "up_proj"
+          ]
+        },
+        {
+          "name": "Router",
+          "startLine": 55,
+          "endLine": 61,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": [
+            "proj",
+            "scale",
+            "per_expert_scale"
+          ]
+        },
+        {
+          "name": "Experts",
+          "startLine": 63,
+          "endLine": 69,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": [
+            "switch_glu"
+          ]
+        },
+        {
+          "name": "Attention",
+          "startLine": 71,
+          "endLine": 90,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": [
+            "layer_idx",
+            "layer_type",
+            "is_sliding",
+            "head_dim",
+            "n_heads",
+            "n_kv_heads",
+            "use_k_eq_v",
+            "scale",
+            "q_proj",
+            "k_proj",
+            "v_proj",
+            "o_proj",
+            "q_norm",
+            "k_norm",
+            "v_norm",
+            "rope"
+          ]
+        },
+        {
+          "name": "DecoderLayer",
+          "startLine": 92,
+          "endLine": 122,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": [
+            "layer_idx",
+            "layer_type",
+            "self_attn",
+            "mlp",
+            "enable_moe",
+            "router",
+            "experts",
+            "input_layernorm",
+            "post_attention_layernorm",
+            "pre_feedforward_layernorm",
+            "post_feedforward_layernorm",
+            "post_feedforward_layernorm_1",
+            "post_feedforward_layernorm_2",
+            "pre_feedforward_layernorm_2",
+            "hidden_size_per_layer_input",
+            "per_layer_input_gate",
+            "per_layer_projection",
+            "post_per_layer_input_norm",
+            "layer_scalar"
+          ]
+        },
+        {
+          "name": "Gemma4TextModel",
+          "startLine": 124,
+          "endLine": 158,
+          "methods": [
+            "__init__",
+            "__call__",
+            "_get_per_layer_inputs",
+            "_project_per_layer_inputs",
+            "_make_masks"
+          ],
+          "properties": [
+            "config",
+            "vocab_size",
+            "window_size",
+            "sliding_window_pattern",
+            "num_hidden_layers",
+            "embed_tokens",
+            "embed_scale",
+            "layers",
+            "norm",
+            "hidden_size_per_layer_input",
+            "embed_tokens_per_layer",
+            "per_layer_model_projection",
+            "per_layer_projection_norm",
+            "previous_kvs"
+          ]
+        },
+        {
+          "name": "Model",
+          "startLine": 160,
+          "endLine": 179,
+          "methods": [
+            "__init__",
+            "__call__",
+            "sanitize",
+            "layers",
+            "head_dim",
+            "n_kv_heads",
+            "quant_predicate",
+            "make_cache"
+          ],
+          "properties": [
+            "args",
+            "model_type",
+            "model",
+            "final_logit_softcapping",
+            "tie_word_embeddings",
+            "lm_head"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "ModelArgs",
+          "line": 11,
+          "isDefault": false
+        },
+        {
+          "name": "MLP",
+          "line": 47,
+          "isDefault": false
+        },
+        {
+          "name": "Router",
+          "line": 55,
+          "isDefault": false
+        },
+        {
+          "name": "Experts",
+          "line": 63,
+          "isDefault": false
+        },
+        {
+          "name": "Attention",
+          "line": 71,
+          "isDefault": false
+        },
+        {
+          "name": "DecoderLayer",
+          "line": 92,
+          "isDefault": false
+        },
+        {
+          "name": "Gemma4TextModel",
+          "line": 124,
+          "isDefault": false
+        },
+        {
+          "name": "Model",
+          "line": 160,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 8,
+        "functionCount": 0,
+        "classCount": 8
+      }
+    },
+    {
+      "path": ".typings/mlx_lm/models/gemma4.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 31,
+      "nonEmptyLines": 25,
+      "classes": [
+        {
+          "name": "ModelArgs",
+          "startLine": 12,
+          "endLine": 17,
+          "methods": [
+            "__post_init__"
+          ],
+          "properties": [
+            "model_type",
+            "text_config",
+            "vocab_size"
+          ]
+        },
+        {
+          "name": "Model",
+          "startLine": 19,
+          "endLine": 31,
+          "methods": [
+            "__init__",
+            "__call__",
+            "sanitize",
+            "layers",
+            "quant_predicate",
+            "make_cache"
+          ],
+          "properties": [
+            "args",
+            "model_type",
+            "language_model"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "ModelArgs",
+          "line": 11,
+          "isDefault": false
+        },
+        {
+          "name": "Model",
+          "line": 19,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 2,
+        "functionCount": 0,
+        "classCount": 2
+      }
+    },
+    {
+      "path": ".typings/mlx_lm/models/glm_moe_dsa.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 46,
+      "nonEmptyLines": 42,
+      "classes": [
+        {
+          "name": "ModelArgs",
+          "startLine": 10,
+          "endLine": 43,
+          "methods": [],
+          "properties": [
+            "model_type",
+            "vocab_size",
+            "hidden_size",
+            "index_head_dim",
+            "index_n_heads",
+            "index_topk",
+            "intermediate_size",
+            "moe_intermediate_size",
+            "num_hidden_layers",
+            "num_attention_heads",
+            "num_key_value_heads",
+            "n_shared_experts",
+            "n_routed_experts",
+            "routed_scaling_factor",
+            "kv_lora_rank",
+            "q_lora_rank",
+            "qk_rope_head_dim",
+            "v_head_dim",
+            "qk_nope_head_dim",
+            "topk_method",
+            "scoring_func",
+            "norm_topk_prob",
+            "n_group",
+            "topk_group",
+            "num_experts_per_tok",
+            "moe_layer_freq",
+            "first_k_dense_replace",
+            "max_position_embeddings",
+            "rms_norm_eps",
+            "rope_parameters",
+            "attention_bias",
+            "rope_scaling",
+            "rope_theta"
+          ]
+        },
+        {
+          "name": "Model",
+          "startLine": 45,
+          "endLine": 46,
+          "methods": [
+            "__init__"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "ModelArgs",
+          "line": 9,
+          "isDefault": false
+        },
+        {
+          "name": "Model",
+          "line": 45,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 2,
+        "functionCount": 0,
+        "classCount": 2
+      }
+    },
+    {
+      "path": ".typings/mlx_lm/models/glm4_moe.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 153,
+      "nonEmptyLines": 136,
+      "classes": [
+        {
+          "name": "ModelArgs",
+          "startLine": 11,
+          "endLine": 38,
+          "methods": [],
+          "properties": [
+            "model_type",
+            "vocab_size",
+            "hidden_size",
+            "intermediate_size",
+            "max_position_embeddings",
+            "moe_intermediate_size",
+            "norm_topk_prob",
+            "num_attention_heads",
+            "n_group",
+            "head_dim",
+            "topk_group",
+            "n_shared_experts",
+            "n_routed_experts",
+            "routed_scaling_factor",
+            "num_experts_per_tok",
+            "first_k_dense_replace",
+            "num_hidden_layers",
+            "num_key_value_heads",
+            "rms_norm_eps",
+            "rope_theta",
+            "rope_scaling",
+            "use_qk_norm",
+            "tie_word_embeddings",
+            "attention_bias",
+            "partial_rotary_factor",
+            "scoring_func",
+            "topk_method"
+          ]
+        },
+        {
+          "name": "Attention",
+          "startLine": 40,
+          "endLine": 59,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": [
+            "n_heads",
+            "n_kv_heads",
+            "scale",
+            "q_proj",
+            "k_proj",
+            "v_proj",
+            "o_proj",
+            "use_qk_norm",
+            "q_norm",
+            "k_norm",
+            "rope"
+          ]
+        },
+        {
+          "name": "MLP",
+          "startLine": 61,
+          "endLine": 75,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": [
+            "config",
+            "hidden_size",
+            "intermediate_size",
+            "gate_proj",
+            "up_proj",
+            "down_proj"
+          ]
+        },
+        {
+          "name": "MoEGate",
+          "startLine": 77,
+          "endLine": 89,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": [
+            "config",
+            "top_k",
+            "norm_topk_prob",
+            "n_routed_experts",
+            "routed_scaling_factor",
+            "n_group",
+            "topk_group",
+            "weight",
+            "e_score_correction_bias"
+          ]
+        },
+        {
+          "name": "MoE",
+          "startLine": 91,
+          "endLine": 100,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": [
+            "config",
+            "num_experts_per_tok",
+            "switch_mlp",
+            "gate",
+            "shared_experts",
+            "sharding_group"
+          ]
+        },
+        {
+          "name": "DecoderLayer",
+          "startLine": 102,
+          "endLine": 114,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": [
+            "self_attn",
+            "mlp",
+            "input_layernorm",
+            "post_attention_layernorm"
+          ]
+        },
+        {
+          "name": "LanguageModel",
+          "startLine": 116,
+          "endLine": 134,
+          "methods": [
+            "__init__",
+            "__call__",
+            "pipeline_layers"
+          ],
+          "properties": [
+            "vocab_size",
+            "embed_tokens",
+            "layers",
+            "norm",
+            "pipeline_rank",
+            "pipeline_size",
+            "start_idx",
+            "end_idx",
+            "num_layers"
+          ]
+        },
+        {
+          "name": "Model",
+          "startLine": 136,
+          "endLine": 153,
+          "methods": [
+            "__init__",
+            "__call__",
+            "sanitize",
+            "shard",
+            "layers",
+            "cast_predicate"
+          ],
+          "properties": [
+            "args",
+            "model_type",
+            "model",
+            "lm_head"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "ModelArgs",
+          "line": 10,
+          "isDefault": false
+        },
+        {
+          "name": "Attention",
+          "line": 40,
+          "isDefault": false
+        },
+        {
+          "name": "MLP",
+          "line": 61,
+          "isDefault": false
+        },
+        {
+          "name": "MoEGate",
+          "line": 77,
+          "isDefault": false
+        },
+        {
+          "name": "MoE",
+          "line": 91,
+          "isDefault": false
+        },
+        {
+          "name": "DecoderLayer",
+          "line": 102,
+          "isDefault": false
+        },
+        {
+          "name": "LanguageModel",
+          "line": 116,
+          "isDefault": false
+        },
+        {
+          "name": "Model",
+          "line": 136,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 8,
+        "functionCount": 0,
+        "classCount": 8
+      }
+    },
+    {
+      "path": ".typings/mlx_lm/models/gpt_oss.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 103,
+      "nonEmptyLines": 88,
+      "functions": [
+        {
+          "name": "mlx_topk",
+          "startLine": 28,
+          "endLine": 28,
+          "params": [
+            "a",
+            "k",
+            "axis"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "ModelArgs",
+          "startLine": 14,
+          "endLine": 26,
+          "methods": [],
+          "properties": [
+            "model_type",
+            "hidden_size",
+            "intermediate_size",
+            "num_hidden_layers",
+            "num_attention_heads",
+            "num_key_value_heads",
+            "num_local_experts",
+            "num_experts_per_tok",
+            "vocab_size",
+            "rms_norm_eps",
+            "sliding_window",
+            "layer_types"
+          ]
+        },
+        {
+          "name": "AttentionBlock",
+          "startLine": 30,
+          "endLine": 49,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": [
+            "head_dim",
+            "num_attention_heads",
+            "num_key_value_heads",
+            "num_key_value_groups",
+            "sinks",
+            "q_proj",
+            "k_proj",
+            "v_proj",
+            "o_proj",
+            "sm_scale",
+            "rope"
+          ]
+        },
+        {
+          "name": "TransformerBlock",
+          "startLine": 51,
+          "endLine": 61,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": [
+            "self_attn",
+            "mlp"
+          ]
+        },
+        {
+          "name": "MLPBlock",
+          "startLine": 63,
+          "endLine": 72,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": [
+            "hidden_size",
+            "num_local_experts",
+            "num_experts_per_tok",
+            "experts",
+            "router",
+            "sharding_group"
+          ]
+        },
+        {
+          "name": "GptOssMoeModel",
+          "startLine": 74,
+          "endLine": 88,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": [
+            "embed_tokens",
+            "norm",
+            "layer_types",
+            "layers",
+            "window_size",
+            "swa_idx",
+            "ga_idx"
+          ]
+        },
+        {
+          "name": "Model",
+          "startLine": 90,
+          "endLine": 103,
+          "methods": [
+            "__init__",
+            "__call__",
+            "layers",
+            "make_cache"
+          ],
+          "properties": [
+            "model_type",
+            "model",
+            "lm_head"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "ModelArgs",
+          "line": 13,
+          "isDefault": false
+        },
+        {
+          "name": "mlx_topk",
+          "line": 28,
+          "isDefault": false
+        },
+        {
+          "name": "AttentionBlock",
+          "line": 30,
+          "isDefault": false
+        },
+        {
+          "name": "TransformerBlock",
+          "line": 51,
+          "isDefault": false
+        },
+        {
+          "name": "MLPBlock",
+          "line": 63,
+          "isDefault": false
+        },
+        {
+          "name": "GptOssMoeModel",
+          "line": 74,
+          "isDefault": false
+        },
+        {
+          "name": "Model",
+          "line": 90,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 7,
+        "functionCount": 1,
+        "classCount": 6
+      }
+    },
+    {
+      "path": ".typings/mlx_lm/models/minimax.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 94,
+      "nonEmptyLines": 80,
+      "classes": [
+        {
+          "name": "ModelArgs",
+          "startLine": 13,
+          "endLine": 22,
+          "methods": [],
+          "properties": [
+            "model_type",
+            "hidden_size",
+            "intermediate_size",
+            "num_hidden_layers",
+            "num_attention_heads",
+            "num_key_value_heads",
+            "num_local_experts",
+            "num_experts_per_tok",
+            "max_position_embeddings"
+          ]
+        },
+        {
+          "name": "MiniMaxAttention",
+          "startLine": 24,
+          "endLine": 44,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": [
+            "num_heads",
+            "num_attention_heads",
+            "num_key_value_heads",
+            "head_dim",
+            "scale",
+            "q_proj",
+            "k_proj",
+            "v_proj",
+            "o_proj",
+            "q_norm",
+            "k_norm",
+            "rope"
+          ]
+        },
+        {
+          "name": "MiniMaxSparseMoeBlock",
+          "startLine": 46,
+          "endLine": 54,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": [
+            "num_experts_per_tok",
+            "gate",
+            "switch_mlp",
+            "e_score_correction_bias",
+            "sharding_group"
+          ]
+        },
+        {
+          "name": "MiniMaxDecoderLayer",
+          "startLine": 56,
+          "endLine": 68,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": [
+            "self_attn",
+            "block_sparse_moe",
+            "input_layernorm",
+            "post_attention_layernorm"
+          ]
+        },
+        {
+          "name": "MiniMaxModel",
+          "startLine": 70,
+          "endLine": 80,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": [
+            "embed_tokens",
+            "layers",
+            "norm"
+          ]
+        },
+        {
+          "name": "Model",
+          "startLine": 82,
+          "endLine": 94,
+          "methods": [
+            "__init__",
+            "__call__",
+            "layers"
+          ],
+          "properties": [
+            "model_type",
+            "model",
+            "lm_head"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "ModelArgs",
+          "line": 12,
+          "isDefault": false
+        },
+        {
+          "name": "MiniMaxAttention",
+          "line": 24,
+          "isDefault": false
+        },
+        {
+          "name": "MiniMaxSparseMoeBlock",
+          "line": 46,
+          "isDefault": false
+        },
+        {
+          "name": "MiniMaxDecoderLayer",
+          "line": 56,
+          "isDefault": false
+        },
+        {
+          "name": "MiniMaxModel",
+          "line": 70,
+          "isDefault": false
+        },
+        {
+          "name": "Model",
+          "line": 82,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 6,
+        "functionCount": 0,
+        "classCount": 6
+      }
+    },
+    {
+      "path": ".typings/mlx_lm/models/nemotron_h.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 168,
+      "nonEmptyLines": 148,
+      "classes": [
+        {
+          "name": "ModelArgs",
+          "startLine": 11,
+          "endLine": 48,
+          "methods": [
+            "from_dict",
+            "__post_init__"
+          ],
+          "properties": [
+            "model_type",
+            "vocab_size",
+            "hidden_size",
+            "intermediate_size",
+            "num_hidden_layers",
+            "max_position_embeddings",
+            "num_attention_heads",
+            "num_key_value_heads",
+            "attention_bias",
+            "mamba_num_heads",
+            "mamba_head_dim",
+            "mamba_proj_bias",
+            "ssm_state_size",
+            "conv_kernel",
+            "n_groups",
+            "mlp_bias",
+            "layer_norm_epsilon",
+            "use_bias",
+            "use_conv_bias",
+            "hybrid_override_pattern",
+            "head_dim",
+            "moe_intermediate_size",
+            "moe_shared_expert_intermediate_size",
+            "n_group",
+            "n_routed_experts",
+            "n_shared_experts",
+            "topk_group",
+            "num_experts_per_tok",
+            "norm_topk_prob",
+            "routed_scaling_factor",
+            "time_step_limit",
+            "time_step_min",
+            "time_step_max"
+          ]
+        },
+        {
+          "name": "NemotronHMamba2Mixer",
+          "startLine": 50,
+          "endLine": 74,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": [
+            "num_heads",
+            "hidden_size",
+            "ssm_state_size",
+            "conv_kernel_size",
+            "intermediate_size",
+            "n_groups",
+            "head_dim",
+            "conv_dim",
+            "conv1d",
+            "in_proj",
+            "dt_bias",
+            "A_log",
+            "D",
+            "norm",
+            "heads_per_group",
+            "out_proj"
+          ]
+        },
+        {
+          "name": "NemotronHAttention",
+          "startLine": 76,
+          "endLine": 93,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": [
+            "hidden_size",
+            "num_heads",
+            "head_dim",
+            "num_key_value_heads",
+            "scale",
+            "q_proj",
+            "k_proj",
+            "v_proj",
+            "o_proj"
+          ]
+        },
+        {
+          "name": "MoEGate",
+          "startLine": 95,
+          "endLine": 102,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": [
+            "config",
+            "top_k",
+            "norm_topk_prob",
+            "weight"
+          ]
+        },
+        {
+          "name": "NemotronHMLP",
+          "startLine": 104,
+          "endLine": 111,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": [
+            "up_proj",
+            "down_proj"
+          ]
+        },
+        {
+          "name": "NemotronHMoE",
+          "startLine": 113,
+          "endLine": 124,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": [
+            "config",
+            "num_experts_per_tok",
+            "moe_latent_size",
+            "switch_mlp",
+            "gate",
+            "shared_experts",
+            "fc1_latent_proj",
+            "fc2_latent_proj"
+          ]
+        },
+        {
+          "name": "NemotronHBlock",
+          "startLine": 126,
+          "endLine": 137,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": [
+            "block_type",
+            "norm",
+            "mixer"
+          ]
+        },
+        {
+          "name": "NemotronHModel",
+          "startLine": 139,
+          "endLine": 151,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": [
+            "embeddings",
+            "layers",
+            "norm_f",
+            "fa_idx",
+            "ssm_idx"
+          ]
+        },
+        {
+          "name": "Model",
+          "startLine": 153,
+          "endLine": 168,
+          "methods": [
+            "__init__",
+            "__call__",
+            "layers",
+            "make_cache",
+            "sanitize"
+          ],
+          "properties": [
+            "args",
+            "backbone",
+            "lm_head",
+            "model_type"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "ModelArgs",
+          "line": 10,
+          "isDefault": false
+        },
+        {
+          "name": "NemotronHMamba2Mixer",
+          "line": 50,
+          "isDefault": false
+        },
+        {
+          "name": "NemotronHAttention",
+          "line": 76,
+          "isDefault": false
+        },
+        {
+          "name": "MoEGate",
+          "line": 95,
+          "isDefault": false
+        },
+        {
+          "name": "NemotronHMLP",
+          "line": 104,
+          "isDefault": false
+        },
+        {
+          "name": "NemotronHMoE",
+          "line": 113,
+          "isDefault": false
+        },
+        {
+          "name": "NemotronHBlock",
+          "line": 126,
+          "isDefault": false
+        },
+        {
+          "name": "NemotronHModel",
+          "line": 139,
+          "isDefault": false
+        },
+        {
+          "name": "Model",
+          "line": 153,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 9,
+        "functionCount": 0,
+        "classCount": 9
+      }
+    },
+    {
+      "path": ".typings/mlx_lm/models/qwen3_5_moe.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 19,
+      "nonEmptyLines": 14,
+      "classes": [
+        {
+          "name": "ModelArgs",
+          "startLine": 11,
+          "endLine": 16,
+          "methods": [
+            "from_dict"
+          ],
+          "properties": [
+            "model_type",
+            "text_config"
+          ]
+        },
+        {
+          "name": "Model",
+          "startLine": 18,
+          "endLine": 19,
+          "methods": [
+            "sanitize"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "ModelArgs",
+          "line": 10,
+          "isDefault": false
+        },
+        {
+          "name": "Model",
+          "line": 18,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 2,
+        "functionCount": 0,
+        "classCount": 2
+      }
+    },
+    {
+      "path": ".typings/mlx_lm/models/qwen3_5.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 153,
+      "nonEmptyLines": 136,
+      "classes": [
+        {
+          "name": "TextModelArgs",
+          "startLine": 19,
+          "endLine": 51,
+          "methods": [
+            "from_dict",
+            "__post_init__"
+          ],
+          "properties": [
+            "model_type",
+            "hidden_size",
+            "intermediate_size",
+            "num_hidden_layers",
+            "num_attention_heads",
+            "rms_norm_eps",
+            "vocab_size",
+            "num_key_value_heads",
+            "max_position_embeddings",
+            "linear_num_value_heads",
+            "linear_num_key_heads",
+            "linear_key_head_dim",
+            "linear_value_head_dim",
+            "linear_conv_kernel_dim",
+            "tie_word_embeddings",
+            "attention_bias",
+            "head_dim",
+            "full_attention_interval",
+            "num_experts",
+            "num_experts_per_tok",
+            "decoder_sparse_step",
+            "shared_expert_intermediate_size",
+            "moe_intermediate_size",
+            "norm_topk_prob",
+            "rope_parameters",
+            "partial_rotary_factor",
+            "rope_theta",
+            "rope_scaling"
+          ]
+        },
+        {
+          "name": "GatedDeltaNet",
+          "startLine": 53,
+          "endLine": 79,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": [
+            "hidden_size",
+            "num_v_heads",
+            "num_k_heads",
+            "head_k_dim",
+            "head_v_dim",
+            "key_dim",
+            "value_dim",
+            "conv_kernel_size",
+            "conv_dim",
+            "conv1d",
+            "in_proj_qkv",
+            "in_proj_z",
+            "in_proj_b",
+            "in_proj_a",
+            "dt_bias",
+            "A_log",
+            "norm",
+            "out_proj"
+          ]
+        },
+        {
+          "name": "DecoderLayer",
+          "startLine": 81,
+          "endLine": 95,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": [
+            "is_linear",
+            "linear_attn",
+            "self_attn",
+            "input_layernorm",
+            "post_attention_layernorm",
+            "mlp"
+          ]
+        },
+        {
+          "name": "Qwen3_5TextModel",
+          "startLine": 97,
+          "endLine": 110,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": [
+            "embed_tokens",
+            "layers",
+            "norm",
+            "ssm_idx",
+            "fa_idx"
+          ]
+        },
+        {
+          "name": "TextModel",
+          "startLine": 112,
+          "endLine": 128,
+          "methods": [
+            "__init__",
+            "__call__",
+            "layers",
+            "make_cache",
+            "sanitize"
+          ],
+          "properties": [
+            "args",
+            "model_type",
+            "model",
+            "lm_head"
+          ]
+        },
+        {
+          "name": "ModelArgs",
+          "startLine": 131,
+          "endLine": 136,
+          "methods": [
+            "from_dict"
+          ],
+          "properties": [
+            "model_type",
+            "text_config"
+          ]
+        },
+        {
+          "name": "Model",
+          "startLine": 138,
+          "endLine": 153,
+          "methods": [
+            "__init__",
+            "__call__",
+            "sanitize",
+            "layers",
+            "make_cache"
+          ],
+          "properties": [
+            "args",
+            "model_type",
+            "language_model"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "TextModelArgs",
+          "line": 18,
+          "isDefault": false
+        },
+        {
+          "name": "GatedDeltaNet",
+          "line": 53,
+          "isDefault": false
+        },
+        {
+          "name": "DecoderLayer",
+          "line": 81,
+          "isDefault": false
+        },
+        {
+          "name": "Qwen3_5TextModel",
+          "line": 97,
+          "isDefault": false
+        },
+        {
+          "name": "TextModel",
+          "line": 112,
+          "isDefault": false
+        },
+        {
+          "name": "ModelArgs",
+          "line": 130,
+          "isDefault": false
+        },
+        {
+          "name": "Model",
+          "line": 138,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 7,
+        "functionCount": 0,
+        "classCount": 7
+      }
+    },
+    {
+      "path": ".typings/mlx_lm/models/qwen3_next.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 128,
+      "nonEmptyLines": 109,
+      "classes": [
+        {
+          "name": "Qwen3NextRMSNormGated",
+          "startLine": 11,
+          "endLine": 18,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": [
+            "eps",
+            "weight"
+          ]
+        },
+        {
+          "name": "Qwen3NextMLP",
+          "startLine": 20,
+          "endLine": 26,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": [
+            "gate_proj",
+            "down_proj",
+            "up_proj"
+          ]
+        },
+        {
+          "name": "Qwen3NextGatedDeltaNet",
+          "startLine": 28,
+          "endLine": 51,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": [
+            "hidden_size",
+            "num_v_heads",
+            "num_k_heads",
+            "head_k_dim",
+            "head_v_dim",
+            "key_dim",
+            "value_dim",
+            "conv_kernel_size",
+            "conv_dim",
+            "conv1d",
+            "in_proj_qkvz",
+            "in_proj_ba",
+            "dt_bias",
+            "A_log",
+            "out_proj"
+          ]
+        },
+        {
+          "name": "Qwen3NextAttention",
+          "startLine": 53,
+          "endLine": 69,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": [
+            "num_attention_heads",
+            "num_key_value_heads",
+            "head_dim",
+            "scale",
+            "q_proj",
+            "k_proj",
+            "v_proj",
+            "o_proj"
+          ]
+        },
+        {
+          "name": "Qwen3NextSparseMoeBlock",
+          "startLine": 71,
+          "endLine": 82,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": [
+            "norm_topk_prob",
+            "num_experts",
+            "num_experts_per_tok",
+            "top_k",
+            "gate",
+            "switch_mlp",
+            "shared_expert",
+            "shared_expert_gate"
+          ]
+        },
+        {
+          "name": "Qwen3NextDecoderLayer",
+          "startLine": 84,
+          "endLine": 98,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": [
+            "is_linear",
+            "linear_attn",
+            "self_attn",
+            "input_layernorm",
+            "post_attention_layernorm",
+            "mlp"
+          ]
+        },
+        {
+          "name": "Qwen3NextModel",
+          "startLine": 100,
+          "endLine": 112,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": [
+            "embed_tokens",
+            "layers",
+            "norm",
+            "ssm_idx",
+            "fa_idx"
+          ]
+        },
+        {
+          "name": "Model",
+          "startLine": 114,
+          "endLine": 128,
+          "methods": [
+            "__init__",
+            "__call__",
+            "sanitize",
+            "layers",
+            "make_cache"
+          ],
+          "properties": [
+            "model_type",
+            "model",
+            "lm_head"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "Qwen3NextRMSNormGated",
+          "line": 11,
+          "isDefault": false
+        },
+        {
+          "name": "Qwen3NextMLP",
+          "line": 20,
+          "isDefault": false
+        },
+        {
+          "name": "Qwen3NextGatedDeltaNet",
+          "line": 28,
+          "isDefault": false
+        },
+        {
+          "name": "Qwen3NextAttention",
+          "line": 53,
+          "isDefault": false
+        },
+        {
+          "name": "Qwen3NextSparseMoeBlock",
+          "line": 71,
+          "isDefault": false
+        },
+        {
+          "name": "Qwen3NextDecoderLayer",
+          "line": 84,
+          "isDefault": false
+        },
+        {
+          "name": "Qwen3NextModel",
+          "line": 100,
+          "isDefault": false
+        },
+        {
+          "name": "Model",
+          "line": 114,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 8,
+        "functionCount": 0,
+        "classCount": 8
+      }
+    },
+    {
+      "path": ".typings/mlx_lm/models/rope_utils.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 51,
+      "nonEmptyLines": 46,
+      "functions": [
+        {
+          "name": "initialize_rope",
+          "startLine": 45,
+          "endLine": 51,
+          "params": [
+            "dims",
+            "base",
+            "traditional",
+            "scaling_config",
+            "max_position_embeddings"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "YarnRoPE",
+          "startLine": 5,
+          "endLine": 18,
+          "methods": [
+            "__init__"
+          ],
+          "properties": []
+        },
+        {
+          "name": "Llama3RoPE",
+          "startLine": 20,
+          "endLine": 31,
+          "methods": [
+            "__init__"
+          ],
+          "properties": []
+        },
+        {
+          "name": "SuScaledRoPE",
+          "startLine": 33,
+          "endLine": 43,
+          "methods": [
+            "__init__"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "YarnRoPE",
+          "line": 5,
+          "isDefault": false
+        },
+        {
+          "name": "Llama3RoPE",
+          "line": 20,
+          "isDefault": false
+        },
+        {
+          "name": "SuScaledRoPE",
+          "line": 33,
+          "isDefault": false
+        },
+        {
+          "name": "initialize_rope",
+          "line": 45,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 4,
+        "functionCount": 1,
+        "classCount": 3
+      }
+    },
+    {
+      "path": ".typings/mlx_lm/models/step3p5.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 151,
+      "nonEmptyLines": 134,
+      "classes": [
+        {
+          "name": "ModelArgs",
+          "startLine": 11,
+          "endLine": 39,
+          "methods": [],
+          "properties": [
+            "model_type",
+            "hidden_size",
+            "num_hidden_layers",
+            "vocab_size",
+            "num_attention_heads",
+            "num_attention_groups",
+            "head_dim",
+            "intermediate_size",
+            "rms_norm_eps",
+            "rope_theta",
+            "rope_scaling",
+            "max_position_embeddings",
+            "sliding_window",
+            "layer_types",
+            "yarn_only_types",
+            "partial_rotary_factors",
+            "attention_other_setting",
+            "use_head_wise_attn_gate",
+            "moe_num_experts",
+            "moe_top_k",
+            "moe_intermediate_size",
+            "share_expert_dim",
+            "moe_layers_enum",
+            "moe_router_scaling_factor",
+            "norm_expert_weight",
+            "swiglu_limits",
+            "swiglu_limits_shared",
+            "tie_word_embeddings"
+          ]
+        },
+        {
+          "name": "Step3p5MLP",
+          "startLine": 41,
+          "endLine": 52,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": [
+            "hidden_size",
+            "intermediate_size",
+            "gate_proj",
+            "up_proj",
+            "down_proj",
+            "limit"
+          ]
+        },
+        {
+          "name": "Step3p5MoEGate",
+          "startLine": 54,
+          "endLine": 63,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": [
+            "top_k",
+            "n_routed_experts",
+            "routed_scaling_factor",
+            "norm_topk_prob",
+            "gate",
+            "router_bias"
+          ]
+        },
+        {
+          "name": "Step3p5MoE",
+          "startLine": 65,
+          "endLine": 72,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": [
+            "gate",
+            "switch_mlp",
+            "share_expert",
+            "sharding_group"
+          ]
+        },
+        {
+          "name": "Step3p5Attention",
+          "startLine": 74,
+          "endLine": 96,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": [
+            "is_sliding",
+            "num_heads",
+            "num_kv_heads",
+            "head_dim",
+            "scale",
+            "q_proj",
+            "k_proj",
+            "v_proj",
+            "o_proj",
+            "q_norm",
+            "k_norm",
+            "use_head_wise_attn_gate",
+            "g_proj",
+            "rope"
+          ]
+        },
+        {
+          "name": "Step3p5DecoderLayer",
+          "startLine": 98,
+          "endLine": 112,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": [
+            "self_attn",
+            "is_sliding",
+            "is_moe_layer",
+            "mlp",
+            "input_layernorm",
+            "post_attention_layernorm"
+          ]
+        },
+        {
+          "name": "Step3p5Model",
+          "startLine": 114,
+          "endLine": 129,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": [
+            "args",
+            "vocab_size",
+            "num_layers",
+            "embed_tokens",
+            "layers",
+            "norm",
+            "_swa_idx",
+            "_full_idx"
+          ]
+        },
+        {
+          "name": "Model",
+          "startLine": 131,
+          "endLine": 151,
+          "methods": [
+            "__init__",
+            "__call__",
+            "sanitize",
+            "shard",
+            "layers",
+            "make_cache",
+            "cast_predicate",
+            "quant_predicate"
+          ],
+          "properties": [
+            "args",
+            "model_type",
+            "model",
+            "lm_head"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "ModelArgs",
+          "line": 10,
+          "isDefault": false
+        },
+        {
+          "name": "Step3p5MLP",
+          "line": 41,
+          "isDefault": false
+        },
+        {
+          "name": "Step3p5MoEGate",
+          "line": 54,
+          "isDefault": false
+        },
+        {
+          "name": "Step3p5MoE",
+          "line": 65,
+          "isDefault": false
+        },
+        {
+          "name": "Step3p5Attention",
+          "line": 74,
+          "isDefault": false
+        },
+        {
+          "name": "Step3p5DecoderLayer",
+          "line": 98,
+          "isDefault": false
+        },
+        {
+          "name": "Step3p5Model",
+          "line": 114,
+          "isDefault": false
+        },
+        {
+          "name": "Model",
+          "line": 131,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 8,
+        "functionCount": 0,
+        "classCount": 8
+      }
+    },
+    {
+      "path": ".typings/mlx_lm/models/switch_layers.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 87,
+      "nonEmptyLines": 77,
+      "functions": [
+        {
+          "name": "swiglu",
+          "startLine": 53,
+          "endLine": 53,
+          "params": [
+            "x",
+            "gate"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "QuantizedSwitchLinear",
+          "startLine": 10,
+          "endLine": 31,
+          "methods": [
+            "__init__",
+            "input_dims",
+            "output_dims",
+            "num_experts",
+            "__call__"
+          ],
+          "properties": []
+        },
+        {
+          "name": "SwitchLinear",
+          "startLine": 33,
+          "endLine": 50,
+          "methods": [
+            "__init__",
+            "input_dims",
+            "output_dims",
+            "num_experts",
+            "__call__",
+            "to_quantized"
+          ],
+          "properties": []
+        },
+        {
+          "name": "SwiGLU",
+          "startLine": 55,
+          "endLine": 57,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        },
+        {
+          "name": "SwitchGLU",
+          "startLine": 59,
+          "endLine": 73,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": [
+            "gate_proj",
+            "up_proj",
+            "down_proj",
+            "activation"
+          ]
+        },
+        {
+          "name": "SwitchMLP",
+          "startLine": 75,
+          "endLine": 87,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": [
+            "fc1",
+            "fc2"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "QuantizedSwitchLinear",
+          "line": 10,
+          "isDefault": false
+        },
+        {
+          "name": "SwitchLinear",
+          "line": 33,
+          "isDefault": false
+        },
+        {
+          "name": "swiglu",
+          "line": 52,
+          "isDefault": false
+        },
+        {
+          "name": "SwiGLU",
+          "line": 55,
+          "isDefault": false
+        },
+        {
+          "name": "SwitchGLU",
+          "line": 59,
+          "isDefault": false
+        },
+        {
+          "name": "SwitchMLP",
+          "line": 75,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 6,
+        "functionCount": 1,
+        "classCount": 5
+      }
+    },
+    {
+      "path": ".typings/mlx_lm/sample_utils.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 152,
+      "nonEmptyLines": 129,
+      "functions": [
+        {
+          "name": "make_sampler",
+          "startLine": 10,
+          "endLine": 45,
+          "params": [
+            "temp",
+            "top_p",
+            "min_p",
+            "min_tokens_to_keep",
+            "top_k",
+            "xtc_probability",
+            "xtc_threshold",
+            "xtc_special_tokens"
+          ]
+        },
+        {
+          "name": "make_logits_processors",
+          "startLine": 47,
+          "endLine": 71,
+          "params": [
+            "logit_bias",
+            "repetition_penalty",
+            "repetition_context_size",
+            "presence_penalty",
+            "presence_context_size",
+            "frequency_penalty",
+            "frequency_context_size"
+          ]
+        },
+        {
+          "name": "apply_top_k",
+          "startLine": 74,
+          "endLine": 81,
+          "params": [
+            "logprobs",
+            "top_k"
+          ]
+        },
+        {
+          "name": "apply_min_p",
+          "startLine": 84,
+          "endLine": 102,
+          "params": [
+            "logprobs",
+            "min_p",
+            "min_tokens_to_keep"
+          ]
+        },
+        {
+          "name": "apply_top_p",
+          "startLine": 105,
+          "endLine": 114,
+          "params": [
+            "logprobs",
+            "top_p"
+          ]
+        },
+        {
+          "name": "apply_xtc",
+          "startLine": 117,
+          "endLine": 131,
+          "params": [
+            "logits",
+            "xtc_probability",
+            "xtc_threshold",
+            "xtc_special_tokens"
+          ]
+        },
+        {
+          "name": "categorical_sampling",
+          "startLine": 134,
+          "endLine": 135,
+          "params": [
+            "logits",
+            "temp"
+          ]
+        },
+        {
+          "name": "make_repetition_penalty",
+          "startLine": 136,
+          "endLine": 152,
+          "params": [
+            "penalty",
+            "context_size"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "make_sampler",
+          "line": 10,
+          "isDefault": false
+        },
+        {
+          "name": "make_logits_processors",
+          "line": 47,
+          "isDefault": false
+        },
+        {
+          "name": "apply_top_k",
+          "line": 73,
+          "isDefault": false
+        },
+        {
+          "name": "apply_min_p",
+          "line": 83,
+          "isDefault": false
+        },
+        {
+          "name": "apply_top_p",
+          "line": 104,
+          "isDefault": false
+        },
+        {
+          "name": "apply_xtc",
+          "line": 116,
+          "isDefault": false
+        },
+        {
+          "name": "categorical_sampling",
+          "line": 133,
+          "isDefault": false
+        },
+        {
+          "name": "make_repetition_penalty",
+          "line": 136,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 8,
+        "functionCount": 8,
+        "classCount": 0
+      }
+    },
+    {
+      "path": ".typings/mlx_lm/tokenizer_utils.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 190,
+      "nonEmptyLines": 160,
+      "functions": [
+        {
+          "name": "load",
+          "startLine": 175,
+          "endLine": 185,
+          "params": [
+            "model_path",
+            "tokenizer_config_extra",
+            "eos_token_ids"
+          ]
+        },
+        {
+          "name": "no_bos_or_eos",
+          "startLine": 190,
+          "endLine": 190,
+          "params": [
+            "sequence",
+            "bos",
+            "eos"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "StreamingDetokenizer",
+          "startLine": 11,
+          "endLine": 47,
+          "methods": [
+            "reset",
+            "add_token",
+            "finalize",
+            "last_segment"
+          ],
+          "properties": []
+        },
+        {
+          "name": "NaiveStreamingDetokenizer",
+          "startLine": 49,
+          "endLine": 65,
+          "methods": [
+            "__init__",
+            "reset",
+            "add_token",
+            "finalize",
+            "text"
+          ],
+          "properties": []
+        },
+        {
+          "name": "SPMStreamingDetokenizer",
+          "startLine": 67,
+          "endLine": 79,
+          "methods": [
+            "__init__",
+            "reset",
+            "add_token",
+            "finalize"
+          ],
+          "properties": []
+        },
+        {
+          "name": "BPEStreamingDetokenizer",
+          "startLine": 81,
+          "endLine": 99,
+          "methods": [
+            "__init__",
+            "reset",
+            "add_token",
+            "finalize",
+            "make_byte_decoder"
+          ],
+          "properties": []
+        },
+        {
+          "name": "TokenizerWrapper",
+          "startLine": 101,
+          "endLine": 162,
+          "methods": [
+            "__init__",
+            "encode",
+            "decode",
+            "apply_chat_template",
+            "get_vocab",
+            "add_eos_token",
+            "has_thinking",
+            "think_start",
+            "think_end",
+            "has_tool_calling",
+            "tool_call_start",
+            "tool_call_end",
+            "detokenizer",
+            "__getattr__",
+            "__setattr__"
+          ],
+          "properties": [
+            "_tokenizer",
+            "eos_token_id",
+            "eos_token",
+            "eos_token_ids",
+            "bos_token_id",
+            "bos_token",
+            "vocab_size",
+            "all_special_tokens",
+            "think_start",
+            "think_end",
+            "think_start_id",
+            "think_end_id",
+            "think_start_tokens",
+            "think_end_tokens"
+          ]
+        },
+        {
+          "name": "NewlineTokenizer",
+          "startLine": 164,
+          "endLine": 173,
+          "methods": [
+            "__init__",
+            "encode",
+            "encode_batch",
+            "decode",
+            "batch_decode"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "StreamingDetokenizer",
+          "line": 11,
+          "isDefault": false
+        },
+        {
+          "name": "NaiveStreamingDetokenizer",
+          "line": 49,
+          "isDefault": false
+        },
+        {
+          "name": "SPMStreamingDetokenizer",
+          "line": 67,
+          "isDefault": false
+        },
+        {
+          "name": "BPEStreamingDetokenizer",
+          "line": 81,
+          "isDefault": false
+        },
+        {
+          "name": "TokenizerWrapper",
+          "line": 101,
+          "isDefault": false
+        },
+        {
+          "name": "NewlineTokenizer",
+          "line": 164,
+          "isDefault": false
+        },
+        {
+          "name": "load",
+          "line": 175,
+          "isDefault": false
+        },
+        {
+          "name": "no_bos_or_eos",
+          "line": 190,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 8,
+        "functionCount": 2,
+        "classCount": 6
+      }
+    },
+    {
+      "path": ".typings/mlx_lm/tuner/dora.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 50,
+      "nonEmptyLines": 46,
+      "classes": [
+        {
+          "name": "DoRALinear",
+          "startLine": 7,
+          "endLine": 30,
+          "methods": [
+            "from_base",
+            "fuse",
+            "__init__",
+            "set_linear",
+            "__call__"
+          ],
+          "properties": []
+        },
+        {
+          "name": "DoRAEmbedding",
+          "startLine": 32,
+          "endLine": 50,
+          "methods": [
+            "from_base",
+            "fuse",
+            "__init__",
+            "set_embedding",
+            "__call__",
+            "as_linear"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "DoRALinear",
+          "line": 7,
+          "isDefault": false
+        },
+        {
+          "name": "DoRAEmbedding",
+          "line": 32,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 2,
+        "functionCount": 0,
+        "classCount": 2
+      }
+    },
+    {
+      "path": ".typings/mlx_lm/tuner/lora.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 66,
+      "nonEmptyLines": 62,
+      "classes": [
+        {
+          "name": "LoRALinear",
+          "startLine": 7,
+          "endLine": 25,
+          "methods": [
+            "from_base",
+            "fuse",
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        },
+        {
+          "name": "LoRASwitchLinear",
+          "startLine": 27,
+          "endLine": 45,
+          "methods": [
+            "from_base",
+            "fuse",
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        },
+        {
+          "name": "LoRAEmbedding",
+          "startLine": 47,
+          "endLine": 66,
+          "methods": [
+            "from_base",
+            "fuse",
+            "__init__",
+            "__call__",
+            "as_linear"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "LoRALinear",
+          "line": 7,
+          "isDefault": false
+        },
+        {
+          "name": "LoRASwitchLinear",
+          "line": 27,
+          "isDefault": false
+        },
+        {
+          "name": "LoRAEmbedding",
+          "line": 47,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 3,
+        "functionCount": 0,
+        "classCount": 3
+      }
+    },
+    {
+      "path": ".typings/mlx_lm/tuner/utils.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 57,
+      "nonEmptyLines": 46,
+      "functions": [
+        {
+          "name": "build_schedule",
+          "startLine": 8,
+          "endLine": 12,
+          "params": [
+            "schedule_config"
+          ]
+        },
+        {
+          "name": "linear_to_lora_layers",
+          "startLine": 14,
+          "endLine": 29,
+          "params": [
+            "model",
+            "num_layers",
+            "config",
+            "use_dora"
+          ]
+        },
+        {
+          "name": "load_adapters",
+          "startLine": 31,
+          "endLine": 42,
+          "params": [
+            "model",
+            "adapter_path"
+          ]
+        },
+        {
+          "name": "remove_lora_layers",
+          "startLine": 44,
+          "endLine": 54,
+          "params": [
+            "model"
+          ]
+        },
+        {
+          "name": "print_trainable_parameters",
+          "startLine": 56,
+          "endLine": 57,
+          "params": [
+            "model"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "build_schedule",
+          "line": 8,
+          "isDefault": false
+        },
+        {
+          "name": "linear_to_lora_layers",
+          "line": 14,
+          "isDefault": false
+        },
+        {
+          "name": "load_adapters",
+          "line": 31,
+          "isDefault": false
+        },
+        {
+          "name": "remove_lora_layers",
+          "line": 44,
+          "isDefault": false
+        },
+        {
+          "name": "print_trainable_parameters",
+          "line": 56,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 5,
+        "functionCount": 5,
+        "classCount": 0
+      }
+    },
+    {
+      "path": ".typings/mlx_lm/utils.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 195,
+      "nonEmptyLines": 166,
+      "functions": [
+        {
+          "name": "compute_bits_per_weight",
+          "startLine": 19,
+          "endLine": 19,
+          "params": [
+            "model"
+          ]
+        },
+        {
+          "name": "hf_repo_to_path",
+          "startLine": 20,
+          "endLine": 21,
+          "params": [
+            "hf_repo"
+          ]
+        },
+        {
+          "name": "load_config",
+          "startLine": 22,
+          "endLine": 22,
+          "params": [
+            "model_path"
+          ]
+        },
+        {
+          "name": "load_model",
+          "startLine": 23,
+          "endLine": 54,
+          "params": [
+            "model_path",
+            "lazy",
+            "strict",
+            "model_config",
+            "get_model_classes"
+          ]
+        },
+        {
+          "name": "load",
+          "startLine": 56,
+          "endLine": 91,
+          "params": [
+            "path_or_hf_repo",
+            "tokenizer_config",
+            "model_config",
+            "adapter_path",
+            "lazy",
+            "return_config",
+            "revision"
+          ]
+        },
+        {
+          "name": "make_shards",
+          "startLine": 93,
+          "endLine": 103,
+          "params": [
+            "weights",
+            "max_file_size_gb"
+          ]
+        },
+        {
+          "name": "create_model_card",
+          "startLine": 105,
+          "endLine": 114,
+          "params": [
+            "path",
+            "hf_path"
+          ]
+        },
+        {
+          "name": "upload_to_hub",
+          "startLine": 116,
+          "endLine": 123,
+          "params": [
+            "path",
+            "upload_repo"
+          ]
+        },
+        {
+          "name": "save_model",
+          "startLine": 125,
+          "endLine": 128,
+          "params": [
+            "save_path",
+            "model",
+            "donate_model"
+          ]
+        },
+        {
+          "name": "quantize_model",
+          "startLine": 130,
+          "endLine": 154,
+          "params": [
+            "model",
+            "config",
+            "group_size",
+            "bits",
+            "mode",
+            "quant_predicate"
+          ]
+        },
+        {
+          "name": "save_config",
+          "startLine": 156,
+          "endLine": 164,
+          "params": [
+            "config",
+            "config_path"
+          ]
+        },
+        {
+          "name": "save",
+          "startLine": 166,
+          "endLine": 174,
+          "params": [
+            "dst_path",
+            "src_path_or_repo",
+            "model",
+            "tokenizer",
+            "config",
+            "donate_model"
+          ]
+        },
+        {
+          "name": "common_prefix_len",
+          "startLine": 175,
+          "endLine": 186,
+          "params": [
+            "list1",
+            "list2"
+          ]
+        },
+        {
+          "name": "does_model_support_input_embeddings",
+          "startLine": 188,
+          "endLine": 195,
+          "params": [
+            "model"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "compute_bits_per_weight",
+          "line": 19,
+          "isDefault": false
+        },
+        {
+          "name": "hf_repo_to_path",
+          "line": 20,
+          "isDefault": false
+        },
+        {
+          "name": "load_config",
+          "line": 22,
+          "isDefault": false
+        },
+        {
+          "name": "load_model",
+          "line": 23,
+          "isDefault": false
+        },
+        {
+          "name": "load",
+          "line": 56,
+          "isDefault": false
+        },
+        {
+          "name": "make_shards",
+          "line": 93,
+          "isDefault": false
+        },
+        {
+          "name": "create_model_card",
+          "line": 105,
+          "isDefault": false
+        },
+        {
+          "name": "upload_to_hub",
+          "line": 116,
+          "isDefault": false
+        },
+        {
+          "name": "save_model",
+          "line": 125,
+          "isDefault": false
+        },
+        {
+          "name": "quantize_model",
+          "line": 130,
+          "isDefault": false
+        },
+        {
+          "name": "save_config",
+          "line": 156,
+          "isDefault": false
+        },
+        {
+          "name": "save",
+          "line": 166,
+          "isDefault": false
+        },
+        {
+          "name": "common_prefix_len",
+          "line": 175,
+          "isDefault": false
+        },
+        {
+          "name": "does_model_support_input_embeddings",
+          "line": 188,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 14,
+        "functionCount": 14,
+        "classCount": 0
+      }
+    },
+    {
+      "path": ".typings/mlx_vlm/__init__.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 1,
+      "nonEmptyLines": 0,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    }
+  ]
+}

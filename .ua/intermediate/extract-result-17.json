@@ -1,0 +1,522 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 25,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": ".clauderules",
+      "language": "unknown",
+      "fileCategory": "code",
+      "totalLines": 63,
+      "nonEmptyLines": 39,
+      "metrics": {}
+    },
+    {
+      "path": ".cursorrules",
+      "language": "unknown",
+      "fileCategory": "code",
+      "totalLines": 64,
+      "nonEmptyLines": 39,
+      "metrics": {}
+    },
+    {
+      "path": ".envrc",
+      "language": "unknown",
+      "fileCategory": "code",
+      "totalLines": 1,
+      "nonEmptyLines": 1,
+      "metrics": {}
+    },
+    {
+      "path": ".githooks/post-checkout",
+      "language": "unknown",
+      "fileCategory": "code",
+      "totalLines": 3,
+      "nonEmptyLines": 3,
+      "metrics": {}
+    },
+    {
+      "path": ".githooks/post-commit",
+      "language": "unknown",
+      "fileCategory": "code",
+      "totalLines": 3,
+      "nonEmptyLines": 3,
+      "metrics": {}
+    },
+    {
+      "path": ".githooks/post-merge",
+      "language": "unknown",
+      "fileCategory": "code",
+      "totalLines": 3,
+      "nonEmptyLines": 3,
+      "metrics": {}
+    },
+    {
+      "path": ".githooks/pre-push",
+      "language": "unknown",
+      "fileCategory": "code",
+      "totalLines": 3,
+      "nonEmptyLines": 3,
+      "metrics": {}
+    },
+    {
+      "path": ".github/actions/conditional-commit/action.yml",
+      "language": "yaml",
+      "fileCategory": "config",
+      "totalLines": 16,
+      "nonEmptyLines": 14,
+      "sections": [
+        {
+          "heading": "name",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "description",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "inputs",
+          "level": 1,
+          "line": 4
+        },
+        {
+          "heading": "runs",
+          "level": 1,
+          "line": 9
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 4
+      }
+    },
+    {
+      "path": ".github/actions/format/action.yml",
+      "language": "yaml",
+      "fileCategory": "config",
+      "totalLines": 10,
+      "nonEmptyLines": 8,
+      "sections": [
+        {
+          "heading": "name",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "description",
+          "level": 1,
+          "line": 3
+        },
+        {
+          "heading": "runs",
+          "level": 1,
+          "line": 5
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 3
+      }
+    },
+    {
+      "path": ".github/actions/lint-check/action.yml",
+      "language": "yaml",
+      "fileCategory": "config",
+      "totalLines": 10,
+      "nonEmptyLines": 8,
+      "sections": [
+        {
+          "heading": "name",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "description",
+          "level": 1,
+          "line": 3
+        },
+        {
+          "heading": "runs",
+          "level": 1,
+          "line": 5
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 3
+      }
+    },
+    {
+      "path": ".github/actions/lint/action.yml",
+      "language": "yaml",
+      "fileCategory": "config",
+      "totalLines": 10,
+      "nonEmptyLines": 8,
+      "sections": [
+        {
+          "heading": "name",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "description",
+          "level": 1,
+          "line": 3
+        },
+        {
+          "heading": "runs",
+          "level": 1,
+          "line": 5
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 3
+      }
+    },
+    {
+      "path": ".github/actions/regenerate-protobufs/action.yml",
+      "language": "yaml",
+      "fileCategory": "config",
+      "totalLines": 10,
+      "nonEmptyLines": 8,
+      "sections": [
+        {
+          "heading": "name",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "description",
+          "level": 1,
+          "line": 3
+        },
+        {
+          "heading": "runs",
+          "level": 1,
+          "line": 5
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 3
+      }
+    },
+    {
+      "path": ".github/actions/setup-python-uv/action.yml",
+      "language": "yaml",
+      "fileCategory": "config",
+      "totalLines": 20,
+      "nonEmptyLines": 16,
+      "sections": [
+        {
+          "heading": "name",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "description",
+          "level": 1,
+          "line": 3
+        },
+        {
+          "heading": "runs",
+          "level": 1,
+          "line": 5
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 3
+      }
+    },
+    {
+      "path": ".github/actions/unit-test/action.yml",
+      "language": "yaml",
+      "fileCategory": "config",
+      "totalLines": 12,
+      "nonEmptyLines": 10,
+      "sections": [
+        {
+          "heading": "name",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "description",
+          "level": 1,
+          "line": 3
+        },
+        {
+          "heading": "runs",
+          "level": 1,
+          "line": 5
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 3
+      }
+    },
+    {
+      "path": ".github/actions/verify-clean/action.yml",
+      "language": "yaml",
+      "fileCategory": "config",
+      "totalLines": 20,
+      "nonEmptyLines": 17,
+      "sections": [
+        {
+          "heading": "name",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "description",
+          "level": 1,
+          "line": 3
+        },
+        {
+          "heading": "inputs",
+          "level": 1,
+          "line": 5
+        },
+        {
+          "heading": "runs",
+          "level": 1,
+          "line": 10
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 4
+      }
+    },
+    {
+      "path": ".github/CODEOWNERS",
+      "language": "unknown",
+      "fileCategory": "code",
+      "totalLines": 3,
+      "nonEmptyLines": 3,
+      "metrics": {}
+    },
+    {
+      "path": ".github/ISSUE_TEMPLATE/bug_report.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 43,
+      "nonEmptyLines": 31,
+      "sections": [
+        {
+          "heading": "Describe the bug",
+          "level": 2,
+          "line": 9
+        },
+        {
+          "heading": "To Reproduce",
+          "level": 2,
+          "line": 13
+        },
+        {
+          "heading": "Expected behavior",
+          "level": 2,
+          "line": 20
+        },
+        {
+          "heading": "Actual behavior",
+          "level": 2,
+          "line": 24
+        },
+        {
+          "heading": "Environment",
+          "level": 2,
+          "line": 28
+        },
+        {
+          "heading": "Additional context",
+          "level": 2,
+          "line": 41
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 6
+      }
+    },
+    {
+      "path": ".github/ISSUE_TEMPLATE/feature_request.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 11,
+      "nonEmptyLines": 9,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 0
+      }
+    },
+    {
+      "path": ".github/pull_request_template.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 23,
+      "nonEmptyLines": 15,
+      "sections": [
+        {
+          "heading": "Motivation",
+          "level": 2,
+          "line": 1
+        },
+        {
+          "heading": "Changes",
+          "level": 2,
+          "line": 6
+        },
+        {
+          "heading": "Why It Works",
+          "level": 2,
+          "line": 10
+        },
+        {
+          "heading": "Test Plan",
+          "level": 2,
+          "line": 14
+        },
+        {
+          "heading": "Manual Testing",
+          "level": 3,
+          "line": 16
+        },
+        {
+          "heading": "Automated Testing",
+          "level": 3,
+          "line": 21
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 6
+      }
+    },
+    {
+      "path": ".python-version",
+      "language": "unknown",
+      "fileCategory": "code",
+      "totalLines": 1,
+      "nonEmptyLines": 1,
+      "metrics": {}
+    },
+    {
+      "path": ".swift-format",
+      "language": "swift",
+      "fileCategory": "code",
+      "totalLines": 6,
+      "nonEmptyLines": 6,
+      "metrics": {}
+    },
+    {
+      "path": ".typings/.gitkeep",
+      "language": "unknown",
+      "fileCategory": "code",
+      "totalLines": 1,
+      "nonEmptyLines": 0,
+      "metrics": {}
+    },
+    {
+      "path": ".typings/mflux/__init__.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 7,
+      "nonEmptyLines": 5,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": ".typings/mflux/callbacks/__init__.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 3,
+      "nonEmptyLines": 3,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": ".typings/mflux/callbacks/callback_registry.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 24,
+      "nonEmptyLines": 21,
+      "classes": [
+        {
+          "name": "CallbackRegistry",
+          "startLine": 17,
+          "endLine": 24,
+          "methods": [
+            "__init__",
+            "register",
+            "start",
+            "before_loop_callbacks",
+            "in_loop_callbacks",
+            "after_loop_callbacks",
+            "interrupt_callbacks"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "CallbackRegistry",
+          "line": 17,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    }
+  ]
+}

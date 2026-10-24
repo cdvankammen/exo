@@ -1,0 +1,1139 @@
+{
+ "nodes": [
+  {
+   "id": "file:src/exo/utils/keyed_backoff.py",
+   "type": "file",
+   "name": "keyed_backoff.py",
+   "filePath": "src/exo/utils/keyed_backoff.py",
+   "summary": "KeyedBackoff tracks per-key exponential backoff state for retry logic.",
+   "tags": [
+    "utility",
+    "backoff",
+    "retry"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:src/exo/worker/main.py",
+   "type": "file",
+   "name": "main.py",
+   "filePath": "src/exo/worker/main.py",
+   "summary": "Worker node component: wires router, event router, planning, runner supervisor, and downloads; emits worker events and applies master commands.",
+   "tags": [
+    "service",
+    "worker",
+    "entry-point",
+    "event-handler"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "file:src/exo/worker/plan.py",
+   "type": "file",
+   "name": "plan.py",
+   "filePath": "src/exo/worker/plan.py",
+   "summary": "Worker planning logic: decides create/kill runners, downloads, model loads, warmups, and task forwarding based on cluster state.",
+   "tags": [
+    "planner",
+    "worker",
+    "task-management"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "file:src/exo/worker/runner/diagnostics.py",
+   "type": "file",
+   "name": "diagnostics.py",
+   "filePath": "src/exo/worker/runner/diagnostics.py",
+   "summary": "Runner diagnostics: parses runner failures (Metal GPU timeouts, ring transport/socket errors) into typed diagnostic records.",
+   "tags": [
+    "diagnostics",
+    "runner",
+    "error-handling"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:src/exo/worker/runner/runner.py",
+   "type": "file",
+   "name": "runner.py",
+   "filePath": "src/exo/worker/runner/runner.py",
+   "summary": "Runner process logic: executes task loops (prefill, generation), emits runner events, and communicates via channels.",
+   "tags": [
+    "runner",
+    "inference",
+    "event-handler"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "file:src/exo/worker/runner/supervisor.py",
+   "type": "file",
+   "name": "supervisor.py",
+   "filePath": "src/exo/worker/runner/supervisor.py",
+   "summary": "RunnerSupervisor spawns runner processes, monitors stdio, health-checks them, and emits error chunks for failed inflight generations.",
+   "tags": [
+    "supervisor",
+    "process-management",
+    "runner"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "class:src/exo/utils/keyed_backoff.py:KeyedBackoff",
+   "type": "class",
+   "name": "KeyedBackoff",
+   "filePath": "src/exo/utils/keyed_backoff.py",
+   "lineRange": [
+    6,
+    35
+   ],
+   "summary": "Tracks exponential backoff state per key for retry scheduling.",
+   "tags": [
+    "utility",
+    "backoff"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/worker/main.py:Worker",
+   "type": "class",
+   "name": "Worker",
+   "filePath": "src/exo/worker/main.py",
+   "lineRange": [
+    65,
+    432
+   ],
+   "summary": "Worker node component wiring router, event router, planning, supervisor, downloads, and info gathering into the cluster.",
+   "tags": [
+    "service",
+    "worker",
+    "event-handler"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "function:src/exo/worker/plan.py:plan",
+   "type": "function",
+   "name": "plan",
+   "filePath": "src/exo/worker/plan.py",
+   "lineRange": [
+    47,
+    72
+   ],
+   "summary": "Main planning entry: computes the worker's next actions from current state (kill/create runners, download, load, warmup, forward).",
+   "tags": [
+    "planner",
+    "task-management"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:src/exo/worker/plan.py:_kill_runner",
+   "type": "function",
+   "name": "_kill_runner",
+   "filePath": "src/exo/worker/plan.py",
+   "lineRange": [
+    75,
+    100
+   ],
+   "summary": "Emits task(s) to kill a runner when its instance is missing or a sibling failed.",
+   "tags": [
+    "planner",
+    "runners"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:src/exo/worker/plan.py:_create_runner",
+   "type": "function",
+   "name": "_create_runner",
+   "filePath": "src/exo/worker/plan.py",
+   "lineRange": [
+    103,
+    136
+   ],
+   "summary": "Emits a CreateRunner task when a runner is missing for the node's instance.",
+   "tags": [
+    "planner",
+    "runners"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:src/exo/worker/plan.py:_model_needs_download",
+   "type": "function",
+   "name": "_model_needs_download",
+   "filePath": "src/exo/worker/plan.py",
+   "lineRange": [
+    139,
+    167
+   ],
+   "summary": "Determines whether the local shard of the model still needs downloading.",
+   "tags": [
+    "planner",
+    "downloads"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:src/exo/worker/plan.py:_init_distributed_backend",
+   "type": "function",
+   "name": "_init_distributed_backend",
+   "filePath": "src/exo/worker/plan.py",
+   "lineRange": [
+    170,
+    217
+   ],
+   "summary": "Initialises the distributed backend (ring/jaccl) for the instance.",
+   "tags": [
+    "planner",
+    "distributed"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:src/exo/worker/plan.py:_load_model",
+   "type": "function",
+   "name": "_load_model",
+   "filePath": "src/exo/worker/plan.py",
+   "lineRange": [
+    220,
+    258
+   ],
+   "summary": "Emits a LoadModel task once all shards are downloaded and the backend is ready.",
+   "tags": [
+    "planner",
+    "model-loading"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:src/exo/worker/plan.py:_ready_to_warmup",
+   "type": "function",
+   "name": "_ready_to_warmup",
+   "filePath": "src/exo/worker/plan.py",
+   "lineRange": [
+    261,
+    297
+   ],
+   "summary": "Checks whether all runners for the instance are ready to start warmup.",
+   "tags": [
+    "planner",
+    "warmup"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:src/exo/worker/plan.py:_pending_tasks",
+   "type": "function",
+   "name": "_pending_tasks",
+   "filePath": "src/exo/worker/plan.py",
+   "lineRange": [
+    300,
+    343
+   ],
+   "summary": "Finds pending chat-completion tasks for this instance that can be forwarded when runners are ready.",
+   "tags": [
+    "planner",
+    "task-forwarding"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:src/exo/worker/plan.py:_cancel_tasks",
+   "type": "function",
+   "name": "_cancel_tasks",
+   "filePath": "src/exo/worker/plan.py",
+   "lineRange": [
+    346,
+    362
+   ],
+   "summary": "Emits cancellation tasks for pending tasks that should be cancelled.",
+   "tags": [
+    "planner",
+    "tasks"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/worker/runner/diagnostics.py:_parse_metal_gpu_timeout",
+   "type": "function",
+   "name": "_parse_metal_gpu_timeout",
+   "filePath": "src/exo/worker/runner/diagnostics.py",
+   "lineRange": [
+    111,
+    121
+   ],
+   "summary": "Parses a Metal GPU timeout pattern from runner stderr into a diagnostic.",
+   "tags": [
+    "diagnostics",
+    "parsing"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/worker/runner/diagnostics.py:_parse_ring_socket_error",
+   "type": "function",
+   "name": "_parse_ring_socket_error",
+   "filePath": "src/exo/worker/runner/diagnostics.py",
+   "lineRange": [
+    124,
+    144
+   ],
+   "summary": "Parses ring transport socket errors from runner stderr into a diagnostic.",
+   "tags": [
+    "diagnostics",
+    "parsing"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/worker/runner/diagnostics.py:BaseRunnerDiagnostic",
+   "type": "class",
+   "name": "BaseRunnerDiagnostic",
+   "filePath": "src/exo/worker/runner/diagnostics.py",
+   "lineRange": [
+    29,
+    31
+   ],
+   "summary": "Base tagged diagnostic type for runner failures.",
+   "tags": [
+    "data-model",
+    "diagnostics"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/worker/runner/diagnostics.py:RunnerDiagnosticCollector",
+   "type": "class",
+   "name": "RunnerDiagnosticCollector",
+   "filePath": "src/exo/worker/runner/diagnostics.py",
+   "lineRange": [
+    60,
+    108
+   ],
+   "summary": "Collects and classifies runner failure diagnostics from process output.",
+   "tags": [
+    "diagnostics",
+    "runner"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "class:src/exo/worker/runner/runner.py:Runner",
+   "type": "class",
+   "name": "Runner",
+   "filePath": "src/exo/worker/runner/runner.py",
+   "lineRange": [
+    84,
+    394
+   ],
+   "summary": "Executes the runner task loop (prefill, generation, cancellation) and emits runner events through channels.",
+   "tags": [
+    "runner",
+    "inference",
+    "event-handler"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "class:src/exo/worker/runner/supervisor.py:RunnerStdioHandler",
+   "type": "class",
+   "name": "RunnerStdioHandler",
+   "filePath": "src/exo/worker/runner/supervisor.py",
+   "lineRange": [
+    62,
+    178
+   ],
+   "summary": "Drains and classifies runner process stdout/stderr, feeding logs into the supervisor.",
+   "tags": [
+    "process-management",
+    "runner"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "class:src/exo/worker/runner/supervisor.py:RunnerSupervisor",
+   "type": "class",
+   "name": "RunnerSupervisor",
+   "filePath": "src/exo/worker/runner/supervisor.py",
+   "lineRange": [
+    182,
+    440
+   ],
+   "summary": "Spawns, monitors, and health-checks runner processes; emits error chunks for failed inflight generations.",
+   "tags": [
+    "supervisor",
+    "process-management",
+    "runner"
+   ],
+   "complexity": "complex"
+  }
+ ],
+ "edges": [
+  {
+   "source": "file:src/exo/utils/keyed_backoff.py",
+   "target": "class:src/exo/utils/keyed_backoff.py:KeyedBackoff",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/utils/keyed_backoff.py",
+   "target": "class:src/exo/utils/keyed_backoff.py:KeyedBackoff",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/main.py",
+   "target": "class:src/exo/worker/main.py:Worker",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/main.py",
+   "target": "class:src/exo/worker/main.py:Worker",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/plan.py",
+   "target": "function:src/exo/worker/plan.py:plan",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/plan.py",
+   "target": "function:src/exo/worker/plan.py:plan",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/plan.py",
+   "target": "function:src/exo/worker/plan.py:_kill_runner",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/plan.py",
+   "target": "function:src/exo/worker/plan.py:_kill_runner",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/plan.py",
+   "target": "function:src/exo/worker/plan.py:_create_runner",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/plan.py",
+   "target": "function:src/exo/worker/plan.py:_create_runner",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/plan.py",
+   "target": "function:src/exo/worker/plan.py:_model_needs_download",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/plan.py",
+   "target": "function:src/exo/worker/plan.py:_model_needs_download",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/plan.py",
+   "target": "function:src/exo/worker/plan.py:_init_distributed_backend",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/plan.py",
+   "target": "function:src/exo/worker/plan.py:_init_distributed_backend",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/plan.py",
+   "target": "function:src/exo/worker/plan.py:_load_model",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/plan.py",
+   "target": "function:src/exo/worker/plan.py:_load_model",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/plan.py",
+   "target": "function:src/exo/worker/plan.py:_ready_to_warmup",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/plan.py",
+   "target": "function:src/exo/worker/plan.py:_ready_to_warmup",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/plan.py",
+   "target": "function:src/exo/worker/plan.py:_pending_tasks",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/plan.py",
+   "target": "function:src/exo/worker/plan.py:_pending_tasks",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/plan.py",
+   "target": "function:src/exo/worker/plan.py:_cancel_tasks",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/plan.py",
+   "target": "function:src/exo/worker/plan.py:_cancel_tasks",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/runner/diagnostics.py",
+   "target": "function:src/exo/worker/runner/diagnostics.py:_parse_metal_gpu_timeout",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/runner/diagnostics.py",
+   "target": "function:src/exo/worker/runner/diagnostics.py:_parse_metal_gpu_timeout",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/runner/diagnostics.py",
+   "target": "function:src/exo/worker/runner/diagnostics.py:_parse_ring_socket_error",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/runner/diagnostics.py",
+   "target": "function:src/exo/worker/runner/diagnostics.py:_parse_ring_socket_error",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/runner/diagnostics.py",
+   "target": "class:src/exo/worker/runner/diagnostics.py:BaseRunnerDiagnostic",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/runner/diagnostics.py",
+   "target": "class:src/exo/worker/runner/diagnostics.py:BaseRunnerDiagnostic",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/runner/diagnostics.py",
+   "target": "class:src/exo/worker/runner/diagnostics.py:RunnerDiagnosticCollector",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/runner/diagnostics.py",
+   "target": "class:src/exo/worker/runner/diagnostics.py:RunnerDiagnosticCollector",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/runner/runner.py",
+   "target": "class:src/exo/worker/runner/runner.py:Runner",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/runner/runner.py",
+   "target": "class:src/exo/worker/runner/runner.py:Runner",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/runner/supervisor.py",
+   "target": "class:src/exo/worker/runner/supervisor.py:RunnerStdioHandler",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/runner/supervisor.py",
+   "target": "class:src/exo/worker/runner/supervisor.py:RunnerStdioHandler",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/runner/supervisor.py",
+   "target": "class:src/exo/worker/runner/supervisor.py:RunnerSupervisor",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/runner/supervisor.py",
+   "target": "class:src/exo/worker/runner/supervisor.py:RunnerSupervisor",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "class:src/exo/worker/runner/diagnostics.py:BaseRunnerDiagnostic",
+   "target": "class:src/exo/utils/pydantic_ext.py:TaggedModel",
+   "type": "inherits",
+   "direction": "forward",
+   "weight": 0.9
+  },
+  {
+   "source": "class:src/exo/worker/main.py:Worker",
+   "target": "function:src/exo/worker/plan.py:plan",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "class:src/exo/worker/main.py:Worker",
+   "target": "class:src/exo/worker/runner/supervisor.py:RunnerSupervisor",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:src/exo/worker/plan.py:_create_runner",
+   "target": "class:src/exo/worker/runner/supervisor.py:RunnerSupervisor",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "class:src/exo/worker/runner/supervisor.py:RunnerSupervisor",
+   "target": "function:src/exo/worker/runner/bootstrap.py:entrypoint",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "class:src/exo/worker/runner/supervisor.py:RunnerSupervisor",
+   "target": "class:src/exo/utils/async_process.py:AsyncProcess",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/plan.py",
+   "target": "file:src/exo/worker/tests/unittests/test_plan/test_download_and_loading.py",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  },
+  {
+   "source": "file:src/exo/worker/plan.py",
+   "target": "file:src/exo/worker/tests/unittests/test_plan/test_runner_lifecycle.py",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  },
+  {
+   "source": "file:src/exo/worker/plan.py",
+   "target": "file:src/exo/worker/tests/unittests/test_plan/test_task_forwarding.py",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  },
+  {
+   "source": "file:src/exo/worker/plan.py",
+   "target": "file:src/exo/worker/tests/unittests/test_plan/test_warmup.py",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  },
+  {
+   "source": "file:src/exo/worker/runner/supervisor.py",
+   "target": "file:src/exo/worker/tests/unittests/test_runner/test_runner_supervisor.py",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  },
+  {
+   "source": "file:src/exo/worker/runner/runner.py",
+   "target": "file:src/exo/worker/tests/unittests/test_runner/test_event_ordering.py",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  },
+  {
+   "source": "file:src/exo/worker/main.py",
+   "target": "file:src/exo/api/types/__init__.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/main.py",
+   "target": "file:src/exo/download/download_utils.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/main.py",
+   "target": "file:src/exo/routing/event_router.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/main.py",
+   "target": "file:src/exo/shared/apply.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/main.py",
+   "target": "file:src/exo/shared/constants.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/main.py",
+   "target": "file:src/exo/shared/models/model_cards.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/main.py",
+   "target": "file:src/exo/shared/types/chunks.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/main.py",
+   "target": "file:src/exo/shared/types/commands.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/main.py",
+   "target": "file:src/exo/shared/types/common.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/main.py",
+   "target": "file:src/exo/shared/types/events.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/main.py",
+   "target": "file:src/exo/shared/types/multiaddr.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/main.py",
+   "target": "file:src/exo/shared/types/state.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/main.py",
+   "target": "file:src/exo/shared/types/tasks.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/main.py",
+   "target": "file:src/exo/shared/types/text_generation.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/main.py",
+   "target": "file:src/exo/shared/types/topology.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/main.py",
+   "target": "file:src/exo/shared/types/worker/downloads.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/main.py",
+   "target": "file:src/exo/shared/types/worker/instances.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/main.py",
+   "target": "file:src/exo/shared/types/worker/runners.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/main.py",
+   "target": "file:src/exo/utils/channels.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/main.py",
+   "target": "file:src/exo/utils/info_gatherer/info_gatherer.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/main.py",
+   "target": "file:src/exo/utils/info_gatherer/net_profile.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/main.py",
+   "target": "file:src/exo/utils/keyed_backoff.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/main.py",
+   "target": "file:src/exo/utils/task_group.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/main.py",
+   "target": "file:src/exo/worker/plan.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/main.py",
+   "target": "file:src/exo/worker/runner/supervisor.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/plan.py",
+   "target": "file:src/exo/shared/types/chunks.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/plan.py",
+   "target": "file:src/exo/shared/types/common.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/plan.py",
+   "target": "file:src/exo/shared/types/tasks.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/plan.py",
+   "target": "file:src/exo/shared/types/text_generation.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/plan.py",
+   "target": "file:src/exo/shared/types/worker/downloads.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/plan.py",
+   "target": "file:src/exo/shared/types/worker/instances.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/plan.py",
+   "target": "file:src/exo/shared/types/worker/runners.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/plan.py",
+   "target": "file:src/exo/utils/keyed_backoff.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/plan.py",
+   "target": "file:src/exo/worker/runner/supervisor.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/runner/diagnostics.py",
+   "target": "file:src/exo/utils/pydantic_ext.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/runner/runner.py",
+   "target": "file:src/exo/shared/constants.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/runner/runner.py",
+   "target": "file:src/exo/shared/types/chunks.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/runner/runner.py",
+   "target": "file:src/exo/shared/types/common.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/runner/runner.py",
+   "target": "file:src/exo/shared/types/events.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/runner/runner.py",
+   "target": "file:src/exo/shared/types/tasks.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/runner/runner.py",
+   "target": "file:src/exo/shared/types/worker/instances.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/runner/runner.py",
+   "target": "file:src/exo/shared/types/worker/runner_response.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/runner/runner.py",
+   "target": "file:src/exo/shared/types/worker/runners.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/runner/runner.py",
+   "target": "file:src/exo/utils/channels.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/runner/runner.py",
+   "target": "file:src/exo/utils/ports.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/runner/runner.py",
+   "target": "file:src/exo/worker/disaggregated/server.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/runner/runner.py",
+   "target": "file:src/exo/worker/engines/base.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/runner/runner.py",
+   "target": "file:src/exo/worker/runner/bootstrap.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/runner/supervisor.py",
+   "target": "file:src/exo/shared/constants.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/runner/supervisor.py",
+   "target": "file:src/exo/shared/types/chunks.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/runner/supervisor.py",
+   "target": "file:src/exo/shared/types/events.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/runner/supervisor.py",
+   "target": "file:src/exo/shared/types/tasks.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/runner/supervisor.py",
+   "target": "file:src/exo/shared/types/worker/instances.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/runner/supervisor.py",
+   "target": "file:src/exo/shared/types/worker/runners.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/runner/supervisor.py",
+   "target": "file:src/exo/shared/types/worker/shards.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/runner/supervisor.py",
+   "target": "file:src/exo/utils/async_process.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/runner/supervisor.py",
+   "target": "file:src/exo/utils/channels.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/runner/supervisor.py",
+   "target": "file:src/exo/utils/fs.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/runner/supervisor.py",
+   "target": "file:src/exo/utils/task_group.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/runner/supervisor.py",
+   "target": "file:src/exo/worker/runner/bootstrap.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/runner/supervisor.py",
+   "target": "file:src/exo/worker/runner/diagnostics.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  }
+ ]
+}

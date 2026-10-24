@@ -1,0 +1,394 @@
+{
+ "nodes": [
+  {
+   "id": "file:src/exo/worker/engines/mlx/patches/__init__.py",
+   "type": "file",
+   "name": "__init__.py",
+   "filePath": "src/exo/worker/engines/mlx/patches/__init__.py",
+   "summary": "Defines 1 function(s) and 0 class(es) for src/exo/worker/engines/mlx/patches/__init__.py.",
+   "tags": [
+    "entry-point",
+    "barrel"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:src/exo/worker/engines/mlx/patches/opt_batch_gen.py",
+   "type": "file",
+   "name": "opt_batch_gen.py",
+   "filePath": "src/exo/worker/engines/mlx/patches/opt_batch_gen.py",
+   "summary": "Defines 5 function(s) and 2 class(es) for src/exo/worker/engines/mlx/patches/opt_batch_gen.py.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:src/exo/worker/engines/mlx/patches/standard_yarn_rope.py",
+   "type": "file",
+   "name": "standard_yarn_rope.py",
+   "filePath": "src/exo/worker/engines/mlx/patches/standard_yarn_rope.py",
+   "summary": "Defines 3 function(s) and 0 class(es) for src/exo/worker/engines/mlx/patches/standard_yarn_rope.py.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:src/exo/worker/engines/mlx/patches/__init__.py:apply_mlx_patches",
+   "type": "function",
+   "name": "apply_mlx_patches",
+   "filePath": "src/exo/worker/engines/mlx/patches/__init__.py",
+   "lineRange": [
+    7,
+    13
+   ],
+   "summary": "Function apply_mlx_patches in src/exo/worker/engines/mlx/patches/__init__.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/worker/engines/mlx/patches/opt_batch_gen.py:_get_buffer",
+   "type": "function",
+   "name": "_get_buffer",
+   "filePath": "src/exo/worker/engines/mlx/patches/opt_batch_gen.py",
+   "lineRange": [
+    41,
+    46
+   ],
+   "summary": "Function _get_buffer in src/exo/worker/engines/mlx/patches/opt_batch_gen.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/worker/engines/mlx/patches/opt_batch_gen.py:set_needs_topk",
+   "type": "function",
+   "name": "set_needs_topk",
+   "filePath": "src/exo/worker/engines/mlx/patches/opt_batch_gen.py",
+   "lineRange": [
+    49,
+    50
+   ],
+   "summary": "Function set_needs_topk in src/exo/worker/engines/mlx/patches/opt_batch_gen.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/worker/engines/mlx/patches/opt_batch_gen.py:take_ready_topk",
+   "type": "function",
+   "name": "take_ready_topk",
+   "filePath": "src/exo/worker/engines/mlx/patches/opt_batch_gen.py",
+   "lineRange": [
+    53,
+    54
+   ],
+   "summary": "Function take_ready_topk in src/exo/worker/engines/mlx/patches/opt_batch_gen.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/worker/engines/mlx/patches/opt_batch_gen.py:_patched_step",
+   "type": "function",
+   "name": "_patched_step",
+   "filePath": "src/exo/worker/engines/mlx/patches/opt_batch_gen.py",
+   "lineRange": [
+    57,
+    132
+   ],
+   "summary": "Function _patched_step in src/exo/worker/engines/mlx/patches/opt_batch_gen.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:src/exo/worker/engines/mlx/patches/opt_batch_gen.py:apply_batch_gen_patch",
+   "type": "function",
+   "name": "apply_batch_gen_patch",
+   "filePath": "src/exo/worker/engines/mlx/patches/opt_batch_gen.py",
+   "lineRange": [
+    135,
+    136
+   ],
+   "summary": "Function apply_batch_gen_patch in src/exo/worker/engines/mlx/patches/opt_batch_gen.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/worker/engines/mlx/patches/opt_batch_gen.py:BatchTopKLogprobs",
+   "type": "class",
+   "name": "BatchTopKLogprobs",
+   "filePath": "src/exo/worker/engines/mlx/patches/opt_batch_gen.py",
+   "lineRange": [
+    11,
+    31
+   ],
+   "summary": "Class BatchTopKLogprobs in src/exo/worker/engines/mlx/patches/opt_batch_gen.py.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/worker/engines/mlx/patches/opt_batch_gen.py:_TopKBuffer",
+   "type": "class",
+   "name": "_TopKBuffer",
+   "filePath": "src/exo/worker/engines/mlx/patches/opt_batch_gen.py",
+   "lineRange": [
+    35,
+    38
+   ],
+   "summary": "Class _TopKBuffer in src/exo/worker/engines/mlx/patches/opt_batch_gen.py.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/worker/engines/mlx/patches/standard_yarn_rope.py:_patched_yarn_init",
+   "type": "function",
+   "name": "_patched_yarn_init",
+   "filePath": "src/exo/worker/engines/mlx/patches/standard_yarn_rope.py",
+   "lineRange": [
+    10,
+    67
+   ],
+   "summary": "Function _patched_yarn_init in src/exo/worker/engines/mlx/patches/standard_yarn_rope.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:src/exo/worker/engines/mlx/patches/standard_yarn_rope.py:_patched_initialize_rope",
+   "type": "function",
+   "name": "_patched_initialize_rope",
+   "filePath": "src/exo/worker/engines/mlx/patches/standard_yarn_rope.py",
+   "lineRange": [
+    70,
+    113
+   ],
+   "summary": "Function _patched_initialize_rope in src/exo/worker/engines/mlx/patches/standard_yarn_rope.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/worker/engines/mlx/patches/standard_yarn_rope.py:patch_yarn_rope",
+   "type": "function",
+   "name": "patch_yarn_rope",
+   "filePath": "src/exo/worker/engines/mlx/patches/standard_yarn_rope.py",
+   "lineRange": [
+    116,
+    118
+   ],
+   "summary": "Function patch_yarn_rope in src/exo/worker/engines/mlx/patches/standard_yarn_rope.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  }
+ ],
+ "edges": [
+  {
+   "source": "file:src/exo/worker/engines/mlx/patches/__init__.py",
+   "target": "function:src/exo/worker/engines/mlx/patches/__init__.py:apply_mlx_patches",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/patches/__init__.py",
+   "target": "function:src/exo/worker/engines/mlx/patches/__init__.py:apply_mlx_patches",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/patches/opt_batch_gen.py",
+   "target": "function:src/exo/worker/engines/mlx/patches/opt_batch_gen.py:_get_buffer",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/patches/opt_batch_gen.py",
+   "target": "function:src/exo/worker/engines/mlx/patches/opt_batch_gen.py:_get_buffer",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/patches/opt_batch_gen.py",
+   "target": "function:src/exo/worker/engines/mlx/patches/opt_batch_gen.py:set_needs_topk",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/patches/opt_batch_gen.py",
+   "target": "function:src/exo/worker/engines/mlx/patches/opt_batch_gen.py:set_needs_topk",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/patches/opt_batch_gen.py",
+   "target": "function:src/exo/worker/engines/mlx/patches/opt_batch_gen.py:take_ready_topk",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/patches/opt_batch_gen.py",
+   "target": "function:src/exo/worker/engines/mlx/patches/opt_batch_gen.py:take_ready_topk",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/patches/opt_batch_gen.py",
+   "target": "function:src/exo/worker/engines/mlx/patches/opt_batch_gen.py:_patched_step",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/patches/opt_batch_gen.py",
+   "target": "function:src/exo/worker/engines/mlx/patches/opt_batch_gen.py:_patched_step",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/patches/opt_batch_gen.py",
+   "target": "function:src/exo/worker/engines/mlx/patches/opt_batch_gen.py:apply_batch_gen_patch",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/patches/opt_batch_gen.py",
+   "target": "function:src/exo/worker/engines/mlx/patches/opt_batch_gen.py:apply_batch_gen_patch",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/patches/opt_batch_gen.py",
+   "target": "class:src/exo/worker/engines/mlx/patches/opt_batch_gen.py:BatchTopKLogprobs",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/patches/opt_batch_gen.py",
+   "target": "class:src/exo/worker/engines/mlx/patches/opt_batch_gen.py:BatchTopKLogprobs",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/patches/opt_batch_gen.py",
+   "target": "class:src/exo/worker/engines/mlx/patches/opt_batch_gen.py:_TopKBuffer",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/patches/opt_batch_gen.py",
+   "target": "class:src/exo/worker/engines/mlx/patches/opt_batch_gen.py:_TopKBuffer",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/patches/standard_yarn_rope.py",
+   "target": "function:src/exo/worker/engines/mlx/patches/standard_yarn_rope.py:_patched_yarn_init",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/patches/standard_yarn_rope.py",
+   "target": "function:src/exo/worker/engines/mlx/patches/standard_yarn_rope.py:_patched_yarn_init",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/patches/standard_yarn_rope.py",
+   "target": "function:src/exo/worker/engines/mlx/patches/standard_yarn_rope.py:_patched_initialize_rope",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/patches/standard_yarn_rope.py",
+   "target": "function:src/exo/worker/engines/mlx/patches/standard_yarn_rope.py:_patched_initialize_rope",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/patches/standard_yarn_rope.py",
+   "target": "function:src/exo/worker/engines/mlx/patches/standard_yarn_rope.py:patch_yarn_rope",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/patches/standard_yarn_rope.py",
+   "target": "function:src/exo/worker/engines/mlx/patches/standard_yarn_rope.py:patch_yarn_rope",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/patches/__init__.py",
+   "target": "file:src/exo/worker/engines/mlx/patches/opt_batch_gen.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/patches/__init__.py",
+   "target": "file:src/exo/worker/engines/mlx/patches/standard_yarn_rope.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "function:src/exo/worker/engines/mlx/patches/opt_batch_gen.py:set_needs_topk",
+   "target": "function:src/exo/worker/engines/mlx/patches/opt_batch_gen.py:_get_buffer",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:src/exo/worker/engines/mlx/patches/opt_batch_gen.py:take_ready_topk",
+   "target": "function:src/exo/worker/engines/mlx/patches/opt_batch_gen.py:_get_buffer",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:src/exo/worker/engines/mlx/patches/opt_batch_gen.py:_patched_step",
+   "target": "function:src/exo/worker/engines/mlx/patches/opt_batch_gen.py:_get_buffer",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  }
+ ]
+}

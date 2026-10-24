@@ -1,0 +1,1359 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 3,
+  "filesSkipped": [],
+  "analysisOutcomes": {
+    "structure": {
+      "succeeded": 3,
+      "failed": 0
+    },
+    "callGraph": {
+      "succeeded": 3,
+      "failed": 0,
+      "skipped": 0
+    }
+  },
+  "results": [
+    {
+      "path": "rust/networking/src/discovery.rs",
+      "language": "rust",
+      "fileCategory": "code",
+      "totalLines": 339,
+      "nonEmptyLines": 320,
+      "functions": [
+        {
+          "name": "new",
+          "startLine": 40,
+          "endLine": 118,
+          "params": [
+            "zid",
+            "namespace",
+            "listen_port",
+            "discovery_port"
+          ]
+        },
+        {
+          "name": "next",
+          "startLine": 120,
+          "endLine": 135,
+          "params": []
+        },
+        {
+          "name": "respond",
+          "startLine": 137,
+          "endLine": 239,
+          "params": [
+            "bytes_read",
+            "addr",
+            "buf"
+          ]
+        },
+        {
+          "name": "announce",
+          "startLine": 241,
+          "endLine": 264,
+          "params": []
+        },
+        {
+          "name": "try_from",
+          "startLine": 278,
+          "endLine": 284,
+          "params": [
+            "value"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "Discovery",
+          "startLine": 21,
+          "endLine": 31,
+          "methods": [
+            "new",
+            "next",
+            "respond",
+            "announce"
+          ],
+          "properties": [
+            "sock",
+            "ifaces",
+            "namespace",
+            "last_nonce",
+            "listen_port",
+            "zid",
+            "tick",
+            "_sync"
+          ]
+        },
+        {
+          "name": "Discovered",
+          "startLine": 34,
+          "endLine": 37,
+          "methods": [],
+          "properties": [
+            "zid",
+            "addr"
+          ]
+        },
+        {
+          "name": "Kind",
+          "startLine": 270,
+          "endLine": 273,
+          "methods": [
+            "try_from"
+          ],
+          "properties": [
+            "Hello",
+            "WhatsUp"
+          ]
+        },
+        {
+          "name": "UnknownKind",
+          "startLine": 275,
+          "endLine": 275,
+          "methods": [],
+          "properties": []
+        },
+        {
+          "name": "Message",
+          "startLine": 287,
+          "endLine": 289,
+          "methods": [],
+          "properties": []
+        },
+        {
+          "name": "Header",
+          "startLine": 313,
+          "endLine": 316,
+          "methods": [],
+          "properties": [
+            "magic",
+            "kind"
+          ]
+        },
+        {
+          "name": "Hello",
+          "startLine": 320,
+          "endLine": 323,
+          "methods": [],
+          "properties": [
+            "nonce",
+            "namespace"
+          ]
+        },
+        {
+          "name": "WhatsUp",
+          "startLine": 331,
+          "endLine": 335,
+          "methods": [],
+          "properties": [
+            "nonce",
+            "zid",
+            "port_le"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "Discovery",
+          "line": 21,
+          "isDefault": false
+        },
+        {
+          "name": "Discovered",
+          "line": 34,
+          "isDefault": false
+        },
+        {
+          "name": "new",
+          "line": 40,
+          "isDefault": false
+        },
+        {
+          "name": "next",
+          "line": 120,
+          "isDefault": false
+        },
+        {
+          "name": "Kind",
+          "line": 270,
+          "isDefault": false
+        },
+        {
+          "name": "UnknownKind",
+          "line": 275,
+          "isDefault": false
+        },
+        {
+          "name": "Message",
+          "line": 287,
+          "isDefault": false
+        },
+        {
+          "name": "Header",
+          "line": 313,
+          "isDefault": false
+        },
+        {
+          "name": "Hello",
+          "line": 320,
+          "isDefault": false
+        },
+        {
+          "name": "WhatsUp",
+          "line": 331,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "new",
+          "callee": "socket2::Socket::new",
+          "lineNumber": 46
+        },
+        {
+          "caller": "new",
+          "callee": "Some",
+          "lineNumber": 49
+        },
+        {
+          "caller": "new",
+          "callee": "sock.set_reuse_address",
+          "lineNumber": 51
+        },
+        {
+          "caller": "new",
+          "callee": "sock.set_reuse_port",
+          "lineNumber": 53
+        },
+        {
+          "caller": "new",
+          "callee": "sock.bind",
+          "lineNumber": 54
+        },
+        {
+          "caller": "new",
+          "callee": "SocketAddrV6::new(Ipv6Addr::UNSPECIFIED, discovery_port, 0, 0).into",
+          "lineNumber": 54
+        },
+        {
+          "caller": "new",
+          "callee": "SocketAddrV6::new",
+          "lineNumber": 54
+        },
+        {
+          "caller": "new",
+          "callee": "sock.set_nonblocking",
+          "lineNumber": 55
+        },
+        {
+          "caller": "new",
+          "callee": "sock.set_multicast_loop_v6",
+          "lineNumber": 56
+        },
+        {
+          "caller": "new",
+          "callee": "Arc::new",
+          "lineNumber": 57
+        },
+        {
+          "caller": "new",
+          "callee": "UdpSocket::from_std",
+          "lineNumber": 57
+        },
+        {
+          "caller": "new",
+          "callee": "sock.into",
+          "lineNumber": 57
+        },
+        {
+          "caller": "new",
+          "callee": "Default::default",
+          "lineNumber": 58
+        },
+        {
+          "caller": "new",
+          "callee": "Mutex::new",
+          "lineNumber": 59
+        },
+        {
+          "caller": "new",
+          "callee": "netwatcher::watch_interfaces_with_callback({\n                let sock = sock.clone();\n                let ifaces = ifaces.clone();\n                move |update| {\n                    for (iface_idx, iface) in update.interfaces.iter() {\n                        if iface\n                            .ipv6_ips()\n                            .all(|addr| addr.is_loopback() || addr.is_unspecified())\n                        {\n                            continue;\n                        }\n\n                        match sock.join_multicast_v6(&GROUP, *iface_idx) {\n                            Ok(()) => ifaces.lock().push(SocketAddrV6::new(\n                                GROUP,\n                                discovery_port,\n                                0,\n                                *iface_idx,\n                            )),\n                            Err(e) if e.kind() != io::ErrorKind::AddrInUse => {\n                                // skip AddrInUse - just means we've already joined the mv6\n                                if let Some(iface) = update.interfaces.get(&iface_idx) {\n                                    warn!(\n                                        \"failed to join multicast v6 for interface {}: {e}\",\n                                        iface.name\n                                    )\n                                }\n                            }\n                            _ => {}\n                        }\n                    }\n                    for iface_idx in update.diff.removed {\n                        ifaces.lock().retain(|addr| addr.scope_id() != iface_idx);\n\n                        if let Err(e) = sock.leave_multicast_v6(&GROUP, iface_idx) {\n                            if let Some(iface) = update.interfaces.get(&iface_idx) {\n                                warn!(\n                                    \"failed to leave multicast v6 for interface {}: {e}\",\n                                    iface.name\n                                )\n                            }\n                        }\n                    }\n                }\n            }).expect",
+          "lineNumber": 60
+        },
+        {
+          "caller": "new",
+          "callee": "netwatcher::watch_interfaces_with_callback",
+          "lineNumber": 60
+        },
+        {
+          "caller": "new",
+          "callee": "sock.clone",
+          "lineNumber": 61
+        },
+        {
+          "caller": "new",
+          "callee": "ifaces.clone",
+          "lineNumber": 62
+        },
+        {
+          "caller": "new",
+          "callee": "update.interfaces.iter",
+          "lineNumber": 64
+        },
+        {
+          "caller": "new",
+          "callee": "iface\n                            .ipv6_ips().all",
+          "lineNumber": 65
+        },
+        {
+          "caller": "new",
+          "callee": "iface.ipv6_ips",
+          "lineNumber": 65
+        },
+        {
+          "caller": "new",
+          "callee": "addr.is_loopback",
+          "lineNumber": 67
+        },
+        {
+          "caller": "new",
+          "callee": "addr.is_unspecified",
+          "lineNumber": 67
+        },
+        {
+          "caller": "new",
+          "callee": "sock.join_multicast_v6",
+          "lineNumber": 72
+        },
+        {
+          "caller": "new",
+          "callee": "ifaces.lock().push",
+          "lineNumber": 73
+        },
+        {
+          "caller": "new",
+          "callee": "ifaces.lock",
+          "lineNumber": 73
+        },
+        {
+          "caller": "new",
+          "callee": "SocketAddrV6::new",
+          "lineNumber": 73
+        },
+        {
+          "caller": "new",
+          "callee": "e.kind",
+          "lineNumber": 79
+        },
+        {
+          "caller": "new",
+          "callee": "update.interfaces.get",
+          "lineNumber": 81
+        },
+        {
+          "caller": "new",
+          "callee": "ifaces.lock().retain",
+          "lineNumber": 92
+        },
+        {
+          "caller": "new",
+          "callee": "ifaces.lock",
+          "lineNumber": 92
+        },
+        {
+          "caller": "new",
+          "callee": "addr.scope_id",
+          "lineNumber": 92
+        },
+        {
+          "caller": "new",
+          "callee": "sock.leave_multicast_v6",
+          "lineNumber": 94
+        },
+        {
+          "caller": "new",
+          "callee": "update.interfaces.get",
+          "lineNumber": 95
+        },
+        {
+          "caller": "new",
+          "callee": "Ok",
+          "lineNumber": 108
+        },
+        {
+          "caller": "new",
+          "callee": "Mutex::new",
+          "lineNumber": 112
+        },
+        {
+          "caller": "new",
+          "callee": "rand::random",
+          "lineNumber": 112
+        },
+        {
+          "caller": "new",
+          "callee": "interval",
+          "lineNumber": 115
+        },
+        {
+          "caller": "new",
+          "callee": "Duration::from_secs",
+          "lineNumber": 115
+        },
+        {
+          "caller": "next",
+          "callee": "Hello::buf_size",
+          "lineNumber": 121
+        },
+        {
+          "caller": "next",
+          "callee": "WhatsUp::buf_size",
+          "lineNumber": 121
+        },
+        {
+          "caller": "respond",
+          "callee": "size_of::<Header>",
+          "lineNumber": 147
+        },
+        {
+          "caller": "respond",
+          "callee": "Ok",
+          "lineNumber": 149
+        },
+        {
+          "caller": "respond",
+          "callee": "bytemuck::from_bytes",
+          "lineNumber": 151
+        },
+        {
+          "caller": "respond",
+          "callee": "size_of::<Header>",
+          "lineNumber": 151
+        },
+        {
+          "caller": "respond",
+          "callee": "Ok",
+          "lineNumber": 154
+        },
+        {
+          "caller": "respond",
+          "callee": "header.kind.try_into",
+          "lineNumber": 156
+        },
+        {
+          "caller": "respond",
+          "callee": "Ok",
+          "lineNumber": 158
+        },
+        {
+          "caller": "respond",
+          "callee": "Hello::buf_size",
+          "lineNumber": 162
+        },
+        {
+          "caller": "respond",
+          "callee": "Ok",
+          "lineNumber": 165
+        },
+        {
+          "caller": "respond",
+          "callee": "bytemuck::from_bytes",
+          "lineNumber": 167
+        },
+        {
+          "caller": "respond",
+          "callee": "size_of::<Header>",
+          "lineNumber": 167
+        },
+        {
+          "caller": "respond",
+          "callee": "self.last_nonce.lock",
+          "lineNumber": 168
+        },
+        {
+          "caller": "respond",
+          "callee": "Ok",
+          "lineNumber": 170
+        },
+        {
+          "caller": "respond",
+          "callee": "Ok",
+          "lineNumber": 174
+        },
+        {
+          "caller": "respond",
+          "callee": "WhatsUp {\n                    nonce: hello.nonce,\n                    zid: self.zid.to_le_bytes(),\n                    port_le: self.listen_port.to_le_bytes(),\n                }.alloc",
+          "lineNumber": 179
+        },
+        {
+          "caller": "respond",
+          "callee": "self.zid.to_le_bytes",
+          "lineNumber": 181
+        },
+        {
+          "caller": "respond",
+          "callee": "self.listen_port.to_le_bytes",
+          "lineNumber": 182
+        },
+        {
+          "caller": "respond",
+          "callee": "self\n                        .sock\n                        .send_to(&reply, addr)\n                        .await\n                        .inspect_err(|e| debug!(\"send to {addr} failed: {e}\")).is_ok_and",
+          "lineNumber": 187
+        },
+        {
+          "caller": "respond",
+          "callee": "self\n                        .sock\n                        .send_to(&reply, addr)\n                        .await.inspect_err",
+          "lineNumber": 187
+        },
+        {
+          "caller": "respond",
+          "callee": "self\n                        .sock.send_to",
+          "lineNumber": 187
+        },
+        {
+          "caller": "respond",
+          "callee": "WhatsUp::buf_size",
+          "lineNumber": 192
+        },
+        {
+          "caller": "respond",
+          "callee": "tokio::time::sleep",
+          "lineNumber": 201
+        },
+        {
+          "caller": "respond",
+          "callee": "Duration::from_millis",
+          "lineNumber": 201
+        },
+        {
+          "caller": "respond",
+          "callee": "Ok",
+          "lineNumber": 203
+        },
+        {
+          "caller": "respond",
+          "callee": "WhatsUp::buf_size",
+          "lineNumber": 206
+        },
+        {
+          "caller": "respond",
+          "callee": "Ok",
+          "lineNumber": 209
+        },
+        {
+          "caller": "respond",
+          "callee": "bytemuck::from_bytes",
+          "lineNumber": 211
+        },
+        {
+          "caller": "respond",
+          "callee": "size_of::<Header>",
+          "lineNumber": 211
+        },
+        {
+          "caller": "respond",
+          "callee": "self.last_nonce.lock",
+          "lineNumber": 212
+        },
+        {
+          "caller": "respond",
+          "callee": "Ok",
+          "lineNumber": 214
+        },
+        {
+          "caller": "respond",
+          "callee": "Ok",
+          "lineNumber": 218
+        },
+        {
+          "caller": "respond",
+          "callee": "ZenohId::try_from",
+          "lineNumber": 220
+        },
+        {
+          "caller": "respond",
+          "callee": "Ok",
+          "lineNumber": 222
+        },
+        {
+          "caller": "respond",
+          "callee": "Ok",
+          "lineNumber": 226
+        },
+        {
+          "caller": "respond",
+          "callee": "x.set_port",
+          "lineNumber": 233
+        },
+        {
+          "caller": "respond",
+          "callee": "u16::from_le_bytes",
+          "lineNumber": 233
+        },
+        {
+          "caller": "respond",
+          "callee": "Ok",
+          "lineNumber": 236
+        },
+        {
+          "caller": "respond",
+          "callee": "Some",
+          "lineNumber": 236
+        },
+        {
+          "caller": "announce",
+          "callee": "rand::random",
+          "lineNumber": 242
+        },
+        {
+          "caller": "announce",
+          "callee": "self.last_nonce.lock",
+          "lineNumber": 243
+        },
+        {
+          "caller": "announce",
+          "callee": "Hello {\n            nonce,\n            namespace: self.namespace,\n        }.alloc",
+          "lineNumber": 244
+        },
+        {
+          "caller": "announce",
+          "callee": "self.ifaces.lock().clone",
+          "lineNumber": 250
+        },
+        {
+          "caller": "announce",
+          "callee": "self.ifaces.lock",
+          "lineNumber": 250
+        },
+        {
+          "caller": "announce",
+          "callee": "addrs.into_iter().enumerate().rev",
+          "lineNumber": 253
+        },
+        {
+          "caller": "announce",
+          "callee": "addrs.into_iter().enumerate",
+          "lineNumber": 253
+        },
+        {
+          "caller": "announce",
+          "callee": "addrs.into_iter",
+          "lineNumber": 253
+        },
+        {
+          "caller": "announce",
+          "callee": "self.sock.send_to",
+          "lineNumber": 254
+        },
+        {
+          "caller": "announce",
+          "callee": "e.kind",
+          "lineNumber": 256
+        },
+        {
+          "caller": "announce",
+          "callee": "self.ifaces.lock().swap_remove",
+          "lineNumber": 258
+        },
+        {
+          "caller": "announce",
+          "callee": "self.ifaces.lock",
+          "lineNumber": 258
+        },
+        {
+          "caller": "announce",
+          "callee": "Ok",
+          "lineNumber": 263
+        },
+        {
+          "caller": "try_from",
+          "callee": "Ok",
+          "lineNumber": 280
+        },
+        {
+          "caller": "try_from",
+          "callee": "Ok",
+          "lineNumber": 281
+        },
+        {
+          "caller": "try_from",
+          "callee": "Err",
+          "lineNumber": 282
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 10,
+        "functionCount": 5,
+        "classCount": 8
+      }
+    },
+    {
+      "path": "rust/networking/src/lib.rs",
+      "language": "rust",
+      "fileCategory": "code",
+      "totalLines": 116,
+      "nonEmptyLines": 104,
+      "functions": [
+        {
+          "name": "is_valid_zid",
+          "startLine": 15,
+          "endLine": 21,
+          "params": [
+            "identity"
+          ]
+        },
+        {
+          "name": "cfg",
+          "startLine": 23,
+          "endLine": 52,
+          "params": [
+            "identity",
+            "listen_port"
+          ]
+        },
+        {
+          "name": "open",
+          "startLine": 54,
+          "endLine": 103,
+          "params": [
+            "cfg",
+            "namespace",
+            "listen_port",
+            "discovery_service_port"
+          ]
+        },
+        {
+          "name": "drop",
+          "startLine": 107,
+          "endLine": 109,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "AbortOnDrop",
+          "startLine": 105,
+          "endLine": 105,
+          "methods": [
+            "drop"
+          ],
+          "properties": []
+        },
+        {
+          "name": "Session",
+          "startLine": 113,
+          "endLine": 116,
+          "methods": [],
+          "properties": [
+            "z",
+            "_jh"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "is_valid_zid",
+          "line": 15,
+          "isDefault": false
+        },
+        {
+          "name": "cfg",
+          "line": 23,
+          "isDefault": false
+        },
+        {
+          "name": "open",
+          "line": 54,
+          "isDefault": false
+        },
+        {
+          "name": "Session",
+          "line": 113,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "is_valid_zid",
+          "callee": "identity.chars",
+          "lineNumber": 16
+        },
+        {
+          "caller": "is_valid_zid",
+          "callee": "iter.next().is_some_and",
+          "lineNumber": 17
+        },
+        {
+          "caller": "is_valid_zid",
+          "callee": "iter.next",
+          "lineNumber": 17
+        },
+        {
+          "caller": "is_valid_zid",
+          "callee": "('1'..='9').contains",
+          "lineNumber": 18
+        },
+        {
+          "caller": "is_valid_zid",
+          "callee": "('a'..='f').contains",
+          "lineNumber": 18
+        },
+        {
+          "caller": "is_valid_zid",
+          "callee": "iter.all",
+          "lineNumber": 19
+        },
+        {
+          "caller": "is_valid_zid",
+          "callee": "('0'..='9').contains",
+          "lineNumber": 19
+        },
+        {
+          "caller": "is_valid_zid",
+          "callee": "('a'..='f').contains",
+          "lineNumber": 19
+        },
+        {
+          "caller": "is_valid_zid",
+          "callee": "identity.len",
+          "lineNumber": 20
+        },
+        {
+          "caller": "cfg",
+          "callee": "zenoh::Config::default",
+          "lineNumber": 27
+        },
+        {
+          "caller": "cfg",
+          "callee": "cfg.insert_json5",
+          "lineNumber": 29
+        },
+        {
+          "caller": "cfg",
+          "callee": "cfg.insert_json5",
+          "lineNumber": 30
+        },
+        {
+          "caller": "cfg",
+          "callee": "cfg.insert_json5",
+          "lineNumber": 31
+        },
+        {
+          "caller": "cfg",
+          "callee": "cfg.insert_json5",
+          "lineNumber": 32
+        },
+        {
+          "caller": "cfg",
+          "callee": "cfg.insert_json5",
+          "lineNumber": 33
+        },
+        {
+          "caller": "cfg",
+          "callee": "cfg.insert_json5",
+          "lineNumber": 34
+        },
+        {
+          "caller": "cfg",
+          "callee": "cfg.insert_json5",
+          "lineNumber": 35
+        },
+        {
+          "caller": "cfg",
+          "callee": "cfg.insert_json5",
+          "lineNumber": 37
+        },
+        {
+          "caller": "cfg",
+          "callee": "cfg.insert_json5",
+          "lineNumber": 39
+        },
+        {
+          "caller": "cfg",
+          "callee": "cfg.insert_json5",
+          "lineNumber": 40
+        },
+        {
+          "caller": "cfg",
+          "callee": "Ok",
+          "lineNumber": 51
+        },
+        {
+          "caller": "open",
+          "callee": "blake3::hash(namespace.as_bytes()).as_bytes()[..8]\n            .try_into().expect",
+          "lineNumber": 62
+        },
+        {
+          "caller": "open",
+          "callee": "blake3::hash(namespace.as_bytes()).as_bytes()[..8].try_into",
+          "lineNumber": 62
+        },
+        {
+          "caller": "open",
+          "callee": "blake3::hash(namespace.as_bytes()).as_bytes",
+          "lineNumber": 62
+        },
+        {
+          "caller": "open",
+          "callee": "blake3::hash",
+          "lineNumber": 62
+        },
+        {
+          "caller": "open",
+          "callee": "namespace.as_bytes",
+          "lineNumber": 62
+        },
+        {
+          "caller": "open",
+          "callee": "PluginsManager::static_plugins_only",
+          "lineNumber": 66
+        },
+        {
+          "caller": "open",
+          "callee": "plugins.declare_static_plugin::<StoragesPlugin, _>",
+          "lineNumber": 67
+        },
+        {
+          "caller": "open",
+          "callee": "zenoh::internal::runtime::RuntimeBuilder::new(cfg)\n        .plugins_manager(plugins).build",
+          "lineNumber": 68
+        },
+        {
+          "caller": "open",
+          "callee": "zenoh::internal::runtime::RuntimeBuilder::new(cfg).plugins_manager",
+          "lineNumber": 68
+        },
+        {
+          "caller": "open",
+          "callee": "zenoh::internal::runtime::RuntimeBuilder::new",
+          "lineNumber": 68
+        },
+        {
+          "caller": "open",
+          "callee": "zenoh::session::init",
+          "lineNumber": 72
+        },
+        {
+          "caller": "open",
+          "callee": "runtime.clone().into",
+          "lineNumber": 72
+        },
+        {
+          "caller": "open",
+          "callee": "runtime.clone",
+          "lineNumber": 72
+        },
+        {
+          "caller": "open",
+          "callee": "runtime.start",
+          "lineNumber": 73
+        },
+        {
+          "caller": "open",
+          "callee": "Discovery::new",
+          "lineNumber": 75
+        },
+        {
+          "caller": "open",
+          "callee": "z.zid",
+          "lineNumber": 75
+        },
+        {
+          "caller": "open",
+          "callee": "Arc::new",
+          "lineNumber": 76
+        },
+        {
+          "caller": "open",
+          "callee": "AbortOnDrop",
+          "lineNumber": 76
+        },
+        {
+          "caller": "open",
+          "callee": "tokio::task::spawn",
+          "lineNumber": 76
+        },
+        {
+          "caller": "open",
+          "callee": "discovery.next().await.inspect_err",
+          "lineNumber": 78
+        },
+        {
+          "caller": "open",
+          "callee": "discovery.next",
+          "lineNumber": 78
+        },
+        {
+          "caller": "open",
+          "callee": "runtime.zid",
+          "lineNumber": 84
+        },
+        {
+          "caller": "open",
+          "callee": "Locator::new(\"tcp\", discovered.addr.to_string(), \"\").inspect_err",
+          "lineNumber": 90
+        },
+        {
+          "caller": "open",
+          "callee": "Locator::new",
+          "lineNumber": 90
+        },
+        {
+          "caller": "open",
+          "callee": "discovered.addr.to_string",
+          "lineNumber": 90
+        },
+        {
+          "caller": "open",
+          "callee": "runtime.connect_peer",
+          "lineNumber": 97
+        },
+        {
+          "caller": "open",
+          "callee": "discovered.zid.into",
+          "lineNumber": 98
+        },
+        {
+          "caller": "open",
+          "callee": "Ok",
+          "lineNumber": 102
+        },
+        {
+          "caller": "drop",
+          "callee": "self.0.abort",
+          "lineNumber": 108
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 4,
+        "functionCount": 4,
+        "classCount": 2
+      }
+    },
+    {
+      "path": "rust/networking/src/swarm.rs",
+      "language": "rust",
+      "fileCategory": "code",
+      "totalLines": 208,
+      "nonEmptyLines": 196,
+      "functions": [
+        {
+          "name": "into_stream",
+          "startLine": 49,
+          "endLine": 91,
+          "params": []
+        },
+        {
+          "name": "register_liveness",
+          "startLine": 94,
+          "endLine": 107,
+          "params": [
+            "session"
+          ]
+        },
+        {
+          "name": "on_message",
+          "startLine": 109,
+          "endLine": 193,
+          "params": [
+            "session",
+            "topics",
+            "to_topics",
+            "msg"
+          ]
+        },
+        {
+          "name": "create_swarm",
+          "startLine": 195,
+          "endLine": 208,
+          "params": [
+            "identity",
+            "namespace",
+            "from_client",
+            "listen_port",
+            "discovery_service_port"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "ToSwarm",
+          "startLine": 20,
+          "endLine": 34,
+          "methods": [],
+          "properties": [
+            "Unsubscribe",
+            "Subscribe",
+            "Publish"
+          ]
+        },
+        {
+          "name": "FromSwarm",
+          "startLine": 36,
+          "endLine": 40,
+          "methods": [],
+          "properties": [
+            "Message",
+            "Discovered",
+            "Expired"
+          ]
+        },
+        {
+          "name": "Swarm",
+          "startLine": 43,
+          "endLine": 46,
+          "methods": [
+            "into_stream"
+          ],
+          "properties": [
+            "session",
+            "from_client"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "ToSwarm",
+          "line": 20,
+          "isDefault": false
+        },
+        {
+          "name": "FromSwarm",
+          "line": 36,
+          "isDefault": false
+        },
+        {
+          "name": "Swarm",
+          "line": 43,
+          "isDefault": false
+        },
+        {
+          "name": "into_stream",
+          "line": 49,
+          "isDefault": false
+        },
+        {
+          "name": "create_swarm",
+          "line": 195,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "into_stream",
+          "callee": "Box::pin",
+          "lineNumber": 90
+        },
+        {
+          "caller": "register_liveness",
+          "callee": "session\n        .liveliness().declare_token",
+          "lineNumber": 97
+        },
+        {
+          "caller": "register_liveness",
+          "callee": "session.liveliness",
+          "lineNumber": 97
+        },
+        {
+          "caller": "register_liveness",
+          "callee": "session\n        .liveliness()\n        .declare_subscriber(\"live/*\").history",
+          "lineNumber": 101
+        },
+        {
+          "caller": "register_liveness",
+          "callee": "session\n        .liveliness().declare_subscriber",
+          "lineNumber": 101
+        },
+        {
+          "caller": "register_liveness",
+          "callee": "session.liveliness",
+          "lineNumber": 101
+        },
+        {
+          "caller": "register_liveness",
+          "callee": "Ok",
+          "lineNumber": 106
+        },
+        {
+          "caller": "on_message",
+          "callee": "topics.get",
+          "lineNumber": 121
+        },
+        {
+          "caller": "on_message",
+          "callee": "topic.1.put",
+          "lineNumber": 122
+        },
+        {
+          "caller": "on_message",
+          "callee": "Ok",
+          "lineNumber": 125
+        },
+        {
+          "caller": "on_message",
+          "callee": "result_sender.send",
+          "lineNumber": 128
+        },
+        {
+          "caller": "on_message",
+          "callee": "topics.remove_entry",
+          "lineNumber": 134
+        },
+        {
+          "caller": "on_message",
+          "callee": "result_sender.send",
+          "lineNumber": 135
+        },
+        {
+          "caller": "on_message",
+          "callee": "publisher.undeclare",
+          "lineNumber": 138
+        },
+        {
+          "caller": "on_message",
+          "callee": "subscriber.undeclare",
+          "lineNumber": 139
+        },
+        {
+          "caller": "on_message",
+          "callee": "result_sender.send",
+          "lineNumber": 140
+        },
+        {
+          "caller": "on_message",
+          "callee": "topics.contains_key",
+          "lineNumber": 147
+        },
+        {
+          "caller": "on_message",
+          "callee": "result_sender.send",
+          "lineNumber": 148
+        },
+        {
+          "caller": "on_message",
+          "callee": "Ok",
+          "lineNumber": 148
+        },
+        {
+          "caller": "on_message",
+          "callee": "session\n                .declare_publisher(format!(\"topics/{topic}\")).congestion_control",
+          "lineNumber": 152
+        },
+        {
+          "caller": "on_message",
+          "callee": "session.declare_publisher",
+          "lineNumber": 152
+        },
+        {
+          "caller": "on_message",
+          "callee": "result_sender.send",
+          "lineNumber": 159
+        },
+        {
+          "caller": "on_message",
+          "callee": "Err",
+          "lineNumber": 159
+        },
+        {
+          "caller": "on_message",
+          "callee": "session\n                .declare_subscriber(format!(\"topics/{topic}\"))\n                .allowed_origin(zenoh::sample::Locality::Remote).callback",
+          "lineNumber": 164
+        },
+        {
+          "caller": "on_message",
+          "callee": "session\n                .declare_subscriber(format!(\"topics/{topic}\")).allowed_origin",
+          "lineNumber": 164
+        },
+        {
+          "caller": "on_message",
+          "callee": "session.declare_subscriber",
+          "lineNumber": 164
+        },
+        {
+          "caller": "on_message",
+          "callee": "to_topics.clone",
+          "lineNumber": 168
+        },
+        {
+          "caller": "on_message",
+          "callee": "topic.clone",
+          "lineNumber": 169
+        },
+        {
+          "caller": "on_message",
+          "callee": "sample.kind",
+          "lineNumber": 171
+        },
+        {
+          "caller": "on_message",
+          "callee": "sender.try_send",
+          "lineNumber": 174
+        },
+        {
+          "caller": "on_message",
+          "callee": "topic.clone",
+          "lineNumber": 175
+        },
+        {
+          "caller": "on_message",
+          "callee": "sample.payload().to_bytes().to_vec",
+          "lineNumber": 176
+        },
+        {
+          "caller": "on_message",
+          "callee": "sample.payload().to_bytes",
+          "lineNumber": 176
+        },
+        {
+          "caller": "on_message",
+          "callee": "sample.payload",
+          "lineNumber": 176
+        },
+        {
+          "caller": "on_message",
+          "callee": "result_sender.send",
+          "lineNumber": 184
+        },
+        {
+          "caller": "on_message",
+          "callee": "Err",
+          "lineNumber": 184
+        },
+        {
+          "caller": "on_message",
+          "callee": "result_sender.send",
+          "lineNumber": 190
+        },
+        {
+          "caller": "on_message",
+          "callee": "Ok",
+          "lineNumber": 190
+        },
+        {
+          "caller": "create_swarm",
+          "callee": "crate::cfg",
+          "lineNumber": 202
+        },
+        {
+          "caller": "create_swarm",
+          "callee": "crate::open",
+          "lineNumber": 203
+        },
+        {
+          "caller": "create_swarm",
+          "callee": "Ok",
+          "lineNumber": 204
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 5,
+        "functionCount": 4,
+        "classCount": 3
+      }
+    }
+  ]
+}

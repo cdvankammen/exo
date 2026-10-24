@@ -1,0 +1,2337 @@
+{
+ "nodes": [
+  {
+   "id": "file:src/exo/master/placement_utils.py",
+   "type": "file",
+   "name": "placement_utils.py",
+   "filePath": "src/exo/master/placement_utils.py",
+   "summary": "Master placement helpers that compute shard assignments for pipeline/CFG/tensor parallelism across node cycles, allocate layers proportionally to available memory, and build MLX ring/JACCL host matrices.",
+   "tags": [
+    "placement",
+    "master",
+    "sharding",
+    "parallelism",
+    "orchestration"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "function:src/exo/master/placement_utils.py:filter_cycles_by_memory",
+   "type": "function",
+   "name": "filter_cycles_by_memory",
+   "filePath": "src/exo/master/placement_utils.py",
+   "lineRange": [
+    21,
+    37
+   ],
+   "summary": "Filters node cycles that have enough aggregate available RAM for a model.",
+   "tags": [
+    "placement",
+    "memory"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/master/placement_utils.py:get_smallest_cycles",
+   "type": "function",
+   "name": "get_smallest_cycles",
+   "filePath": "src/exo/master/placement_utils.py",
+   "lineRange": [
+    40,
+    44
+   ],
+   "summary": "Returns the cycles with the fewest nodes.",
+   "tags": [
+    "placement",
+    "utility"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/master/placement_utils.py:allocate_layers_proportionally",
+   "type": "function",
+   "name": "allocate_layers_proportionally",
+   "filePath": "src/exo/master/placement_utils.py",
+   "lineRange": [
+    47,
+    75
+   ],
+   "summary": "Distributes model layers across nodes proportionally to memory fractions using largest-remainder allocation with a minimum of one layer per node.",
+   "tags": [
+    "placement",
+    "allocation"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:src/exo/master/placement_utils.py:_compute_total_memory",
+   "type": "function",
+   "name": "_compute_total_memory",
+   "filePath": "src/exo/master/placement_utils.py",
+   "lineRange": [
+    83,
+    93
+   ],
+   "summary": "Sums available RAM across node IDs and validates it is non-zero.",
+   "tags": [
+    "placement",
+    "memory"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/master/placement_utils.py:_allocate_and_validate_layers",
+   "type": "function",
+   "name": "_allocate_and_validate_layers",
+   "filePath": "src/exo/master/placement_utils.py",
+   "lineRange": [
+    96,
+    122
+   ],
+   "summary": "Allocates layers by memory fractions and validates each node can hold its share of the model.",
+   "tags": [
+    "placement",
+    "validation"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:src/exo/master/placement_utils.py:get_shard_assignments_for_pipeline_parallel",
+   "type": "function",
+   "name": "get_shard_assignments_for_pipeline_parallel",
+   "filePath": "src/exo/master/placement_utils.py",
+   "lineRange": [
+    125,
+    137
+   ],
+   "summary": "Entry point producing shard assignments for pipeline parallelism, dispatching to CFG or pure-pipeline strategies.",
+   "tags": [
+    "sharding",
+    "pipeline-parallel"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/master/placement_utils.py:_get_shard_assignments_for_cfg_parallel",
+   "type": "function",
+   "name": "_get_shard_assignments_for_cfg_parallel",
+   "filePath": "src/exo/master/placement_utils.py",
+   "lineRange": [
+    140,
+    200
+   ],
+   "summary": "Builds CFG-parallel shard assignments with per-node layer lists and runner IDs.",
+   "tags": [
+    "sharding",
+    "cfg-parallel"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "function:src/exo/master/placement_utils.py:_get_shard_assignments_for_pure_pipeline",
+   "type": "function",
+   "name": "_get_shard_assignments_for_pure_pipeline",
+   "filePath": "src/exo/master/placement_utils.py",
+   "lineRange": [
+    203,
+    240
+   ],
+   "summary": "Builds pure pipeline-parallel shard assignments with one shard per node.",
+   "tags": [
+    "sharding",
+    "pipeline-parallel"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:src/exo/master/placement_utils.py:get_shard_assignments_for_tensor_parallel",
+   "type": "function",
+   "name": "get_shard_assignments_for_tensor_parallel",
+   "filePath": "src/exo/master/placement_utils.py",
+   "lineRange": [
+    243,
+    273
+   ],
+   "summary": "Builds tensor-parallel shard assignments covering all nodes in the cycle.",
+   "tags": [
+    "sharding",
+    "tensor-parallel"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:src/exo/master/placement_utils.py:get_shard_assignments",
+   "type": "function",
+   "name": "get_shard_assignments",
+   "filePath": "src/exo/master/placement_utils.py",
+   "lineRange": [
+    276,
+    293
+   ],
+   "summary": "Top-level dispatcher selecting pipeline or tensor-parallel sharding for a model.",
+   "tags": [
+    "sharding",
+    "dispatch"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/master/placement_utils.py:get_mlx_jaccl_devices_matrix",
+   "type": "function",
+   "name": "get_mlx_jaccl_devices_matrix",
+   "filePath": "src/exo/master/placement_utils.py",
+   "lineRange": [
+    296,
+    325
+   ],
+   "summary": "Builds the device connectivity matrix for MLX JACCL from the topology cycle.",
+   "tags": [
+    "jaccl",
+    "connectivity"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:src/exo/master/placement_utils.py:_find_connection_ip",
+   "type": "function",
+   "name": "_find_connection_ip",
+   "filePath": "src/exo/master/placement_utils.py",
+   "lineRange": [
+    328,
+    336
+   ],
+   "summary": "Finds the best IP for a node pair from the topology connections.",
+   "tags": [
+    "network",
+    "utility"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/master/placement_utils.py:find_ip_prioritised",
+   "type": "function",
+   "name": "find_ip_prioritised",
+   "filePath": "src/exo/master/placement_utils.py",
+   "lineRange": [
+    339,
+    378
+   ],
+   "summary": "Selects the preferred IP for a node by interface-type priority, falling back to topology IPs.",
+   "tags": [
+    "network",
+    "selection"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:src/exo/master/placement_utils.py:get_mlx_ring_hosts_by_node",
+   "type": "function",
+   "name": "get_mlx_ring_hosts_by_node",
+   "filePath": "src/exo/master/placement_utils.py",
+   "lineRange": [
+    381,
+    428
+   ],
+   "summary": "Computes the ordered host list for MLX ring parallelism per node.",
+   "tags": [
+    "mlx-ring",
+    "hosts"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:src/exo/master/placement_utils.py:get_mlx_jaccl_coordinators",
+   "type": "function",
+   "name": "get_mlx_jaccl_coordinators",
+   "filePath": "src/exo/master/placement_utils.py",
+   "lineRange": [
+    431,
+    461
+   ],
+   "summary": "Derives the coordinator IPs for MLX JACCL from ring host assignments.",
+   "tags": [
+    "jaccl",
+    "coordinators"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:src/exo/master/tests/conftest.py",
+   "type": "file",
+   "name": "conftest.py",
+   "filePath": "src/exo/master/tests/conftest.py",
+   "summary": "Pytest fixtures for master tests creating node memory, network, socket, and RDMA connection objects.",
+   "tags": [
+    "test",
+    "fixtures",
+    "master",
+    "placement"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/master/tests/conftest.py:create_node_memory",
+   "type": "function",
+   "name": "create_node_memory",
+   "filePath": "src/exo/master/tests/conftest.py",
+   "lineRange": [
+    10,
+    16
+   ],
+   "summary": "Fixture creating a MemoryUsage object for a node.",
+   "tags": [
+    "test",
+    "fixture"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/master/tests/conftest.py:create_node_network",
+   "type": "function",
+   "name": "create_node_network",
+   "filePath": "src/exo/master/tests/conftest.py",
+   "lineRange": [
+    19,
+    25
+   ],
+   "summary": "Fixture creating node network info with interface IPs.",
+   "tags": [
+    "test",
+    "fixture"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/master/tests/conftest.py:create_socket_connection",
+   "type": "function",
+   "name": "create_socket_connection",
+   "filePath": "src/exo/master/tests/conftest.py",
+   "lineRange": [
+    28,
+    31
+   ],
+   "summary": "Fixture creating a socket connection between two nodes.",
+   "tags": [
+    "test",
+    "fixture"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/master/tests/conftest.py:create_rdma_connection",
+   "type": "function",
+   "name": "create_rdma_connection",
+   "filePath": "src/exo/master/tests/conftest.py",
+   "lineRange": [
+    34,
+    37
+   ],
+   "summary": "Fixture creating an RDMA connection between two nodes.",
+   "tags": [
+    "test",
+    "fixture"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:src/exo/master/tests/test_placement.py",
+   "type": "file",
+   "name": "test_placement.py",
+   "filePath": "src/exo/master/tests/test_placement.py",
+   "summary": "Comprehensive tests for master instance placement: memory fits, transition events, leaf-node selection, RDMA connectivity matrices, download-progress preference, and backend-compatibility gating.",
+   "tags": [
+    "test",
+    "placement",
+    "master",
+    "rdma",
+    "instances"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "function:src/exo/master/tests/test_placement.py:instance",
+   "type": "function",
+   "name": "instance",
+   "filePath": "src/exo/master/tests/test_placement.py",
+   "lineRange": [
+    57,
+    65
+   ],
+   "summary": "Fixture building a BoundInstance for placement tests.",
+   "tags": [
+    "test",
+    "fixture"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/master/tests/test_placement.py:model_card",
+   "type": "function",
+   "name": "model_card",
+   "filePath": "src/exo/master/tests/test_placement.py",
+   "lineRange": [
+    69,
+    78
+   ],
+   "summary": "Fixture building a ModelCard for placement tests.",
+   "tags": [
+    "test",
+    "fixture"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/master/tests/test_placement.py:place_instance_command",
+   "type": "function",
+   "name": "place_instance_command",
+   "filePath": "src/exo/master/tests/test_placement.py",
+   "lineRange": [
+    87,
+    94
+   ],
+   "summary": "Fixture building a PlaceInstance command.",
+   "tags": [
+    "test",
+    "fixture"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/master/tests/test_placement.py:test_get_instance_placements_create_instance",
+   "type": "function",
+   "name": "test_get_instance_placements_create_instance",
+   "filePath": "src/exo/master/tests/test_placement.py",
+   "lineRange": [
+    105,
+    193
+   ],
+   "summary": "Tests instance creation through the placement path.",
+   "tags": [
+    "test",
+    "placement"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "function:src/exo/master/tests/test_placement.py:test_get_instance_placements_one_node_exact_fit",
+   "type": "function",
+   "name": "test_get_instance_placements_one_node_exact_fit",
+   "filePath": "src/exo/master/tests/test_placement.py",
+   "lineRange": [
+    196,
+    223
+   ],
+   "summary": "Tests placement where one node exactly fits the model.",
+   "tags": [
+    "test",
+    "placement",
+    "memory"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:src/exo/master/tests/test_placement.py:test_get_instance_placements_one_node_fits_with_extra_memory",
+   "type": "function",
+   "name": "test_get_instance_placements_one_node_fits_with_extra_memory",
+   "filePath": "src/exo/master/tests/test_placement.py",
+   "lineRange": [
+    226,
+    253
+   ],
+   "summary": "Tests placement with spare memory on one node.",
+   "tags": [
+    "test",
+    "placement",
+    "memory"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:src/exo/master/tests/test_placement.py:test_get_instance_placements_one_node_not_fit",
+   "type": "function",
+   "name": "test_get_instance_placements_one_node_not_fit",
+   "filePath": "src/exo/master/tests/test_placement.py",
+   "lineRange": [
+    256,
+    277
+   ],
+   "summary": "Tests rejection when no single node fits the model.",
+   "tags": [
+    "test",
+    "placement",
+    "memory"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:src/exo/master/tests/test_placement.py:test_get_transition_events_no_change",
+   "type": "function",
+   "name": "test_get_transition_events_no_change",
+   "filePath": "src/exo/master/tests/test_placement.py",
+   "lineRange": [
+    280,
+    290
+   ],
+   "summary": "Tests no transition events when nothing changes.",
+   "tags": [
+    "test",
+    "transitions"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/master/tests/test_placement.py:test_get_transition_events_create_instance",
+   "type": "function",
+   "name": "test_get_transition_events_create_instance",
+   "filePath": "src/exo/master/tests/test_placement.py",
+   "lineRange": [
+    293,
+    304
+   ],
+   "summary": "Tests transition events for instance creation.",
+   "tags": [
+    "test",
+    "transitions"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/master/tests/test_placement.py:test_get_transition_events_delete_instance",
+   "type": "function",
+   "name": "test_get_transition_events_delete_instance",
+   "filePath": "src/exo/master/tests/test_placement.py",
+   "lineRange": [
+    307,
+    319
+   ],
+   "summary": "Tests transition events for instance deletion.",
+   "tags": [
+    "test",
+    "transitions"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/master/tests/test_placement.py:test_placement_selects_leaf_nodes",
+   "type": "function",
+   "name": "test_placement_selects_leaf_nodes",
+   "filePath": "src/exo/master/tests/test_placement.py",
+   "lineRange": [
+    322,
+    390
+   ],
+   "summary": "Tests placement preferring leaf nodes in the topology.",
+   "tags": [
+    "test",
+    "placement",
+    "topology"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:src/exo/master/tests/test_placement.py:test_tensor_rdma_backend_connectivity_matrix",
+   "type": "function",
+   "name": "test_tensor_rdma_backend_connectivity_matrix",
+   "filePath": "src/exo/master/tests/test_placement.py",
+   "lineRange": [
+    393,
+    523
+   ],
+   "summary": "Tests tensor-parallel RDMA backend connectivity matrix computation.",
+   "tags": [
+    "test",
+    "rdma",
+    "tensor-parallel"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "function:src/exo/master/tests/test_placement.py:_build_three_node_rdma_topology",
+   "type": "function",
+   "name": "_build_three_node_rdma_topology",
+   "filePath": "src/exo/master/tests/test_placement.py",
+   "lineRange": [
+    526,
+    571
+   ],
+   "summary": "Builds a three-node RDMA topology for connectivity tests.",
+   "tags": [
+    "test",
+    "topology"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:src/exo/master/tests/test_placement.py:test_place_mlx_jaccl_rejects_when_a_node_has_rdma_ctl_disabled",
+   "type": "function",
+   "name": "test_place_mlx_jaccl_rejects_when_a_node_has_rdma_ctl_disabled",
+   "filePath": "src/exo/master/tests/test_placement.py",
+   "lineRange": [
+    574,
+    612
+   ],
+   "summary": "Tests MLX JACCL rejection when a node has rdma_ctl disabled.",
+   "tags": [
+    "test",
+    "jaccl",
+    "rdma"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:src/exo/master/tests/test_placement.py:test_place_mlx_jaccl_rejects_when_node_rdma_ctl_missing",
+   "type": "function",
+   "name": "test_place_mlx_jaccl_rejects_when_node_rdma_ctl_missing",
+   "filePath": "src/exo/master/tests/test_placement.py",
+   "lineRange": [
+    615,
+    650
+   ],
+   "summary": "Tests MLX JACCL rejection when a node lacks rdma_ctl status.",
+   "tags": [
+    "test",
+    "jaccl",
+    "rdma"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:src/exo/master/tests/test_placement.py:_make_task",
+   "type": "function",
+   "name": "_make_task",
+   "filePath": "src/exo/master/tests/test_placement.py",
+   "lineRange": [
+    653,
+    666
+   ],
+   "summary": "Builds a TextGeneration task for cancellation tests.",
+   "tags": [
+    "test",
+    "helper"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/master/tests/test_placement.py:test_get_transition_events_delete_instance_cancels_running_tasks",
+   "type": "function",
+   "name": "test_get_transition_events_delete_instance_cancels_running_tasks",
+   "filePath": "src/exo/master/tests/test_placement.py",
+   "lineRange": [
+    669,
+    688
+   ],
+   "summary": "Tests deletion cancels running tasks.",
+   "tags": [
+    "test",
+    "cancellation"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:src/exo/master/tests/test_placement.py:test_get_transition_events_delete_instance_cancels_pending_tasks",
+   "type": "function",
+   "name": "test_get_transition_events_delete_instance_cancels_pending_tasks",
+   "filePath": "src/exo/master/tests/test_placement.py",
+   "lineRange": [
+    691,
+    709
+   ],
+   "summary": "Tests deletion cancels pending tasks.",
+   "tags": [
+    "test",
+    "cancellation"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:src/exo/master/tests/test_placement.py:test_get_transition_events_delete_instance_ignores_completed_tasks",
+   "type": "function",
+   "name": "test_get_transition_events_delete_instance_ignores_completed_tasks",
+   "filePath": "src/exo/master/tests/test_placement.py",
+   "lineRange": [
+    712,
+    734
+   ],
+   "summary": "Tests deletion leaves completed tasks alone.",
+   "tags": [
+    "test",
+    "cancellation"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:src/exo/master/tests/test_placement.py:test_get_transition_events_delete_instance_cancels_only_matching_tasks",
+   "type": "function",
+   "name": "test_get_transition_events_delete_instance_cancels_only_matching_tasks",
+   "filePath": "src/exo/master/tests/test_placement.py",
+   "lineRange": [
+    737,
+    764
+   ],
+   "summary": "Tests deletion cancels only tasks matching the instance.",
+   "tags": [
+    "test",
+    "cancellation"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:src/exo/master/tests/test_placement.py:_make_shard_metadata",
+   "type": "function",
+   "name": "_make_shard_metadata",
+   "filePath": "src/exo/master/tests/test_placement.py",
+   "lineRange": [
+    767,
+    775
+   ],
+   "summary": "Builds shard metadata for placement tests.",
+   "tags": [
+    "test",
+    "helper"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/master/tests/test_placement.py:test_placement_prefers_cycle_with_downloaded_model",
+   "type": "function",
+   "name": "test_placement_prefers_cycle_with_downloaded_model",
+   "filePath": "src/exo/master/tests/test_placement.py",
+   "lineRange": [
+    778,
+    829
+   ],
+   "summary": "Tests placement preferring cycles with the model already downloaded.",
+   "tags": [
+    "test",
+    "placement",
+    "downloads"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:src/exo/master/tests/test_placement.py:test_placement_prefers_cycle_with_higher_download_progress",
+   "type": "function",
+   "name": "test_placement_prefers_cycle_with_higher_download_progress",
+   "filePath": "src/exo/master/tests/test_placement.py",
+   "lineRange": [
+    832,
+    907
+   ],
+   "summary": "Tests placement preferring cycles with higher download progress.",
+   "tags": [
+    "test",
+    "placement",
+    "downloads"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:src/exo/master/tests/test_placement.py:test_placement_does_not_prefer_cycle_with_failed_download",
+   "type": "function",
+   "name": "test_placement_does_not_prefer_cycle_with_failed_download",
+   "filePath": "src/exo/master/tests/test_placement.py",
+   "lineRange": [
+    910,
+    962
+   ],
+   "summary": "Tests placement avoiding cycles with failed downloads.",
+   "tags": [
+    "test",
+    "placement",
+    "downloads"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:src/exo/master/tests/test_placement.py:test_placement_rejects_when_model_backends_disjoint_from_engine",
+   "type": "function",
+   "name": "test_placement_rejects_when_model_backends_disjoint_from_engine",
+   "filePath": "src/exo/master/tests/test_placement.py",
+   "lineRange": [
+    965,
+    981
+   ],
+   "summary": "Tests rejection when model backends are disjoint from the engine.",
+   "tags": [
+    "test",
+    "backends"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:src/exo/master/tests/test_placement.py:test_placement_rejects_when_only_some_nodes_support_backend",
+   "type": "function",
+   "name": "test_placement_rejects_when_only_some_nodes_support_backend",
+   "filePath": "src/exo/master/tests/test_placement.py",
+   "lineRange": [
+    984,
+    1024
+   ],
+   "summary": "Tests rejection when only some nodes support the required backend.",
+   "tags": [
+    "test",
+    "backends"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:src/exo/master/tests/test_placement.py:test_mlx_jaccl_rejects_cuda_only_cycle",
+   "type": "function",
+   "name": "test_mlx_jaccl_rejects_cuda_only_cycle",
+   "filePath": "src/exo/master/tests/test_placement.py",
+   "lineRange": [
+    1027,
+    1058
+   ],
+   "summary": "Tests MLX JACCL rejecting CUDA-only cycles.",
+   "tags": [
+    "test",
+    "jaccl",
+    "backends"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:src/exo/master/tests/test_placement_utils.py",
+   "type": "file",
+   "name": "test_placement_utils.py",
+   "filePath": "src/exo/master/tests/test_placement_utils.py",
+   "summary": "Tests for placement_utils: memory-based cycle filtering, smallest-cycle selection, proportional layer allocation, shard assignments, and MLX JACCL coordinator derivation.",
+   "tags": [
+    "test",
+    "placement",
+    "sharding",
+    "master"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "function:src/exo/master/tests/test_placement_utils.py:test_filter_cycles_by_memory",
+   "type": "function",
+   "name": "test_filter_cycles_by_memory",
+   "filePath": "src/exo/master/tests/test_placement_utils.py",
+   "lineRange": [
+    32,
+    63
+   ],
+   "summary": "Tests cycle filtering by available memory.",
+   "tags": [
+    "test",
+    "placement"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:src/exo/master/tests/test_placement_utils.py:test_filter_cycles_by_insufficient_memory",
+   "type": "function",
+   "name": "test_filter_cycles_by_insufficient_memory",
+   "filePath": "src/exo/master/tests/test_placement_utils.py",
+   "lineRange": [
+    66,
+    93
+   ],
+   "summary": "Tests cycle filtering when memory is insufficient.",
+   "tags": [
+    "test",
+    "placement",
+    "memory"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:src/exo/master/tests/test_placement_utils.py:test_filter_multiple_cycles_by_memory",
+   "type": "function",
+   "name": "test_filter_multiple_cycles_by_memory",
+   "filePath": "src/exo/master/tests/test_placement_utils.py",
+   "lineRange": [
+    96,
+    144
+   ],
+   "summary": "Tests filtering across multiple cycles.",
+   "tags": [
+    "test",
+    "placement",
+    "memory"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:src/exo/master/tests/test_placement_utils.py:test_get_smallest_cycles",
+   "type": "function",
+   "name": "test_get_smallest_cycles",
+   "filePath": "src/exo/master/tests/test_placement_utils.py",
+   "lineRange": [
+    147,
+    184
+   ],
+   "summary": "Tests smallest-cycle selection.",
+   "tags": [
+    "test",
+    "placement"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:src/exo/master/tests/test_placement_utils.py:test_get_shard_assignments",
+   "type": "function",
+   "name": "test_get_shard_assignments",
+   "filePath": "src/exo/master/tests/test_placement_utils.py",
+   "lineRange": [
+    198,
+    279
+   ],
+   "summary": "Tests shard assignment generation across parallel strategies.",
+   "tags": [
+    "test",
+    "sharding"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:src/exo/master/tests/test_placement_utils.py:test_get_mlx_jaccl_coordinators",
+   "type": "function",
+   "name": "test_get_mlx_jaccl_coordinators",
+   "filePath": "src/exo/master/tests/test_placement_utils.py",
+   "lineRange": [
+    282,
+    386
+   ],
+   "summary": "Tests MLX JACCL coordinator derivation.",
+   "tags": [
+    "test",
+    "jaccl"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "function:src/exo/master/tests/test_placement_utils.py:test_get_shard_assignments_insufficient_memory_raises",
+   "type": "function",
+   "name": "test_get_shard_assignments_insufficient_memory_raises",
+   "filePath": "src/exo/master/tests/test_placement_utils.py",
+   "lineRange": [
+    443,
+    497
+   ],
+   "summary": "Tests that insufficient memory raises during shard assignment.",
+   "tags": [
+    "test",
+    "sharding",
+    "memory"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "class:src/exo/master/tests/test_placement_utils.py:TestAllocateLayersProportionally",
+   "type": "class",
+   "name": "TestAllocateLayersProportionally",
+   "filePath": "src/exo/master/tests/test_placement_utils.py",
+   "lineRange": [
+    389,
+    440
+   ],
+   "summary": "Tests proportional layer allocation edge cases.",
+   "tags": [
+    "test",
+    "allocation"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "class:src/exo/master/tests/test_placement_utils.py:TestCfgParallelPlacement",
+   "type": "class",
+   "name": "TestCfgParallelPlacement",
+   "filePath": "src/exo/master/tests/test_placement_utils.py",
+   "lineRange": [
+    500,
+    691
+   ],
+   "summary": "Tests CFG-parallel placement behaviors.",
+   "tags": [
+    "test",
+    "cfg-parallel"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:src/exo/master/tests/test_topology.py",
+   "type": "file",
+   "name": "test_topology.py",
+   "filePath": "src/exo/master/tests/test_topology.py",
+   "summary": "Tests for the Topology graph: node and connection addition/removal, connectivity preservation, and node listing.",
+   "tags": [
+    "test",
+    "topology",
+    "graph",
+    "master"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/master/tests/test_topology.py:topology",
+   "type": "function",
+   "name": "topology",
+   "filePath": "src/exo/master/tests/test_topology.py",
+   "lineRange": [
+    10,
+    11
+   ],
+   "summary": "Fixture creating an empty Topology.",
+   "tags": [
+    "test",
+    "fixture"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/master/tests/test_topology.py:socket_connection",
+   "type": "function",
+   "name": "socket_connection",
+   "filePath": "src/exo/master/tests/test_topology.py",
+   "lineRange": [
+    15,
+    18
+   ],
+   "summary": "Fixture creating a socket connection for topology tests.",
+   "tags": [
+    "test",
+    "fixture"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/master/tests/test_topology.py:test_add_node",
+   "type": "function",
+   "name": "test_add_node",
+   "filePath": "src/exo/master/tests/test_topology.py",
+   "lineRange": [
+    21,
+    29
+   ],
+   "summary": "Tests adding nodes to the topology.",
+   "tags": [
+    "test",
+    "topology"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/master/tests/test_topology.py:test_add_connection",
+   "type": "function",
+   "name": "test_add_connection",
+   "filePath": "src/exo/master/tests/test_topology.py",
+   "lineRange": [
+    32,
+    49
+   ],
+   "summary": "Tests adding connections between nodes.",
+   "tags": [
+    "test",
+    "topology"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:src/exo/master/tests/test_topology.py:test_remove_connection_still_connected",
+   "type": "function",
+   "name": "test_remove_connection_still_connected",
+   "filePath": "src/exo/master/tests/test_topology.py",
+   "lineRange": [
+    52,
+    68
+   ],
+   "summary": "Tests connectivity after removing a connection.",
+   "tags": [
+    "test",
+    "topology"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:src/exo/master/tests/test_topology.py:test_remove_node_still_connected",
+   "type": "function",
+   "name": "test_remove_node_still_connected",
+   "filePath": "src/exo/master/tests/test_topology.py",
+   "lineRange": [
+    71,
+    88
+   ],
+   "summary": "Tests connectivity after removing a node.",
+   "tags": [
+    "test",
+    "topology"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:src/exo/master/tests/test_topology.py:test_list_nodes",
+   "type": "function",
+   "name": "test_list_nodes",
+   "filePath": "src/exo/master/tests/test_topology.py",
+   "lineRange": [
+    91,
+    108
+   ],
+   "summary": "Tests listing nodes in the topology.",
+   "tags": [
+    "test",
+    "topology"
+   ],
+   "complexity": "moderate"
+  }
+ ],
+ "edges": [
+  {
+   "source": "file:src/exo/master/placement_utils.py",
+   "target": "function:src/exo/master/placement_utils.py:filter_cycles_by_memory",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/master/placement_utils.py",
+   "target": "function:src/exo/master/placement_utils.py:filter_cycles_by_memory",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/master/placement_utils.py",
+   "target": "function:src/exo/master/placement_utils.py:get_smallest_cycles",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/master/placement_utils.py",
+   "target": "function:src/exo/master/placement_utils.py:get_smallest_cycles",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/master/placement_utils.py",
+   "target": "function:src/exo/master/placement_utils.py:allocate_layers_proportionally",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/master/placement_utils.py",
+   "target": "function:src/exo/master/placement_utils.py:allocate_layers_proportionally",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/master/placement_utils.py",
+   "target": "function:src/exo/master/placement_utils.py:_compute_total_memory",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/master/placement_utils.py",
+   "target": "function:src/exo/master/placement_utils.py:_compute_total_memory",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/master/placement_utils.py",
+   "target": "function:src/exo/master/placement_utils.py:_allocate_and_validate_layers",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/master/placement_utils.py",
+   "target": "function:src/exo/master/placement_utils.py:_allocate_and_validate_layers",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/master/placement_utils.py",
+   "target": "function:src/exo/master/placement_utils.py:get_shard_assignments_for_pipeline_parallel",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/master/placement_utils.py",
+   "target": "function:src/exo/master/placement_utils.py:get_shard_assignments_for_pipeline_parallel",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/master/placement_utils.py",
+   "target": "function:src/exo/master/placement_utils.py:_get_shard_assignments_for_cfg_parallel",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/master/placement_utils.py",
+   "target": "function:src/exo/master/placement_utils.py:_get_shard_assignments_for_cfg_parallel",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/master/placement_utils.py",
+   "target": "function:src/exo/master/placement_utils.py:_get_shard_assignments_for_pure_pipeline",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/master/placement_utils.py",
+   "target": "function:src/exo/master/placement_utils.py:_get_shard_assignments_for_pure_pipeline",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/master/placement_utils.py",
+   "target": "function:src/exo/master/placement_utils.py:get_shard_assignments_for_tensor_parallel",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/master/placement_utils.py",
+   "target": "function:src/exo/master/placement_utils.py:get_shard_assignments_for_tensor_parallel",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/master/placement_utils.py",
+   "target": "function:src/exo/master/placement_utils.py:get_shard_assignments",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/master/placement_utils.py",
+   "target": "function:src/exo/master/placement_utils.py:get_shard_assignments",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/master/placement_utils.py",
+   "target": "function:src/exo/master/placement_utils.py:get_mlx_jaccl_devices_matrix",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/master/placement_utils.py",
+   "target": "function:src/exo/master/placement_utils.py:get_mlx_jaccl_devices_matrix",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/master/placement_utils.py",
+   "target": "function:src/exo/master/placement_utils.py:_find_connection_ip",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/master/placement_utils.py",
+   "target": "function:src/exo/master/placement_utils.py:_find_connection_ip",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/master/placement_utils.py",
+   "target": "function:src/exo/master/placement_utils.py:find_ip_prioritised",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/master/placement_utils.py",
+   "target": "function:src/exo/master/placement_utils.py:find_ip_prioritised",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/master/placement_utils.py",
+   "target": "function:src/exo/master/placement_utils.py:get_mlx_ring_hosts_by_node",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/master/placement_utils.py",
+   "target": "function:src/exo/master/placement_utils.py:get_mlx_ring_hosts_by_node",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/master/placement_utils.py",
+   "target": "function:src/exo/master/placement_utils.py:get_mlx_jaccl_coordinators",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/master/placement_utils.py",
+   "target": "function:src/exo/master/placement_utils.py:get_mlx_jaccl_coordinators",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/master/placement_utils.py",
+   "target": "file:src/exo/shared/models/model_cards.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/master/placement_utils.py",
+   "target": "file:src/exo/shared/topology.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/master/placement_utils.py",
+   "target": "file:src/exo/shared/types/common.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/master/placement_utils.py",
+   "target": "file:src/exo/shared/types/memory.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/master/placement_utils.py",
+   "target": "file:src/exo/shared/types/profiling.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/master/placement_utils.py",
+   "target": "file:src/exo/shared/types/topology.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/master/placement_utils.py",
+   "target": "file:src/exo/shared/types/worker/runners.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/master/placement_utils.py",
+   "target": "file:src/exo/shared/types/worker/shards.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "function:src/exo/master/placement_utils.py:get_mlx_jaccl_devices_matrix",
+   "target": "class:src/exo/shared/topology.py:Topology",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:src/exo/master/placement_utils.py:_find_connection_ip",
+   "target": "class:src/exo/shared/topology.py:Topology",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/master/placement_utils.py",
+   "target": "file:src/exo/master/tests/test_placement_utils.py",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  },
+  {
+   "source": "file:src/exo/master/placement_utils.py",
+   "target": "file:src/exo/master/tests/test_placement.py",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  },
+  {
+   "source": "file:src/exo/master/tests/conftest.py",
+   "target": "function:src/exo/master/tests/conftest.py:create_node_memory",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/master/tests/conftest.py",
+   "target": "function:src/exo/master/tests/conftest.py:create_node_memory",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/master/tests/conftest.py",
+   "target": "function:src/exo/master/tests/conftest.py:create_node_network",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/master/tests/conftest.py",
+   "target": "function:src/exo/master/tests/conftest.py:create_node_network",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/master/tests/conftest.py",
+   "target": "function:src/exo/master/tests/conftest.py:create_socket_connection",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/master/tests/conftest.py",
+   "target": "function:src/exo/master/tests/conftest.py:create_socket_connection",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/master/tests/conftest.py",
+   "target": "function:src/exo/master/tests/conftest.py:create_rdma_connection",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/master/tests/conftest.py",
+   "target": "function:src/exo/master/tests/conftest.py:create_rdma_connection",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/master/tests/conftest.py",
+   "target": "file:src/exo/shared/types/multiaddr.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/master/tests/conftest.py",
+   "target": "file:src/exo/shared/types/profiling.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/master/tests/conftest.py",
+   "target": "file:src/exo/shared/types/topology.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/master/tests/test_placement.py",
+   "target": "function:src/exo/master/tests/test_placement.py:instance",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/master/tests/test_placement.py",
+   "target": "function:src/exo/master/tests/test_placement.py:instance",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/master/tests/test_placement.py",
+   "target": "function:src/exo/master/tests/test_placement.py:model_card",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/master/tests/test_placement.py",
+   "target": "function:src/exo/master/tests/test_placement.py:model_card",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/master/tests/test_placement.py",
+   "target": "function:src/exo/master/tests/test_placement.py:place_instance_command",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/master/tests/test_placement.py",
+   "target": "function:src/exo/master/tests/test_placement.py:place_instance_command",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/master/tests/test_placement.py",
+   "target": "function:src/exo/master/tests/test_placement.py:test_get_instance_placements_create_instance",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/master/tests/test_placement.py",
+   "target": "function:src/exo/master/tests/test_placement.py:test_get_instance_placements_create_instance",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/master/tests/test_placement.py",
+   "target": "function:src/exo/master/tests/test_placement.py:test_get_instance_placements_one_node_exact_fit",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/master/tests/test_placement.py",
+   "target": "function:src/exo/master/tests/test_placement.py:test_get_instance_placements_one_node_exact_fit",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/master/tests/test_placement.py",
+   "target": "function:src/exo/master/tests/test_placement.py:test_get_instance_placements_one_node_fits_with_extra_memory",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/master/tests/test_placement.py",
+   "target": "function:src/exo/master/tests/test_placement.py:test_get_instance_placements_one_node_fits_with_extra_memory",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/master/tests/test_placement.py",
+   "target": "function:src/exo/master/tests/test_placement.py:test_get_instance_placements_one_node_not_fit",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/master/tests/test_placement.py",
+   "target": "function:src/exo/master/tests/test_placement.py:test_get_instance_placements_one_node_not_fit",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/master/tests/test_placement.py",
+   "target": "function:src/exo/master/tests/test_placement.py:test_get_transition_events_no_change",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/master/tests/test_placement.py",
+   "target": "function:src/exo/master/tests/test_placement.py:test_get_transition_events_no_change",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/master/tests/test_placement.py",
+   "target": "function:src/exo/master/tests/test_placement.py:test_get_transition_events_create_instance",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/master/tests/test_placement.py",
+   "target": "function:src/exo/master/tests/test_placement.py:test_get_transition_events_create_instance",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/master/tests/test_placement.py",
+   "target": "function:src/exo/master/tests/test_placement.py:test_get_transition_events_delete_instance",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/master/tests/test_placement.py",
+   "target": "function:src/exo/master/tests/test_placement.py:test_get_transition_events_delete_instance",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/master/tests/test_placement.py",
+   "target": "function:src/exo/master/tests/test_placement.py:test_placement_selects_leaf_nodes",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/master/tests/test_placement.py",
+   "target": "function:src/exo/master/tests/test_placement.py:test_placement_selects_leaf_nodes",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/master/tests/test_placement.py",
+   "target": "function:src/exo/master/tests/test_placement.py:test_tensor_rdma_backend_connectivity_matrix",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/master/tests/test_placement.py",
+   "target": "function:src/exo/master/tests/test_placement.py:test_tensor_rdma_backend_connectivity_matrix",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/master/tests/test_placement.py",
+   "target": "function:src/exo/master/tests/test_placement.py:_build_three_node_rdma_topology",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/master/tests/test_placement.py",
+   "target": "function:src/exo/master/tests/test_placement.py:_build_three_node_rdma_topology",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/master/tests/test_placement.py",
+   "target": "function:src/exo/master/tests/test_placement.py:test_place_mlx_jaccl_rejects_when_a_node_has_rdma_ctl_disabled",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/master/tests/test_placement.py",
+   "target": "function:src/exo/master/tests/test_placement.py:test_place_mlx_jaccl_rejects_when_a_node_has_rdma_ctl_disabled",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/master/tests/test_placement.py",
+   "target": "function:src/exo/master/tests/test_placement.py:test_place_mlx_jaccl_rejects_when_node_rdma_ctl_missing",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/master/tests/test_placement.py",
+   "target": "function:src/exo/master/tests/test_placement.py:test_place_mlx_jaccl_rejects_when_node_rdma_ctl_missing",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/master/tests/test_placement.py",
+   "target": "function:src/exo/master/tests/test_placement.py:_make_task",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/master/tests/test_placement.py",
+   "target": "function:src/exo/master/tests/test_placement.py:_make_task",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/master/tests/test_placement.py",
+   "target": "function:src/exo/master/tests/test_placement.py:test_get_transition_events_delete_instance_cancels_running_tasks",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/master/tests/test_placement.py",
+   "target": "function:src/exo/master/tests/test_placement.py:test_get_transition_events_delete_instance_cancels_running_tasks",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/master/tests/test_placement.py",
+   "target": "function:src/exo/master/tests/test_placement.py:test_get_transition_events_delete_instance_cancels_pending_tasks",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/master/tests/test_placement.py",
+   "target": "function:src/exo/master/tests/test_placement.py:test_get_transition_events_delete_instance_cancels_pending_tasks",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/master/tests/test_placement.py",
+   "target": "function:src/exo/master/tests/test_placement.py:test_get_transition_events_delete_instance_ignores_completed_tasks",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/master/tests/test_placement.py",
+   "target": "function:src/exo/master/tests/test_placement.py:test_get_transition_events_delete_instance_ignores_completed_tasks",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/master/tests/test_placement.py",
+   "target": "function:src/exo/master/tests/test_placement.py:test_get_transition_events_delete_instance_cancels_only_matching_tasks",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/master/tests/test_placement.py",
+   "target": "function:src/exo/master/tests/test_placement.py:test_get_transition_events_delete_instance_cancels_only_matching_tasks",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/master/tests/test_placement.py",
+   "target": "function:src/exo/master/tests/test_placement.py:_make_shard_metadata",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/master/tests/test_placement.py",
+   "target": "function:src/exo/master/tests/test_placement.py:_make_shard_metadata",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/master/tests/test_placement.py",
+   "target": "function:src/exo/master/tests/test_placement.py:test_placement_prefers_cycle_with_downloaded_model",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/master/tests/test_placement.py",
+   "target": "function:src/exo/master/tests/test_placement.py:test_placement_prefers_cycle_with_downloaded_model",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/master/tests/test_placement.py",
+   "target": "function:src/exo/master/tests/test_placement.py:test_placement_prefers_cycle_with_higher_download_progress",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/master/tests/test_placement.py",
+   "target": "function:src/exo/master/tests/test_placement.py:test_placement_prefers_cycle_with_higher_download_progress",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/master/tests/test_placement.py",
+   "target": "function:src/exo/master/tests/test_placement.py:test_placement_does_not_prefer_cycle_with_failed_download",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/master/tests/test_placement.py",
+   "target": "function:src/exo/master/tests/test_placement.py:test_placement_does_not_prefer_cycle_with_failed_download",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/master/tests/test_placement.py",
+   "target": "function:src/exo/master/tests/test_placement.py:test_placement_rejects_when_model_backends_disjoint_from_engine",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/master/tests/test_placement.py",
+   "target": "function:src/exo/master/tests/test_placement.py:test_placement_rejects_when_model_backends_disjoint_from_engine",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/master/tests/test_placement.py",
+   "target": "function:src/exo/master/tests/test_placement.py:test_placement_rejects_when_only_some_nodes_support_backend",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/master/tests/test_placement.py",
+   "target": "function:src/exo/master/tests/test_placement.py:test_placement_rejects_when_only_some_nodes_support_backend",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/master/tests/test_placement.py",
+   "target": "function:src/exo/master/tests/test_placement.py:test_mlx_jaccl_rejects_cuda_only_cycle",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/master/tests/test_placement.py",
+   "target": "function:src/exo/master/tests/test_placement.py:test_mlx_jaccl_rejects_cuda_only_cycle",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/master/tests/test_placement.py",
+   "target": "file:src/exo/master/placement.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/master/tests/test_placement.py",
+   "target": "file:src/exo/master/tests/conftest.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/master/tests/test_placement.py",
+   "target": "file:src/exo/shared/models/model_cards.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/master/tests/test_placement.py",
+   "target": "file:src/exo/shared/topology.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/master/tests/test_placement.py",
+   "target": "file:src/exo/shared/types/backends.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/master/tests/test_placement.py",
+   "target": "file:src/exo/shared/types/commands.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/master/tests/test_placement.py",
+   "target": "file:src/exo/shared/types/common.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/master/tests/test_placement.py",
+   "target": "file:src/exo/shared/types/events.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/master/tests/test_placement.py",
+   "target": "file:src/exo/shared/types/memory.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/master/tests/test_placement.py",
+   "target": "file:src/exo/shared/types/multiaddr.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/master/tests/test_placement.py",
+   "target": "file:src/exo/shared/types/profiling.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/master/tests/test_placement.py",
+   "target": "file:src/exo/shared/types/tasks.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/master/tests/test_placement.py",
+   "target": "file:src/exo/shared/types/text_generation.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/master/tests/test_placement.py",
+   "target": "file:src/exo/shared/types/topology.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/master/tests/test_placement.py",
+   "target": "file:src/exo/shared/types/worker/downloads.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/master/tests/test_placement.py",
+   "target": "file:src/exo/shared/types/worker/instances.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/master/tests/test_placement.py",
+   "target": "file:src/exo/shared/types/worker/runners.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/master/tests/test_placement.py",
+   "target": "file:src/exo/shared/types/worker/shards.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "function:src/exo/master/tests/test_placement.py:test_placement_selects_leaf_nodes",
+   "target": "class:src/exo/shared/topology.py:Topology",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:src/exo/master/tests/test_placement.py:test_tensor_rdma_backend_connectivity_matrix",
+   "target": "class:src/exo/shared/topology.py:Topology",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:src/exo/master/tests/test_placement.py:test_placement_prefers_cycle_with_downloaded_model",
+   "target": "function:src/exo/master/placement.py:place_instance",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:src/exo/master/tests/test_placement.py:test_get_transition_events_create_instance",
+   "target": "function:src/exo/master/placement.py:get_transition_events",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/master/tests/test_placement_utils.py",
+   "target": "function:src/exo/master/tests/test_placement_utils.py:test_filter_cycles_by_memory",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/master/tests/test_placement_utils.py",
+   "target": "function:src/exo/master/tests/test_placement_utils.py:test_filter_cycles_by_memory",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/master/tests/test_placement_utils.py",
+   "target": "function:src/exo/master/tests/test_placement_utils.py:test_filter_cycles_by_insufficient_memory",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/master/tests/test_placement_utils.py",
+   "target": "function:src/exo/master/tests/test_placement_utils.py:test_filter_cycles_by_insufficient_memory",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/master/tests/test_placement_utils.py",
+   "target": "function:src/exo/master/tests/test_placement_utils.py:test_filter_multiple_cycles_by_memory",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/master/tests/test_placement_utils.py",
+   "target": "function:src/exo/master/tests/test_placement_utils.py:test_filter_multiple_cycles_by_memory",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/master/tests/test_placement_utils.py",
+   "target": "function:src/exo/master/tests/test_placement_utils.py:test_get_smallest_cycles",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/master/tests/test_placement_utils.py",
+   "target": "function:src/exo/master/tests/test_placement_utils.py:test_get_smallest_cycles",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/master/tests/test_placement_utils.py",
+   "target": "function:src/exo/master/tests/test_placement_utils.py:test_get_shard_assignments",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/master/tests/test_placement_utils.py",
+   "target": "function:src/exo/master/tests/test_placement_utils.py:test_get_shard_assignments",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/master/tests/test_placement_utils.py",
+   "target": "function:src/exo/master/tests/test_placement_utils.py:test_get_mlx_jaccl_coordinators",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/master/tests/test_placement_utils.py",
+   "target": "function:src/exo/master/tests/test_placement_utils.py:test_get_mlx_jaccl_coordinators",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/master/tests/test_placement_utils.py",
+   "target": "function:src/exo/master/tests/test_placement_utils.py:test_get_shard_assignments_insufficient_memory_raises",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/master/tests/test_placement_utils.py",
+   "target": "function:src/exo/master/tests/test_placement_utils.py:test_get_shard_assignments_insufficient_memory_raises",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/master/tests/test_placement_utils.py",
+   "target": "class:src/exo/master/tests/test_placement_utils.py:TestAllocateLayersProportionally",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/master/tests/test_placement_utils.py",
+   "target": "class:src/exo/master/tests/test_placement_utils.py:TestAllocateLayersProportionally",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/master/tests/test_placement_utils.py",
+   "target": "class:src/exo/master/tests/test_placement_utils.py:TestCfgParallelPlacement",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/master/tests/test_placement_utils.py",
+   "target": "class:src/exo/master/tests/test_placement_utils.py:TestCfgParallelPlacement",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/master/tests/test_placement_utils.py",
+   "target": "file:src/exo/master/placement_utils.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/master/tests/test_placement_utils.py",
+   "target": "file:src/exo/master/tests/conftest.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/master/tests/test_placement_utils.py",
+   "target": "file:src/exo/shared/models/model_cards.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/master/tests/test_placement_utils.py",
+   "target": "file:src/exo/shared/topology.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/master/tests/test_placement_utils.py",
+   "target": "file:src/exo/shared/types/backends.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/master/tests/test_placement_utils.py",
+   "target": "file:src/exo/shared/types/common.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/master/tests/test_placement_utils.py",
+   "target": "file:src/exo/shared/types/memory.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/master/tests/test_placement_utils.py",
+   "target": "file:src/exo/shared/types/profiling.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/master/tests/test_placement_utils.py",
+   "target": "file:src/exo/shared/types/topology.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/master/tests/test_placement_utils.py",
+   "target": "file:src/exo/shared/types/worker/shards.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "function:src/exo/master/tests/test_placement_utils.py:test_get_shard_assignments",
+   "target": "function:src/exo/master/placement_utils.py:get_shard_assignments",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:src/exo/master/tests/test_placement_utils.py:test_get_mlx_jaccl_coordinators",
+   "target": "function:src/exo/master/placement_utils.py:get_mlx_jaccl_coordinators",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:src/exo/master/tests/test_placement_utils.py:test_filter_cycles_by_memory",
+   "target": "function:src/exo/master/placement_utils.py:filter_cycles_by_memory",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/master/tests/test_topology.py",
+   "target": "function:src/exo/master/tests/test_topology.py:topology",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/master/tests/test_topology.py",
+   "target": "function:src/exo/master/tests/test_topology.py:topology",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/master/tests/test_topology.py",
+   "target": "function:src/exo/master/tests/test_topology.py:socket_connection",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/master/tests/test_topology.py",
+   "target": "function:src/exo/master/tests/test_topology.py:socket_connection",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/master/tests/test_topology.py",
+   "target": "function:src/exo/master/tests/test_topology.py:test_add_node",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/master/tests/test_topology.py",
+   "target": "function:src/exo/master/tests/test_topology.py:test_add_node",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/master/tests/test_topology.py",
+   "target": "function:src/exo/master/tests/test_topology.py:test_add_connection",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/master/tests/test_topology.py",
+   "target": "function:src/exo/master/tests/test_topology.py:test_add_connection",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/master/tests/test_topology.py",
+   "target": "function:src/exo/master/tests/test_topology.py:test_remove_connection_still_connected",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/master/tests/test_topology.py",
+   "target": "function:src/exo/master/tests/test_topology.py:test_remove_connection_still_connected",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/master/tests/test_topology.py",
+   "target": "function:src/exo/master/tests/test_topology.py:test_remove_node_still_connected",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/master/tests/test_topology.py",
+   "target": "function:src/exo/master/tests/test_topology.py:test_remove_node_still_connected",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/master/tests/test_topology.py",
+   "target": "function:src/exo/master/tests/test_topology.py:test_list_nodes",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/master/tests/test_topology.py",
+   "target": "function:src/exo/master/tests/test_topology.py:test_list_nodes",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/master/tests/test_topology.py",
+   "target": "file:src/exo/shared/topology.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/master/tests/test_topology.py",
+   "target": "file:src/exo/shared/types/common.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/master/tests/test_topology.py",
+   "target": "file:src/exo/shared/types/multiaddr.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/master/tests/test_topology.py",
+   "target": "file:src/exo/shared/types/topology.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "function:src/exo/master/tests/test_topology.py:test_add_connection",
+   "target": "class:src/exo/shared/topology.py:Topology",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  }
+ ]
+}

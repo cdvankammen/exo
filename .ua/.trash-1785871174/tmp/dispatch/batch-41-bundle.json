@@ -1,0 +1,203 @@
+{
+ "projectRoot": "/Users/chris/Documents/GitHub/exo",
+ "projectName": "exo",
+ "projectDescription": "exo connects all your devices into an AI cluster, enabling distributed inference of frontier LLMs (and image models) across multiple devices. It uses MLX as the inference backend with automatic device discovery, topology-aware tensor parallelism, RDMA-over-Thunderbolt support, and OpenAI/Claude/Ollama-compatible APIs.",
+ "languages": [
+  "Python",
+  "TypeScript",
+  "Svelte",
+  "Rust",
+  "Swift",
+  "Shell",
+  "Nix",
+  "Markdown",
+  "TOML",
+  "YAML",
+  "JSON"
+ ],
+ "skillDir": "/Users/chris/.understand-anything/repo/understand-anything-plugin/skills/understand",
+ "totalBatches": 46,
+ "batchIndex": 41,
+ "batchFiles": [
+  {
+   "path": "bench/eval_tool_calls.py",
+   "language": "python",
+   "sizeLines": 1153,
+   "fileCategory": "code"
+  },
+  {
+   "path": "bench/exo_bench.py",
+   "language": "python",
+   "sizeLines": 936,
+   "fileCategory": "code"
+  },
+  {
+   "path": "bench/exo_eval.py",
+   "language": "python",
+   "sizeLines": 1752,
+   "fileCategory": "code"
+  },
+  {
+   "path": "bench/parallel_requests.py",
+   "language": "python",
+   "sizeLines": 255,
+   "fileCategory": "code"
+  },
+  {
+   "path": "bench/prefill_decode_bench.py",
+   "language": "python",
+   "sizeLines": 784,
+   "fileCategory": "code"
+  },
+  {
+   "path": "dashboard/dashboard.nix",
+   "language": "nix",
+   "sizeLines": 60,
+   "fileCategory": "code"
+  },
+  {
+   "path": "dashboard/exo-logo-hq-square-black-bg.webp",
+   "language": "webp",
+   "sizeLines": 18,
+   "fileCategory": "code"
+  },
+  {
+   "path": "dashboard/package.json",
+   "language": "json",
+   "sizeLines": 38,
+   "fileCategory": "config"
+  },
+  {
+   "path": "dashboard/parts.nix",
+   "language": "nix",
+   "sizeLines": 109,
+   "fileCategory": "code"
+  },
+  {
+   "path": "dashboard/src/app.css",
+   "language": "css",
+   "sizeLines": 387,
+   "fileCategory": "markup"
+  },
+  {
+   "path": "dashboard/src/app.d.ts",
+   "language": "typescript",
+   "sizeLines": 13,
+   "fileCategory": "code"
+  },
+  {
+   "path": "dashboard/src/app.html",
+   "language": "html",
+   "sizeLines": 14,
+   "fileCategory": "markup"
+  },
+  {
+   "path": "dashboard/src/lib/components/ChatAttachments.svelte",
+   "language": "svelte",
+   "sizeLines": 94,
+   "fileCategory": "code"
+  },
+  {
+   "path": "dashboard/src/lib/components/ChatForm.svelte",
+   "language": "svelte",
+   "sizeLines": 597,
+   "fileCategory": "code"
+  },
+  {
+   "path": "dashboard/src/lib/components/ChatMessages.svelte",
+   "language": "svelte",
+   "sizeLines": 850,
+   "fileCategory": "code"
+  },
+  {
+   "path": "dashboard/src/lib/components/ChatModelSelector.svelte",
+   "language": "svelte",
+   "sizeLines": 401,
+   "fileCategory": "code"
+  },
+  {
+   "path": "dashboard/src/lib/components/ChatSidebar.svelte",
+   "language": "svelte",
+   "sizeLines": 628,
+   "fileCategory": "code"
+  },
+  {
+   "path": "dashboard/src/lib/components/ConnectionBanner.svelte",
+   "language": "svelte",
+   "sizeLines": 20,
+   "fileCategory": "code"
+  },
+  {
+   "path": "dashboard/src/lib/components/DeviceIcon.svelte",
+   "language": "svelte",
+   "sizeLines": 277,
+   "fileCategory": "code"
+  },
+  {
+   "path": "dashboard/src/lib/components/FamilyLogos.svelte",
+   "language": "svelte",
+   "sizeLines": 109,
+   "fileCategory": "code"
+  },
+  {
+   "path": "dashboard/src/lib/components/FamilySidebar.svelte",
+   "language": "svelte",
+   "sizeLines": 167,
+   "fileCategory": "code"
+  },
+  {
+   "path": "dashboard/src/lib/components/HeaderNav.svelte",
+   "language": "svelte",
+   "sizeLines": 327,
+   "fileCategory": "code"
+  },
+  {
+   "path": "dashboard/src/lib/components/HuggingFaceResultItem.svelte",
+   "language": "svelte",
+   "sizeLines": 156,
+   "fileCategory": "code"
+  },
+  {
+   "path": "dashboard/src/lib/components/ImageLightbox.svelte",
+   "language": "svelte",
+   "sizeLines": 96,
+   "fileCategory": "code"
+  },
+  {
+   "path": "dashboard/src/lib/components/ImageParamsPanel.svelte",
+   "language": "svelte",
+   "sizeLines": 695,
+   "fileCategory": "code"
+  }
+ ],
+ "batchImportData": {
+  "bench/eval_tool_calls.py": [],
+  "bench/exo_bench.py": [],
+  "bench/exo_eval.py": [],
+  "bench/parallel_requests.py": [],
+  "bench/prefill_decode_bench.py": [
+   "bench/exo_bench.py"
+  ],
+  "dashboard/dashboard.nix": [],
+  "dashboard/exo-logo-hq-square-black-bg.webp": [],
+  "dashboard/package.json": [],
+  "dashboard/parts.nix": [],
+  "dashboard/src/app.css": [],
+  "dashboard/src/app.d.ts": [],
+  "dashboard/src/app.html": [],
+  "dashboard/src/lib/components/ChatAttachments.svelte": [],
+  "dashboard/src/lib/components/ChatForm.svelte": [],
+  "dashboard/src/lib/components/ChatMessages.svelte": [],
+  "dashboard/src/lib/components/ChatModelSelector.svelte": [],
+  "dashboard/src/lib/components/ChatSidebar.svelte": [],
+  "dashboard/src/lib/components/ConnectionBanner.svelte": [],
+  "dashboard/src/lib/components/DeviceIcon.svelte": [],
+  "dashboard/src/lib/components/FamilyLogos.svelte": [],
+  "dashboard/src/lib/components/FamilySidebar.svelte": [],
+  "dashboard/src/lib/components/HeaderNav.svelte": [],
+  "dashboard/src/lib/components/HuggingFaceResultItem.svelte": [],
+  "dashboard/src/lib/components/ImageLightbox.svelte": [],
+  "dashboard/src/lib/components/ImageParamsPanel.svelte": []
+ },
+ "neighborMap": {}
+}

@@ -1,0 +1,38 @@
+{
+ "nodes": [
+  {
+   "id": "config:rust/exo_rs/Cargo.toml",
+   "type": "config",
+   "name": "Cargo.toml",
+   "filePath": "rust/exo_rs/Cargo.toml",
+   "summary": "Configuration file rust/exo_rs/Cargo.toml controlling project settings.",
+   "tags": [
+    "configuration"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "document:rust/exo_rs/README.md",
+   "type": "document",
+   "name": "README.md",
+   "filePath": "rust/exo_rs/README.md",
+   "summary": "Documentation file rust/exo_rs/README.md.",
+   "tags": [
+    "documentation"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "config:rust/exo_rs/pyproject.toml",
+   "type": "config",
+   "name": "pyproject.toml",
+   "filePath": "rust/exo_rs/pyproject.toml",
+   "summary": "Configuration file rust/exo_rs/pyproject.toml controlling project settings.",
+   "tags": [
+    "configuration"
+   ],
+   "complexity": "simple"
+  }
+ ],
+ "edges": []
+}

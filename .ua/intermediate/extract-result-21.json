@@ -1,0 +1,779 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 25,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": ".typings/mflux/models/flux/latent_creator/__init__.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 7,
+      "nonEmptyLines": 6,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": ".typings/mflux/models/flux/latent_creator/flux_latent_creator.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 19,
+      "nonEmptyLines": 16,
+      "classes": [
+        {
+          "name": "FluxLatentCreator",
+          "startLine": 11,
+          "endLine": 19,
+          "methods": [
+            "create_noise",
+            "pack_latents",
+            "unpack_latents"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "FluxLatentCreator",
+          "line": 11,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mflux/models/flux/model/__init__.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 7,
+      "nonEmptyLines": 6,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": ".typings/mflux/models/flux/model/flux_text_encoder/clip_encoder/clip_embeddings.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 10,
+      "nonEmptyLines": 8,
+      "classes": [
+        {
+          "name": "CLIPEmbeddings",
+          "startLine": 8,
+          "endLine": 10,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "CLIPEmbeddings",
+          "line": 8,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mflux/models/flux/model/flux_text_encoder/clip_encoder/clip_encoder_layer.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 12,
+      "nonEmptyLines": 10,
+      "classes": [
+        {
+          "name": "CLIPEncoderLayer",
+          "startLine": 8,
+          "endLine": 12,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "CLIPEncoderLayer",
+          "line": 8,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mflux/models/flux/model/flux_text_encoder/clip_encoder/clip_encoder.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 14,
+      "nonEmptyLines": 11,
+      "classes": [
+        {
+          "name": "CLIPEncoder",
+          "startLine": 12,
+          "endLine": 14,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "CLIPEncoder",
+          "line": 12,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mflux/models/flux/model/flux_text_encoder/clip_encoder/clip_mlp.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 12,
+      "nonEmptyLines": 10,
+      "classes": [
+        {
+          "name": "CLIPMLP",
+          "startLine": 8,
+          "endLine": 12,
+          "methods": [
+            "__init__",
+            "__call__",
+            "quick_gelu"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "CLIPMLP",
+          "line": 8,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mflux/models/flux/model/flux_text_encoder/clip_encoder/clip_sdpa_attention.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 18,
+      "nonEmptyLines": 16,
+      "classes": [
+        {
+          "name": "CLIPSdpaAttention",
+          "startLine": 8,
+          "endLine": 18,
+          "methods": [
+            "__init__",
+            "__call__",
+            "reshape_and_transpose"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "CLIPSdpaAttention",
+          "line": 8,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mflux/models/flux/model/flux_text_encoder/clip_encoder/clip_text_model.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 12,
+      "nonEmptyLines": 10,
+      "classes": [
+        {
+          "name": "CLIPTextModel",
+          "startLine": 8,
+          "endLine": 12,
+          "methods": [
+            "__init__",
+            "__call__",
+            "create_causal_attention_mask"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "CLIPTextModel",
+          "line": 8,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mflux/models/flux/model/flux_text_encoder/clip_encoder/encoder_clip.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 12,
+      "nonEmptyLines": 10,
+      "classes": [
+        {
+          "name": "EncoderCLIP",
+          "startLine": 8,
+          "endLine": 12,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "EncoderCLIP",
+          "line": 8,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mflux/models/flux/model/flux_text_encoder/prompt_encoder.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 25,
+      "nonEmptyLines": 22,
+      "classes": [
+        {
+          "name": "PromptEncoder",
+          "startLine": 16,
+          "endLine": 25,
+          "methods": [
+            "encode_prompt"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "PromptEncoder",
+          "line": 16,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mflux/models/flux/model/flux_text_encoder/t5_encoder/t5_attention.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 10,
+      "nonEmptyLines": 8,
+      "classes": [
+        {
+          "name": "T5Attention",
+          "startLine": 8,
+          "endLine": 10,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "T5Attention",
+          "line": 8,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mflux/models/flux/model/flux_text_encoder/t5_encoder/t5_block.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 10,
+      "nonEmptyLines": 8,
+      "classes": [
+        {
+          "name": "T5Block",
+          "startLine": 8,
+          "endLine": 10,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "T5Block",
+          "line": 8,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mflux/models/flux/model/flux_text_encoder/t5_encoder/t5_dense_relu_dense.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 12,
+      "nonEmptyLines": 10,
+      "classes": [
+        {
+          "name": "T5DenseReluDense",
+          "startLine": 8,
+          "endLine": 12,
+          "methods": [
+            "__init__",
+            "__call__",
+            "new_gelu"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "T5DenseReluDense",
+          "line": 8,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mflux/models/flux/model/flux_text_encoder/t5_encoder/t5_encoder.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 14,
+      "nonEmptyLines": 11,
+      "classes": [
+        {
+          "name": "T5Encoder",
+          "startLine": 12,
+          "endLine": 14,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "T5Encoder",
+          "line": 12,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mflux/models/flux/model/flux_text_encoder/t5_encoder/t5_feed_forward.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 10,
+      "nonEmptyLines": 8,
+      "classes": [
+        {
+          "name": "T5FeedForward",
+          "startLine": 8,
+          "endLine": 10,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "T5FeedForward",
+          "line": 8,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mflux/models/flux/model/flux_text_encoder/t5_encoder/t5_layer_norm.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 10,
+      "nonEmptyLines": 8,
+      "classes": [
+        {
+          "name": "T5LayerNorm",
+          "startLine": 8,
+          "endLine": 10,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "T5LayerNorm",
+          "line": 8,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mflux/models/flux/model/flux_text_encoder/t5_encoder/t5_self_attention.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 16,
+      "nonEmptyLines": 14,
+      "classes": [
+        {
+          "name": "T5SelfAttention",
+          "startLine": 8,
+          "endLine": 16,
+          "methods": [
+            "__init__",
+            "__call__",
+            "shape",
+            "un_shape"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "T5SelfAttention",
+          "line": 8,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mflux/models/flux/model/flux_transformer/ada_layer_norm_continuous.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 10,
+      "nonEmptyLines": 8,
+      "classes": [
+        {
+          "name": "AdaLayerNormContinuous",
+          "startLine": 8,
+          "endLine": 10,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "AdaLayerNormContinuous",
+          "line": 8,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mflux/models/flux/model/flux_transformer/ada_layer_norm_zero_single.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 12,
+      "nonEmptyLines": 10,
+      "classes": [
+        {
+          "name": "AdaLayerNormZeroSingle",
+          "startLine": 8,
+          "endLine": 12,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "AdaLayerNormZeroSingle",
+          "line": 8,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mflux/models/flux/model/flux_transformer/ada_layer_norm_zero.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 12,
+      "nonEmptyLines": 10,
+      "classes": [
+        {
+          "name": "AdaLayerNormZero",
+          "startLine": 8,
+          "endLine": 12,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "AdaLayerNormZero",
+          "line": 8,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mflux/models/flux/model/flux_transformer/common/attention_utils.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 41,
+      "nonEmptyLines": 39,
+      "classes": [
+        {
+          "name": "AttentionUtils",
+          "startLine": 8,
+          "endLine": 41,
+          "methods": [
+            "process_qkv",
+            "compute_attention",
+            "convert_key_padding_mask_to_additive_mask",
+            "apply_rope",
+            "apply_rope_bshd"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "AttentionUtils",
+          "line": 8,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mflux/models/flux/model/flux_transformer/embed_nd.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 12,
+      "nonEmptyLines": 10,
+      "classes": [
+        {
+          "name": "EmbedND",
+          "startLine": 8,
+          "endLine": 12,
+          "methods": [
+            "__init__",
+            "__call__",
+            "rope"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "EmbedND",
+          "line": 8,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mflux/models/flux/model/flux_transformer/feed_forward.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 10,
+      "nonEmptyLines": 8,
+      "classes": [
+        {
+          "name": "FeedForward",
+          "startLine": 8,
+          "endLine": 10,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "FeedForward",
+          "line": 8,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mflux/models/flux/model/flux_transformer/guidance_embedder.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 10,
+      "nonEmptyLines": 8,
+      "classes": [
+        {
+          "name": "GuidanceEmbedder",
+          "startLine": 8,
+          "endLine": 10,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "GuidanceEmbedder",
+          "line": 8,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    }
+  ]
+}

@@ -1,0 +1,673 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 3,
+  "filesSkipped": [],
+  "analysisOutcomes": {
+    "structure": {
+      "succeeded": 3,
+      "failed": 0
+    },
+    "callGraph": {
+      "succeeded": 3,
+      "failed": 0,
+      "skipped": 0
+    }
+  },
+  "results": [
+    {
+      "path": "src/exo/worker/engines/mlx/patches/__init__.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 13,
+      "nonEmptyLines": 10,
+      "functions": [
+        {
+          "name": "apply_mlx_patches",
+          "startLine": 7,
+          "endLine": 13,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "apply_mlx_patches",
+          "line": 7,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "apply_mlx_patches",
+          "callee": "patch_yarn_rope",
+          "lineNumber": 12
+        },
+        {
+          "caller": "apply_mlx_patches",
+          "callee": "apply_batch_gen_patch",
+          "lineNumber": 13
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/exo/worker/engines/mlx/patches/opt_batch_gen.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 136,
+      "nonEmptyLines": 108,
+      "functions": [
+        {
+          "name": "_get_buffer",
+          "startLine": 41,
+          "endLine": 46,
+          "params": [
+            "batch"
+          ]
+        },
+        {
+          "name": "set_needs_topk",
+          "startLine": 49,
+          "endLine": 50,
+          "params": [
+            "batch",
+            "needed"
+          ]
+        },
+        {
+          "name": "take_ready_topk",
+          "startLine": 53,
+          "endLine": 54,
+          "params": [
+            "batch"
+          ]
+        },
+        {
+          "name": "_patched_step",
+          "startLine": 57,
+          "endLine": 132,
+          "params": []
+        },
+        {
+          "name": "apply_batch_gen_patch",
+          "startLine": 135,
+          "endLine": 136,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "BatchTopKLogprobs",
+          "startLine": 11,
+          "endLine": 31,
+          "methods": [
+            "__post_init__",
+            "for_uid"
+          ],
+          "properties": [
+            "uids",
+            "indices",
+            "values",
+            "selected",
+            "_uid_to_row"
+          ]
+        },
+        {
+          "name": "_TopKBuffer",
+          "startLine": 35,
+          "endLine": 38,
+          "methods": [],
+          "properties": [
+            "needs_topk",
+            "pending",
+            "ready"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "BatchTopKLogprobs",
+          "line": 10,
+          "isDefault": false
+        },
+        {
+          "name": "_TopKBuffer",
+          "line": 34,
+          "isDefault": false
+        },
+        {
+          "name": "_get_buffer",
+          "line": 41,
+          "isDefault": false
+        },
+        {
+          "name": "set_needs_topk",
+          "line": 49,
+          "isDefault": false
+        },
+        {
+          "name": "take_ready_topk",
+          "line": 53,
+          "isDefault": false
+        },
+        {
+          "name": "_patched_step",
+          "line": 57,
+          "isDefault": false
+        },
+        {
+          "name": "apply_batch_gen_patch",
+          "line": 135,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "__post_init__",
+          "callee": "enumerate",
+          "lineNumber": 19
+        },
+        {
+          "caller": "for_uid",
+          "callee": "self._uid_to_row.get",
+          "lineNumber": 24
+        },
+        {
+          "caller": "for_uid",
+          "callee": "cast",
+          "lineNumber": 28
+        },
+        {
+          "caller": "for_uid",
+          "callee": "self.indices[row].tolist",
+          "lineNumber": 28
+        },
+        {
+          "caller": "for_uid",
+          "callee": "cast",
+          "lineNumber": 29
+        },
+        {
+          "caller": "for_uid",
+          "callee": "self.values[row].tolist",
+          "lineNumber": 29
+        },
+        {
+          "caller": "for_uid",
+          "callee": "float",
+          "lineNumber": 30
+        },
+        {
+          "caller": "for_uid",
+          "callee": "self.selected[row].item",
+          "lineNumber": 30
+        },
+        {
+          "caller": "_get_buffer",
+          "callee": "getattr",
+          "lineNumber": 42
+        },
+        {
+          "caller": "_get_buffer",
+          "callee": "_TopKBuffer",
+          "lineNumber": 44
+        },
+        {
+          "caller": "set_needs_topk",
+          "callee": "_get_buffer",
+          "lineNumber": 50
+        },
+        {
+          "caller": "take_ready_topk",
+          "callee": "_get_buffer",
+          "lineNumber": 54
+        },
+        {
+          "caller": "_patched_step",
+          "callee": "_get_buffer",
+          "lineNumber": 63
+        },
+        {
+          "caller": "_patched_step",
+          "callee": "BatchTopKLogprobs",
+          "lineNumber": 65
+        },
+        {
+          "caller": "_patched_step",
+          "callee": "self.model",
+          "lineNumber": 67
+        },
+        {
+          "caller": "_patched_step",
+          "callee": "any",
+          "lineNumber": 70
+        },
+        {
+          "caller": "_patched_step",
+          "callee": "range",
+          "lineNumber": 72
+        },
+        {
+          "caller": "_patched_step",
+          "callee": "len",
+          "lineNumber": 72
+        },
+        {
+          "caller": "_patched_step",
+          "callee": "processor",
+          "lineNumber": 75
+        },
+        {
+          "caller": "_patched_step",
+          "callee": "mx.array",
+          "lineNumber": 75
+        },
+        {
+          "caller": "_patched_step",
+          "callee": "processed_logits.append",
+          "lineNumber": 76
+        },
+        {
+          "caller": "_patched_step",
+          "callee": "mx.concatenate",
+          "lineNumber": 77
+        },
+        {
+          "caller": "_patched_step",
+          "callee": "mx.logsumexp",
+          "lineNumber": 79
+        },
+        {
+          "caller": "_patched_step",
+          "callee": "any",
+          "lineNumber": 81
+        },
+        {
+          "caller": "_patched_step",
+          "callee": "range",
+          "lineNumber": 83
+        },
+        {
+          "caller": "_patched_step",
+          "callee": "len",
+          "lineNumber": 83
+        },
+        {
+          "caller": "_patched_step",
+          "callee": "all_samples.append",
+          "lineNumber": 85
+        },
+        {
+          "caller": "_patched_step",
+          "callee": "sample_sampler",
+          "lineNumber": 85
+        },
+        {
+          "caller": "_patched_step",
+          "callee": "mx.concatenate",
+          "lineNumber": 86
+        },
+        {
+          "caller": "_patched_step",
+          "callee": "self.fallback_sampler",
+          "lineNumber": 88
+        },
+        {
+          "caller": "_patched_step",
+          "callee": "len",
+          "lineNumber": 94
+        },
+        {
+          "caller": "_patched_step",
+          "callee": "min",
+          "lineNumber": 95
+        },
+        {
+          "caller": "_patched_step",
+          "callee": "mx.argpartition",
+          "lineNumber": 96
+        },
+        {
+          "caller": "_patched_step",
+          "callee": "mx.take_along_axis",
+          "lineNumber": 97
+        },
+        {
+          "caller": "_patched_step",
+          "callee": "mx.argsort",
+          "lineNumber": 98
+        },
+        {
+          "caller": "_patched_step",
+          "callee": "mx.take_along_axis",
+          "lineNumber": 99
+        },
+        {
+          "caller": "_patched_step",
+          "callee": "mx.take_along_axis",
+          "lineNumber": 100
+        },
+        {
+          "caller": "_patched_step",
+          "callee": "mx.arange",
+          "lineNumber": 101
+        },
+        {
+          "caller": "_patched_step",
+          "callee": "BatchTopKLogprobs",
+          "lineNumber": 102
+        },
+        {
+          "caller": "_patched_step",
+          "callee": "list",
+          "lineNumber": 103
+        },
+        {
+          "caller": "_patched_step",
+          "callee": "mx.async_eval",
+          "lineNumber": 108
+        },
+        {
+          "caller": "_patched_step",
+          "callee": "mx.async_eval",
+          "lineNumber": 116
+        },
+        {
+          "caller": "_patched_step",
+          "callee": "isinstance",
+          "lineNumber": 119
+        },
+        {
+          "caller": "_patched_step",
+          "callee": "mx.eval",
+          "lineNumber": 120
+        },
+        {
+          "caller": "_patched_step",
+          "callee": "mx.eval",
+          "lineNumber": 122
+        },
+        {
+          "caller": "_patched_step",
+          "callee": "mx.eval",
+          "lineNumber": 124
+        },
+        {
+          "caller": "_patched_step",
+          "callee": "cast",
+          "lineNumber": 126
+        },
+        {
+          "caller": "_patched_step",
+          "callee": "inputs.tolist",
+          "lineNumber": 126
+        },
+        {
+          "caller": "_patched_step",
+          "callee": "zip",
+          "lineNumber": 127
+        },
+        {
+          "caller": "_patched_step",
+          "callee": "sti.append",
+          "lineNumber": 128
+        },
+        {
+          "caller": "_patched_step",
+          "callee": "isinstance",
+          "lineNumber": 130
+        },
+        {
+          "caller": "_patched_step",
+          "callee": "list",
+          "lineNumber": 131
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 7,
+        "functionCount": 5,
+        "classCount": 2
+      }
+    },
+    {
+      "path": "src/exo/worker/engines/mlx/patches/standard_yarn_rope.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 118,
+      "nonEmptyLines": 99,
+      "functions": [
+        {
+          "name": "_patched_yarn_init",
+          "startLine": 10,
+          "endLine": 67,
+          "params": [
+            "dims",
+            "traditional",
+            "max_position_embeddings",
+            "base",
+            "scaling_factor",
+            "original_max_position_embeddings",
+            "beta_fast",
+            "beta_slow",
+            "mscale",
+            "mscale_all_dim",
+            "truncate"
+          ]
+        },
+        {
+          "name": "_patched_initialize_rope",
+          "startLine": 70,
+          "endLine": 113,
+          "params": [
+            "dims",
+            "base",
+            "traditional",
+            "scaling_config",
+            "max_position_embeddings"
+          ]
+        },
+        {
+          "name": "patch_yarn_rope",
+          "startLine": 116,
+          "endLine": 118,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "_patched_yarn_init",
+          "line": 10,
+          "isDefault": false
+        },
+        {
+          "name": "_patched_initialize_rope",
+          "line": 70,
+          "isDefault": false
+        },
+        {
+          "name": "patch_yarn_rope",
+          "line": 116,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "_patched_yarn_init",
+          "callee": "super(rope_utils.YarnRoPE, self).__init__",
+          "lineNumber": 26
+        },
+        {
+          "caller": "_patched_yarn_init",
+          "callee": "super",
+          "lineNumber": 26
+        },
+        {
+          "caller": "yarn_find_correction_dim",
+          "callee": "math.log",
+          "lineNumber": 31
+        },
+        {
+          "caller": "yarn_find_correction_dim",
+          "callee": "math.log",
+          "lineNumber": 32
+        },
+        {
+          "caller": "yarn_find_correction_range",
+          "callee": "yarn_find_correction_dim",
+          "lineNumber": 35
+        },
+        {
+          "caller": "yarn_find_correction_range",
+          "callee": "yarn_find_correction_dim",
+          "lineNumber": 36
+        },
+        {
+          "caller": "yarn_find_correction_range",
+          "callee": "math.floor",
+          "lineNumber": 38
+        },
+        {
+          "caller": "yarn_find_correction_range",
+          "callee": "math.ceil",
+          "lineNumber": 39
+        },
+        {
+          "caller": "yarn_find_correction_range",
+          "callee": "max",
+          "lineNumber": 40
+        },
+        {
+          "caller": "yarn_find_correction_range",
+          "callee": "min",
+          "lineNumber": 40
+        },
+        {
+          "caller": "yarn_get_mscale",
+          "callee": "math.log",
+          "lineNumber": 45
+        },
+        {
+          "caller": "yarn_linear_ramp_mask",
+          "callee": "mx.arange",
+          "lineNumber": 50
+        },
+        {
+          "caller": "yarn_linear_ramp_mask",
+          "callee": "mx.clip",
+          "lineNumber": 51
+        },
+        {
+          "caller": "_patched_yarn_init",
+          "callee": "yarn_get_mscale",
+          "lineNumber": 53
+        },
+        {
+          "caller": "_patched_yarn_init",
+          "callee": "yarn_get_mscale",
+          "lineNumber": 53
+        },
+        {
+          "caller": "_patched_yarn_init",
+          "callee": "mx.arange",
+          "lineNumber": 56
+        },
+        {
+          "caller": "_patched_yarn_init",
+          "callee": "yarn_find_correction_range",
+          "lineNumber": 59
+        },
+        {
+          "caller": "_patched_yarn_init",
+          "callee": "yarn_linear_ramp_mask",
+          "lineNumber": 60
+        },
+        {
+          "caller": "_patched_initialize_rope",
+          "callee": "str",
+          "lineNumber": 79
+        },
+        {
+          "caller": "_patched_initialize_rope",
+          "callee": "scaling_config.get",
+          "lineNumber": 80
+        },
+        {
+          "caller": "_patched_initialize_rope",
+          "callee": "scaling_config.get",
+          "lineNumber": 80
+        },
+        {
+          "caller": "_float",
+          "callee": "cfg.get",
+          "lineNumber": 89
+        },
+        {
+          "caller": "_float",
+          "callee": "float",
+          "lineNumber": 90
+        },
+        {
+          "caller": "_int",
+          "callee": "cfg.get",
+          "lineNumber": 93
+        },
+        {
+          "caller": "_int",
+          "callee": "int",
+          "lineNumber": 94
+        },
+        {
+          "caller": "_patched_initialize_rope",
+          "callee": "rope_utils.YarnRoPE",
+          "lineNumber": 96
+        },
+        {
+          "caller": "_patched_initialize_rope",
+          "callee": "_float",
+          "lineNumber": 100
+        },
+        {
+          "caller": "_patched_initialize_rope",
+          "callee": "_int",
+          "lineNumber": 102
+        },
+        {
+          "caller": "_patched_initialize_rope",
+          "callee": "_float",
+          "lineNumber": 105
+        },
+        {
+          "caller": "_patched_initialize_rope",
+          "callee": "_float",
+          "lineNumber": 106
+        },
+        {
+          "caller": "_patched_initialize_rope",
+          "callee": "_float",
+          "lineNumber": 107
+        },
+        {
+          "caller": "_patched_initialize_rope",
+          "callee": "_float",
+          "lineNumber": 108
+        },
+        {
+          "caller": "_patched_initialize_rope",
+          "callee": "_original_initialize_rope",
+          "lineNumber": 111
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 3,
+        "functionCount": 3,
+        "classCount": 0
+      }
+    }
+  ]
+}

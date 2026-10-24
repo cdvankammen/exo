@@ -1,0 +1,201 @@
+{
+ "projectRoot": "/Users/chris/Documents/GitHub/exo",
+ "projectName": "exo",
+ "projectDescription": "exo connects all your devices into an AI cluster, enabling distributed inference of frontier LLMs (and image models) across multiple devices. It uses MLX as the inference backend with automatic device discovery, topology-aware tensor parallelism, RDMA-over-Thunderbolt support, and OpenAI/Claude/Ollama-compatible APIs.",
+ "languages": [
+  "Python",
+  "TypeScript",
+  "Svelte",
+  "Rust",
+  "Swift",
+  "Shell",
+  "Nix",
+  "Markdown",
+  "TOML",
+  "YAML",
+  "JSON"
+ ],
+ "skillDir": "/Users/chris/.understand-anything/repo/understand-anything-plugin/skills/understand",
+ "totalBatches": 46,
+ "batchIndex": 42,
+ "batchFiles": [
+  {
+   "path": "dashboard/src/lib/components/IntegrationCard.svelte",
+   "language": "svelte",
+   "sizeLines": 62,
+   "fileCategory": "code"
+  },
+  {
+   "path": "dashboard/src/lib/components/MarkdownContent.svelte",
+   "language": "svelte",
+   "sizeLines": 1074,
+   "fileCategory": "code"
+  },
+  {
+   "path": "dashboard/src/lib/components/ModelCard.svelte",
+   "language": "svelte",
+   "sizeLines": 1073,
+   "fileCategory": "code"
+  },
+  {
+   "path": "dashboard/src/lib/components/ModelFilterPopover.svelte",
+   "language": "svelte",
+   "sizeLines": 279,
+   "fileCategory": "code"
+  },
+  {
+   "path": "dashboard/src/lib/components/ModelPickerGroup.svelte",
+   "language": "svelte",
+   "sizeLines": 667,
+   "fileCategory": "code"
+  },
+  {
+   "path": "dashboard/src/lib/components/ModelPickerModal.svelte",
+   "language": "svelte",
+   "sizeLines": 1221,
+   "fileCategory": "code"
+  },
+  {
+   "path": "dashboard/src/lib/components/PrefillDecodeDisaggregation.svelte",
+   "language": "svelte",
+   "sizeLines": 565,
+   "fileCategory": "code"
+  },
+  {
+   "path": "dashboard/src/lib/components/PrefillProgressBar.svelte",
+   "language": "svelte",
+   "sizeLines": 70,
+   "fileCategory": "code"
+  },
+  {
+   "path": "dashboard/src/lib/components/ToastContainer.svelte",
+   "language": "svelte",
+   "sizeLines": 117,
+   "fileCategory": "code"
+  },
+  {
+   "path": "dashboard/src/lib/components/TokenHeatmap.svelte",
+   "language": "svelte",
+   "sizeLines": 236,
+   "fileCategory": "code"
+  },
+  {
+   "path": "dashboard/src/lib/components/TopologyGraph.svelte",
+   "language": "svelte",
+   "sizeLines": 1250,
+   "fileCategory": "code"
+  },
+  {
+   "path": "dashboard/src/lib/components/index.ts",
+   "language": "typescript",
+   "sizeLines": 16,
+   "fileCategory": "code"
+  },
+  {
+   "path": "dashboard/src/lib/stores/app.svelte.ts",
+   "language": "typescript",
+   "sizeLines": 3643,
+   "fileCategory": "code"
+  },
+  {
+   "path": "dashboard/src/lib/stores/favorites.svelte.ts",
+   "language": "typescript",
+   "sizeLines": 97,
+   "fileCategory": "code"
+  },
+  {
+   "path": "dashboard/src/lib/stores/recents.svelte.ts",
+   "language": "typescript",
+   "sizeLines": 75,
+   "fileCategory": "code"
+  },
+  {
+   "path": "dashboard/src/lib/stores/toast.svelte.ts",
+   "language": "typescript",
+   "sizeLines": 87,
+   "fileCategory": "code"
+  },
+  {
+   "path": "dashboard/src/lib/types/files.ts",
+   "language": "typescript",
+   "sizeLines": 333,
+   "fileCategory": "code"
+  },
+  {
+   "path": "dashboard/src/lib/utils/clipboard.ts",
+   "language": "typescript",
+   "sizeLines": 55,
+   "fileCategory": "code"
+  },
+  {
+   "path": "dashboard/src/lib/utils/downloads.ts",
+   "language": "typescript",
+   "sizeLines": 152,
+   "fileCategory": "code"
+  },
+  {
+   "path": "dashboard/src/lib/utils/model_family.ts",
+   "language": "typescript",
+   "sizeLines": 44,
+   "fileCategory": "code"
+  },
+  {
+   "path": "dashboard/src/routes/+layout.svelte",
+   "language": "svelte",
+   "sizeLines": 18,
+   "fileCategory": "code"
+  },
+  {
+   "path": "dashboard/src/routes/+page.svelte",
+   "language": "svelte",
+   "sizeLines": 6776,
+   "fileCategory": "code"
+  },
+  {
+   "path": "dashboard/src/routes/advanced/+page.svelte",
+   "language": "svelte",
+   "sizeLines": 81,
+   "fileCategory": "code"
+  },
+  {
+   "path": "dashboard/src/routes/downloads/+page.svelte",
+   "language": "svelte",
+   "sizeLines": 851,
+   "fileCategory": "code"
+  },
+  {
+   "path": "dashboard/src/routes/integrations/+page.svelte",
+   "language": "svelte",
+   "sizeLines": 688,
+   "fileCategory": "code"
+  }
+ ],
+ "batchImportData": {
+  "dashboard/src/lib/components/IntegrationCard.svelte": [],
+  "dashboard/src/lib/components/MarkdownContent.svelte": [],
+  "dashboard/src/lib/components/ModelCard.svelte": [],
+  "dashboard/src/lib/components/ModelFilterPopover.svelte": [],
+  "dashboard/src/lib/components/ModelPickerGroup.svelte": [],
+  "dashboard/src/lib/components/ModelPickerModal.svelte": [],
+  "dashboard/src/lib/components/PrefillDecodeDisaggregation.svelte": [],
+  "dashboard/src/lib/components/PrefillProgressBar.svelte": [],
+  "dashboard/src/lib/components/ToastContainer.svelte": [],
+  "dashboard/src/lib/components/TokenHeatmap.svelte": [],
+  "dashboard/src/lib/components/TopologyGraph.svelte": [],
+  "dashboard/src/lib/components/index.ts": [],
+  "dashboard/src/lib/stores/app.svelte.ts": [],
+  "dashboard/src/lib/stores/favorites.svelte.ts": [],
+  "dashboard/src/lib/stores/recents.svelte.ts": [],
+  "dashboard/src/lib/stores/toast.svelte.ts": [],
+  "dashboard/src/lib/types/files.ts": [],
+  "dashboard/src/lib/utils/clipboard.ts": [],
+  "dashboard/src/lib/utils/downloads.ts": [],
+  "dashboard/src/lib/utils/model_family.ts": [],
+  "dashboard/src/routes/+layout.svelte": [],
+  "dashboard/src/routes/+page.svelte": [],
+  "dashboard/src/routes/advanced/+page.svelte": [],
+  "dashboard/src/routes/downloads/+page.svelte": [],
+  "dashboard/src/routes/integrations/+page.svelte": []
+ },
+ "neighborMap": {}
+}

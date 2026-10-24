@@ -1,0 +1,5741 @@
+{
+  "scriptCompleted": true,
+  "files": [
+    {
+      "path": ".clauderules",
+      "language": "unknown",
+      "sizeLines": 62,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".cursorrules",
+      "language": "unknown",
+      "sizeLines": 64,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".envrc",
+      "language": "unknown",
+      "sizeLines": 1,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".githooks/post-checkout",
+      "language": "unknown",
+      "sizeLines": 3,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".githooks/post-commit",
+      "language": "unknown",
+      "sizeLines": 3,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".githooks/post-merge",
+      "language": "unknown",
+      "sizeLines": 3,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".githooks/pre-push",
+      "language": "unknown",
+      "sizeLines": 3,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".github/actions/conditional-commit/action.yml",
+      "language": "yaml",
+      "sizeLines": 16,
+      "fileCategory": "config"
+    },
+    {
+      "path": ".github/actions/format/action.yml",
+      "language": "yaml",
+      "sizeLines": 10,
+      "fileCategory": "config"
+    },
+    {
+      "path": ".github/actions/lint-check/action.yml",
+      "language": "yaml",
+      "sizeLines": 10,
+      "fileCategory": "config"
+    },
+    {
+      "path": ".github/actions/lint/action.yml",
+      "language": "yaml",
+      "sizeLines": 10,
+      "fileCategory": "config"
+    },
+    {
+      "path": ".github/actions/regenerate-protobufs/action.yml",
+      "language": "yaml",
+      "sizeLines": 10,
+      "fileCategory": "config"
+    },
+    {
+      "path": ".github/actions/setup-python-uv/action.yml",
+      "language": "yaml",
+      "sizeLines": 20,
+      "fileCategory": "config"
+    },
+    {
+      "path": ".github/actions/unit-test/action.yml",
+      "language": "yaml",
+      "sizeLines": 12,
+      "fileCategory": "config"
+    },
+    {
+      "path": ".github/actions/verify-clean/action.yml",
+      "language": "yaml",
+      "sizeLines": 19,
+      "fileCategory": "config"
+    },
+    {
+      "path": ".github/CODEOWNERS",
+      "language": "unknown",
+      "sizeLines": 3,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".github/ISSUE_TEMPLATE/bug_report.md",
+      "language": "markdown",
+      "sizeLines": 43,
+      "fileCategory": "docs"
+    },
+    {
+      "path": ".github/ISSUE_TEMPLATE/feature_request.md",
+      "language": "markdown",
+      "sizeLines": 11,
+      "fileCategory": "docs"
+    },
+    {
+      "path": ".github/pull_request_template.md",
+      "language": "markdown",
+      "sizeLines": 23,
+      "fileCategory": "docs"
+    },
+    {
+      "path": ".github/workflows/build-app.yml",
+      "language": "yaml",
+      "sizeLines": 568,
+      "fileCategory": "infra"
+    },
+    {
+      "path": ".github/workflows/pipeline.yml",
+      "language": "yaml",
+      "sizeLines": 117,
+      "fileCategory": "infra"
+    },
+    {
+      "path": ".python-version",
+      "language": "unknown",
+      "sizeLines": 1,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".swift-format",
+      "language": "swift",
+      "sizeLines": 6,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/.gitkeep",
+      "language": "unknown",
+      "sizeLines": 0,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/__init__.pyi",
+      "language": "python",
+      "sizeLines": 7,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/callbacks/__init__.pyi",
+      "language": "python",
+      "sizeLines": 3,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/callbacks/callback_registry.pyi",
+      "language": "python",
+      "sizeLines": 24,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/callbacks/callback.pyi",
+      "language": "python",
+      "sizeLines": 47,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/callbacks/generation_context.pyi",
+      "language": "python",
+      "sizeLines": 29,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/cli/__init__.pyi",
+      "language": "python",
+      "sizeLines": 3,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/cli/defaults/defaults.pyi",
+      "language": "python",
+      "sizeLines": 22,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/__init__.pyi",
+      "language": "python",
+      "sizeLines": 3,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/common/__init__.pyi",
+      "language": "python",
+      "sizeLines": 3,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/common/cli/__init__.pyi",
+      "language": "python",
+      "sizeLines": 3,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/common/config/__init__.pyi",
+      "language": "python",
+      "sizeLines": 8,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/common/config/config.pyi",
+      "language": "python",
+      "sizeLines": 66,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/common/config/model_config.pyi",
+      "language": "python",
+      "sizeLines": 86,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/common/latent_creator/__init__.pyi",
+      "language": "python",
+      "sizeLines": 7,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/common/latent_creator/latent_creator.pyi",
+      "language": "python",
+      "sizeLines": 49,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/common/lora/__init__.pyi",
+      "language": "python",
+      "sizeLines": 3,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/common/lora/layer/fused_linear_lora_layer.pyi",
+      "language": "python",
+      "sizeLines": 13,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/common/lora/layer/linear_lora_layer.pyi",
+      "language": "python",
+      "sizeLines": 22,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/common/lora/mapping/lora_loader.pyi",
+      "language": "python",
+      "sizeLines": 26,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/common/lora/mapping/lora_mapping.pyi",
+      "language": "python",
+      "sizeLines": 21,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/common/lora/mapping/lora_saver.pyi",
+      "language": "python",
+      "sizeLines": 9,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/common/lora/mapping/lora_transforms.pyi",
+      "language": "python",
+      "sizeLines": 35,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/common/resolution/__init__.pyi",
+      "language": "python",
+      "sizeLines": 17,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/common/resolution/actions.pyi",
+      "language": "python",
+      "sizeLines": 39,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/common/resolution/config_resolution.pyi",
+      "language": "python",
+      "sizeLines": 14,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/common/resolution/lora_resolution.pyi",
+      "language": "python",
+      "sizeLines": 21,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/common/resolution/path_resolution.pyi",
+      "language": "python",
+      "sizeLines": 12,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/common/resolution/quantization_resolution.pyi",
+      "language": "python",
+      "sizeLines": 12,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/common/schedulers/__init__.pyi",
+      "language": "python",
+      "sizeLines": 26,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/common/schedulers/base_scheduler.pyi",
+      "language": "python",
+      "sizeLines": 16,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/common/schedulers/flow_match_euler_discrete_scheduler.pyi",
+      "language": "python",
+      "sizeLines": 26,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/common/schedulers/linear_scheduler.pyi",
+      "language": "python",
+      "sizeLines": 20,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/common/schedulers/seedvr2_euler_scheduler.pyi",
+      "language": "python",
+      "sizeLines": 20,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/common/tokenizer/__init__.pyi",
+      "language": "python",
+      "sizeLines": 24,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/common/tokenizer/tokenizer_loader.pyi",
+      "language": "python",
+      "sizeLines": 22,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/common/tokenizer/tokenizer_output.pyi",
+      "language": "python",
+      "sizeLines": 17,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/common/tokenizer/tokenizer.pyi",
+      "language": "python",
+      "sizeLines": 74,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/common/vae/__init__.pyi",
+      "language": "python",
+      "sizeLines": 8,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/common/vae/tiling_config.pyi",
+      "language": "python",
+      "sizeLines": 13,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/common/vae/vae_tiler.pyi",
+      "language": "python",
+      "sizeLines": 27,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/common/vae/vae_util.pyi",
+      "language": "python",
+      "sizeLines": 17,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/common/weights/__init__.pyi",
+      "language": "python",
+      "sizeLines": 18,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/common/weights/loading/loaded_weights.pyi",
+      "language": "python",
+      "sizeLines": 18,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/common/weights/loading/weight_applier.pyi",
+      "language": "python",
+      "sizeLines": 30,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/common/weights/loading/weight_definition.pyi",
+      "language": "python",
+      "sizeLines": 73,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/common/weights/loading/weight_loader.pyi",
+      "language": "python",
+      "sizeLines": 23,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/common/weights/mapping/weight_mapper.pyi",
+      "language": "python",
+      "sizeLines": 16,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/common/weights/mapping/weight_mapping.pyi",
+      "language": "python",
+      "sizeLines": 23,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/common/weights/mapping/weight_transforms.pyi",
+      "language": "python",
+      "sizeLines": 17,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/common/weights/saving/model_saver.pyi",
+      "language": "python",
+      "sizeLines": 14,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/depth_pro/depth_pro_initializer.pyi",
+      "language": "python",
+      "sizeLines": 9,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/depth_pro/model/decoder/feature_fusion_block_2d.pyi",
+      "language": "python",
+      "sizeLines": 10,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/depth_pro/model/decoder/multires_conv_decoder.pyi",
+      "language": "python",
+      "sizeLines": 17,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/depth_pro/model/decoder/residual_block.pyi",
+      "language": "python",
+      "sizeLines": 10,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/depth_pro/model/depth_pro_model.pyi",
+      "language": "python",
+      "sizeLines": 12,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/depth_pro/model/depth_pro_util.pyi",
+      "language": "python",
+      "sizeLines": 15,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/depth_pro/model/depth_pro.pyi",
+      "language": "python",
+      "sizeLines": 20,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/depth_pro/model/dino_v2/attention.pyi",
+      "language": "python",
+      "sizeLines": 12,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/depth_pro/model/dino_v2/dino_vision_transformer.pyi",
+      "language": "python",
+      "sizeLines": 10,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/depth_pro/model/dino_v2/layer_scale.pyi",
+      "language": "python",
+      "sizeLines": 10,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/depth_pro/model/dino_v2/mlp.pyi",
+      "language": "python",
+      "sizeLines": 10,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/depth_pro/model/dino_v2/patch_embed.pyi",
+      "language": "python",
+      "sizeLines": 10,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/depth_pro/model/dino_v2/transformer_block.pyi",
+      "language": "python",
+      "sizeLines": 10,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/depth_pro/model/encoder/depth_pro_encoder.pyi",
+      "language": "python",
+      "sizeLines": 12,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/depth_pro/model/encoder/upsample_block.pyi",
+      "language": "python",
+      "sizeLines": 16,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/depth_pro/model/head/fov_head.pyi",
+      "language": "python",
+      "sizeLines": 10,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/depth_pro/weights/depth_pro_weight_definition.pyi",
+      "language": "python",
+      "sizeLines": 23,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/depth_pro/weights/depth_pro_weight_mapping.pyi",
+      "language": "python",
+      "sizeLines": 13,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/fibo_vlm/tokenizer/qwen2vl_image_processor.pyi",
+      "language": "python",
+      "sizeLines": 8,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/fibo_vlm/tokenizer/qwen2vl_processor.pyi",
+      "language": "python",
+      "sizeLines": 28,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/fibo_vlm/weights/fibo_vlm_weight_definition.pyi",
+      "language": "python",
+      "sizeLines": 24,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/fibo_vlm/weights/fibo_vlm_weight_mapping.pyi",
+      "language": "python",
+      "sizeLines": 15,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/fibo/latent_creator/fibo_latent_creator.pyi",
+      "language": "python",
+      "sizeLines": 13,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/fibo/weights/fibo_weight_definition.pyi",
+      "language": "python",
+      "sizeLines": 23,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/fibo/weights/fibo_weight_mapping.pyi",
+      "language": "python",
+      "sizeLines": 17,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/flux/__init__.pyi",
+      "language": "python",
+      "sizeLines": 3,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/flux/cli/__init__.pyi",
+      "language": "python",
+      "sizeLines": 3,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/flux/flux_initializer.pyi",
+      "language": "python",
+      "sizeLines": 53,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/flux/latent_creator/__init__.pyi",
+      "language": "python",
+      "sizeLines": 7,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/flux/latent_creator/flux_latent_creator.pyi",
+      "language": "python",
+      "sizeLines": 19,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/flux/model/__init__.pyi",
+      "language": "python",
+      "sizeLines": 7,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/flux/model/flux_text_encoder/clip_encoder/clip_embeddings.pyi",
+      "language": "python",
+      "sizeLines": 10,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/flux/model/flux_text_encoder/clip_encoder/clip_encoder_layer.pyi",
+      "language": "python",
+      "sizeLines": 12,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/flux/model/flux_text_encoder/clip_encoder/clip_encoder.pyi",
+      "language": "python",
+      "sizeLines": 14,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/flux/model/flux_text_encoder/clip_encoder/clip_mlp.pyi",
+      "language": "python",
+      "sizeLines": 12,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/flux/model/flux_text_encoder/clip_encoder/clip_sdpa_attention.pyi",
+      "language": "python",
+      "sizeLines": 18,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/flux/model/flux_text_encoder/clip_encoder/clip_text_model.pyi",
+      "language": "python",
+      "sizeLines": 12,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/flux/model/flux_text_encoder/clip_encoder/encoder_clip.pyi",
+      "language": "python",
+      "sizeLines": 12,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/flux/model/flux_text_encoder/prompt_encoder.pyi",
+      "language": "python",
+      "sizeLines": 25,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/flux/model/flux_text_encoder/t5_encoder/t5_attention.pyi",
+      "language": "python",
+      "sizeLines": 10,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/flux/model/flux_text_encoder/t5_encoder/t5_block.pyi",
+      "language": "python",
+      "sizeLines": 10,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/flux/model/flux_text_encoder/t5_encoder/t5_dense_relu_dense.pyi",
+      "language": "python",
+      "sizeLines": 12,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/flux/model/flux_text_encoder/t5_encoder/t5_encoder.pyi",
+      "language": "python",
+      "sizeLines": 14,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/flux/model/flux_text_encoder/t5_encoder/t5_feed_forward.pyi",
+      "language": "python",
+      "sizeLines": 10,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/flux/model/flux_text_encoder/t5_encoder/t5_layer_norm.pyi",
+      "language": "python",
+      "sizeLines": 10,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/flux/model/flux_text_encoder/t5_encoder/t5_self_attention.pyi",
+      "language": "python",
+      "sizeLines": 16,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/flux/model/flux_transformer/ada_layer_norm_continuous.pyi",
+      "language": "python",
+      "sizeLines": 10,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/flux/model/flux_transformer/ada_layer_norm_zero_single.pyi",
+      "language": "python",
+      "sizeLines": 12,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/flux/model/flux_transformer/ada_layer_norm_zero.pyi",
+      "language": "python",
+      "sizeLines": 12,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/flux/model/flux_transformer/common/attention_utils.pyi",
+      "language": "python",
+      "sizeLines": 41,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/flux/model/flux_transformer/embed_nd.pyi",
+      "language": "python",
+      "sizeLines": 12,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/flux/model/flux_transformer/feed_forward.pyi",
+      "language": "python",
+      "sizeLines": 10,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/flux/model/flux_transformer/guidance_embedder.pyi",
+      "language": "python",
+      "sizeLines": 10,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/flux/model/flux_transformer/joint_attention.pyi",
+      "language": "python",
+      "sizeLines": 31,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/flux/model/flux_transformer/joint_transformer_block.pyi",
+      "language": "python",
+      "sizeLines": 40,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/flux/model/flux_transformer/single_block_attention.pyi",
+      "language": "python",
+      "sizeLines": 20,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/flux/model/flux_transformer/single_transformer_block.pyi",
+      "language": "python",
+      "sizeLines": 28,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/flux/model/flux_transformer/text_embedder.pyi",
+      "language": "python",
+      "sizeLines": 10,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/flux/model/flux_transformer/time_text_embed.pyi",
+      "language": "python",
+      "sizeLines": 13,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/flux/model/flux_transformer/timestep_embedder.pyi",
+      "language": "python",
+      "sizeLines": 10,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/flux/model/flux_transformer/transformer.pyi",
+      "language": "python",
+      "sizeLines": 58,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/flux/model/flux_vae/common/attention.pyi",
+      "language": "python",
+      "sizeLines": 10,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/flux/model/flux_vae/common/resnet_block_2d.pyi",
+      "language": "python",
+      "sizeLines": 21,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/flux/model/flux_vae/common/unet_mid_block.pyi",
+      "language": "python",
+      "sizeLines": 10,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/flux/model/flux_vae/decoder/conv_in.pyi",
+      "language": "python",
+      "sizeLines": 10,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/flux/model/flux_vae/decoder/conv_norm_out.pyi",
+      "language": "python",
+      "sizeLines": 10,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/flux/model/flux_vae/decoder/conv_out.pyi",
+      "language": "python",
+      "sizeLines": 10,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/flux/model/flux_vae/decoder/decoder.pyi",
+      "language": "python",
+      "sizeLines": 12,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/flux/model/flux_vae/decoder/up_block_1_or_2.pyi",
+      "language": "python",
+      "sizeLines": 10,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/flux/model/flux_vae/decoder/up_block_3.pyi",
+      "language": "python",
+      "sizeLines": 10,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/flux/model/flux_vae/decoder/up_block_4.pyi",
+      "language": "python",
+      "sizeLines": 10,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/flux/model/flux_vae/decoder/up_sampler.pyi",
+      "language": "python",
+      "sizeLines": 13,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/flux/model/flux_vae/encoder/conv_in.pyi",
+      "language": "python",
+      "sizeLines": 10,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/flux/model/flux_vae/encoder/conv_norm_out.pyi",
+      "language": "python",
+      "sizeLines": 10,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/flux/model/flux_vae/encoder/conv_out.pyi",
+      "language": "python",
+      "sizeLines": 10,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/flux/model/flux_vae/encoder/down_block_1.pyi",
+      "language": "python",
+      "sizeLines": 10,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/flux/model/flux_vae/encoder/down_block_2.pyi",
+      "language": "python",
+      "sizeLines": 10,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/flux/model/flux_vae/encoder/down_block_3.pyi",
+      "language": "python",
+      "sizeLines": 10,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/flux/model/flux_vae/encoder/down_block_4.pyi",
+      "language": "python",
+      "sizeLines": 10,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/flux/model/flux_vae/encoder/down_sampler.pyi",
+      "language": "python",
+      "sizeLines": 10,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/flux/model/flux_vae/encoder/encoder.pyi",
+      "language": "python",
+      "sizeLines": 10,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/flux/model/flux_vae/vae.pyi",
+      "language": "python",
+      "sizeLines": 15,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/flux/model/redux_encoder/redux_encoder.pyi",
+      "language": "python",
+      "sizeLines": 10,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/flux/model/siglip_vision_transformer/siglip_encoder_layer.pyi",
+      "language": "python",
+      "sizeLines": 10,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/flux/model/siglip_vision_transformer/siglip_encoder.pyi",
+      "language": "python",
+      "sizeLines": 10,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/flux/model/siglip_vision_transformer/siglip_mlp.pyi",
+      "language": "python",
+      "sizeLines": 10,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/flux/model/siglip_vision_transformer/siglip_multi_head_attention_pooling_head.pyi",
+      "language": "python",
+      "sizeLines": 10,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/flux/model/siglip_vision_transformer/siglip_sdpa_attention.pyi",
+      "language": "python",
+      "sizeLines": 16,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/flux/model/siglip_vision_transformer/siglip_vision_embeddings.pyi",
+      "language": "python",
+      "sizeLines": 13,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/flux/model/siglip_vision_transformer/siglip_vision_transformer.pyi",
+      "language": "python",
+      "sizeLines": 10,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/flux/variants/__init__.pyi",
+      "language": "python",
+      "sizeLines": 7,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/flux/variants/concept_attention/attention_data.pyi",
+      "language": "python",
+      "sizeLines": 39,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/flux/variants/concept_attention/joint_attention_concept.pyi",
+      "language": "python",
+      "sizeLines": 17,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/flux/variants/concept_attention/joint_transformer_block_concept.pyi",
+      "language": "python",
+      "sizeLines": 28,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/flux/variants/concept_attention/transformer_concept.pyi",
+      "language": "python",
+      "sizeLines": 29,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/flux/variants/controlnet/transformer_controlnet.pyi",
+      "language": "python",
+      "sizeLines": 25,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/flux/variants/kontext/__init__.pyi",
+      "language": "python",
+      "sizeLines": 7,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/flux/variants/kontext/flux_kontext.pyi",
+      "language": "python",
+      "sizeLines": 49,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/flux/variants/kontext/kontext_util.pyi",
+      "language": "python",
+      "sizeLines": 16,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/flux/variants/txt2img/flux.pyi",
+      "language": "python",
+      "sizeLines": 53,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/flux/weights/__init__.pyi",
+      "language": "python",
+      "sizeLines": 8,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/flux/weights/flux_lora_mapping.pyi",
+      "language": "python",
+      "sizeLines": 9,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/flux/weights/flux_weight_definition.pyi",
+      "language": "python",
+      "sizeLines": 45,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/flux/weights/flux_weight_mapping.pyi",
+      "language": "python",
+      "sizeLines": 21,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/qwen/__init__.pyi",
+      "language": "python",
+      "sizeLines": 3,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/qwen/cli/__init__.pyi",
+      "language": "python",
+      "sizeLines": 3,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/qwen/latent_creator/__init__.pyi",
+      "language": "python",
+      "sizeLines": 7,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/qwen/latent_creator/qwen_latent_creator.pyi",
+      "language": "python",
+      "sizeLines": 19,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/qwen/model/__init__.pyi",
+      "language": "python",
+      "sizeLines": 7,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/qwen/model/qwen_text_encoder/qwen_attention.pyi",
+      "language": "python",
+      "sizeLines": 23,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/qwen/model/qwen_text_encoder/qwen_encoder_layer.pyi",
+      "language": "python",
+      "sizeLines": 24,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/qwen/model/qwen_text_encoder/qwen_encoder.pyi",
+      "language": "python",
+      "sizeLines": 26,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/qwen/model/qwen_text_encoder/qwen_mlp.pyi",
+      "language": "python",
+      "sizeLines": 10,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/qwen/model/qwen_text_encoder/qwen_patch_merger.pyi",
+      "language": "python",
+      "sizeLines": 12,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/qwen/model/qwen_text_encoder/qwen_prompt_encoder.pyi",
+      "language": "python",
+      "sizeLines": 21,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/qwen/model/qwen_text_encoder/qwen_rms_norm.pyi",
+      "language": "python",
+      "sizeLines": 10,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/qwen/model/qwen_text_encoder/qwen_rope.pyi",
+      "language": "python",
+      "sizeLines": 21,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/qwen/model/qwen_text_encoder/qwen_text_encoder.pyi",
+      "language": "python",
+      "sizeLines": 16,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/qwen/model/qwen_text_encoder/qwen_vision_attention.pyi",
+      "language": "python",
+      "sizeLines": 12,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/qwen/model/qwen_text_encoder/qwen_vision_block.pyi",
+      "language": "python",
+      "sizeLines": 14,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/qwen/model/qwen_text_encoder/qwen_vision_language_encoder.pyi",
+      "language": "python",
+      "sizeLines": 16,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/qwen/model/qwen_text_encoder/qwen_vision_mlp.pyi",
+      "language": "python",
+      "sizeLines": 10,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/qwen/model/qwen_text_encoder/qwen_vision_patch_embed.pyi",
+      "language": "python",
+      "sizeLines": 16,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/qwen/model/qwen_text_encoder/qwen_vision_rotary_embedding.pyi",
+      "language": "python",
+      "sizeLines": 10,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/qwen/model/qwen_text_encoder/qwen_vision_transformer.pyi",
+      "language": "python",
+      "sizeLines": 26,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/qwen/model/qwen_transformer/qwen_attention.pyi",
+      "language": "python",
+      "sizeLines": 53,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/qwen/model/qwen_transformer/qwen_feed_forward.pyi",
+      "language": "python",
+      "sizeLines": 10,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/qwen/model/qwen_transformer/qwen_rope.pyi",
+      "language": "python",
+      "sizeLines": 16,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/qwen/model/qwen_transformer/qwen_time_text_embed.pyi",
+      "language": "python",
+      "sizeLines": 10,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/qwen/model/qwen_transformer/qwen_timestep_embedding.pyi",
+      "language": "python",
+      "sizeLines": 10,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/qwen/model/qwen_transformer/qwen_timesteps.pyi",
+      "language": "python",
+      "sizeLines": 10,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/qwen/model/qwen_transformer/qwen_transformer_block.pyi",
+      "language": "python",
+      "sizeLines": 36,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/qwen/model/qwen_transformer/qwen_transformer_rms_norm.pyi",
+      "language": "python",
+      "sizeLines": 10,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/qwen/model/qwen_transformer/qwen_transformer.pyi",
+      "language": "python",
+      "sizeLines": 52,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/qwen/model/qwen_vae/qwen_image_attention_block_3d.pyi",
+      "language": "python",
+      "sizeLines": 10,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/qwen/model/qwen_vae/qwen_image_causal_conv_3d.pyi",
+      "language": "python",
+      "sizeLines": 17,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/qwen/model/qwen_vae/qwen_image_decoder_3d.pyi",
+      "language": "python",
+      "sizeLines": 10,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/qwen/model/qwen_vae/qwen_image_down_block_3d.pyi",
+      "language": "python",
+      "sizeLines": 16,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/qwen/model/qwen_vae/qwen_image_encoder_3d.pyi",
+      "language": "python",
+      "sizeLines": 10,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/qwen/model/qwen_vae/qwen_image_mid_block_3d.pyi",
+      "language": "python",
+      "sizeLines": 10,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/qwen/model/qwen_vae/qwen_image_res_block_3d.pyi",
+      "language": "python",
+      "sizeLines": 10,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/qwen/model/qwen_vae/qwen_image_resample_3d.pyi",
+      "language": "python",
+      "sizeLines": 10,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/qwen/model/qwen_vae/qwen_image_rms_norm.pyi",
+      "language": "python",
+      "sizeLines": 12,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/qwen/model/qwen_vae/qwen_image_up_block_3d.pyi",
+      "language": "python",
+      "sizeLines": 16,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/qwen/model/qwen_vae/qwen_vae.pyi",
+      "language": "python",
+      "sizeLines": 15,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/qwen/qwen_initializer.pyi",
+      "language": "python",
+      "sizeLines": 25,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/qwen/tokenizer/__init__.pyi",
+      "language": "python",
+      "sizeLines": 3,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/qwen/tokenizer/qwen_image_processor.pyi",
+      "language": "python",
+      "sizeLines": 40,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/qwen/tokenizer/qwen_vision_language_processor.pyi",
+      "language": "python",
+      "sizeLines": 23,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/qwen/tokenizer/qwen_vision_language_tokenizer.pyi",
+      "language": "python",
+      "sizeLines": 27,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/qwen/variants/__init__.pyi",
+      "language": "python",
+      "sizeLines": 7,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/qwen/variants/edit/qwen_edit_util.pyi",
+      "language": "python",
+      "sizeLines": 18,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/qwen/variants/edit/qwen_image_edit.pyi",
+      "language": "python",
+      "sizeLines": 55,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/qwen/variants/txt2img/qwen_image.pyi",
+      "language": "python",
+      "sizeLines": 50,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/qwen/weights/__init__.pyi",
+      "language": "python",
+      "sizeLines": 8,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/qwen/weights/qwen_lora_mapping.pyi",
+      "language": "python",
+      "sizeLines": 10,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/qwen/weights/qwen_weight_definition.pyi",
+      "language": "python",
+      "sizeLines": 23,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/qwen/weights/qwen_weight_mapping.pyi",
+      "language": "python",
+      "sizeLines": 19,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/seedvr2/weights/seedvr2_weight_definition.pyi",
+      "language": "python",
+      "sizeLines": 23,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/seedvr2/weights/seedvr2_weight_mapping.pyi",
+      "language": "python",
+      "sizeLines": 15,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/z_image/latent_creator/z_image_latent_creator.pyi",
+      "language": "python",
+      "sizeLines": 13,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/z_image/weights/z_image_weight_definition.pyi",
+      "language": "python",
+      "sizeLines": 23,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/models/z_image/weights/z_image_weight_mapping.pyi",
+      "language": "python",
+      "sizeLines": 16,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/release/__init__.pyi",
+      "language": "python",
+      "sizeLines": 3,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/utils/__init__.pyi",
+      "language": "python",
+      "sizeLines": 7,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/utils/box_values.pyi",
+      "language": "python",
+      "sizeLines": 25,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/utils/exceptions.pyi",
+      "language": "python",
+      "sizeLines": 24,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/utils/generated_image.pyi",
+      "language": "python",
+      "sizeLines": 53,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/utils/image_util.pyi",
+      "language": "python",
+      "sizeLines": 104,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/utils/metadata_builder.pyi",
+      "language": "python",
+      "sizeLines": 16,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mflux/utils/version_util.pyi",
+      "language": "python",
+      "sizeLines": 11,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mlx_lm/__init__.pyi",
+      "language": "python",
+      "sizeLines": 3,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mlx_lm/_version.pyi",
+      "language": "python",
+      "sizeLines": 5,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mlx_lm/convert.pyi",
+      "language": "python",
+      "sizeLines": 45,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mlx_lm/generate.pyi",
+      "language": "python",
+      "sizeLines": 557,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mlx_lm/models/__init__.pyi",
+      "language": "python",
+      "sizeLines": 1,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mlx_lm/models/activations.pyi",
+      "language": "python",
+      "sizeLines": 19,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mlx_lm/models/base.pyi",
+      "language": "python",
+      "sizeLines": 47,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mlx_lm/models/bitlinear_layers.pyi",
+      "language": "python",
+      "sizeLines": 26,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mlx_lm/models/cache.pyi",
+      "language": "python",
+      "sizeLines": 352,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mlx_lm/models/deepseek_v3.pyi",
+      "language": "python",
+      "sizeLines": 160,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mlx_lm/models/deepseek_v4.pyi",
+      "language": "python",
+      "sizeLines": 280,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mlx_lm/models/gated_delta.pyi",
+      "language": "python",
+      "sizeLines": 35,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mlx_lm/models/gemma4_text.pyi",
+      "language": "python",
+      "sizeLines": 179,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mlx_lm/models/gemma4.pyi",
+      "language": "python",
+      "sizeLines": 31,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mlx_lm/models/glm_moe_dsa.pyi",
+      "language": "python",
+      "sizeLines": 46,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mlx_lm/models/glm4_moe.pyi",
+      "language": "python",
+      "sizeLines": 153,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mlx_lm/models/gpt_oss.pyi",
+      "language": "python",
+      "sizeLines": 103,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mlx_lm/models/minimax.pyi",
+      "language": "python",
+      "sizeLines": 94,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mlx_lm/models/nemotron_h.pyi",
+      "language": "python",
+      "sizeLines": 168,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mlx_lm/models/qwen3_5_moe.pyi",
+      "language": "python",
+      "sizeLines": 19,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mlx_lm/models/qwen3_5.pyi",
+      "language": "python",
+      "sizeLines": 153,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mlx_lm/models/qwen3_next.pyi",
+      "language": "python",
+      "sizeLines": 128,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mlx_lm/models/rope_utils.pyi",
+      "language": "python",
+      "sizeLines": 51,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mlx_lm/models/step3p5.pyi",
+      "language": "python",
+      "sizeLines": 151,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mlx_lm/models/switch_layers.pyi",
+      "language": "python",
+      "sizeLines": 87,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mlx_lm/sample_utils.pyi",
+      "language": "python",
+      "sizeLines": 152,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mlx_lm/tokenizer_utils.pyi",
+      "language": "python",
+      "sizeLines": 190,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mlx_lm/tuner/dora.pyi",
+      "language": "python",
+      "sizeLines": 50,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mlx_lm/tuner/lora.pyi",
+      "language": "python",
+      "sizeLines": 66,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mlx_lm/tuner/utils.pyi",
+      "language": "python",
+      "sizeLines": 57,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mlx_lm/utils.pyi",
+      "language": "python",
+      "sizeLines": 195,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mlx_vlm/__init__.pyi",
+      "language": "python",
+      "sizeLines": 0,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mlx_vlm/prompt_utils.pyi",
+      "language": "python",
+      "sizeLines": 12,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mlx_vlm/utils.pyi",
+      "language": "python",
+      "sizeLines": 15,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mlx/core/__init__.pyi",
+      "language": "python",
+      "sizeLines": 5437,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mlx/core/cuda/__init__.pyi",
+      "language": "python",
+      "sizeLines": 2,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mlx/core/distributed/__init__.pyi",
+      "language": "python",
+      "sizeLines": 216,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mlx/core/metal/__init__.pyi",
+      "language": "python",
+      "sizeLines": 38,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mlx/core/random/__init__.pyi",
+      "language": "python",
+      "sizeLines": 301,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mlx/nn/__init__.pyi",
+      "language": "python",
+      "sizeLines": 5,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mlx/nn/init.pyi",
+      "language": "python",
+      "sizeLines": 284,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mlx/nn/layers/__init__.pyi",
+      "language": "python",
+      "sizeLines": 16,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mlx/nn/layers/activations.pyi",
+      "language": "python",
+      "sizeLines": 523,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mlx/nn/layers/base.pyi",
+      "language": "python",
+      "sizeLines": 397,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mlx/nn/layers/containers.pyi",
+      "language": "python",
+      "sizeLines": 21,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mlx/nn/layers/convolution_transpose.pyi",
+      "language": "python",
+      "sizeLines": 119,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mlx/nn/layers/convolution.pyi",
+      "language": "python",
+      "sizeLines": 120,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mlx/nn/layers/distributed.pyi",
+      "language": "python",
+      "sizeLines": 227,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mlx/nn/layers/dropout.pyi",
+      "language": "python",
+      "sizeLines": 65,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mlx/nn/layers/embedding.pyi",
+      "language": "python",
+      "sizeLines": 34,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mlx/nn/layers/linear.pyi",
+      "language": "python",
+      "sizeLines": 80,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mlx/nn/layers/normalization.pyi",
+      "language": "python",
+      "sizeLines": 197,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mlx/nn/layers/pooling.pyi",
+      "language": "python",
+      "sizeLines": 242,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mlx/nn/layers/positional_encoding.pyi",
+      "language": "python",
+      "sizeLines": 80,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mlx/nn/layers/quantized.pyi",
+      "language": "python",
+      "sizeLines": 127,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mlx/nn/layers/recurrent.pyi",
+      "language": "python",
+      "sizeLines": 113,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mlx/nn/layers/transformer.pyi",
+      "language": "python",
+      "sizeLines": 168,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mlx/nn/layers/upsample.pyi",
+      "language": "python",
+      "sizeLines": 87,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mlx/nn/losses.pyi",
+      "language": "python",
+      "sizeLines": 419,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mlx/nn/utils.pyi",
+      "language": "python",
+      "sizeLines": 73,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/mlx/utils.pyi",
+      "language": "python",
+      "sizeLines": 192,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/pynvml/__init__.pyi",
+      "language": "python",
+      "sizeLines": 3226,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".typings/safetensors/__init__.pyi",
+      "language": "python",
+      "sizeLines": 8,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".zed/settings.json",
+      "language": "json",
+      "sizeLines": 29,
+      "fileCategory": "config"
+    },
+    {
+      "path": "AGENTS.md",
+      "language": "markdown",
+      "sizeLines": 203,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "app/EXO/EXO.xcodeproj/project.pbxproj",
+      "language": "pbxproj",
+      "sizeLines": 606,
+      "fileCategory": "code"
+    },
+    {
+      "path": "app/EXO/EXO.xcodeproj/project.xcworkspace/contents.xcworkspacedata",
+      "language": "xcworkspacedata",
+      "sizeLines": 7,
+      "fileCategory": "code"
+    },
+    {
+      "path": "app/EXO/EXO.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved",
+      "language": "resolved",
+      "sizeLines": 15,
+      "fileCategory": "code"
+    },
+    {
+      "path": "app/EXO/EXO.xcodeproj/xcshareddata/xcschemes/EXO.xcscheme",
+      "language": "xcscheme",
+      "sizeLines": 114,
+      "fileCategory": "code"
+    },
+    {
+      "path": "app/EXO/EXO/Assets.xcassets/AccentColor.colorset/Contents.json",
+      "language": "json",
+      "sizeLines": 11,
+      "fileCategory": "config"
+    },
+    {
+      "path": "app/EXO/EXO/Assets.xcassets/AppIcon.appiconset/Contents.json",
+      "language": "json",
+      "sizeLines": 68,
+      "fileCategory": "config"
+    },
+    {
+      "path": "app/EXO/EXO/Assets.xcassets/Contents.json",
+      "language": "json",
+      "sizeLines": 6,
+      "fileCategory": "config"
+    },
+    {
+      "path": "app/EXO/EXO/Assets.xcassets/menubar-icon.imageset/Contents.json",
+      "language": "json",
+      "sizeLines": 21,
+      "fileCategory": "config"
+    },
+    {
+      "path": "app/EXO/EXO/ContentView.swift",
+      "language": "swift",
+      "sizeLines": 697,
+      "fileCategory": "code"
+    },
+    {
+      "path": "app/EXO/EXO/EXO.entitlements",
+      "language": "entitlements",
+      "sizeLines": 12,
+      "fileCategory": "code"
+    },
+    {
+      "path": "app/EXO/EXO/EXOApp.swift",
+      "language": "swift",
+      "sizeLines": 288,
+      "fileCategory": "code"
+    },
+    {
+      "path": "app/EXO/EXO/ExoProcessController.swift",
+      "language": "swift",
+      "sizeLines": 520,
+      "fileCategory": "code"
+    },
+    {
+      "path": "app/EXO/EXO/Info.plist",
+      "language": "xml",
+      "sizeLines": 22,
+      "fileCategory": "config"
+    },
+    {
+      "path": "app/EXO/EXO/main.swift",
+      "language": "swift",
+      "sizeLines": 85,
+      "fileCategory": "code"
+    },
+    {
+      "path": "app/EXO/EXO/Models/ClusterState.swift",
+      "language": "swift",
+      "sizeLines": 476,
+      "fileCategory": "code"
+    },
+    {
+      "path": "app/EXO/EXO/Preview Content/Preview Assets.xcassets/Contents.json",
+      "language": "json",
+      "sizeLines": 6,
+      "fileCategory": "config"
+    },
+    {
+      "path": "app/EXO/EXO/Services/BugReportService.swift",
+      "language": "swift",
+      "sizeLines": 570,
+      "fileCategory": "code"
+    },
+    {
+      "path": "app/EXO/EXO/Services/ClusterStateService.swift",
+      "language": "swift",
+      "sizeLines": 192,
+      "fileCategory": "code"
+    },
+    {
+      "path": "app/EXO/EXO/Services/LocalNetworkChecker.swift",
+      "language": "swift",
+      "sizeLines": 183,
+      "fileCategory": "code"
+    },
+    {
+      "path": "app/EXO/EXO/Services/NetworkSetupHelper.swift",
+      "language": "swift",
+      "sizeLines": 382,
+      "fileCategory": "code"
+    },
+    {
+      "path": "app/EXO/EXO/Services/NetworkStatusService.swift",
+      "language": "swift",
+      "sizeLines": 229,
+      "fileCategory": "code"
+    },
+    {
+      "path": "app/EXO/EXO/Services/ThunderboltBridgeDetector.swift",
+      "language": "swift",
+      "sizeLines": 194,
+      "fileCategory": "code"
+    },
+    {
+      "path": "app/EXO/EXO/Services/ThunderboltBridgeService.swift",
+      "language": "swift",
+      "sizeLines": 261,
+      "fileCategory": "code"
+    },
+    {
+      "path": "app/EXO/EXO/ViewModels/InstanceViewModel.swift",
+      "language": "swift",
+      "sizeLines": 248,
+      "fileCategory": "code"
+    },
+    {
+      "path": "app/EXO/EXO/ViewModels/NodeViewModel.swift",
+      "language": "swift",
+      "sizeLines": 131,
+      "fileCategory": "code"
+    },
+    {
+      "path": "app/EXO/EXO/Views/BugReportWindowController.swift",
+      "language": "swift",
+      "sizeLines": 242,
+      "fileCategory": "code"
+    },
+    {
+      "path": "app/EXO/EXO/Views/FirstLaunchPopout.swift",
+      "language": "swift",
+      "sizeLines": 200,
+      "fileCategory": "code"
+    },
+    {
+      "path": "app/EXO/EXO/Views/InstanceRowView.swift",
+      "language": "swift",
+      "sizeLines": 337,
+      "fileCategory": "code"
+    },
+    {
+      "path": "app/EXO/EXO/Views/NodeDetailView.swift",
+      "language": "swift",
+      "sizeLines": 34,
+      "fileCategory": "code"
+    },
+    {
+      "path": "app/EXO/EXO/Views/NodeRowView.swift",
+      "language": "swift",
+      "sizeLines": 30,
+      "fileCategory": "code"
+    },
+    {
+      "path": "app/EXO/EXO/Views/SettingsView.swift",
+      "language": "swift",
+      "sizeLines": 718,
+      "fileCategory": "code"
+    },
+    {
+      "path": "app/EXO/EXO/Views/SettingsWindowController.swift",
+      "language": "swift",
+      "sizeLines": 47,
+      "fileCategory": "code"
+    },
+    {
+      "path": "app/EXO/EXO/Views/TopologyMiniView.swift",
+      "language": "swift",
+      "sizeLines": 173,
+      "fileCategory": "code"
+    },
+    {
+      "path": "app/EXO/EXOTests/EXOTests.swift",
+      "language": "swift",
+      "sizeLines": 18,
+      "fileCategory": "code"
+    },
+    {
+      "path": "app/EXO/EXOUITests/EXOUITests.swift",
+      "language": "swift",
+      "sizeLines": 43,
+      "fileCategory": "code"
+    },
+    {
+      "path": "app/EXO/EXOUITests/EXOUITestsLaunchTests.swift",
+      "language": "swift",
+      "sizeLines": 33,
+      "fileCategory": "code"
+    },
+    {
+      "path": "app/EXO/uninstall-exo.sh",
+      "language": "shell",
+      "sizeLines": 209,
+      "fileCategory": "script"
+    },
+    {
+      "path": "bench/bench.toml",
+      "language": "toml",
+      "sizeLines": 5,
+      "fileCategory": "config"
+    },
+    {
+      "path": "bench/eval_configs/models.toml",
+      "language": "toml",
+      "sizeLines": 347,
+      "fileCategory": "config"
+    },
+    {
+      "path": "bench/eval_tool_calls.py",
+      "language": "python",
+      "sizeLines": 1153,
+      "fileCategory": "code"
+    },
+    {
+      "path": "bench/exo_bench.py",
+      "language": "python",
+      "sizeLines": 936,
+      "fileCategory": "code"
+    },
+    {
+      "path": "bench/exo_eval.py",
+      "language": "python",
+      "sizeLines": 1752,
+      "fileCategory": "code"
+    },
+    {
+      "path": "bench/METHODOLOGY.md",
+      "language": "markdown",
+      "sizeLines": 161,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "bench/parallel_requests.py",
+      "language": "python",
+      "sizeLines": 255,
+      "fileCategory": "code"
+    },
+    {
+      "path": "bench/prefill_decode_bench.py",
+      "language": "python",
+      "sizeLines": 784,
+      "fileCategory": "code"
+    },
+    {
+      "path": "bench/prefill-decode.toml",
+      "language": "toml",
+      "sizeLines": 36,
+      "fileCategory": "config"
+    },
+    {
+      "path": "bench/pyproject.toml",
+      "language": "toml",
+      "sizeLines": 23,
+      "fileCategory": "config"
+    },
+    {
+      "path": "bench/scenarios.toml",
+      "language": "toml",
+      "sizeLines": 306,
+      "fileCategory": "config"
+    },
+    {
+      "path": "bench/single-m3-ultra.toml",
+      "language": "toml",
+      "sizeLines": 189,
+      "fileCategory": "config"
+    },
+    {
+      "path": "Cargo.toml",
+      "language": "toml",
+      "sizeLines": 174,
+      "fileCategory": "config"
+    },
+    {
+      "path": "CLAUDE.md",
+      "language": "markdown",
+      "sizeLines": 203,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "continuity/action-ledger.md",
+      "language": "markdown",
+      "sizeLines": 26,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "continuity/artifact-ledger.md",
+      "language": "markdown",
+      "sizeLines": 11,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "continuity/critique-ledger.md",
+      "language": "markdown",
+      "sizeLines": 11,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "continuity/current-state.md",
+      "language": "markdown",
+      "sizeLines": 50,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "continuity/decision-ledger.md",
+      "language": "markdown",
+      "sizeLines": 31,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "continuity/full-history-index.md",
+      "language": "markdown",
+      "sizeLines": 10,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "continuity/handoff-ledger.md",
+      "language": "markdown",
+      "sizeLines": 10,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "continuity/implementation-ledger.md",
+      "language": "markdown",
+      "sizeLines": 12,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "continuity/lessons-learned.md",
+      "language": "markdown",
+      "sizeLines": 34,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "continuity/missing-history.md",
+      "language": "markdown",
+      "sizeLines": 13,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "continuity/next-actions.md",
+      "language": "markdown",
+      "sizeLines": 24,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "continuity/open-questions.md",
+      "language": "markdown",
+      "sizeLines": 13,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "continuity/project-origin.md",
+      "language": "markdown",
+      "sizeLines": 7,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "continuity/README.md",
+      "language": "markdown",
+      "sizeLines": 15,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "continuity/test-ledger.md",
+      "language": "markdown",
+      "sizeLines": 41,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "CONTRIBUTING.md",
+      "language": "markdown",
+      "sizeLines": 188,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "dashboard/dashboard.nix",
+      "language": "nix",
+      "sizeLines": 60,
+      "fileCategory": "code"
+    },
+    {
+      "path": "dashboard/exo-logo-hq-square-black-bg.webp",
+      "language": "webp",
+      "sizeLines": 18,
+      "fileCategory": "code"
+    },
+    {
+      "path": "dashboard/package.json",
+      "language": "json",
+      "sizeLines": 38,
+      "fileCategory": "config"
+    },
+    {
+      "path": "dashboard/parts.nix",
+      "language": "nix",
+      "sizeLines": 109,
+      "fileCategory": "code"
+    },
+    {
+      "path": "dashboard/src/app.css",
+      "language": "css",
+      "sizeLines": 387,
+      "fileCategory": "markup"
+    },
+    {
+      "path": "dashboard/src/app.d.ts",
+      "language": "typescript",
+      "sizeLines": 13,
+      "fileCategory": "code"
+    },
+    {
+      "path": "dashboard/src/app.html",
+      "language": "html",
+      "sizeLines": 20,
+      "fileCategory": "markup"
+    },
+    {
+      "path": "dashboard/src/lib/components/ChatAttachments.svelte",
+      "language": "svelte",
+      "sizeLines": 94,
+      "fileCategory": "code"
+    },
+    {
+      "path": "dashboard/src/lib/components/ChatForm.svelte",
+      "language": "svelte",
+      "sizeLines": 751,
+      "fileCategory": "code"
+    },
+    {
+      "path": "dashboard/src/lib/components/ChatMessages.svelte",
+      "language": "svelte",
+      "sizeLines": 881,
+      "fileCategory": "code"
+    },
+    {
+      "path": "dashboard/src/lib/components/ChatModelSelector.svelte",
+      "language": "svelte",
+      "sizeLines": 404,
+      "fileCategory": "code"
+    },
+    {
+      "path": "dashboard/src/lib/components/ChatSidebar.svelte",
+      "language": "svelte",
+      "sizeLines": 628,
+      "fileCategory": "code"
+    },
+    {
+      "path": "dashboard/src/lib/components/ConnectionBanner.svelte",
+      "language": "svelte",
+      "sizeLines": 20,
+      "fileCategory": "code"
+    },
+    {
+      "path": "dashboard/src/lib/components/DeviceIcon.svelte",
+      "language": "svelte",
+      "sizeLines": 277,
+      "fileCategory": "code"
+    },
+    {
+      "path": "dashboard/src/lib/components/EjectButton.svelte",
+      "language": "svelte",
+      "sizeLines": 62,
+      "fileCategory": "code"
+    },
+    {
+      "path": "dashboard/src/lib/components/FamilyLogos.svelte",
+      "language": "svelte",
+      "sizeLines": 109,
+      "fileCategory": "code"
+    },
+    {
+      "path": "dashboard/src/lib/components/FamilySidebar.svelte",
+      "language": "svelte",
+      "sizeLines": 196,
+      "fileCategory": "code"
+    },
+    {
+      "path": "dashboard/src/lib/components/HeaderNav.svelte",
+      "language": "svelte",
+      "sizeLines": 365,
+      "fileCategory": "code"
+    },
+    {
+      "path": "dashboard/src/lib/components/HuggingFaceResultItem.svelte",
+      "language": "svelte",
+      "sizeLines": 156,
+      "fileCategory": "code"
+    },
+    {
+      "path": "dashboard/src/lib/components/ImageLightbox.svelte",
+      "language": "svelte",
+      "sizeLines": 96,
+      "fileCategory": "code"
+    },
+    {
+      "path": "dashboard/src/lib/components/ImageParamsPanel.svelte",
+      "language": "svelte",
+      "sizeLines": 695,
+      "fileCategory": "code"
+    },
+    {
+      "path": "dashboard/src/lib/components/index.ts",
+      "language": "typescript",
+      "sizeLines": 17,
+      "fileCategory": "code"
+    },
+    {
+      "path": "dashboard/src/lib/components/IntegrationCard.svelte",
+      "language": "svelte",
+      "sizeLines": 62,
+      "fileCategory": "code"
+    },
+    {
+      "path": "dashboard/src/lib/components/MarkdownContent.svelte",
+      "language": "svelte",
+      "sizeLines": 1074,
+      "fileCategory": "code"
+    },
+    {
+      "path": "dashboard/src/lib/components/ModelCard.svelte",
+      "language": "svelte",
+      "sizeLines": 1097,
+      "fileCategory": "code"
+    },
+    {
+      "path": "dashboard/src/lib/components/ModelFilterPopover.svelte",
+      "language": "svelte",
+      "sizeLines": 279,
+      "fileCategory": "code"
+    },
+    {
+      "path": "dashboard/src/lib/components/ModelPickerGroup.svelte",
+      "language": "svelte",
+      "sizeLines": 654,
+      "fileCategory": "code"
+    },
+    {
+      "path": "dashboard/src/lib/components/ModelPickerModal.svelte",
+      "language": "svelte",
+      "sizeLines": 1255,
+      "fileCategory": "code"
+    },
+    {
+      "path": "dashboard/src/lib/components/PrefillDecodeDisaggregation.svelte",
+      "language": "svelte",
+      "sizeLines": 565,
+      "fileCategory": "code"
+    },
+    {
+      "path": "dashboard/src/lib/components/PrefillProgressBar.svelte",
+      "language": "svelte",
+      "sizeLines": 70,
+      "fileCategory": "code"
+    },
+    {
+      "path": "dashboard/src/lib/components/ToastContainer.svelte",
+      "language": "svelte",
+      "sizeLines": 117,
+      "fileCategory": "code"
+    },
+    {
+      "path": "dashboard/src/lib/components/TokenHeatmap.svelte",
+      "language": "svelte",
+      "sizeLines": 236,
+      "fileCategory": "code"
+    },
+    {
+      "path": "dashboard/src/lib/components/TopologyGraph.svelte",
+      "language": "svelte",
+      "sizeLines": 1250,
+      "fileCategory": "code"
+    },
+    {
+      "path": "dashboard/src/lib/stores/app.svelte.ts",
+      "language": "typescript",
+      "sizeLines": 4063,
+      "fileCategory": "code"
+    },
+    {
+      "path": "dashboard/src/lib/stores/favorites.svelte.ts",
+      "language": "typescript",
+      "sizeLines": 97,
+      "fileCategory": "code"
+    },
+    {
+      "path": "dashboard/src/lib/stores/recents.svelte.ts",
+      "language": "typescript",
+      "sizeLines": 75,
+      "fileCategory": "code"
+    },
+    {
+      "path": "dashboard/src/lib/stores/toast.svelte.ts",
+      "language": "typescript",
+      "sizeLines": 87,
+      "fileCategory": "code"
+    },
+    {
+      "path": "dashboard/src/lib/types/files.ts",
+      "language": "typescript",
+      "sizeLines": 333,
+      "fileCategory": "code"
+    },
+    {
+      "path": "dashboard/src/lib/utils/clipboard.ts",
+      "language": "typescript",
+      "sizeLines": 55,
+      "fileCategory": "code"
+    },
+    {
+      "path": "dashboard/src/lib/utils/downloads.ts",
+      "language": "typescript",
+      "sizeLines": 152,
+      "fileCategory": "code"
+    },
+    {
+      "path": "dashboard/src/lib/utils/model_family.ts",
+      "language": "typescript",
+      "sizeLines": 44,
+      "fileCategory": "code"
+    },
+    {
+      "path": "dashboard/src/routes/+layout.svelte",
+      "language": "svelte",
+      "sizeLines": 18,
+      "fileCategory": "code"
+    },
+    {
+      "path": "dashboard/src/routes/+page.svelte",
+      "language": "svelte",
+      "sizeLines": 7143,
+      "fileCategory": "code"
+    },
+    {
+      "path": "dashboard/src/routes/advanced/+page.svelte",
+      "language": "svelte",
+      "sizeLines": 81,
+      "fileCategory": "code"
+    },
+    {
+      "path": "dashboard/src/routes/downloads/+page.svelte",
+      "language": "svelte",
+      "sizeLines": 881,
+      "fileCategory": "code"
+    },
+    {
+      "path": "dashboard/src/routes/integrations/+page.svelte",
+      "language": "svelte",
+      "sizeLines": 688,
+      "fileCategory": "code"
+    },
+    {
+      "path": "dashboard/src/routes/logs/+page.svelte",
+      "language": "svelte",
+      "sizeLines": 616,
+      "fileCategory": "code"
+    },
+    {
+      "path": "dashboard/src/routes/settings/+page.svelte",
+      "language": "svelte",
+      "sizeLines": 562,
+      "fileCategory": "code"
+    },
+    {
+      "path": "dashboard/src/routes/traces/[taskId]/+page.svelte",
+      "language": "svelte",
+      "sizeLines": 367,
+      "fileCategory": "code"
+    },
+    {
+      "path": "dashboard/src/routes/traces/+page.svelte",
+      "language": "svelte",
+      "sizeLines": 277,
+      "fileCategory": "code"
+    },
+    {
+      "path": "dashboard/static/shared/accessibility.js",
+      "language": "javascript",
+      "sizeLines": 36,
+      "fileCategory": "code"
+    },
+    {
+      "path": "dashboard/static/shared/components.css",
+      "language": "css",
+      "sizeLines": 12,
+      "fileCategory": "markup"
+    },
+    {
+      "path": "dashboard/static/shared/components.js",
+      "language": "javascript",
+      "sizeLines": 32,
+      "fileCategory": "code"
+    },
+    {
+      "path": "dashboard/static/shared/keyboard-shortcuts.js",
+      "language": "javascript",
+      "sizeLines": 19,
+      "fileCategory": "code"
+    },
+    {
+      "path": "dashboard/static/shared/pdf-export.js",
+      "language": "javascript",
+      "sizeLines": 9,
+      "fileCategory": "code"
+    },
+    {
+      "path": "dashboard/static/shared/theme-switcher.js",
+      "language": "javascript",
+      "sizeLines": 60,
+      "fileCategory": "code"
+    },
+    {
+      "path": "dashboard/svelte.config.js",
+      "language": "javascript",
+      "sizeLines": 28,
+      "fileCategory": "code"
+    },
+    {
+      "path": "dashboard/tsconfig.json",
+      "language": "json",
+      "sizeLines": 15,
+      "fileCategory": "config"
+    },
+    {
+      "path": "dashboard/vite.config.ts",
+      "language": "typescript",
+      "sizeLines": 15,
+      "fileCategory": "code"
+    },
+    {
+      "path": "docs/api.md",
+      "language": "markdown",
+      "sizeLines": 787,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "docs/architecture.md",
+      "language": "markdown",
+      "sizeLines": 59,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "docs/turboquant-mlx-pdd-plan.md",
+      "language": "markdown",
+      "sizeLines": 173,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "flake.nix",
+      "language": "nix",
+      "sizeLines": 182,
+      "fileCategory": "code"
+    },
+    {
+      "path": "justfile",
+      "language": "unknown",
+      "sizeLines": 49,
+      "fileCategory": "code"
+    },
+    {
+      "path": "nix/apple-sdk-overlay.nix",
+      "language": "nix",
+      "sizeLines": 18,
+      "fileCategory": "code"
+    },
+    {
+      "path": "nix/apple-sdk/metadata/versions.json",
+      "language": "json",
+      "sizeLines": 26,
+      "fileCategory": "config"
+    },
+    {
+      "path": "nix/darwin-build-fixes.patch",
+      "language": "patch",
+      "sizeLines": 79,
+      "fileCategory": "code"
+    },
+    {
+      "path": "nix/metal-toolchain.nix",
+      "language": "nix",
+      "sizeLines": 56,
+      "fileCategory": "code"
+    },
+    {
+      "path": "packaging/dmg/create-dmg.sh",
+      "language": "shell",
+      "sizeLines": 112,
+      "fileCategory": "script"
+    },
+    {
+      "path": "packaging/dmg/generate-background.py",
+      "language": "python",
+      "sizeLines": 91,
+      "fileCategory": "code"
+    },
+    {
+      "path": "packaging/pyinstaller/exo.spec",
+      "language": "spec",
+      "sizeLines": 127,
+      "fileCategory": "code"
+    },
+    {
+      "path": "planANDprompt/cleaned-prompts.md",
+      "language": "markdown",
+      "sizeLines": 26,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "planANDprompt/executed-prompts.md",
+      "language": "markdown",
+      "sizeLines": 33,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "planANDprompt/improved-prompts.md",
+      "language": "markdown",
+      "sizeLines": 20,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "planANDprompt/original-prompts.md",
+      "language": "markdown",
+      "sizeLines": 31,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "planANDprompt/planned-prompts.md",
+      "language": "markdown",
+      "sizeLines": 12,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "planANDprompt/prompt-history.md",
+      "language": "markdown",
+      "sizeLines": 18,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "planANDprompt/prompt-index.md",
+      "language": "markdown",
+      "sizeLines": 12,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "planANDprompt/prompt-ledger.md",
+      "language": "markdown",
+      "sizeLines": 10,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "planANDprompt/prompt-to-output-map.md",
+      "language": "markdown",
+      "sizeLines": 11,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "planANDprompt/README.md",
+      "language": "markdown",
+      "sizeLines": 18,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "PLATFORMS.md",
+      "language": "markdown",
+      "sizeLines": 38,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "pyproject.toml",
+      "language": "toml",
+      "sizeLines": 254,
+      "fileCategory": "config"
+    },
+    {
+      "path": "python/parts.nix",
+      "language": "nix",
+      "sizeLines": 302,
+      "fileCategory": "code"
+    },
+    {
+      "path": "README.md",
+      "language": "markdown",
+      "sizeLines": 722,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "resources/image_model_cards/exolabs--FLUX.1-dev-4bit.toml",
+      "language": "toml",
+      "sizeLines": 50,
+      "fileCategory": "config"
+    },
+    {
+      "path": "resources/image_model_cards/exolabs--FLUX.1-dev-8bit.toml",
+      "language": "toml",
+      "sizeLines": 50,
+      "fileCategory": "config"
+    },
+    {
+      "path": "resources/image_model_cards/exolabs--FLUX.1-dev.toml",
+      "language": "toml",
+      "sizeLines": 50,
+      "fileCategory": "config"
+    },
+    {
+      "path": "resources/image_model_cards/exolabs--FLUX.1-Kontext-dev-4bit.toml",
+      "language": "toml",
+      "sizeLines": 50,
+      "fileCategory": "config"
+    },
+    {
+      "path": "resources/image_model_cards/exolabs--FLUX.1-Kontext-dev-8bit.toml",
+      "language": "toml",
+      "sizeLines": 50,
+      "fileCategory": "config"
+    },
+    {
+      "path": "resources/image_model_cards/exolabs--FLUX.1-Kontext-dev.toml",
+      "language": "toml",
+      "sizeLines": 50,
+      "fileCategory": "config"
+    },
+    {
+      "path": "resources/image_model_cards/exolabs--FLUX.1-Krea-dev-4bit.toml",
+      "language": "toml",
+      "sizeLines": 50,
+      "fileCategory": "config"
+    },
+    {
+      "path": "resources/image_model_cards/exolabs--FLUX.1-Krea-dev-8bit.toml",
+      "language": "toml",
+      "sizeLines": 50,
+      "fileCategory": "config"
+    },
+    {
+      "path": "resources/image_model_cards/exolabs--FLUX.1-Krea-dev.toml",
+      "language": "toml",
+      "sizeLines": 50,
+      "fileCategory": "config"
+    },
+    {
+      "path": "resources/image_model_cards/exolabs--FLUX.1-schnell-4bit.toml",
+      "language": "toml",
+      "sizeLines": 50,
+      "fileCategory": "config"
+    },
+    {
+      "path": "resources/image_model_cards/exolabs--FLUX.1-schnell-8bit.toml",
+      "language": "toml",
+      "sizeLines": 50,
+      "fileCategory": "config"
+    },
+    {
+      "path": "resources/image_model_cards/exolabs--FLUX.1-schnell.toml",
+      "language": "toml",
+      "sizeLines": 50,
+      "fileCategory": "config"
+    },
+    {
+      "path": "resources/image_model_cards/exolabs--Qwen-Image-4bit.toml",
+      "language": "toml",
+      "sizeLines": 41,
+      "fileCategory": "config"
+    },
+    {
+      "path": "resources/image_model_cards/exolabs--Qwen-Image-8bit.toml",
+      "language": "toml",
+      "sizeLines": 41,
+      "fileCategory": "config"
+    },
+    {
+      "path": "resources/image_model_cards/exolabs--Qwen-Image-Edit-2509-4bit.toml",
+      "language": "toml",
+      "sizeLines": 41,
+      "fileCategory": "config"
+    },
+    {
+      "path": "resources/image_model_cards/exolabs--Qwen-Image-Edit-2509-8bit.toml",
+      "language": "toml",
+      "sizeLines": 41,
+      "fileCategory": "config"
+    },
+    {
+      "path": "resources/image_model_cards/exolabs--Qwen-Image-Edit-2509.toml",
+      "language": "toml",
+      "sizeLines": 41,
+      "fileCategory": "config"
+    },
+    {
+      "path": "resources/image_model_cards/exolabs--Qwen-Image.toml",
+      "language": "toml",
+      "sizeLines": 41,
+      "fileCategory": "config"
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--DeepSeek-V3.1-4bit.toml",
+      "language": "toml",
+      "sizeLines": 22,
+      "fileCategory": "config"
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--DeepSeek-V3.1-8bit.toml",
+      "language": "toml",
+      "sizeLines": 22,
+      "fileCategory": "config"
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--DeepSeek-V3.2-4bit.toml",
+      "language": "toml",
+      "sizeLines": 22,
+      "fileCategory": "config"
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--DeepSeek-V3.2-8bit.toml",
+      "language": "toml",
+      "sizeLines": 22,
+      "fileCategory": "config"
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--DeepSeek-V4-Flash.toml",
+      "language": "toml",
+      "sizeLines": 21,
+      "fileCategory": "config"
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--DeepSeek-V4-Pro.toml",
+      "language": "toml",
+      "sizeLines": 21,
+      "fileCategory": "config"
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--gemma-4-12B-it-4bit.toml",
+      "language": "toml",
+      "sizeLines": 22,
+      "fileCategory": "config"
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--gemma-4-26b-a4b-it-4bit.toml",
+      "language": "toml",
+      "sizeLines": 22,
+      "fileCategory": "config"
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--gemma-4-26b-a4b-it-6bit.toml",
+      "language": "toml",
+      "sizeLines": 22,
+      "fileCategory": "config"
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--gemma-4-26b-a4b-it-8bit.toml",
+      "language": "toml",
+      "sizeLines": 22,
+      "fileCategory": "config"
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--gemma-4-26b-a4b-it-bf16.toml",
+      "language": "toml",
+      "sizeLines": 22,
+      "fileCategory": "config"
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--gemma-4-31b-it-4bit.toml",
+      "language": "toml",
+      "sizeLines": 22,
+      "fileCategory": "config"
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--gemma-4-31b-it-6bit.toml",
+      "language": "toml",
+      "sizeLines": 22,
+      "fileCategory": "config"
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--gemma-4-31b-it-8bit.toml",
+      "language": "toml",
+      "sizeLines": 22,
+      "fileCategory": "config"
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--gemma-4-31b-it-bf16.toml",
+      "language": "toml",
+      "sizeLines": 22,
+      "fileCategory": "config"
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--gemma-4-e2b-it-4bit.toml",
+      "language": "toml",
+      "sizeLines": 22,
+      "fileCategory": "config"
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--gemma-4-e2b-it-6bit.toml",
+      "language": "toml",
+      "sizeLines": 22,
+      "fileCategory": "config"
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--gemma-4-e2b-it-8bit.toml",
+      "language": "toml",
+      "sizeLines": 22,
+      "fileCategory": "config"
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--gemma-4-e2b-it-bf16.toml",
+      "language": "toml",
+      "sizeLines": 22,
+      "fileCategory": "config"
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--gemma-4-e4b-it-4bit.toml",
+      "language": "toml",
+      "sizeLines": 22,
+      "fileCategory": "config"
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--gemma-4-e4b-it-6bit.toml",
+      "language": "toml",
+      "sizeLines": 22,
+      "fileCategory": "config"
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--gemma-4-e4b-it-8bit.toml",
+      "language": "toml",
+      "sizeLines": 22,
+      "fileCategory": "config"
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--gemma-4-e4b-it-bf16.toml",
+      "language": "toml",
+      "sizeLines": 22,
+      "fileCategory": "config"
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--GLM-4.5-Air-8bit.toml",
+      "language": "toml",
+      "sizeLines": 20,
+      "fileCategory": "config"
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--GLM-4.5-Air-bf16.toml",
+      "language": "toml",
+      "sizeLines": 20,
+      "fileCategory": "config"
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--GLM-4.7-4bit.toml",
+      "language": "toml",
+      "sizeLines": 22,
+      "fileCategory": "config"
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--GLM-4.7-6bit.toml",
+      "language": "toml",
+      "sizeLines": 22,
+      "fileCategory": "config"
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--GLM-4.7-8bit-gs32.toml",
+      "language": "toml",
+      "sizeLines": 22,
+      "fileCategory": "config"
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--GLM-4.7-Flash-4bit.toml",
+      "language": "toml",
+      "sizeLines": 22,
+      "fileCategory": "config"
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--GLM-4.7-Flash-5bit.toml",
+      "language": "toml",
+      "sizeLines": 22,
+      "fileCategory": "config"
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--GLM-4.7-Flash-6bit.toml",
+      "language": "toml",
+      "sizeLines": 22,
+      "fileCategory": "config"
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--GLM-4.7-Flash-8bit.toml",
+      "language": "toml",
+      "sizeLines": 22,
+      "fileCategory": "config"
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--GLM-5-8bit.toml",
+      "language": "toml",
+      "sizeLines": 21,
+      "fileCategory": "config"
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--GLM-5-bf16.toml",
+      "language": "toml",
+      "sizeLines": 21,
+      "fileCategory": "config"
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--GLM-5-MXFP4-Q8.toml",
+      "language": "toml",
+      "sizeLines": 21,
+      "fileCategory": "config"
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--GLM-5.1-DQ4plus-q8.toml",
+      "language": "toml",
+      "sizeLines": 21,
+      "fileCategory": "config"
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--GLM-5.1-MXFP4-Q8.toml",
+      "language": "toml",
+      "sizeLines": 21,
+      "fileCategory": "config"
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--GLM-5.1.toml",
+      "language": "toml",
+      "sizeLines": 21,
+      "fileCategory": "config"
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--gpt-oss-120b-MXFP4-Q8.toml",
+      "language": "toml",
+      "sizeLines": 22,
+      "fileCategory": "config"
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--gpt-oss-20b-MXFP4-Q8.toml",
+      "language": "toml",
+      "sizeLines": 22,
+      "fileCategory": "config"
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--Kimi-K2-Instruct-4bit.toml",
+      "language": "toml",
+      "sizeLines": 20,
+      "fileCategory": "config"
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--Kimi-K2-Thinking.toml",
+      "language": "toml",
+      "sizeLines": 20,
+      "fileCategory": "config"
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--Kimi-K2.5.toml",
+      "language": "toml",
+      "sizeLines": 35,
+      "fileCategory": "config"
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--Kimi-K2.6-mlx-DQ3_K_M-q8.toml",
+      "language": "toml",
+      "sizeLines": 33,
+      "fileCategory": "config"
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--Llama-3.1-Nemotron-70B-Instruct-HF-4bit.toml",
+      "language": "toml",
+      "sizeLines": 20,
+      "fileCategory": "config"
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--Llama-3.1-Nemotron-70B-Instruct-HF-8bit.toml",
+      "language": "toml",
+      "sizeLines": 20,
+      "fileCategory": "config"
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--Llama-3.1-Nemotron-70B-Instruct-HF-bf16.toml",
+      "language": "toml",
+      "sizeLines": 20,
+      "fileCategory": "config"
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--Llama-3.1-Nemotron-Nano-4B-v1.1-4bit.toml",
+      "language": "toml",
+      "sizeLines": 23,
+      "fileCategory": "config"
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--Llama-3.1-Nemotron-Nano-4B-v1.1-8bit.toml",
+      "language": "toml",
+      "sizeLines": 23,
+      "fileCategory": "config"
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--Llama-3.1-Nemotron-Nano-4B-v1.1-bf16.toml",
+      "language": "toml",
+      "sizeLines": 23,
+      "fileCategory": "config"
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--Llama-3.2-1B-Instruct-4bit.toml",
+      "language": "toml",
+      "sizeLines": 21,
+      "fileCategory": "config"
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--Llama-3.2-3B-Instruct-4bit.toml",
+      "language": "toml",
+      "sizeLines": 21,
+      "fileCategory": "config"
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--Llama-3.2-3B-Instruct-8bit.toml",
+      "language": "toml",
+      "sizeLines": 21,
+      "fileCategory": "config"
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--Llama-3.3-70B-Instruct-4bit.toml",
+      "language": "toml",
+      "sizeLines": 21,
+      "fileCategory": "config"
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--Llama-3.3-70B-Instruct-8bit.toml",
+      "language": "toml",
+      "sizeLines": 21,
+      "fileCategory": "config"
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--llama-3.3-70b-instruct-fp16.toml",
+      "language": "toml",
+      "sizeLines": 21,
+      "fileCategory": "config"
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--Meta-Llama-3.1-70B-Instruct-4bit.toml",
+      "language": "toml",
+      "sizeLines": 21,
+      "fileCategory": "config"
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--Meta-Llama-3.1-8B-Instruct-4bit.toml",
+      "language": "toml",
+      "sizeLines": 21,
+      "fileCategory": "config"
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--Meta-Llama-3.1-8B-Instruct-8bit.toml",
+      "language": "toml",
+      "sizeLines": 21,
+      "fileCategory": "config"
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--Meta-Llama-3.1-8B-Instruct-bf16.toml",
+      "language": "toml",
+      "sizeLines": 21,
+      "fileCategory": "config"
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--MiniMax-M2.1-3bit.toml",
+      "language": "toml",
+      "sizeLines": 22,
+      "fileCategory": "config"
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--MiniMax-M2.1-8bit.toml",
+      "language": "toml",
+      "sizeLines": 22,
+      "fileCategory": "config"
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--MiniMax-M2.5-4bit.toml",
+      "language": "toml",
+      "sizeLines": 22,
+      "fileCategory": "config"
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--MiniMax-M2.5-6bit.toml",
+      "language": "toml",
+      "sizeLines": 22,
+      "fileCategory": "config"
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--MiniMax-M2.5-8bit.toml",
+      "language": "toml",
+      "sizeLines": 22,
+      "fileCategory": "config"
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--MiniMax-M2.7-4bit-mxfp4.toml",
+      "language": "toml",
+      "sizeLines": 23,
+      "fileCategory": "config"
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--MiniMax-M2.7-4bit.toml",
+      "language": "toml",
+      "sizeLines": 23,
+      "fileCategory": "config"
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--MiniMax-M2.7-5bit.toml",
+      "language": "toml",
+      "sizeLines": 23,
+      "fileCategory": "config"
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--MiniMax-M2.7-6bit.toml",
+      "language": "toml",
+      "sizeLines": 23,
+      "fileCategory": "config"
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--MiniMax-M2.7-8bit.toml",
+      "language": "toml",
+      "sizeLines": 23,
+      "fileCategory": "config"
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--MiniMax-M2.7.toml",
+      "language": "toml",
+      "sizeLines": 23,
+      "fileCategory": "config"
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--NVIDIA-Nemotron-3-Nano-30B-A3B-MLX-4Bit.toml",
+      "language": "toml",
+      "sizeLines": 20,
+      "fileCategory": "config"
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--NVIDIA-Nemotron-3-Nano-30B-A3B-MLX-5Bit.toml",
+      "language": "toml",
+      "sizeLines": 20,
+      "fileCategory": "config"
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--NVIDIA-Nemotron-3-Nano-30B-A3B-MLX-6Bit.toml",
+      "language": "toml",
+      "sizeLines": 20,
+      "fileCategory": "config"
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--NVIDIA-Nemotron-3-Nano-30B-A3B-MLX-8Bit.toml",
+      "language": "toml",
+      "sizeLines": 20,
+      "fileCategory": "config"
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--NVIDIA-Nemotron-3-Nano-30B-A3B-MLX-BF16.toml",
+      "language": "toml",
+      "sizeLines": 20,
+      "fileCategory": "config"
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--NVIDIA-Nemotron-3-Nano-30B-A3B-MLX-MXFP4.toml",
+      "language": "toml",
+      "sizeLines": 20,
+      "fileCategory": "config"
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--NVIDIA-Nemotron-3-Nano-30B-A3B-NVFP4.toml",
+      "language": "toml",
+      "sizeLines": 20,
+      "fileCategory": "config"
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--NVIDIA-Nemotron-Nano-9B-v2-4bits.toml",
+      "language": "toml",
+      "sizeLines": 25,
+      "fileCategory": "config"
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--NVIDIA-Nemotron-Nano-9B-v2-6bit.toml",
+      "language": "toml",
+      "sizeLines": 25,
+      "fileCategory": "config"
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--Qwen3-0.6B-4bit.toml",
+      "language": "toml",
+      "sizeLines": 29,
+      "fileCategory": "config"
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--Qwen3-0.6B-8bit.toml",
+      "language": "toml",
+      "sizeLines": 29,
+      "fileCategory": "config"
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--Qwen3-235B-A22B-Instruct-2507-4bit.toml",
+      "language": "toml",
+      "sizeLines": 22,
+      "fileCategory": "config"
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--Qwen3-235B-A22B-Instruct-2507-8bit.toml",
+      "language": "toml",
+      "sizeLines": 22,
+      "fileCategory": "config"
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--Qwen3-30B-A3B-4bit.toml",
+      "language": "toml",
+      "sizeLines": 29,
+      "fileCategory": "config"
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--Qwen3-30B-A3B-8bit.toml",
+      "language": "toml",
+      "sizeLines": 29,
+      "fileCategory": "config"
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--Qwen3-Coder-480B-A35B-Instruct-4bit.toml",
+      "language": "toml",
+      "sizeLines": 23,
+      "fileCategory": "config"
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--Qwen3-Coder-480B-A35B-Instruct-8bit.toml",
+      "language": "toml",
+      "sizeLines": 23,
+      "fileCategory": "config"
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--Qwen3-Coder-Next-4bit.toml",
+      "language": "toml",
+      "sizeLines": 22,
+      "fileCategory": "config"
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--Qwen3-Coder-Next-5bit.toml",
+      "language": "toml",
+      "sizeLines": 22,
+      "fileCategory": "config"
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--Qwen3-Coder-Next-6bit.toml",
+      "language": "toml",
+      "sizeLines": 22,
+      "fileCategory": "config"
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--Qwen3-Coder-Next-8bit.toml",
+      "language": "toml",
+      "sizeLines": 22,
+      "fileCategory": "config"
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--Qwen3-Coder-Next-bf16.toml",
+      "language": "toml",
+      "sizeLines": 22,
+      "fileCategory": "config"
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--Qwen3-Next-80B-A3B-Instruct-4bit.toml",
+      "language": "toml",
+      "sizeLines": 22,
+      "fileCategory": "config"
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--Qwen3-Next-80B-A3B-Instruct-8bit.toml",
+      "language": "toml",
+      "sizeLines": 22,
+      "fileCategory": "config"
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--Qwen3-Next-80B-A3B-Thinking-4bit.toml",
+      "language": "toml",
+      "sizeLines": 22,
+      "fileCategory": "config"
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--Qwen3-Next-80B-A3B-Thinking-8bit.toml",
+      "language": "toml",
+      "sizeLines": 22,
+      "fileCategory": "config"
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--Qwen3-VL-4B-Instruct-4bit.toml",
+      "language": "toml",
+      "sizeLines": 23,
+      "fileCategory": "config"
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--Qwen3.5-122B-A10B-4bit.toml",
+      "language": "toml",
+      "sizeLines": 35,
+      "fileCategory": "config"
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--Qwen3.5-122B-A10B-6bit.toml",
+      "language": "toml",
+      "sizeLines": 35,
+      "fileCategory": "config"
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--Qwen3.5-122B-A10B-8bit.toml",
+      "language": "toml",
+      "sizeLines": 35,
+      "fileCategory": "config"
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--Qwen3.5-122B-A10B-bf16.toml",
+      "language": "toml",
+      "sizeLines": 35,
+      "fileCategory": "config"
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--Qwen3.5-27B-4bit.toml",
+      "language": "toml",
+      "sizeLines": 35,
+      "fileCategory": "config"
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--Qwen3.5-27B-8bit.toml",
+      "language": "toml",
+      "sizeLines": 35,
+      "fileCategory": "config"
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--Qwen3.5-2B-MLX-8bit.toml",
+      "language": "toml",
+      "sizeLines": 35,
+      "fileCategory": "config"
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--Qwen3.5-35B-A3B-4bit.toml",
+      "language": "toml",
+      "sizeLines": 35,
+      "fileCategory": "config"
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--Qwen3.5-35B-A3B-8bit.toml",
+      "language": "toml",
+      "sizeLines": 35,
+      "fileCategory": "config"
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--Qwen3.5-397B-A17B-4bit.toml",
+      "language": "toml",
+      "sizeLines": 35,
+      "fileCategory": "config"
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--Qwen3.5-397B-A17B-6bit.toml",
+      "language": "toml",
+      "sizeLines": 35,
+      "fileCategory": "config"
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--Qwen3.5-397B-A17B-8bit.toml",
+      "language": "toml",
+      "sizeLines": 35,
+      "fileCategory": "config"
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--Qwen3.5-9B-4bit.toml",
+      "language": "toml",
+      "sizeLines": 35,
+      "fileCategory": "config"
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--Qwen3.5-9B-8bit.toml",
+      "language": "toml",
+      "sizeLines": 35,
+      "fileCategory": "config"
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--Qwen3.6-27B-4bit.toml",
+      "language": "toml",
+      "sizeLines": 35,
+      "fileCategory": "config"
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--Qwen3.6-27B-8bit.toml",
+      "language": "toml",
+      "sizeLines": 35,
+      "fileCategory": "config"
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--Qwen3.6-27B-bf16.toml",
+      "language": "toml",
+      "sizeLines": 35,
+      "fileCategory": "config"
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--Qwen3.6-35B-A3B-4bit.toml",
+      "language": "toml",
+      "sizeLines": 35,
+      "fileCategory": "config"
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--Qwen3.6-35B-A3B-5bit.toml",
+      "language": "toml",
+      "sizeLines": 35,
+      "fileCategory": "config"
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--Qwen3.6-35B-A3B-8bit.toml",
+      "language": "toml",
+      "sizeLines": 35,
+      "fileCategory": "config"
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--Qwen3.6-35B-A3B-bf16.toml",
+      "language": "toml",
+      "sizeLines": 35,
+      "fileCategory": "config"
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--Step-3.5-Flash-4bit.toml",
+      "language": "toml",
+      "sizeLines": 27,
+      "fileCategory": "config"
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--Step-3.5-Flash-6bit.toml",
+      "language": "toml",
+      "sizeLines": 27,
+      "fileCategory": "config"
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--Step-3.5-Flash-8Bit.toml",
+      "language": "toml",
+      "sizeLines": 27,
+      "fileCategory": "config"
+    },
+    {
+      "path": "resources/inference_model_cards/moonshotai--Kimi-K2.6.toml",
+      "language": "toml",
+      "sizeLines": 33,
+      "fileCategory": "config"
+    },
+    {
+      "path": "resources/inference_model_cards/moonshotai--Kimi-K2.7-Code.toml",
+      "language": "toml",
+      "sizeLines": 36,
+      "fileCategory": "config"
+    },
+    {
+      "path": "RULES.md",
+      "language": "markdown",
+      "sizeLines": 83,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "rust/exo_rs/Cargo.toml",
+      "language": "toml",
+      "sizeLines": 53,
+      "fileCategory": "config"
+    },
+    {
+      "path": "rust/exo_rs/exo_rs.pyi",
+      "language": "python",
+      "sizeLines": 123,
+      "fileCategory": "code"
+    },
+    {
+      "path": "rust/exo_rs/pyproject.toml",
+      "language": "toml",
+      "sizeLines": 33,
+      "fileCategory": "config"
+    },
+    {
+      "path": "rust/exo_rs/README.md",
+      "language": "markdown",
+      "sizeLines": 1,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "rust/exo_rs/src/allow_threading.rs",
+      "language": "rust",
+      "sizeLines": 37,
+      "fileCategory": "code"
+    },
+    {
+      "path": "rust/exo_rs/src/bin/stub_gen.rs",
+      "language": "rust",
+      "sizeLines": 8,
+      "fileCategory": "code"
+    },
+    {
+      "path": "rust/exo_rs/src/lib.rs",
+      "language": "rust",
+      "sizeLines": 170,
+      "fileCategory": "code"
+    },
+    {
+      "path": "rust/exo_rs/src/networking.rs",
+      "language": "rust",
+      "sizeLines": 225,
+      "fileCategory": "code"
+    },
+    {
+      "path": "rust/exo_rs/src/pidfile.rs",
+      "language": "rust",
+      "sizeLines": 128,
+      "fileCategory": "code"
+    },
+    {
+      "path": "rust/exo_rs/tests/dummy.rs",
+      "language": "rust",
+      "sizeLines": 54,
+      "fileCategory": "code"
+    },
+    {
+      "path": "rust/exo_rs/tests/test_python.py",
+      "language": "python",
+      "sizeLines": 50,
+      "fileCategory": "code"
+    },
+    {
+      "path": "rust/networking/Cargo.toml",
+      "language": "toml",
+      "sizeLines": 27,
+      "fileCategory": "config"
+    },
+    {
+      "path": "rust/networking/examples/do_nothing.rs",
+      "language": "rust",
+      "sizeLines": 34,
+      "fileCategory": "code"
+    },
+    {
+      "path": "rust/networking/examples/heartbeat.rs",
+      "language": "rust",
+      "sizeLines": 32,
+      "fileCategory": "code"
+    },
+    {
+      "path": "rust/networking/examples/put_string.rs",
+      "language": "rust",
+      "sizeLines": 48,
+      "fileCategory": "code"
+    },
+    {
+      "path": "rust/networking/examples/serve_storage.rs",
+      "language": "rust",
+      "sizeLines": 74,
+      "fileCategory": "code"
+    },
+    {
+      "path": "rust/networking/examples/z_get.rs",
+      "language": "rust",
+      "sizeLines": 41,
+      "fileCategory": "code"
+    },
+    {
+      "path": "rust/networking/src/discovery.rs",
+      "language": "rust",
+      "sizeLines": 341,
+      "fileCategory": "code"
+    },
+    {
+      "path": "rust/networking/src/lib.rs",
+      "language": "rust",
+      "sizeLines": 137,
+      "fileCategory": "code"
+    },
+    {
+      "path": "rust/networking/src/swarm.rs",
+      "language": "rust",
+      "sizeLines": 227,
+      "fileCategory": "code"
+    },
+    {
+      "path": "rust/parts.nix",
+      "language": "nix",
+      "sizeLines": 145,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scripts/download_model_to_cluster.py",
+      "language": "python",
+      "sizeLines": 212,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scripts/fetch_kv_heads.py",
+      "language": "python",
+      "sizeLines": 133,
+      "fileCategory": "code"
+    },
+    {
+      "path": "scripts/setup_linux_gpu.sh",
+      "language": "shell",
+      "sizeLines": 140,
+      "fileCategory": "script"
+    },
+    {
+      "path": "SETUP-LOCAL.md",
+      "language": "markdown",
+      "sizeLines": 258,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "src/exo/__init__.py",
+      "language": "python",
+      "sizeLines": 3,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/__main__.py",
+      "language": "python",
+      "sizeLines": 39,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/api/__init__.py",
+      "language": "python",
+      "sizeLines": 0,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/api/adapters/__init__.py",
+      "language": "python",
+      "sizeLines": 1,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/api/adapters/chat_completions.py",
+      "language": "python",
+      "sizeLines": 433,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/api/adapters/claude.py",
+      "language": "python",
+      "sizeLines": 511,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/api/adapters/ollama.py",
+      "language": "python",
+      "sizeLines": 493,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/api/adapters/responses.py",
+      "language": "python",
+      "sizeLines": 824,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/api/adapters/tests/__init__.py",
+      "language": "python",
+      "sizeLines": 0,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/api/adapters/tests/test_fetch_image_url.py",
+      "language": "python",
+      "sizeLines": 163,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/api/adapters/tests/test_tools_disabled.py",
+      "language": "python",
+      "sizeLines": 275,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/api/auth.py",
+      "language": "python",
+      "sizeLines": 46,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/api/keepalive.py",
+      "language": "python",
+      "sizeLines": 34,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/api/latency_tracker.py",
+      "language": "python",
+      "sizeLines": 121,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/api/main.py",
+      "language": "python",
+      "sizeLines": 3138,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/api/tests/conftest.py",
+      "language": "python",
+      "sizeLines": 38,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/api/tests/test_add_peer.py",
+      "language": "python",
+      "sizeLines": 113,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/api/tests/test_api_auth.py",
+      "language": "python",
+      "sizeLines": 70,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/api/tests/test_api_error_handling.py",
+      "language": "python",
+      "sizeLines": 87,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/api/tests/test_cancel_command.py",
+      "language": "python",
+      "sizeLines": 77,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/api/tests/test_chat_completions_stream.py",
+      "language": "python",
+      "sizeLines": 233,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/api/tests/test_claude_api.py",
+      "language": "python",
+      "sizeLines": 203,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/api/tests/test_claude_stop_sequence.py",
+      "language": "python",
+      "sizeLines": 143,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/api/tests/test_claude_tool_use.py",
+      "language": "python",
+      "sizeLines": 280,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/api/tests/test_create_instance_force_override.py",
+      "language": "python",
+      "sizeLines": 105,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/api/tests/test_get_v1_models.py",
+      "language": "python",
+      "sizeLines": 113,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/api/tests/test_input_length_guard.py",
+      "language": "python",
+      "sizeLines": 111,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/api/tests/test_instance_deleted_stream_cleanup.py",
+      "language": "python",
+      "sizeLines": 97,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/api/tests/test_latency_tracker.py",
+      "language": "python",
+      "sizeLines": 128,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/api/tests/test_logs_api.py",
+      "language": "python",
+      "sizeLines": 358,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/api/tests/test_openai_responses_api.py",
+      "language": "python",
+      "sizeLines": 271,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/api/tests/test_promote_master.py",
+      "language": "python",
+      "sizeLines": 76,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/api/tests/test_settings_api.py",
+      "language": "python",
+      "sizeLines": 96,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/api/tests/test_stream_events.py",
+      "language": "python",
+      "sizeLines": 130,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/api/tests/test_text_generation_backpressure.py",
+      "language": "python",
+      "sizeLines": 29,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/api/types/__init__.py",
+      "language": "python",
+      "sizeLines": 79,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/api/types/api.py",
+      "language": "python",
+      "sizeLines": 685,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/api/types/claude_api.py",
+      "language": "python",
+      "sizeLines": 242,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/api/types/ollama_api.py",
+      "language": "python",
+      "sizeLines": 160,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/api/types/openai_responses.py",
+      "language": "python",
+      "sizeLines": 625,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/download/coordinator.py",
+      "language": "python",
+      "sizeLines": 532,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/download/download_utils.py",
+      "language": "python",
+      "sizeLines": 1203,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/download/huggingface_utils.py",
+      "language": "python",
+      "sizeLines": 171,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/download/impl_shard_downloader.py",
+      "language": "python",
+      "sizeLines": 279,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/download/shard_downloader.py",
+      "language": "python",
+      "sizeLines": 115,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/download/tests/__init__.py",
+      "language": "python",
+      "sizeLines": 0,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/download/tests/test_cancel_download.py",
+      "language": "python",
+      "sizeLines": 315,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/download/tests/test_download_status_not_lost.py",
+      "language": "python",
+      "sizeLines": 284,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/download/tests/test_download_verification.py",
+      "language": "python",
+      "sizeLines": 453,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/download/tests/test_model_dirs.py",
+      "language": "python",
+      "sizeLines": 363,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/download/tests/test_offline_mode.py",
+      "language": "python",
+      "sizeLines": 372,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/download/tests/test_rate_limit_handling.py",
+      "language": "python",
+      "sizeLines": 444,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/download/tests/test_re_download.py",
+      "language": "python",
+      "sizeLines": 214,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/download/tests/test_safetensors_index.py",
+      "language": "python",
+      "sizeLines": 35,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/main.py",
+      "language": "python",
+      "sizeLines": 623,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/master/__init__.py",
+      "language": "python",
+      "sizeLines": 0,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/master/image_store.py",
+      "language": "python",
+      "sizeLines": 79,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/master/main.py",
+      "language": "python",
+      "sizeLines": 657,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/master/placement_utils.py",
+      "language": "python",
+      "sizeLines": 1173,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/master/placement.py",
+      "language": "python",
+      "sizeLines": 654,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/master/tests/conftest.py",
+      "language": "python",
+      "sizeLines": 37,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/master/tests/test_master.py",
+      "language": "python",
+      "sizeLines": 253,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/master/tests/test_orphaned_downloads.py",
+      "language": "python",
+      "sizeLines": 27,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/master/tests/test_placement_utils.py",
+      "language": "python",
+      "sizeLines": 1216,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/master/tests/test_placement.py",
+      "language": "python",
+      "sizeLines": 2097,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/master/tests/test_throughput_allocation.py",
+      "language": "python",
+      "sizeLines": 187,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/master/tests/test_topology.py",
+      "language": "python",
+      "sizeLines": 382,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/routing/__init__.py",
+      "language": "python",
+      "sizeLines": 0,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/routing/connection_message.py",
+      "language": "python",
+      "sizeLines": 13,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/routing/event_router.py",
+      "language": "python",
+      "sizeLines": 181,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/routing/router.py",
+      "language": "python",
+      "sizeLines": 323,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/routing/tests/test_event_buffer.py",
+      "language": "python",
+      "sizeLines": 143,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/routing/topics.py",
+      "language": "python",
+      "sizeLines": 51,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/shared/__init__.py",
+      "language": "python",
+      "sizeLines": 0,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/shared/apply.py",
+      "language": "python",
+      "sizeLines": 534,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/shared/constants.py",
+      "language": "python",
+      "sizeLines": 141,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/shared/election.py",
+      "language": "python",
+      "sizeLines": 425,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/shared/logging.py",
+      "language": "python",
+      "sizeLines": 242,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/shared/metrics.py",
+      "language": "python",
+      "sizeLines": 117,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/shared/models/auto_card.py",
+      "language": "python",
+      "sizeLines": 237,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/shared/models/model_cards.py",
+      "language": "python",
+      "sizeLines": 403,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/shared/tests/__init__.py",
+      "language": "python",
+      "sizeLines": 1,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/shared/tests/conftest.py",
+      "language": "python",
+      "sizeLines": 87,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/shared/tests/test_apply/test_apply_custom_model_cards.py",
+      "language": "python",
+      "sizeLines": 46,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/shared/tests/test_apply/test_apply_instance_link.py",
+      "language": "python",
+      "sizeLines": 72,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/shared/tests/test_apply/test_apply_node_download.py",
+      "language": "python",
+      "sizeLines": 99,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/shared/tests/test_apply/test_apply_node_timed_out.py",
+      "language": "python",
+      "sizeLines": 41,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/shared/tests/test_apply/test_apply_rdma_gating.py",
+      "language": "python",
+      "sizeLines": 288,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/shared/tests/test_apply/test_apply_runner_deleted.py",
+      "language": "python",
+      "sizeLines": 26,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/shared/tests/test_auto_card.py",
+      "language": "python",
+      "sizeLines": 256,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/shared/tests/test_election.py",
+      "language": "python",
+      "sizeLines": 836,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/shared/tests/test_logging_filters.py",
+      "language": "python",
+      "sizeLines": 92,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/shared/tests/test_model_card_ring_support.py",
+      "language": "python",
+      "sizeLines": 34,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/shared/tests/test_node_id_persistence.py",
+      "language": "python",
+      "sizeLines": 92,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/shared/tests/test_resolve_reasoning_params.py",
+      "language": "python",
+      "sizeLines": 30,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/shared/tests/test_state_serialization.py",
+      "language": "python",
+      "sizeLines": 35,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/shared/tests/test_xdg_paths.py",
+      "language": "python",
+      "sizeLines": 216,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/shared/topology.py",
+      "language": "python",
+      "sizeLines": 346,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/shared/tracing.py",
+      "language": "python",
+      "sizeLines": 238,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/shared/types/__init__.py",
+      "language": "python",
+      "sizeLines": 0,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/shared/types/backends.py",
+      "language": "python",
+      "sizeLines": 8,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/shared/types/chunks.py",
+      "language": "python",
+      "sizeLines": 98,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/shared/types/commands.py",
+      "language": "python",
+      "sizeLines": 151,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/shared/types/common.py",
+      "language": "python",
+      "sizeLines": 79,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/shared/types/events.py",
+      "language": "python",
+      "sizeLines": 197,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/shared/types/instance_link.py",
+      "language": "python",
+      "sizeLines": 13,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/shared/types/memory.py",
+      "language": "python",
+      "sizeLines": 151,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/shared/types/multiaddr.py",
+      "language": "python",
+      "sizeLines": 69,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/shared/types/profiling.py",
+      "language": "python",
+      "sizeLines": 430,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/shared/types/state.py",
+      "language": "python",
+      "sizeLines": 94,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/shared/types/tasks.py",
+      "language": "python",
+      "sizeLines": 106,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/shared/types/tests/test_memory_pressure.py",
+      "language": "python",
+      "sizeLines": 77,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/shared/types/tests/test_profiling_cuda_vram.py",
+      "language": "python",
+      "sizeLines": 245,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/shared/types/text_generation.py",
+      "language": "python",
+      "sizeLines": 178,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/shared/types/thunderbolt.py",
+      "language": "python",
+      "sizeLines": 100,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/shared/types/topology.py",
+      "language": "python",
+      "sizeLines": 48,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/shared/types/worker/__init__.py",
+      "language": "python",
+      "sizeLines": 0,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/shared/types/worker/downloads.py",
+      "language": "python",
+      "sizeLines": 99,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/shared/types/worker/instances.py",
+      "language": "python",
+      "sizeLines": 70,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/shared/types/worker/runner_response.py",
+      "language": "python",
+      "sizeLines": 83,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/shared/types/worker/runners.py",
+      "language": "python",
+      "sizeLines": 114,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/shared/types/worker/shards.py",
+      "language": "python",
+      "sizeLines": 120,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/utils/__init__.py",
+      "language": "python",
+      "sizeLines": 21,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/utils/async_process.py",
+      "language": "python",
+      "sizeLines": 289,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/utils/banner.py",
+      "language": "python",
+      "sizeLines": 62,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/utils/channels.py",
+      "language": "python",
+      "sizeLines": 456,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/utils/dashboard_path.py",
+      "language": "python",
+      "sizeLines": 59,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/utils/disk_event_log.py",
+      "language": "python",
+      "sizeLines": 209,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/utils/event_buffer.py",
+      "language": "python",
+      "sizeLines": 70,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/utils/extra_fields_warner.py",
+      "language": "python",
+      "sizeLines": 151,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/utils/fs.py",
+      "language": "python",
+      "sizeLines": 32,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/utils/info_gatherer/__init__.py",
+      "language": "python",
+      "sizeLines": 0,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/utils/info_gatherer/info_gatherer.py",
+      "language": "python",
+      "sizeLines": 865,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/utils/info_gatherer/macmon.py",
+      "language": "python",
+      "sizeLines": 70,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/utils/info_gatherer/net_profile.py",
+      "language": "python",
+      "sizeLines": 296,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/utils/info_gatherer/system_info.py",
+      "language": "python",
+      "sizeLines": 243,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/utils/info_gatherer/tests/test_net_profile.py",
+      "language": "python",
+      "sizeLines": 89,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/utils/info_gatherer/tests/test_node_config.py",
+      "language": "python",
+      "sizeLines": 59,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/utils/info_gatherer/tests/test_tb_parsing.py",
+      "language": "python",
+      "sizeLines": 86,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/utils/info_gatherer/tests/test_topology_fix.py",
+      "language": "python",
+      "sizeLines": 370,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/utils/keyed_backoff.py",
+      "language": "python",
+      "sizeLines": 39,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/utils/phantom.py",
+      "language": "python",
+      "sizeLines": 11,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/utils/ports.py",
+      "language": "python",
+      "sizeLines": 6,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/utils/power_sampler.py",
+      "language": "python",
+      "sizeLines": 213,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/utils/pydantic_ext.py",
+      "language": "python",
+      "sizeLines": 36,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/utils/reactive.py",
+      "language": "python",
+      "sizeLines": 32,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/utils/settings.py",
+      "language": "python",
+      "sizeLines": 245,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/utils/stall_watchdog.py",
+      "language": "python",
+      "sizeLines": 69,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/utils/task_group.py",
+      "language": "python",
+      "sizeLines": 65,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/utils/tests/conftest.py",
+      "language": "python",
+      "sizeLines": 8,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/utils/tests/test_async_process.py",
+      "language": "python",
+      "sizeLines": 417,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/utils/tests/test_channels.py",
+      "language": "python",
+      "sizeLines": 121,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/utils/tests/test_event_log.py",
+      "language": "python",
+      "sizeLines": 196,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/utils/tests/test_extra_fields_warner.py",
+      "language": "python",
+      "sizeLines": 179,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/utils/tests/test_keyed_backoff.py",
+      "language": "python",
+      "sizeLines": 13,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/utils/tests/test_node_backends.py",
+      "language": "python",
+      "sizeLines": 74,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/utils/tests/test_pidfile.py",
+      "language": "python",
+      "sizeLines": 74,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/utils/tests/test_power_sampler.py",
+      "language": "python",
+      "sizeLines": 297,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/utils/tests/test_rdma_verbs_validation.py",
+      "language": "python",
+      "sizeLines": 176,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/utils/tests/test_settings.py",
+      "language": "python",
+      "sizeLines": 164,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/utils/tests/test_stall_watchdog.py",
+      "language": "python",
+      "sizeLines": 49,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/utils/tests/test_tagged.py",
+      "language": "python",
+      "sizeLines": 250,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/utils/tests/test_virtual_memory.py",
+      "language": "python",
+      "sizeLines": 56,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/utils/virtual_memory.py",
+      "language": "python",
+      "sizeLines": 183,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/__init__.py",
+      "language": "python",
+      "sizeLines": 0,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/disaggregated/__init__.py",
+      "language": "python",
+      "sizeLines": 0,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/disaggregated/protocol.py",
+      "language": "python",
+      "sizeLines": 152,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/disaggregated/server.py",
+      "language": "python",
+      "sizeLines": 105,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/engines/__init__.py",
+      "language": "python",
+      "sizeLines": 0,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/engines/base.py",
+      "language": "python",
+      "sizeLines": 87,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/engines/image/__init__.py",
+      "language": "python",
+      "sizeLines": 16,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/engines/image/builder.py",
+      "language": "python",
+      "sizeLines": 224,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/engines/image/config.py",
+      "language": "python",
+      "sizeLines": 46,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/engines/image/distributed_model.py",
+      "language": "python",
+      "sizeLines": 170,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/engines/image/generate.py",
+      "language": "python",
+      "sizeLines": 235,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/engines/image/models/__init__.py",
+      "language": "python",
+      "sizeLines": 92,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/engines/image/models/base.py",
+      "language": "python",
+      "sizeLines": 329,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/engines/image/models/flux/__init__.py",
+      "language": "python",
+      "sizeLines": 17,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/engines/image/models/flux/adapter.py",
+      "language": "python",
+      "sizeLines": 225,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/engines/image/models/flux/config.py",
+      "language": "python",
+      "sizeLines": 50,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/engines/image/models/flux/kontext_adapter.py",
+      "language": "python",
+      "sizeLines": 348,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/engines/image/models/flux/wrappers.py",
+      "language": "python",
+      "sizeLines": 279,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/engines/image/models/qwen/__init__.py",
+      "language": "python",
+      "sizeLines": 13,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/engines/image/models/qwen/adapter.py",
+      "language": "python",
+      "sizeLines": 314,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/engines/image/models/qwen/config.py",
+      "language": "python",
+      "sizeLines": 29,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/engines/image/models/qwen/edit_adapter.py",
+      "language": "python",
+      "sizeLines": 456,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/engines/image/models/qwen/wrappers.py",
+      "language": "python",
+      "sizeLines": 200,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/engines/image/pipeline/__init__.py",
+      "language": "python",
+      "sizeLines": 15,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/engines/image/pipeline/block_wrapper.py",
+      "language": "python",
+      "sizeLines": 303,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/engines/image/pipeline/kv_cache.py",
+      "language": "python",
+      "sizeLines": 72,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/engines/image/pipeline/runner.py",
+      "language": "python",
+      "sizeLines": 1285,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/engines/mlx/__init__.py",
+      "language": "python",
+      "sizeLines": 0,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/engines/mlx/auto_parallel.py",
+      "language": "python",
+      "sizeLines": 2046,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/engines/mlx/builder.py",
+      "language": "python",
+      "sizeLines": 117,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/engines/mlx/cache.py",
+      "language": "python",
+      "sizeLines": 1223,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/engines/mlx/cluster_prefix_registry.py",
+      "language": "python",
+      "sizeLines": 161,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/engines/mlx/constants.py",
+      "language": "python",
+      "sizeLines": 41,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/engines/mlx/disaggregated/__init__.py",
+      "language": "python",
+      "sizeLines": 0,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/engines/mlx/disaggregated/adapter.py",
+      "language": "python",
+      "sizeLines": 233,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/engines/mlx/disaggregated/client.py",
+      "language": "python",
+      "sizeLines": 147,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/engines/mlx/disaggregated/serve.py",
+      "language": "python",
+      "sizeLines": 88,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/engines/mlx/disaggregated/tests/__init__.py",
+      "language": "python",
+      "sizeLines": 0,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/engines/mlx/disaggregated/tests/test_end_to_end.py",
+      "language": "python",
+      "sizeLines": 167,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/engines/mlx/disaggregated/tests/test_mlx_adapter.py",
+      "language": "python",
+      "sizeLines": 270,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/engines/mlx/disaggregated/tests/test_protocol_roundtrip.py",
+      "language": "python",
+      "sizeLines": 154,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/engines/mlx/disaggregated/tests/test_server_drain.py",
+      "language": "python",
+      "sizeLines": 120,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/engines/mlx/expert_parallel.py",
+      "language": "python",
+      "sizeLines": 912,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/engines/mlx/generator/__init__.py",
+      "language": "python",
+      "sizeLines": 0,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/engines/mlx/generator/batch_generate.py",
+      "language": "python",
+      "sizeLines": 803,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/engines/mlx/generator/chunked_ring_prefill.py",
+      "language": "python",
+      "sizeLines": 220,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/engines/mlx/generator/constrained_decoding.py",
+      "language": "python",
+      "sizeLines": 719,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/engines/mlx/generator/generate.py",
+      "language": "python",
+      "sizeLines": 965,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/engines/mlx/generator/remote_prefill.py",
+      "language": "python",
+      "sizeLines": 72,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/engines/mlx/generator/stop_sequences.py",
+      "language": "python",
+      "sizeLines": 60,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/engines/mlx/generator/tests/test_constrained_decoding.py",
+      "language": "python",
+      "sizeLines": 363,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/engines/mlx/generator/tests/test_deferred_prefill.py",
+      "language": "python",
+      "sizeLines": 64,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/engines/mlx/generator/tests/test_stop_sequences.py",
+      "language": "python",
+      "sizeLines": 98,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/engines/mlx/paged_cache.py",
+      "language": "python",
+      "sizeLines": 553,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/engines/mlx/patches/__init__.py",
+      "language": "python",
+      "sizeLines": 15,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/engines/mlx/patches/cuda_compat.py",
+      "language": "python",
+      "sizeLines": 24,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/engines/mlx/patches/opt_batch_gen.py",
+      "language": "python",
+      "sizeLines": 158,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/engines/mlx/patches/standard_yarn_rope.py",
+      "language": "python",
+      "sizeLines": 118,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/engines/mlx/radix_cache.py",
+      "language": "python",
+      "sizeLines": 332,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/engines/mlx/ring_attention.py",
+      "language": "python",
+      "sizeLines": 760,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/engines/mlx/tests/test_batch_generate.py",
+      "language": "python",
+      "sizeLines": 268,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/engines/mlx/tests/test_constants.py",
+      "language": "python",
+      "sizeLines": 26,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/engines/mlx/tests/test_expert_parallel.py",
+      "language": "python",
+      "sizeLines": 213,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/engines/mlx/tests/test_extract_top_logprobs.py",
+      "language": "python",
+      "sizeLines": 69,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/engines/mlx/tests/test_tiered_kv.py",
+      "language": "python",
+      "sizeLines": 289,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/engines/mlx/tiered_kv.py",
+      "language": "python",
+      "sizeLines": 906,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/engines/mlx/types.py",
+      "language": "python",
+      "sizeLines": 37,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/engines/mlx/utils_mlx.py",
+      "language": "python",
+      "sizeLines": 1092,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/engines/mlx/vision.py",
+      "language": "python",
+      "sizeLines": 865,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/main.py",
+      "language": "python",
+      "sizeLines": 538,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/plan.py",
+      "language": "python",
+      "sizeLines": 447,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/runner/__init__.py",
+      "language": "python",
+      "sizeLines": 0,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/runner/bootstrap.py",
+      "language": "python",
+      "sizeLines": 194,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/runner/diagnostics.py",
+      "language": "python",
+      "sizeLines": 188,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/runner/image_models/__init__.py",
+      "language": "python",
+      "sizeLines": 0,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/runner/llm_inference/__init__.py",
+      "language": "python",
+      "sizeLines": 0,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/runner/llm_inference/batch_generator.py",
+      "language": "python",
+      "sizeLines": 582,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/runner/llm_inference/continuous_batch.py",
+      "language": "python",
+      "sizeLines": 571,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/runner/llm_inference/model_output_parsers.py",
+      "language": "python",
+      "sizeLines": 567,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/runner/llm_inference/speculative.py",
+      "language": "python",
+      "sizeLines": 521,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/runner/llm_inference/tool_parsers.py",
+      "language": "python",
+      "sizeLines": 304,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/runner/runner.py",
+      "language": "python",
+      "sizeLines": 533,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/runner/supervisor.py",
+      "language": "python",
+      "sizeLines": 452,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/tests/__init__.py",
+      "language": "python",
+      "sizeLines": 0,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/tests/constants.py",
+      "language": "python",
+      "sizeLines": 34,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/tests/TODO.tests",
+      "language": "tests",
+      "sizeLines": 57,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/tests/unittests/__init__.py",
+      "language": "python",
+      "sizeLines": 0,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/tests/unittests/conftest.py",
+      "language": "python",
+      "sizeLines": 101,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/tests/unittests/test_download/__init__.py",
+      "language": "python",
+      "sizeLines": 0,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/tests/unittests/test_image/__init__.py",
+      "language": "python",
+      "sizeLines": 0,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/tests/unittests/test_image/test_cancellation.py",
+      "language": "python",
+      "sizeLines": 433,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/tests/unittests/test_mlx/__init__.py",
+      "language": "python",
+      "sizeLines": 0,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/tests/unittests/test_mlx/conftest.py",
+      "language": "python",
+      "sizeLines": 225,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/tests/unittests/test_mlx/test_auto_parallel.py",
+      "language": "python",
+      "sizeLines": 257,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/tests/unittests/test_mlx/test_constrained_decoding.py",
+      "language": "python",
+      "sizeLines": 295,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/tests/unittests/test_mlx/test_distributed_fix.py",
+      "language": "python",
+      "sizeLines": 231,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/tests/unittests/test_mlx/test_has_ring_attention.py",
+      "language": "python",
+      "sizeLines": 42,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/tests/unittests/test_mlx/test_kv_disk_persistence.py",
+      "language": "python",
+      "sizeLines": 409,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/tests/unittests/test_mlx/test_kv_prefix_cache.py",
+      "language": "python",
+      "sizeLines": 752,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/tests/unittests/test_mlx/test_pipeline_prefill_callbacks.py",
+      "language": "python",
+      "sizeLines": 517,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/tests/unittests/test_mlx/test_prefix_cache_architectures.py",
+      "language": "python",
+      "sizeLines": 339,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/tests/unittests/test_mlx/test_ring_attention.py",
+      "language": "python",
+      "sizeLines": 969,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/tests/unittests/test_mlx/test_ring_shard_metadata.py",
+      "language": "python",
+      "sizeLines": 174,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/tests/unittests/test_mlx/test_tokenizers.py",
+      "language": "python",
+      "sizeLines": 389,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/tests/unittests/test_mlx/test_tool_choice_prefill.py",
+      "language": "python",
+      "sizeLines": 98,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/tests/unittests/test_mlx/test_tp_bit_exact.py",
+      "language": "python",
+      "sizeLines": 431,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/tests/unittests/test_plan/__init__.py",
+      "language": "python",
+      "sizeLines": 0,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/tests/unittests/test_plan/test_backoff_reset.py",
+      "language": "python",
+      "sizeLines": 82,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/tests/unittests/test_plan/test_download_and_loading.py",
+      "language": "python",
+      "sizeLines": 278,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/tests/unittests/test_plan/test_memory_guard.py",
+      "language": "python",
+      "sizeLines": 129,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/tests/unittests/test_plan/test_runner_lifecycle.py",
+      "language": "python",
+      "sizeLines": 215,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/tests/unittests/test_plan/test_task_forwarding.py",
+      "language": "python",
+      "sizeLines": 303,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/tests/unittests/test_plan/test_warmup.py",
+      "language": "python",
+      "sizeLines": 366,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/tests/unittests/test_runner/__init__.py",
+      "language": "python",
+      "sizeLines": 0,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/tests/unittests/test_runner/test_apply_shard_backend.py",
+      "language": "python",
+      "sizeLines": 34,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/tests/unittests/test_runner/test_continuous_batch.py",
+      "language": "python",
+      "sizeLines": 355,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/tests/unittests/test_runner/test_dsml_e2e.py",
+      "language": "python",
+      "sizeLines": 1182,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/tests/unittests/test_runner/test_event_ordering.py",
+      "language": "python",
+      "sizeLines": 370,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/tests/unittests/test_runner/test_finish_reason_sse.py",
+      "language": "python",
+      "sizeLines": 721,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/tests/unittests/test_runner/test_glm_tool_parsing.py",
+      "language": "python",
+      "sizeLines": 110,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/tests/unittests/test_runner/test_kv_flush_wiring.py",
+      "language": "python",
+      "sizeLines": 25,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/tests/unittests/test_runner/test_oom_degradation.py",
+      "language": "python",
+      "sizeLines": 152,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/tests/unittests/test_runner/test_parse_gpt_oss.py",
+      "language": "python",
+      "sizeLines": 302,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/tests/unittests/test_runner/test_parse_tool_calls.py",
+      "language": "python",
+      "sizeLines": 267,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/tests/unittests/test_runner/test_runner_supervisor.py",
+      "language": "python",
+      "sizeLines": 163,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/tests/unittests/test_runner/test_serve_prefill.py",
+      "language": "python",
+      "sizeLines": 227,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/tests/unittests/test_worker_instance_backoff.py",
+      "language": "python",
+      "sizeLines": 36,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/__init__.py",
+      "language": "python",
+      "sizeLines": 0,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/conftest.py",
+      "language": "python",
+      "sizeLines": 181,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/framework.py",
+      "language": "python",
+      "sizeLines": 199,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_1node.py",
+      "language": "python",
+      "sizeLines": 75,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_2node.py",
+      "language": "python",
+      "sizeLines": 49,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_4node.py",
+      "language": "python",
+      "sizeLines": 32,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_dashboard.py",
+      "language": "python",
+      "sizeLines": 102,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tests/test_resilience.py",
+      "language": "python",
+      "sizeLines": 56,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tmp/config_examples/claude_code.sh",
+      "language": "shell",
+      "sizeLines": 8,
+      "fileCategory": "script"
+    },
+    {
+      "path": "tmp/config_examples/opencode.json",
+      "language": "json",
+      "sizeLines": 18,
+      "fileCategory": "config"
+    },
+    {
+      "path": "tmp/gen_card.py",
+      "language": "python",
+      "sizeLines": 33,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tmp/old_tests/auto_bench.sh",
+      "language": "shell",
+      "sizeLines": 55,
+      "fileCategory": "script"
+    },
+    {
+      "path": "tmp/old_tests/eval_tool_calls.sh",
+      "language": "shell",
+      "sizeLines": 55,
+      "fileCategory": "script"
+    },
+    {
+      "path": "tmp/old_tests/get_all_models_on_cluster.py",
+      "language": "python",
+      "sizeLines": 36,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tmp/old_tests/test_vision_cache.py",
+      "language": "python",
+      "sizeLines": 63,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tmp/prompt.txt",
+      "language": "txt",
+      "sizeLines": 46,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "tmp/quantize_and_upload.py",
+      "language": "python",
+      "sizeLines": 377,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tmp/run_exo_on.sh",
+      "language": "shell",
+      "sizeLines": 53,
+      "fileCategory": "script"
+    },
+    {
+      "path": "tmp/run_llm.py",
+      "language": "python",
+      "sizeLines": 86,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tmp/run_llm.sh",
+      "language": "shell",
+      "sizeLines": 24,
+      "fileCategory": "script"
+    },
+    {
+      "path": "tmp/set_rdma_network_config.sh",
+      "language": "shell",
+      "sizeLines": 47,
+      "fileCategory": "script"
+    },
+    {
+      "path": "tmp/test_trust_remote_code_attack.sh",
+      "language": "shell",
+      "sizeLines": 149,
+      "fileCategory": "script"
+    },
+    {
+      "path": "TODO.md",
+      "language": "markdown",
+      "sizeLines": 13,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "tools/pyproject.toml",
+      "language": "toml",
+      "sizeLines": 10,
+      "fileCategory": "config"
+    },
+    {
+      "path": "tools/src/exo_tools/__init__.py",
+      "language": "python",
+      "sizeLines": 0,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tools/src/exo_tools/client.py",
+      "language": "python",
+      "sizeLines": 117,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tools/src/exo_tools/cluster.py",
+      "language": "python",
+      "sizeLines": 243,
+      "fileCategory": "code"
+    },
+    {
+      "path": "tools/src/exo_tools/harness.py",
+      "language": "python",
+      "sizeLines": 643,
+      "fileCategory": "code"
+    }
+  ],
+  "totalFiles": 949,
+  "filteredByIgnore": 0,
+  "estimatedComplexity": "very-large",
+  "stats": {
+    "filesScanned": 949,
+    "byCategory": {
+      "code": 719,
+      "config": 173,
+      "docs": 42,
+      "infra": 2,
+      "script": 10,
+      "markup": 3
+    },
+    "byLanguage": {
+      "unknown": 11,
+      "yaml": 10,
+      "markdown": 41,
+      "swift": 26,
+      "python": 601,
+      "json": 10,
+      "pbxproj": 1,
+      "xcworkspacedata": 1,
+      "resolved": 1,
+      "xcscheme": 1,
+      "entitlements": 1,
+      "xml": 1,
+      "shell": 10,
+      "toml": 154,
+      "nix": 7,
+      "webp": 1,
+      "css": 2,
+      "typescript": 11,
+      "html": 1,
+      "svelte": 34,
+      "javascript": 6,
+      "patch": 1,
+      "spec": 1,
+      "rust": 14,
+      "tests": 1,
+      "txt": 1
+    }
+  }
+}

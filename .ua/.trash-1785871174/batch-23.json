@@ -1,0 +1,225 @@
+{
+ "nodes": [
+  {
+   "id": "config:resources/inference_model_cards/mlx-community--Step-3.5-Flash-6bit.toml",
+   "type": "config",
+   "name": "mlx-community--Step-3.5-Flash-6bit.toml",
+   "filePath": "resources/inference_model_cards/mlx-community--Step-3.5-Flash-6bit.toml",
+   "summary": "Configuration file resources/inference_model_cards/mlx-community--Step-3.5-Flash-6bit.toml controlling project settings.",
+   "tags": [
+    "configuration"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "config:resources/inference_model_cards/mlx-community--Step-3.5-Flash-8Bit.toml",
+   "type": "config",
+   "name": "mlx-community--Step-3.5-Flash-8Bit.toml",
+   "filePath": "resources/inference_model_cards/mlx-community--Step-3.5-Flash-8Bit.toml",
+   "summary": "Configuration file resources/inference_model_cards/mlx-community--Step-3.5-Flash-8Bit.toml controlling project settings.",
+   "tags": [
+    "configuration"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "config:resources/inference_model_cards/mlx-community--gemma-4-26b-a4b-it-4bit.toml",
+   "type": "config",
+   "name": "mlx-community--gemma-4-26b-a4b-it-4bit.toml",
+   "filePath": "resources/inference_model_cards/mlx-community--gemma-4-26b-a4b-it-4bit.toml",
+   "summary": "Configuration file resources/inference_model_cards/mlx-community--gemma-4-26b-a4b-it-4bit.toml controlling project settings.",
+   "tags": [
+    "configuration"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "config:resources/inference_model_cards/mlx-community--gemma-4-26b-a4b-it-6bit.toml",
+   "type": "config",
+   "name": "mlx-community--gemma-4-26b-a4b-it-6bit.toml",
+   "filePath": "resources/inference_model_cards/mlx-community--gemma-4-26b-a4b-it-6bit.toml",
+   "summary": "Configuration file resources/inference_model_cards/mlx-community--gemma-4-26b-a4b-it-6bit.toml controlling project settings.",
+   "tags": [
+    "configuration"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "config:resources/inference_model_cards/mlx-community--gemma-4-26b-a4b-it-8bit.toml",
+   "type": "config",
+   "name": "mlx-community--gemma-4-26b-a4b-it-8bit.toml",
+   "filePath": "resources/inference_model_cards/mlx-community--gemma-4-26b-a4b-it-8bit.toml",
+   "summary": "Configuration file resources/inference_model_cards/mlx-community--gemma-4-26b-a4b-it-8bit.toml controlling project settings.",
+   "tags": [
+    "configuration"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "config:resources/inference_model_cards/mlx-community--gemma-4-26b-a4b-it-bf16.toml",
+   "type": "config",
+   "name": "mlx-community--gemma-4-26b-a4b-it-bf16.toml",
+   "filePath": "resources/inference_model_cards/mlx-community--gemma-4-26b-a4b-it-bf16.toml",
+   "summary": "Configuration file resources/inference_model_cards/mlx-community--gemma-4-26b-a4b-it-bf16.toml controlling project settings.",
+   "tags": [
+    "configuration"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "config:resources/inference_model_cards/mlx-community--gemma-4-31b-it-4bit.toml",
+   "type": "config",
+   "name": "mlx-community--gemma-4-31b-it-4bit.toml",
+   "filePath": "resources/inference_model_cards/mlx-community--gemma-4-31b-it-4bit.toml",
+   "summary": "Configuration file resources/inference_model_cards/mlx-community--gemma-4-31b-it-4bit.toml controlling project settings.",
+   "tags": [
+    "configuration"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "config:resources/inference_model_cards/mlx-community--gemma-4-31b-it-6bit.toml",
+   "type": "config",
+   "name": "mlx-community--gemma-4-31b-it-6bit.toml",
+   "filePath": "resources/inference_model_cards/mlx-community--gemma-4-31b-it-6bit.toml",
+   "summary": "Configuration file resources/inference_model_cards/mlx-community--gemma-4-31b-it-6bit.toml controlling project settings.",
+   "tags": [
+    "configuration"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "config:resources/inference_model_cards/mlx-community--gemma-4-31b-it-8bit.toml",
+   "type": "config",
+   "name": "mlx-community--gemma-4-31b-it-8bit.toml",
+   "filePath": "resources/inference_model_cards/mlx-community--gemma-4-31b-it-8bit.toml",
+   "summary": "Configuration file resources/inference_model_cards/mlx-community--gemma-4-31b-it-8bit.toml controlling project settings.",
+   "tags": [
+    "configuration"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "config:resources/inference_model_cards/mlx-community--gemma-4-31b-it-bf16.toml",
+   "type": "config",
+   "name": "mlx-community--gemma-4-31b-it-bf16.toml",
+   "filePath": "resources/inference_model_cards/mlx-community--gemma-4-31b-it-bf16.toml",
+   "summary": "Configuration file resources/inference_model_cards/mlx-community--gemma-4-31b-it-bf16.toml controlling project settings.",
+   "tags": [
+    "configuration"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "config:resources/inference_model_cards/mlx-community--gemma-4-e2b-it-4bit.toml",
+   "type": "config",
+   "name": "mlx-community--gemma-4-e2b-it-4bit.toml",
+   "filePath": "resources/inference_model_cards/mlx-community--gemma-4-e2b-it-4bit.toml",
+   "summary": "Configuration file resources/inference_model_cards/mlx-community--gemma-4-e2b-it-4bit.toml controlling project settings.",
+   "tags": [
+    "configuration"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "config:resources/inference_model_cards/mlx-community--gemma-4-e2b-it-6bit.toml",
+   "type": "config",
+   "name": "mlx-community--gemma-4-e2b-it-6bit.toml",
+   "filePath": "resources/inference_model_cards/mlx-community--gemma-4-e2b-it-6bit.toml",
+   "summary": "Configuration file resources/inference_model_cards/mlx-community--gemma-4-e2b-it-6bit.toml controlling project settings.",
+   "tags": [
+    "configuration"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "config:resources/inference_model_cards/mlx-community--gemma-4-e2b-it-8bit.toml",
+   "type": "config",
+   "name": "mlx-community--gemma-4-e2b-it-8bit.toml",
+   "filePath": "resources/inference_model_cards/mlx-community--gemma-4-e2b-it-8bit.toml",
+   "summary": "Configuration file resources/inference_model_cards/mlx-community--gemma-4-e2b-it-8bit.toml controlling project settings.",
+   "tags": [
+    "configuration"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "config:resources/inference_model_cards/mlx-community--gemma-4-e2b-it-bf16.toml",
+   "type": "config",
+   "name": "mlx-community--gemma-4-e2b-it-bf16.toml",
+   "filePath": "resources/inference_model_cards/mlx-community--gemma-4-e2b-it-bf16.toml",
+   "summary": "Configuration file resources/inference_model_cards/mlx-community--gemma-4-e2b-it-bf16.toml controlling project settings.",
+   "tags": [
+    "configuration"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "config:resources/inference_model_cards/mlx-community--gemma-4-e4b-it-4bit.toml",
+   "type": "config",
+   "name": "mlx-community--gemma-4-e4b-it-4bit.toml",
+   "filePath": "resources/inference_model_cards/mlx-community--gemma-4-e4b-it-4bit.toml",
+   "summary": "Configuration file resources/inference_model_cards/mlx-community--gemma-4-e4b-it-4bit.toml controlling project settings.",
+   "tags": [
+    "configuration"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "config:resources/inference_model_cards/mlx-community--gemma-4-e4b-it-6bit.toml",
+   "type": "config",
+   "name": "mlx-community--gemma-4-e4b-it-6bit.toml",
+   "filePath": "resources/inference_model_cards/mlx-community--gemma-4-e4b-it-6bit.toml",
+   "summary": "Configuration file resources/inference_model_cards/mlx-community--gemma-4-e4b-it-6bit.toml controlling project settings.",
+   "tags": [
+    "configuration"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "config:resources/inference_model_cards/mlx-community--gemma-4-e4b-it-8bit.toml",
+   "type": "config",
+   "name": "mlx-community--gemma-4-e4b-it-8bit.toml",
+   "filePath": "resources/inference_model_cards/mlx-community--gemma-4-e4b-it-8bit.toml",
+   "summary": "Configuration file resources/inference_model_cards/mlx-community--gemma-4-e4b-it-8bit.toml controlling project settings.",
+   "tags": [
+    "configuration"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "config:resources/inference_model_cards/mlx-community--gemma-4-e4b-it-bf16.toml",
+   "type": "config",
+   "name": "mlx-community--gemma-4-e4b-it-bf16.toml",
+   "filePath": "resources/inference_model_cards/mlx-community--gemma-4-e4b-it-bf16.toml",
+   "summary": "Configuration file resources/inference_model_cards/mlx-community--gemma-4-e4b-it-bf16.toml controlling project settings.",
+   "tags": [
+    "configuration"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "config:resources/inference_model_cards/mlx-community--gpt-oss-120b-MXFP4-Q8.toml",
+   "type": "config",
+   "name": "mlx-community--gpt-oss-120b-MXFP4-Q8.toml",
+   "filePath": "resources/inference_model_cards/mlx-community--gpt-oss-120b-MXFP4-Q8.toml",
+   "summary": "Configuration file resources/inference_model_cards/mlx-community--gpt-oss-120b-MXFP4-Q8.toml controlling project settings.",
+   "tags": [
+    "configuration"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "config:resources/inference_model_cards/mlx-community--gpt-oss-20b-MXFP4-Q8.toml",
+   "type": "config",
+   "name": "mlx-community--gpt-oss-20b-MXFP4-Q8.toml",
+   "filePath": "resources/inference_model_cards/mlx-community--gpt-oss-20b-MXFP4-Q8.toml",
+   "summary": "Configuration file resources/inference_model_cards/mlx-community--gpt-oss-20b-MXFP4-Q8.toml controlling project settings.",
+   "tags": [
+    "configuration"
+   ],
+   "complexity": "simple"
+  }
+ ],
+ "edges": []
+}

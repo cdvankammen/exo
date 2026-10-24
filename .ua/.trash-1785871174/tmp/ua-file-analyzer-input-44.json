@@ -1,0 +1,182 @@
+{
+ "projectRoot": "/Users/chris/Documents/GitHub/exo",
+ "batchFiles": [
+  {
+   "path": "rust/networking/examples/serve_storage.rs",
+   "language": "rust",
+   "sizeLines": 74,
+   "fileCategory": "code"
+  },
+  {
+   "path": "rust/networking/examples/z_get.rs",
+   "language": "rust",
+   "sizeLines": 41,
+   "fileCategory": "code"
+  },
+  {
+   "path": "rust/parts.nix",
+   "language": "nix",
+   "sizeLines": 145,
+   "fileCategory": "code"
+  },
+  {
+   "path": "scripts/download_model_to_cluster.py",
+   "language": "python",
+   "sizeLines": 212,
+   "fileCategory": "code"
+  },
+  {
+   "path": "scripts/fetch_kv_heads.py",
+   "language": "python",
+   "sizeLines": 133,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/api/__init__.py",
+   "language": "python",
+   "sizeLines": 0,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/api/adapters/__init__.py",
+   "language": "python",
+   "sizeLines": 1,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/download/tests/__init__.py",
+   "language": "python",
+   "sizeLines": 0,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/master/__init__.py",
+   "language": "python",
+   "sizeLines": 0,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/routing/__init__.py",
+   "language": "python",
+   "sizeLines": 0,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/shared/__init__.py",
+   "language": "python",
+   "sizeLines": 0,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/shared/tests/__init__.py",
+   "language": "python",
+   "sizeLines": 1,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/shared/tests/test_xdg_paths.py",
+   "language": "python",
+   "sizeLines": 213,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/shared/types/__init__.py",
+   "language": "python",
+   "sizeLines": 0,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/shared/types/worker/__init__.py",
+   "language": "python",
+   "sizeLines": 0,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/utils/info_gatherer/__init__.py",
+   "language": "python",
+   "sizeLines": 0,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/utils/reactive.py",
+   "language": "python",
+   "sizeLines": 32,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/utils/tests/conftest.py",
+   "language": "python",
+   "sizeLines": 8,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/utils/tests/test_pidfile.py",
+   "language": "python",
+   "sizeLines": 74,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/worker/__init__.py",
+   "language": "python",
+   "sizeLines": 0,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/worker/disaggregated/__init__.py",
+   "language": "python",
+   "sizeLines": 0,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/worker/engines/__init__.py",
+   "language": "python",
+   "sizeLines": 0,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/worker/engines/mlx/disaggregated/__init__.py",
+   "language": "python",
+   "sizeLines": 0,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/worker/engines/mlx/disaggregated/tests/__init__.py",
+   "language": "python",
+   "sizeLines": 0,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/worker/engines/mlx/generator/__init__.py",
+   "language": "python",
+   "sizeLines": 0,
+   "fileCategory": "code"
+  }
+ ],
+ "batchImportData": {
+  "rust/networking/examples/serve_storage.rs": [],
+  "rust/networking/examples/z_get.rs": [],
+  "rust/parts.nix": [],
+  "scripts/download_model_to_cluster.py": [],
+  "scripts/fetch_kv_heads.py": [],
+  "src/exo/api/__init__.py": [],
+  "src/exo/api/adapters/__init__.py": [],
+  "src/exo/download/tests/__init__.py": [],
+  "src/exo/master/__init__.py": [],
+  "src/exo/routing/__init__.py": [],
+  "src/exo/shared/__init__.py": [],
+  "src/exo/shared/tests/__init__.py": [],
+  "src/exo/shared/tests/test_xdg_paths.py": [],
+  "src/exo/shared/types/__init__.py": [],
+  "src/exo/shared/types/worker/__init__.py": [],
+  "src/exo/utils/info_gatherer/__init__.py": [],
+  "src/exo/utils/reactive.py": [],
+  "src/exo/utils/tests/conftest.py": [],
+  "src/exo/utils/tests/test_pidfile.py": [],
+  "src/exo/worker/__init__.py": [],
+  "src/exo/worker/disaggregated/__init__.py": [],
+  "src/exo/worker/engines/__init__.py": [],
+  "src/exo/worker/engines/mlx/disaggregated/__init__.py": [],
+  "src/exo/worker/engines/mlx/disaggregated/tests/__init__.py": [],
+  "src/exo/worker/engines/mlx/generator/__init__.py": []
+ }
+}

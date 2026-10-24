@@ -1,0 +1,281 @@
+{
+ "projectRoot": "/Users/chris/Documents/GitHub/exo",
+ "batchFiles": [
+  {
+   "path": "src/exo/worker/engines/mlx/generator/remote_prefill.py",
+   "language": "python",
+   "sizeLines": 72,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/worker/engines/mlx/tests/test_batch_generate.py",
+   "language": "python",
+   "sizeLines": 268,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/worker/engines/mlx/tests/test_extract_top_logprobs.py",
+   "language": "python",
+   "sizeLines": 69,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/worker/engines/mlx/types.py",
+   "language": "python",
+   "sizeLines": 37,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/worker/engines/mlx/utils_mlx.py",
+   "language": "python",
+   "sizeLines": 938,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/worker/engines/mlx/vision.py",
+   "language": "python",
+   "sizeLines": 844,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/worker/runner/bootstrap.py",
+   "language": "python",
+   "sizeLines": 105,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/worker/runner/llm_inference/batch_generator.py",
+   "language": "python",
+   "sizeLines": 572,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/worker/runner/llm_inference/model_output_parsers.py",
+   "language": "python",
+   "sizeLines": 492,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/worker/runner/llm_inference/tool_parsers.py",
+   "language": "python",
+   "sizeLines": 244,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/worker/tests/unittests/test_mlx/conftest.py",
+   "language": "python",
+   "sizeLines": 225,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/worker/tests/unittests/test_mlx/test_auto_parallel.py",
+   "language": "python",
+   "sizeLines": 146,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/worker/tests/unittests/test_mlx/test_distributed_fix.py",
+   "language": "python",
+   "sizeLines": 231,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/worker/tests/unittests/test_mlx/test_kv_prefix_cache.py",
+   "language": "python",
+   "sizeLines": 602,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/worker/tests/unittests/test_mlx/test_prefix_cache_architectures.py",
+   "language": "python",
+   "sizeLines": 339,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/worker/tests/unittests/test_runner/test_dsml_e2e.py",
+   "language": "python",
+   "sizeLines": 1182,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/worker/tests/unittests/test_runner/test_finish_reason_sse.py",
+   "language": "python",
+   "sizeLines": 674,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/worker/tests/unittests/test_runner/test_parse_gpt_oss.py",
+   "language": "python",
+   "sizeLines": 302,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/worker/tests/unittests/test_runner/test_parse_tool_calls.py",
+   "language": "python",
+   "sizeLines": 178,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/worker/tests/unittests/test_runner/test_serve_prefill.py",
+   "language": "python",
+   "sizeLines": 227,
+   "fileCategory": "code"
+  }
+ ],
+ "batchImportData": {
+  "src/exo/worker/engines/mlx/generator/remote_prefill.py": [
+   "src/exo/worker/disaggregated/protocol.py",
+   "src/exo/worker/disaggregated/server.py",
+   "src/exo/worker/engines/mlx/cache.py",
+   "src/exo/worker/engines/mlx/disaggregated/client.py",
+   "src/exo/worker/engines/mlx/types.py",
+   "src/exo/worker/runner/bootstrap.py"
+  ],
+  "src/exo/worker/engines/mlx/tests/test_batch_generate.py": [
+   "src/exo/worker/engines/mlx/cache.py",
+   "src/exo/worker/engines/mlx/generator/batch_generate.py",
+   "src/exo/worker/engines/mlx/generator/generate.py",
+   "src/exo/worker/engines/mlx/types.py"
+  ],
+  "src/exo/worker/engines/mlx/tests/test_extract_top_logprobs.py": [
+   "src/exo/worker/engines/mlx/generator/generate.py"
+  ],
+  "src/exo/worker/engines/mlx/types.py": [
+   "src/exo/worker/engines/mlx/__init__.py"
+  ],
+  "src/exo/worker/engines/mlx/utils_mlx.py": [
+   "src/exo/download/download_utils.py",
+   "src/exo/shared/models/model_cards.py",
+   "src/exo/shared/types/common.py",
+   "src/exo/shared/types/memory.py",
+   "src/exo/shared/types/tasks.py",
+   "src/exo/shared/types/text_generation.py",
+   "src/exo/shared/types/worker/instances.py",
+   "src/exo/shared/types/worker/runner_response.py",
+   "src/exo/shared/types/worker/shards.py",
+   "src/exo/worker/engines/mlx/auto_parallel.py",
+   "src/exo/worker/engines/mlx/constants.py",
+   "src/exo/worker/engines/mlx/types.py",
+   "src/exo/worker/runner/bootstrap.py"
+  ],
+  "src/exo/worker/engines/mlx/vision.py": [
+   "src/exo/download/download_utils.py",
+   "src/exo/shared/models/model_cards.py",
+   "src/exo/shared/types/common.py",
+   "src/exo/shared/types/text_generation.py",
+   "src/exo/worker/engines/mlx/cache.py",
+   "src/exo/worker/engines/mlx/types.py",
+   "src/exo/worker/engines/mlx/utils_mlx.py",
+   "src/exo/worker/runner/bootstrap.py"
+  ],
+  "src/exo/worker/runner/bootstrap.py": [
+   "src/exo/shared/types/events.py",
+   "src/exo/shared/types/tasks.py",
+   "src/exo/shared/types/worker/instances.py",
+   "src/exo/utils/channels.py",
+   "src/exo/worker/engines/base.py"
+  ],
+  "src/exo/worker/runner/llm_inference/batch_generator.py": [
+   "src/exo/shared/constants.py",
+   "src/exo/shared/types/chunks.py",
+   "src/exo/shared/types/common.py",
+   "src/exo/shared/types/events.py",
+   "src/exo/shared/types/tasks.py",
+   "src/exo/shared/types/text_generation.py",
+   "src/exo/shared/types/worker/runner_response.py",
+   "src/exo/utils/channels.py",
+   "src/exo/worker/disaggregated/server.py",
+   "src/exo/worker/engines/base.py",
+   "src/exo/worker/engines/mlx/cache.py",
+   "src/exo/worker/engines/mlx/disaggregated/adapter.py",
+   "src/exo/worker/engines/mlx/disaggregated/serve.py",
+   "src/exo/worker/engines/mlx/generator/batch_generate.py",
+   "src/exo/worker/engines/mlx/generator/generate.py",
+   "src/exo/worker/engines/mlx/types.py",
+   "src/exo/worker/engines/mlx/utils_mlx.py",
+   "src/exo/worker/engines/mlx/vision.py",
+   "src/exo/worker/runner/bootstrap.py",
+   "src/exo/worker/runner/llm_inference/model_output_parsers.py",
+   "src/exo/worker/runner/llm_inference/tool_parsers.py"
+  ],
+  "src/exo/worker/runner/llm_inference/model_output_parsers.py": [
+   "src/exo/api/types/__init__.py",
+   "src/exo/shared/types/chunks.py",
+   "src/exo/shared/types/common.py",
+   "src/exo/shared/types/worker/runner_response.py",
+   "src/exo/worker/engines/mlx/types.py",
+   "src/exo/worker/engines/mlx/utils_mlx.py",
+   "src/exo/worker/runner/bootstrap.py",
+   "src/exo/worker/runner/llm_inference/tool_parsers.py"
+  ],
+  "src/exo/worker/runner/llm_inference/tool_parsers.py": [
+   "src/exo/api/types/__init__.py"
+  ],
+  "src/exo/worker/tests/unittests/test_mlx/conftest.py": [
+   "src/exo/shared/constants.py",
+   "src/exo/shared/models/model_cards.py",
+   "src/exo/shared/types/backends.py",
+   "src/exo/shared/types/common.py",
+   "src/exo/shared/types/memory.py",
+   "src/exo/shared/types/text_generation.py",
+   "src/exo/shared/types/worker/shards.py",
+   "src/exo/worker/engines/mlx/generator/generate.py",
+   "src/exo/worker/engines/mlx/types.py",
+   "src/exo/worker/engines/mlx/utils_mlx.py"
+  ],
+  "src/exo/worker/tests/unittests/test_mlx/test_auto_parallel.py": [
+   "src/exo/worker/engines/mlx/auto_parallel.py",
+   "src/exo/worker/tests/unittests/test_mlx/conftest.py"
+  ],
+  "src/exo/worker/tests/unittests/test_mlx/test_distributed_fix.py": [
+   "src/exo/worker/tests/unittests/test_mlx/conftest.py"
+  ],
+  "src/exo/worker/tests/unittests/test_mlx/test_kv_prefix_cache.py": [
+   "src/exo/shared/types/common.py",
+   "src/exo/shared/types/text_generation.py",
+   "src/exo/worker/engines/mlx/cache.py",
+   "src/exo/worker/engines/mlx/generator/generate.py",
+   "src/exo/worker/engines/mlx/types.py",
+   "src/exo/worker/engines/mlx/utils_mlx.py",
+   "src/exo/worker/tests/unittests/test_mlx/conftest.py"
+  ],
+  "src/exo/worker/tests/unittests/test_mlx/test_prefix_cache_architectures.py": [
+   "src/exo/download/download_utils.py",
+   "src/exo/shared/constants.py",
+   "src/exo/shared/types/common.py",
+   "src/exo/shared/types/text_generation.py",
+   "src/exo/worker/engines/mlx/cache.py",
+   "src/exo/worker/engines/mlx/generator/generate.py",
+   "src/exo/worker/engines/mlx/types.py",
+   "src/exo/worker/engines/mlx/utils_mlx.py"
+  ],
+  "src/exo/worker/tests/unittests/test_runner/test_dsml_e2e.py": [
+   "src/exo/shared/types/common.py",
+   "src/exo/shared/types/worker/runner_response.py",
+   "src/exo/worker/runner/llm_inference/model_output_parsers.py"
+  ],
+  "src/exo/worker/tests/unittests/test_runner/test_finish_reason_sse.py": [
+   "src/exo/api/types/__init__.py",
+   "src/exo/shared/types/worker/runner_response.py",
+   "src/exo/worker/runner/llm_inference/model_output_parsers.py",
+   "src/exo/worker/runner/llm_inference/tool_parsers.py"
+  ],
+  "src/exo/worker/tests/unittests/test_runner/test_parse_gpt_oss.py": [
+   "src/exo/api/types/__init__.py",
+   "src/exo/shared/types/worker/runner_response.py",
+   "src/exo/worker/runner/llm_inference/model_output_parsers.py"
+  ],
+  "src/exo/worker/tests/unittests/test_runner/test_parse_tool_calls.py": [
+   "src/exo/shared/types/worker/runner_response.py",
+   "src/exo/worker/runner/llm_inference/model_output_parsers.py",
+   "src/exo/worker/runner/llm_inference/tool_parsers.py"
+  ],
+  "src/exo/worker/tests/unittests/test_runner/test_serve_prefill.py": [
+   "src/exo/worker/disaggregated/protocol.py",
+   "src/exo/worker/disaggregated/server.py",
+   "src/exo/worker/engines/mlx/cache.py",
+   "src/exo/worker/engines/mlx/disaggregated/adapter.py",
+   "src/exo/worker/engines/mlx/disaggregated/serve.py"
+  ]
+ }
+}

@@ -1,0 +1,2116 @@
+{
+ "nodes": [
+  {
+   "id": "file:src/exo/api/tests/test_instance_deleted_stream_cleanup.py",
+   "type": "file",
+   "name": "test_instance_deleted_stream_cleanup.py",
+   "filePath": "src/exo/api/tests/test_instance_deleted_stream_cleanup.py",
+   "summary": "Tests that the API closes open generation streams when an instance is deleted from cluster state.",
+   "tags": [
+    "test",
+    "api",
+    "streaming",
+    "cleanup"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:src/exo/shared/apply.py",
+   "type": "file",
+   "name": "apply.py",
+   "filePath": "src/exo/shared/apply.py",
+   "summary": "Event-sourcing reducer: pure apply_* functions that fold cluster events (tasks, instances, runners, links, topology, downloads) into the immutable State.",
+   "tags": [
+    "event-sourcing",
+    "reducer",
+    "state-management",
+    "data-model"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "file:src/exo/shared/tests/test_apply/test_apply_instance_link.py",
+   "type": "file",
+   "name": "test_apply_instance_link.py",
+   "filePath": "src/exo/shared/tests/test_apply/test_apply_instance_link.py",
+   "summary": "Unit tests for apply_instance_link_created/deleted and instance-deletion link stripping in the state reducer.",
+   "tags": [
+    "test",
+    "event-sourcing",
+    "state"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:src/exo/shared/tests/test_apply/test_apply_node_download.py",
+   "type": "file",
+   "name": "test_apply_node_download.py",
+   "filePath": "src/exo/shared/tests/test_apply/test_apply_node_download.py",
+   "summary": "Unit tests for node download progress reduction into state.",
+   "tags": [
+    "test",
+    "event-sourcing",
+    "downloads"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:src/exo/shared/tests/test_apply/test_apply_runner_deleted.py",
+   "type": "file",
+   "name": "test_apply_runner_deleted.py",
+   "filePath": "src/exo/shared/tests/test_apply/test_apply_runner_deleted.py",
+   "summary": "Unit tests for runner shutdown and status-update reduction into state.",
+   "tags": [
+    "test",
+    "event-sourcing",
+    "runners"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:src/exo/shared/types/events.py",
+   "type": "file",
+   "name": "events.py",
+   "filePath": "src/exo/shared/types/events.py",
+   "summary": "Discriminated union of cluster events (TaggedModel) exchanged over the event bus, plus indexed and forwarder wrapper events.",
+   "tags": [
+    "data-model",
+    "events",
+    "event-sourcing",
+    "type-definition"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:src/exo/api/tests/test_instance_deleted_stream_cleanup.py:_make_text_gen_task",
+   "type": "function",
+   "name": "_make_text_gen_task",
+   "filePath": "src/exo/api/tests/test_instance_deleted_stream_cleanup.py",
+   "lineRange": [
+    28,
+    38
+   ],
+   "summary": "Builds a TextGeneration task fixture used by the stream-cleanup tests.",
+   "tags": [
+    "test",
+    "fixture"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/api/tests/test_instance_deleted_stream_cleanup.py:test_close_streams_for_deleted_instance",
+   "type": "function",
+   "name": "test_close_streams_for_deleted_instance",
+   "filePath": "src/exo/api/tests/test_instance_deleted_stream_cleanup.py",
+   "lineRange": [
+    41,
+    56
+   ],
+   "summary": "Asserts the API closes open streams for a deleted instance.",
+   "tags": [
+    "test",
+    "api",
+    "streaming"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/api/tests/test_instance_deleted_stream_cleanup.py:test_close_streams_ignores_unrelated_instances",
+   "type": "function",
+   "name": "test_close_streams_ignores_unrelated_instances",
+   "filePath": "src/exo/api/tests/test_instance_deleted_stream_cleanup.py",
+   "lineRange": [
+    59,
+    75
+   ],
+   "summary": "Asserts streams of unrelated instances are left untouched when another instance is deleted.",
+   "tags": [
+    "test",
+    "api",
+    "streaming"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/api/tests/test_instance_deleted_stream_cleanup.py:test_close_streams_for_deleted_instance_image_generation",
+   "type": "function",
+   "name": "test_close_streams_for_deleted_instance_image_generation",
+   "filePath": "src/exo/api/tests/test_instance_deleted_stream_cleanup.py",
+   "lineRange": [
+    78,
+    97
+   ],
+   "summary": "Asserts image generation streams are also closed when the instance is deleted.",
+   "tags": [
+    "test",
+    "api",
+    "streaming"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/shared/apply.py:_is_rdma_ctl_enabled",
+   "type": "function",
+   "name": "_is_rdma_ctl_enabled",
+   "filePath": "src/exo/shared/apply.py",
+   "lineRange": [
+    70,
+    79
+   ],
+   "summary": "Checks whether RDMA ctl is enabled from the node info.",
+   "tags": [
+    "reducer",
+    "rdma"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/shared/apply.py:event_apply",
+   "type": "function",
+   "name": "event_apply",
+   "filePath": "src/exo/shared/apply.py",
+   "lineRange": [
+    82,
+    125
+   ],
+   "summary": "Top-level reducer dispatch: applies an event to the current state by event type.",
+   "tags": [
+    "event-sourcing",
+    "reducer"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:src/exo/shared/apply.py:apply",
+   "type": "function",
+   "name": "apply",
+   "filePath": "src/exo/shared/apply.py",
+   "lineRange": [
+    128,
+    136
+   ],
+   "summary": "Applies an ordered sequence of events to produce the new state.",
+   "tags": [
+    "event-sourcing",
+    "reducer"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/shared/apply.py:apply_node_download_progress",
+   "type": "function",
+   "name": "apply_node_download_progress",
+   "filePath": "src/exo/shared/apply.py",
+   "lineRange": [
+    139,
+    168
+   ],
+   "summary": "Folds node download progress events into the state's download tracking.",
+   "tags": [
+    "reducer",
+    "downloads"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:src/exo/shared/apply.py:apply_task_deleted",
+   "type": "function",
+   "name": "apply_task_deleted",
+   "filePath": "src/exo/shared/apply.py",
+   "lineRange": [
+    176,
+    180
+   ],
+   "summary": "Removes a deleted task from state.",
+   "tags": [
+    "reducer",
+    "tasks"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/shared/apply.py:apply_task_status_updated",
+   "type": "function",
+   "name": "apply_task_status_updated",
+   "filePath": "src/exo/shared/apply.py",
+   "lineRange": [
+    183,
+    197
+   ],
+   "summary": "Updates a task's status in state.",
+   "tags": [
+    "reducer",
+    "tasks"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/shared/apply.py:apply_task_failed",
+   "type": "function",
+   "name": "apply_task_failed",
+   "filePath": "src/exo/shared/apply.py",
+   "lineRange": [
+    200,
+    209
+   ],
+   "summary": "Records a task failure with error type and message in state.",
+   "tags": [
+    "reducer",
+    "tasks"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/shared/apply.py:apply_instance_created",
+   "type": "function",
+   "name": "apply_instance_created",
+   "filePath": "src/exo/shared/apply.py",
+   "lineRange": [
+    212,
+    218
+   ],
+   "summary": "Adds a newly created instance to state.",
+   "tags": [
+    "reducer",
+    "instances"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/shared/apply.py:apply_instance_deleted",
+   "type": "function",
+   "name": "apply_instance_deleted",
+   "filePath": "src/exo/shared/apply.py",
+   "lineRange": [
+    221,
+    241
+   ],
+   "summary": "Removes an instance and cleans up related links and runners from state.",
+   "tags": [
+    "reducer",
+    "instances"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:src/exo/shared/apply.py:apply_instance_link_created",
+   "type": "function",
+   "name": "apply_instance_link_created",
+   "filePath": "src/exo/shared/apply.py",
+   "lineRange": [
+    244,
+    249
+   ],
+   "summary": "Adds an instance link between prefill and decode instances.",
+   "tags": [
+    "reducer",
+    "links"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/shared/apply.py:apply_instance_link_deleted",
+   "type": "function",
+   "name": "apply_instance_link_deleted",
+   "filePath": "src/exo/shared/apply.py",
+   "lineRange": [
+    252,
+    256
+   ],
+   "summary": "Removes an instance link from state.",
+   "tags": [
+    "reducer",
+    "links"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/shared/apply.py:apply_runner_status_updated",
+   "type": "function",
+   "name": "apply_runner_status_updated",
+   "filePath": "src/exo/shared/apply.py",
+   "lineRange": [
+    259,
+    285
+   ],
+   "summary": "Updates a runner's status in state.",
+   "tags": [
+    "reducer",
+    "runners"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:src/exo/shared/apply.py:apply_node_timed_out",
+   "type": "function",
+   "name": "apply_node_timed_out",
+   "filePath": "src/exo/shared/apply.py",
+   "lineRange": [
+    288,
+    347
+   ],
+   "summary": "Handles a node timeout: removes the node's instances, runners, tasks, and links from state.",
+   "tags": [
+    "reducer",
+    "nodes"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:src/exo/shared/apply.py:apply_node_gathered_info",
+   "type": "function",
+   "name": "apply_node_gathered_info",
+   "filePath": "src/exo/shared/apply.py",
+   "lineRange": [
+    350,
+    470
+   ],
+   "summary": "Reduces gathered node info (identity, performance, network, thunderbolt) into state.",
+   "tags": [
+    "reducer",
+    "nodes",
+    "info-gathering"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "function:src/exo/shared/apply.py:apply_topology_edge_deleted",
+   "type": "function",
+   "name": "apply_topology_edge_deleted",
+   "filePath": "src/exo/shared/apply.py",
+   "lineRange": [
+    479,
+    483
+   ],
+   "summary": "Removes a topology edge from state.",
+   "tags": [
+    "reducer",
+    "topology"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/shared/apply.py:apply_custom_model_card_added",
+   "type": "function",
+   "name": "apply_custom_model_card_added",
+   "filePath": "src/exo/shared/apply.py",
+   "lineRange": [
+    486,
+    491
+   ],
+   "summary": "Adds a custom model card to the state's model cards.",
+   "tags": [
+    "reducer",
+    "model-cards"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/shared/apply.py:apply_custom_model_card_deleted",
+   "type": "function",
+   "name": "apply_custom_model_card_deleted",
+   "filePath": "src/exo/shared/apply.py",
+   "lineRange": [
+    494,
+    502
+   ],
+   "summary": "Removes a custom model card from state.",
+   "tags": [
+    "reducer",
+    "model-cards"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/shared/tests/test_apply/test_apply_node_download.py:test_apply_node_download_progress",
+   "type": "function",
+   "name": "test_apply_node_download_progress",
+   "filePath": "src/exo/shared/tests/test_apply/test_apply_node_download.py",
+   "lineRange": [
+    11,
+    24
+   ],
+   "summary": "Asserts a single node download progress event reduces into state.",
+   "tags": [
+    "test",
+    "downloads"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/shared/tests/test_apply/test_apply_node_download.py:test_apply_two_node_download_progress",
+   "type": "function",
+   "name": "test_apply_two_node_download_progress",
+   "filePath": "src/exo/shared/tests/test_apply/test_apply_node_download.py",
+   "lineRange": [
+    27,
+    46
+   ],
+   "summary": "Asserts download progress for two nodes is tracked independently.",
+   "tags": [
+    "test",
+    "downloads"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/shared/types/events.py:BaseEvent",
+   "type": "class",
+   "name": "BaseEvent",
+   "filePath": "src/exo/shared/types/events.py",
+   "lineRange": [
+    25,
+    28
+   ],
+   "summary": "Base tagged event with an event_id and internal master timestamp.",
+   "tags": [
+    "data-model",
+    "events"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/shared/types/events.py:TaskCreated",
+   "type": "class",
+   "name": "TaskCreated",
+   "filePath": "src/exo/shared/types/events.py",
+   "lineRange": [
+    35,
+    37
+   ],
+   "summary": "Event emitted when a task is created; carries task_id and the full Task payload.",
+   "tags": [
+    "data-model",
+    "events"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/shared/types/events.py:TaskAcknowledged",
+   "type": "class",
+   "name": "TaskAcknowledged",
+   "filePath": "src/exo/shared/types/events.py",
+   "lineRange": [
+    40,
+    41
+   ],
+   "summary": "Event acknowledging that a task was received.",
+   "tags": [
+    "data-model",
+    "events"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/shared/types/events.py:TaskDeleted",
+   "type": "class",
+   "name": "TaskDeleted",
+   "filePath": "src/exo/shared/types/events.py",
+   "lineRange": [
+    44,
+    45
+   ],
+   "summary": "Event emitted when a task is deleted from the cluster.",
+   "tags": [
+    "data-model",
+    "events"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/shared/types/events.py:TaskStatusUpdated",
+   "type": "class",
+   "name": "TaskStatusUpdated",
+   "filePath": "src/exo/shared/types/events.py",
+   "lineRange": [
+    48,
+    50
+   ],
+   "summary": "Event carrying a task's updated status.",
+   "tags": [
+    "data-model",
+    "events"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/shared/types/events.py:TaskFailed",
+   "type": "class",
+   "name": "TaskFailed",
+   "filePath": "src/exo/shared/types/events.py",
+   "lineRange": [
+    53,
+    56
+   ],
+   "summary": "Event carrying task failure error type and message.",
+   "tags": [
+    "data-model",
+    "events"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/shared/types/events.py:InstanceCreated",
+   "type": "class",
+   "name": "InstanceCreated",
+   "filePath": "src/exo/shared/types/events.py",
+   "lineRange": [
+    59,
+    66
+   ],
+   "summary": "Event emitted when a new model instance is created; carries the Instance payload.",
+   "tags": [
+    "data-model",
+    "events"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/shared/types/events.py:InstanceDeleted",
+   "type": "class",
+   "name": "InstanceDeleted",
+   "filePath": "src/exo/shared/types/events.py",
+   "lineRange": [
+    69,
+    70
+   ],
+   "summary": "Event emitted when an instance is deleted.",
+   "tags": [
+    "data-model",
+    "events"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/shared/types/events.py:RunnerStatusUpdated",
+   "type": "class",
+   "name": "RunnerStatusUpdated",
+   "filePath": "src/exo/shared/types/events.py",
+   "lineRange": [
+    73,
+    75
+   ],
+   "summary": "Event carrying a runner's updated status.",
+   "tags": [
+    "data-model",
+    "events"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/shared/types/events.py:NodeTimedOut",
+   "type": "class",
+   "name": "NodeTimedOut",
+   "filePath": "src/exo/shared/types/events.py",
+   "lineRange": [
+    78,
+    79
+   ],
+   "summary": "Event emitted when a node times out.",
+   "tags": [
+    "data-model",
+    "events"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/shared/types/events.py:NodeGatheredInfo",
+   "type": "class",
+   "name": "NodeGatheredInfo",
+   "filePath": "src/exo/shared/types/events.py",
+   "lineRange": [
+    83,
+    86
+   ],
+   "summary": "Event carrying gathered node information (identity, performance, network).",
+   "tags": [
+    "data-model",
+    "events"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/shared/types/events.py:NodeDownloadProgress",
+   "type": "class",
+   "name": "NodeDownloadProgress",
+   "filePath": "src/exo/shared/types/events.py",
+   "lineRange": [
+    89,
+    90
+   ],
+   "summary": "Event carrying download progress for a node.",
+   "tags": [
+    "data-model",
+    "events"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/shared/types/events.py:ChunkGenerated",
+   "type": "class",
+   "name": "ChunkGenerated",
+   "filePath": "src/exo/shared/types/events.py",
+   "lineRange": [
+    93,
+    95
+   ],
+   "summary": "Event carrying a generated chunk for a command.",
+   "tags": [
+    "data-model",
+    "events"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/shared/types/events.py:InputChunkReceived",
+   "type": "class",
+   "name": "InputChunkReceived",
+   "filePath": "src/exo/shared/types/events.py",
+   "lineRange": [
+    98,
+    100
+   ],
+   "summary": "Event carrying an input image chunk received for a command.",
+   "tags": [
+    "data-model",
+    "events"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/shared/types/events.py:TopologyEdgeCreated",
+   "type": "class",
+   "name": "TopologyEdgeCreated",
+   "filePath": "src/exo/shared/types/events.py",
+   "lineRange": [
+    103,
+    104
+   ],
+   "summary": "Event emitted when a topology edge (connection) is created.",
+   "tags": [
+    "data-model",
+    "events"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/shared/types/events.py:TopologyEdgeDeleted",
+   "type": "class",
+   "name": "TopologyEdgeDeleted",
+   "filePath": "src/exo/shared/types/events.py",
+   "lineRange": [
+    107,
+    108
+   ],
+   "summary": "Event emitted when a topology edge is deleted.",
+   "tags": [
+    "data-model",
+    "events"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/shared/types/events.py:CustomModelCardAdded",
+   "type": "class",
+   "name": "CustomModelCardAdded",
+   "filePath": "src/exo/shared/types/events.py",
+   "lineRange": [
+    111,
+    112
+   ],
+   "summary": "Event carrying a custom model card added by the user.",
+   "tags": [
+    "data-model",
+    "events"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/shared/types/events.py:CustomModelCardDeleted",
+   "type": "class",
+   "name": "CustomModelCardDeleted",
+   "filePath": "src/exo/shared/types/events.py",
+   "lineRange": [
+    115,
+    116
+   ],
+   "summary": "Event carrying the model ID of a deleted custom model card.",
+   "tags": [
+    "data-model",
+    "events"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/shared/types/events.py:TraceEventData",
+   "type": "class",
+   "name": "TraceEventData",
+   "filePath": "src/exo/shared/types/events.py",
+   "lineRange": [
+    120,
+    125
+   ],
+   "summary": "Frozen model describing a single trace span (name, timings, rank, category).",
+   "tags": [
+    "data-model",
+    "tracing"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/shared/types/events.py:TracesCollected",
+   "type": "class",
+   "name": "TracesCollected",
+   "filePath": "src/exo/shared/types/events.py",
+   "lineRange": [
+    129,
+    132
+   ],
+   "summary": "Event carrying collected trace spans for a task and rank.",
+   "tags": [
+    "data-model",
+    "events",
+    "tracing"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/shared/types/events.py:TracesMerged",
+   "type": "class",
+   "name": "TracesMerged",
+   "filePath": "src/exo/shared/types/events.py",
+   "lineRange": [
+    136,
+    138
+   ],
+   "summary": "Event carrying merged trace spans for a task.",
+   "tags": [
+    "data-model",
+    "events",
+    "tracing"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/shared/types/events.py:InstanceLinkCreated",
+   "type": "class",
+   "name": "InstanceLinkCreated",
+   "filePath": "src/exo/shared/types/events.py",
+   "lineRange": [
+    141,
+    142
+   ],
+   "summary": "Event carrying a new prefill/decode instance link.",
+   "tags": [
+    "data-model",
+    "events"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/shared/types/events.py:InstanceLinkDeleted",
+   "type": "class",
+   "name": "InstanceLinkDeleted",
+   "filePath": "src/exo/shared/types/events.py",
+   "lineRange": [
+    145,
+    146
+   ],
+   "summary": "Event carrying the ID of a deleted instance link.",
+   "tags": [
+    "data-model",
+    "events"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/shared/types/events.py:IndexedEvent",
+   "type": "class",
+   "name": "IndexedEvent",
+   "filePath": "src/exo/shared/types/events.py",
+   "lineRange": [
+    175,
+    179
+   ],
+   "summary": "An event indexed by the master with a globally unique index.",
+   "tags": [
+    "data-model",
+    "events"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/shared/types/events.py:GlobalForwarderEvent",
+   "type": "class",
+   "name": "GlobalForwarderEvent",
+   "filePath": "src/exo/shared/types/events.py",
+   "lineRange": [
+    182,
+    188
+   ],
+   "summary": "Forwarder event wrapping an event with origin node and session for serialisation.",
+   "tags": [
+    "data-model",
+    "events"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/shared/types/events.py:LocalForwarderEvent",
+   "type": "class",
+   "name": "LocalForwarderEvent",
+   "filePath": "src/exo/shared/types/events.py",
+   "lineRange": [
+    191,
+    197
+   ],
+   "summary": "Forwarder event wrapping an event with origin system and session for serialisation.",
+   "tags": [
+    "data-model",
+    "events"
+   ],
+   "complexity": "simple"
+  }
+ ],
+ "edges": [
+  {
+   "source": "file:src/exo/api/tests/test_instance_deleted_stream_cleanup.py",
+   "target": "function:src/exo/api/tests/test_instance_deleted_stream_cleanup.py:_make_text_gen_task",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/api/tests/test_instance_deleted_stream_cleanup.py",
+   "target": "function:src/exo/api/tests/test_instance_deleted_stream_cleanup.py:_make_text_gen_task",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/api/tests/test_instance_deleted_stream_cleanup.py",
+   "target": "function:src/exo/api/tests/test_instance_deleted_stream_cleanup.py:test_close_streams_for_deleted_instance",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/api/tests/test_instance_deleted_stream_cleanup.py",
+   "target": "function:src/exo/api/tests/test_instance_deleted_stream_cleanup.py:test_close_streams_for_deleted_instance",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/api/tests/test_instance_deleted_stream_cleanup.py",
+   "target": "function:src/exo/api/tests/test_instance_deleted_stream_cleanup.py:test_close_streams_ignores_unrelated_instances",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/api/tests/test_instance_deleted_stream_cleanup.py",
+   "target": "function:src/exo/api/tests/test_instance_deleted_stream_cleanup.py:test_close_streams_ignores_unrelated_instances",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/api/tests/test_instance_deleted_stream_cleanup.py",
+   "target": "function:src/exo/api/tests/test_instance_deleted_stream_cleanup.py:test_close_streams_for_deleted_instance_image_generation",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/api/tests/test_instance_deleted_stream_cleanup.py",
+   "target": "function:src/exo/api/tests/test_instance_deleted_stream_cleanup.py:test_close_streams_for_deleted_instance_image_generation",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/shared/apply.py",
+   "target": "function:src/exo/shared/apply.py:_is_rdma_ctl_enabled",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/shared/apply.py",
+   "target": "function:src/exo/shared/apply.py:_is_rdma_ctl_enabled",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/shared/apply.py",
+   "target": "function:src/exo/shared/apply.py:event_apply",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/shared/apply.py",
+   "target": "function:src/exo/shared/apply.py:event_apply",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/shared/apply.py",
+   "target": "function:src/exo/shared/apply.py:apply",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/shared/apply.py",
+   "target": "function:src/exo/shared/apply.py:apply",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/shared/apply.py",
+   "target": "function:src/exo/shared/apply.py:apply_node_download_progress",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/shared/apply.py",
+   "target": "function:src/exo/shared/apply.py:apply_node_download_progress",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/shared/apply.py",
+   "target": "function:src/exo/shared/apply.py:apply_task_deleted",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/shared/apply.py",
+   "target": "function:src/exo/shared/apply.py:apply_task_deleted",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/shared/apply.py",
+   "target": "function:src/exo/shared/apply.py:apply_task_status_updated",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/shared/apply.py",
+   "target": "function:src/exo/shared/apply.py:apply_task_status_updated",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/shared/apply.py",
+   "target": "function:src/exo/shared/apply.py:apply_task_failed",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/shared/apply.py",
+   "target": "function:src/exo/shared/apply.py:apply_task_failed",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/shared/apply.py",
+   "target": "function:src/exo/shared/apply.py:apply_instance_created",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/shared/apply.py",
+   "target": "function:src/exo/shared/apply.py:apply_instance_created",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/shared/apply.py",
+   "target": "function:src/exo/shared/apply.py:apply_instance_deleted",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/shared/apply.py",
+   "target": "function:src/exo/shared/apply.py:apply_instance_deleted",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/shared/apply.py",
+   "target": "function:src/exo/shared/apply.py:apply_instance_link_created",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/shared/apply.py",
+   "target": "function:src/exo/shared/apply.py:apply_instance_link_created",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/shared/apply.py",
+   "target": "function:src/exo/shared/apply.py:apply_instance_link_deleted",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/shared/apply.py",
+   "target": "function:src/exo/shared/apply.py:apply_instance_link_deleted",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/shared/apply.py",
+   "target": "function:src/exo/shared/apply.py:apply_runner_status_updated",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/shared/apply.py",
+   "target": "function:src/exo/shared/apply.py:apply_runner_status_updated",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/shared/apply.py",
+   "target": "function:src/exo/shared/apply.py:apply_node_timed_out",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/shared/apply.py",
+   "target": "function:src/exo/shared/apply.py:apply_node_timed_out",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/shared/apply.py",
+   "target": "function:src/exo/shared/apply.py:apply_node_gathered_info",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/shared/apply.py",
+   "target": "function:src/exo/shared/apply.py:apply_node_gathered_info",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/shared/apply.py",
+   "target": "function:src/exo/shared/apply.py:apply_topology_edge_deleted",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/shared/apply.py",
+   "target": "function:src/exo/shared/apply.py:apply_topology_edge_deleted",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/shared/apply.py",
+   "target": "function:src/exo/shared/apply.py:apply_custom_model_card_added",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/shared/apply.py",
+   "target": "function:src/exo/shared/apply.py:apply_custom_model_card_added",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/shared/apply.py",
+   "target": "function:src/exo/shared/apply.py:apply_custom_model_card_deleted",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/shared/apply.py",
+   "target": "function:src/exo/shared/apply.py:apply_custom_model_card_deleted",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/shared/tests/test_apply/test_apply_node_download.py",
+   "target": "function:src/exo/shared/tests/test_apply/test_apply_node_download.py:test_apply_node_download_progress",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/shared/tests/test_apply/test_apply_node_download.py",
+   "target": "function:src/exo/shared/tests/test_apply/test_apply_node_download.py:test_apply_node_download_progress",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/shared/tests/test_apply/test_apply_node_download.py",
+   "target": "function:src/exo/shared/tests/test_apply/test_apply_node_download.py:test_apply_two_node_download_progress",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/shared/tests/test_apply/test_apply_node_download.py",
+   "target": "function:src/exo/shared/tests/test_apply/test_apply_node_download.py:test_apply_two_node_download_progress",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/shared/types/events.py",
+   "target": "class:src/exo/shared/types/events.py:BaseEvent",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/shared/types/events.py",
+   "target": "class:src/exo/shared/types/events.py:BaseEvent",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/shared/types/events.py",
+   "target": "class:src/exo/shared/types/events.py:TaskCreated",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/shared/types/events.py",
+   "target": "class:src/exo/shared/types/events.py:TaskCreated",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/shared/types/events.py",
+   "target": "class:src/exo/shared/types/events.py:TaskAcknowledged",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/shared/types/events.py",
+   "target": "class:src/exo/shared/types/events.py:TaskAcknowledged",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/shared/types/events.py",
+   "target": "class:src/exo/shared/types/events.py:TaskDeleted",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/shared/types/events.py",
+   "target": "class:src/exo/shared/types/events.py:TaskDeleted",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/shared/types/events.py",
+   "target": "class:src/exo/shared/types/events.py:TaskStatusUpdated",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/shared/types/events.py",
+   "target": "class:src/exo/shared/types/events.py:TaskStatusUpdated",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/shared/types/events.py",
+   "target": "class:src/exo/shared/types/events.py:TaskFailed",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/shared/types/events.py",
+   "target": "class:src/exo/shared/types/events.py:TaskFailed",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/shared/types/events.py",
+   "target": "class:src/exo/shared/types/events.py:InstanceCreated",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/shared/types/events.py",
+   "target": "class:src/exo/shared/types/events.py:InstanceCreated",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/shared/types/events.py",
+   "target": "class:src/exo/shared/types/events.py:InstanceDeleted",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/shared/types/events.py",
+   "target": "class:src/exo/shared/types/events.py:InstanceDeleted",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/shared/types/events.py",
+   "target": "class:src/exo/shared/types/events.py:RunnerStatusUpdated",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/shared/types/events.py",
+   "target": "class:src/exo/shared/types/events.py:RunnerStatusUpdated",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/shared/types/events.py",
+   "target": "class:src/exo/shared/types/events.py:NodeTimedOut",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/shared/types/events.py",
+   "target": "class:src/exo/shared/types/events.py:NodeTimedOut",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/shared/types/events.py",
+   "target": "class:src/exo/shared/types/events.py:NodeGatheredInfo",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/shared/types/events.py",
+   "target": "class:src/exo/shared/types/events.py:NodeGatheredInfo",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/shared/types/events.py",
+   "target": "class:src/exo/shared/types/events.py:NodeDownloadProgress",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/shared/types/events.py",
+   "target": "class:src/exo/shared/types/events.py:NodeDownloadProgress",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/shared/types/events.py",
+   "target": "class:src/exo/shared/types/events.py:ChunkGenerated",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/shared/types/events.py",
+   "target": "class:src/exo/shared/types/events.py:ChunkGenerated",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/shared/types/events.py",
+   "target": "class:src/exo/shared/types/events.py:InputChunkReceived",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/shared/types/events.py",
+   "target": "class:src/exo/shared/types/events.py:InputChunkReceived",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/shared/types/events.py",
+   "target": "class:src/exo/shared/types/events.py:TopologyEdgeCreated",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/shared/types/events.py",
+   "target": "class:src/exo/shared/types/events.py:TopologyEdgeCreated",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/shared/types/events.py",
+   "target": "class:src/exo/shared/types/events.py:TopologyEdgeDeleted",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/shared/types/events.py",
+   "target": "class:src/exo/shared/types/events.py:TopologyEdgeDeleted",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/shared/types/events.py",
+   "target": "class:src/exo/shared/types/events.py:CustomModelCardAdded",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/shared/types/events.py",
+   "target": "class:src/exo/shared/types/events.py:CustomModelCardAdded",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/shared/types/events.py",
+   "target": "class:src/exo/shared/types/events.py:CustomModelCardDeleted",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/shared/types/events.py",
+   "target": "class:src/exo/shared/types/events.py:CustomModelCardDeleted",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/shared/types/events.py",
+   "target": "class:src/exo/shared/types/events.py:TraceEventData",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/shared/types/events.py",
+   "target": "class:src/exo/shared/types/events.py:TraceEventData",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/shared/types/events.py",
+   "target": "class:src/exo/shared/types/events.py:TracesCollected",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/shared/types/events.py",
+   "target": "class:src/exo/shared/types/events.py:TracesCollected",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/shared/types/events.py",
+   "target": "class:src/exo/shared/types/events.py:TracesMerged",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/shared/types/events.py",
+   "target": "class:src/exo/shared/types/events.py:TracesMerged",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/shared/types/events.py",
+   "target": "class:src/exo/shared/types/events.py:InstanceLinkCreated",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/shared/types/events.py",
+   "target": "class:src/exo/shared/types/events.py:InstanceLinkCreated",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/shared/types/events.py",
+   "target": "class:src/exo/shared/types/events.py:InstanceLinkDeleted",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/shared/types/events.py",
+   "target": "class:src/exo/shared/types/events.py:InstanceLinkDeleted",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/shared/types/events.py",
+   "target": "class:src/exo/shared/types/events.py:IndexedEvent",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/shared/types/events.py",
+   "target": "class:src/exo/shared/types/events.py:IndexedEvent",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/shared/types/events.py",
+   "target": "class:src/exo/shared/types/events.py:GlobalForwarderEvent",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/shared/types/events.py",
+   "target": "class:src/exo/shared/types/events.py:GlobalForwarderEvent",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/shared/types/events.py",
+   "target": "class:src/exo/shared/types/events.py:LocalForwarderEvent",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/shared/types/events.py",
+   "target": "class:src/exo/shared/types/events.py:LocalForwarderEvent",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "class:src/exo/shared/types/events.py:BaseEvent",
+   "target": "class:src/exo/utils/pydantic_ext.py:TaggedModel",
+   "type": "inherits",
+   "direction": "forward",
+   "weight": 0.9
+  },
+  {
+   "source": "class:src/exo/shared/types/events.py:TaskCreated",
+   "target": "class:src/exo/shared/types/events.py:BaseEvent",
+   "type": "inherits",
+   "direction": "forward",
+   "weight": 0.9
+  },
+  {
+   "source": "class:src/exo/shared/types/events.py:TaskAcknowledged",
+   "target": "class:src/exo/shared/types/events.py:BaseEvent",
+   "type": "inherits",
+   "direction": "forward",
+   "weight": 0.9
+  },
+  {
+   "source": "class:src/exo/shared/types/events.py:TaskDeleted",
+   "target": "class:src/exo/shared/types/events.py:BaseEvent",
+   "type": "inherits",
+   "direction": "forward",
+   "weight": 0.9
+  },
+  {
+   "source": "class:src/exo/shared/types/events.py:TaskStatusUpdated",
+   "target": "class:src/exo/shared/types/events.py:BaseEvent",
+   "type": "inherits",
+   "direction": "forward",
+   "weight": 0.9
+  },
+  {
+   "source": "class:src/exo/shared/types/events.py:TaskFailed",
+   "target": "class:src/exo/shared/types/events.py:BaseEvent",
+   "type": "inherits",
+   "direction": "forward",
+   "weight": 0.9
+  },
+  {
+   "source": "class:src/exo/shared/types/events.py:InstanceCreated",
+   "target": "class:src/exo/shared/types/events.py:BaseEvent",
+   "type": "inherits",
+   "direction": "forward",
+   "weight": 0.9
+  },
+  {
+   "source": "class:src/exo/shared/types/events.py:InstanceDeleted",
+   "target": "class:src/exo/shared/types/events.py:BaseEvent",
+   "type": "inherits",
+   "direction": "forward",
+   "weight": 0.9
+  },
+  {
+   "source": "class:src/exo/shared/types/events.py:RunnerStatusUpdated",
+   "target": "class:src/exo/shared/types/events.py:BaseEvent",
+   "type": "inherits",
+   "direction": "forward",
+   "weight": 0.9
+  },
+  {
+   "source": "class:src/exo/shared/types/events.py:NodeTimedOut",
+   "target": "class:src/exo/shared/types/events.py:BaseEvent",
+   "type": "inherits",
+   "direction": "forward",
+   "weight": 0.9
+  },
+  {
+   "source": "class:src/exo/shared/types/events.py:NodeGatheredInfo",
+   "target": "class:src/exo/shared/types/events.py:BaseEvent",
+   "type": "inherits",
+   "direction": "forward",
+   "weight": 0.9
+  },
+  {
+   "source": "class:src/exo/shared/types/events.py:NodeDownloadProgress",
+   "target": "class:src/exo/shared/types/events.py:BaseEvent",
+   "type": "inherits",
+   "direction": "forward",
+   "weight": 0.9
+  },
+  {
+   "source": "class:src/exo/shared/types/events.py:ChunkGenerated",
+   "target": "class:src/exo/shared/types/events.py:BaseEvent",
+   "type": "inherits",
+   "direction": "forward",
+   "weight": 0.9
+  },
+  {
+   "source": "class:src/exo/shared/types/events.py:InputChunkReceived",
+   "target": "class:src/exo/shared/types/events.py:BaseEvent",
+   "type": "inherits",
+   "direction": "forward",
+   "weight": 0.9
+  },
+  {
+   "source": "class:src/exo/shared/types/events.py:TopologyEdgeCreated",
+   "target": "class:src/exo/shared/types/events.py:BaseEvent",
+   "type": "inherits",
+   "direction": "forward",
+   "weight": 0.9
+  },
+  {
+   "source": "class:src/exo/shared/types/events.py:TopologyEdgeDeleted",
+   "target": "class:src/exo/shared/types/events.py:BaseEvent",
+   "type": "inherits",
+   "direction": "forward",
+   "weight": 0.9
+  },
+  {
+   "source": "class:src/exo/shared/types/events.py:CustomModelCardAdded",
+   "target": "class:src/exo/shared/types/events.py:BaseEvent",
+   "type": "inherits",
+   "direction": "forward",
+   "weight": 0.9
+  },
+  {
+   "source": "class:src/exo/shared/types/events.py:CustomModelCardDeleted",
+   "target": "class:src/exo/shared/types/events.py:BaseEvent",
+   "type": "inherits",
+   "direction": "forward",
+   "weight": 0.9
+  },
+  {
+   "source": "class:src/exo/shared/types/events.py:TracesCollected",
+   "target": "class:src/exo/shared/types/events.py:BaseEvent",
+   "type": "inherits",
+   "direction": "forward",
+   "weight": 0.9
+  },
+  {
+   "source": "class:src/exo/shared/types/events.py:TracesMerged",
+   "target": "class:src/exo/shared/types/events.py:BaseEvent",
+   "type": "inherits",
+   "direction": "forward",
+   "weight": 0.9
+  },
+  {
+   "source": "class:src/exo/shared/types/events.py:InstanceLinkCreated",
+   "target": "class:src/exo/shared/types/events.py:BaseEvent",
+   "type": "inherits",
+   "direction": "forward",
+   "weight": 0.9
+  },
+  {
+   "source": "class:src/exo/shared/types/events.py:InstanceLinkDeleted",
+   "target": "class:src/exo/shared/types/events.py:BaseEvent",
+   "type": "inherits",
+   "direction": "forward",
+   "weight": 0.9
+  },
+  {
+   "source": "class:src/exo/shared/types/events.py:TraceEventData",
+   "target": "class:src/exo/utils/pydantic_ext.py:FrozenModel",
+   "type": "inherits",
+   "direction": "forward",
+   "weight": 0.9
+  },
+  {
+   "source": "class:src/exo/shared/types/events.py:IndexedEvent",
+   "target": "class:src/exo/utils/pydantic_ext.py:FrozenModel",
+   "type": "inherits",
+   "direction": "forward",
+   "weight": 0.9
+  },
+  {
+   "source": "class:src/exo/shared/types/events.py:GlobalForwarderEvent",
+   "target": "class:src/exo/utils/pydantic_ext.py:FrozenModel",
+   "type": "inherits",
+   "direction": "forward",
+   "weight": 0.9
+  },
+  {
+   "source": "class:src/exo/shared/types/events.py:LocalForwarderEvent",
+   "target": "class:src/exo/utils/pydantic_ext.py:FrozenModel",
+   "type": "inherits",
+   "direction": "forward",
+   "weight": 0.9
+  },
+  {
+   "source": "file:src/exo/shared/apply.py",
+   "target": "file:src/exo/shared/tests/test_apply/test_apply_instance_link.py",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  },
+  {
+   "source": "file:src/exo/shared/apply.py",
+   "target": "file:src/exo/shared/tests/test_apply/test_apply_node_download.py",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  },
+  {
+   "source": "file:src/exo/shared/apply.py",
+   "target": "file:src/exo/shared/tests/test_apply/test_apply_runner_deleted.py",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  },
+  {
+   "source": "file:src/exo/shared/types/events.py",
+   "target": "file:src/exo/shared/tests/test_apply/test_apply_instance_link.py",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  },
+  {
+   "source": "file:src/exo/shared/types/events.py",
+   "target": "file:src/exo/shared/tests/test_apply/test_apply_node_download.py",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  },
+  {
+   "source": "file:src/exo/shared/types/events.py",
+   "target": "file:src/exo/shared/tests/test_apply/test_apply_runner_deleted.py",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  },
+  {
+   "source": "file:src/exo/api/tests/test_instance_deleted_stream_cleanup.py",
+   "target": "file:src/exo/api/main.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/api/tests/test_instance_deleted_stream_cleanup.py",
+   "target": "file:src/exo/api/types/__init__.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/api/tests/test_instance_deleted_stream_cleanup.py",
+   "target": "file:src/exo/shared/types/common.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/api/tests/test_instance_deleted_stream_cleanup.py",
+   "target": "file:src/exo/shared/types/state.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/api/tests/test_instance_deleted_stream_cleanup.py",
+   "target": "file:src/exo/shared/types/tasks.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/api/tests/test_instance_deleted_stream_cleanup.py",
+   "target": "file:src/exo/shared/types/text_generation.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/api/tests/test_instance_deleted_stream_cleanup.py",
+   "target": "file:src/exo/shared/types/worker/instances.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/shared/apply.py",
+   "target": "file:src/exo/shared/models/model_cards.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/shared/apply.py",
+   "target": "file:src/exo/shared/types/common.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/shared/apply.py",
+   "target": "file:src/exo/shared/types/events.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/shared/apply.py",
+   "target": "file:src/exo/shared/types/instance_link.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/shared/apply.py",
+   "target": "file:src/exo/shared/types/profiling.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/shared/apply.py",
+   "target": "file:src/exo/shared/types/state.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/shared/apply.py",
+   "target": "file:src/exo/shared/types/tasks.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/shared/apply.py",
+   "target": "file:src/exo/shared/types/topology.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/shared/apply.py",
+   "target": "file:src/exo/shared/types/worker/downloads.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/shared/apply.py",
+   "target": "file:src/exo/shared/types/worker/instances.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/shared/apply.py",
+   "target": "file:src/exo/shared/types/worker/runners.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/shared/apply.py",
+   "target": "file:src/exo/utils/info_gatherer/info_gatherer.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/shared/tests/test_apply/test_apply_instance_link.py",
+   "target": "file:src/exo/shared/apply.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/shared/tests/test_apply/test_apply_instance_link.py",
+   "target": "file:src/exo/shared/types/events.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/shared/tests/test_apply/test_apply_instance_link.py",
+   "target": "file:src/exo/shared/types/instance_link.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/shared/tests/test_apply/test_apply_instance_link.py",
+   "target": "file:src/exo/shared/types/state.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/shared/tests/test_apply/test_apply_instance_link.py",
+   "target": "file:src/exo/shared/types/worker/instances.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/shared/tests/test_apply/test_apply_node_download.py",
+   "target": "file:src/exo/shared/apply.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/shared/tests/test_apply/test_apply_node_download.py",
+   "target": "file:src/exo/shared/tests/conftest.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/shared/tests/test_apply/test_apply_node_download.py",
+   "target": "file:src/exo/shared/types/common.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/shared/tests/test_apply/test_apply_node_download.py",
+   "target": "file:src/exo/shared/types/events.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/shared/tests/test_apply/test_apply_node_download.py",
+   "target": "file:src/exo/shared/types/memory.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/shared/tests/test_apply/test_apply_node_download.py",
+   "target": "file:src/exo/shared/types/state.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/shared/tests/test_apply/test_apply_node_download.py",
+   "target": "file:src/exo/shared/types/worker/downloads.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/shared/tests/test_apply/test_apply_node_download.py",
+   "target": "file:src/exo/worker/tests/constants.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/shared/tests/test_apply/test_apply_runner_deleted.py",
+   "target": "file:src/exo/shared/apply.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/shared/tests/test_apply/test_apply_runner_deleted.py",
+   "target": "file:src/exo/shared/types/events.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/shared/tests/test_apply/test_apply_runner_deleted.py",
+   "target": "file:src/exo/shared/types/state.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/shared/tests/test_apply/test_apply_runner_deleted.py",
+   "target": "file:src/exo/shared/types/worker/runners.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/shared/types/events.py",
+   "target": "file:src/exo/shared/models/model_cards.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/shared/types/events.py",
+   "target": "file:src/exo/shared/topology.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/shared/types/events.py",
+   "target": "file:src/exo/shared/types/chunks.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/shared/types/events.py",
+   "target": "file:src/exo/shared/types/common.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/shared/types/events.py",
+   "target": "file:src/exo/shared/types/instance_link.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/shared/types/events.py",
+   "target": "file:src/exo/shared/types/tasks.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/shared/types/events.py",
+   "target": "file:src/exo/shared/types/worker/downloads.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/shared/types/events.py",
+   "target": "file:src/exo/shared/types/worker/instances.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/shared/types/events.py",
+   "target": "file:src/exo/shared/types/worker/runners.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/shared/types/events.py",
+   "target": "file:src/exo/utils/info_gatherer/info_gatherer.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/shared/types/events.py",
+   "target": "file:src/exo/utils/pydantic_ext.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  }
+ ]
+}

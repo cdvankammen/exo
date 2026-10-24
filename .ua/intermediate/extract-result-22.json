@@ -1,0 +1,855 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 25,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": ".typings/mflux/models/flux/model/flux_transformer/joint_attention.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 31,
+      "nonEmptyLines": 28,
+      "classes": [
+        {
+          "name": "JointAttention",
+          "startLine": 9,
+          "endLine": 31,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": [
+            "num_heads",
+            "head_dimension",
+            "to_q",
+            "to_k",
+            "to_v",
+            "norm_q",
+            "norm_k",
+            "add_q_proj",
+            "add_k_proj",
+            "add_v_proj",
+            "norm_added_q",
+            "norm_added_k",
+            "to_out",
+            "to_add_out"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "JointAttention",
+          "line": 9,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mflux/models/flux/model/flux_transformer/joint_transformer_block.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 40,
+      "nonEmptyLines": 37,
+      "classes": [
+        {
+          "name": "JointTransformerBlock",
+          "startLine": 13,
+          "endLine": 40,
+          "methods": [
+            "__init__",
+            "__call__",
+            "apply_norm_and_feed_forward"
+          ],
+          "properties": [
+            "attn",
+            "norm1",
+            "norm1_context",
+            "norm2",
+            "norm2_context",
+            "ff",
+            "ff_context"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "JointTransformerBlock",
+          "line": 13,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mflux/models/flux/model/flux_transformer/single_block_attention.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 20,
+      "nonEmptyLines": 17,
+      "classes": [
+        {
+          "name": "SingleBlockAttention",
+          "startLine": 8,
+          "endLine": 20,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": [
+            "num_heads",
+            "head_dimension",
+            "to_q",
+            "to_k",
+            "to_v",
+            "norm_q",
+            "norm_k"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "SingleBlockAttention",
+          "line": 8,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mflux/models/flux/model/flux_transformer/single_transformer_block.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 28,
+      "nonEmptyLines": 25,
+      "classes": [
+        {
+          "name": "SingleTransformerBlock",
+          "startLine": 15,
+          "endLine": 28,
+          "methods": [
+            "__init__",
+            "__call__",
+            "_apply_feed_forward_and_projection"
+          ],
+          "properties": [
+            "attn",
+            "norm"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "SingleTransformerBlock",
+          "line": 15,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mflux/models/flux/model/flux_transformer/text_embedder.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 10,
+      "nonEmptyLines": 8,
+      "classes": [
+        {
+          "name": "TextEmbedder",
+          "startLine": 8,
+          "endLine": 10,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "TextEmbedder",
+          "line": 8,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mflux/models/flux/model/flux_transformer/time_text_embed.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 13,
+      "nonEmptyLines": 11,
+      "classes": [
+        {
+          "name": "TimeTextEmbed",
+          "startLine": 9,
+          "endLine": 13,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "TimeTextEmbed",
+          "line": 9,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mflux/models/flux/model/flux_transformer/timestep_embedder.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 10,
+      "nonEmptyLines": 8,
+      "classes": [
+        {
+          "name": "TimestepEmbedder",
+          "startLine": 8,
+          "endLine": 10,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "TimestepEmbedder",
+          "line": 8,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mflux/models/flux/model/flux_transformer/transformer.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 58,
+      "nonEmptyLines": 55,
+      "classes": [
+        {
+          "name": "Transformer",
+          "startLine": 18,
+          "endLine": 58,
+          "methods": [
+            "__init__",
+            "__call__",
+            "compute_rotary_embeddings",
+            "compute_text_embeddings"
+          ],
+          "properties": [
+            "transformer_blocks",
+            "single_transformer_blocks",
+            "x_embedder",
+            "pos_embed",
+            "time_text_embed",
+            "norm_out",
+            "proj_out",
+            "context_embedder"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "Transformer",
+          "line": 18,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mflux/models/flux/model/flux_vae/common/attention.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 10,
+      "nonEmptyLines": 8,
+      "classes": [
+        {
+          "name": "Attention",
+          "startLine": 8,
+          "endLine": 10,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "Attention",
+          "line": 8,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mflux/models/flux/model/flux_vae/common/resnet_block_2d.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 21,
+      "nonEmptyLines": 19,
+      "classes": [
+        {
+          "name": "ResnetBlock2D",
+          "startLine": 8,
+          "endLine": 21,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "ResnetBlock2D",
+          "line": 8,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mflux/models/flux/model/flux_vae/common/unet_mid_block.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 10,
+      "nonEmptyLines": 8,
+      "classes": [
+        {
+          "name": "UnetMidBlock",
+          "startLine": 8,
+          "endLine": 10,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "UnetMidBlock",
+          "line": 8,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mflux/models/flux/model/flux_vae/decoder/conv_in.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 10,
+      "nonEmptyLines": 8,
+      "classes": [
+        {
+          "name": "ConvIn",
+          "startLine": 8,
+          "endLine": 10,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "ConvIn",
+          "line": 8,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mflux/models/flux/model/flux_vae/decoder/conv_norm_out.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 10,
+      "nonEmptyLines": 8,
+      "classes": [
+        {
+          "name": "ConvNormOut",
+          "startLine": 8,
+          "endLine": 10,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "ConvNormOut",
+          "line": 8,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mflux/models/flux/model/flux_vae/decoder/conv_out.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 10,
+      "nonEmptyLines": 8,
+      "classes": [
+        {
+          "name": "ConvOut",
+          "startLine": 8,
+          "endLine": 10,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "ConvOut",
+          "line": 8,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mflux/models/flux/model/flux_vae/decoder/decoder.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 12,
+      "nonEmptyLines": 10,
+      "classes": [
+        {
+          "name": "Decoder",
+          "startLine": 8,
+          "endLine": 12,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "Decoder",
+          "line": 8,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mflux/models/flux/model/flux_vae/decoder/up_block_1_or_2.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 10,
+      "nonEmptyLines": 8,
+      "classes": [
+        {
+          "name": "UpBlock1Or2",
+          "startLine": 8,
+          "endLine": 10,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "UpBlock1Or2",
+          "line": 8,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mflux/models/flux/model/flux_vae/decoder/up_block_3.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 10,
+      "nonEmptyLines": 8,
+      "classes": [
+        {
+          "name": "UpBlock3",
+          "startLine": 8,
+          "endLine": 10,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "UpBlock3",
+          "line": 8,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mflux/models/flux/model/flux_vae/decoder/up_block_4.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 10,
+      "nonEmptyLines": 8,
+      "classes": [
+        {
+          "name": "UpBlock4",
+          "startLine": 8,
+          "endLine": 10,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "UpBlock4",
+          "line": 8,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mflux/models/flux/model/flux_vae/decoder/up_sampler.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 13,
+      "nonEmptyLines": 11,
+      "classes": [
+        {
+          "name": "UpSampler",
+          "startLine": 8,
+          "endLine": 13,
+          "methods": [
+            "__init__",
+            "__call__",
+            "up_sample_nearest"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "UpSampler",
+          "line": 8,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mflux/models/flux/model/flux_vae/encoder/conv_in.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 10,
+      "nonEmptyLines": 8,
+      "classes": [
+        {
+          "name": "ConvIn",
+          "startLine": 8,
+          "endLine": 10,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "ConvIn",
+          "line": 8,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mflux/models/flux/model/flux_vae/encoder/conv_norm_out.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 10,
+      "nonEmptyLines": 8,
+      "classes": [
+        {
+          "name": "ConvNormOut",
+          "startLine": 8,
+          "endLine": 10,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "ConvNormOut",
+          "line": 8,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mflux/models/flux/model/flux_vae/encoder/conv_out.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 10,
+      "nonEmptyLines": 8,
+      "classes": [
+        {
+          "name": "ConvOut",
+          "startLine": 8,
+          "endLine": 10,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "ConvOut",
+          "line": 8,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mflux/models/flux/model/flux_vae/encoder/down_block_1.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 10,
+      "nonEmptyLines": 8,
+      "classes": [
+        {
+          "name": "DownBlock1",
+          "startLine": 8,
+          "endLine": 10,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "DownBlock1",
+          "line": 8,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mflux/models/flux/model/flux_vae/encoder/down_block_2.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 10,
+      "nonEmptyLines": 8,
+      "classes": [
+        {
+          "name": "DownBlock2",
+          "startLine": 8,
+          "endLine": 10,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "DownBlock2",
+          "line": 8,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mflux/models/flux/model/flux_vae/encoder/down_block_3.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 10,
+      "nonEmptyLines": 8,
+      "classes": [
+        {
+          "name": "DownBlock3",
+          "startLine": 8,
+          "endLine": 10,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "DownBlock3",
+          "line": 8,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    }
+  ]
+}

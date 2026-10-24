@@ -1,0 +1,825 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 25,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": ".typings/mflux/models/qwen/model/qwen_transformer/qwen_time_text_embed.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 10,
+      "nonEmptyLines": 8,
+      "classes": [
+        {
+          "name": "QwenTimeTextEmbed",
+          "startLine": 8,
+          "endLine": 10,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "QwenTimeTextEmbed",
+          "line": 8,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mflux/models/qwen/model/qwen_transformer/qwen_timestep_embedding.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 10,
+      "nonEmptyLines": 8,
+      "classes": [
+        {
+          "name": "QwenTimestepEmbedding",
+          "startLine": 8,
+          "endLine": 10,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "QwenTimestepEmbedding",
+          "line": 8,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mflux/models/qwen/model/qwen_transformer/qwen_timesteps.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 10,
+      "nonEmptyLines": 8,
+      "classes": [
+        {
+          "name": "QwenTimesteps",
+          "startLine": 8,
+          "endLine": 10,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "QwenTimesteps",
+          "line": 8,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mflux/models/qwen/model/qwen_transformer/qwen_transformer_block.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 36,
+      "nonEmptyLines": 33,
+      "classes": [
+        {
+          "name": "QwenTransformerBlock",
+          "startLine": 10,
+          "endLine": 36,
+          "methods": [
+            "__init__",
+            "__call__",
+            "_modulate"
+          ],
+          "properties": [
+            "attn",
+            "img_mod_linear",
+            "img_mod_silu",
+            "txt_mod_linear",
+            "txt_mod_silu",
+            "img_norm1",
+            "txt_norm1",
+            "img_norm2",
+            "txt_norm2",
+            "img_ff",
+            "txt_ff"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "QwenTransformerBlock",
+          "line": 10,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mflux/models/qwen/model/qwen_transformer/qwen_transformer_rms_norm.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 10,
+      "nonEmptyLines": 8,
+      "classes": [
+        {
+          "name": "QwenTransformerRMSNorm",
+          "startLine": 8,
+          "endLine": 10,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "QwenTransformerRMSNorm",
+          "line": 8,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mflux/models/qwen/model/qwen_transformer/qwen_transformer.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 52,
+      "nonEmptyLines": 49,
+      "classes": [
+        {
+          "name": "QwenTransformer",
+          "startLine": 13,
+          "endLine": 52,
+          "methods": [
+            "__init__",
+            "__call__",
+            "_compute_timestep",
+            "_compute_rotary_embeddings"
+          ],
+          "properties": [
+            "transformer_blocks",
+            "inner_dim",
+            "img_in",
+            "txt_in",
+            "txt_norm",
+            "time_text_embed",
+            "pos_embed",
+            "norm_out",
+            "proj_out"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "QwenTransformer",
+          "line": 13,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mflux/models/qwen/model/qwen_vae/qwen_image_attention_block_3d.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 10,
+      "nonEmptyLines": 8,
+      "classes": [
+        {
+          "name": "QwenImageAttentionBlock3D",
+          "startLine": 8,
+          "endLine": 10,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "QwenImageAttentionBlock3D",
+          "line": 8,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mflux/models/qwen/model/qwen_vae/qwen_image_causal_conv_3d.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 17,
+      "nonEmptyLines": 15,
+      "classes": [
+        {
+          "name": "QwenImageCausalConv3D",
+          "startLine": 8,
+          "endLine": 17,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "QwenImageCausalConv3D",
+          "line": 8,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mflux/models/qwen/model/qwen_vae/qwen_image_decoder_3d.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 10,
+      "nonEmptyLines": 8,
+      "classes": [
+        {
+          "name": "QwenImageDecoder3D",
+          "startLine": 8,
+          "endLine": 10,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "QwenImageDecoder3D",
+          "line": 8,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mflux/models/qwen/model/qwen_vae/qwen_image_down_block_3d.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 16,
+      "nonEmptyLines": 14,
+      "classes": [
+        {
+          "name": "QwenImageDownBlock3D",
+          "startLine": 8,
+          "endLine": 16,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "QwenImageDownBlock3D",
+          "line": 8,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mflux/models/qwen/model/qwen_vae/qwen_image_encoder_3d.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 10,
+      "nonEmptyLines": 8,
+      "classes": [
+        {
+          "name": "QwenImageEncoder3D",
+          "startLine": 8,
+          "endLine": 10,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "QwenImageEncoder3D",
+          "line": 8,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mflux/models/qwen/model/qwen_vae/qwen_image_mid_block_3d.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 10,
+      "nonEmptyLines": 8,
+      "classes": [
+        {
+          "name": "QwenImageMidBlock3D",
+          "startLine": 8,
+          "endLine": 10,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "QwenImageMidBlock3D",
+          "line": 8,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mflux/models/qwen/model/qwen_vae/qwen_image_res_block_3d.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 10,
+      "nonEmptyLines": 8,
+      "classes": [
+        {
+          "name": "QwenImageResBlock3D",
+          "startLine": 8,
+          "endLine": 10,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "QwenImageResBlock3D",
+          "line": 8,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mflux/models/qwen/model/qwen_vae/qwen_image_resample_3d.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 10,
+      "nonEmptyLines": 8,
+      "classes": [
+        {
+          "name": "QwenImageResample3D",
+          "startLine": 8,
+          "endLine": 10,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "QwenImageResample3D",
+          "line": 8,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mflux/models/qwen/model/qwen_vae/qwen_image_rms_norm.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 12,
+      "nonEmptyLines": 10,
+      "classes": [
+        {
+          "name": "QwenImageRMSNorm",
+          "startLine": 8,
+          "endLine": 12,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "QwenImageRMSNorm",
+          "line": 8,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mflux/models/qwen/model/qwen_vae/qwen_image_up_block_3d.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 16,
+      "nonEmptyLines": 14,
+      "classes": [
+        {
+          "name": "QwenImageUpBlock3D",
+          "startLine": 8,
+          "endLine": 16,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "QwenImageUpBlock3D",
+          "line": 8,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mflux/models/qwen/model/qwen_vae/qwen_vae.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 15,
+      "nonEmptyLines": 13,
+      "classes": [
+        {
+          "name": "QwenVAE",
+          "startLine": 8,
+          "endLine": 15,
+          "methods": [
+            "__init__",
+            "decode",
+            "encode"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "QwenVAE",
+          "line": 8,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mflux/models/qwen/qwen_initializer.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 25,
+      "nonEmptyLines": 23,
+      "classes": [
+        {
+          "name": "QwenImageInitializer",
+          "startLine": 7,
+          "endLine": 25,
+          "methods": [
+            "init",
+            "init_edit"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "QwenImageInitializer",
+          "line": 7,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mflux/models/qwen/tokenizer/__init__.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 3,
+      "nonEmptyLines": 3,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": ".typings/mflux/models/qwen/tokenizer/qwen_image_processor.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 40,
+      "nonEmptyLines": 36,
+      "functions": [
+        {
+          "name": "smart_resize",
+          "startLine": 12,
+          "endLine": 18,
+          "params": [
+            "height",
+            "width",
+            "factor",
+            "min_pixels",
+            "max_pixels"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "QwenImageProcessor",
+          "startLine": 20,
+          "endLine": 40,
+          "methods": [
+            "__init__",
+            "preprocess",
+            "get_number_of_image_patches"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "smart_resize",
+          "line": 12,
+          "isDefault": false
+        },
+        {
+          "name": "QwenImageProcessor",
+          "line": 20,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 2,
+        "functionCount": 1,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mflux/models/qwen/tokenizer/qwen_vision_language_processor.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 23,
+      "nonEmptyLines": 21,
+      "classes": [
+        {
+          "name": "QwenVisionLanguageProcessor",
+          "startLine": 9,
+          "endLine": 23,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "QwenVisionLanguageProcessor",
+          "line": 9,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mflux/models/qwen/tokenizer/qwen_vision_language_tokenizer.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 27,
+      "nonEmptyLines": 25,
+      "classes": [
+        {
+          "name": "QwenVisionLanguageTokenizer",
+          "startLine": 13,
+          "endLine": 27,
+          "methods": [
+            "__init__",
+            "tokenize_with_image",
+            "tokenize_text_only"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "QwenVisionLanguageTokenizer",
+          "line": 13,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mflux/models/qwen/variants/__init__.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 7,
+      "nonEmptyLines": 6,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": ".typings/mflux/models/qwen/variants/edit/qwen_edit_util.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 18,
+      "nonEmptyLines": 16,
+      "classes": [
+        {
+          "name": "QwenEditUtil",
+          "startLine": 8,
+          "endLine": 18,
+          "methods": [
+            "create_image_conditioning_latents"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "QwenEditUtil",
+          "line": 8,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mflux/models/qwen/variants/edit/qwen_image_edit.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 55,
+      "nonEmptyLines": 52,
+      "classes": [
+        {
+          "name": "QwenImageEdit",
+          "startLine": 16,
+          "endLine": 55,
+          "methods": [
+            "__init__",
+            "generate_image",
+            "_encode_prompts_with_images"
+          ],
+          "properties": [
+            "vae",
+            "transformer",
+            "text_encoder",
+            "bits",
+            "lora_paths",
+            "lora_scales",
+            "prompt_cache",
+            "tokenizers"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "QwenImageEdit",
+          "line": 16,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    }
+  ]
+}

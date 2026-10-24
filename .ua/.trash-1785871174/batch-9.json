@@ -1,0 +1,809 @@
+{
+ "nodes": [
+  {
+   "id": "file:tests/conftest.py",
+   "type": "file",
+   "name": "conftest.py",
+   "filePath": "tests/conftest.py",
+   "summary": "Defines 7 function(s) and 0 class(es) for tests/conftest.py.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:tests/framework.py",
+   "type": "file",
+   "name": "framework.py",
+   "filePath": "tests/framework.py",
+   "summary": "Defines 3 function(s) and 3 class(es) for tests/framework.py.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:tests/test_1node.py",
+   "type": "file",
+   "name": "test_1node.py",
+   "filePath": "tests/test_1node.py",
+   "summary": "Defines 4 function(s) and 0 class(es) for tests/test_1node.py.",
+   "tags": [
+    "test"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:tests/test_2node.py",
+   "type": "file",
+   "name": "test_2node.py",
+   "filePath": "tests/test_2node.py",
+   "summary": "Defines 3 function(s) and 0 class(es) for tests/test_2node.py.",
+   "tags": [
+    "test"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:tests/test_4node.py",
+   "type": "file",
+   "name": "test_4node.py",
+   "filePath": "tests/test_4node.py",
+   "summary": "Defines 2 function(s) and 0 class(es) for tests/test_4node.py.",
+   "tags": [
+    "test"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:tests/test_resilience.py",
+   "type": "file",
+   "name": "test_resilience.py",
+   "filePath": "tests/test_resilience.py",
+   "summary": "Defines 1 function(s) and 0 class(es) for tests/test_resilience.py.",
+   "tags": [
+    "test"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:tests/conftest.py:pytest_addoption",
+   "type": "function",
+   "name": "pytest_addoption",
+   "filePath": "tests/conftest.py",
+   "lineRange": [
+    46,
+    52
+   ],
+   "summary": "Function pytest_addoption in tests/conftest.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:tests/conftest.py:pytest_configure",
+   "type": "function",
+   "name": "pytest_configure",
+   "filePath": "tests/conftest.py",
+   "lineRange": [
+    55,
+    66
+   ],
+   "summary": "Function pytest_configure in tests/conftest.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:tests/conftest.py:pytest_report_header",
+   "type": "function",
+   "name": "pytest_report_header",
+   "filePath": "tests/conftest.py",
+   "lineRange": [
+    69,
+    75
+   ],
+   "summary": "Function pytest_report_header in tests/conftest.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:tests/conftest.py:_host_pool",
+   "type": "function",
+   "name": "_host_pool",
+   "filePath": "tests/conftest.py",
+   "lineRange": [
+    79,
+    83
+   ],
+   "summary": "Function _host_pool in tests/conftest.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:tests/conftest.py:session",
+   "type": "function",
+   "name": "session",
+   "filePath": "tests/conftest.py",
+   "lineRange": [
+    87,
+    152
+   ],
+   "summary": "Function session in tests/conftest.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:tests/conftest.py:_teardown_clusters",
+   "type": "function",
+   "name": "_teardown_clusters",
+   "filePath": "tests/conftest.py",
+   "lineRange": [
+    161,
+    166
+   ],
+   "summary": "Function _teardown_clusters in tests/conftest.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:tests/conftest.py:pytest_runtest_makereport",
+   "type": "function",
+   "name": "pytest_runtest_makereport",
+   "filePath": "tests/conftest.py",
+   "lineRange": [
+    169,
+    181
+   ],
+   "summary": "Function pytest_runtest_makereport in tests/conftest.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:tests/framework.py:_extract_content",
+   "type": "function",
+   "name": "_extract_content",
+   "filePath": "tests/framework.py",
+   "lineRange": [
+    42,
+    52
+   ],
+   "summary": "Function _extract_content in tests/framework.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:tests/framework.py:parse_cluster_marker",
+   "type": "function",
+   "name": "parse_cluster_marker",
+   "filePath": "tests/framework.py",
+   "lineRange": [
+    71,
+    79
+   ],
+   "summary": "Function parse_cluster_marker in tests/framework.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:tests/framework.py:parse_instance_marker",
+   "type": "function",
+   "name": "parse_instance_marker",
+   "filePath": "tests/framework.py",
+   "lineRange": [
+    82,
+    94
+   ],
+   "summary": "Function parse_instance_marker in tests/framework.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:tests/framework.py:ClusterSpec",
+   "type": "class",
+   "name": "ClusterSpec",
+   "filePath": "tests/framework.py",
+   "lineRange": [
+    56,
+    60
+   ],
+   "summary": "Class ClusterSpec in tests/framework.py.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:tests/framework.py:InstanceSpec",
+   "type": "class",
+   "name": "InstanceSpec",
+   "filePath": "tests/framework.py",
+   "lineRange": [
+    64,
+    68
+   ],
+   "summary": "Class InstanceSpec in tests/framework.py.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:tests/framework.py:Session",
+   "type": "class",
+   "name": "Session",
+   "filePath": "tests/framework.py",
+   "lineRange": [
+    98,
+    199
+   ],
+   "summary": "Class Session in tests/framework.py.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:tests/test_1node.py:test_place_instance_and_chat",
+   "type": "function",
+   "name": "test_place_instance_and_chat",
+   "filePath": "tests/test_1node.py",
+   "lineRange": [
+    20,
+    22
+   ],
+   "summary": "Function test_place_instance_and_chat in tests/test_1node.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:tests/test_1node.py:test_chat_multiple_turns",
+   "type": "function",
+   "name": "test_chat_multiple_turns",
+   "filePath": "tests/test_1node.py",
+   "lineRange": [
+    27,
+    38
+   ],
+   "summary": "Function test_chat_multiple_turns in tests/test_1node.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:tests/test_1node.py:test_delete_instance",
+   "type": "function",
+   "name": "test_delete_instance",
+   "filePath": "tests/test_1node.py",
+   "lineRange": [
+    43,
+    50
+   ],
+   "summary": "Function test_delete_instance in tests/test_1node.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:tests/test_1node.py:test_download_from_scratch",
+   "type": "function",
+   "name": "test_download_from_scratch",
+   "filePath": "tests/test_1node.py",
+   "lineRange": [
+    54,
+    75
+   ],
+   "summary": "Function test_download_from_scratch in tests/test_1node.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:tests/test_2node.py:test_2node_jaccl",
+   "type": "function",
+   "name": "test_2node_jaccl",
+   "filePath": "tests/test_2node.py",
+   "lineRange": [
+    21,
+    23
+   ],
+   "summary": "Function test_2node_jaccl in tests/test_2node.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:tests/test_2node.py:test_2node_ring",
+   "type": "function",
+   "name": "test_2node_ring",
+   "filePath": "tests/test_2node.py",
+   "lineRange": [
+    30,
+    32
+   ],
+   "summary": "Function test_2node_ring in tests/test_2node.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:tests/test_2node.py:test_2node_jaccl_multi_turn",
+   "type": "function",
+   "name": "test_2node_jaccl_multi_turn",
+   "filePath": "tests/test_2node.py",
+   "lineRange": [
+    39,
+    49
+   ],
+   "summary": "Function test_2node_jaccl_multi_turn in tests/test_2node.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:tests/test_4node.py:test_4node_pipeline_ring",
+   "type": "function",
+   "name": "test_4node_pipeline_ring",
+   "filePath": "tests/test_4node.py",
+   "lineRange": [
+    21,
+    23
+   ],
+   "summary": "Function test_4node_pipeline_ring in tests/test_4node.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:tests/test_4node.py:test_4node_tensor_jaccl",
+   "type": "function",
+   "name": "test_4node_tensor_jaccl",
+   "filePath": "tests/test_4node.py",
+   "lineRange": [
+    30,
+    32
+   ],
+   "summary": "Function test_4node_tensor_jaccl in tests/test_4node.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:tests/test_resilience.py:test_node_recovery",
+   "type": "function",
+   "name": "test_node_recovery",
+   "filePath": "tests/test_resilience.py",
+   "lineRange": [
+    21,
+    56
+   ],
+   "summary": "Function test_node_recovery in tests/test_resilience.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  }
+ ],
+ "edges": [
+  {
+   "source": "file:tests/conftest.py",
+   "target": "function:tests/conftest.py:pytest_addoption",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:tests/conftest.py",
+   "target": "function:tests/conftest.py:pytest_addoption",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:tests/conftest.py",
+   "target": "function:tests/conftest.py:pytest_configure",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:tests/conftest.py",
+   "target": "function:tests/conftest.py:pytest_configure",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:tests/conftest.py",
+   "target": "function:tests/conftest.py:pytest_report_header",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:tests/conftest.py",
+   "target": "function:tests/conftest.py:pytest_report_header",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:tests/conftest.py",
+   "target": "function:tests/conftest.py:_host_pool",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:tests/conftest.py",
+   "target": "function:tests/conftest.py:_host_pool",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:tests/conftest.py",
+   "target": "function:tests/conftest.py:session",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:tests/conftest.py",
+   "target": "function:tests/conftest.py:session",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:tests/conftest.py",
+   "target": "function:tests/conftest.py:_teardown_clusters",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:tests/conftest.py",
+   "target": "function:tests/conftest.py:_teardown_clusters",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:tests/conftest.py",
+   "target": "function:tests/conftest.py:pytest_runtest_makereport",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:tests/conftest.py",
+   "target": "function:tests/conftest.py:pytest_runtest_makereport",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:tests/framework.py",
+   "target": "function:tests/framework.py:_extract_content",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:tests/framework.py",
+   "target": "function:tests/framework.py:_extract_content",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:tests/framework.py",
+   "target": "function:tests/framework.py:parse_cluster_marker",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:tests/framework.py",
+   "target": "function:tests/framework.py:parse_cluster_marker",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:tests/framework.py",
+   "target": "function:tests/framework.py:parse_instance_marker",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:tests/framework.py",
+   "target": "function:tests/framework.py:parse_instance_marker",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:tests/framework.py",
+   "target": "class:tests/framework.py:ClusterSpec",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:tests/framework.py",
+   "target": "class:tests/framework.py:ClusterSpec",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:tests/framework.py",
+   "target": "class:tests/framework.py:InstanceSpec",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:tests/framework.py",
+   "target": "class:tests/framework.py:InstanceSpec",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:tests/framework.py",
+   "target": "class:tests/framework.py:Session",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:tests/framework.py",
+   "target": "class:tests/framework.py:Session",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:tests/test_1node.py",
+   "target": "function:tests/test_1node.py:test_place_instance_and_chat",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:tests/test_1node.py",
+   "target": "function:tests/test_1node.py:test_place_instance_and_chat",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:tests/test_1node.py",
+   "target": "function:tests/test_1node.py:test_chat_multiple_turns",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:tests/test_1node.py",
+   "target": "function:tests/test_1node.py:test_chat_multiple_turns",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:tests/test_1node.py",
+   "target": "function:tests/test_1node.py:test_delete_instance",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:tests/test_1node.py",
+   "target": "function:tests/test_1node.py:test_delete_instance",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:tests/test_1node.py",
+   "target": "function:tests/test_1node.py:test_download_from_scratch",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:tests/test_1node.py",
+   "target": "function:tests/test_1node.py:test_download_from_scratch",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:tests/test_2node.py",
+   "target": "function:tests/test_2node.py:test_2node_jaccl",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:tests/test_2node.py",
+   "target": "function:tests/test_2node.py:test_2node_jaccl",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:tests/test_2node.py",
+   "target": "function:tests/test_2node.py:test_2node_ring",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:tests/test_2node.py",
+   "target": "function:tests/test_2node.py:test_2node_ring",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:tests/test_2node.py",
+   "target": "function:tests/test_2node.py:test_2node_jaccl_multi_turn",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:tests/test_2node.py",
+   "target": "function:tests/test_2node.py:test_2node_jaccl_multi_turn",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:tests/test_4node.py",
+   "target": "function:tests/test_4node.py:test_4node_pipeline_ring",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:tests/test_4node.py",
+   "target": "function:tests/test_4node.py:test_4node_pipeline_ring",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:tests/test_4node.py",
+   "target": "function:tests/test_4node.py:test_4node_tensor_jaccl",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:tests/test_4node.py",
+   "target": "function:tests/test_4node.py:test_4node_tensor_jaccl",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:tests/test_resilience.py",
+   "target": "function:tests/test_resilience.py:test_node_recovery",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:tests/test_resilience.py",
+   "target": "function:tests/test_resilience.py:test_node_recovery",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:tests/conftest.py",
+   "target": "file:tests/framework.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:tests/test_1node.py",
+   "target": "file:tests/framework.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:tests/test_2node.py",
+   "target": "file:tests/framework.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:tests/test_4node.py",
+   "target": "file:tests/framework.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:tests/test_resilience.py",
+   "target": "file:tests/framework.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:tests/framework.py",
+   "target": "file:tests/conftest.py",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  },
+  {
+   "source": "file:tests/framework.py",
+   "target": "file:tests/test_1node.py",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  },
+  {
+   "source": "file:tests/framework.py",
+   "target": "file:tests/test_2node.py",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  },
+  {
+   "source": "file:tests/framework.py",
+   "target": "file:tests/test_4node.py",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  },
+  {
+   "source": "file:tests/framework.py",
+   "target": "file:tests/test_resilience.py",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  }
+ ]
+}

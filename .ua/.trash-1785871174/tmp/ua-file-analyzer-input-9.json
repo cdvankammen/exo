@@ -1,0 +1,59 @@
+{
+ "projectRoot": "/Users/chris/Documents/GitHub/exo",
+ "batchFiles": [
+  {
+   "path": "tests/conftest.py",
+   "language": "python",
+   "sizeLines": 181,
+   "fileCategory": "code"
+  },
+  {
+   "path": "tests/framework.py",
+   "language": "python",
+   "sizeLines": 199,
+   "fileCategory": "code"
+  },
+  {
+   "path": "tests/test_1node.py",
+   "language": "python",
+   "sizeLines": 75,
+   "fileCategory": "code"
+  },
+  {
+   "path": "tests/test_2node.py",
+   "language": "python",
+   "sizeLines": 49,
+   "fileCategory": "code"
+  },
+  {
+   "path": "tests/test_4node.py",
+   "language": "python",
+   "sizeLines": 32,
+   "fileCategory": "code"
+  },
+  {
+   "path": "tests/test_resilience.py",
+   "language": "python",
+   "sizeLines": 56,
+   "fileCategory": "code"
+  }
+ ],
+ "batchImportData": {
+  "tests/conftest.py": [
+   "tests/framework.py"
+  ],
+  "tests/framework.py": [],
+  "tests/test_1node.py": [
+   "tests/framework.py"
+  ],
+  "tests/test_2node.py": [
+   "tests/framework.py"
+  ],
+  "tests/test_4node.py": [
+   "tests/framework.py"
+  ],
+  "tests/test_resilience.py": [
+   "tests/framework.py"
+  ]
+ }
+}

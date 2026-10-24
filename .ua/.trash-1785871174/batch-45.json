@@ -1,0 +1,1173 @@
+{
+ "nodes": [
+  {
+   "id": "file:src/exo/worker/runner/__init__.py",
+   "type": "file",
+   "name": "__init__.py",
+   "filePath": "src/exo/worker/runner/__init__.py",
+   "summary": "__init__.py \u2014 code file in the exo project.",
+   "tags": [
+    "entry-point",
+    "barrel"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:src/exo/worker/runner/image_models/__init__.py",
+   "type": "file",
+   "name": "__init__.py",
+   "filePath": "src/exo/worker/runner/image_models/__init__.py",
+   "summary": "__init__.py \u2014 code file in the exo project.",
+   "tags": [
+    "entry-point",
+    "barrel"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:src/exo/worker/runner/llm_inference/__init__.py",
+   "type": "file",
+   "name": "__init__.py",
+   "filePath": "src/exo/worker/runner/llm_inference/__init__.py",
+   "summary": "__init__.py \u2014 code file in the exo project.",
+   "tags": [
+    "entry-point",
+    "barrel"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:src/exo/worker/tests/TODO.tests",
+   "type": "file",
+   "name": "TODO.tests",
+   "filePath": "src/exo/worker/tests/TODO.tests",
+   "summary": "TODO.tests \u2014 code file in the exo project.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:src/exo/worker/tests/__init__.py",
+   "type": "file",
+   "name": "__init__.py",
+   "filePath": "src/exo/worker/tests/__init__.py",
+   "summary": "__init__.py \u2014 code file in the exo project.",
+   "tags": [
+    "entry-point",
+    "barrel"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:src/exo/worker/tests/unittests/__init__.py",
+   "type": "file",
+   "name": "__init__.py",
+   "filePath": "src/exo/worker/tests/unittests/__init__.py",
+   "summary": "__init__.py \u2014 code file in the exo project.",
+   "tags": [
+    "entry-point",
+    "barrel"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:src/exo/worker/tests/unittests/test_download/__init__.py",
+   "type": "file",
+   "name": "__init__.py",
+   "filePath": "src/exo/worker/tests/unittests/test_download/__init__.py",
+   "summary": "__init__.py \u2014 code file in the exo project.",
+   "tags": [
+    "entry-point",
+    "barrel"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:src/exo/worker/tests/unittests/test_image/__init__.py",
+   "type": "file",
+   "name": "__init__.py",
+   "filePath": "src/exo/worker/tests/unittests/test_image/__init__.py",
+   "summary": "__init__.py \u2014 code file in the exo project.",
+   "tags": [
+    "entry-point",
+    "barrel"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:src/exo/worker/tests/unittests/test_mlx/__init__.py",
+   "type": "file",
+   "name": "__init__.py",
+   "filePath": "src/exo/worker/tests/unittests/test_mlx/__init__.py",
+   "summary": "__init__.py \u2014 code file in the exo project.",
+   "tags": [
+    "entry-point",
+    "barrel"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:src/exo/worker/tests/unittests/test_mlx/test_tp_bit_exact.py",
+   "type": "file",
+   "name": "test_tp_bit_exact.py",
+   "filePath": "src/exo/worker/tests/unittests/test_mlx/test_tp_bit_exact.py",
+   "summary": "Defines 6 function(s) and 0 class(es) for src/exo/worker/tests/unittests/test_mlx/test_tp_bit_exact.py.",
+   "tags": [
+    "test"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "file:src/exo/worker/tests/unittests/test_plan/__init__.py",
+   "type": "file",
+   "name": "__init__.py",
+   "filePath": "src/exo/worker/tests/unittests/test_plan/__init__.py",
+   "summary": "__init__.py \u2014 code file in the exo project.",
+   "tags": [
+    "entry-point",
+    "barrel"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:src/exo/worker/tests/unittests/test_runner/__init__.py",
+   "type": "file",
+   "name": "__init__.py",
+   "filePath": "src/exo/worker/tests/unittests/test_runner/__init__.py",
+   "summary": "__init__.py \u2014 code file in the exo project.",
+   "tags": [
+    "entry-point",
+    "barrel"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:src/exo/worker/tests/unittests/test_runner/test_glm_tool_parsing.py",
+   "type": "file",
+   "name": "test_glm_tool_parsing.py",
+   "filePath": "src/exo/worker/tests/unittests/test_runner/test_glm_tool_parsing.py",
+   "summary": "Defines 2 function(s) and 3 class(es) for src/exo/worker/tests/unittests/test_runner/test_glm_tool_parsing.py.",
+   "tags": [
+    "test"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:tests/__init__.py",
+   "type": "file",
+   "name": "__init__.py",
+   "filePath": "tests/__init__.py",
+   "summary": "__init__.py \u2014 code file in the exo project.",
+   "tags": [
+    "entry-point",
+    "barrel"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:tests/test_dashboard.py",
+   "type": "file",
+   "name": "test_dashboard.py",
+   "filePath": "tests/test_dashboard.py",
+   "summary": "Defines 2 function(s) and 0 class(es) for tests/test_dashboard.py.",
+   "tags": [
+    "test"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:tmp/config_examples/claude_code.sh",
+   "type": "file",
+   "name": "claude_code.sh",
+   "filePath": "tmp/config_examples/claude_code.sh",
+   "summary": "claude_code.sh \u2014 script file in the exo project.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "config:tmp/config_examples/opencode.json",
+   "type": "config",
+   "name": "opencode.json",
+   "filePath": "tmp/config_examples/opencode.json",
+   "summary": "Configuration file tmp/config_examples/opencode.json controlling project settings.",
+   "tags": [
+    "configuration"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:tmp/gen_card.py",
+   "type": "file",
+   "name": "gen_card.py",
+   "filePath": "tmp/gen_card.py",
+   "summary": "Defines 1 function(s) and 0 class(es) for tmp/gen_card.py.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:tmp/old_tests/auto_bench.sh",
+   "type": "file",
+   "name": "auto_bench.sh",
+   "filePath": "tmp/old_tests/auto_bench.sh",
+   "summary": "Defines 1 function(s) and 0 class(es) for tmp/old_tests/auto_bench.sh.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:tmp/old_tests/eval_tool_calls.sh",
+   "type": "file",
+   "name": "eval_tool_calls.sh",
+   "filePath": "tmp/old_tests/eval_tool_calls.sh",
+   "summary": "Defines 1 function(s) and 0 class(es) for tmp/old_tests/eval_tool_calls.sh.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:tmp/old_tests/get_all_models_on_cluster.py",
+   "type": "file",
+   "name": "get_all_models_on_cluster.py",
+   "filePath": "tmp/old_tests/get_all_models_on_cluster.py",
+   "summary": "Defines 1 function(s) and 0 class(es) for tmp/old_tests/get_all_models_on_cluster.py.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:tmp/old_tests/test_vision_cache.py",
+   "type": "file",
+   "name": "test_vision_cache.py",
+   "filePath": "tmp/old_tests/test_vision_cache.py",
+   "summary": "Defines 0 function(s) and 1 class(es) for tmp/old_tests/test_vision_cache.py.",
+   "tags": [
+    "test"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:tmp/quantize_and_upload.py",
+   "type": "file",
+   "name": "quantize_and_upload.py",
+   "filePath": "tmp/quantize_and_upload.py",
+   "summary": "Defines 9 function(s) and 0 class(es) for tmp/quantize_and_upload.py.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "file:tmp/run_llm.py",
+   "type": "file",
+   "name": "run_llm.py",
+   "filePath": "tmp/run_llm.py",
+   "summary": "Defines 2 function(s) and 0 class(es) for tmp/run_llm.py.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "config:tools/pyproject.toml",
+   "type": "config",
+   "name": "pyproject.toml",
+   "filePath": "tools/pyproject.toml",
+   "summary": "Configuration file tools/pyproject.toml controlling project settings.",
+   "tags": [
+    "configuration"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/worker/tests/unittests/test_mlx/test_tp_bit_exact.py:_build",
+   "type": "function",
+   "name": "_build",
+   "filePath": "src/exo/worker/tests/unittests/test_mlx/test_tp_bit_exact.py",
+   "lineRange": [
+    312,
+    337
+   ],
+   "summary": "Function _build in src/exo/worker/tests/unittests/test_mlx/test_tp_bit_exact.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/worker/tests/unittests/test_mlx/test_tp_bit_exact.py:_run",
+   "type": "function",
+   "name": "_run",
+   "filePath": "src/exo/worker/tests/unittests/test_mlx/test_tp_bit_exact.py",
+   "lineRange": [
+    340,
+    354
+   ],
+   "summary": "Function _run in src/exo/worker/tests/unittests/test_mlx/test_tp_bit_exact.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/worker/tests/unittests/test_mlx/test_tp_bit_exact.py:_ref_worker",
+   "type": "function",
+   "name": "_ref_worker",
+   "filePath": "src/exo/worker/tests/unittests/test_mlx/test_tp_bit_exact.py",
+   "lineRange": [
+    357,
+    362
+   ],
+   "summary": "Function _ref_worker in src/exo/worker/tests/unittests/test_mlx/test_tp_bit_exact.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/worker/tests/unittests/test_mlx/test_tp_bit_exact.py:_tp_worker",
+   "type": "function",
+   "name": "_tp_worker",
+   "filePath": "src/exo/worker/tests/unittests/test_mlx/test_tp_bit_exact.py",
+   "lineRange": [
+    365,
+    373
+   ],
+   "summary": "Function _tp_worker in src/exo/worker/tests/unittests/test_mlx/test_tp_bit_exact.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/worker/tests/unittests/test_mlx/test_tp_bit_exact.py:_run_compare",
+   "type": "function",
+   "name": "_run_compare",
+   "filePath": "src/exo/worker/tests/unittests/test_mlx/test_tp_bit_exact.py",
+   "lineRange": [
+    376,
+    414
+   ],
+   "summary": "Function _run_compare in src/exo/worker/tests/unittests/test_mlx/test_tp_bit_exact.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/worker/tests/unittests/test_mlx/test_tp_bit_exact.py:test_tp_bit_exact",
+   "type": "function",
+   "name": "test_tp_bit_exact",
+   "filePath": "src/exo/worker/tests/unittests/test_mlx/test_tp_bit_exact.py",
+   "lineRange": [
+    428,
+    431
+   ],
+   "summary": "Function test_tp_bit_exact in src/exo/worker/tests/unittests/test_mlx/test_tp_bit_exact.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/worker/tests/unittests/test_runner/test_glm_tool_parsing.py:_parse_args",
+   "type": "function",
+   "name": "_parse_args",
+   "filePath": "src/exo/worker/tests/unittests/test_runner/test_glm_tool_parsing.py",
+   "lineRange": [
+    13,
+    16
+   ],
+   "summary": "Function _parse_args in src/exo/worker/tests/unittests/test_runner/test_glm_tool_parsing.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/worker/tests/unittests/test_runner/test_glm_tool_parsing.py:_parse_func_name",
+   "type": "function",
+   "name": "_parse_func_name",
+   "filePath": "src/exo/worker/tests/unittests/test_runner/test_glm_tool_parsing.py",
+   "lineRange": [
+    19,
+    24
+   ],
+   "summary": "Function _parse_func_name in src/exo/worker/tests/unittests/test_runner/test_glm_tool_parsing.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/worker/tests/unittests/test_runner/test_glm_tool_parsing.py:TestGlmToolParsingWithClosingTags",
+   "type": "class",
+   "name": "TestGlmToolParsingWithClosingTags",
+   "filePath": "src/exo/worker/tests/unittests/test_runner/test_glm_tool_parsing.py",
+   "lineRange": [
+    27,
+    53
+   ],
+   "summary": "Class TestGlmToolParsingWithClosingTags in src/exo/worker/tests/unittests/test_runner/test_glm_tool_parsing.py.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/worker/tests/unittests/test_runner/test_glm_tool_parsing.py:TestGlmToolParsingMissingClosingTags",
+   "type": "class",
+   "name": "TestGlmToolParsingMissingClosingTags",
+   "filePath": "src/exo/worker/tests/unittests/test_runner/test_glm_tool_parsing.py",
+   "lineRange": [
+    56,
+    91
+   ],
+   "summary": "Class TestGlmToolParsingMissingClosingTags in src/exo/worker/tests/unittests/test_runner/test_glm_tool_parsing.py.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/worker/tests/unittests/test_runner/test_glm_tool_parsing.py:TestGlmToolParsingEdgeCases",
+   "type": "class",
+   "name": "TestGlmToolParsingEdgeCases",
+   "filePath": "src/exo/worker/tests/unittests/test_runner/test_glm_tool_parsing.py",
+   "lineRange": [
+    94,
+    110
+   ],
+   "summary": "Class TestGlmToolParsingEdgeCases in src/exo/worker/tests/unittests/test_runner/test_glm_tool_parsing.py.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:tests/test_dashboard.py:_mark_onboarding_complete",
+   "type": "function",
+   "name": "_mark_onboarding_complete",
+   "filePath": "tests/test_dashboard.py",
+   "lineRange": [
+    41,
+    44
+   ],
+   "summary": "Function _mark_onboarding_complete in tests/test_dashboard.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:tests/test_dashboard.py:test_dashboard_chat_inference",
+   "type": "function",
+   "name": "test_dashboard_chat_inference",
+   "filePath": "tests/test_dashboard.py",
+   "lineRange": [
+    48,
+    102
+   ],
+   "summary": "Function test_dashboard_chat_inference in tests/test_dashboard.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:tmp/gen_card.py:main",
+   "type": "function",
+   "name": "main",
+   "filePath": "tmp/gen_card.py",
+   "lineRange": [
+    16,
+    29
+   ],
+   "summary": "Function main in tmp/gen_card.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:tmp/old_tests/get_all_models_on_cluster.py:mid",
+   "type": "function",
+   "name": "mid",
+   "filePath": "tmp/old_tests/get_all_models_on_cluster.py",
+   "lineRange": [
+    20,
+    29
+   ],
+   "summary": "Function mid in tmp/old_tests/get_all_models_on_cluster.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:tmp/old_tests/test_vision_cache.py:TestValidateMediaMatch",
+   "type": "class",
+   "name": "TestValidateMediaMatch",
+   "filePath": "tmp/old_tests/test_vision_cache.py",
+   "lineRange": [
+    7,
+    63
+   ],
+   "summary": "Class TestValidateMediaMatch in tmp/old_tests/test_vision_cache.py.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:tmp/quantize_and_upload.py:get_model_class",
+   "type": "function",
+   "name": "get_model_class",
+   "filePath": "tmp/quantize_and_upload.py",
+   "lineRange": [
+    33,
+    51
+   ],
+   "summary": "Function get_model_class in tmp/quantize_and_upload.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:tmp/quantize_and_upload.py:get_repo_name",
+   "type": "function",
+   "name": "get_repo_name",
+   "filePath": "tmp/quantize_and_upload.py",
+   "lineRange": [
+    54,
+    59
+   ],
+   "summary": "Function get_repo_name in tmp/quantize_and_upload.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:tmp/quantize_and_upload.py:get_local_path",
+   "type": "function",
+   "name": "get_local_path",
+   "filePath": "tmp/quantize_and_upload.py",
+   "lineRange": [
+    62,
+    67
+   ],
+   "summary": "Function get_local_path in tmp/quantize_and_upload.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:tmp/quantize_and_upload.py:copy_source_repo",
+   "type": "function",
+   "name": "copy_source_repo",
+   "filePath": "tmp/quantize_and_upload.py",
+   "lineRange": [
+    70,
+    100
+   ],
+   "summary": "Function copy_source_repo in tmp/quantize_and_upload.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:tmp/quantize_and_upload.py:load_and_save_quantized_model",
+   "type": "function",
+   "name": "load_and_save_quantized_model",
+   "filePath": "tmp/quantize_and_upload.py",
+   "lineRange": [
+    103,
+    131
+   ],
+   "summary": "Function load_and_save_quantized_model in tmp/quantize_and_upload.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:tmp/quantize_and_upload.py:copy_source_metadata",
+   "type": "function",
+   "name": "copy_source_metadata",
+   "filePath": "tmp/quantize_and_upload.py",
+   "lineRange": [
+    134,
+    156
+   ],
+   "summary": "Function copy_source_metadata in tmp/quantize_and_upload.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:tmp/quantize_and_upload.py:upload_to_huggingface",
+   "type": "function",
+   "name": "upload_to_huggingface",
+   "filePath": "tmp/quantize_and_upload.py",
+   "lineRange": [
+    159,
+    211
+   ],
+   "summary": "Function upload_to_huggingface in tmp/quantize_and_upload.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:tmp/quantize_and_upload.py:clean_local_files",
+   "type": "function",
+   "name": "clean_local_files",
+   "filePath": "tmp/quantize_and_upload.py",
+   "lineRange": [
+    214,
+    223
+   ],
+   "summary": "Function clean_local_files in tmp/quantize_and_upload.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:tmp/quantize_and_upload.py:main",
+   "type": "function",
+   "name": "main",
+   "filePath": "tmp/quantize_and_upload.py",
+   "lineRange": [
+    226,
+    373
+   ],
+   "summary": "Function main in tmp/quantize_and_upload.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:tmp/run_llm.py:stream_chat",
+   "type": "function",
+   "name": "stream_chat",
+   "filePath": "tmp/run_llm.py",
+   "lineRange": [
+    9,
+    49
+   ],
+   "summary": "Function stream_chat in tmp/run_llm.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:tmp/run_llm.py:main",
+   "type": "function",
+   "name": "main",
+   "filePath": "tmp/run_llm.py",
+   "lineRange": [
+    52,
+    82
+   ],
+   "summary": "Function main in tmp/run_llm.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  }
+ ],
+ "edges": [
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_mlx/test_tp_bit_exact.py",
+   "target": "function:src/exo/worker/tests/unittests/test_mlx/test_tp_bit_exact.py:_build",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_mlx/test_tp_bit_exact.py",
+   "target": "function:src/exo/worker/tests/unittests/test_mlx/test_tp_bit_exact.py:_build",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_mlx/test_tp_bit_exact.py",
+   "target": "function:src/exo/worker/tests/unittests/test_mlx/test_tp_bit_exact.py:_run",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_mlx/test_tp_bit_exact.py",
+   "target": "function:src/exo/worker/tests/unittests/test_mlx/test_tp_bit_exact.py:_run",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_mlx/test_tp_bit_exact.py",
+   "target": "function:src/exo/worker/tests/unittests/test_mlx/test_tp_bit_exact.py:_ref_worker",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_mlx/test_tp_bit_exact.py",
+   "target": "function:src/exo/worker/tests/unittests/test_mlx/test_tp_bit_exact.py:_ref_worker",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_mlx/test_tp_bit_exact.py",
+   "target": "function:src/exo/worker/tests/unittests/test_mlx/test_tp_bit_exact.py:_tp_worker",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_mlx/test_tp_bit_exact.py",
+   "target": "function:src/exo/worker/tests/unittests/test_mlx/test_tp_bit_exact.py:_tp_worker",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_mlx/test_tp_bit_exact.py",
+   "target": "function:src/exo/worker/tests/unittests/test_mlx/test_tp_bit_exact.py:_run_compare",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_mlx/test_tp_bit_exact.py",
+   "target": "function:src/exo/worker/tests/unittests/test_mlx/test_tp_bit_exact.py:_run_compare",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_mlx/test_tp_bit_exact.py",
+   "target": "function:src/exo/worker/tests/unittests/test_mlx/test_tp_bit_exact.py:test_tp_bit_exact",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_mlx/test_tp_bit_exact.py",
+   "target": "function:src/exo/worker/tests/unittests/test_mlx/test_tp_bit_exact.py:test_tp_bit_exact",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_glm_tool_parsing.py",
+   "target": "function:src/exo/worker/tests/unittests/test_runner/test_glm_tool_parsing.py:_parse_args",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_glm_tool_parsing.py",
+   "target": "function:src/exo/worker/tests/unittests/test_runner/test_glm_tool_parsing.py:_parse_args",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_glm_tool_parsing.py",
+   "target": "function:src/exo/worker/tests/unittests/test_runner/test_glm_tool_parsing.py:_parse_func_name",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_glm_tool_parsing.py",
+   "target": "function:src/exo/worker/tests/unittests/test_runner/test_glm_tool_parsing.py:_parse_func_name",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_glm_tool_parsing.py",
+   "target": "class:src/exo/worker/tests/unittests/test_runner/test_glm_tool_parsing.py:TestGlmToolParsingWithClosingTags",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_glm_tool_parsing.py",
+   "target": "class:src/exo/worker/tests/unittests/test_runner/test_glm_tool_parsing.py:TestGlmToolParsingWithClosingTags",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_glm_tool_parsing.py",
+   "target": "class:src/exo/worker/tests/unittests/test_runner/test_glm_tool_parsing.py:TestGlmToolParsingMissingClosingTags",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_glm_tool_parsing.py",
+   "target": "class:src/exo/worker/tests/unittests/test_runner/test_glm_tool_parsing.py:TestGlmToolParsingMissingClosingTags",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_glm_tool_parsing.py",
+   "target": "class:src/exo/worker/tests/unittests/test_runner/test_glm_tool_parsing.py:TestGlmToolParsingEdgeCases",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_glm_tool_parsing.py",
+   "target": "class:src/exo/worker/tests/unittests/test_runner/test_glm_tool_parsing.py:TestGlmToolParsingEdgeCases",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:tests/test_dashboard.py",
+   "target": "function:tests/test_dashboard.py:_mark_onboarding_complete",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:tests/test_dashboard.py",
+   "target": "function:tests/test_dashboard.py:_mark_onboarding_complete",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:tests/test_dashboard.py",
+   "target": "function:tests/test_dashboard.py:test_dashboard_chat_inference",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:tests/test_dashboard.py",
+   "target": "function:tests/test_dashboard.py:test_dashboard_chat_inference",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:tmp/gen_card.py",
+   "target": "function:tmp/gen_card.py:main",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:tmp/gen_card.py",
+   "target": "function:tmp/gen_card.py:main",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:tmp/old_tests/get_all_models_on_cluster.py",
+   "target": "function:tmp/old_tests/get_all_models_on_cluster.py:mid",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:tmp/old_tests/get_all_models_on_cluster.py",
+   "target": "function:tmp/old_tests/get_all_models_on_cluster.py:mid",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:tmp/old_tests/test_vision_cache.py",
+   "target": "class:tmp/old_tests/test_vision_cache.py:TestValidateMediaMatch",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:tmp/old_tests/test_vision_cache.py",
+   "target": "class:tmp/old_tests/test_vision_cache.py:TestValidateMediaMatch",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:tmp/quantize_and_upload.py",
+   "target": "function:tmp/quantize_and_upload.py:get_model_class",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:tmp/quantize_and_upload.py",
+   "target": "function:tmp/quantize_and_upload.py:get_model_class",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:tmp/quantize_and_upload.py",
+   "target": "function:tmp/quantize_and_upload.py:get_repo_name",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:tmp/quantize_and_upload.py",
+   "target": "function:tmp/quantize_and_upload.py:get_repo_name",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:tmp/quantize_and_upload.py",
+   "target": "function:tmp/quantize_and_upload.py:get_local_path",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:tmp/quantize_and_upload.py",
+   "target": "function:tmp/quantize_and_upload.py:get_local_path",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:tmp/quantize_and_upload.py",
+   "target": "function:tmp/quantize_and_upload.py:copy_source_repo",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:tmp/quantize_and_upload.py",
+   "target": "function:tmp/quantize_and_upload.py:copy_source_repo",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:tmp/quantize_and_upload.py",
+   "target": "function:tmp/quantize_and_upload.py:load_and_save_quantized_model",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:tmp/quantize_and_upload.py",
+   "target": "function:tmp/quantize_and_upload.py:load_and_save_quantized_model",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:tmp/quantize_and_upload.py",
+   "target": "function:tmp/quantize_and_upload.py:copy_source_metadata",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:tmp/quantize_and_upload.py",
+   "target": "function:tmp/quantize_and_upload.py:copy_source_metadata",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:tmp/quantize_and_upload.py",
+   "target": "function:tmp/quantize_and_upload.py:upload_to_huggingface",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:tmp/quantize_and_upload.py",
+   "target": "function:tmp/quantize_and_upload.py:upload_to_huggingface",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:tmp/quantize_and_upload.py",
+   "target": "function:tmp/quantize_and_upload.py:clean_local_files",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:tmp/quantize_and_upload.py",
+   "target": "function:tmp/quantize_and_upload.py:clean_local_files",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:tmp/quantize_and_upload.py",
+   "target": "function:tmp/quantize_and_upload.py:main",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:tmp/quantize_and_upload.py",
+   "target": "function:tmp/quantize_and_upload.py:main",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:tmp/run_llm.py",
+   "target": "function:tmp/run_llm.py:stream_chat",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:tmp/run_llm.py",
+   "target": "function:tmp/run_llm.py:stream_chat",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:tmp/run_llm.py",
+   "target": "function:tmp/run_llm.py:main",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:tmp/run_llm.py",
+   "target": "function:tmp/run_llm.py:main",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:src/exo/worker/tests/unittests/test_mlx/test_tp_bit_exact.py:_run",
+   "target": "function:src/exo/worker/tests/unittests/test_mlx/test_tp_bit_exact.py:_build",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:src/exo/worker/tests/unittests/test_mlx/test_tp_bit_exact.py:_ref_worker",
+   "target": "function:src/exo/worker/tests/unittests/test_mlx/test_tp_bit_exact.py:_run",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:src/exo/worker/tests/unittests/test_mlx/test_tp_bit_exact.py:_tp_worker",
+   "target": "function:src/exo/worker/tests/unittests/test_mlx/test_tp_bit_exact.py:_run",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:src/exo/worker/tests/unittests/test_mlx/test_tp_bit_exact.py:test_tp_bit_exact",
+   "target": "function:src/exo/worker/tests/unittests/test_mlx/test_tp_bit_exact.py:_run_compare",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:tests/test_dashboard.py:test_dashboard_chat_inference",
+   "target": "function:tests/test_dashboard.py:_mark_onboarding_complete",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:tmp/quantize_and_upload.py:load_and_save_quantized_model",
+   "target": "function:tmp/quantize_and_upload.py:get_model_class",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:tmp/quantize_and_upload.py:main",
+   "target": "function:tmp/quantize_and_upload.py:get_local_path",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:tmp/quantize_and_upload.py:main",
+   "target": "function:tmp/quantize_and_upload.py:get_repo_name",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:tmp/quantize_and_upload.py:main",
+   "target": "function:tmp/quantize_and_upload.py:copy_source_repo",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:tmp/quantize_and_upload.py:main",
+   "target": "function:tmp/quantize_and_upload.py:load_and_save_quantized_model",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:tmp/quantize_and_upload.py:main",
+   "target": "function:tmp/quantize_and_upload.py:copy_source_metadata",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:tmp/quantize_and_upload.py:main",
+   "target": "function:tmp/quantize_and_upload.py:upload_to_huggingface",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:tmp/quantize_and_upload.py:main",
+   "target": "function:tmp/quantize_and_upload.py:clean_local_files",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:tmp/run_llm.py:main",
+   "target": "function:tmp/run_llm.py:stream_chat",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  }
+ ]
+}

@@ -1,0 +1,562 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 20,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": "resources/inference_model_cards/mlx-community--GLM-5.1.toml",
+      "language": "toml",
+      "fileCategory": "config",
+      "totalLines": 21,
+      "nonEmptyLines": 20,
+      "sections": [
+        {
+          "heading": "storage_size",
+          "level": 1,
+          "line": 14
+        },
+        {
+          "heading": "sampling_defaults",
+          "level": 1,
+          "line": 19
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 2
+      }
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--Kimi-K2-Instruct-4bit.toml",
+      "language": "toml",
+      "fileCategory": "config",
+      "totalLines": 20,
+      "nonEmptyLines": 18,
+      "sections": [
+        {
+          "heading": "storage_size",
+          "level": 1,
+          "line": 14
+        },
+        {
+          "heading": "sampling_defaults",
+          "level": 1,
+          "line": 19
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 2
+      }
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--Kimi-K2-Thinking.toml",
+      "language": "toml",
+      "fileCategory": "config",
+      "totalLines": 20,
+      "nonEmptyLines": 19,
+      "sections": [
+        {
+          "heading": "storage_size",
+          "level": 1,
+          "line": 14
+        },
+        {
+          "heading": "sampling_defaults",
+          "level": 1,
+          "line": 19
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 2
+      }
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--Kimi-K2.5.toml",
+      "language": "toml",
+      "fileCategory": "config",
+      "totalLines": 35,
+      "nonEmptyLines": 32,
+      "sections": [
+        {
+          "heading": "storage_size",
+          "level": 1,
+          "line": 14
+        },
+        {
+          "heading": "vision",
+          "level": 1,
+          "line": 17
+        },
+        {
+          "heading": "sampling_defaults",
+          "level": 1,
+          "line": 25
+        },
+        {
+          "heading": "sampling_defaults.non_thinking",
+          "level": 2,
+          "line": 32
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 4
+      }
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--Kimi-K2.6-mlx-DQ3_K_M-q8.toml",
+      "language": "toml",
+      "fileCategory": "config",
+      "totalLines": 33,
+      "nonEmptyLines": 30,
+      "sections": [
+        {
+          "heading": "storage_size",
+          "level": 1,
+          "line": 14
+        },
+        {
+          "heading": "vision",
+          "level": 1,
+          "line": 17
+        },
+        {
+          "heading": "sampling_defaults",
+          "level": 1,
+          "line": 24
+        },
+        {
+          "heading": "sampling_defaults.non_thinking",
+          "level": 2,
+          "line": 30
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 4
+      }
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--Llama-3.1-Nemotron-70B-Instruct-HF-4bit.toml",
+      "language": "toml",
+      "fileCategory": "config",
+      "totalLines": 20,
+      "nonEmptyLines": 18,
+      "sections": [
+        {
+          "heading": "storage_size",
+          "level": 1,
+          "line": 13
+        },
+        {
+          "heading": "sampling_defaults",
+          "level": 1,
+          "line": 18
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 2
+      }
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--Llama-3.1-Nemotron-70B-Instruct-HF-8bit.toml",
+      "language": "toml",
+      "fileCategory": "config",
+      "totalLines": 20,
+      "nonEmptyLines": 18,
+      "sections": [
+        {
+          "heading": "storage_size",
+          "level": 1,
+          "line": 13
+        },
+        {
+          "heading": "sampling_defaults",
+          "level": 1,
+          "line": 18
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 2
+      }
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--Llama-3.1-Nemotron-70B-Instruct-HF-bf16.toml",
+      "language": "toml",
+      "fileCategory": "config",
+      "totalLines": 20,
+      "nonEmptyLines": 18,
+      "sections": [
+        {
+          "heading": "storage_size",
+          "level": 1,
+          "line": 13
+        },
+        {
+          "heading": "sampling_defaults",
+          "level": 1,
+          "line": 18
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 2
+      }
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--Llama-3.1-Nemotron-Nano-4B-v1.1-4bit.toml",
+      "language": "toml",
+      "fileCategory": "config",
+      "totalLines": 23,
+      "nonEmptyLines": 20,
+      "sections": [
+        {
+          "heading": "storage_size",
+          "level": 1,
+          "line": 13
+        },
+        {
+          "heading": "sampling_defaults",
+          "level": 1,
+          "line": 17
+        },
+        {
+          "heading": "sampling_defaults.non_thinking",
+          "level": 2,
+          "line": 22
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 3
+      }
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--Llama-3.1-Nemotron-Nano-4B-v1.1-8bit.toml",
+      "language": "toml",
+      "fileCategory": "config",
+      "totalLines": 23,
+      "nonEmptyLines": 20,
+      "sections": [
+        {
+          "heading": "storage_size",
+          "level": 1,
+          "line": 13
+        },
+        {
+          "heading": "sampling_defaults",
+          "level": 1,
+          "line": 17
+        },
+        {
+          "heading": "sampling_defaults.non_thinking",
+          "level": 2,
+          "line": 22
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 3
+      }
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--Llama-3.1-Nemotron-Nano-4B-v1.1-bf16.toml",
+      "language": "toml",
+      "fileCategory": "config",
+      "totalLines": 23,
+      "nonEmptyLines": 20,
+      "sections": [
+        {
+          "heading": "storage_size",
+          "level": 1,
+          "line": 13
+        },
+        {
+          "heading": "sampling_defaults",
+          "level": 1,
+          "line": 17
+        },
+        {
+          "heading": "sampling_defaults.non_thinking",
+          "level": 2,
+          "line": 22
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 3
+      }
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--Llama-3.2-1B-Instruct-4bit.toml",
+      "language": "toml",
+      "fileCategory": "config",
+      "totalLines": 21,
+      "nonEmptyLines": 19,
+      "sections": [
+        {
+          "heading": "storage_size",
+          "level": 1,
+          "line": 14
+        },
+        {
+          "heading": "sampling_defaults",
+          "level": 1,
+          "line": 19
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 2
+      }
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--Llama-3.2-3B-Instruct-4bit.toml",
+      "language": "toml",
+      "fileCategory": "config",
+      "totalLines": 21,
+      "nonEmptyLines": 19,
+      "sections": [
+        {
+          "heading": "storage_size",
+          "level": 1,
+          "line": 14
+        },
+        {
+          "heading": "sampling_defaults",
+          "level": 1,
+          "line": 19
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 2
+      }
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--Llama-3.2-3B-Instruct-8bit.toml",
+      "language": "toml",
+      "fileCategory": "config",
+      "totalLines": 21,
+      "nonEmptyLines": 19,
+      "sections": [
+        {
+          "heading": "storage_size",
+          "level": 1,
+          "line": 14
+        },
+        {
+          "heading": "sampling_defaults",
+          "level": 1,
+          "line": 19
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 2
+      }
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--Llama-3.3-70B-Instruct-4bit.toml",
+      "language": "toml",
+      "fileCategory": "config",
+      "totalLines": 21,
+      "nonEmptyLines": 19,
+      "sections": [
+        {
+          "heading": "storage_size",
+          "level": 1,
+          "line": 14
+        },
+        {
+          "heading": "sampling_defaults",
+          "level": 1,
+          "line": 19
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 2
+      }
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--Llama-3.3-70B-Instruct-8bit.toml",
+      "language": "toml",
+      "fileCategory": "config",
+      "totalLines": 21,
+      "nonEmptyLines": 19,
+      "sections": [
+        {
+          "heading": "storage_size",
+          "level": 1,
+          "line": 14
+        },
+        {
+          "heading": "sampling_defaults",
+          "level": 1,
+          "line": 19
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 2
+      }
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--Meta-Llama-3.1-70B-Instruct-4bit.toml",
+      "language": "toml",
+      "fileCategory": "config",
+      "totalLines": 21,
+      "nonEmptyLines": 19,
+      "sections": [
+        {
+          "heading": "storage_size",
+          "level": 1,
+          "line": 14
+        },
+        {
+          "heading": "sampling_defaults",
+          "level": 1,
+          "line": 19
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 2
+      }
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--Meta-Llama-3.1-8B-Instruct-4bit.toml",
+      "language": "toml",
+      "fileCategory": "config",
+      "totalLines": 21,
+      "nonEmptyLines": 19,
+      "sections": [
+        {
+          "heading": "storage_size",
+          "level": 1,
+          "line": 14
+        },
+        {
+          "heading": "sampling_defaults",
+          "level": 1,
+          "line": 19
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 2
+      }
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--Meta-Llama-3.1-8B-Instruct-8bit.toml",
+      "language": "toml",
+      "fileCategory": "config",
+      "totalLines": 21,
+      "nonEmptyLines": 19,
+      "sections": [
+        {
+          "heading": "storage_size",
+          "level": 1,
+          "line": 14
+        },
+        {
+          "heading": "sampling_defaults",
+          "level": 1,
+          "line": 19
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 2
+      }
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--Meta-Llama-3.1-8B-Instruct-bf16.toml",
+      "language": "toml",
+      "fileCategory": "config",
+      "totalLines": 21,
+      "nonEmptyLines": 19,
+      "sections": [
+        {
+          "heading": "storage_size",
+          "level": 1,
+          "line": 14
+        },
+        {
+          "heading": "sampling_defaults",
+          "level": 1,
+          "line": 19
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 2
+      }
+    }
+  ]
+}

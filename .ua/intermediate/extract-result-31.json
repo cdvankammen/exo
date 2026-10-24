@@ -1,0 +1,347 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 25,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": "dashboard/dashboard.nix",
+      "language": "nix",
+      "fileCategory": "code",
+      "totalLines": 60,
+      "nonEmptyLines": 52,
+      "metrics": {}
+    },
+    {
+      "path": "dashboard/exo-logo-hq-square-black-bg.webp",
+      "language": "webp",
+      "fileCategory": "code",
+      "totalLines": 19,
+      "nonEmptyLines": 19,
+      "metrics": {}
+    },
+    {
+      "path": "dashboard/package.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 38,
+      "nonEmptyLines": 38,
+      "sections": [
+        {
+          "heading": "name",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "private",
+          "level": 1,
+          "line": 3
+        },
+        {
+          "heading": "version",
+          "level": 1,
+          "line": 4
+        },
+        {
+          "heading": "type",
+          "level": 1,
+          "line": 5
+        },
+        {
+          "heading": "scripts",
+          "level": 1,
+          "line": 6
+        },
+        {
+          "heading": "devDependencies",
+          "level": 1,
+          "line": 13
+        },
+        {
+          "heading": "dependencies",
+          "level": 1,
+          "line": 30
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 7
+      }
+    },
+    {
+      "path": "dashboard/parts.nix",
+      "language": "nix",
+      "fileCategory": "code",
+      "totalLines": 109,
+      "nonEmptyLines": 104,
+      "metrics": {}
+    },
+    {
+      "path": "dashboard/src/app.css",
+      "language": "css",
+      "fileCategory": "markup",
+      "totalLines": 387,
+      "nonEmptyLines": 349,
+      "metrics": {}
+    },
+    {
+      "path": "dashboard/src/app.d.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 13,
+      "nonEmptyLines": 12,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "dashboard/src/app.html",
+      "language": "html",
+      "fileCategory": "markup",
+      "totalLines": 20,
+      "nonEmptyLines": 19,
+      "metrics": {}
+    },
+    {
+      "path": "dashboard/src/lib/components/ChatAttachments.svelte",
+      "language": "svelte",
+      "fileCategory": "code",
+      "totalLines": 94,
+      "nonEmptyLines": 87,
+      "metrics": {}
+    },
+    {
+      "path": "dashboard/src/lib/components/ChatForm.svelte",
+      "language": "svelte",
+      "fileCategory": "code",
+      "totalLines": 751,
+      "nonEmptyLines": 698,
+      "metrics": {}
+    },
+    {
+      "path": "dashboard/src/lib/components/ChatMessages.svelte",
+      "language": "svelte",
+      "fileCategory": "code",
+      "totalLines": 881,
+      "nonEmptyLines": 830,
+      "metrics": {}
+    },
+    {
+      "path": "dashboard/src/lib/components/ChatModelSelector.svelte",
+      "language": "svelte",
+      "fileCategory": "code",
+      "totalLines": 404,
+      "nonEmptyLines": 378,
+      "metrics": {}
+    },
+    {
+      "path": "dashboard/src/lib/components/ChatSidebar.svelte",
+      "language": "svelte",
+      "fileCategory": "code",
+      "totalLines": 628,
+      "nonEmptyLines": 588,
+      "metrics": {}
+    },
+    {
+      "path": "dashboard/src/lib/components/ConnectionBanner.svelte",
+      "language": "svelte",
+      "fileCategory": "code",
+      "totalLines": 20,
+      "nonEmptyLines": 18,
+      "metrics": {}
+    },
+    {
+      "path": "dashboard/src/lib/components/DeviceIcon.svelte",
+      "language": "svelte",
+      "fileCategory": "code",
+      "totalLines": 277,
+      "nonEmptyLines": 248,
+      "metrics": {}
+    },
+    {
+      "path": "dashboard/src/lib/components/EjectButton.svelte",
+      "language": "svelte",
+      "fileCategory": "code",
+      "totalLines": 62,
+      "nonEmptyLines": 55,
+      "metrics": {}
+    },
+    {
+      "path": "dashboard/src/lib/components/FamilyLogos.svelte",
+      "language": "svelte",
+      "fileCategory": "code",
+      "totalLines": 109,
+      "nonEmptyLines": 107,
+      "metrics": {}
+    },
+    {
+      "path": "dashboard/src/lib/components/FamilySidebar.svelte",
+      "language": "svelte",
+      "fileCategory": "code",
+      "totalLines": 196,
+      "nonEmptyLines": 185,
+      "metrics": {}
+    },
+    {
+      "path": "dashboard/src/lib/components/HeaderNav.svelte",
+      "language": "svelte",
+      "fileCategory": "code",
+      "totalLines": 365,
+      "nonEmptyLines": 355,
+      "metrics": {}
+    },
+    {
+      "path": "dashboard/src/lib/components/HuggingFaceResultItem.svelte",
+      "language": "svelte",
+      "fileCategory": "code",
+      "totalLines": 156,
+      "nonEmptyLines": 150,
+      "metrics": {}
+    },
+    {
+      "path": "dashboard/src/lib/components/ImageLightbox.svelte",
+      "language": "svelte",
+      "fileCategory": "code",
+      "totalLines": 96,
+      "nonEmptyLines": 87,
+      "metrics": {}
+    },
+    {
+      "path": "dashboard/src/lib/components/ImageParamsPanel.svelte",
+      "language": "svelte",
+      "fileCategory": "code",
+      "totalLines": 695,
+      "nonEmptyLines": 644,
+      "metrics": {}
+    },
+    {
+      "path": "dashboard/src/lib/components/index.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 17,
+      "nonEmptyLines": 17,
+      "exports": [
+        {
+          "name": "TopologyGraph",
+          "line": 1,
+          "isDefault": false
+        },
+        {
+          "name": "ChatForm",
+          "line": 2,
+          "isDefault": false
+        },
+        {
+          "name": "ChatMessages",
+          "line": 3,
+          "isDefault": false
+        },
+        {
+          "name": "ChatAttachments",
+          "line": 4,
+          "isDefault": false
+        },
+        {
+          "name": "ChatSidebar",
+          "line": 5,
+          "isDefault": false
+        },
+        {
+          "name": "ModelCard",
+          "line": 6,
+          "isDefault": false
+        },
+        {
+          "name": "MarkdownContent",
+          "line": 7,
+          "isDefault": false
+        },
+        {
+          "name": "ImageParamsPanel",
+          "line": 8,
+          "isDefault": false
+        },
+        {
+          "name": "FamilyLogos",
+          "line": 9,
+          "isDefault": false
+        },
+        {
+          "name": "FamilySidebar",
+          "line": 10,
+          "isDefault": false
+        },
+        {
+          "name": "HuggingFaceResultItem",
+          "line": 11,
+          "isDefault": false
+        },
+        {
+          "name": "ModelFilterPopover",
+          "line": 12,
+          "isDefault": false
+        },
+        {
+          "name": "ModelPickerGroup",
+          "line": 13,
+          "isDefault": false
+        },
+        {
+          "name": "ModelPickerModal",
+          "line": 14,
+          "isDefault": false
+        },
+        {
+          "name": "ChatModelSelector",
+          "line": 15,
+          "isDefault": false
+        },
+        {
+          "name": "IntegrationCard",
+          "line": 16,
+          "isDefault": false
+        },
+        {
+          "name": "EjectButton",
+          "line": 17,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 17,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "dashboard/src/lib/components/IntegrationCard.svelte",
+      "language": "svelte",
+      "fileCategory": "code",
+      "totalLines": 62,
+      "nonEmptyLines": 57,
+      "metrics": {}
+    },
+    {
+      "path": "dashboard/src/lib/components/MarkdownContent.svelte",
+      "language": "svelte",
+      "fileCategory": "code",
+      "totalLines": 1074,
+      "nonEmptyLines": 944,
+      "metrics": {}
+    },
+    {
+      "path": "dashboard/src/lib/components/ModelCard.svelte",
+      "language": "svelte",
+      "fileCategory": "code",
+      "totalLines": 1097,
+      "nonEmptyLines": 1034,
+      "metrics": {}
+    }
+  ]
+}

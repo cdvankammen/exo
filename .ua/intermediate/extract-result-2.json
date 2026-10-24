@@ -1,0 +1,855 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 10,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": "AGENTS.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 203,
+      "nonEmptyLines": 154,
+      "sections": [
+        {
+          "heading": "AGENTS.md",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "Project Overview",
+          "level": 2,
+          "line": 5
+        },
+        {
+          "heading": "Build & Run Commands",
+          "level": 2,
+          "line": 9
+        },
+        {
+          "heading": "Pre-Commit Checks (REQUIRED)",
+          "level": 2,
+          "line": 43
+        },
+        {
+          "heading": "Architecture",
+          "level": 2,
+          "line": 68
+        },
+        {
+          "heading": "Node Composition",
+          "level": 3,
+          "line": 70
+        },
+        {
+          "heading": "Message Flow",
+          "level": 3,
+          "line": 78
+        },
+        {
+          "heading": "Event Sourcing",
+          "level": 3,
+          "line": 86
+        },
+        {
+          "heading": "Key Type Hierarchy",
+          "level": 3,
+          "line": 92
+        },
+        {
+          "heading": "Rust Components",
+          "level": 3,
+          "line": 99
+        },
+        {
+          "heading": "Dashboard",
+          "level": 3,
+          "line": 105
+        },
+        {
+          "heading": "Code Style Requirements",
+          "level": 2,
+          "line": 108
+        },
+        {
+          "heading": "Testing",
+          "level": 2,
+          "line": 119
+        },
+        {
+          "heading": "Dashboard UI Testing & Screenshots",
+          "level": 2,
+          "line": 123
+        },
+        {
+          "heading": "Building and Running the Dashboard",
+          "level": 3,
+          "line": 125
+        },
+        {
+          "heading": "Taking Headless Screenshots with Playwright",
+          "level": 3,
+          "line": 135
+        },
+        {
+          "heading": "Uploading Images to GitHub PRs",
+          "level": 3,
+          "line": 173
+        },
+        {
+          "heading": "Agent Skills",
+          "level": 2,
+          "line": 199
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 18
+      }
+    },
+    {
+      "path": "CLAUDE.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 203,
+      "nonEmptyLines": 154,
+      "sections": [
+        {
+          "heading": "AGENTS.md",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "Project Overview",
+          "level": 2,
+          "line": 5
+        },
+        {
+          "heading": "Build & Run Commands",
+          "level": 2,
+          "line": 9
+        },
+        {
+          "heading": "Pre-Commit Checks (REQUIRED)",
+          "level": 2,
+          "line": 43
+        },
+        {
+          "heading": "Architecture",
+          "level": 2,
+          "line": 68
+        },
+        {
+          "heading": "Node Composition",
+          "level": 3,
+          "line": 70
+        },
+        {
+          "heading": "Message Flow",
+          "level": 3,
+          "line": 78
+        },
+        {
+          "heading": "Event Sourcing",
+          "level": 3,
+          "line": 86
+        },
+        {
+          "heading": "Key Type Hierarchy",
+          "level": 3,
+          "line": 92
+        },
+        {
+          "heading": "Rust Components",
+          "level": 3,
+          "line": 99
+        },
+        {
+          "heading": "Dashboard",
+          "level": 3,
+          "line": 105
+        },
+        {
+          "heading": "Code Style Requirements",
+          "level": 2,
+          "line": 108
+        },
+        {
+          "heading": "Testing",
+          "level": 2,
+          "line": 119
+        },
+        {
+          "heading": "Dashboard UI Testing & Screenshots",
+          "level": 2,
+          "line": 123
+        },
+        {
+          "heading": "Building and Running the Dashboard",
+          "level": 3,
+          "line": 125
+        },
+        {
+          "heading": "Taking Headless Screenshots with Playwright",
+          "level": 3,
+          "line": 135
+        },
+        {
+          "heading": "Uploading Images to GitHub PRs",
+          "level": 3,
+          "line": 173
+        },
+        {
+          "heading": "Agent Skills",
+          "level": 2,
+          "line": 199
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 18
+      }
+    },
+    {
+      "path": "CONTRIBUTING.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 188,
+      "nonEmptyLines": 142,
+      "sections": [
+        {
+          "heading": "Contributing to EXO",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "Getting Started",
+          "level": 2,
+          "line": 5
+        },
+        {
+          "heading": "Development",
+          "level": 2,
+          "line": 36
+        },
+        {
+          "heading": "Code Style",
+          "level": 2,
+          "line": 46
+        },
+        {
+          "heading": "Model Cards",
+          "level": 2,
+          "line": 52
+        },
+        {
+          "heading": "Adding a Model Card",
+          "level": 3,
+          "line": 59
+        },
+        {
+          "heading": "Required Fields",
+          "level": 3,
+          "line": 78
+        },
+        {
+          "heading": "Optional Fields",
+          "level": 3,
+          "line": 90
+        },
+        {
+          "heading": "Capabilities",
+          "level": 3,
+          "line": 96
+        },
+        {
+          "heading": "Security Note",
+          "level": 3,
+          "line": 104
+        },
+        {
+          "heading": "API Adapters",
+          "level": 2,
+          "line": 108
+        },
+        {
+          "heading": "Adapter Architecture",
+          "level": 3,
+          "line": 112
+        },
+        {
+          "heading": "Existing Adapters",
+          "level": 3,
+          "line": 121
+        },
+        {
+          "heading": "Adding a New API Adapter",
+          "level": 3,
+          "line": 128
+        },
+        {
+          "heading": "Testing",
+          "level": 2,
+          "line": 165
+        },
+        {
+          "heading": "Submitting Changes",
+          "level": 2,
+          "line": 169
+        },
+        {
+          "heading": "Reporting Issues",
+          "level": 2,
+          "line": 177
+        },
+        {
+          "heading": "Questions?",
+          "level": 2,
+          "line": 185
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 18
+      }
+    },
+    {
+      "path": "Cargo.toml",
+      "language": "toml",
+      "fileCategory": "config",
+      "totalLines": 174,
+      "nonEmptyLines": 160,
+      "sections": [
+        {
+          "heading": "workspace",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "workspace.package",
+          "level": 2,
+          "line": 5
+        },
+        {
+          "heading": "profile.dev",
+          "level": 2,
+          "line": 9
+        },
+        {
+          "heading": "profile.release",
+          "level": 2,
+          "line": 13
+        },
+        {
+          "heading": "workspace.dependencies",
+          "level": 2,
+          "line": 20
+        },
+        {
+          "heading": "patch.crates-io",
+          "level": 2,
+          "line": 62
+        },
+        {
+          "heading": "workspace.lints.rust",
+          "level": 3,
+          "line": 91
+        },
+        {
+          "heading": "workspace.lints.clippy",
+          "level": 3,
+          "line": 104
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 8
+      }
+    },
+    {
+      "path": "PLATFORMS.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 38,
+      "nonEmptyLines": 21,
+      "sections": [
+        {
+          "heading": "EXO Platform support (partial roadmap)",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "Tier 1 support - tested and maintained",
+          "level": 2,
+          "line": 3
+        },
+        {
+          "heading": "Tier 2 support - checked occasionally, should run without crashing",
+          "level": 2,
+          "line": 10
+        },
+        {
+          "heading": "Tier 3 support - minimal support and testing, but no theoretical reason it shouldnt work",
+          "level": 2,
+          "line": 13
+        },
+        {
+          "heading": "Planned",
+          "level": 1,
+          "line": 16
+        },
+        {
+          "heading": "Tier 1",
+          "level": 2,
+          "line": 18
+        },
+        {
+          "heading": "Tier 2",
+          "level": 2,
+          "line": 25
+        },
+        {
+          "heading": "Longer term!",
+          "level": 2,
+          "line": 33
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 8
+      }
+    },
+    {
+      "path": "README.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 722,
+      "nonEmptyLines": 513,
+      "sections": [
+        {
+          "heading": "Features",
+          "level": 2,
+          "line": 22
+        },
+        {
+          "heading": "Dashboard",
+          "level": 2,
+          "line": 32
+        },
+        {
+          "heading": "Benchmarks",
+          "level": 2,
+          "line": 41
+        },
+        {
+          "heading": "Quick Start",
+          "level": 2,
+          "line": 69
+        },
+        {
+          "heading": "Run from Source (macOS)",
+          "level": 3,
+          "line": 75
+        },
+        {
+          "heading": "Run from Source (Linux)",
+          "level": 3,
+          "line": 143
+        },
+        {
+          "heading": "macOS App",
+          "level": 3,
+          "line": 243
+        },
+        {
+          "heading": "Uninstalling the macOS App",
+          "level": 4,
+          "line": 274
+        },
+        {
+          "heading": "Enabling RDMA on macOS",
+          "level": 3,
+          "line": 294
+        },
+        {
+          "heading": "Environment Variables",
+          "level": 2,
+          "line": 325
+        },
+        {
+          "heading": "Using the API",
+          "level": 3,
+          "line": 361
+        },
+        {
+          "heading": "Claude Messages API Compatibility",
+          "level": 3,
+          "line": 471
+        },
+        {
+          "heading": "OpenAI Responses API Compatibility",
+          "level": 3,
+          "line": 488
+        },
+        {
+          "heading": "Ollama API Compatibility",
+          "level": 3,
+          "line": 504
+        },
+        {
+          "heading": "Custom Model Loading from HuggingFace",
+          "level": 3,
+          "line": 524
+        },
+        {
+          "heading": "Benchmarking",
+          "level": 2,
+          "line": 554
+        },
+        {
+          "heading": "Hardware Accelerator Support",
+          "level": 2,
+          "line": 600
+        },
+        {
+          "heading": "Contributing",
+          "level": 2,
+          "line": 606
+        },
+        {
+          "heading": "Building the macOS App (from this repo)",
+          "level": 2,
+          "line": 612
+        },
+        {
+          "heading": "⚡ The Easy Steps (just work)",
+          "level": 3,
+          "line": 616
+        },
+        {
+          "heading": "🧱 The Detailed Build Process (how it actually works)",
+          "level": 3,
+          "line": 663
+        },
+        {
+          "heading": "Why these steps exist",
+          "level": 4,
+          "line": 665
+        },
+        {
+          "heading": "Step-by-step explanation",
+          "level": 4,
+          "line": 674
+        },
+        {
+          "heading": "Gotchas we hit (real, from this build)",
+          "level": 4,
+          "line": 687
+        },
+        {
+          "heading": "Why the dashboard sometimes looks \"old\" even after rebuild",
+          "level": 4,
+          "line": 708
+        },
+        {
+          "heading": "Dev mode (no rebuild needed for UI work)",
+          "level": 4,
+          "line": 712
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 26
+      }
+    },
+    {
+      "path": "RULES.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 84,
+      "nonEmptyLines": 62,
+      "sections": [
+        {
+          "heading": "Repository Rules",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "General Rules",
+          "level": 2,
+          "line": 7
+        },
+        {
+          "heading": "State, Functions and Classes",
+          "level": 2,
+          "line": 18
+        },
+        {
+          "heading": "Pydantic",
+          "level": 2,
+          "line": 26
+        },
+        {
+          "heading": "Unique ID (UUID) Generation",
+          "level": 2,
+          "line": 33
+        },
+        {
+          "heading": "Type Wrappers",
+          "level": 2,
+          "line": 41
+        },
+        {
+          "heading": "Type Discipline",
+          "level": 2,
+          "line": 48
+        },
+        {
+          "heading": "Use of `@final`, Freezing",
+          "level": 2,
+          "line": 55
+        },
+        {
+          "heading": "Error Handling",
+          "level": 2,
+          "line": 59
+        },
+        {
+          "heading": "Dependencies",
+          "level": 2,
+          "line": 66
+        },
+        {
+          "heading": "Commit Messages",
+          "level": 2,
+          "line": 71
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 11
+      }
+    },
+    {
+      "path": "SETUP-LOCAL.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 258,
+      "nonEmptyLines": 192,
+      "sections": [
+        {
+          "heading": "Local Setup: Linux + NVIDIA GPU (exo)",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "Prerequisites",
+          "level": 2,
+          "line": 9
+        },
+        {
+          "heading": "Step 1: Fix Driver/Library Version Mismatch",
+          "level": 2,
+          "line": 28
+        },
+        {
+          "heading": "Step 2: Install CUDA Toolchain for Your GPU Architecture",
+          "level": 2,
+          "line": 76
+        },
+        {
+          "heading": "Step 3: Install MLX Wheels (Two-Package Trap)",
+          "level": 2,
+          "line": 126
+        },
+        {
+          "heading": "Step 4: Fix torch Resolution (uv.lock Marker Bug)",
+          "level": 2,
+          "line": 159
+        },
+        {
+          "heading": "Step 5: Sanity Checks",
+          "level": 2,
+          "line": 185
+        },
+        {
+          "heading": "Step 6: Start exo",
+          "level": 2,
+          "line": 211
+        },
+        {
+          "heading": "Proxmox VM Notes",
+          "level": 2,
+          "line": 223
+        },
+        {
+          "heading": "Multi-Node Notes (Linux Box in Cluster)",
+          "level": 2,
+          "line": 235
+        },
+        {
+          "heading": "Reference: Known Working Configuration",
+          "level": 2,
+          "line": 247
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 11
+      }
+    },
+    {
+      "path": "TODO.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 13,
+      "nonEmptyLines": 12,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 0
+      }
+    },
+    {
+      "path": "pyproject.toml",
+      "language": "toml",
+      "fileCategory": "config",
+      "totalLines": 254,
+      "nonEmptyLines": 227,
+      "sections": [
+        {
+          "heading": "project",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "project.scripts",
+          "level": 2,
+          "line": 32
+        },
+        {
+          "heading": "dependency-groups",
+          "level": 1,
+          "line": 36
+        },
+        {
+          "heading": "project.optional-dependencies",
+          "level": 2,
+          "line": 47
+        },
+        {
+          "heading": "tool.uv.workspace",
+          "level": 3,
+          "line": 78
+        },
+        {
+          "heading": "tool.uv.sources",
+          "level": 3,
+          "line": 81
+        },
+        {
+          "heading": "[[tool.uv.index]]",
+          "level": 3,
+          "line": 114
+        },
+        {
+          "heading": "[[tool.uv.index]]",
+          "level": 3,
+          "line": 119
+        },
+        {
+          "heading": "[[tool.uv.index]]",
+          "level": 3,
+          "line": 124
+        },
+        {
+          "heading": "build-system",
+          "level": 1,
+          "line": 129
+        },
+        {
+          "heading": "tool.basedpyright",
+          "level": 2,
+          "line": 137
+        },
+        {
+          "heading": "[[tool.basedpyright.executionEnvironments]]",
+          "level": 3,
+          "line": 165
+        },
+        {
+          "heading": "[[tool.basedpyright.executionEnvironments]]",
+          "level": 3,
+          "line": 169
+        },
+        {
+          "heading": "[[tool.basedpyright.executionEnvironments]]",
+          "level": 3,
+          "line": 172
+        },
+        {
+          "heading": "[[tool.basedpyright.executionEnvironments]]",
+          "level": 3,
+          "line": 176
+        },
+        {
+          "heading": "tool.uv",
+          "level": 2,
+          "line": 185
+        },
+        {
+          "heading": "tool.uv.extra-build-dependencies",
+          "level": 3,
+          "line": 199
+        },
+        {
+          "heading": "tool.ruff",
+          "level": 2,
+          "line": 242
+        },
+        {
+          "heading": "tool.ruff.lint",
+          "level": 3,
+          "line": 245
+        },
+        {
+          "heading": "tool.pytest.ini_options",
+          "level": 3,
+          "line": 248
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 20
+      }
+    }
+  ]
+}

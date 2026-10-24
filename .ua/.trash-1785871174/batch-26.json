@@ -1,0 +1,60 @@
+{
+ "nodes": [
+  {
+   "id": "document:tmp/prompt.txt",
+   "type": "document",
+   "name": "prompt.txt",
+   "filePath": "tmp/prompt.txt",
+   "summary": "Documentation file tmp/prompt.txt.",
+   "tags": [
+    "documentation"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:tmp/run_exo_on.sh",
+   "type": "file",
+   "name": "run_exo_on.sh",
+   "filePath": "tmp/run_exo_on.sh",
+   "summary": "Defines 1 function(s) and 0 class(es) for tmp/run_exo_on.sh.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:tmp/run_llm.sh",
+   "type": "file",
+   "name": "run_llm.sh",
+   "filePath": "tmp/run_llm.sh",
+   "summary": "run_llm.sh \u2014 script file in the exo project.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:tmp/set_rdma_network_config.sh",
+   "type": "file",
+   "name": "set_rdma_network_config.sh",
+   "filePath": "tmp/set_rdma_network_config.sh",
+   "summary": "set_rdma_network_config.sh \u2014 script file in the exo project.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:tmp/test_trust_remote_code_attack.sh",
+   "type": "file",
+   "name": "test_trust_remote_code_attack.sh",
+   "filePath": "tmp/test_trust_remote_code_attack.sh",
+   "summary": "test_trust_remote_code_attack.sh \u2014 script file in the exo project.",
+   "tags": [
+    "test"
+   ],
+   "complexity": "moderate"
+  }
+ ],
+ "edges": []
+}

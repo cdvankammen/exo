@@ -1,0 +1,39 @@
+{
+ "projectRoot": "/Users/chris/Documents/GitHub/exo",
+ "batchFiles": [
+  {
+   "path": "rust/exo_rs/src/allow_threading.rs",
+   "language": "rust",
+   "sizeLines": 37,
+   "fileCategory": "code"
+  },
+  {
+   "path": "rust/exo_rs/src/lib.rs",
+   "language": "rust",
+   "sizeLines": 170,
+   "fileCategory": "code"
+  },
+  {
+   "path": "rust/exo_rs/src/networking.rs",
+   "language": "rust",
+   "sizeLines": 197,
+   "fileCategory": "code"
+  },
+  {
+   "path": "rust/exo_rs/src/pidfile.rs",
+   "language": "rust",
+   "sizeLines": 128,
+   "fileCategory": "code"
+  }
+ ],
+ "batchImportData": {
+  "rust/exo_rs/src/allow_threading.rs": [],
+  "rust/exo_rs/src/lib.rs": [
+   "rust/exo_rs/src/allow_threading.rs",
+   "rust/exo_rs/src/networking.rs",
+   "rust/exo_rs/src/pidfile.rs"
+  ],
+  "rust/exo_rs/src/networking.rs": [],
+  "rust/exo_rs/src/pidfile.rs": []
+ }
+}

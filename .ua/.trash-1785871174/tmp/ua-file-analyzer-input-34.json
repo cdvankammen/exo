@@ -1,0 +1,182 @@
+{
+ "projectRoot": "/Users/chris/Documents/GitHub/exo",
+ "batchFiles": [
+  {
+   "path": ".typings/mflux/models/flux/weights/__init__.pyi",
+   "language": "python",
+   "sizeLines": 8,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".typings/mflux/models/flux/weights/flux_lora_mapping.pyi",
+   "language": "python",
+   "sizeLines": 9,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".typings/mflux/models/flux/weights/flux_weight_definition.pyi",
+   "language": "python",
+   "sizeLines": 45,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".typings/mflux/models/flux/weights/flux_weight_mapping.pyi",
+   "language": "python",
+   "sizeLines": 21,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".typings/mflux/models/qwen/__init__.pyi",
+   "language": "python",
+   "sizeLines": 3,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".typings/mflux/models/qwen/cli/__init__.pyi",
+   "language": "python",
+   "sizeLines": 3,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".typings/mflux/models/qwen/latent_creator/__init__.pyi",
+   "language": "python",
+   "sizeLines": 7,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".typings/mflux/models/qwen/latent_creator/qwen_latent_creator.pyi",
+   "language": "python",
+   "sizeLines": 19,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".typings/mflux/models/qwen/model/__init__.pyi",
+   "language": "python",
+   "sizeLines": 7,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".typings/mflux/models/qwen/model/qwen_text_encoder/qwen_attention.pyi",
+   "language": "python",
+   "sizeLines": 23,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".typings/mflux/models/qwen/model/qwen_text_encoder/qwen_encoder.pyi",
+   "language": "python",
+   "sizeLines": 26,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".typings/mflux/models/qwen/model/qwen_text_encoder/qwen_encoder_layer.pyi",
+   "language": "python",
+   "sizeLines": 24,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".typings/mflux/models/qwen/model/qwen_text_encoder/qwen_mlp.pyi",
+   "language": "python",
+   "sizeLines": 10,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".typings/mflux/models/qwen/model/qwen_text_encoder/qwen_patch_merger.pyi",
+   "language": "python",
+   "sizeLines": 12,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".typings/mflux/models/qwen/model/qwen_text_encoder/qwen_prompt_encoder.pyi",
+   "language": "python",
+   "sizeLines": 21,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".typings/mflux/models/qwen/model/qwen_text_encoder/qwen_rms_norm.pyi",
+   "language": "python",
+   "sizeLines": 10,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".typings/mflux/models/qwen/model/qwen_text_encoder/qwen_rope.pyi",
+   "language": "python",
+   "sizeLines": 21,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".typings/mflux/models/qwen/model/qwen_text_encoder/qwen_text_encoder.pyi",
+   "language": "python",
+   "sizeLines": 16,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".typings/mflux/models/qwen/model/qwen_text_encoder/qwen_vision_attention.pyi",
+   "language": "python",
+   "sizeLines": 12,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".typings/mflux/models/qwen/model/qwen_text_encoder/qwen_vision_block.pyi",
+   "language": "python",
+   "sizeLines": 14,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".typings/mflux/models/qwen/model/qwen_text_encoder/qwen_vision_language_encoder.pyi",
+   "language": "python",
+   "sizeLines": 16,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".typings/mflux/models/qwen/model/qwen_text_encoder/qwen_vision_mlp.pyi",
+   "language": "python",
+   "sizeLines": 10,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".typings/mflux/models/qwen/model/qwen_text_encoder/qwen_vision_patch_embed.pyi",
+   "language": "python",
+   "sizeLines": 16,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".typings/mflux/models/qwen/model/qwen_text_encoder/qwen_vision_rotary_embedding.pyi",
+   "language": "python",
+   "sizeLines": 10,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".typings/mflux/models/qwen/model/qwen_text_encoder/qwen_vision_transformer.pyi",
+   "language": "python",
+   "sizeLines": 26,
+   "fileCategory": "code"
+  }
+ ],
+ "batchImportData": {
+  ".typings/mflux/models/flux/weights/__init__.pyi": [],
+  ".typings/mflux/models/flux/weights/flux_lora_mapping.pyi": [],
+  ".typings/mflux/models/flux/weights/flux_weight_definition.pyi": [],
+  ".typings/mflux/models/flux/weights/flux_weight_mapping.pyi": [],
+  ".typings/mflux/models/qwen/__init__.pyi": [],
+  ".typings/mflux/models/qwen/cli/__init__.pyi": [],
+  ".typings/mflux/models/qwen/latent_creator/__init__.pyi": [],
+  ".typings/mflux/models/qwen/latent_creator/qwen_latent_creator.pyi": [],
+  ".typings/mflux/models/qwen/model/__init__.pyi": [],
+  ".typings/mflux/models/qwen/model/qwen_text_encoder/qwen_attention.pyi": [],
+  ".typings/mflux/models/qwen/model/qwen_text_encoder/qwen_encoder.pyi": [],
+  ".typings/mflux/models/qwen/model/qwen_text_encoder/qwen_encoder_layer.pyi": [],
+  ".typings/mflux/models/qwen/model/qwen_text_encoder/qwen_mlp.pyi": [],
+  ".typings/mflux/models/qwen/model/qwen_text_encoder/qwen_patch_merger.pyi": [],
+  ".typings/mflux/models/qwen/model/qwen_text_encoder/qwen_prompt_encoder.pyi": [],
+  ".typings/mflux/models/qwen/model/qwen_text_encoder/qwen_rms_norm.pyi": [],
+  ".typings/mflux/models/qwen/model/qwen_text_encoder/qwen_rope.pyi": [],
+  ".typings/mflux/models/qwen/model/qwen_text_encoder/qwen_text_encoder.pyi": [],
+  ".typings/mflux/models/qwen/model/qwen_text_encoder/qwen_vision_attention.pyi": [],
+  ".typings/mflux/models/qwen/model/qwen_text_encoder/qwen_vision_block.pyi": [],
+  ".typings/mflux/models/qwen/model/qwen_text_encoder/qwen_vision_language_encoder.pyi": [],
+  ".typings/mflux/models/qwen/model/qwen_text_encoder/qwen_vision_mlp.pyi": [],
+  ".typings/mflux/models/qwen/model/qwen_text_encoder/qwen_vision_patch_embed.pyi": [],
+  ".typings/mflux/models/qwen/model/qwen_text_encoder/qwen_vision_rotary_embedding.pyi": [],
+  ".typings/mflux/models/qwen/model/qwen_text_encoder/qwen_vision_transformer.pyi": []
+ }
+}

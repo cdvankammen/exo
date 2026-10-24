@@ -24,6 +24,7 @@ from anyio.streams.memory import (
 from anyio.streams.memory import (
     MemoryObjectSendStream as AnyioSender,
 )
+import time
 try:
     from anyio.streams.memory import (
         MemoryObjectStreamState,
@@ -283,6 +284,19 @@ class MpSender[T]:
         self._state.buffer.close()
 
     # == unique to Mp channels ==
+    def flush(self, timeout: float = 5.0) -> None:
+        """Ensure all buffered items in the multiprocessing queue have been written to the underlying OS pipe by the feeder thread.
+
+        This prevents race conditions where the calling thread enters a GIL-holding blocking call
+        (e.g., C++ MLX distributed.init) before the Python feeder thread can write queued messages.
+        """
+        buf = getattr(self._state.buffer, "_buffer", None)
+        if buf is None:
+            return
+        deadline = time.time() + timeout
+        while len(buf) > 0 and time.time() < deadline:
+            time.sleep(0.002)
+
     def join(self) -> None:
         """Ensure any queued messages are resolved before continuing"""
         assert self._state.closed.is_set(), (

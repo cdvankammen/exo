@@ -1,0 +1,306 @@
+{
+  "projectRoot": "/Users/chris/Documents/GitHub/exo",
+  "batchFiles": [
+    {
+      "path": "src/exo/shared/constants.py",
+      "language": "python",
+      "sizeLines": 108,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/shared/tests/test_node_id_persistence.py",
+      "language": "python",
+      "sizeLines": 93,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/shared/tracing.py",
+      "language": "python",
+      "sizeLines": 238,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/utils/banner.py",
+      "language": "python",
+      "sizeLines": 62,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/utils/dashboard_path.py",
+      "language": "python",
+      "sizeLines": 59,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/engines/image/__init__.py",
+      "language": "python",
+      "sizeLines": 16,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/engines/image/builder.py",
+      "language": "python",
+      "sizeLines": 224,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/engines/image/config.py",
+      "language": "python",
+      "sizeLines": 46,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/engines/image/distributed_model.py",
+      "language": "python",
+      "sizeLines": 170,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/engines/image/generate.py",
+      "language": "python",
+      "sizeLines": 235,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/engines/image/models/__init__.py",
+      "language": "python",
+      "sizeLines": 92,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/engines/image/models/base.py",
+      "language": "python",
+      "sizeLines": 329,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/engines/image/models/flux/__init__.py",
+      "language": "python",
+      "sizeLines": 17,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/engines/image/models/flux/adapter.py",
+      "language": "python",
+      "sizeLines": 225,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/engines/image/models/flux/config.py",
+      "language": "python",
+      "sizeLines": 50,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/engines/image/models/flux/kontext_adapter.py",
+      "language": "python",
+      "sizeLines": 348,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/engines/image/models/flux/wrappers.py",
+      "language": "python",
+      "sizeLines": 279,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/engines/image/models/qwen/__init__.py",
+      "language": "python",
+      "sizeLines": 13,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/engines/image/models/qwen/adapter.py",
+      "language": "python",
+      "sizeLines": 314,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/engines/image/models/qwen/config.py",
+      "language": "python",
+      "sizeLines": 29,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/engines/image/models/qwen/edit_adapter.py",
+      "language": "python",
+      "sizeLines": 456,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/engines/image/models/qwen/wrappers.py",
+      "language": "python",
+      "sizeLines": 200,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/engines/image/pipeline/__init__.py",
+      "language": "python",
+      "sizeLines": 15,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/engines/image/pipeline/block_wrapper.py",
+      "language": "python",
+      "sizeLines": 303,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/engines/image/pipeline/kv_cache.py",
+      "language": "python",
+      "sizeLines": 72,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/engines/image/pipeline/runner.py",
+      "language": "python",
+      "sizeLines": 1285,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/tests/unittests/test_image/test_cancellation.py",
+      "language": "python",
+      "sizeLines": 433,
+      "fileCategory": "code"
+    }
+  ],
+  "batchImportData": {
+    "src/exo/shared/constants.py": [
+      "src/exo/utils/dashboard_path.py"
+    ],
+    "src/exo/shared/tests/test_node_id_persistence.py": [
+      "src/exo/routing/router.py",
+      "src/exo/shared/constants.py"
+    ],
+    "src/exo/shared/tracing.py": [
+      "src/exo/shared/constants.py",
+      "src/exo/worker/runner/bootstrap.py"
+    ],
+    "src/exo/utils/banner.py": [
+      "src/exo/shared/constants.py"
+    ],
+    "src/exo/utils/dashboard_path.py": [],
+    "src/exo/worker/engines/image/__init__.py": [
+      "src/exo/worker/engines/image/builder.py",
+      "src/exo/worker/engines/image/distributed_model.py",
+      "src/exo/worker/engines/image/generate.py"
+    ],
+    "src/exo/worker/engines/image/builder.py": [
+      "src/exo/api/types/__init__.py",
+      "src/exo/shared/constants.py",
+      "src/exo/shared/tracing.py",
+      "src/exo/shared/types/chunks.py",
+      "src/exo/shared/types/events.py",
+      "src/exo/shared/types/tasks.py",
+      "src/exo/shared/types/worker/instances.py",
+      "src/exo/shared/types/worker/runner_response.py",
+      "src/exo/shared/types/worker/shards.py",
+      "src/exo/utils/channels.py",
+      "src/exo/worker/disaggregated/server.py",
+      "src/exo/worker/engines/base.py",
+      "src/exo/worker/engines/image/distributed_model.py",
+      "src/exo/worker/engines/image/generate.py",
+      "src/exo/worker/engines/mlx/utils_mlx.py"
+    ],
+    "src/exo/worker/engines/image/config.py": [],
+    "src/exo/worker/engines/image/distributed_model.py": [
+      "src/exo/api/types/__init__.py",
+      "src/exo/download/download_utils.py",
+      "src/exo/shared/types/common.py",
+      "src/exo/shared/types/worker/shards.py",
+      "src/exo/worker/engines/image/config.py",
+      "src/exo/worker/engines/image/models/__init__.py",
+      "src/exo/worker/engines/image/models/base.py",
+      "src/exo/worker/engines/image/pipeline/__init__.py",
+      "src/exo/worker/engines/mlx/utils_mlx.py",
+      "src/exo/worker/runner/bootstrap.py"
+    ],
+    "src/exo/worker/engines/image/generate.py": [
+      "src/exo/api/types/__init__.py",
+      "src/exo/shared/constants.py",
+      "src/exo/shared/types/chunks.py",
+      "src/exo/shared/types/common.py",
+      "src/exo/shared/types/memory.py",
+      "src/exo/worker/engines/image/distributed_model.py"
+    ],
+    "src/exo/worker/engines/image/models/__init__.py": [
+      "src/exo/worker/engines/image/config.py",
+      "src/exo/worker/engines/image/models/base.py",
+      "src/exo/worker/engines/image/models/flux/__init__.py",
+      "src/exo/worker/engines/image/models/qwen/__init__.py"
+    ],
+    "src/exo/worker/engines/image/models/base.py": [
+      "src/exo/worker/engines/image/config.py"
+    ],
+    "src/exo/worker/engines/image/models/flux/__init__.py": [
+      "src/exo/worker/engines/image/models/flux/adapter.py",
+      "src/exo/worker/engines/image/models/flux/config.py",
+      "src/exo/worker/engines/image/models/flux/kontext_adapter.py"
+    ],
+    "src/exo/worker/engines/image/models/flux/adapter.py": [
+      "src/exo/worker/engines/image/config.py",
+      "src/exo/worker/engines/image/models/base.py",
+      "src/exo/worker/engines/image/models/flux/wrappers.py",
+      "src/exo/worker/engines/image/pipeline/block_wrapper.py"
+    ],
+    "src/exo/worker/engines/image/models/flux/config.py": [
+      "src/exo/worker/engines/image/config.py"
+    ],
+    "src/exo/worker/engines/image/models/flux/kontext_adapter.py": [
+      "src/exo/worker/engines/image/config.py",
+      "src/exo/worker/engines/image/models/base.py",
+      "src/exo/worker/engines/image/models/flux/wrappers.py",
+      "src/exo/worker/engines/image/pipeline/block_wrapper.py"
+    ],
+    "src/exo/worker/engines/image/models/flux/wrappers.py": [
+      "src/exo/worker/engines/image/models/base.py",
+      "src/exo/worker/engines/image/pipeline/block_wrapper.py"
+    ],
+    "src/exo/worker/engines/image/models/qwen/__init__.py": [
+      "src/exo/worker/engines/image/models/qwen/adapter.py",
+      "src/exo/worker/engines/image/models/qwen/config.py",
+      "src/exo/worker/engines/image/models/qwen/edit_adapter.py"
+    ],
+    "src/exo/worker/engines/image/models/qwen/adapter.py": [
+      "src/exo/worker/engines/image/config.py",
+      "src/exo/worker/engines/image/models/base.py",
+      "src/exo/worker/engines/image/models/qwen/wrappers.py",
+      "src/exo/worker/engines/image/pipeline/block_wrapper.py"
+    ],
+    "src/exo/worker/engines/image/models/qwen/config.py": [
+      "src/exo/worker/engines/image/config.py"
+    ],
+    "src/exo/worker/engines/image/models/qwen/edit_adapter.py": [
+      "src/exo/worker/engines/image/config.py",
+      "src/exo/worker/engines/image/models/base.py",
+      "src/exo/worker/engines/image/models/qwen/wrappers.py",
+      "src/exo/worker/engines/image/pipeline/block_wrapper.py"
+    ],
+    "src/exo/worker/engines/image/models/qwen/wrappers.py": [
+      "src/exo/worker/engines/image/models/base.py",
+      "src/exo/worker/engines/image/pipeline/block_wrapper.py"
+    ],
+    "src/exo/worker/engines/image/pipeline/__init__.py": [
+      "src/exo/worker/engines/image/pipeline/block_wrapper.py",
+      "src/exo/worker/engines/image/pipeline/kv_cache.py",
+      "src/exo/worker/engines/image/pipeline/runner.py"
+    ],
+    "src/exo/worker/engines/image/pipeline/block_wrapper.py": [
+      "src/exo/worker/engines/image/models/base.py",
+      "src/exo/worker/engines/image/pipeline/kv_cache.py"
+    ],
+    "src/exo/worker/engines/image/pipeline/kv_cache.py": [],
+    "src/exo/worker/engines/image/pipeline/runner.py": [
+      "src/exo/shared/constants.py",
+      "src/exo/shared/tracing.py",
+      "src/exo/shared/types/worker/shards.py",
+      "src/exo/worker/engines/image/config.py",
+      "src/exo/worker/engines/image/models/base.py",
+      "src/exo/worker/engines/image/pipeline/block_wrapper.py"
+    ],
+    "src/exo/worker/tests/unittests/test_image/test_cancellation.py": [
+      "src/exo/shared/types/tasks.py",
+      "src/exo/worker/engines/image/pipeline/runner.py"
+    ]
+  }
+}

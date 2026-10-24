@@ -1,0 +1,124 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 3,
+  "filesSkipped": [],
+  "analysisOutcomes": {
+    "structure": {
+      "succeeded": 3,
+      "failed": 0
+    },
+    "callGraph": {
+      "succeeded": 0,
+      "failed": 0,
+      "skipped": 3
+    }
+  },
+  "results": [
+    {
+      "path": "rust/exo_rs/Cargo.toml",
+      "language": "toml",
+      "fileCategory": "config",
+      "totalLines": 53,
+      "nonEmptyLines": 43,
+      "sections": [
+        {
+          "heading": "package",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "lib",
+          "level": 1,
+          "line": 7
+        },
+        {
+          "heading": "[[bin]]",
+          "level": 1,
+          "line": 16
+        },
+        {
+          "heading": "lints",
+          "level": 1,
+          "line": 21
+        },
+        {
+          "heading": "dependencies",
+          "level": 1,
+          "line": 24
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 5
+      }
+    },
+    {
+      "path": "rust/exo_rs/README.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 1,
+      "nonEmptyLines": 1,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 0
+      }
+    },
+    {
+      "path": "rust/exo_rs/pyproject.toml",
+      "language": "toml",
+      "fileCategory": "config",
+      "totalLines": 33,
+      "nonEmptyLines": 27,
+      "sections": [
+        {
+          "heading": "build-system",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "project",
+          "level": 1,
+          "line": 5
+        },
+        {
+          "heading": "dependency-groups",
+          "level": 1,
+          "line": 17
+        },
+        {
+          "heading": "tool.maturin",
+          "level": 2,
+          "line": 20
+        },
+        {
+          "heading": "tool.pyo3-stub-gen",
+          "level": 2,
+          "line": 24
+        },
+        {
+          "heading": "tool.pytest.ini_options",
+          "level": 3,
+          "line": 27
+        },
+        {
+          "heading": "tool.uv",
+          "level": 2,
+          "line": 32
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 7
+      }
+    }
+  ]
+}

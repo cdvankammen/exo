@@ -1,0 +1,1432 @@
+{
+ "nodes": [
+  {
+   "id": "file:src/exo/worker/tests/unittests/test_runner/test_dsml_e2e.py",
+   "type": "file",
+   "name": "test_dsml_e2e.py",
+   "filePath": "src/exo/worker/tests/unittests/test_runner/test_dsml_e2e.py",
+   "summary": "End-to-end tests for DeepSeek model output parsing: streaming responses, tool calls, multi-turn tool use, thinking tokens, and full generation round trips.",
+   "tags": [
+    "test",
+    "e2e",
+    "deepseek",
+    "tool-calls",
+    "streaming"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "function:src/exo/worker/tests/unittests/test_runner/test_dsml_e2e.py:_parse_deepseek_with_thinking",
+   "type": "function",
+   "name": "_parse_deepseek_with_thinking",
+   "filePath": "src/exo/worker/tests/unittests/test_runner/test_dsml_e2e.py",
+   "lineRange": [
+    30,
+    41
+   ],
+   "summary": "Parses DeepSeek output assuming thinking-mode markers.",
+   "tags": [
+    "test",
+    "deepseek"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/worker/tests/unittests/test_runner/test_dsml_e2e.py:_simulate_tokens",
+   "type": "function",
+   "name": "_simulate_tokens",
+   "filePath": "src/exo/worker/tests/unittests/test_runner/test_dsml_e2e.py",
+   "lineRange": [
+    83,
+    95
+   ],
+   "summary": "Simulates streaming token responses for parser tests.",
+   "tags": [
+    "test",
+    "simulation"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/worker/tests/unittests/test_runner/test_dsml_e2e.py:TestE2EStandardResponse",
+   "type": "class",
+   "name": "TestE2EStandardResponse",
+   "filePath": "src/exo/worker/tests/unittests/test_runner/test_dsml_e2e.py",
+   "lineRange": [
+    101,
+    138
+   ],
+   "summary": "Tests standard DeepSeek response parsing end to end.",
+   "tags": [
+    "test",
+    "deepseek"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "class:src/exo/worker/tests/unittests/test_runner/test_dsml_e2e.py:TestE2EToolCallResponse",
+   "type": "class",
+   "name": "TestE2EToolCallResponse",
+   "filePath": "src/exo/worker/tests/unittests/test_runner/test_dsml_e2e.py",
+   "lineRange": [
+    144,
+    234
+   ],
+   "summary": "Tests tool-call responses parsed end to end.",
+   "tags": [
+    "test",
+    "tool-calls"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "class:src/exo/worker/tests/unittests/test_runner/test_dsml_e2e.py:TestE2EMultiTurnToolUse",
+   "type": "class",
+   "name": "TestE2EMultiTurnToolUse",
+   "filePath": "src/exo/worker/tests/unittests/test_runner/test_dsml_e2e.py",
+   "lineRange": [
+    240,
+    334
+   ],
+   "summary": "Tests multi-turn tool-use flows end to end.",
+   "tags": [
+    "test",
+    "tool-calls",
+    "multi-turn"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "class:src/exo/worker/tests/unittests/test_runner/test_dsml_e2e.py:TestE2EThinkingAndToolCall",
+   "type": "class",
+   "name": "TestE2EThinkingAndToolCall",
+   "filePath": "src/exo/worker/tests/unittests/test_runner/test_dsml_e2e.py",
+   "lineRange": [
+    340,
+    411
+   ],
+   "summary": "Tests combined thinking and tool-call output.",
+   "tags": [
+    "test",
+    "thinking",
+    "tool-calls"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "class:src/exo/worker/tests/unittests/test_runner/test_dsml_e2e.py:TestE2ERoundTrip",
+   "type": "class",
+   "name": "TestE2ERoundTrip",
+   "filePath": "src/exo/worker/tests/unittests/test_runner/test_dsml_e2e.py",
+   "lineRange": [
+    417,
+    493
+   ],
+   "summary": "Tests full response round trips through the parser pipeline.",
+   "tags": [
+    "test",
+    "round-trip"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "class:src/exo/worker/tests/unittests/test_runner/test_dsml_e2e.py:TestE2EEdgeCases",
+   "type": "class",
+   "name": "TestE2EEdgeCases",
+   "filePath": "src/exo/worker/tests/unittests/test_runner/test_dsml_e2e.py",
+   "lineRange": [
+    499,
+    572
+   ],
+   "summary": "Tests edge cases in DeepSeek output parsing.",
+   "tags": [
+    "test",
+    "edge-cases"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "class:src/exo/worker/tests/unittests/test_runner/test_dsml_e2e.py:TestE2EFullRoundTrip",
+   "type": "class",
+   "name": "TestE2EFullRoundTrip",
+   "filePath": "src/exo/worker/tests/unittests/test_runner/test_dsml_e2e.py",
+   "lineRange": [
+    578,
+    989
+   ],
+   "summary": "Comprehensive full-round-trip tests covering all chunk types and ordering.",
+   "tags": [
+    "test",
+    "round-trip",
+    "e2e"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "class:src/exo/worker/tests/unittests/test_runner/test_dsml_e2e.py:TestMultiTurnThinkingPrompt",
+   "type": "class",
+   "name": "TestMultiTurnThinkingPrompt",
+   "filePath": "src/exo/worker/tests/unittests/test_runner/test_dsml_e2e.py",
+   "lineRange": [
+    992,
+    1005
+   ],
+   "summary": "Tests thinking-mode prompts across multiple turns.",
+   "tags": [
+    "test",
+    "thinking"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/worker/tests/unittests/test_runner/test_dsml_e2e.py:TestApplyChatTemplateWithToolCalls",
+   "type": "class",
+   "name": "TestApplyChatTemplateWithToolCalls",
+   "filePath": "src/exo/worker/tests/unittests/test_runner/test_dsml_e2e.py",
+   "lineRange": [
+    1008,
+    1057
+   ],
+   "summary": "Tests chat-template application with tool calls.",
+   "tags": [
+    "test",
+    "templating",
+    "tool-calls"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "class:src/exo/worker/tests/unittests/test_runner/test_dsml_e2e.py:TestE2EDeepseekV4ToolCallParsing",
+   "type": "class",
+   "name": "TestE2EDeepseekV4ToolCallParsing",
+   "filePath": "src/exo/worker/tests/unittests/test_runner/test_dsml_e2e.py",
+   "lineRange": [
+    1060,
+    1182
+   ],
+   "summary": "Tests DeepSeek V4 tool-call parsing end to end.",
+   "tags": [
+    "test",
+    "deepseek",
+    "tool-calls"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:src/exo/worker/tests/unittests/test_runner/test_finish_reason_sse.py",
+   "type": "file",
+   "name": "test_finish_reason_sse.py",
+   "filePath": "src/exo/worker/tests/unittests/test_runner/test_finish_reason_sse.py",
+   "summary": "Tests finish-reason emission over SSE for DeepSeek V3.2, thinking models, and generic tool calls, including thinking-prefix buffering.",
+   "tags": [
+    "test",
+    "finish-reason",
+    "sse",
+    "streaming"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "function:src/exo/worker/tests/unittests/test_runner/test_finish_reason_sse.py:_step_until_finish",
+   "type": "function",
+   "name": "_step_until_finish",
+   "filePath": "src/exo/worker/tests/unittests/test_runner/test_finish_reason_sse.py",
+   "lineRange": [
+    45,
+    62
+   ],
+   "summary": "Steps a generator until a finish signal or limit is reached.",
+   "tags": [
+    "test",
+    "helper"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/worker/tests/unittests/test_runner/test_finish_reason_sse.py:_drain_text",
+   "type": "function",
+   "name": "_drain_text",
+   "filePath": "src/exo/worker/tests/unittests/test_runner/test_finish_reason_sse.py",
+   "lineRange": [
+    516,
+    523
+   ],
+   "summary": "Drains buffered text from a generator until empty.",
+   "tags": [
+    "test",
+    "helper"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/worker/tests/unittests/test_runner/test_finish_reason_sse.py:TestDeepSeekV32FinishReason",
+   "type": "class",
+   "name": "TestDeepSeekV32FinishReason",
+   "filePath": "src/exo/worker/tests/unittests/test_runner/test_finish_reason_sse.py",
+   "lineRange": [
+    77,
+    186
+   ],
+   "summary": "Tests finish-reason timing for DeepSeek V3.2 responses.",
+   "tags": [
+    "test",
+    "deepseek",
+    "finish-reason"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "class:src/exo/worker/tests/unittests/test_runner/test_finish_reason_sse.py:TestThinkingModelsFinishReason",
+   "type": "class",
+   "name": "TestThinkingModelsFinishReason",
+   "filePath": "src/exo/worker/tests/unittests/test_runner/test_finish_reason_sse.py",
+   "lineRange": [
+    192,
+    318
+   ],
+   "summary": "Tests finish-reason emission for thinking models.",
+   "tags": [
+    "test",
+    "thinking",
+    "finish-reason"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "class:src/exo/worker/tests/unittests/test_runner/test_finish_reason_sse.py:TestGenericToolCallsFinishReason",
+   "type": "class",
+   "name": "TestGenericToolCallsFinishReason",
+   "filePath": "src/exo/worker/tests/unittests/test_runner/test_finish_reason_sse.py",
+   "lineRange": [
+    331,
+    377
+   ],
+   "summary": "Tests finish reasons when tool calls are emitted.",
+   "tags": [
+    "test",
+    "tool-calls",
+    "finish-reason"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "class:src/exo/worker/tests/unittests/test_runner/test_finish_reason_sse.py:TestDeepSeekV32StartsInThinking",
+   "type": "class",
+   "name": "TestDeepSeekV32StartsInThinking",
+   "filePath": "src/exo/worker/tests/unittests/test_runner/test_finish_reason_sse.py",
+   "lineRange": [
+    383,
+    484
+   ],
+   "summary": "Tests DeepSeek V3.2 responses that begin in thinking mode.",
+   "tags": [
+    "test",
+    "deepseek",
+    "thinking"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "class:src/exo/worker/tests/unittests/test_runner/test_finish_reason_sse.py:TestBatchGeneratorSingleNext",
+   "type": "class",
+   "name": "TestBatchGeneratorSingleNext",
+   "filePath": "src/exo/worker/tests/unittests/test_runner/test_finish_reason_sse.py",
+   "lineRange": [
+    487,
+    510
+   ],
+   "summary": "Tests single-step next() behavior of the batch generator.",
+   "tags": [
+    "test",
+    "batch-generation"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "class:src/exo/worker/tests/unittests/test_runner/test_finish_reason_sse.py:TestThinkingModelsPrefixBuffering",
+   "type": "class",
+   "name": "TestThinkingModelsPrefixBuffering",
+   "filePath": "src/exo/worker/tests/unittests/test_runner/test_finish_reason_sse.py",
+   "lineRange": [
+    526,
+    674
+   ],
+   "summary": "Tests buffering of partial thinking-marker prefixes.",
+   "tags": [
+    "test",
+    "thinking",
+    "buffering"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "file:src/exo/worker/tests/unittests/test_runner/test_parse_gpt_oss.py",
+   "type": "file",
+   "name": "test_parse_gpt_oss.py",
+   "filePath": "src/exo/worker/tests/unittests/test_runner/test_parse_gpt_oss.py",
+   "summary": "Tests GPT-OSS response parsing: recipient placement of tool calls, thinking-then-tool sequences, max-token truncation, and reasoning-token counting.",
+   "tags": [
+    "test",
+    "gpt-oss",
+    "parsing",
+    "tool-calls"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:src/exo/worker/tests/unittests/test_runner/test_parse_gpt_oss.py:_make_gen_responses",
+   "type": "function",
+   "name": "_make_gen_responses",
+   "filePath": "src/exo/worker/tests/unittests/test_runner/test_parse_gpt_oss.py",
+   "lineRange": [
+    93,
+    110
+   ],
+   "summary": "Builds synthetic generation responses for GPT-OSS parsing tests.",
+   "tags": [
+    "test",
+    "setup"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/worker/tests/unittests/test_runner/test_parse_gpt_oss.py:_collect",
+   "type": "function",
+   "name": "_collect",
+   "filePath": "src/exo/worker/tests/unittests/test_runner/test_parse_gpt_oss.py",
+   "lineRange": [
+    113,
+    122
+   ],
+   "summary": "Collects all outputs from a generator into a list.",
+   "tags": [
+    "test",
+    "helper"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/worker/tests/unittests/test_runner/test_parse_gpt_oss.py:_get_tool_call",
+   "type": "function",
+   "name": "_get_tool_call",
+   "filePath": "src/exo/worker/tests/unittests/test_runner/test_parse_gpt_oss.py",
+   "lineRange": [
+    125,
+    131
+   ],
+   "summary": "Extracts the tool call from a chunk stream.",
+   "tags": [
+    "test",
+    "helper"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/worker/tests/unittests/test_runner/test_parse_gpt_oss.py:TestParseGptOssRecipientPlacement",
+   "type": "class",
+   "name": "TestParseGptOssRecipientPlacement",
+   "filePath": "src/exo/worker/tests/unittests/test_runner/test_parse_gpt_oss.py",
+   "lineRange": [
+    134,
+    155
+   ],
+   "summary": "Tests tool-call recipient placement for GPT-OSS output.",
+   "tags": [
+    "test",
+    "gpt-oss",
+    "tool-calls"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "class:src/exo/worker/tests/unittests/test_runner/test_parse_gpt_oss.py:TestParseGptOssThinkingThenToolCall",
+   "type": "class",
+   "name": "TestParseGptOssThinkingThenToolCall",
+   "filePath": "src/exo/worker/tests/unittests/test_runner/test_parse_gpt_oss.py",
+   "lineRange": [
+    158,
+    185
+   ],
+   "summary": "Tests thinking followed by tool calls in GPT-OSS output.",
+   "tags": [
+    "test",
+    "gpt-oss",
+    "thinking"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "class:src/exo/worker/tests/unittests/test_runner/test_parse_gpt_oss.py:TestParseGptOssMaxTokensTruncation",
+   "type": "class",
+   "name": "TestParseGptOssMaxTokensTruncation",
+   "filePath": "src/exo/worker/tests/unittests/test_runner/test_parse_gpt_oss.py",
+   "lineRange": [
+    235,
+    262
+   ],
+   "summary": "Tests max-token truncation behavior in GPT-OSS parsing.",
+   "tags": [
+    "test",
+    "gpt-oss",
+    "truncation"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "class:src/exo/worker/tests/unittests/test_runner/test_parse_gpt_oss.py:TestGptOssReasoningTokensCounted",
+   "type": "class",
+   "name": "TestGptOssReasoningTokensCounted",
+   "filePath": "src/exo/worker/tests/unittests/test_runner/test_parse_gpt_oss.py",
+   "lineRange": [
+    265,
+    302
+   ],
+   "summary": "Verifies reasoning tokens are counted for GPT-OSS.",
+   "tags": [
+    "test",
+    "gpt-oss",
+    "reasoning"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:src/exo/worker/tests/unittests/test_runner/test_parse_tool_calls.py",
+   "type": "file",
+   "name": "test_parse_tool_calls.py",
+   "filePath": "src/exo/worker/tests/unittests/test_runner/test_parse_tool_calls.py",
+   "summary": "Tests generic tool-call parsing of raw assistant output into structured ToolCallItems.",
+   "tags": [
+    "test",
+    "tool-calls",
+    "parsing"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/worker/tests/unittests/test_runner/test_parse_tool_calls.py:_make_responses",
+   "type": "function",
+   "name": "_make_responses",
+   "filePath": "src/exo/worker/tests/unittests/test_runner/test_parse_tool_calls.py",
+   "lineRange": [
+    12,
+    21
+   ],
+   "summary": "Builds synthetic responses for tool-call parsing tests.",
+   "tags": [
+    "test",
+    "setup"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/worker/tests/unittests/test_runner/test_parse_tool_calls.py:TestParseToolCalls",
+   "type": "class",
+   "name": "TestParseToolCalls",
+   "filePath": "src/exo/worker/tests/unittests/test_runner/test_parse_tool_calls.py",
+   "lineRange": [
+    31,
+    178
+   ],
+   "summary": "Tests parsing and schema coercion of generic tool calls.",
+   "tags": [
+    "test",
+    "tool-calls"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:src/exo/worker/tests/unittests/test_runner/test_serve_prefill.py",
+   "type": "file",
+   "name": "test_serve_prefill.py",
+   "filePath": "src/exo/worker/tests/unittests/test_runner/test_serve_prefill.py",
+   "summary": "Tests disaggregated prefill serving: full prefill on empty cache, exact-cache-hit short-circuit, suffix-only prefill on partial matches, and start-pos slicing.",
+   "tags": [
+    "test",
+    "prefill",
+    "disaggregated",
+    "kv-cache"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:src/exo/worker/tests/unittests/test_runner/test_serve_prefill.py:_populate_cache_in_place",
+   "type": "function",
+   "name": "_populate_cache_in_place",
+   "filePath": "src/exo/worker/tests/unittests/test_runner/test_serve_prefill.py",
+   "lineRange": [
+    44,
+    53
+   ],
+   "summary": "Populates a KV prefix cache in place for tests.",
+   "tags": [
+    "test",
+    "setup"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/worker/tests/unittests/test_runner/test_serve_prefill.py:_patch_prefill",
+   "type": "function",
+   "name": "_patch_prefill",
+   "filePath": "src/exo/worker/tests/unittests/test_runner/test_serve_prefill.py",
+   "lineRange": [
+    56,
+    74
+   ],
+   "summary": "Wraps the prefill function to count invocations during tests.",
+   "tags": [
+    "test",
+    "helper"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/worker/tests/unittests/test_runner/test_serve_prefill.py:_decode",
+   "type": "function",
+   "name": "_decode",
+   "filePath": "src/exo/worker/tests/unittests/test_runner/test_serve_prefill.py",
+   "lineRange": [
+    77,
+    91
+   ],
+   "summary": "Decodes a payload into KV chunks for test serving.",
+   "tags": [
+    "test",
+    "helper"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/worker/tests/unittests/test_runner/test_serve_prefill.py:_serve",
+   "type": "function",
+   "name": "_serve",
+   "filePath": "src/exo/worker/tests/unittests/test_runner/test_serve_prefill.py",
+   "lineRange": [
+    94,
+    110
+   ],
+   "summary": "Serves a prefill request through the patched handler.",
+   "tags": [
+    "test",
+    "helper"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/worker/tests/unittests/test_runner/test_serve_prefill.py:test_serve_prefill_runs_full_prefill_when_cache_empty",
+   "type": "function",
+   "name": "test_serve_prefill_runs_full_prefill_when_cache_empty",
+   "filePath": "src/exo/worker/tests/unittests/test_runner/test_serve_prefill.py",
+   "lineRange": [
+    113,
+    136
+   ],
+   "summary": "Verifies a full prefill runs when the cache is empty.",
+   "tags": [
+    "test",
+    "prefill"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:src/exo/worker/tests/unittests/test_runner/test_serve_prefill.py:test_serve_prefill_skips_work_on_exact_cache_hit",
+   "type": "function",
+   "name": "test_serve_prefill_skips_work_on_exact_cache_hit",
+   "filePath": "src/exo/worker/tests/unittests/test_runner/test_serve_prefill.py",
+   "lineRange": [
+    139,
+    157
+   ],
+   "summary": "Verifies exact cache hits skip prefill work.",
+   "tags": [
+    "test",
+    "prefill",
+    "cache-hit"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:src/exo/worker/tests/unittests/test_runner/test_serve_prefill.py:test_serve_prefill_only_runs_suffix_on_partial_match",
+   "type": "function",
+   "name": "test_serve_prefill_only_runs_suffix_on_partial_match",
+   "filePath": "src/exo/worker/tests/unittests/test_runner/test_serve_prefill.py",
+   "lineRange": [
+    160,
+    181
+   ],
+   "summary": "Verifies partial matches prefill only the suffix.",
+   "tags": [
+    "test",
+    "prefill",
+    "cache-hit"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:src/exo/worker/tests/unittests/test_runner/test_serve_prefill.py:test_serve_prefill_slices_payload_at_client_start_pos",
+   "type": "function",
+   "name": "test_serve_prefill_slices_payload_at_client_start_pos",
+   "filePath": "src/exo/worker/tests/unittests/test_runner/test_serve_prefill.py",
+   "lineRange": [
+    184,
+    208
+   ],
+   "summary": "Verifies payload slicing at the client start position.",
+   "tags": [
+    "test",
+    "prefill"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:src/exo/worker/tests/unittests/test_runner/test_serve_prefill.py:test_serve_prefill_works_without_prefix_cache",
+   "type": "function",
+   "name": "test_serve_prefill_works_without_prefix_cache",
+   "filePath": "src/exo/worker/tests/unittests/test_runner/test_serve_prefill.py",
+   "lineRange": [
+    211,
+    227
+   ],
+   "summary": "Verifies prefill serving works without a prefix cache.",
+   "tags": [
+    "test",
+    "prefill"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "class:src/exo/worker/tests/unittests/test_runner/test_serve_prefill.py:_FakeTokenizer",
+   "type": "class",
+   "name": "_FakeTokenizer",
+   "filePath": "src/exo/worker/tests/unittests/test_runner/test_serve_prefill.py",
+   "lineRange": [
+    30,
+    33
+   ],
+   "summary": "Minimal fake tokenizer for prefill tests.",
+   "tags": [
+    "test",
+    "mock"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/worker/tests/unittests/test_runner/test_serve_prefill.py:_FakeModel",
+   "type": "class",
+   "name": "_FakeModel",
+   "filePath": "src/exo/worker/tests/unittests/test_runner/test_serve_prefill.py",
+   "lineRange": [
+    36,
+    41
+   ],
+   "summary": "Minimal fake model for prefill tests.",
+   "tags": [
+    "test",
+    "mock"
+   ],
+   "complexity": "simple"
+  }
+ ],
+ "edges": [
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_dsml_e2e.py",
+   "target": "function:src/exo/worker/tests/unittests/test_runner/test_dsml_e2e.py:_parse_deepseek_with_thinking",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_dsml_e2e.py",
+   "target": "function:src/exo/worker/tests/unittests/test_runner/test_dsml_e2e.py:_parse_deepseek_with_thinking",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_dsml_e2e.py",
+   "target": "function:src/exo/worker/tests/unittests/test_runner/test_dsml_e2e.py:_simulate_tokens",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_dsml_e2e.py",
+   "target": "function:src/exo/worker/tests/unittests/test_runner/test_dsml_e2e.py:_simulate_tokens",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_dsml_e2e.py",
+   "target": "class:src/exo/worker/tests/unittests/test_runner/test_dsml_e2e.py:TestE2EStandardResponse",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_dsml_e2e.py",
+   "target": "class:src/exo/worker/tests/unittests/test_runner/test_dsml_e2e.py:TestE2EStandardResponse",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_dsml_e2e.py",
+   "target": "class:src/exo/worker/tests/unittests/test_runner/test_dsml_e2e.py:TestE2EToolCallResponse",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_dsml_e2e.py",
+   "target": "class:src/exo/worker/tests/unittests/test_runner/test_dsml_e2e.py:TestE2EToolCallResponse",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_dsml_e2e.py",
+   "target": "class:src/exo/worker/tests/unittests/test_runner/test_dsml_e2e.py:TestE2EMultiTurnToolUse",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_dsml_e2e.py",
+   "target": "class:src/exo/worker/tests/unittests/test_runner/test_dsml_e2e.py:TestE2EMultiTurnToolUse",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_dsml_e2e.py",
+   "target": "class:src/exo/worker/tests/unittests/test_runner/test_dsml_e2e.py:TestE2EThinkingAndToolCall",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_dsml_e2e.py",
+   "target": "class:src/exo/worker/tests/unittests/test_runner/test_dsml_e2e.py:TestE2EThinkingAndToolCall",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_dsml_e2e.py",
+   "target": "class:src/exo/worker/tests/unittests/test_runner/test_dsml_e2e.py:TestE2ERoundTrip",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_dsml_e2e.py",
+   "target": "class:src/exo/worker/tests/unittests/test_runner/test_dsml_e2e.py:TestE2ERoundTrip",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_dsml_e2e.py",
+   "target": "class:src/exo/worker/tests/unittests/test_runner/test_dsml_e2e.py:TestE2EEdgeCases",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_dsml_e2e.py",
+   "target": "class:src/exo/worker/tests/unittests/test_runner/test_dsml_e2e.py:TestE2EEdgeCases",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_dsml_e2e.py",
+   "target": "class:src/exo/worker/tests/unittests/test_runner/test_dsml_e2e.py:TestE2EFullRoundTrip",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_dsml_e2e.py",
+   "target": "class:src/exo/worker/tests/unittests/test_runner/test_dsml_e2e.py:TestE2EFullRoundTrip",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_dsml_e2e.py",
+   "target": "class:src/exo/worker/tests/unittests/test_runner/test_dsml_e2e.py:TestMultiTurnThinkingPrompt",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_dsml_e2e.py",
+   "target": "class:src/exo/worker/tests/unittests/test_runner/test_dsml_e2e.py:TestMultiTurnThinkingPrompt",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_dsml_e2e.py",
+   "target": "class:src/exo/worker/tests/unittests/test_runner/test_dsml_e2e.py:TestApplyChatTemplateWithToolCalls",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_dsml_e2e.py",
+   "target": "class:src/exo/worker/tests/unittests/test_runner/test_dsml_e2e.py:TestApplyChatTemplateWithToolCalls",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_dsml_e2e.py",
+   "target": "class:src/exo/worker/tests/unittests/test_runner/test_dsml_e2e.py:TestE2EDeepseekV4ToolCallParsing",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_dsml_e2e.py",
+   "target": "class:src/exo/worker/tests/unittests/test_runner/test_dsml_e2e.py:TestE2EDeepseekV4ToolCallParsing",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_dsml_e2e.py",
+   "target": "file:src/exo/shared/types/common.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_dsml_e2e.py",
+   "target": "file:src/exo/shared/types/worker/runner_response.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_dsml_e2e.py",
+   "target": "file:src/exo/worker/runner/llm_inference/model_output_parsers.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_finish_reason_sse.py",
+   "target": "function:src/exo/worker/tests/unittests/test_runner/test_finish_reason_sse.py:_step_until_finish",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_finish_reason_sse.py",
+   "target": "function:src/exo/worker/tests/unittests/test_runner/test_finish_reason_sse.py:_step_until_finish",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_finish_reason_sse.py",
+   "target": "function:src/exo/worker/tests/unittests/test_runner/test_finish_reason_sse.py:_drain_text",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_finish_reason_sse.py",
+   "target": "function:src/exo/worker/tests/unittests/test_runner/test_finish_reason_sse.py:_drain_text",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_finish_reason_sse.py",
+   "target": "class:src/exo/worker/tests/unittests/test_runner/test_finish_reason_sse.py:TestDeepSeekV32FinishReason",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_finish_reason_sse.py",
+   "target": "class:src/exo/worker/tests/unittests/test_runner/test_finish_reason_sse.py:TestDeepSeekV32FinishReason",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_finish_reason_sse.py",
+   "target": "class:src/exo/worker/tests/unittests/test_runner/test_finish_reason_sse.py:TestThinkingModelsFinishReason",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_finish_reason_sse.py",
+   "target": "class:src/exo/worker/tests/unittests/test_runner/test_finish_reason_sse.py:TestThinkingModelsFinishReason",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_finish_reason_sse.py",
+   "target": "class:src/exo/worker/tests/unittests/test_runner/test_finish_reason_sse.py:TestGenericToolCallsFinishReason",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_finish_reason_sse.py",
+   "target": "class:src/exo/worker/tests/unittests/test_runner/test_finish_reason_sse.py:TestGenericToolCallsFinishReason",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_finish_reason_sse.py",
+   "target": "class:src/exo/worker/tests/unittests/test_runner/test_finish_reason_sse.py:TestDeepSeekV32StartsInThinking",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_finish_reason_sse.py",
+   "target": "class:src/exo/worker/tests/unittests/test_runner/test_finish_reason_sse.py:TestDeepSeekV32StartsInThinking",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_finish_reason_sse.py",
+   "target": "class:src/exo/worker/tests/unittests/test_runner/test_finish_reason_sse.py:TestBatchGeneratorSingleNext",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_finish_reason_sse.py",
+   "target": "class:src/exo/worker/tests/unittests/test_runner/test_finish_reason_sse.py:TestBatchGeneratorSingleNext",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_finish_reason_sse.py",
+   "target": "class:src/exo/worker/tests/unittests/test_runner/test_finish_reason_sse.py:TestThinkingModelsPrefixBuffering",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_finish_reason_sse.py",
+   "target": "class:src/exo/worker/tests/unittests/test_runner/test_finish_reason_sse.py:TestThinkingModelsPrefixBuffering",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_finish_reason_sse.py",
+   "target": "file:src/exo/api/types/__init__.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_finish_reason_sse.py",
+   "target": "file:src/exo/shared/types/worker/runner_response.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_finish_reason_sse.py",
+   "target": "file:src/exo/worker/runner/llm_inference/model_output_parsers.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_finish_reason_sse.py",
+   "target": "file:src/exo/worker/runner/llm_inference/tool_parsers.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_parse_gpt_oss.py",
+   "target": "function:src/exo/worker/tests/unittests/test_runner/test_parse_gpt_oss.py:_make_gen_responses",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_parse_gpt_oss.py",
+   "target": "function:src/exo/worker/tests/unittests/test_runner/test_parse_gpt_oss.py:_make_gen_responses",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_parse_gpt_oss.py",
+   "target": "function:src/exo/worker/tests/unittests/test_runner/test_parse_gpt_oss.py:_collect",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_parse_gpt_oss.py",
+   "target": "function:src/exo/worker/tests/unittests/test_runner/test_parse_gpt_oss.py:_collect",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_parse_gpt_oss.py",
+   "target": "function:src/exo/worker/tests/unittests/test_runner/test_parse_gpt_oss.py:_get_tool_call",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_parse_gpt_oss.py",
+   "target": "function:src/exo/worker/tests/unittests/test_runner/test_parse_gpt_oss.py:_get_tool_call",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_parse_gpt_oss.py",
+   "target": "class:src/exo/worker/tests/unittests/test_runner/test_parse_gpt_oss.py:TestParseGptOssRecipientPlacement",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_parse_gpt_oss.py",
+   "target": "class:src/exo/worker/tests/unittests/test_runner/test_parse_gpt_oss.py:TestParseGptOssRecipientPlacement",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_parse_gpt_oss.py",
+   "target": "class:src/exo/worker/tests/unittests/test_runner/test_parse_gpt_oss.py:TestParseGptOssThinkingThenToolCall",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_parse_gpt_oss.py",
+   "target": "class:src/exo/worker/tests/unittests/test_runner/test_parse_gpt_oss.py:TestParseGptOssThinkingThenToolCall",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_parse_gpt_oss.py",
+   "target": "class:src/exo/worker/tests/unittests/test_runner/test_parse_gpt_oss.py:TestParseGptOssMaxTokensTruncation",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_parse_gpt_oss.py",
+   "target": "class:src/exo/worker/tests/unittests/test_runner/test_parse_gpt_oss.py:TestParseGptOssMaxTokensTruncation",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_parse_gpt_oss.py",
+   "target": "class:src/exo/worker/tests/unittests/test_runner/test_parse_gpt_oss.py:TestGptOssReasoningTokensCounted",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_parse_gpt_oss.py",
+   "target": "class:src/exo/worker/tests/unittests/test_runner/test_parse_gpt_oss.py:TestGptOssReasoningTokensCounted",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_parse_gpt_oss.py",
+   "target": "file:src/exo/api/types/__init__.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_parse_gpt_oss.py",
+   "target": "file:src/exo/shared/types/worker/runner_response.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_parse_gpt_oss.py",
+   "target": "file:src/exo/worker/runner/llm_inference/model_output_parsers.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_parse_tool_calls.py",
+   "target": "function:src/exo/worker/tests/unittests/test_runner/test_parse_tool_calls.py:_make_responses",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_parse_tool_calls.py",
+   "target": "function:src/exo/worker/tests/unittests/test_runner/test_parse_tool_calls.py:_make_responses",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_parse_tool_calls.py",
+   "target": "class:src/exo/worker/tests/unittests/test_runner/test_parse_tool_calls.py:TestParseToolCalls",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_parse_tool_calls.py",
+   "target": "class:src/exo/worker/tests/unittests/test_runner/test_parse_tool_calls.py:TestParseToolCalls",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_parse_tool_calls.py",
+   "target": "file:src/exo/shared/types/worker/runner_response.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_parse_tool_calls.py",
+   "target": "file:src/exo/worker/runner/llm_inference/model_output_parsers.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_parse_tool_calls.py",
+   "target": "file:src/exo/worker/runner/llm_inference/tool_parsers.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_serve_prefill.py",
+   "target": "function:src/exo/worker/tests/unittests/test_runner/test_serve_prefill.py:_populate_cache_in_place",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_serve_prefill.py",
+   "target": "function:src/exo/worker/tests/unittests/test_runner/test_serve_prefill.py:_populate_cache_in_place",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_serve_prefill.py",
+   "target": "function:src/exo/worker/tests/unittests/test_runner/test_serve_prefill.py:_patch_prefill",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_serve_prefill.py",
+   "target": "function:src/exo/worker/tests/unittests/test_runner/test_serve_prefill.py:_patch_prefill",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_serve_prefill.py",
+   "target": "function:src/exo/worker/tests/unittests/test_runner/test_serve_prefill.py:_decode",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_serve_prefill.py",
+   "target": "function:src/exo/worker/tests/unittests/test_runner/test_serve_prefill.py:_decode",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_serve_prefill.py",
+   "target": "function:src/exo/worker/tests/unittests/test_runner/test_serve_prefill.py:_serve",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_serve_prefill.py",
+   "target": "function:src/exo/worker/tests/unittests/test_runner/test_serve_prefill.py:_serve",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_serve_prefill.py",
+   "target": "function:src/exo/worker/tests/unittests/test_runner/test_serve_prefill.py:test_serve_prefill_runs_full_prefill_when_cache_empty",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_serve_prefill.py",
+   "target": "function:src/exo/worker/tests/unittests/test_runner/test_serve_prefill.py:test_serve_prefill_runs_full_prefill_when_cache_empty",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_serve_prefill.py",
+   "target": "function:src/exo/worker/tests/unittests/test_runner/test_serve_prefill.py:test_serve_prefill_skips_work_on_exact_cache_hit",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_serve_prefill.py",
+   "target": "function:src/exo/worker/tests/unittests/test_runner/test_serve_prefill.py:test_serve_prefill_skips_work_on_exact_cache_hit",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_serve_prefill.py",
+   "target": "function:src/exo/worker/tests/unittests/test_runner/test_serve_prefill.py:test_serve_prefill_only_runs_suffix_on_partial_match",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_serve_prefill.py",
+   "target": "function:src/exo/worker/tests/unittests/test_runner/test_serve_prefill.py:test_serve_prefill_only_runs_suffix_on_partial_match",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_serve_prefill.py",
+   "target": "function:src/exo/worker/tests/unittests/test_runner/test_serve_prefill.py:test_serve_prefill_slices_payload_at_client_start_pos",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_serve_prefill.py",
+   "target": "function:src/exo/worker/tests/unittests/test_runner/test_serve_prefill.py:test_serve_prefill_slices_payload_at_client_start_pos",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_serve_prefill.py",
+   "target": "function:src/exo/worker/tests/unittests/test_runner/test_serve_prefill.py:test_serve_prefill_works_without_prefix_cache",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_serve_prefill.py",
+   "target": "function:src/exo/worker/tests/unittests/test_runner/test_serve_prefill.py:test_serve_prefill_works_without_prefix_cache",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_serve_prefill.py",
+   "target": "class:src/exo/worker/tests/unittests/test_runner/test_serve_prefill.py:_FakeTokenizer",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_serve_prefill.py",
+   "target": "class:src/exo/worker/tests/unittests/test_runner/test_serve_prefill.py:_FakeTokenizer",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_serve_prefill.py",
+   "target": "class:src/exo/worker/tests/unittests/test_runner/test_serve_prefill.py:_FakeModel",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_serve_prefill.py",
+   "target": "class:src/exo/worker/tests/unittests/test_runner/test_serve_prefill.py:_FakeModel",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_serve_prefill.py",
+   "target": "file:src/exo/worker/disaggregated/protocol.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_serve_prefill.py",
+   "target": "file:src/exo/worker/disaggregated/server.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_serve_prefill.py",
+   "target": "file:src/exo/worker/engines/mlx/cache.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_serve_prefill.py",
+   "target": "file:src/exo/worker/engines/mlx/disaggregated/adapter.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_serve_prefill.py",
+   "target": "file:src/exo/worker/engines/mlx/disaggregated/serve.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "function:src/exo/worker/tests/unittests/test_runner/test_serve_prefill.py:test_serve_prefill_runs_full_prefill_when_cache_empty",
+   "target": "function:src/exo/worker/engines/mlx/disaggregated/serve.py:run_prefill_for_request",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:src/exo/worker/tests/unittests/test_runner/test_serve_prefill.py:_patch_prefill",
+   "target": "function:src/exo/worker/engines/mlx/generator/generate.py:prefill",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  }
+ ]
+}

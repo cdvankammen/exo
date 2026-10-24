@@ -1,0 +1,6420 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 25,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": ".typings/mlx_vlm/prompt_utils.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 12,
+      "nonEmptyLines": 11,
+      "functions": [
+        {
+          "name": "get_message_json",
+          "startLine": 3,
+          "endLine": 12,
+          "params": [
+            "model_name",
+            "prompt",
+            "role",
+            "skip_image_token",
+            "skip_audio_token",
+            "num_images",
+            "num_audios"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "get_message_json",
+          "line": 3,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": ".typings/mlx_vlm/utils.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 15,
+      "nonEmptyLines": 13,
+      "functions": [
+        {
+          "name": "load_image_processor",
+          "startLine": 10,
+          "endLine": 12,
+          "params": [
+            "model_path"
+          ]
+        },
+        {
+          "name": "load_processor",
+          "startLine": 13,
+          "endLine": 15,
+          "params": [
+            "model_path",
+            "add_detokenizer"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "ImageProcessor",
+          "startLine": 4,
+          "endLine": 8,
+          "methods": [
+            "preprocess",
+            "__call__"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "ImageProcessor",
+          "line": 4,
+          "isDefault": false
+        },
+        {
+          "name": "load_image_processor",
+          "line": 10,
+          "isDefault": false
+        },
+        {
+          "name": "load_processor",
+          "line": 13,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 3,
+        "functionCount": 2,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mlx/core/__init__.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 5437,
+      "nonEmptyLines": 4495,
+      "functions": [
+        {
+          "name": "device_info",
+          "startLine": 218,
+          "endLine": 232,
+          "params": []
+        },
+        {
+          "name": "abs",
+          "startLine": 234,
+          "endLine": 243,
+          "params": [
+            "a",
+            "stream"
+          ]
+        },
+        {
+          "name": "add",
+          "startLine": 245,
+          "endLine": 262,
+          "params": [
+            "a",
+            "b",
+            "stream"
+          ]
+        },
+        {
+          "name": "addmm",
+          "startLine": 264,
+          "endLine": 290,
+          "params": [
+            "c",
+            "a",
+            "b",
+            "alpha",
+            "beta",
+            "stream"
+          ]
+        },
+        {
+          "name": "all",
+          "startLine": 292,
+          "endLine": 313,
+          "params": [
+            "a",
+            "axis",
+            "keepdims",
+            "stream"
+          ]
+        },
+        {
+          "name": "allclose",
+          "startLine": 315,
+          "endLine": 349,
+          "params": [
+            "a",
+            "b",
+            "rtol",
+            "atol",
+            "equal_nan",
+            "stream"
+          ]
+        },
+        {
+          "name": "any",
+          "startLine": 351,
+          "endLine": 372,
+          "params": [
+            "a",
+            "axis",
+            "keepdims",
+            "stream"
+          ]
+        },
+        {
+          "name": "arange",
+          "startLine": 375,
+          "endLine": 403,
+          "params": [
+            "start",
+            "stop",
+            "step",
+            "dtype",
+            "stream"
+          ]
+        },
+        {
+          "name": "arange",
+          "startLine": 406,
+          "endLine": 412,
+          "params": [
+            "stop",
+            "step",
+            "dtype",
+            "stream"
+          ]
+        },
+        {
+          "name": "arccos",
+          "startLine": 413,
+          "endLine": 422,
+          "params": [
+            "a",
+            "stream"
+          ]
+        },
+        {
+          "name": "arccosh",
+          "startLine": 424,
+          "endLine": 433,
+          "params": [
+            "a",
+            "stream"
+          ]
+        },
+        {
+          "name": "arcsin",
+          "startLine": 435,
+          "endLine": 444,
+          "params": [
+            "a",
+            "stream"
+          ]
+        },
+        {
+          "name": "arcsinh",
+          "startLine": 446,
+          "endLine": 455,
+          "params": [
+            "a",
+            "stream"
+          ]
+        },
+        {
+          "name": "arctan",
+          "startLine": 457,
+          "endLine": 466,
+          "params": [
+            "a",
+            "stream"
+          ]
+        },
+        {
+          "name": "arctan2",
+          "startLine": 468,
+          "endLine": 478,
+          "params": [
+            "a",
+            "b",
+            "stream"
+          ]
+        },
+        {
+          "name": "arctanh",
+          "startLine": 480,
+          "endLine": 489,
+          "params": [
+            "a",
+            "stream"
+          ]
+        },
+        {
+          "name": "argmax",
+          "startLine": 491,
+          "endLine": 511,
+          "params": [
+            "a",
+            "axis",
+            "keepdims",
+            "stream"
+          ]
+        },
+        {
+          "name": "argmin",
+          "startLine": 513,
+          "endLine": 533,
+          "params": [
+            "a",
+            "axis",
+            "keepdims",
+            "stream"
+          ]
+        },
+        {
+          "name": "argpartition",
+          "startLine": 535,
+          "endLine": 562,
+          "params": [
+            "a",
+            "kth",
+            "axis",
+            "stream"
+          ]
+        },
+        {
+          "name": "argsort",
+          "startLine": 564,
+          "endLine": 582,
+          "params": [
+            "a",
+            "axis",
+            "stream"
+          ]
+        },
+        {
+          "name": "array_equal",
+          "startLine": 1427,
+          "endLine": 1448,
+          "params": [
+            "a",
+            "b",
+            "equal_nan",
+            "stream"
+          ]
+        },
+        {
+          "name": "as_strided",
+          "startLine": 1450,
+          "endLine": 1484,
+          "params": [
+            "a",
+            "shape",
+            "strides",
+            "offset",
+            "stream"
+          ]
+        },
+        {
+          "name": "async_eval",
+          "startLine": 1486,
+          "endLine": 1511,
+          "params": []
+        },
+        {
+          "name": "atleast_1d",
+          "startLine": 1513,
+          "endLine": 1525,
+          "params": [
+            "stream"
+          ]
+        },
+        {
+          "name": "atleast_2d",
+          "startLine": 1527,
+          "endLine": 1539,
+          "params": [
+            "stream"
+          ]
+        },
+        {
+          "name": "atleast_3d",
+          "startLine": 1541,
+          "endLine": 1553,
+          "params": [
+            "stream"
+          ]
+        },
+        {
+          "name": "bitwise_and",
+          "startLine": 1557,
+          "endLine": 1574,
+          "params": [
+            "a",
+            "b",
+            "stream"
+          ]
+        },
+        {
+          "name": "bitwise_invert",
+          "startLine": 1576,
+          "endLine": 1587,
+          "params": [
+            "a",
+            "stream"
+          ]
+        },
+        {
+          "name": "bitwise_or",
+          "startLine": 1589,
+          "endLine": 1606,
+          "params": [
+            "a",
+            "b",
+            "stream"
+          ]
+        },
+        {
+          "name": "bitwise_xor",
+          "startLine": 1608,
+          "endLine": 1626,
+          "params": [
+            "a",
+            "b",
+            "stream"
+          ]
+        },
+        {
+          "name": "block_masked_mm",
+          "startLine": 1628,
+          "endLine": 1665,
+          "params": [
+            "a",
+            "b",
+            "block_size",
+            "mask_out",
+            "mask_lhs",
+            "mask_rhs",
+            "stream"
+          ]
+        },
+        {
+          "name": "broadcast_arrays",
+          "startLine": 1667,
+          "endLine": 1680,
+          "params": [
+            "stream"
+          ]
+        },
+        {
+          "name": "broadcast_shapes",
+          "startLine": 1682,
+          "endLine": 1705,
+          "params": []
+        },
+        {
+          "name": "broadcast_to",
+          "startLine": 1707,
+          "endLine": 1725,
+          "params": [
+            "a",
+            "shape",
+            "stream"
+          ]
+        },
+        {
+          "name": "ceil",
+          "startLine": 1727,
+          "endLine": 1736,
+          "params": [
+            "a",
+            "stream"
+          ]
+        },
+        {
+          "name": "checkpoint",
+          "startLine": 1738,
+          "endLine": 1738,
+          "params": [
+            "fun"
+          ]
+        },
+        {
+          "name": "clear_cache",
+          "startLine": 1739,
+          "endLine": 1744,
+          "params": []
+        },
+        {
+          "name": "clip",
+          "startLine": 1746,
+          "endLine": 1768,
+          "params": [
+            "a",
+            "a_min",
+            "a_max",
+            "stream"
+          ]
+        },
+        {
+          "name": "compile",
+          "startLine": 1770,
+          "endLine": 1803,
+          "params": [
+            "fun",
+            "inputs",
+            "outputs",
+            "shapeless"
+          ]
+        },
+        {
+          "name": "concat",
+          "startLine": 1808,
+          "endLine": 1814,
+          "params": [
+            "arrays",
+            "axis",
+            "stream"
+          ]
+        },
+        {
+          "name": "concatenate",
+          "startLine": 1816,
+          "endLine": 1832,
+          "params": [
+            "arrays",
+            "axis",
+            "stream"
+          ]
+        },
+        {
+          "name": "conj",
+          "startLine": 1834,
+          "endLine": 1844,
+          "params": [
+            "a",
+            "stream"
+          ]
+        },
+        {
+          "name": "conjugate",
+          "startLine": 1846,
+          "endLine": 1856,
+          "params": [
+            "a",
+            "stream"
+          ]
+        },
+        {
+          "name": "contiguous",
+          "startLine": 1858,
+          "endLine": 1874,
+          "params": [
+            "a",
+            "allow_col_major",
+            "stream"
+          ]
+        },
+        {
+          "name": "conv1d",
+          "startLine": 1876,
+          "endLine": 1900,
+          "params": [
+            "input",
+            "weight",
+            "stride",
+            "padding",
+            "dilation",
+            "groups",
+            "stream"
+          ]
+        },
+        {
+          "name": "conv2d",
+          "startLine": 1902,
+          "endLine": 1932,
+          "params": [
+            "input",
+            "weight",
+            "stride",
+            "padding",
+            "dilation",
+            "groups",
+            "stream"
+          ]
+        },
+        {
+          "name": "conv3d",
+          "startLine": 1934,
+          "endLine": 1966,
+          "params": [
+            "input",
+            "weight",
+            "stride",
+            "padding",
+            "dilation",
+            "groups",
+            "stream"
+          ]
+        },
+        {
+          "name": "conv_general",
+          "startLine": 1968,
+          "endLine": 2007,
+          "params": [
+            "input",
+            "weight",
+            "stride",
+            "padding",
+            "kernel_dilation",
+            "input_dilation",
+            "groups",
+            "flip",
+            "stream"
+          ]
+        },
+        {
+          "name": "conv_transpose1d",
+          "startLine": 2009,
+          "endLine": 2035,
+          "params": [
+            "input",
+            "weight",
+            "stride",
+            "padding",
+            "dilation",
+            "output_padding",
+            "groups",
+            "stream"
+          ]
+        },
+        {
+          "name": "conv_transpose2d",
+          "startLine": 2037,
+          "endLine": 2073,
+          "params": [
+            "input",
+            "weight",
+            "stride",
+            "padding",
+            "dilation",
+            "output_padding",
+            "groups",
+            "stream"
+          ]
+        },
+        {
+          "name": "conv_transpose3d",
+          "startLine": 2075,
+          "endLine": 2111,
+          "params": [
+            "input",
+            "weight",
+            "stride",
+            "padding",
+            "dilation",
+            "output_padding",
+            "groups",
+            "stream"
+          ]
+        },
+        {
+          "name": "convolve",
+          "startLine": 2113,
+          "endLine": 2129,
+          "params": [
+            "a",
+            "v",
+            "mode",
+            "stream"
+          ]
+        },
+        {
+          "name": "cos",
+          "startLine": 2131,
+          "endLine": 2140,
+          "params": [
+            "a",
+            "stream"
+          ]
+        },
+        {
+          "name": "cosh",
+          "startLine": 2142,
+          "endLine": 2151,
+          "params": [
+            "a",
+            "stream"
+          ]
+        },
+        {
+          "name": "cummax",
+          "startLine": 2155,
+          "endLine": 2178,
+          "params": [
+            "a",
+            "axis",
+            "reverse",
+            "inclusive",
+            "stream"
+          ]
+        },
+        {
+          "name": "cummin",
+          "startLine": 2180,
+          "endLine": 2203,
+          "params": [
+            "a",
+            "axis",
+            "reverse",
+            "inclusive",
+            "stream"
+          ]
+        },
+        {
+          "name": "cumprod",
+          "startLine": 2205,
+          "endLine": 2228,
+          "params": [
+            "a",
+            "axis",
+            "reverse",
+            "inclusive",
+            "stream"
+          ]
+        },
+        {
+          "name": "cumsum",
+          "startLine": 2230,
+          "endLine": 2253,
+          "params": [
+            "a",
+            "axis",
+            "reverse",
+            "inclusive",
+            "stream"
+          ]
+        },
+        {
+          "name": "default_device",
+          "startLine": 2382,
+          "endLine": 2383,
+          "params": []
+        },
+        {
+          "name": "default_stream",
+          "startLine": 2385,
+          "endLine": 2386,
+          "params": [
+            "device"
+          ]
+        },
+        {
+          "name": "degrees",
+          "startLine": 2388,
+          "endLine": 2397,
+          "params": [
+            "a",
+            "stream"
+          ]
+        },
+        {
+          "name": "depends",
+          "startLine": 2399,
+          "endLine": 2411,
+          "params": [
+            "inputs",
+            "dependencies"
+          ]
+        },
+        {
+          "name": "dequantize",
+          "startLine": 2413,
+          "endLine": 2451,
+          "params": [
+            "w",
+            "scales",
+            "biases",
+            "group_size",
+            "bits",
+            "mode",
+            "stream"
+          ]
+        },
+        {
+          "name": "diag",
+          "startLine": 2453,
+          "endLine": 2467,
+          "params": [
+            "a",
+            "k",
+            "stream"
+          ]
+        },
+        {
+          "name": "diagonal",
+          "startLine": 2469,
+          "endLine": 2498,
+          "params": [
+            "a",
+            "offset",
+            "axis1",
+            "axis2",
+            "stream"
+          ]
+        },
+        {
+          "name": "disable_compile",
+          "startLine": 2500,
+          "endLine": 2504,
+          "params": []
+        },
+        {
+          "name": "divide",
+          "startLine": 2506,
+          "endLine": 2523,
+          "params": [
+            "a",
+            "b",
+            "stream"
+          ]
+        },
+        {
+          "name": "divmod",
+          "startLine": 2525,
+          "endLine": 2543,
+          "params": [
+            "a",
+            "b",
+            "stream"
+          ]
+        },
+        {
+          "name": "einsum",
+          "startLine": 2547,
+          "endLine": 2557,
+          "params": [
+            "subscripts",
+            "*operands",
+            "stream"
+          ]
+        },
+        {
+          "name": "einsum_path",
+          "startLine": 2559,
+          "endLine": 2571,
+          "params": [
+            "subscripts",
+            "*operands"
+          ]
+        },
+        {
+          "name": "enable_compile",
+          "startLine": 2573,
+          "endLine": 2577,
+          "params": []
+        },
+        {
+          "name": "equal",
+          "startLine": 2579,
+          "endLine": 2596,
+          "params": [
+            "a",
+            "b",
+            "stream"
+          ]
+        },
+        {
+          "name": "erf",
+          "startLine": 2598,
+          "endLine": 2610,
+          "params": [
+            "a",
+            "stream"
+          ]
+        },
+        {
+          "name": "erfinv",
+          "startLine": 2612,
+          "endLine": 2621,
+          "params": [
+            "a",
+            "stream"
+          ]
+        },
+        {
+          "name": "eval",
+          "startLine": 2633,
+          "endLine": 2642,
+          "params": []
+        },
+        {
+          "name": "exp",
+          "startLine": 2644,
+          "endLine": 2653,
+          "params": [
+            "a",
+            "stream"
+          ]
+        },
+        {
+          "name": "expand_dims",
+          "startLine": 2655,
+          "endLine": 2671,
+          "params": [
+            "a",
+            "axis",
+            "stream"
+          ]
+        },
+        {
+          "name": "expm1",
+          "startLine": 2673,
+          "endLine": 2684,
+          "params": [
+            "a",
+            "stream"
+          ]
+        },
+        {
+          "name": "export_function",
+          "startLine": 2686,
+          "endLine": 2723,
+          "params": [
+            "arg0",
+            "fun",
+            "*args",
+            "shapeless",
+            "**kwargs"
+          ]
+        },
+        {
+          "name": "export_to_dot",
+          "startLine": 2725,
+          "endLine": 2745,
+          "params": [
+            "file",
+            "*args",
+            "**kwargs"
+          ]
+        },
+        {
+          "name": "exporter",
+          "startLine": 2747,
+          "endLine": 2773,
+          "params": [
+            "file",
+            "fun",
+            "shapeless"
+          ]
+        },
+        {
+          "name": "eye",
+          "startLine": 2775,
+          "endLine": 2795,
+          "params": [
+            "n",
+            "m",
+            "k",
+            "dtype",
+            "stream"
+          ]
+        },
+        {
+          "name": "flatten",
+          "startLine": 2821,
+          "endLine": 2854,
+          "params": [
+            "a",
+            "start_axis",
+            "end_axis",
+            "stream"
+          ]
+        },
+        {
+          "name": "floor",
+          "startLine": 2861,
+          "endLine": 2870,
+          "params": [
+            "a",
+            "stream"
+          ]
+        },
+        {
+          "name": "floor_divide",
+          "startLine": 2872,
+          "endLine": 2889,
+          "params": [
+            "a",
+            "b",
+            "stream"
+          ]
+        },
+        {
+          "name": "full",
+          "startLine": 2891,
+          "endLine": 2912,
+          "params": [
+            "shape",
+            "vals",
+            "dtype",
+            "stream"
+          ]
+        },
+        {
+          "name": "gather_mm",
+          "startLine": 2914,
+          "endLine": 2955,
+          "params": [
+            "a",
+            "b",
+            "lhs_indices",
+            "rhs_indices",
+            "sorted_indices",
+            "stream"
+          ]
+        },
+        {
+          "name": "gather_qmm",
+          "startLine": 2957,
+          "endLine": 3006,
+          "params": [
+            "x",
+            "w",
+            "scales",
+            "biases",
+            "lhs_indices",
+            "rhs_indices",
+            "transpose",
+            "group_size",
+            "bits",
+            "mode",
+            "sorted_indices",
+            "stream"
+          ]
+        },
+        {
+          "name": "get_active_memory",
+          "startLine": 3010,
+          "endLine": 3016,
+          "params": []
+        },
+        {
+          "name": "get_cache_memory",
+          "startLine": 3018,
+          "endLine": 3024,
+          "params": []
+        },
+        {
+          "name": "get_peak_memory",
+          "startLine": 3026,
+          "endLine": 3032,
+          "params": []
+        },
+        {
+          "name": "grad",
+          "startLine": 3036,
+          "endLine": 3060,
+          "params": [
+            "fun",
+            "argnums",
+            "argnames"
+          ]
+        },
+        {
+          "name": "greater",
+          "startLine": 3062,
+          "endLine": 3079,
+          "params": [
+            "a",
+            "b",
+            "stream"
+          ]
+        },
+        {
+          "name": "greater_equal",
+          "startLine": 3081,
+          "endLine": 3098,
+          "params": [
+            "a",
+            "b",
+            "stream"
+          ]
+        },
+        {
+          "name": "hadamard_transform",
+          "startLine": 3100,
+          "endLine": 3124,
+          "params": [
+            "a",
+            "scale",
+            "stream"
+          ]
+        },
+        {
+          "name": "identity",
+          "startLine": 3126,
+          "endLine": 3139,
+          "params": [
+            "n",
+            "dtype",
+            "stream"
+          ]
+        },
+        {
+          "name": "imag",
+          "startLine": 3158,
+          "endLine": 3167,
+          "params": [
+            "a",
+            "stream"
+          ]
+        },
+        {
+          "name": "import_function",
+          "startLine": 3169,
+          "endLine": 3195,
+          "params": [
+            "file"
+          ]
+        },
+        {
+          "name": "inner",
+          "startLine": 3200,
+          "endLine": 3210,
+          "params": [
+            "a",
+            "b",
+            "stream"
+          ]
+        },
+        {
+          "name": "is_available",
+          "startLine": 3218,
+          "endLine": 3219,
+          "params": [
+            "device"
+          ]
+        },
+        {
+          "name": "isclose",
+          "startLine": 3221,
+          "endLine": 3256,
+          "params": [
+            "a",
+            "b",
+            "rtol",
+            "atol",
+            "equal_nan",
+            "stream"
+          ]
+        },
+        {
+          "name": "isfinite",
+          "startLine": 3258,
+          "endLine": 3269,
+          "params": [
+            "a",
+            "stream"
+          ]
+        },
+        {
+          "name": "isinf",
+          "startLine": 3271,
+          "endLine": 3280,
+          "params": [
+            "a",
+            "stream"
+          ]
+        },
+        {
+          "name": "isnan",
+          "startLine": 3282,
+          "endLine": 3291,
+          "params": [
+            "a",
+            "stream"
+          ]
+        },
+        {
+          "name": "isneginf",
+          "startLine": 3293,
+          "endLine": 3303,
+          "params": [
+            "a",
+            "stream"
+          ]
+        },
+        {
+          "name": "isposinf",
+          "startLine": 3305,
+          "endLine": 3315,
+          "params": [
+            "a",
+            "stream"
+          ]
+        },
+        {
+          "name": "issubdtype",
+          "startLine": 3317,
+          "endLine": 3365,
+          "params": [
+            "arg1",
+            "arg2"
+          ]
+        },
+        {
+          "name": "jvp",
+          "startLine": 3367,
+          "endLine": 3388,
+          "params": [
+            "fun",
+            "primals",
+            "tangents"
+          ]
+        },
+        {
+          "name": "kron",
+          "startLine": 3390,
+          "endLine": 3412,
+          "params": [
+            "a",
+            "b",
+            "stream"
+          ]
+        },
+        {
+          "name": "left_shift",
+          "startLine": 3414,
+          "endLine": 3432,
+          "params": [
+            "a",
+            "b",
+            "stream"
+          ]
+        },
+        {
+          "name": "less",
+          "startLine": 3434,
+          "endLine": 3451,
+          "params": [
+            "a",
+            "b",
+            "stream"
+          ]
+        },
+        {
+          "name": "less_equal",
+          "startLine": 3453,
+          "endLine": 3470,
+          "params": [
+            "a",
+            "b",
+            "stream"
+          ]
+        },
+        {
+          "name": "linspace",
+          "startLine": 3472,
+          "endLine": 3491,
+          "params": [
+            "start",
+            "stop",
+            "num",
+            "dtype",
+            "stream"
+          ]
+        },
+        {
+          "name": "load",
+          "startLine": 3493,
+          "endLine": 3526,
+          "params": [
+            "file",
+            "format",
+            "return_metadata",
+            "stream"
+          ]
+        },
+        {
+          "name": "log",
+          "startLine": 3528,
+          "endLine": 3537,
+          "params": [
+            "a",
+            "stream"
+          ]
+        },
+        {
+          "name": "log10",
+          "startLine": 3539,
+          "endLine": 3548,
+          "params": [
+            "a",
+            "stream"
+          ]
+        },
+        {
+          "name": "log1p",
+          "startLine": 3550,
+          "endLine": 3559,
+          "params": [
+            "a",
+            "stream"
+          ]
+        },
+        {
+          "name": "log2",
+          "startLine": 3561,
+          "endLine": 3570,
+          "params": [
+            "a",
+            "stream"
+          ]
+        },
+        {
+          "name": "logaddexp",
+          "startLine": 3572,
+          "endLine": 3593,
+          "params": [
+            "a",
+            "b",
+            "stream"
+          ]
+        },
+        {
+          "name": "logcumsumexp",
+          "startLine": 3595,
+          "endLine": 3618,
+          "params": [
+            "a",
+            "axis",
+            "reverse",
+            "inclusive",
+            "stream"
+          ]
+        },
+        {
+          "name": "logical_and",
+          "startLine": 3620,
+          "endLine": 3632,
+          "params": [
+            "a",
+            "b",
+            "stream"
+          ]
+        },
+        {
+          "name": "logical_not",
+          "startLine": 3634,
+          "endLine": 3643,
+          "params": [
+            "a",
+            "stream"
+          ]
+        },
+        {
+          "name": "logical_or",
+          "startLine": 3645,
+          "endLine": 3655,
+          "params": [
+            "a",
+            "b",
+            "stream"
+          ]
+        },
+        {
+          "name": "logsumexp",
+          "startLine": 3657,
+          "endLine": 3684,
+          "params": [
+            "a",
+            "axis",
+            "keepdims",
+            "stream"
+          ]
+        },
+        {
+          "name": "matmul",
+          "startLine": 3686,
+          "endLine": 3709,
+          "params": [
+            "a",
+            "b",
+            "stream"
+          ]
+        },
+        {
+          "name": "max",
+          "startLine": 3711,
+          "endLine": 3732,
+          "params": [
+            "a",
+            "axis",
+            "keepdims",
+            "stream"
+          ]
+        },
+        {
+          "name": "maximum",
+          "startLine": 3734,
+          "endLine": 3753,
+          "params": [
+            "a",
+            "b",
+            "stream"
+          ]
+        },
+        {
+          "name": "mean",
+          "startLine": 3755,
+          "endLine": 3776,
+          "params": [
+            "a",
+            "axis",
+            "keepdims",
+            "stream"
+          ]
+        },
+        {
+          "name": "meshgrid",
+          "startLine": 3778,
+          "endLine": 3797,
+          "params": [
+            "sparse",
+            "indexing",
+            "stream"
+          ]
+        },
+        {
+          "name": "min",
+          "startLine": 3799,
+          "endLine": 3820,
+          "params": [
+            "a",
+            "axis",
+            "keepdims",
+            "stream"
+          ]
+        },
+        {
+          "name": "minimum",
+          "startLine": 3822,
+          "endLine": 3841,
+          "params": [
+            "a",
+            "b",
+            "stream"
+          ]
+        },
+        {
+          "name": "moveaxis",
+          "startLine": 3843,
+          "endLine": 3861,
+          "params": [
+            "a",
+            "source",
+            "destination",
+            "stream"
+          ]
+        },
+        {
+          "name": "multiply",
+          "startLine": 3863,
+          "endLine": 3880,
+          "params": [
+            "a",
+            "b",
+            "stream"
+          ]
+        },
+        {
+          "name": "nan_to_num",
+          "startLine": 3884,
+          "endLine": 3907,
+          "params": [
+            "a",
+            "nan",
+            "posinf",
+            "neginf",
+            "stream"
+          ]
+        },
+        {
+          "name": "negative",
+          "startLine": 3909,
+          "endLine": 3918,
+          "params": [
+            "a",
+            "stream"
+          ]
+        },
+        {
+          "name": "new_stream",
+          "startLine": 3920,
+          "endLine": 3921,
+          "params": [
+            "device"
+          ]
+        },
+        {
+          "name": "not_equal",
+          "startLine": 3925,
+          "endLine": 3942,
+          "params": [
+            "a",
+            "b",
+            "stream"
+          ]
+        },
+        {
+          "name": "ones",
+          "startLine": 3946,
+          "endLine": 3962,
+          "params": [
+            "shape",
+            "dtype",
+            "stream"
+          ]
+        },
+        {
+          "name": "ones_like",
+          "startLine": 3964,
+          "endLine": 3973,
+          "params": [
+            "a",
+            "stream"
+          ]
+        },
+        {
+          "name": "outer",
+          "startLine": 3975,
+          "endLine": 3985,
+          "params": [
+            "a",
+            "b",
+            "stream"
+          ]
+        },
+        {
+          "name": "pad",
+          "startLine": 3987,
+          "endLine": 4014,
+          "params": [
+            "a",
+            "pad_width",
+            "mode",
+            "constant_values",
+            "stream"
+          ]
+        },
+        {
+          "name": "partition",
+          "startLine": 4016,
+          "endLine": 4042,
+          "params": [
+            "a",
+            "kth",
+            "axis",
+            "stream"
+          ]
+        },
+        {
+          "name": "permute_dims",
+          "startLine": 4044,
+          "endLine": 4051,
+          "params": [
+            "a",
+            "axes",
+            "stream"
+          ]
+        },
+        {
+          "name": "power",
+          "startLine": 4055,
+          "endLine": 4074,
+          "params": [
+            "a",
+            "b",
+            "stream"
+          ]
+        },
+        {
+          "name": "prod",
+          "startLine": 4076,
+          "endLine": 4097,
+          "params": [
+            "a",
+            "axis",
+            "keepdims",
+            "stream"
+          ]
+        },
+        {
+          "name": "put_along_axis",
+          "startLine": 4099,
+          "endLine": 4124,
+          "params": [
+            "a",
+            "indices",
+            "values",
+            "axis",
+            "stream"
+          ]
+        },
+        {
+          "name": "quantize",
+          "startLine": 4126,
+          "endLine": 4196,
+          "params": [
+            "w",
+            "group_size",
+            "bits",
+            "mode",
+            "stream"
+          ]
+        },
+        {
+          "name": "quantized_matmul",
+          "startLine": 4198,
+          "endLine": 4234,
+          "params": [
+            "x",
+            "w",
+            "scales",
+            "biases",
+            "transpose",
+            "group_size",
+            "bits",
+            "mode",
+            "stream"
+          ]
+        },
+        {
+          "name": "radians",
+          "startLine": 4236,
+          "endLine": 4245,
+          "params": [
+            "a",
+            "stream"
+          ]
+        },
+        {
+          "name": "real",
+          "startLine": 4247,
+          "endLine": 4256,
+          "params": [
+            "a",
+            "stream"
+          ]
+        },
+        {
+          "name": "reciprocal",
+          "startLine": 4258,
+          "endLine": 4267,
+          "params": [
+            "a",
+            "stream"
+          ]
+        },
+        {
+          "name": "remainder",
+          "startLine": 4269,
+          "endLine": 4287,
+          "params": [
+            "a",
+            "b",
+            "stream"
+          ]
+        },
+        {
+          "name": "repeat",
+          "startLine": 4289,
+          "endLine": 4309,
+          "params": [
+            "array",
+            "repeats",
+            "axis",
+            "stream"
+          ]
+        },
+        {
+          "name": "reset_peak_memory",
+          "startLine": 4311,
+          "endLine": 4312,
+          "params": []
+        },
+        {
+          "name": "reshape",
+          "startLine": 4314,
+          "endLine": 4328,
+          "params": [
+            "a",
+            "shape",
+            "stream"
+          ]
+        },
+        {
+          "name": "right_shift",
+          "startLine": 4330,
+          "endLine": 4348,
+          "params": [
+            "a",
+            "b",
+            "stream"
+          ]
+        },
+        {
+          "name": "roll",
+          "startLine": 4350,
+          "endLine": 4375,
+          "params": [
+            "a",
+            "shift",
+            "axis",
+            "stream"
+          ]
+        },
+        {
+          "name": "round",
+          "startLine": 4377,
+          "endLine": 4397,
+          "params": [
+            "a",
+            "decimals",
+            "stream"
+          ]
+        },
+        {
+          "name": "rsqrt",
+          "startLine": 4399,
+          "endLine": 4408,
+          "params": [
+            "a",
+            "stream"
+          ]
+        },
+        {
+          "name": "save",
+          "startLine": 4410,
+          "endLine": 4417,
+          "params": [
+            "file",
+            "arr"
+          ]
+        },
+        {
+          "name": "save_gguf",
+          "startLine": 4419,
+          "endLine": 4438,
+          "params": [
+            "file",
+            "arrays",
+            "metadata"
+          ]
+        },
+        {
+          "name": "save_safetensors",
+          "startLine": 4440,
+          "endLine": 4458,
+          "params": [
+            "file",
+            "arrays",
+            "metadata"
+          ]
+        },
+        {
+          "name": "savez",
+          "startLine": 4460,
+          "endLine": 4484,
+          "params": [
+            "file",
+            "*args",
+            "**kwargs"
+          ]
+        },
+        {
+          "name": "savez_compressed",
+          "startLine": 4486,
+          "endLine": 4495,
+          "params": [
+            "file",
+            "*args",
+            "**kwargs"
+          ]
+        },
+        {
+          "name": "segmented_mm",
+          "startLine": 4497,
+          "endLine": 4511,
+          "params": [
+            "a",
+            "b",
+            "segments",
+            "stream"
+          ]
+        },
+        {
+          "name": "set_cache_limit",
+          "startLine": 4513,
+          "endLine": 4529,
+          "params": [
+            "limit"
+          ]
+        },
+        {
+          "name": "set_default_device",
+          "startLine": 4531,
+          "endLine": 4532,
+          "params": [
+            "device"
+          ]
+        },
+        {
+          "name": "set_default_stream",
+          "startLine": 4534,
+          "endLine": 4543,
+          "params": [
+            "stream"
+          ]
+        },
+        {
+          "name": "set_memory_limit",
+          "startLine": 4545,
+          "endLine": 4562,
+          "params": [
+            "limit"
+          ]
+        },
+        {
+          "name": "set_wired_limit",
+          "startLine": 4564,
+          "endLine": 4592,
+          "params": [
+            "limit"
+          ]
+        },
+        {
+          "name": "sigmoid",
+          "startLine": 4594,
+          "endLine": 4608,
+          "params": [
+            "a",
+            "stream"
+          ]
+        },
+        {
+          "name": "sign",
+          "startLine": 4610,
+          "endLine": 4619,
+          "params": [
+            "a",
+            "stream"
+          ]
+        },
+        {
+          "name": "sin",
+          "startLine": 4623,
+          "endLine": 4632,
+          "params": [
+            "a",
+            "stream"
+          ]
+        },
+        {
+          "name": "sinh",
+          "startLine": 4634,
+          "endLine": 4643,
+          "params": [
+            "a",
+            "stream"
+          ]
+        },
+        {
+          "name": "slice",
+          "startLine": 4645,
+          "endLine": 4674,
+          "params": [
+            "a",
+            "start_indices",
+            "axes",
+            "slice_size",
+            "stream"
+          ]
+        },
+        {
+          "name": "slice_update",
+          "startLine": 4676,
+          "endLine": 4703,
+          "params": [
+            "a",
+            "update",
+            "start_indices",
+            "axes",
+            "stream"
+          ]
+        },
+        {
+          "name": "softmax",
+          "startLine": 4705,
+          "endLine": 4730,
+          "params": [
+            "a",
+            "axis",
+            "precise",
+            "stream"
+          ]
+        },
+        {
+          "name": "sort",
+          "startLine": 4732,
+          "endLine": 4750,
+          "params": [
+            "a",
+            "axis",
+            "stream"
+          ]
+        },
+        {
+          "name": "split",
+          "startLine": 4752,
+          "endLine": 4774,
+          "params": [
+            "a",
+            "indices_or_sections",
+            "axis",
+            "stream"
+          ]
+        },
+        {
+          "name": "sqrt",
+          "startLine": 4776,
+          "endLine": 4785,
+          "params": [
+            "a",
+            "stream"
+          ]
+        },
+        {
+          "name": "square",
+          "startLine": 4787,
+          "endLine": 4796,
+          "params": [
+            "a",
+            "stream"
+          ]
+        },
+        {
+          "name": "squeeze",
+          "startLine": 4798,
+          "endLine": 4815,
+          "params": [
+            "a",
+            "axis",
+            "stream"
+          ]
+        },
+        {
+          "name": "stack",
+          "startLine": 4817,
+          "endLine": 4834,
+          "params": [
+            "arrays",
+            "axis",
+            "stream"
+          ]
+        },
+        {
+          "name": "std",
+          "startLine": 4836,
+          "endLine": 4860,
+          "params": [
+            "a",
+            "axis",
+            "keepdims",
+            "ddof",
+            "stream"
+          ]
+        },
+        {
+          "name": "stop_gradient",
+          "startLine": 4862,
+          "endLine": 4876,
+          "params": [
+            "a",
+            "stream"
+          ]
+        },
+        {
+          "name": "stream",
+          "startLine": 4878,
+          "endLine": 4898,
+          "params": [
+            "s"
+          ]
+        },
+        {
+          "name": "subtract",
+          "startLine": 4900,
+          "endLine": 4917,
+          "params": [
+            "a",
+            "b",
+            "stream"
+          ]
+        },
+        {
+          "name": "sum",
+          "startLine": 4919,
+          "endLine": 4940,
+          "params": [
+            "a",
+            "axis",
+            "keepdims",
+            "stream"
+          ]
+        },
+        {
+          "name": "swapaxes",
+          "startLine": 4942,
+          "endLine": 4955,
+          "params": [
+            "a",
+            "axis1",
+            "axis2",
+            "stream"
+          ]
+        },
+        {
+          "name": "synchronize",
+          "startLine": 4957,
+          "endLine": 4965,
+          "params": [
+            "stream"
+          ]
+        },
+        {
+          "name": "take",
+          "startLine": 4967,
+          "endLine": 4992,
+          "params": [
+            "a",
+            "indices",
+            "axis",
+            "stream"
+          ]
+        },
+        {
+          "name": "take_along_axis",
+          "startLine": 4994,
+          "endLine": 5015,
+          "params": [
+            "a",
+            "indices",
+            "axis",
+            "stream"
+          ]
+        },
+        {
+          "name": "tan",
+          "startLine": 5017,
+          "endLine": 5026,
+          "params": [
+            "a",
+            "stream"
+          ]
+        },
+        {
+          "name": "tanh",
+          "startLine": 5028,
+          "endLine": 5037,
+          "params": [
+            "a",
+            "stream"
+          ]
+        },
+        {
+          "name": "tensordot",
+          "startLine": 5039,
+          "endLine": 5061,
+          "params": [
+            "a",
+            "b",
+            "axes",
+            "stream"
+          ]
+        },
+        {
+          "name": "tile",
+          "startLine": 5063,
+          "endLine": 5079,
+          "params": [
+            "a",
+            "reps",
+            "stream"
+          ]
+        },
+        {
+          "name": "topk",
+          "startLine": 5081,
+          "endLine": 5103,
+          "params": [
+            "a",
+            "k",
+            "axis",
+            "stream"
+          ]
+        },
+        {
+          "name": "trace",
+          "startLine": 5105,
+          "endLine": 5131,
+          "params": [
+            "a",
+            "offset",
+            "axis1",
+            "axis2",
+            "dtype",
+            "stream"
+          ]
+        },
+        {
+          "name": "transpose",
+          "startLine": 5133,
+          "endLine": 5150,
+          "params": [
+            "a",
+            "axes",
+            "stream"
+          ]
+        },
+        {
+          "name": "tri",
+          "startLine": 5152,
+          "endLine": 5172,
+          "params": [
+            "n",
+            "m",
+            "k",
+            "dtype",
+            "stream"
+          ]
+        },
+        {
+          "name": "tril",
+          "startLine": 5174,
+          "endLine": 5185,
+          "params": [
+            "x",
+            "k",
+            "stream"
+          ]
+        },
+        {
+          "name": "triu",
+          "startLine": 5187,
+          "endLine": 5198,
+          "params": [
+            "x",
+            "k",
+            "stream"
+          ]
+        },
+        {
+          "name": "unflatten",
+          "startLine": 5205,
+          "endLine": 5232,
+          "params": [
+            "a",
+            "axis",
+            "shape",
+            "stream"
+          ]
+        },
+        {
+          "name": "value_and_grad",
+          "startLine": 5236,
+          "endLine": 5289,
+          "params": [
+            "fun",
+            "argnums",
+            "argnames"
+          ]
+        },
+        {
+          "name": "var",
+          "startLine": 5291,
+          "endLine": 5315,
+          "params": [
+            "a",
+            "axis",
+            "keepdims",
+            "ddof",
+            "stream"
+          ]
+        },
+        {
+          "name": "view",
+          "startLine": 5317,
+          "endLine": 5336,
+          "params": [
+            "a",
+            "dtype",
+            "stream"
+          ]
+        },
+        {
+          "name": "vjp",
+          "startLine": 5338,
+          "endLine": 5359,
+          "params": [
+            "fun",
+            "primals",
+            "cotangents"
+          ]
+        },
+        {
+          "name": "vmap",
+          "startLine": 5361,
+          "endLine": 5380,
+          "params": [
+            "fun",
+            "in_axes",
+            "out_axes"
+          ]
+        },
+        {
+          "name": "where",
+          "startLine": 5382,
+          "endLine": 5404,
+          "params": [
+            "condition",
+            "x",
+            "y",
+            "stream"
+          ]
+        },
+        {
+          "name": "zeros",
+          "startLine": 5406,
+          "endLine": 5422,
+          "params": [
+            "shape",
+            "dtype",
+            "stream"
+          ]
+        },
+        {
+          "name": "zeros_like",
+          "startLine": 5424,
+          "endLine": 5433,
+          "params": [
+            "a",
+            "stream"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "ArrayAt",
+          "startLine": 23,
+          "endLine": 85,
+          "methods": [
+            "__getitem__",
+            "add",
+            "subtract",
+            "multiply",
+            "divide",
+            "maximum",
+            "minimum"
+          ],
+          "properties": []
+        },
+        {
+          "name": "ArrayIterator",
+          "startLine": 87,
+          "endLine": 90,
+          "methods": [
+            "__next__",
+            "__iter__"
+          ],
+          "properties": []
+        },
+        {
+          "name": "ArrayLike",
+          "startLine": 92,
+          "endLine": 97,
+          "methods": [
+            "__init__"
+          ],
+          "properties": []
+        },
+        {
+          "name": "Device",
+          "startLine": 99,
+          "endLine": 105,
+          "methods": [
+            "__init__",
+            "type",
+            "__repr__",
+            "__eq__"
+          ],
+          "properties": []
+        },
+        {
+          "name": "DeviceType",
+          "startLine": 107,
+          "endLine": 110,
+          "methods": [
+            "__eq__"
+          ],
+          "properties": []
+        },
+        {
+          "name": "Dtype",
+          "startLine": 112,
+          "endLine": 125,
+          "methods": [
+            "size",
+            "__repr__",
+            "__eq__",
+            "__hash__"
+          ],
+          "properties": []
+        },
+        {
+          "name": "DtypeCategory",
+          "startLine": 127,
+          "endLine": 174,
+          "methods": [],
+          "properties": []
+        },
+        {
+          "name": "FunctionExporter",
+          "startLine": 176,
+          "endLine": 191,
+          "methods": [
+            "close",
+            "__enter__",
+            "__exit__",
+            "__call__"
+          ],
+          "properties": []
+        },
+        {
+          "name": "Stream",
+          "startLine": 193,
+          "endLine": 198,
+          "methods": [
+            "device",
+            "__repr__",
+            "__eq__"
+          ],
+          "properties": []
+        },
+        {
+          "name": "StreamContext",
+          "startLine": 200,
+          "endLine": 216,
+          "methods": [
+            "__init__",
+            "__enter__",
+            "__exit__"
+          ],
+          "properties": []
+        },
+        {
+          "name": "array",
+          "startLine": 584,
+          "endLine": 1425,
+          "methods": [
+            "__init__",
+            "__buffer__",
+            "__release_buffer__",
+            "size",
+            "ndim",
+            "itemsize",
+            "nbytes",
+            "shape",
+            "dtype",
+            "real",
+            "imag",
+            "item",
+            "tolist",
+            "astype",
+            "__array_namespace__",
+            "__getitem__",
+            "__setitem__",
+            "at",
+            "__len__",
+            "__iter__",
+            "__getstate__",
+            "__setstate__",
+            "__dlpack__",
+            "__dlpack_device__",
+            "__copy__",
+            "__deepcopy__",
+            "__add__",
+            "__iadd__",
+            "__radd__",
+            "__sub__",
+            "__isub__",
+            "__rsub__",
+            "__mul__",
+            "__imul__",
+            "__rmul__",
+            "__truediv__",
+            "__itruediv__",
+            "__rtruediv__",
+            "__div__",
+            "__rdiv__",
+            "__floordiv__",
+            "__ifloordiv__",
+            "__rfloordiv__",
+            "__mod__",
+            "__imod__",
+            "__rmod__",
+            "__eq__",
+            "__lt__",
+            "__le__",
+            "__gt__",
+            "__ge__",
+            "__ne__",
+            "__neg__",
+            "__bool__",
+            "__repr__",
+            "__matmul__",
+            "__imatmul__",
+            "__pow__",
+            "__rpow__",
+            "__ipow__",
+            "__invert__",
+            "__and__",
+            "__iand__",
+            "__or__",
+            "__ior__",
+            "__lshift__",
+            "__ilshift__",
+            "__rshift__",
+            "__irshift__",
+            "__xor__",
+            "__ixor__",
+            "__int__",
+            "__float__",
+            "flatten",
+            "reshape",
+            "squeeze",
+            "abs",
+            "__abs__",
+            "square",
+            "sqrt",
+            "rsqrt",
+            "reciprocal",
+            "exp",
+            "log",
+            "log2",
+            "log10",
+            "sin",
+            "cos",
+            "log1p",
+            "all",
+            "any",
+            "moveaxis",
+            "swapaxes",
+            "transpose",
+            "T",
+            "sum",
+            "prod",
+            "min",
+            "max",
+            "logcumsumexp",
+            "logsumexp",
+            "mean",
+            "std",
+            "var",
+            "split",
+            "argmin",
+            "argmax",
+            "cumsum",
+            "cumprod",
+            "cummax",
+            "cummin",
+            "round",
+            "diagonal",
+            "diag",
+            "conj",
+            "view"
+          ],
+          "properties": []
+        },
+        {
+          "name": "custom_function",
+          "startLine": 2255,
+          "endLine": 2380,
+          "methods": [
+            "__init__",
+            "__call__",
+            "vjp",
+            "jvp",
+            "vmap"
+          ],
+          "properties": []
+        },
+        {
+          "name": "finfo",
+          "startLine": 2797,
+          "endLine": 2819,
+          "methods": [
+            "__init__",
+            "min",
+            "max",
+            "eps",
+            "dtype",
+            "__repr__"
+          ],
+          "properties": []
+        },
+        {
+          "name": "iinfo",
+          "startLine": 3141,
+          "endLine": 3156,
+          "methods": [
+            "__init__",
+            "min",
+            "max",
+            "dtype",
+            "__repr__"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "ArrayAt",
+          "line": 23,
+          "isDefault": false
+        },
+        {
+          "name": "ArrayIterator",
+          "line": 87,
+          "isDefault": false
+        },
+        {
+          "name": "ArrayLike",
+          "line": 92,
+          "isDefault": false
+        },
+        {
+          "name": "Device",
+          "line": 99,
+          "isDefault": false
+        },
+        {
+          "name": "DeviceType",
+          "line": 107,
+          "isDefault": false
+        },
+        {
+          "name": "Dtype",
+          "line": 112,
+          "isDefault": false
+        },
+        {
+          "name": "DtypeCategory",
+          "line": 127,
+          "isDefault": false
+        },
+        {
+          "name": "FunctionExporter",
+          "line": 176,
+          "isDefault": false
+        },
+        {
+          "name": "Stream",
+          "line": 193,
+          "isDefault": false
+        },
+        {
+          "name": "StreamContext",
+          "line": 200,
+          "isDefault": false
+        },
+        {
+          "name": "device_info",
+          "line": 218,
+          "isDefault": false
+        },
+        {
+          "name": "abs",
+          "line": 234,
+          "isDefault": false
+        },
+        {
+          "name": "add",
+          "line": 245,
+          "isDefault": false
+        },
+        {
+          "name": "addmm",
+          "line": 264,
+          "isDefault": false
+        },
+        {
+          "name": "all",
+          "line": 292,
+          "isDefault": false
+        },
+        {
+          "name": "allclose",
+          "line": 315,
+          "isDefault": false
+        },
+        {
+          "name": "any",
+          "line": 351,
+          "isDefault": false
+        },
+        {
+          "name": "arange",
+          "line": 374,
+          "isDefault": false
+        },
+        {
+          "name": "arange",
+          "line": 405,
+          "isDefault": false
+        },
+        {
+          "name": "arccos",
+          "line": 413,
+          "isDefault": false
+        },
+        {
+          "name": "arccosh",
+          "line": 424,
+          "isDefault": false
+        },
+        {
+          "name": "arcsin",
+          "line": 435,
+          "isDefault": false
+        },
+        {
+          "name": "arcsinh",
+          "line": 446,
+          "isDefault": false
+        },
+        {
+          "name": "arctan",
+          "line": 457,
+          "isDefault": false
+        },
+        {
+          "name": "arctan2",
+          "line": 468,
+          "isDefault": false
+        },
+        {
+          "name": "arctanh",
+          "line": 480,
+          "isDefault": false
+        },
+        {
+          "name": "argmax",
+          "line": 491,
+          "isDefault": false
+        },
+        {
+          "name": "argmin",
+          "line": 513,
+          "isDefault": false
+        },
+        {
+          "name": "argpartition",
+          "line": 535,
+          "isDefault": false
+        },
+        {
+          "name": "argsort",
+          "line": 564,
+          "isDefault": false
+        },
+        {
+          "name": "array",
+          "line": 584,
+          "isDefault": false
+        },
+        {
+          "name": "array_equal",
+          "line": 1427,
+          "isDefault": false
+        },
+        {
+          "name": "as_strided",
+          "line": 1450,
+          "isDefault": false
+        },
+        {
+          "name": "async_eval",
+          "line": 1486,
+          "isDefault": false
+        },
+        {
+          "name": "atleast_1d",
+          "line": 1513,
+          "isDefault": false
+        },
+        {
+          "name": "atleast_2d",
+          "line": 1527,
+          "isDefault": false
+        },
+        {
+          "name": "atleast_3d",
+          "line": 1541,
+          "isDefault": false
+        },
+        {
+          "name": "bitwise_and",
+          "line": 1557,
+          "isDefault": false
+        },
+        {
+          "name": "bitwise_invert",
+          "line": 1576,
+          "isDefault": false
+        },
+        {
+          "name": "bitwise_or",
+          "line": 1589,
+          "isDefault": false
+        },
+        {
+          "name": "bitwise_xor",
+          "line": 1608,
+          "isDefault": false
+        },
+        {
+          "name": "block_masked_mm",
+          "line": 1628,
+          "isDefault": false
+        },
+        {
+          "name": "broadcast_arrays",
+          "line": 1667,
+          "isDefault": false
+        },
+        {
+          "name": "broadcast_shapes",
+          "line": 1682,
+          "isDefault": false
+        },
+        {
+          "name": "broadcast_to",
+          "line": 1707,
+          "isDefault": false
+        },
+        {
+          "name": "ceil",
+          "line": 1727,
+          "isDefault": false
+        },
+        {
+          "name": "checkpoint",
+          "line": 1738,
+          "isDefault": false
+        },
+        {
+          "name": "clear_cache",
+          "line": 1739,
+          "isDefault": false
+        },
+        {
+          "name": "clip",
+          "line": 1746,
+          "isDefault": false
+        },
+        {
+          "name": "compile",
+          "line": 1770,
+          "isDefault": false
+        },
+        {
+          "name": "concat",
+          "line": 1808,
+          "isDefault": false
+        },
+        {
+          "name": "concatenate",
+          "line": 1816,
+          "isDefault": false
+        },
+        {
+          "name": "conj",
+          "line": 1834,
+          "isDefault": false
+        },
+        {
+          "name": "conjugate",
+          "line": 1846,
+          "isDefault": false
+        },
+        {
+          "name": "contiguous",
+          "line": 1858,
+          "isDefault": false
+        },
+        {
+          "name": "conv1d",
+          "line": 1876,
+          "isDefault": false
+        },
+        {
+          "name": "conv2d",
+          "line": 1902,
+          "isDefault": false
+        },
+        {
+          "name": "conv3d",
+          "line": 1934,
+          "isDefault": false
+        },
+        {
+          "name": "conv_general",
+          "line": 1968,
+          "isDefault": false
+        },
+        {
+          "name": "conv_transpose1d",
+          "line": 2009,
+          "isDefault": false
+        },
+        {
+          "name": "conv_transpose2d",
+          "line": 2037,
+          "isDefault": false
+        },
+        {
+          "name": "conv_transpose3d",
+          "line": 2075,
+          "isDefault": false
+        },
+        {
+          "name": "convolve",
+          "line": 2113,
+          "isDefault": false
+        },
+        {
+          "name": "cos",
+          "line": 2131,
+          "isDefault": false
+        },
+        {
+          "name": "cosh",
+          "line": 2142,
+          "isDefault": false
+        },
+        {
+          "name": "cummax",
+          "line": 2155,
+          "isDefault": false
+        },
+        {
+          "name": "cummin",
+          "line": 2180,
+          "isDefault": false
+        },
+        {
+          "name": "cumprod",
+          "line": 2205,
+          "isDefault": false
+        },
+        {
+          "name": "cumsum",
+          "line": 2230,
+          "isDefault": false
+        },
+        {
+          "name": "custom_function",
+          "line": 2255,
+          "isDefault": false
+        },
+        {
+          "name": "default_device",
+          "line": 2382,
+          "isDefault": false
+        },
+        {
+          "name": "default_stream",
+          "line": 2385,
+          "isDefault": false
+        },
+        {
+          "name": "degrees",
+          "line": 2388,
+          "isDefault": false
+        },
+        {
+          "name": "depends",
+          "line": 2399,
+          "isDefault": false
+        },
+        {
+          "name": "dequantize",
+          "line": 2413,
+          "isDefault": false
+        },
+        {
+          "name": "diag",
+          "line": 2453,
+          "isDefault": false
+        },
+        {
+          "name": "diagonal",
+          "line": 2469,
+          "isDefault": false
+        },
+        {
+          "name": "disable_compile",
+          "line": 2500,
+          "isDefault": false
+        },
+        {
+          "name": "divide",
+          "line": 2506,
+          "isDefault": false
+        },
+        {
+          "name": "divmod",
+          "line": 2525,
+          "isDefault": false
+        },
+        {
+          "name": "einsum",
+          "line": 2547,
+          "isDefault": false
+        },
+        {
+          "name": "einsum_path",
+          "line": 2559,
+          "isDefault": false
+        },
+        {
+          "name": "enable_compile",
+          "line": 2573,
+          "isDefault": false
+        },
+        {
+          "name": "equal",
+          "line": 2579,
+          "isDefault": false
+        },
+        {
+          "name": "erf",
+          "line": 2598,
+          "isDefault": false
+        },
+        {
+          "name": "erfinv",
+          "line": 2612,
+          "isDefault": false
+        },
+        {
+          "name": "eval",
+          "line": 2633,
+          "isDefault": false
+        },
+        {
+          "name": "exp",
+          "line": 2644,
+          "isDefault": false
+        },
+        {
+          "name": "expand_dims",
+          "line": 2655,
+          "isDefault": false
+        },
+        {
+          "name": "expm1",
+          "line": 2673,
+          "isDefault": false
+        },
+        {
+          "name": "export_function",
+          "line": 2686,
+          "isDefault": false
+        },
+        {
+          "name": "export_to_dot",
+          "line": 2725,
+          "isDefault": false
+        },
+        {
+          "name": "exporter",
+          "line": 2747,
+          "isDefault": false
+        },
+        {
+          "name": "eye",
+          "line": 2775,
+          "isDefault": false
+        },
+        {
+          "name": "finfo",
+          "line": 2797,
+          "isDefault": false
+        },
+        {
+          "name": "flatten",
+          "line": 2821,
+          "isDefault": false
+        },
+        {
+          "name": "floor",
+          "line": 2861,
+          "isDefault": false
+        },
+        {
+          "name": "floor_divide",
+          "line": 2872,
+          "isDefault": false
+        },
+        {
+          "name": "full",
+          "line": 2891,
+          "isDefault": false
+        },
+        {
+          "name": "gather_mm",
+          "line": 2914,
+          "isDefault": false
+        },
+        {
+          "name": "gather_qmm",
+          "line": 2957,
+          "isDefault": false
+        },
+        {
+          "name": "get_active_memory",
+          "line": 3010,
+          "isDefault": false
+        },
+        {
+          "name": "get_cache_memory",
+          "line": 3018,
+          "isDefault": false
+        },
+        {
+          "name": "get_peak_memory",
+          "line": 3026,
+          "isDefault": false
+        },
+        {
+          "name": "grad",
+          "line": 3036,
+          "isDefault": false
+        },
+        {
+          "name": "greater",
+          "line": 3062,
+          "isDefault": false
+        },
+        {
+          "name": "greater_equal",
+          "line": 3081,
+          "isDefault": false
+        },
+        {
+          "name": "hadamard_transform",
+          "line": 3100,
+          "isDefault": false
+        },
+        {
+          "name": "identity",
+          "line": 3126,
+          "isDefault": false
+        },
+        {
+          "name": "iinfo",
+          "line": 3141,
+          "isDefault": false
+        },
+        {
+          "name": "imag",
+          "line": 3158,
+          "isDefault": false
+        },
+        {
+          "name": "import_function",
+          "line": 3169,
+          "isDefault": false
+        },
+        {
+          "name": "inner",
+          "line": 3200,
+          "isDefault": false
+        },
+        {
+          "name": "is_available",
+          "line": 3218,
+          "isDefault": false
+        },
+        {
+          "name": "isclose",
+          "line": 3221,
+          "isDefault": false
+        },
+        {
+          "name": "isfinite",
+          "line": 3258,
+          "isDefault": false
+        },
+        {
+          "name": "isinf",
+          "line": 3271,
+          "isDefault": false
+        },
+        {
+          "name": "isnan",
+          "line": 3282,
+          "isDefault": false
+        },
+        {
+          "name": "isneginf",
+          "line": 3293,
+          "isDefault": false
+        },
+        {
+          "name": "isposinf",
+          "line": 3305,
+          "isDefault": false
+        },
+        {
+          "name": "issubdtype",
+          "line": 3317,
+          "isDefault": false
+        },
+        {
+          "name": "jvp",
+          "line": 3367,
+          "isDefault": false
+        },
+        {
+          "name": "kron",
+          "line": 3390,
+          "isDefault": false
+        },
+        {
+          "name": "left_shift",
+          "line": 3414,
+          "isDefault": false
+        },
+        {
+          "name": "less",
+          "line": 3434,
+          "isDefault": false
+        },
+        {
+          "name": "less_equal",
+          "line": 3453,
+          "isDefault": false
+        },
+        {
+          "name": "linspace",
+          "line": 3472,
+          "isDefault": false
+        },
+        {
+          "name": "load",
+          "line": 3493,
+          "isDefault": false
+        },
+        {
+          "name": "log",
+          "line": 3528,
+          "isDefault": false
+        },
+        {
+          "name": "log10",
+          "line": 3539,
+          "isDefault": false
+        },
+        {
+          "name": "log1p",
+          "line": 3550,
+          "isDefault": false
+        },
+        {
+          "name": "log2",
+          "line": 3561,
+          "isDefault": false
+        },
+        {
+          "name": "logaddexp",
+          "line": 3572,
+          "isDefault": false
+        },
+        {
+          "name": "logcumsumexp",
+          "line": 3595,
+          "isDefault": false
+        },
+        {
+          "name": "logical_and",
+          "line": 3620,
+          "isDefault": false
+        },
+        {
+          "name": "logical_not",
+          "line": 3634,
+          "isDefault": false
+        },
+        {
+          "name": "logical_or",
+          "line": 3645,
+          "isDefault": false
+        },
+        {
+          "name": "logsumexp",
+          "line": 3657,
+          "isDefault": false
+        },
+        {
+          "name": "matmul",
+          "line": 3686,
+          "isDefault": false
+        },
+        {
+          "name": "max",
+          "line": 3711,
+          "isDefault": false
+        },
+        {
+          "name": "maximum",
+          "line": 3734,
+          "isDefault": false
+        },
+        {
+          "name": "mean",
+          "line": 3755,
+          "isDefault": false
+        },
+        {
+          "name": "meshgrid",
+          "line": 3778,
+          "isDefault": false
+        },
+        {
+          "name": "min",
+          "line": 3799,
+          "isDefault": false
+        },
+        {
+          "name": "minimum",
+          "line": 3822,
+          "isDefault": false
+        },
+        {
+          "name": "moveaxis",
+          "line": 3843,
+          "isDefault": false
+        },
+        {
+          "name": "multiply",
+          "line": 3863,
+          "isDefault": false
+        },
+        {
+          "name": "nan_to_num",
+          "line": 3884,
+          "isDefault": false
+        },
+        {
+          "name": "negative",
+          "line": 3909,
+          "isDefault": false
+        },
+        {
+          "name": "new_stream",
+          "line": 3920,
+          "isDefault": false
+        },
+        {
+          "name": "not_equal",
+          "line": 3925,
+          "isDefault": false
+        },
+        {
+          "name": "ones",
+          "line": 3946,
+          "isDefault": false
+        },
+        {
+          "name": "ones_like",
+          "line": 3964,
+          "isDefault": false
+        },
+        {
+          "name": "outer",
+          "line": 3975,
+          "isDefault": false
+        },
+        {
+          "name": "pad",
+          "line": 3987,
+          "isDefault": false
+        },
+        {
+          "name": "partition",
+          "line": 4016,
+          "isDefault": false
+        },
+        {
+          "name": "permute_dims",
+          "line": 4044,
+          "isDefault": false
+        },
+        {
+          "name": "power",
+          "line": 4055,
+          "isDefault": false
+        },
+        {
+          "name": "prod",
+          "line": 4076,
+          "isDefault": false
+        },
+        {
+          "name": "put_along_axis",
+          "line": 4099,
+          "isDefault": false
+        },
+        {
+          "name": "quantize",
+          "line": 4126,
+          "isDefault": false
+        },
+        {
+          "name": "quantized_matmul",
+          "line": 4198,
+          "isDefault": false
+        },
+        {
+          "name": "radians",
+          "line": 4236,
+          "isDefault": false
+        },
+        {
+          "name": "real",
+          "line": 4247,
+          "isDefault": false
+        },
+        {
+          "name": "reciprocal",
+          "line": 4258,
+          "isDefault": false
+        },
+        {
+          "name": "remainder",
+          "line": 4269,
+          "isDefault": false
+        },
+        {
+          "name": "repeat",
+          "line": 4289,
+          "isDefault": false
+        },
+        {
+          "name": "reset_peak_memory",
+          "line": 4311,
+          "isDefault": false
+        },
+        {
+          "name": "reshape",
+          "line": 4314,
+          "isDefault": false
+        },
+        {
+          "name": "right_shift",
+          "line": 4330,
+          "isDefault": false
+        },
+        {
+          "name": "roll",
+          "line": 4350,
+          "isDefault": false
+        },
+        {
+          "name": "round",
+          "line": 4377,
+          "isDefault": false
+        },
+        {
+          "name": "rsqrt",
+          "line": 4399,
+          "isDefault": false
+        },
+        {
+          "name": "save",
+          "line": 4410,
+          "isDefault": false
+        },
+        {
+          "name": "save_gguf",
+          "line": 4419,
+          "isDefault": false
+        },
+        {
+          "name": "save_safetensors",
+          "line": 4440,
+          "isDefault": false
+        },
+        {
+          "name": "savez",
+          "line": 4460,
+          "isDefault": false
+        },
+        {
+          "name": "savez_compressed",
+          "line": 4486,
+          "isDefault": false
+        },
+        {
+          "name": "segmented_mm",
+          "line": 4497,
+          "isDefault": false
+        },
+        {
+          "name": "set_cache_limit",
+          "line": 4513,
+          "isDefault": false
+        },
+        {
+          "name": "set_default_device",
+          "line": 4531,
+          "isDefault": false
+        },
+        {
+          "name": "set_default_stream",
+          "line": 4534,
+          "isDefault": false
+        },
+        {
+          "name": "set_memory_limit",
+          "line": 4545,
+          "isDefault": false
+        },
+        {
+          "name": "set_wired_limit",
+          "line": 4564,
+          "isDefault": false
+        },
+        {
+          "name": "sigmoid",
+          "line": 4594,
+          "isDefault": false
+        },
+        {
+          "name": "sign",
+          "line": 4610,
+          "isDefault": false
+        },
+        {
+          "name": "sin",
+          "line": 4623,
+          "isDefault": false
+        },
+        {
+          "name": "sinh",
+          "line": 4634,
+          "isDefault": false
+        },
+        {
+          "name": "slice",
+          "line": 4645,
+          "isDefault": false
+        },
+        {
+          "name": "slice_update",
+          "line": 4676,
+          "isDefault": false
+        },
+        {
+          "name": "softmax",
+          "line": 4705,
+          "isDefault": false
+        },
+        {
+          "name": "sort",
+          "line": 4732,
+          "isDefault": false
+        },
+        {
+          "name": "split",
+          "line": 4752,
+          "isDefault": false
+        },
+        {
+          "name": "sqrt",
+          "line": 4776,
+          "isDefault": false
+        },
+        {
+          "name": "square",
+          "line": 4787,
+          "isDefault": false
+        },
+        {
+          "name": "squeeze",
+          "line": 4798,
+          "isDefault": false
+        },
+        {
+          "name": "stack",
+          "line": 4817,
+          "isDefault": false
+        },
+        {
+          "name": "std",
+          "line": 4836,
+          "isDefault": false
+        },
+        {
+          "name": "stop_gradient",
+          "line": 4862,
+          "isDefault": false
+        },
+        {
+          "name": "stream",
+          "line": 4878,
+          "isDefault": false
+        },
+        {
+          "name": "subtract",
+          "line": 4900,
+          "isDefault": false
+        },
+        {
+          "name": "sum",
+          "line": 4919,
+          "isDefault": false
+        },
+        {
+          "name": "swapaxes",
+          "line": 4942,
+          "isDefault": false
+        },
+        {
+          "name": "synchronize",
+          "line": 4957,
+          "isDefault": false
+        },
+        {
+          "name": "take",
+          "line": 4967,
+          "isDefault": false
+        },
+        {
+          "name": "take_along_axis",
+          "line": 4994,
+          "isDefault": false
+        },
+        {
+          "name": "tan",
+          "line": 5017,
+          "isDefault": false
+        },
+        {
+          "name": "tanh",
+          "line": 5028,
+          "isDefault": false
+        },
+        {
+          "name": "tensordot",
+          "line": 5039,
+          "isDefault": false
+        },
+        {
+          "name": "tile",
+          "line": 5063,
+          "isDefault": false
+        },
+        {
+          "name": "topk",
+          "line": 5081,
+          "isDefault": false
+        },
+        {
+          "name": "trace",
+          "line": 5105,
+          "isDefault": false
+        },
+        {
+          "name": "transpose",
+          "line": 5133,
+          "isDefault": false
+        },
+        {
+          "name": "tri",
+          "line": 5152,
+          "isDefault": false
+        },
+        {
+          "name": "tril",
+          "line": 5174,
+          "isDefault": false
+        },
+        {
+          "name": "triu",
+          "line": 5187,
+          "isDefault": false
+        },
+        {
+          "name": "unflatten",
+          "line": 5205,
+          "isDefault": false
+        },
+        {
+          "name": "value_and_grad",
+          "line": 5236,
+          "isDefault": false
+        },
+        {
+          "name": "var",
+          "line": 5291,
+          "isDefault": false
+        },
+        {
+          "name": "view",
+          "line": 5317,
+          "isDefault": false
+        },
+        {
+          "name": "vjp",
+          "line": 5338,
+          "isDefault": false
+        },
+        {
+          "name": "vmap",
+          "line": 5361,
+          "isDefault": false
+        },
+        {
+          "name": "where",
+          "line": 5382,
+          "isDefault": false
+        },
+        {
+          "name": "zeros",
+          "line": 5406,
+          "isDefault": false
+        },
+        {
+          "name": "zeros_like",
+          "line": 5424,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "add",
+          "callee": "dict",
+          "lineNumber": 32
+        },
+        {
+          "caller": "subtract",
+          "callee": "dict",
+          "lineNumber": 42
+        },
+        {
+          "caller": "multiply",
+          "callee": "dict",
+          "lineNumber": 52
+        },
+        {
+          "caller": "divide",
+          "callee": "dict",
+          "lineNumber": 62
+        },
+        {
+          "caller": "maximum",
+          "callee": "dict",
+          "lineNumber": 72
+        },
+        {
+          "caller": "minimum",
+          "callee": "dict",
+          "lineNumber": 82
+        },
+        {
+          "caller": "__setitem__",
+          "callee": "dict",
+          "lineNumber": 697
+        },
+        {
+          "caller": "__add__",
+          "callee": "dict",
+          "lineNumber": 757
+        },
+        {
+          "caller": "__iadd__",
+          "callee": "dict",
+          "lineNumber": 767
+        },
+        {
+          "caller": "__radd__",
+          "callee": "dict",
+          "lineNumber": 777
+        },
+        {
+          "caller": "__sub__",
+          "callee": "dict",
+          "lineNumber": 787
+        },
+        {
+          "caller": "__isub__",
+          "callee": "dict",
+          "lineNumber": 797
+        },
+        {
+          "caller": "__rsub__",
+          "callee": "dict",
+          "lineNumber": 807
+        },
+        {
+          "caller": "__mul__",
+          "callee": "dict",
+          "lineNumber": 817
+        },
+        {
+          "caller": "__imul__",
+          "callee": "dict",
+          "lineNumber": 827
+        },
+        {
+          "caller": "__rmul__",
+          "callee": "dict",
+          "lineNumber": 837
+        },
+        {
+          "caller": "__truediv__",
+          "callee": "dict",
+          "lineNumber": 847
+        },
+        {
+          "caller": "__itruediv__",
+          "callee": "dict",
+          "lineNumber": 857
+        },
+        {
+          "caller": "__rtruediv__",
+          "callee": "dict",
+          "lineNumber": 867
+        },
+        {
+          "caller": "__div__",
+          "callee": "dict",
+          "lineNumber": 877
+        },
+        {
+          "caller": "__rdiv__",
+          "callee": "dict",
+          "lineNumber": 887
+        },
+        {
+          "caller": "__floordiv__",
+          "callee": "dict",
+          "lineNumber": 897
+        },
+        {
+          "caller": "__ifloordiv__",
+          "callee": "dict",
+          "lineNumber": 907
+        },
+        {
+          "caller": "__rfloordiv__",
+          "callee": "dict",
+          "lineNumber": 917
+        },
+        {
+          "caller": "__mod__",
+          "callee": "dict",
+          "lineNumber": 927
+        },
+        {
+          "caller": "__imod__",
+          "callee": "dict",
+          "lineNumber": 937
+        },
+        {
+          "caller": "__rmod__",
+          "callee": "dict",
+          "lineNumber": 947
+        },
+        {
+          "caller": "__eq__",
+          "callee": "dict",
+          "lineNumber": 957
+        },
+        {
+          "caller": "__lt__",
+          "callee": "dict",
+          "lineNumber": 967
+        },
+        {
+          "caller": "__le__",
+          "callee": "dict",
+          "lineNumber": 977
+        },
+        {
+          "caller": "__gt__",
+          "callee": "dict",
+          "lineNumber": 987
+        },
+        {
+          "caller": "__ge__",
+          "callee": "dict",
+          "lineNumber": 997
+        },
+        {
+          "caller": "__ne__",
+          "callee": "dict",
+          "lineNumber": 1007
+        },
+        {
+          "caller": "__pow__",
+          "callee": "dict",
+          "lineNumber": 1022
+        },
+        {
+          "caller": "__rpow__",
+          "callee": "dict",
+          "lineNumber": 1032
+        },
+        {
+          "caller": "__ipow__",
+          "callee": "dict",
+          "lineNumber": 1042
+        },
+        {
+          "caller": "__and__",
+          "callee": "dict",
+          "lineNumber": 1053
+        },
+        {
+          "caller": "__iand__",
+          "callee": "dict",
+          "lineNumber": 1063
+        },
+        {
+          "caller": "__or__",
+          "callee": "dict",
+          "lineNumber": 1073
+        },
+        {
+          "caller": "__ior__",
+          "callee": "dict",
+          "lineNumber": 1083
+        },
+        {
+          "caller": "__lshift__",
+          "callee": "dict",
+          "lineNumber": 1093
+        },
+        {
+          "caller": "__ilshift__",
+          "callee": "dict",
+          "lineNumber": 1103
+        },
+        {
+          "caller": "__rshift__",
+          "callee": "dict",
+          "lineNumber": 1113
+        },
+        {
+          "caller": "__irshift__",
+          "callee": "dict",
+          "lineNumber": 1123
+        },
+        {
+          "caller": "__xor__",
+          "callee": "dict",
+          "lineNumber": 1133
+        },
+        {
+          "caller": "__ixor__",
+          "callee": "dict",
+          "lineNumber": 1143
+        }
+      ],
+      "metrics": {
+        "importCount": 4,
+        "exportCount": 225,
+        "functionCount": 211,
+        "classCount": 14
+      }
+    },
+    {
+      "path": ".typings/mlx/core/cuda/__init__.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 2,
+      "nonEmptyLines": 2,
+      "functions": [
+        {
+          "name": "is_available",
+          "startLine": 1,
+          "endLine": 2,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "is_available",
+          "line": 1,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": ".typings/mlx/core/distributed/__init__.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 216,
+      "nonEmptyLines": 176,
+      "functions": [
+        {
+          "name": "all_gather",
+          "startLine": 31,
+          "endLine": 50,
+          "params": [
+            "x",
+            "group",
+            "stream"
+          ]
+        },
+        {
+          "name": "all_max",
+          "startLine": 52,
+          "endLine": 70,
+          "params": [
+            "x",
+            "group",
+            "stream"
+          ]
+        },
+        {
+          "name": "all_min",
+          "startLine": 72,
+          "endLine": 90,
+          "params": [
+            "x",
+            "group",
+            "stream"
+          ]
+        },
+        {
+          "name": "all_sum",
+          "startLine": 92,
+          "endLine": 110,
+          "params": [
+            "x",
+            "group",
+            "stream"
+          ]
+        },
+        {
+          "name": "init",
+          "startLine": 112,
+          "endLine": 136,
+          "params": [
+            "strict",
+            "backend"
+          ]
+        },
+        {
+          "name": "is_available",
+          "startLine": 138,
+          "endLine": 139,
+          "params": []
+        },
+        {
+          "name": "recv",
+          "startLine": 141,
+          "endLine": 165,
+          "params": [
+            "shape",
+            "dtype",
+            "src",
+            "group",
+            "stream"
+          ]
+        },
+        {
+          "name": "recv_like",
+          "startLine": 167,
+          "endLine": 192,
+          "params": [
+            "x",
+            "src",
+            "group",
+            "stream"
+          ]
+        },
+        {
+          "name": "send",
+          "startLine": 194,
+          "endLine": 216,
+          "params": [
+            "x",
+            "dst",
+            "group",
+            "stream"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "Group",
+          "startLine": 5,
+          "endLine": 29,
+          "methods": [
+            "rank",
+            "size",
+            "split"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "Group",
+          "line": 5,
+          "isDefault": false
+        },
+        {
+          "name": "all_gather",
+          "line": 31,
+          "isDefault": false
+        },
+        {
+          "name": "all_max",
+          "line": 52,
+          "isDefault": false
+        },
+        {
+          "name": "all_min",
+          "line": 72,
+          "isDefault": false
+        },
+        {
+          "name": "all_sum",
+          "line": 92,
+          "isDefault": false
+        },
+        {
+          "name": "init",
+          "line": 112,
+          "isDefault": false
+        },
+        {
+          "name": "is_available",
+          "line": 138,
+          "isDefault": false
+        },
+        {
+          "name": "recv",
+          "line": 141,
+          "isDefault": false
+        },
+        {
+          "name": "recv_like",
+          "line": 167,
+          "isDefault": false
+        },
+        {
+          "name": "send",
+          "line": 194,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 10,
+        "functionCount": 9,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mlx/core/metal/__init__.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 38,
+      "nonEmptyLines": 31,
+      "functions": [
+        {
+          "name": "clear_cache",
+          "startLine": 1,
+          "endLine": 1,
+          "params": []
+        },
+        {
+          "name": "device_info",
+          "startLine": 2,
+          "endLine": 16,
+          "params": []
+        },
+        {
+          "name": "get_active_memory",
+          "startLine": 18,
+          "endLine": 18,
+          "params": []
+        },
+        {
+          "name": "get_cache_memory",
+          "startLine": 19,
+          "endLine": 19,
+          "params": []
+        },
+        {
+          "name": "get_peak_memory",
+          "startLine": 20,
+          "endLine": 20,
+          "params": []
+        },
+        {
+          "name": "is_available",
+          "startLine": 21,
+          "endLine": 22,
+          "params": []
+        },
+        {
+          "name": "reset_peak_memory",
+          "startLine": 24,
+          "endLine": 24,
+          "params": []
+        },
+        {
+          "name": "set_cache_limit",
+          "startLine": 25,
+          "endLine": 25,
+          "params": [
+            "limit"
+          ]
+        },
+        {
+          "name": "set_memory_limit",
+          "startLine": 26,
+          "endLine": 26,
+          "params": [
+            "limit"
+          ]
+        },
+        {
+          "name": "set_wired_limit",
+          "startLine": 27,
+          "endLine": 27,
+          "params": [
+            "limit"
+          ]
+        },
+        {
+          "name": "start_capture",
+          "startLine": 28,
+          "endLine": 35,
+          "params": [
+            "path"
+          ]
+        },
+        {
+          "name": "stop_capture",
+          "startLine": 37,
+          "endLine": 38,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "clear_cache",
+          "line": 1,
+          "isDefault": false
+        },
+        {
+          "name": "device_info",
+          "line": 2,
+          "isDefault": false
+        },
+        {
+          "name": "get_active_memory",
+          "line": 18,
+          "isDefault": false
+        },
+        {
+          "name": "get_cache_memory",
+          "line": 19,
+          "isDefault": false
+        },
+        {
+          "name": "get_peak_memory",
+          "line": 20,
+          "isDefault": false
+        },
+        {
+          "name": "is_available",
+          "line": 21,
+          "isDefault": false
+        },
+        {
+          "name": "reset_peak_memory",
+          "line": 24,
+          "isDefault": false
+        },
+        {
+          "name": "set_cache_limit",
+          "line": 25,
+          "isDefault": false
+        },
+        {
+          "name": "set_memory_limit",
+          "line": 26,
+          "isDefault": false
+        },
+        {
+          "name": "set_wired_limit",
+          "line": 27,
+          "isDefault": false
+        },
+        {
+          "name": "start_capture",
+          "line": 28,
+          "isDefault": false
+        },
+        {
+          "name": "stop_capture",
+          "line": 37,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 12,
+        "functionCount": 12,
+        "classCount": 0
+      }
+    },
+    {
+      "path": ".typings/mlx/core/random/__init__.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 301,
+      "nonEmptyLines": 254,
+      "functions": [
+        {
+          "name": "bernoulli",
+          "startLine": 6,
+          "endLine": 28,
+          "params": [
+            "p",
+            "shape",
+            "key",
+            "stream"
+          ]
+        },
+        {
+          "name": "categorical",
+          "startLine": 30,
+          "endLine": 60,
+          "params": [
+            "logits",
+            "axis",
+            "shape",
+            "num_samples",
+            "key",
+            "stream"
+          ]
+        },
+        {
+          "name": "gumbel",
+          "startLine": 62,
+          "endLine": 84,
+          "params": [
+            "shape",
+            "dtype",
+            "key",
+            "stream"
+          ]
+        },
+        {
+          "name": "key",
+          "startLine": 86,
+          "endLine": 95,
+          "params": [
+            "seed"
+          ]
+        },
+        {
+          "name": "laplace",
+          "startLine": 97,
+          "endLine": 118,
+          "params": [
+            "shape",
+            "dtype",
+            "loc",
+            "scale",
+            "key",
+            "stream"
+          ]
+        },
+        {
+          "name": "multivariate_normal",
+          "startLine": 120,
+          "endLine": 149,
+          "params": [
+            "mean",
+            "cov",
+            "shape",
+            "dtype",
+            "key",
+            "stream"
+          ]
+        },
+        {
+          "name": "normal",
+          "startLine": 151,
+          "endLine": 178,
+          "params": [
+            "shape",
+            "dtype",
+            "loc",
+            "scale",
+            "key",
+            "stream"
+          ]
+        },
+        {
+          "name": "permutation",
+          "startLine": 180,
+          "endLine": 199,
+          "params": [
+            "x",
+            "axis",
+            "key",
+            "stream"
+          ]
+        },
+        {
+          "name": "randint",
+          "startLine": 201,
+          "endLine": 225,
+          "params": [
+            "low",
+            "high",
+            "shape",
+            "dtype",
+            "key",
+            "stream"
+          ]
+        },
+        {
+          "name": "seed",
+          "startLine": 227,
+          "endLine": 233,
+          "params": [
+            "seed"
+          ]
+        },
+        {
+          "name": "split",
+          "startLine": 235,
+          "endLine": 245,
+          "params": [
+            "key",
+            "num",
+            "stream"
+          ]
+        },
+        {
+          "name": "truncated_normal",
+          "startLine": 247,
+          "endLine": 273,
+          "params": [
+            "lower",
+            "upper",
+            "shape",
+            "dtype",
+            "key",
+            "stream"
+          ]
+        },
+        {
+          "name": "uniform",
+          "startLine": 275,
+          "endLine": 301,
+          "params": [
+            "low",
+            "high",
+            "shape",
+            "dtype",
+            "key",
+            "stream"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "bernoulli",
+          "line": 6,
+          "isDefault": false
+        },
+        {
+          "name": "categorical",
+          "line": 30,
+          "isDefault": false
+        },
+        {
+          "name": "gumbel",
+          "line": 62,
+          "isDefault": false
+        },
+        {
+          "name": "key",
+          "line": 86,
+          "isDefault": false
+        },
+        {
+          "name": "laplace",
+          "line": 97,
+          "isDefault": false
+        },
+        {
+          "name": "multivariate_normal",
+          "line": 120,
+          "isDefault": false
+        },
+        {
+          "name": "normal",
+          "line": 151,
+          "isDefault": false
+        },
+        {
+          "name": "permutation",
+          "line": 180,
+          "isDefault": false
+        },
+        {
+          "name": "randint",
+          "line": 201,
+          "isDefault": false
+        },
+        {
+          "name": "seed",
+          "line": 227,
+          "isDefault": false
+        },
+        {
+          "name": "split",
+          "line": 235,
+          "isDefault": false
+        },
+        {
+          "name": "truncated_normal",
+          "line": 247,
+          "isDefault": false
+        },
+        {
+          "name": "uniform",
+          "line": 275,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 13,
+        "functionCount": 13,
+        "classCount": 0
+      }
+    },
+    {
+      "path": ".typings/mlx/nn/__init__.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 5,
+      "nonEmptyLines": 4,
+      "metrics": {
+        "importCount": 4,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": ".typings/mlx/nn/init.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 284,
+      "nonEmptyLines": 218,
+      "functions": [
+        {
+          "name": "constant",
+          "startLine": 9,
+          "endLine": 27,
+          "params": [
+            "value",
+            "dtype"
+          ]
+        },
+        {
+          "name": "normal",
+          "startLine": 29,
+          "endLine": 52,
+          "params": [
+            "mean",
+            "std",
+            "dtype"
+          ]
+        },
+        {
+          "name": "uniform",
+          "startLine": 54,
+          "endLine": 77,
+          "params": [
+            "low",
+            "high",
+            "dtype"
+          ]
+        },
+        {
+          "name": "identity",
+          "startLine": 79,
+          "endLine": 96,
+          "params": [
+            "dtype"
+          ]
+        },
+        {
+          "name": "glorot_normal",
+          "startLine": 98,
+          "endLine": 129,
+          "params": [
+            "dtype"
+          ]
+        },
+        {
+          "name": "glorot_uniform",
+          "startLine": 131,
+          "endLine": 162,
+          "params": [
+            "dtype"
+          ]
+        },
+        {
+          "name": "he_normal",
+          "startLine": 164,
+          "endLine": 201,
+          "params": [
+            "dtype"
+          ]
+        },
+        {
+          "name": "he_uniform",
+          "startLine": 203,
+          "endLine": 242,
+          "params": [
+            "dtype"
+          ]
+        },
+        {
+          "name": "sparse",
+          "startLine": 244,
+          "endLine": 269,
+          "params": [
+            "sparsity",
+            "mean",
+            "std",
+            "dtype"
+          ]
+        },
+        {
+          "name": "orthogonal",
+          "startLine": 271,
+          "endLine": 284,
+          "params": [
+            "gain",
+            "dtype"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "constant",
+          "line": 9,
+          "isDefault": false
+        },
+        {
+          "name": "normal",
+          "line": 29,
+          "isDefault": false
+        },
+        {
+          "name": "uniform",
+          "line": 54,
+          "isDefault": false
+        },
+        {
+          "name": "identity",
+          "line": 79,
+          "isDefault": false
+        },
+        {
+          "name": "glorot_normal",
+          "line": 98,
+          "isDefault": false
+        },
+        {
+          "name": "glorot_uniform",
+          "line": 131,
+          "isDefault": false
+        },
+        {
+          "name": "he_normal",
+          "line": 164,
+          "isDefault": false
+        },
+        {
+          "name": "he_uniform",
+          "line": 203,
+          "isDefault": false
+        },
+        {
+          "name": "sparse",
+          "line": 244,
+          "isDefault": false
+        },
+        {
+          "name": "orthogonal",
+          "line": 271,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 10,
+        "functionCount": 10,
+        "classCount": 0
+      }
+    },
+    {
+      "path": ".typings/mlx/nn/layers/__init__.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 16,
+      "nonEmptyLines": 16,
+      "metrics": {
+        "importCount": 16,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": ".typings/mlx/nn/layers/activations.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 523,
+      "nonEmptyLines": 376,
+      "functions": [
+        {
+          "name": "sigmoid",
+          "startLine": 12,
+          "endLine": 17,
+          "params": [
+            "x"
+          ]
+        },
+        {
+          "name": "relu",
+          "startLine": 20,
+          "endLine": 24,
+          "params": [
+            "x"
+          ]
+        },
+        {
+          "name": "relu2",
+          "startLine": 27,
+          "endLine": 31,
+          "params": [
+            "x"
+          ]
+        },
+        {
+          "name": "relu6",
+          "startLine": 34,
+          "endLine": 38,
+          "params": [
+            "x"
+          ]
+        },
+        {
+          "name": "leaky_relu",
+          "startLine": 41,
+          "endLine": 45,
+          "params": [
+            "x",
+            "negative_slope"
+          ]
+        },
+        {
+          "name": "log_softmax",
+          "startLine": 48,
+          "endLine": 52,
+          "params": [
+            "x",
+            "axis"
+          ]
+        },
+        {
+          "name": "elu",
+          "startLine": 55,
+          "endLine": 59,
+          "params": [
+            "x",
+            "alpha"
+          ]
+        },
+        {
+          "name": "softmax",
+          "startLine": 62,
+          "endLine": 66,
+          "params": [
+            "x",
+            "axis"
+          ]
+        },
+        {
+          "name": "softplus",
+          "startLine": 69,
+          "endLine": 73,
+          "params": [
+            "x"
+          ]
+        },
+        {
+          "name": "softsign",
+          "startLine": 76,
+          "endLine": 80,
+          "params": [
+            "x"
+          ]
+        },
+        {
+          "name": "softshrink",
+          "startLine": 83,
+          "endLine": 92,
+          "params": [
+            "x",
+            "lambd"
+          ]
+        },
+        {
+          "name": "celu",
+          "startLine": 95,
+          "endLine": 100,
+          "params": [
+            "x",
+            "alpha"
+          ]
+        },
+        {
+          "name": "silu",
+          "startLine": 103,
+          "endLine": 108,
+          "params": [
+            "x"
+          ]
+        },
+        {
+          "name": "log_sigmoid",
+          "startLine": 111,
+          "endLine": 115,
+          "params": [
+            "x"
+          ]
+        },
+        {
+          "name": "gelu",
+          "startLine": 118,
+          "endLine": 128,
+          "params": [
+            "x"
+          ]
+        },
+        {
+          "name": "gelu_approx",
+          "startLine": 131,
+          "endLine": 143,
+          "params": [
+            "x"
+          ]
+        },
+        {
+          "name": "gelu_fast_approx",
+          "startLine": 146,
+          "endLine": 163,
+          "params": [
+            "x"
+          ]
+        },
+        {
+          "name": "glu",
+          "startLine": 165,
+          "endLine": 176,
+          "params": [
+            "x",
+            "axis"
+          ]
+        },
+        {
+          "name": "step",
+          "startLine": 179,
+          "endLine": 193,
+          "params": [
+            "x",
+            "threshold"
+          ]
+        },
+        {
+          "name": "selu",
+          "startLine": 196,
+          "endLine": 208,
+          "params": [
+            "x"
+          ]
+        },
+        {
+          "name": "prelu",
+          "startLine": 211,
+          "endLine": 218,
+          "params": [
+            "x",
+            "alpha"
+          ]
+        },
+        {
+          "name": "mish",
+          "startLine": 221,
+          "endLine": 231,
+          "params": [
+            "x"
+          ]
+        },
+        {
+          "name": "hardswish",
+          "startLine": 234,
+          "endLine": 239,
+          "params": [
+            "x"
+          ]
+        },
+        {
+          "name": "hard_tanh",
+          "startLine": 242,
+          "endLine": 246,
+          "params": [
+            "x",
+            "min_val",
+            "max_val"
+          ]
+        },
+        {
+          "name": "hard_shrink",
+          "startLine": 249,
+          "endLine": 258,
+          "params": [
+            "x",
+            "lambd"
+          ]
+        },
+        {
+          "name": "softmin",
+          "startLine": 261,
+          "endLine": 265,
+          "params": [
+            "x",
+            "axis"
+          ]
+        },
+        {
+          "name": "tanh",
+          "startLine": 267,
+          "endLine": 271,
+          "params": [
+            "x"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "GLU",
+          "startLine": 273,
+          "endLine": 286,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        },
+        {
+          "name": "Sigmoid",
+          "startLine": 289,
+          "endLine": 294,
+          "methods": [],
+          "properties": []
+        },
+        {
+          "name": "Mish",
+          "startLine": 297,
+          "endLine": 305,
+          "methods": [],
+          "properties": []
+        },
+        {
+          "name": "ReLU",
+          "startLine": 308,
+          "endLine": 313,
+          "methods": [],
+          "properties": []
+        },
+        {
+          "name": "ReLU2",
+          "startLine": 316,
+          "endLine": 320,
+          "methods": [],
+          "properties": []
+        },
+        {
+          "name": "ReLU6",
+          "startLine": 323,
+          "endLine": 327,
+          "methods": [],
+          "properties": []
+        },
+        {
+          "name": "LeakyReLU",
+          "startLine": 329,
+          "endLine": 338,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        },
+        {
+          "name": "ELU",
+          "startLine": 340,
+          "endLine": 350,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        },
+        {
+          "name": "Softmax",
+          "startLine": 353,
+          "endLine": 357,
+          "methods": [],
+          "properties": []
+        },
+        {
+          "name": "Softplus",
+          "startLine": 360,
+          "endLine": 364,
+          "methods": [],
+          "properties": []
+        },
+        {
+          "name": "Softsign",
+          "startLine": 367,
+          "endLine": 371,
+          "methods": [],
+          "properties": []
+        },
+        {
+          "name": "Softshrink",
+          "startLine": 373,
+          "endLine": 382,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        },
+        {
+          "name": "CELU",
+          "startLine": 384,
+          "endLine": 395,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        },
+        {
+          "name": "SiLU",
+          "startLine": 398,
+          "endLine": 402,
+          "methods": [],
+          "properties": []
+        },
+        {
+          "name": "LogSoftmax",
+          "startLine": 405,
+          "endLine": 409,
+          "methods": [],
+          "properties": []
+        },
+        {
+          "name": "LogSigmoid",
+          "startLine": 412,
+          "endLine": 416,
+          "methods": [],
+          "properties": []
+        },
+        {
+          "name": "PReLU",
+          "startLine": 418,
+          "endLine": 430,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        },
+        {
+          "name": "GELU",
+          "startLine": 432,
+          "endLine": 460,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        },
+        {
+          "name": "Tanh",
+          "startLine": 463,
+          "endLine": 467,
+          "methods": [],
+          "properties": []
+        },
+        {
+          "name": "Hardswish",
+          "startLine": 470,
+          "endLine": 474,
+          "methods": [],
+          "properties": []
+        },
+        {
+          "name": "Step",
+          "startLine": 476,
+          "endLine": 492,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        },
+        {
+          "name": "SELU",
+          "startLine": 495,
+          "endLine": 499,
+          "methods": [],
+          "properties": []
+        },
+        {
+          "name": "HardTanh",
+          "startLine": 502,
+          "endLine": 506,
+          "methods": [],
+          "properties": []
+        },
+        {
+          "name": "HardShrink",
+          "startLine": 509,
+          "endLine": 516,
+          "methods": [],
+          "properties": []
+        },
+        {
+          "name": "Softmin",
+          "startLine": 519,
+          "endLine": 523,
+          "methods": [],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "sigmoid",
+          "line": 11,
+          "isDefault": false
+        },
+        {
+          "name": "relu",
+          "line": 19,
+          "isDefault": false
+        },
+        {
+          "name": "relu2",
+          "line": 26,
+          "isDefault": false
+        },
+        {
+          "name": "relu6",
+          "line": 33,
+          "isDefault": false
+        },
+        {
+          "name": "leaky_relu",
+          "line": 40,
+          "isDefault": false
+        },
+        {
+          "name": "log_softmax",
+          "line": 47,
+          "isDefault": false
+        },
+        {
+          "name": "elu",
+          "line": 54,
+          "isDefault": false
+        },
+        {
+          "name": "softmax",
+          "line": 61,
+          "isDefault": false
+        },
+        {
+          "name": "softplus",
+          "line": 68,
+          "isDefault": false
+        },
+        {
+          "name": "softsign",
+          "line": 75,
+          "isDefault": false
+        },
+        {
+          "name": "softshrink",
+          "line": 82,
+          "isDefault": false
+        },
+        {
+          "name": "celu",
+          "line": 94,
+          "isDefault": false
+        },
+        {
+          "name": "silu",
+          "line": 102,
+          "isDefault": false
+        },
+        {
+          "name": "log_sigmoid",
+          "line": 110,
+          "isDefault": false
+        },
+        {
+          "name": "gelu",
+          "line": 117,
+          "isDefault": false
+        },
+        {
+          "name": "gelu_approx",
+          "line": 130,
+          "isDefault": false
+        },
+        {
+          "name": "gelu_fast_approx",
+          "line": 145,
+          "isDefault": false
+        },
+        {
+          "name": "glu",
+          "line": 165,
+          "isDefault": false
+        },
+        {
+          "name": "step",
+          "line": 178,
+          "isDefault": false
+        },
+        {
+          "name": "selu",
+          "line": 195,
+          "isDefault": false
+        },
+        {
+          "name": "prelu",
+          "line": 210,
+          "isDefault": false
+        },
+        {
+          "name": "mish",
+          "line": 220,
+          "isDefault": false
+        },
+        {
+          "name": "hardswish",
+          "line": 233,
+          "isDefault": false
+        },
+        {
+          "name": "hard_tanh",
+          "line": 241,
+          "isDefault": false
+        },
+        {
+          "name": "hard_shrink",
+          "line": 248,
+          "isDefault": false
+        },
+        {
+          "name": "softmin",
+          "line": 260,
+          "isDefault": false
+        },
+        {
+          "name": "tanh",
+          "line": 267,
+          "isDefault": false
+        },
+        {
+          "name": "GLU",
+          "line": 273,
+          "isDefault": false
+        },
+        {
+          "name": "Sigmoid",
+          "line": 288,
+          "isDefault": false
+        },
+        {
+          "name": "Mish",
+          "line": 296,
+          "isDefault": false
+        },
+        {
+          "name": "ReLU",
+          "line": 307,
+          "isDefault": false
+        },
+        {
+          "name": "ReLU2",
+          "line": 315,
+          "isDefault": false
+        },
+        {
+          "name": "ReLU6",
+          "line": 322,
+          "isDefault": false
+        },
+        {
+          "name": "LeakyReLU",
+          "line": 329,
+          "isDefault": false
+        },
+        {
+          "name": "ELU",
+          "line": 340,
+          "isDefault": false
+        },
+        {
+          "name": "Softmax",
+          "line": 352,
+          "isDefault": false
+        },
+        {
+          "name": "Softplus",
+          "line": 359,
+          "isDefault": false
+        },
+        {
+          "name": "Softsign",
+          "line": 366,
+          "isDefault": false
+        },
+        {
+          "name": "Softshrink",
+          "line": 373,
+          "isDefault": false
+        },
+        {
+          "name": "CELU",
+          "line": 384,
+          "isDefault": false
+        },
+        {
+          "name": "SiLU",
+          "line": 397,
+          "isDefault": false
+        },
+        {
+          "name": "LogSoftmax",
+          "line": 404,
+          "isDefault": false
+        },
+        {
+          "name": "LogSigmoid",
+          "line": 411,
+          "isDefault": false
+        },
+        {
+          "name": "PReLU",
+          "line": 418,
+          "isDefault": false
+        },
+        {
+          "name": "GELU",
+          "line": 432,
+          "isDefault": false
+        },
+        {
+          "name": "Tanh",
+          "line": 462,
+          "isDefault": false
+        },
+        {
+          "name": "Hardswish",
+          "line": 469,
+          "isDefault": false
+        },
+        {
+          "name": "Step",
+          "line": 476,
+          "isDefault": false
+        },
+        {
+          "name": "SELU",
+          "line": 494,
+          "isDefault": false
+        },
+        {
+          "name": "HardTanh",
+          "line": 501,
+          "isDefault": false
+        },
+        {
+          "name": "HardShrink",
+          "line": 508,
+          "isDefault": false
+        },
+        {
+          "name": "Softmin",
+          "line": 518,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 52,
+        "functionCount": 27,
+        "classCount": 25
+      }
+    },
+    {
+      "path": ".typings/mlx/nn/layers/base.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 397,
+      "nonEmptyLines": 316,
+      "classes": [
+        {
+          "name": "Module",
+          "startLine": 9,
+          "endLine": 397,
+          "methods": [
+            "__call__",
+            "__init__",
+            "__getitem__",
+            "get",
+            "training",
+            "state",
+            "__repr__",
+            "__getattr__",
+            "__setattr__",
+            "__delattr__",
+            "load_weights",
+            "save_weights",
+            "is_module",
+            "valid_child_filter",
+            "valid_parameter_filter",
+            "trainable_parameter_filter",
+            "filter_and_map",
+            "parameters",
+            "trainable_parameters",
+            "children",
+            "leaf_modules",
+            "update",
+            "apply",
+            "update_modules",
+            "apply_to_modules",
+            "modules",
+            "named_modules",
+            "freeze",
+            "unfreeze",
+            "train",
+            "eval",
+            "set_dtype"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "Module",
+          "line": 9,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mlx/nn/layers/containers.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 21,
+      "nonEmptyLines": 16,
+      "classes": [
+        {
+          "name": "Sequential",
+          "startLine": 10,
+          "endLine": 21,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "Sequential",
+          "line": 10,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mlx/nn/layers/convolution_transpose.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 119,
+      "nonEmptyLines": 105,
+      "classes": [
+        {
+          "name": "ConvTranspose1d",
+          "startLine": 10,
+          "endLine": 44,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        },
+        {
+          "name": "ConvTranspose2d",
+          "startLine": 46,
+          "endLine": 81,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        },
+        {
+          "name": "ConvTranspose3d",
+          "startLine": 83,
+          "endLine": 119,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "ConvTranspose1d",
+          "line": 10,
+          "isDefault": false
+        },
+        {
+          "name": "ConvTranspose2d",
+          "line": 46,
+          "isDefault": false
+        },
+        {
+          "name": "ConvTranspose3d",
+          "line": 83,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 3,
+        "functionCount": 0,
+        "classCount": 3
+      }
+    },
+    {
+      "path": ".typings/mlx/nn/layers/convolution.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 120,
+      "nonEmptyLines": 105,
+      "classes": [
+        {
+          "name": "Conv1d",
+          "startLine": 10,
+          "endLine": 48,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": [
+            "weight",
+            "bias",
+            "groups"
+          ]
+        },
+        {
+          "name": "Conv2d",
+          "startLine": 50,
+          "endLine": 85,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        },
+        {
+          "name": "Conv3d",
+          "startLine": 87,
+          "endLine": 120,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "Conv1d",
+          "line": 10,
+          "isDefault": false
+        },
+        {
+          "name": "Conv2d",
+          "line": 50,
+          "isDefault": false
+        },
+        {
+          "name": "Conv3d",
+          "line": 87,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 3,
+        "functionCount": 0,
+        "classCount": 3
+      }
+    },
+    {
+      "path": ".typings/mlx/nn/layers/distributed.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 227,
+      "nonEmptyLines": 202,
+      "functions": [
+        {
+          "name": "sum_gradients",
+          "startLine": 13,
+          "endLine": 16,
+          "params": [
+            "group"
+          ]
+        },
+        {
+          "name": "shard_inplace",
+          "startLine": 17,
+          "endLine": 46,
+          "params": [
+            "module",
+            "sharding",
+            "segments",
+            "group"
+          ]
+        },
+        {
+          "name": "shard_linear",
+          "startLine": 48,
+          "endLine": 70,
+          "params": [
+            "module",
+            "sharding",
+            "segments",
+            "group"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "AllToShardedLinear",
+          "startLine": 72,
+          "endLine": 102,
+          "methods": [
+            "__init__",
+            "__call__",
+            "from_linear"
+          ],
+          "properties": []
+        },
+        {
+          "name": "ShardedToAllLinear",
+          "startLine": 104,
+          "endLine": 137,
+          "methods": [
+            "__init__",
+            "__call__",
+            "from_linear"
+          ],
+          "properties": []
+        },
+        {
+          "name": "QuantizedAllToShardedLinear",
+          "startLine": 139,
+          "endLine": 181,
+          "methods": [
+            "__init__",
+            "unfreeze",
+            "__call__",
+            "from_quantized_linear"
+          ],
+          "properties": []
+        },
+        {
+          "name": "QuantizedShardedToAllLinear",
+          "startLine": 183,
+          "endLine": 227,
+          "methods": [
+            "__init__",
+            "unfreeze",
+            "__call__",
+            "from_quantized_linear"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "sum_gradients",
+          "line": 12,
+          "isDefault": false
+        },
+        {
+          "name": "shard_inplace",
+          "line": 17,
+          "isDefault": false
+        },
+        {
+          "name": "shard_linear",
+          "line": 48,
+          "isDefault": false
+        },
+        {
+          "name": "AllToShardedLinear",
+          "line": 72,
+          "isDefault": false
+        },
+        {
+          "name": "ShardedToAllLinear",
+          "line": 104,
+          "isDefault": false
+        },
+        {
+          "name": "QuantizedAllToShardedLinear",
+          "line": 139,
+          "isDefault": false
+        },
+        {
+          "name": "QuantizedShardedToAllLinear",
+          "line": 183,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 7,
+        "functionCount": 3,
+        "classCount": 4
+      }
+    },
+    {
+      "path": ".typings/mlx/nn/layers/dropout.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 65,
+      "nonEmptyLines": 52,
+      "classes": [
+        {
+          "name": "Dropout",
+          "startLine": 8,
+          "endLine": 19,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        },
+        {
+          "name": "Dropout2d",
+          "startLine": 21,
+          "endLine": 44,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        },
+        {
+          "name": "Dropout3d",
+          "startLine": 46,
+          "endLine": 65,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "Dropout",
+          "line": 8,
+          "isDefault": false
+        },
+        {
+          "name": "Dropout2d",
+          "line": 21,
+          "isDefault": false
+        },
+        {
+          "name": "Dropout3d",
+          "line": 46,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 3,
+        "functionCount": 0,
+        "classCount": 3
+      }
+    },
+    {
+      "path": ".typings/mlx/nn/layers/embedding.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 34,
+      "nonEmptyLines": 27,
+      "classes": [
+        {
+          "name": "Embedding",
+          "startLine": 10,
+          "endLine": 34,
+          "methods": [
+            "__init__",
+            "__call__",
+            "as_linear",
+            "to_quantized"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "Embedding",
+          "line": 10,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mlx/nn/layers/linear.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 80,
+      "nonEmptyLines": 59,
+      "classes": [
+        {
+          "name": "Identity",
+          "startLine": 12,
+          "endLine": 20,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        },
+        {
+          "name": "Linear",
+          "startLine": 22,
+          "endLine": 52,
+          "methods": [
+            "__init__",
+            "__call__",
+            "to_quantized"
+          ],
+          "properties": [
+            "weight",
+            "bias"
+          ]
+        },
+        {
+          "name": "Bilinear",
+          "startLine": 54,
+          "endLine": 80,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "Identity",
+          "line": 12,
+          "isDefault": false
+        },
+        {
+          "name": "Linear",
+          "line": 22,
+          "isDefault": false
+        },
+        {
+          "name": "Bilinear",
+          "line": 54,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 3,
+        "functionCount": 0,
+        "classCount": 3
+      }
+    },
+    {
+      "path": ".typings/mlx/nn/layers/normalization.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 197,
+      "nonEmptyLines": 150,
+      "classes": [
+        {
+          "name": "InstanceNorm",
+          "startLine": 8,
+          "endLine": 41,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        },
+        {
+          "name": "LayerNorm",
+          "startLine": 43,
+          "endLine": 69,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        },
+        {
+          "name": "RMSNorm",
+          "startLine": 71,
+          "endLine": 95,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": [
+            "weight"
+          ]
+        },
+        {
+          "name": "GroupNorm",
+          "startLine": 97,
+          "endLine": 134,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        },
+        {
+          "name": "BatchNorm",
+          "startLine": 136,
+          "endLine": 197,
+          "methods": [
+            "__init__",
+            "unfreeze",
+            "__call__"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "InstanceNorm",
+          "line": 8,
+          "isDefault": false
+        },
+        {
+          "name": "LayerNorm",
+          "line": 43,
+          "isDefault": false
+        },
+        {
+          "name": "RMSNorm",
+          "line": 71,
+          "isDefault": false
+        },
+        {
+          "name": "GroupNorm",
+          "line": 97,
+          "isDefault": false
+        },
+        {
+          "name": "BatchNorm",
+          "line": 136,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 5,
+        "functionCount": 0,
+        "classCount": 5
+      }
+    },
+    {
+      "path": ".typings/mlx/nn/layers/pooling.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 242,
+      "nonEmptyLines": 204,
+      "classes": [
+        {
+          "name": "_Pool",
+          "startLine": 10,
+          "endLine": 14,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        },
+        {
+          "name": "_Pool1d",
+          "startLine": 16,
+          "endLine": 24,
+          "methods": [
+            "__init__"
+          ],
+          "properties": []
+        },
+        {
+          "name": "_Pool2d",
+          "startLine": 26,
+          "endLine": 34,
+          "methods": [
+            "__init__"
+          ],
+          "properties": []
+        },
+        {
+          "name": "_Pool3d",
+          "startLine": 36,
+          "endLine": 44,
+          "methods": [
+            "__init__"
+          ],
+          "properties": []
+        },
+        {
+          "name": "MaxPool1d",
+          "startLine": 46,
+          "endLine": 72,
+          "methods": [
+            "__init__"
+          ],
+          "properties": []
+        },
+        {
+          "name": "AvgPool1d",
+          "startLine": 74,
+          "endLine": 100,
+          "methods": [
+            "__init__"
+          ],
+          "properties": []
+        },
+        {
+          "name": "MaxPool2d",
+          "startLine": 102,
+          "endLine": 135,
+          "methods": [
+            "__init__"
+          ],
+          "properties": []
+        },
+        {
+          "name": "AvgPool2d",
+          "startLine": 137,
+          "endLine": 170,
+          "methods": [
+            "__init__"
+          ],
+          "properties": []
+        },
+        {
+          "name": "MaxPool3d",
+          "startLine": 172,
+          "endLine": 206,
+          "methods": [
+            "__init__"
+          ],
+          "properties": []
+        },
+        {
+          "name": "AvgPool3d",
+          "startLine": 208,
+          "endLine": 242,
+          "methods": [
+            "__init__"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "_Pool",
+          "line": 10,
+          "isDefault": false
+        },
+        {
+          "name": "_Pool1d",
+          "line": 16,
+          "isDefault": false
+        },
+        {
+          "name": "_Pool2d",
+          "line": 26,
+          "isDefault": false
+        },
+        {
+          "name": "_Pool3d",
+          "line": 36,
+          "isDefault": false
+        },
+        {
+          "name": "MaxPool1d",
+          "line": 46,
+          "isDefault": false
+        },
+        {
+          "name": "AvgPool1d",
+          "line": 74,
+          "isDefault": false
+        },
+        {
+          "name": "MaxPool2d",
+          "line": 102,
+          "isDefault": false
+        },
+        {
+          "name": "AvgPool2d",
+          "line": 137,
+          "isDefault": false
+        },
+        {
+          "name": "MaxPool3d",
+          "line": 172,
+          "isDefault": false
+        },
+        {
+          "name": "AvgPool3d",
+          "line": 208,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 10,
+        "functionCount": 0,
+        "classCount": 10
+      }
+    },
+    {
+      "path": ".typings/mlx/nn/layers/positional_encoding.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 80,
+      "nonEmptyLines": 70,
+      "classes": [
+        {
+          "name": "RoPE",
+          "startLine": 10,
+          "endLine": 32,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        },
+        {
+          "name": "SinusoidalPositionalEncoding",
+          "startLine": 34,
+          "endLine": 62,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        },
+        {
+          "name": "ALiBi",
+          "startLine": 64,
+          "endLine": 80,
+          "methods": [
+            "create_alibi_matrix",
+            "create_alibi_slope",
+            "__call__"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "RoPE",
+          "line": 10,
+          "isDefault": false
+        },
+        {
+          "name": "SinusoidalPositionalEncoding",
+          "line": 34,
+          "isDefault": false
+        },
+        {
+          "name": "ALiBi",
+          "line": 64,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 3,
+        "functionCount": 0,
+        "classCount": 3
+      }
+    },
+    {
+      "path": ".typings/mlx/nn/layers/quantized.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 127,
+      "nonEmptyLines": 113,
+      "functions": [
+        {
+          "name": "quantize",
+          "startLine": 10,
+          "endLine": 40,
+          "params": [
+            "model",
+            "group_size",
+            "bits",
+            "mode",
+            "class_predicate"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "QuantizedEmbedding",
+          "startLine": 42,
+          "endLine": 85,
+          "methods": [
+            "__init__",
+            "__call__",
+            "as_linear",
+            "from_embedding"
+          ],
+          "properties": []
+        },
+        {
+          "name": "QuantizedLinear",
+          "startLine": 87,
+          "endLine": 127,
+          "methods": [
+            "__init__",
+            "__call__",
+            "from_linear"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "quantize",
+          "line": 10,
+          "isDefault": false
+        },
+        {
+          "name": "QuantizedEmbedding",
+          "line": 42,
+          "isDefault": false
+        },
+        {
+          "name": "QuantizedLinear",
+          "line": 87,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 3,
+        "functionCount": 1,
+        "classCount": 2
+      }
+    },
+    {
+      "path": ".typings/mlx/nn/layers/recurrent.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 113,
+      "nonEmptyLines": 87,
+      "classes": [
+        {
+          "name": "RNN",
+          "startLine": 10,
+          "endLine": 44,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        },
+        {
+          "name": "GRU",
+          "startLine": 46,
+          "endLine": 76,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        },
+        {
+          "name": "LSTM",
+          "startLine": 78,
+          "endLine": 113,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "RNN",
+          "line": 10,
+          "isDefault": false
+        },
+        {
+          "name": "GRU",
+          "line": 46,
+          "isDefault": false
+        },
+        {
+          "name": "LSTM",
+          "line": 78,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 3,
+        "functionCount": 0,
+        "classCount": 3
+      }
+    },
+    {
+      "path": ".typings/mlx/nn/layers/transformer.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 168,
+      "nonEmptyLines": 153,
+      "classes": [
+        {
+          "name": "MultiHeadAttention",
+          "startLine": 10,
+          "endLine": 57,
+          "methods": [
+            "__init__",
+            "__call__",
+            "create_additive_causal_mask"
+          ],
+          "properties": []
+        },
+        {
+          "name": "TransformerEncoderLayer",
+          "startLine": 59,
+          "endLine": 69,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        },
+        {
+          "name": "TransformerEncoder",
+          "startLine": 71,
+          "endLine": 83,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        },
+        {
+          "name": "TransformerDecoderLayer",
+          "startLine": 85,
+          "endLine": 95,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        },
+        {
+          "name": "TransformerDecoder",
+          "startLine": 97,
+          "endLine": 109,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        },
+        {
+          "name": "Transformer",
+          "startLine": 111,
+          "endLine": 168,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "MultiHeadAttention",
+          "line": 10,
+          "isDefault": false
+        },
+        {
+          "name": "TransformerEncoderLayer",
+          "line": 59,
+          "isDefault": false
+        },
+        {
+          "name": "TransformerEncoder",
+          "line": 71,
+          "isDefault": false
+        },
+        {
+          "name": "TransformerDecoderLayer",
+          "line": 85,
+          "isDefault": false
+        },
+        {
+          "name": "TransformerDecoder",
+          "line": 97,
+          "isDefault": false
+        },
+        {
+          "name": "Transformer",
+          "line": 111,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 6,
+        "functionCount": 0,
+        "classCount": 6
+      }
+    }
+  ]
+}

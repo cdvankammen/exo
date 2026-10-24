@@ -1,0 +1,75 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 5,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": "tmp/prompt.txt",
+      "language": "txt",
+      "fileCategory": "docs",
+      "totalLines": 47,
+      "nonEmptyLines": 28,
+      "metrics": {}
+    },
+    {
+      "path": "tmp/run_exo_on.sh",
+      "language": "shell",
+      "fileCategory": "script",
+      "totalLines": 53,
+      "nonEmptyLines": 46,
+      "functions": [
+        {
+          "name": "cleanup",
+          "startLine": 30,
+          "endLine": 36,
+          "params": []
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "tmp/run_llm.sh",
+      "language": "shell",
+      "fileCategory": "script",
+      "totalLines": 24,
+      "nonEmptyLines": 21,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "tmp/set_rdma_network_config.sh",
+      "language": "shell",
+      "fileCategory": "script",
+      "totalLines": 47,
+      "nonEmptyLines": 40,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "tmp/test_trust_remote_code_attack.sh",
+      "language": "shell",
+      "fileCategory": "script",
+      "totalLines": 149,
+      "nonEmptyLines": 130,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    }
+  ]
+}

@@ -1,0 +1,692 @@
+{
+ "nodes": [
+  {
+   "id": "file:rust/networking/src/discovery.rs",
+   "type": "file",
+   "name": "discovery.rs",
+   "filePath": "rust/networking/src/discovery.rs",
+   "summary": "Defines 5 function(s) and 8 class(es) for rust/networking/src/discovery.rs.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "file:rust/networking/src/lib.rs",
+   "type": "file",
+   "name": "lib.rs",
+   "filePath": "rust/networking/src/lib.rs",
+   "summary": "Defines 4 function(s) and 2 class(es) for rust/networking/src/lib.rs.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:rust/networking/src/swarm.rs",
+   "type": "file",
+   "name": "swarm.rs",
+   "filePath": "rust/networking/src/swarm.rs",
+   "summary": "Defines 4 function(s) and 3 class(es) for rust/networking/src/swarm.rs.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:rust/networking/src/discovery.rs:new",
+   "type": "function",
+   "name": "new",
+   "filePath": "rust/networking/src/discovery.rs",
+   "lineRange": [
+    40,
+    118
+   ],
+   "summary": "Function new in rust/networking/src/discovery.rs.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:rust/networking/src/discovery.rs:next",
+   "type": "function",
+   "name": "next",
+   "filePath": "rust/networking/src/discovery.rs",
+   "lineRange": [
+    120,
+    135
+   ],
+   "summary": "Function next in rust/networking/src/discovery.rs.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:rust/networking/src/discovery.rs:respond",
+   "type": "function",
+   "name": "respond",
+   "filePath": "rust/networking/src/discovery.rs",
+   "lineRange": [
+    137,
+    239
+   ],
+   "summary": "Function respond in rust/networking/src/discovery.rs.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:rust/networking/src/discovery.rs:announce",
+   "type": "function",
+   "name": "announce",
+   "filePath": "rust/networking/src/discovery.rs",
+   "lineRange": [
+    241,
+    264
+   ],
+   "summary": "Function announce in rust/networking/src/discovery.rs.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:rust/networking/src/discovery.rs:Discovery",
+   "type": "class",
+   "name": "Discovery",
+   "filePath": "rust/networking/src/discovery.rs",
+   "lineRange": [
+    21,
+    31
+   ],
+   "summary": "Class Discovery in rust/networking/src/discovery.rs.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:rust/networking/src/discovery.rs:Discovered",
+   "type": "class",
+   "name": "Discovered",
+   "filePath": "rust/networking/src/discovery.rs",
+   "lineRange": [
+    34,
+    37
+   ],
+   "summary": "Class Discovered in rust/networking/src/discovery.rs.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:rust/networking/src/discovery.rs:Kind",
+   "type": "class",
+   "name": "Kind",
+   "filePath": "rust/networking/src/discovery.rs",
+   "lineRange": [
+    270,
+    273
+   ],
+   "summary": "Class Kind in rust/networking/src/discovery.rs.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:rust/networking/src/discovery.rs:UnknownKind",
+   "type": "class",
+   "name": "UnknownKind",
+   "filePath": "rust/networking/src/discovery.rs",
+   "lineRange": [
+    275,
+    275
+   ],
+   "summary": "Class UnknownKind in rust/networking/src/discovery.rs.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:rust/networking/src/discovery.rs:Message",
+   "type": "class",
+   "name": "Message",
+   "filePath": "rust/networking/src/discovery.rs",
+   "lineRange": [
+    287,
+    289
+   ],
+   "summary": "Class Message in rust/networking/src/discovery.rs.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:rust/networking/src/discovery.rs:Header",
+   "type": "class",
+   "name": "Header",
+   "filePath": "rust/networking/src/discovery.rs",
+   "lineRange": [
+    313,
+    316
+   ],
+   "summary": "Class Header in rust/networking/src/discovery.rs.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:rust/networking/src/discovery.rs:Hello",
+   "type": "class",
+   "name": "Hello",
+   "filePath": "rust/networking/src/discovery.rs",
+   "lineRange": [
+    320,
+    323
+   ],
+   "summary": "Class Hello in rust/networking/src/discovery.rs.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:rust/networking/src/discovery.rs:WhatsUp",
+   "type": "class",
+   "name": "WhatsUp",
+   "filePath": "rust/networking/src/discovery.rs",
+   "lineRange": [
+    331,
+    335
+   ],
+   "summary": "Class WhatsUp in rust/networking/src/discovery.rs.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:rust/networking/src/lib.rs:is_valid_zid",
+   "type": "function",
+   "name": "is_valid_zid",
+   "filePath": "rust/networking/src/lib.rs",
+   "lineRange": [
+    15,
+    21
+   ],
+   "summary": "Function is_valid_zid in rust/networking/src/lib.rs.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:rust/networking/src/lib.rs:cfg",
+   "type": "function",
+   "name": "cfg",
+   "filePath": "rust/networking/src/lib.rs",
+   "lineRange": [
+    23,
+    52
+   ],
+   "summary": "Function cfg in rust/networking/src/lib.rs.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:rust/networking/src/lib.rs:open",
+   "type": "function",
+   "name": "open",
+   "filePath": "rust/networking/src/lib.rs",
+   "lineRange": [
+    54,
+    103
+   ],
+   "summary": "Function open in rust/networking/src/lib.rs.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "class:rust/networking/src/lib.rs:Session",
+   "type": "class",
+   "name": "Session",
+   "filePath": "rust/networking/src/lib.rs",
+   "lineRange": [
+    113,
+    116
+   ],
+   "summary": "Class Session in rust/networking/src/lib.rs.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:rust/networking/src/swarm.rs:into_stream",
+   "type": "function",
+   "name": "into_stream",
+   "filePath": "rust/networking/src/swarm.rs",
+   "lineRange": [
+    49,
+    91
+   ],
+   "summary": "Function into_stream in rust/networking/src/swarm.rs.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:rust/networking/src/swarm.rs:register_liveness",
+   "type": "function",
+   "name": "register_liveness",
+   "filePath": "rust/networking/src/swarm.rs",
+   "lineRange": [
+    94,
+    107
+   ],
+   "summary": "Function register_liveness in rust/networking/src/swarm.rs.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:rust/networking/src/swarm.rs:on_message",
+   "type": "function",
+   "name": "on_message",
+   "filePath": "rust/networking/src/swarm.rs",
+   "lineRange": [
+    109,
+    193
+   ],
+   "summary": "Function on_message in rust/networking/src/swarm.rs.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:rust/networking/src/swarm.rs:create_swarm",
+   "type": "function",
+   "name": "create_swarm",
+   "filePath": "rust/networking/src/swarm.rs",
+   "lineRange": [
+    195,
+    208
+   ],
+   "summary": "Function create_swarm in rust/networking/src/swarm.rs.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:rust/networking/src/swarm.rs:ToSwarm",
+   "type": "class",
+   "name": "ToSwarm",
+   "filePath": "rust/networking/src/swarm.rs",
+   "lineRange": [
+    20,
+    34
+   ],
+   "summary": "Class ToSwarm in rust/networking/src/swarm.rs.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:rust/networking/src/swarm.rs:FromSwarm",
+   "type": "class",
+   "name": "FromSwarm",
+   "filePath": "rust/networking/src/swarm.rs",
+   "lineRange": [
+    36,
+    40
+   ],
+   "summary": "Class FromSwarm in rust/networking/src/swarm.rs.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:rust/networking/src/swarm.rs:Swarm",
+   "type": "class",
+   "name": "Swarm",
+   "filePath": "rust/networking/src/swarm.rs",
+   "lineRange": [
+    43,
+    46
+   ],
+   "summary": "Class Swarm in rust/networking/src/swarm.rs.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  }
+ ],
+ "edges": [
+  {
+   "source": "file:rust/networking/src/discovery.rs",
+   "target": "function:rust/networking/src/discovery.rs:new",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:rust/networking/src/discovery.rs",
+   "target": "function:rust/networking/src/discovery.rs:new",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:rust/networking/src/discovery.rs",
+   "target": "function:rust/networking/src/discovery.rs:next",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:rust/networking/src/discovery.rs",
+   "target": "function:rust/networking/src/discovery.rs:next",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:rust/networking/src/discovery.rs",
+   "target": "function:rust/networking/src/discovery.rs:respond",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:rust/networking/src/discovery.rs",
+   "target": "function:rust/networking/src/discovery.rs:announce",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:rust/networking/src/discovery.rs",
+   "target": "class:rust/networking/src/discovery.rs:Discovery",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:rust/networking/src/discovery.rs",
+   "target": "class:rust/networking/src/discovery.rs:Discovery",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:rust/networking/src/discovery.rs",
+   "target": "class:rust/networking/src/discovery.rs:Discovered",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:rust/networking/src/discovery.rs",
+   "target": "class:rust/networking/src/discovery.rs:Discovered",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:rust/networking/src/discovery.rs",
+   "target": "class:rust/networking/src/discovery.rs:Kind",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:rust/networking/src/discovery.rs",
+   "target": "class:rust/networking/src/discovery.rs:Kind",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:rust/networking/src/discovery.rs",
+   "target": "class:rust/networking/src/discovery.rs:UnknownKind",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:rust/networking/src/discovery.rs",
+   "target": "class:rust/networking/src/discovery.rs:UnknownKind",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:rust/networking/src/discovery.rs",
+   "target": "class:rust/networking/src/discovery.rs:Message",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:rust/networking/src/discovery.rs",
+   "target": "class:rust/networking/src/discovery.rs:Message",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:rust/networking/src/discovery.rs",
+   "target": "class:rust/networking/src/discovery.rs:Header",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:rust/networking/src/discovery.rs",
+   "target": "class:rust/networking/src/discovery.rs:Header",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:rust/networking/src/discovery.rs",
+   "target": "class:rust/networking/src/discovery.rs:Hello",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:rust/networking/src/discovery.rs",
+   "target": "class:rust/networking/src/discovery.rs:Hello",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:rust/networking/src/discovery.rs",
+   "target": "class:rust/networking/src/discovery.rs:WhatsUp",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:rust/networking/src/discovery.rs",
+   "target": "class:rust/networking/src/discovery.rs:WhatsUp",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:rust/networking/src/lib.rs",
+   "target": "function:rust/networking/src/lib.rs:is_valid_zid",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:rust/networking/src/lib.rs",
+   "target": "function:rust/networking/src/lib.rs:is_valid_zid",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:rust/networking/src/lib.rs",
+   "target": "function:rust/networking/src/lib.rs:cfg",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:rust/networking/src/lib.rs",
+   "target": "function:rust/networking/src/lib.rs:cfg",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:rust/networking/src/lib.rs",
+   "target": "function:rust/networking/src/lib.rs:open",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:rust/networking/src/lib.rs",
+   "target": "function:rust/networking/src/lib.rs:open",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:rust/networking/src/lib.rs",
+   "target": "class:rust/networking/src/lib.rs:Session",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:rust/networking/src/lib.rs",
+   "target": "class:rust/networking/src/lib.rs:Session",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:rust/networking/src/swarm.rs",
+   "target": "function:rust/networking/src/swarm.rs:into_stream",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:rust/networking/src/swarm.rs",
+   "target": "function:rust/networking/src/swarm.rs:into_stream",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:rust/networking/src/swarm.rs",
+   "target": "function:rust/networking/src/swarm.rs:register_liveness",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:rust/networking/src/swarm.rs",
+   "target": "function:rust/networking/src/swarm.rs:on_message",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:rust/networking/src/swarm.rs",
+   "target": "function:rust/networking/src/swarm.rs:create_swarm",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:rust/networking/src/swarm.rs",
+   "target": "function:rust/networking/src/swarm.rs:create_swarm",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:rust/networking/src/swarm.rs",
+   "target": "class:rust/networking/src/swarm.rs:ToSwarm",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:rust/networking/src/swarm.rs",
+   "target": "class:rust/networking/src/swarm.rs:ToSwarm",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:rust/networking/src/swarm.rs",
+   "target": "class:rust/networking/src/swarm.rs:FromSwarm",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:rust/networking/src/swarm.rs",
+   "target": "class:rust/networking/src/swarm.rs:FromSwarm",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:rust/networking/src/swarm.rs",
+   "target": "class:rust/networking/src/swarm.rs:Swarm",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:rust/networking/src/swarm.rs",
+   "target": "class:rust/networking/src/swarm.rs:Swarm",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:rust/networking/src/lib.rs",
+   "target": "file:rust/networking/src/discovery.rs",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:rust/networking/src/lib.rs",
+   "target": "file:rust/networking/src/swarm.rs",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  }
+ ]
+}

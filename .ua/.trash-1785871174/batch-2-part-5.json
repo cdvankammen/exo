@@ -1,0 +1,485 @@
+{
+ "nodes": [
+  {
+   "id": "file:src/exo/worker/tests/unittests/test_runner/test_event_ordering.py",
+   "type": "file",
+   "name": "test_event_ordering.py",
+   "filePath": "src/exo/worker/tests/unittests/test_runner/test_event_ordering.py",
+   "summary": "Tests that the Runner processes events (text generation, chunks, traces) in the correct order, patching out MLX.",
+   "tags": [
+    "test",
+    "runner",
+    "event-ordering"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "file:src/exo/worker/tests/unittests/test_runner/test_runner_supervisor.py",
+   "type": "file",
+   "name": "test_runner_supervisor.py",
+   "filePath": "src/exo/worker/tests/unittests/test_runner/test_runner_supervisor.py",
+   "summary": "Tests that the supervisor emits an error chunk when an inflight text generation's runner process dies.",
+   "tags": [
+    "test",
+    "supervisor",
+    "runner"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:src/exo/worker/tests/unittests/test_runner/test_event_ordering.py:patch_out_mlx",
+   "type": "function",
+   "name": "patch_out_mlx",
+   "filePath": "src/exo/worker/tests/unittests/test_runner/test_event_ordering.py",
+   "lineRange": [
+    126,
+    158
+   ],
+   "summary": "Patches out MLX operations so the runner loop runs in tests.",
+   "tags": [
+    "test",
+    "mock"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:src/exo/worker/tests/unittests/test_runner/test_event_ordering.py:_run",
+   "type": "function",
+   "name": "_run",
+   "filePath": "src/exo/worker/tests/unittests/test_runner/test_event_ordering.py",
+   "lineRange": [
+    246,
+    295
+   ],
+   "summary": "Runs the runner against a fake batch generator and returns emitted events.",
+   "tags": [
+    "test",
+    "runner"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:src/exo/worker/tests/unittests/test_runner/test_event_ordering.py:test_events_processed_in_correct_order",
+   "type": "function",
+   "name": "test_events_processed_in_correct_order",
+   "filePath": "src/exo/worker/tests/unittests/test_runner/test_event_ordering.py",
+   "lineRange": [
+    298,
+    370
+   ],
+   "summary": "Asserts the runner processes events in the expected order.",
+   "tags": [
+    "test",
+    "runner",
+    "event-ordering"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "class:src/exo/worker/tests/unittests/test_runner/test_event_ordering.py:FakeExoBatchGenerator",
+   "type": "class",
+   "name": "FakeExoBatchGenerator",
+   "filePath": "src/exo/worker/tests/unittests/test_runner/test_event_ordering.py",
+   "lineRange": [
+    161,
+    198
+   ],
+   "summary": "Fake batch generator producing predefined sequences for the runner.",
+   "tags": [
+    "test",
+    "mock"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/worker/tests/unittests/test_runner/test_event_ordering.py:EventCollector",
+   "type": "class",
+   "name": "EventCollector",
+   "filePath": "src/exo/worker/tests/unittests/test_runner/test_event_ordering.py",
+   "lineRange": [
+    202,
+    216
+   ],
+   "summary": "Collects emitted events for assertions.",
+   "tags": [
+    "test",
+    "mock"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/worker/tests/unittests/test_runner/test_event_ordering.py:MockTokenizer",
+   "type": "class",
+   "name": "MockTokenizer",
+   "filePath": "src/exo/worker/tests/unittests/test_runner/test_event_ordering.py",
+   "lineRange": [
+    219,
+    235
+   ],
+   "summary": "Fake tokenizer used by the runner tests.",
+   "tags": [
+    "test",
+    "mock"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/worker/tests/unittests/test_runner/test_event_ordering.py:MockGroup",
+   "type": "class",
+   "name": "MockGroup",
+   "filePath": "src/exo/worker/tests/unittests/test_runner/test_event_ordering.py",
+   "lineRange": [
+    238,
+    243
+   ],
+   "summary": "Fake distributed group used by the runner tests.",
+   "tags": [
+    "test",
+    "mock"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/worker/tests/unittests/test_runner/test_runner_supervisor.py:test_check_runner_emits_error_chunk_for_inflight_text_generation",
+   "type": "function",
+   "name": "test_check_runner_emits_error_chunk_for_inflight_text_generation",
+   "filePath": "src/exo/worker/tests/unittests/test_runner/test_runner_supervisor.py",
+   "lineRange": [
+    39,
+    97
+   ],
+   "summary": "Asserts the supervisor emits an error chunk when the runner process dies during an inflight text generation.",
+   "tags": [
+    "test",
+    "supervisor"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "class:src/exo/worker/tests/unittests/test_runner/test_runner_supervisor.py:_DeadProcess",
+   "type": "class",
+   "name": "_DeadProcess",
+   "filePath": "src/exo/worker/tests/unittests/test_runner/test_runner_supervisor.py",
+   "lineRange": [
+    25,
+    35
+   ],
+   "summary": "Fake dead process used to simulate a crashed runner.",
+   "tags": [
+    "test",
+    "mock"
+   ],
+   "complexity": "simple"
+  }
+ ],
+ "edges": [
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_event_ordering.py",
+   "target": "function:src/exo/worker/tests/unittests/test_runner/test_event_ordering.py:patch_out_mlx",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_event_ordering.py",
+   "target": "function:src/exo/worker/tests/unittests/test_runner/test_event_ordering.py:patch_out_mlx",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_event_ordering.py",
+   "target": "function:src/exo/worker/tests/unittests/test_runner/test_event_ordering.py:_run",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_event_ordering.py",
+   "target": "function:src/exo/worker/tests/unittests/test_runner/test_event_ordering.py:_run",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_event_ordering.py",
+   "target": "function:src/exo/worker/tests/unittests/test_runner/test_event_ordering.py:test_events_processed_in_correct_order",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_event_ordering.py",
+   "target": "function:src/exo/worker/tests/unittests/test_runner/test_event_ordering.py:test_events_processed_in_correct_order",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_event_ordering.py",
+   "target": "class:src/exo/worker/tests/unittests/test_runner/test_event_ordering.py:FakeExoBatchGenerator",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_event_ordering.py",
+   "target": "class:src/exo/worker/tests/unittests/test_runner/test_event_ordering.py:FakeExoBatchGenerator",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_event_ordering.py",
+   "target": "class:src/exo/worker/tests/unittests/test_runner/test_event_ordering.py:EventCollector",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_event_ordering.py",
+   "target": "class:src/exo/worker/tests/unittests/test_runner/test_event_ordering.py:EventCollector",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_event_ordering.py",
+   "target": "class:src/exo/worker/tests/unittests/test_runner/test_event_ordering.py:MockTokenizer",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_event_ordering.py",
+   "target": "class:src/exo/worker/tests/unittests/test_runner/test_event_ordering.py:MockTokenizer",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_event_ordering.py",
+   "target": "class:src/exo/worker/tests/unittests/test_runner/test_event_ordering.py:MockGroup",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_event_ordering.py",
+   "target": "class:src/exo/worker/tests/unittests/test_runner/test_event_ordering.py:MockGroup",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_runner_supervisor.py",
+   "target": "function:src/exo/worker/tests/unittests/test_runner/test_runner_supervisor.py:test_check_runner_emits_error_chunk_for_inflight_text_generation",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_runner_supervisor.py",
+   "target": "function:src/exo/worker/tests/unittests/test_runner/test_runner_supervisor.py:test_check_runner_emits_error_chunk_for_inflight_text_generation",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_runner_supervisor.py",
+   "target": "class:src/exo/worker/tests/unittests/test_runner/test_runner_supervisor.py:_DeadProcess",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_runner_supervisor.py",
+   "target": "class:src/exo/worker/tests/unittests/test_runner/test_runner_supervisor.py:_DeadProcess",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_event_ordering.py",
+   "target": "file:src/exo/shared/types/chunks.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_event_ordering.py",
+   "target": "file:src/exo/shared/types/events.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_event_ordering.py",
+   "target": "file:src/exo/shared/types/tasks.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_event_ordering.py",
+   "target": "file:src/exo/shared/types/text_generation.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_event_ordering.py",
+   "target": "file:src/exo/shared/types/worker/runner_response.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_event_ordering.py",
+   "target": "file:src/exo/shared/types/worker/runners.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_event_ordering.py",
+   "target": "file:src/exo/utils/channels.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_event_ordering.py",
+   "target": "file:src/exo/worker/engines/mlx/builder.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_event_ordering.py",
+   "target": "file:src/exo/worker/runner/llm_inference/batch_generator.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_event_ordering.py",
+   "target": "file:src/exo/worker/runner/llm_inference/model_output_parsers.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_event_ordering.py",
+   "target": "file:src/exo/worker/runner/runner.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_event_ordering.py",
+   "target": "file:src/exo/worker/tests/constants.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_event_ordering.py",
+   "target": "file:src/exo/worker/tests/unittests/conftest.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_runner_supervisor.py",
+   "target": "file:src/exo/shared/models/model_cards.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_runner_supervisor.py",
+   "target": "file:src/exo/shared/types/chunks.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_runner_supervisor.py",
+   "target": "file:src/exo/shared/types/common.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_runner_supervisor.py",
+   "target": "file:src/exo/shared/types/events.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_runner_supervisor.py",
+   "target": "file:src/exo/shared/types/tasks.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_runner_supervisor.py",
+   "target": "file:src/exo/shared/types/text_generation.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_runner_supervisor.py",
+   "target": "file:src/exo/shared/types/worker/instances.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_runner_supervisor.py",
+   "target": "file:src/exo/shared/types/worker/runners.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_runner_supervisor.py",
+   "target": "file:src/exo/utils/async_process.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_runner_supervisor.py",
+   "target": "file:src/exo/utils/channels.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_runner_supervisor.py",
+   "target": "file:src/exo/worker/runner/bootstrap.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_runner_supervisor.py",
+   "target": "file:src/exo/worker/runner/supervisor.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_runner/test_runner_supervisor.py",
+   "target": "file:src/exo/worker/tests/unittests/conftest.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  }
+ ]
+}

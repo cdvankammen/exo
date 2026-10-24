@@ -1,0 +1,32 @@
+{
+ "projectRoot": "/Users/chris/Documents/GitHub/exo",
+ "batchFiles": [
+  {
+   "path": "tools/src/exo_tools/client.py",
+   "language": "python",
+   "sizeLines": 117,
+   "fileCategory": "code"
+  },
+  {
+   "path": "tools/src/exo_tools/cluster.py",
+   "language": "python",
+   "sizeLines": 243,
+   "fileCategory": "code"
+  },
+  {
+   "path": "tools/src/exo_tools/harness.py",
+   "language": "python",
+   "sizeLines": 643,
+   "fileCategory": "code"
+  }
+ ],
+ "batchImportData": {
+  "tools/src/exo_tools/client.py": [],
+  "tools/src/exo_tools/cluster.py": [
+   "tools/src/exo_tools/client.py"
+  ],
+  "tools/src/exo_tools/harness.py": [
+   "tools/src/exo_tools/client.py"
+  ]
+ }
+}

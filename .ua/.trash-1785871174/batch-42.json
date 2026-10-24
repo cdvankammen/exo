@@ -1,0 +1,4172 @@
+{
+ "nodes": [
+  {
+   "id": "file:dashboard/src/lib/components/IntegrationCard.svelte",
+   "type": "file",
+   "name": "IntegrationCard.svelte",
+   "filePath": "dashboard/src/lib/components/IntegrationCard.svelte",
+   "summary": "IntegrationCard.svelte \u2014 code file in the exo project.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:dashboard/src/lib/components/MarkdownContent.svelte",
+   "type": "file",
+   "name": "MarkdownContent.svelte",
+   "filePath": "dashboard/src/lib/components/MarkdownContent.svelte",
+   "summary": "MarkdownContent.svelte \u2014 code file in the exo project.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "file:dashboard/src/lib/components/ModelCard.svelte",
+   "type": "file",
+   "name": "ModelCard.svelte",
+   "filePath": "dashboard/src/lib/components/ModelCard.svelte",
+   "summary": "ModelCard.svelte \u2014 code file in the exo project.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "file:dashboard/src/lib/components/ModelFilterPopover.svelte",
+   "type": "file",
+   "name": "ModelFilterPopover.svelte",
+   "filePath": "dashboard/src/lib/components/ModelFilterPopover.svelte",
+   "summary": "ModelFilterPopover.svelte \u2014 code file in the exo project.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "file:dashboard/src/lib/components/ModelPickerGroup.svelte",
+   "type": "file",
+   "name": "ModelPickerGroup.svelte",
+   "filePath": "dashboard/src/lib/components/ModelPickerGroup.svelte",
+   "summary": "ModelPickerGroup.svelte \u2014 code file in the exo project.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "file:dashboard/src/lib/components/ModelPickerModal.svelte",
+   "type": "file",
+   "name": "ModelPickerModal.svelte",
+   "filePath": "dashboard/src/lib/components/ModelPickerModal.svelte",
+   "summary": "ModelPickerModal.svelte \u2014 code file in the exo project.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "file:dashboard/src/lib/components/PrefillDecodeDisaggregation.svelte",
+   "type": "file",
+   "name": "PrefillDecodeDisaggregation.svelte",
+   "filePath": "dashboard/src/lib/components/PrefillDecodeDisaggregation.svelte",
+   "summary": "PrefillDecodeDisaggregation.svelte \u2014 code file in the exo project.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "file:dashboard/src/lib/components/PrefillProgressBar.svelte",
+   "type": "file",
+   "name": "PrefillProgressBar.svelte",
+   "filePath": "dashboard/src/lib/components/PrefillProgressBar.svelte",
+   "summary": "PrefillProgressBar.svelte \u2014 code file in the exo project.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:dashboard/src/lib/components/ToastContainer.svelte",
+   "type": "file",
+   "name": "ToastContainer.svelte",
+   "filePath": "dashboard/src/lib/components/ToastContainer.svelte",
+   "summary": "ToastContainer.svelte \u2014 code file in the exo project.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:dashboard/src/lib/components/TokenHeatmap.svelte",
+   "type": "file",
+   "name": "TokenHeatmap.svelte",
+   "filePath": "dashboard/src/lib/components/TokenHeatmap.svelte",
+   "summary": "TokenHeatmap.svelte \u2014 code file in the exo project.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "file:dashboard/src/lib/components/TopologyGraph.svelte",
+   "type": "file",
+   "name": "TopologyGraph.svelte",
+   "filePath": "dashboard/src/lib/components/TopologyGraph.svelte",
+   "summary": "TopologyGraph.svelte \u2014 code file in the exo project.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "file:dashboard/src/lib/components/index.ts",
+   "type": "file",
+   "name": "index.ts",
+   "filePath": "dashboard/src/lib/components/index.ts",
+   "summary": "index.ts \u2014 code file in the exo project.",
+   "tags": [
+    "barrel"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "type": "file",
+   "name": "app.svelte.ts",
+   "filePath": "dashboard/src/lib/stores/app.svelte.ts",
+   "summary": "Defines 92 function(s) and 1 class(es) for dashboard/src/lib/stores/app.svelte.ts.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "file:dashboard/src/lib/stores/favorites.svelte.ts",
+   "type": "file",
+   "name": "favorites.svelte.ts",
+   "filePath": "dashboard/src/lib/stores/favorites.svelte.ts",
+   "summary": "Defines 9 function(s) and 1 class(es) for dashboard/src/lib/stores/favorites.svelte.ts.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:dashboard/src/lib/stores/recents.svelte.ts",
+   "type": "file",
+   "name": "recents.svelte.ts",
+   "filePath": "dashboard/src/lib/stores/recents.svelte.ts",
+   "summary": "Defines 5 function(s) and 1 class(es) for dashboard/src/lib/stores/recents.svelte.ts.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:dashboard/src/lib/stores/toast.svelte.ts",
+   "type": "file",
+   "name": "toast.svelte.ts",
+   "filePath": "dashboard/src/lib/stores/toast.svelte.ts",
+   "summary": "Defines 5 function(s) and 0 class(es) for dashboard/src/lib/stores/toast.svelte.ts.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:dashboard/src/lib/types/files.ts",
+   "type": "file",
+   "name": "files.ts",
+   "filePath": "dashboard/src/lib/types/files.ts",
+   "summary": "Defines 7 function(s) and 0 class(es) for dashboard/src/lib/types/files.ts.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "file:dashboard/src/lib/utils/clipboard.ts",
+   "type": "file",
+   "name": "clipboard.ts",
+   "filePath": "dashboard/src/lib/utils/clipboard.ts",
+   "summary": "Defines 1 function(s) and 0 class(es) for dashboard/src/lib/utils/clipboard.ts.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:dashboard/src/lib/utils/downloads.ts",
+   "type": "file",
+   "name": "downloads.ts",
+   "filePath": "dashboard/src/lib/utils/downloads.ts",
+   "summary": "Defines 8 function(s) and 0 class(es) for dashboard/src/lib/utils/downloads.ts.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:dashboard/src/lib/utils/model_family.ts",
+   "type": "file",
+   "name": "model_family.ts",
+   "filePath": "dashboard/src/lib/utils/model_family.ts",
+   "summary": "Defines 4 function(s) and 0 class(es) for dashboard/src/lib/utils/model_family.ts.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:dashboard/src/routes/+layout.svelte",
+   "type": "file",
+   "name": "+layout.svelte",
+   "filePath": "dashboard/src/routes/+layout.svelte",
+   "summary": "+layout.svelte \u2014 code file in the exo project.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:dashboard/src/routes/+page.svelte",
+   "type": "file",
+   "name": "+page.svelte",
+   "filePath": "dashboard/src/routes/+page.svelte",
+   "summary": "+page.svelte \u2014 code file in the exo project.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "file:dashboard/src/routes/advanced/+page.svelte",
+   "type": "file",
+   "name": "+page.svelte",
+   "filePath": "dashboard/src/routes/advanced/+page.svelte",
+   "summary": "+page.svelte \u2014 code file in the exo project.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:dashboard/src/routes/downloads/+page.svelte",
+   "type": "file",
+   "name": "+page.svelte",
+   "filePath": "dashboard/src/routes/downloads/+page.svelte",
+   "summary": "+page.svelte \u2014 code file in the exo project.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "file:dashboard/src/routes/integrations/+page.svelte",
+   "type": "file",
+   "name": "+page.svelte",
+   "filePath": "dashboard/src/routes/integrations/+page.svelte",
+   "summary": "+page.svelte \u2014 code file in the exo project.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "function:dashboard/src/lib/stores/app.svelte.ts:generateUUID",
+   "type": "function",
+   "name": "generateUUID",
+   "filePath": "dashboard/src/lib/stores/app.svelte.ts",
+   "lineRange": [
+    13,
+    26
+   ],
+   "summary": "Function generateUUID in dashboard/src/lib/stores/app.svelte.ts.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:dashboard/src/lib/stores/app.svelte.ts:transformNetworkInterface",
+   "type": "function",
+   "name": "transformNetworkInterface",
+   "filePath": "dashboard/src/lib/stores/app.svelte.ts",
+   "lineRange": [
+    380,
+    412
+   ],
+   "summary": "Function transformNetworkInterface in dashboard/src/lib/stores/app.svelte.ts.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:dashboard/src/lib/stores/app.svelte.ts:transformTopology",
+   "type": "function",
+   "name": "transformTopology",
+   "filePath": "dashboard/src/lib/stores/app.svelte.ts",
+   "lineRange": [
+    414,
+    513
+   ],
+   "summary": "Function transformTopology in dashboard/src/lib/stores/app.svelte.ts.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:dashboard/src/lib/stores/app.svelte.ts:extractIpFromMultiaddr",
+   "type": "function",
+   "name": "extractIpFromMultiaddr",
+   "filePath": "dashboard/src/lib/stores/app.svelte.ts",
+   "lineRange": [
+    515,
+    525
+   ],
+   "summary": "Function extractIpFromMultiaddr in dashboard/src/lib/stores/app.svelte.ts.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:dashboard/src/lib/stores/app.svelte.ts:hasStartedChat",
+   "type": "function",
+   "name": "hasStartedChat",
+   "filePath": "dashboard/src/lib/stores/app.svelte.ts",
+   "lineRange": [
+    3482,
+    3482
+   ],
+   "summary": "Function hasStartedChat in dashboard/src/lib/stores/app.svelte.ts.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:dashboard/src/lib/stores/app.svelte.ts:messages",
+   "type": "function",
+   "name": "messages",
+   "filePath": "dashboard/src/lib/stores/app.svelte.ts",
+   "lineRange": [
+    3483,
+    3483
+   ],
+   "summary": "Function messages in dashboard/src/lib/stores/app.svelte.ts.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:dashboard/src/lib/stores/app.svelte.ts:currentResponse",
+   "type": "function",
+   "name": "currentResponse",
+   "filePath": "dashboard/src/lib/stores/app.svelte.ts",
+   "lineRange": [
+    3484,
+    3484
+   ],
+   "summary": "Function currentResponse in dashboard/src/lib/stores/app.svelte.ts.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:dashboard/src/lib/stores/app.svelte.ts:isLoading",
+   "type": "function",
+   "name": "isLoading",
+   "filePath": "dashboard/src/lib/stores/app.svelte.ts",
+   "lineRange": [
+    3485,
+    3485
+   ],
+   "summary": "Function isLoading in dashboard/src/lib/stores/app.svelte.ts.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:dashboard/src/lib/stores/app.svelte.ts:ttftMs",
+   "type": "function",
+   "name": "ttftMs",
+   "filePath": "dashboard/src/lib/stores/app.svelte.ts",
+   "lineRange": [
+    3486,
+    3486
+   ],
+   "summary": "Function ttftMs in dashboard/src/lib/stores/app.svelte.ts.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:dashboard/src/lib/stores/app.svelte.ts:tps",
+   "type": "function",
+   "name": "tps",
+   "filePath": "dashboard/src/lib/stores/app.svelte.ts",
+   "lineRange": [
+    3487,
+    3487
+   ],
+   "summary": "Function tps in dashboard/src/lib/stores/app.svelte.ts.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:dashboard/src/lib/stores/app.svelte.ts:totalTokens",
+   "type": "function",
+   "name": "totalTokens",
+   "filePath": "dashboard/src/lib/stores/app.svelte.ts",
+   "lineRange": [
+    3488,
+    3488
+   ],
+   "summary": "Function totalTokens in dashboard/src/lib/stores/app.svelte.ts.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:dashboard/src/lib/stores/app.svelte.ts:prefillProgress",
+   "type": "function",
+   "name": "prefillProgress",
+   "filePath": "dashboard/src/lib/stores/app.svelte.ts",
+   "lineRange": [
+    3489,
+    3489
+   ],
+   "summary": "Function prefillProgress in dashboard/src/lib/stores/app.svelte.ts.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:dashboard/src/lib/stores/app.svelte.ts:topologyData",
+   "type": "function",
+   "name": "topologyData",
+   "filePath": "dashboard/src/lib/stores/app.svelte.ts",
+   "lineRange": [
+    3490,
+    3490
+   ],
+   "summary": "Function topologyData in dashboard/src/lib/stores/app.svelte.ts.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:dashboard/src/lib/stores/app.svelte.ts:instances",
+   "type": "function",
+   "name": "instances",
+   "filePath": "dashboard/src/lib/stores/app.svelte.ts",
+   "lineRange": [
+    3491,
+    3491
+   ],
+   "summary": "Function instances in dashboard/src/lib/stores/app.svelte.ts.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:dashboard/src/lib/stores/app.svelte.ts:runners",
+   "type": "function",
+   "name": "runners",
+   "filePath": "dashboard/src/lib/stores/app.svelte.ts",
+   "lineRange": [
+    3492,
+    3492
+   ],
+   "summary": "Function runners in dashboard/src/lib/stores/app.svelte.ts.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:dashboard/src/lib/stores/app.svelte.ts:instanceLinks",
+   "type": "function",
+   "name": "instanceLinks",
+   "filePath": "dashboard/src/lib/stores/app.svelte.ts",
+   "lineRange": [
+    3493,
+    3493
+   ],
+   "summary": "Function instanceLinks in dashboard/src/lib/stores/app.svelte.ts.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:dashboard/src/lib/stores/app.svelte.ts:featureFlags",
+   "type": "function",
+   "name": "featureFlags",
+   "filePath": "dashboard/src/lib/stores/app.svelte.ts",
+   "lineRange": [
+    3494,
+    3494
+   ],
+   "summary": "Function featureFlags in dashboard/src/lib/stores/app.svelte.ts.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:dashboard/src/lib/stores/app.svelte.ts:createInstanceLink",
+   "type": "function",
+   "name": "createInstanceLink",
+   "filePath": "dashboard/src/lib/stores/app.svelte.ts",
+   "lineRange": [
+    3495,
+    3498
+   ],
+   "summary": "Function createInstanceLink in dashboard/src/lib/stores/app.svelte.ts.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:dashboard/src/lib/stores/app.svelte.ts:updateInstanceLink",
+   "type": "function",
+   "name": "updateInstanceLink",
+   "filePath": "dashboard/src/lib/stores/app.svelte.ts",
+   "lineRange": [
+    3499,
+    3503
+   ],
+   "summary": "Function updateInstanceLink in dashboard/src/lib/stores/app.svelte.ts.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:dashboard/src/lib/stores/app.svelte.ts:deleteInstanceLink",
+   "type": "function",
+   "name": "deleteInstanceLink",
+   "filePath": "dashboard/src/lib/stores/app.svelte.ts",
+   "lineRange": [
+    3504,
+    3505
+   ],
+   "summary": "Function deleteInstanceLink in dashboard/src/lib/stores/app.svelte.ts.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:dashboard/src/lib/stores/app.svelte.ts:downloads",
+   "type": "function",
+   "name": "downloads",
+   "filePath": "dashboard/src/lib/stores/app.svelte.ts",
+   "lineRange": [
+    3506,
+    3506
+   ],
+   "summary": "Function downloads in dashboard/src/lib/stores/app.svelte.ts.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:dashboard/src/lib/stores/app.svelte.ts:nodeDisk",
+   "type": "function",
+   "name": "nodeDisk",
+   "filePath": "dashboard/src/lib/stores/app.svelte.ts",
+   "lineRange": [
+    3507,
+    3507
+   ],
+   "summary": "Function nodeDisk in dashboard/src/lib/stores/app.svelte.ts.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:dashboard/src/lib/stores/app.svelte.ts:placementPreviews",
+   "type": "function",
+   "name": "placementPreviews",
+   "filePath": "dashboard/src/lib/stores/app.svelte.ts",
+   "lineRange": [
+    3508,
+    3508
+   ],
+   "summary": "Function placementPreviews in dashboard/src/lib/stores/app.svelte.ts.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:dashboard/src/lib/stores/app.svelte.ts:selectedPreviewModelId",
+   "type": "function",
+   "name": "selectedPreviewModelId",
+   "filePath": "dashboard/src/lib/stores/app.svelte.ts",
+   "lineRange": [
+    3509,
+    3509
+   ],
+   "summary": "Function selectedPreviewModelId in dashboard/src/lib/stores/app.svelte.ts.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:dashboard/src/lib/stores/app.svelte.ts:isLoadingPreviews",
+   "type": "function",
+   "name": "isLoadingPreviews",
+   "filePath": "dashboard/src/lib/stores/app.svelte.ts",
+   "lineRange": [
+    3510,
+    3510
+   ],
+   "summary": "Function isLoadingPreviews in dashboard/src/lib/stores/app.svelte.ts.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:dashboard/src/lib/stores/app.svelte.ts:lastUpdate",
+   "type": "function",
+   "name": "lastUpdate",
+   "filePath": "dashboard/src/lib/stores/app.svelte.ts",
+   "lineRange": [
+    3511,
+    3511
+   ],
+   "summary": "Function lastUpdate in dashboard/src/lib/stores/app.svelte.ts.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:dashboard/src/lib/stores/app.svelte.ts:isTopologyMinimized",
+   "type": "function",
+   "name": "isTopologyMinimized",
+   "filePath": "dashboard/src/lib/stores/app.svelte.ts",
+   "lineRange": [
+    3512,
+    3512
+   ],
+   "summary": "Function isTopologyMinimized in dashboard/src/lib/stores/app.svelte.ts.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:dashboard/src/lib/stores/app.svelte.ts:selectedChatModel",
+   "type": "function",
+   "name": "selectedChatModel",
+   "filePath": "dashboard/src/lib/stores/app.svelte.ts",
+   "lineRange": [
+    3513,
+    3513
+   ],
+   "summary": "Function selectedChatModel in dashboard/src/lib/stores/app.svelte.ts.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:dashboard/src/lib/stores/app.svelte.ts:thinkingEnabled",
+   "type": "function",
+   "name": "thinkingEnabled",
+   "filePath": "dashboard/src/lib/stores/app.svelte.ts",
+   "lineRange": [
+    3514,
+    3514
+   ],
+   "summary": "Function thinkingEnabled in dashboard/src/lib/stores/app.svelte.ts.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:dashboard/src/lib/stores/app.svelte.ts:debugMode",
+   "type": "function",
+   "name": "debugMode",
+   "filePath": "dashboard/src/lib/stores/app.svelte.ts",
+   "lineRange": [
+    3515,
+    3515
+   ],
+   "summary": "Function debugMode in dashboard/src/lib/stores/app.svelte.ts.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:dashboard/src/lib/stores/app.svelte.ts:topologyOnlyMode",
+   "type": "function",
+   "name": "topologyOnlyMode",
+   "filePath": "dashboard/src/lib/stores/app.svelte.ts",
+   "lineRange": [
+    3516,
+    3516
+   ],
+   "summary": "Function topologyOnlyMode in dashboard/src/lib/stores/app.svelte.ts.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:dashboard/src/lib/stores/app.svelte.ts:chatSidebarVisible",
+   "type": "function",
+   "name": "chatSidebarVisible",
+   "filePath": "dashboard/src/lib/stores/app.svelte.ts",
+   "lineRange": [
+    3517,
+    3517
+   ],
+   "summary": "Function chatSidebarVisible in dashboard/src/lib/stores/app.svelte.ts.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:dashboard/src/lib/stores/app.svelte.ts:stopGeneration",
+   "type": "function",
+   "name": "stopGeneration",
+   "filePath": "dashboard/src/lib/stores/app.svelte.ts",
+   "lineRange": [
+    3520,
+    3520
+   ],
+   "summary": "Function stopGeneration in dashboard/src/lib/stores/app.svelte.ts.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:dashboard/src/lib/stores/app.svelte.ts:startChat",
+   "type": "function",
+   "name": "startChat",
+   "filePath": "dashboard/src/lib/stores/app.svelte.ts",
+   "lineRange": [
+    3521,
+    3521
+   ],
+   "summary": "Function startChat in dashboard/src/lib/stores/app.svelte.ts.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:dashboard/src/lib/stores/app.svelte.ts:sendMessage",
+   "type": "function",
+   "name": "sendMessage",
+   "filePath": "dashboard/src/lib/stores/app.svelte.ts",
+   "lineRange": [
+    3522,
+    3533
+   ],
+   "summary": "Function sendMessage in dashboard/src/lib/stores/app.svelte.ts.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:dashboard/src/lib/stores/app.svelte.ts:generateImage",
+   "type": "function",
+   "name": "generateImage",
+   "filePath": "dashboard/src/lib/stores/app.svelte.ts",
+   "lineRange": [
+    3534,
+    3535
+   ],
+   "summary": "Function generateImage in dashboard/src/lib/stores/app.svelte.ts.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:dashboard/src/lib/stores/app.svelte.ts:editImage",
+   "type": "function",
+   "name": "editImage",
+   "filePath": "dashboard/src/lib/stores/app.svelte.ts",
+   "lineRange": [
+    3536,
+    3540
+   ],
+   "summary": "Function editImage in dashboard/src/lib/stores/app.svelte.ts.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:dashboard/src/lib/stores/app.svelte.ts:editingImage",
+   "type": "function",
+   "name": "editingImage",
+   "filePath": "dashboard/src/lib/stores/app.svelte.ts",
+   "lineRange": [
+    3541,
+    3541
+   ],
+   "summary": "Function editingImage in dashboard/src/lib/stores/app.svelte.ts.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:dashboard/src/lib/stores/app.svelte.ts:setEditingImage",
+   "type": "function",
+   "name": "setEditingImage",
+   "filePath": "dashboard/src/lib/stores/app.svelte.ts",
+   "lineRange": [
+    3542,
+    3543
+   ],
+   "summary": "Function setEditingImage in dashboard/src/lib/stores/app.svelte.ts.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:dashboard/src/lib/stores/app.svelte.ts:clearEditingImage",
+   "type": "function",
+   "name": "clearEditingImage",
+   "filePath": "dashboard/src/lib/stores/app.svelte.ts",
+   "lineRange": [
+    3544,
+    3544
+   ],
+   "summary": "Function clearEditingImage in dashboard/src/lib/stores/app.svelte.ts.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:dashboard/src/lib/stores/app.svelte.ts:clearChat",
+   "type": "function",
+   "name": "clearChat",
+   "filePath": "dashboard/src/lib/stores/app.svelte.ts",
+   "lineRange": [
+    3545,
+    3545
+   ],
+   "summary": "Function clearChat in dashboard/src/lib/stores/app.svelte.ts.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:dashboard/src/lib/stores/app.svelte.ts:setSelectedChatModel",
+   "type": "function",
+   "name": "setSelectedChatModel",
+   "filePath": "dashboard/src/lib/stores/app.svelte.ts",
+   "lineRange": [
+    3546,
+    3547
+   ],
+   "summary": "Function setSelectedChatModel in dashboard/src/lib/stores/app.svelte.ts.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:dashboard/src/lib/stores/app.svelte.ts:selectPreviewModel",
+   "type": "function",
+   "name": "selectPreviewModel",
+   "filePath": "dashboard/src/lib/stores/app.svelte.ts",
+   "lineRange": [
+    3548,
+    3549
+   ],
+   "summary": "Function selectPreviewModel in dashboard/src/lib/stores/app.svelte.ts.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:dashboard/src/lib/stores/app.svelte.ts:togglePreviewNodeFilter",
+   "type": "function",
+   "name": "togglePreviewNodeFilter",
+   "filePath": "dashboard/src/lib/stores/app.svelte.ts",
+   "lineRange": [
+    3550,
+    3551
+   ],
+   "summary": "Function togglePreviewNodeFilter in dashboard/src/lib/stores/app.svelte.ts.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:dashboard/src/lib/stores/app.svelte.ts:clearPreviewNodeFilter",
+   "type": "function",
+   "name": "clearPreviewNodeFilter",
+   "filePath": "dashboard/src/lib/stores/app.svelte.ts",
+   "lineRange": [
+    3552,
+    3552
+   ],
+   "summary": "Function clearPreviewNodeFilter in dashboard/src/lib/stores/app.svelte.ts.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:dashboard/src/lib/stores/app.svelte.ts:previewNodeFilter",
+   "type": "function",
+   "name": "previewNodeFilter",
+   "filePath": "dashboard/src/lib/stores/app.svelte.ts",
+   "lineRange": [
+    3553,
+    3553
+   ],
+   "summary": "Function previewNodeFilter in dashboard/src/lib/stores/app.svelte.ts.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:dashboard/src/lib/stores/app.svelte.ts:deleteMessage",
+   "type": "function",
+   "name": "deleteMessage",
+   "filePath": "dashboard/src/lib/stores/app.svelte.ts",
+   "lineRange": [
+    3554,
+    3555
+   ],
+   "summary": "Function deleteMessage in dashboard/src/lib/stores/app.svelte.ts.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:dashboard/src/lib/stores/app.svelte.ts:editMessage",
+   "type": "function",
+   "name": "editMessage",
+   "filePath": "dashboard/src/lib/stores/app.svelte.ts",
+   "lineRange": [
+    3556,
+    3557
+   ],
+   "summary": "Function editMessage in dashboard/src/lib/stores/app.svelte.ts.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:dashboard/src/lib/stores/app.svelte.ts:editAndRegenerate",
+   "type": "function",
+   "name": "editAndRegenerate",
+   "filePath": "dashboard/src/lib/stores/app.svelte.ts",
+   "lineRange": [
+    3558,
+    3559
+   ],
+   "summary": "Function editAndRegenerate in dashboard/src/lib/stores/app.svelte.ts.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:dashboard/src/lib/stores/app.svelte.ts:regenerateLastResponse",
+   "type": "function",
+   "name": "regenerateLastResponse",
+   "filePath": "dashboard/src/lib/stores/app.svelte.ts",
+   "lineRange": [
+    3560,
+    3560
+   ],
+   "summary": "Function regenerateLastResponse in dashboard/src/lib/stores/app.svelte.ts.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:dashboard/src/lib/stores/app.svelte.ts:regenerateFromToken",
+   "type": "function",
+   "name": "regenerateFromToken",
+   "filePath": "dashboard/src/lib/stores/app.svelte.ts",
+   "lineRange": [
+    3561,
+    3562
+   ],
+   "summary": "Function regenerateFromToken in dashboard/src/lib/stores/app.svelte.ts.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:dashboard/src/lib/stores/app.svelte.ts:conversations",
+   "type": "function",
+   "name": "conversations",
+   "filePath": "dashboard/src/lib/stores/app.svelte.ts",
+   "lineRange": [
+    3565,
+    3565
+   ],
+   "summary": "Function conversations in dashboard/src/lib/stores/app.svelte.ts.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:dashboard/src/lib/stores/app.svelte.ts:activeConversationId",
+   "type": "function",
+   "name": "activeConversationId",
+   "filePath": "dashboard/src/lib/stores/app.svelte.ts",
+   "lineRange": [
+    3566,
+    3566
+   ],
+   "summary": "Function activeConversationId in dashboard/src/lib/stores/app.svelte.ts.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:dashboard/src/lib/stores/app.svelte.ts:createConversation",
+   "type": "function",
+   "name": "createConversation",
+   "filePath": "dashboard/src/lib/stores/app.svelte.ts",
+   "lineRange": [
+    3567,
+    3568
+   ],
+   "summary": "Function createConversation in dashboard/src/lib/stores/app.svelte.ts.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:dashboard/src/lib/stores/app.svelte.ts:loadConversation",
+   "type": "function",
+   "name": "loadConversation",
+   "filePath": "dashboard/src/lib/stores/app.svelte.ts",
+   "lineRange": [
+    3569,
+    3569
+   ],
+   "summary": "Function loadConversation in dashboard/src/lib/stores/app.svelte.ts.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:dashboard/src/lib/stores/app.svelte.ts:deleteConversation",
+   "type": "function",
+   "name": "deleteConversation",
+   "filePath": "dashboard/src/lib/stores/app.svelte.ts",
+   "lineRange": [
+    3570,
+    3571
+   ],
+   "summary": "Function deleteConversation in dashboard/src/lib/stores/app.svelte.ts.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:dashboard/src/lib/stores/app.svelte.ts:deleteAllConversations",
+   "type": "function",
+   "name": "deleteAllConversations",
+   "filePath": "dashboard/src/lib/stores/app.svelte.ts",
+   "lineRange": [
+    3572,
+    3572
+   ],
+   "summary": "Function deleteAllConversations in dashboard/src/lib/stores/app.svelte.ts.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:dashboard/src/lib/stores/app.svelte.ts:renameConversation",
+   "type": "function",
+   "name": "renameConversation",
+   "filePath": "dashboard/src/lib/stores/app.svelte.ts",
+   "lineRange": [
+    3573,
+    3574
+   ],
+   "summary": "Function renameConversation in dashboard/src/lib/stores/app.svelte.ts.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:dashboard/src/lib/stores/app.svelte.ts:getActiveConversation",
+   "type": "function",
+   "name": "getActiveConversation",
+   "filePath": "dashboard/src/lib/stores/app.svelte.ts",
+   "lineRange": [
+    3575,
+    3575
+   ],
+   "summary": "Function getActiveConversation in dashboard/src/lib/stores/app.svelte.ts.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:dashboard/src/lib/stores/app.svelte.ts:setConversationThinking",
+   "type": "function",
+   "name": "setConversationThinking",
+   "filePath": "dashboard/src/lib/stores/app.svelte.ts",
+   "lineRange": [
+    3576,
+    3577
+   ],
+   "summary": "Function setConversationThinking in dashboard/src/lib/stores/app.svelte.ts.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:dashboard/src/lib/stores/app.svelte.ts:isSidebarOpen",
+   "type": "function",
+   "name": "isSidebarOpen",
+   "filePath": "dashboard/src/lib/stores/app.svelte.ts",
+   "lineRange": [
+    3580,
+    3580
+   ],
+   "summary": "Function isSidebarOpen in dashboard/src/lib/stores/app.svelte.ts.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:dashboard/src/lib/stores/app.svelte.ts:toggleSidebar",
+   "type": "function",
+   "name": "toggleSidebar",
+   "filePath": "dashboard/src/lib/stores/app.svelte.ts",
+   "lineRange": [
+    3581,
+    3581
+   ],
+   "summary": "Function toggleSidebar in dashboard/src/lib/stores/app.svelte.ts.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:dashboard/src/lib/stores/app.svelte.ts:toggleDebugMode",
+   "type": "function",
+   "name": "toggleDebugMode",
+   "filePath": "dashboard/src/lib/stores/app.svelte.ts",
+   "lineRange": [
+    3582,
+    3582
+   ],
+   "summary": "Function toggleDebugMode in dashboard/src/lib/stores/app.svelte.ts.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:dashboard/src/lib/stores/app.svelte.ts:setDebugMode",
+   "type": "function",
+   "name": "setDebugMode",
+   "filePath": "dashboard/src/lib/stores/app.svelte.ts",
+   "lineRange": [
+    3583,
+    3584
+   ],
+   "summary": "Function setDebugMode in dashboard/src/lib/stores/app.svelte.ts.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:dashboard/src/lib/stores/app.svelte.ts:toggleTopologyOnlyMode",
+   "type": "function",
+   "name": "toggleTopologyOnlyMode",
+   "filePath": "dashboard/src/lib/stores/app.svelte.ts",
+   "lineRange": [
+    3585,
+    3585
+   ],
+   "summary": "Function toggleTopologyOnlyMode in dashboard/src/lib/stores/app.svelte.ts.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:dashboard/src/lib/stores/app.svelte.ts:setTopologyOnlyMode",
+   "type": "function",
+   "name": "setTopologyOnlyMode",
+   "filePath": "dashboard/src/lib/stores/app.svelte.ts",
+   "lineRange": [
+    3586,
+    3587
+   ],
+   "summary": "Function setTopologyOnlyMode in dashboard/src/lib/stores/app.svelte.ts.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:dashboard/src/lib/stores/app.svelte.ts:toggleChatSidebarVisible",
+   "type": "function",
+   "name": "toggleChatSidebarVisible",
+   "filePath": "dashboard/src/lib/stores/app.svelte.ts",
+   "lineRange": [
+    3588,
+    3589
+   ],
+   "summary": "Function toggleChatSidebarVisible in dashboard/src/lib/stores/app.svelte.ts.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:dashboard/src/lib/stores/app.svelte.ts:setChatSidebarVisible",
+   "type": "function",
+   "name": "setChatSidebarVisible",
+   "filePath": "dashboard/src/lib/stores/app.svelte.ts",
+   "lineRange": [
+    3590,
+    3591
+   ],
+   "summary": "Function setChatSidebarVisible in dashboard/src/lib/stores/app.svelte.ts.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:dashboard/src/lib/stores/app.svelte.ts:mobileChatSidebarOpen",
+   "type": "function",
+   "name": "mobileChatSidebarOpen",
+   "filePath": "dashboard/src/lib/stores/app.svelte.ts",
+   "lineRange": [
+    3594,
+    3594
+   ],
+   "summary": "Function mobileChatSidebarOpen in dashboard/src/lib/stores/app.svelte.ts.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:dashboard/src/lib/stores/app.svelte.ts:toggleMobileChatSidebar",
+   "type": "function",
+   "name": "toggleMobileChatSidebar",
+   "filePath": "dashboard/src/lib/stores/app.svelte.ts",
+   "lineRange": [
+    3595,
+    3595
+   ],
+   "summary": "Function toggleMobileChatSidebar in dashboard/src/lib/stores/app.svelte.ts.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:dashboard/src/lib/stores/app.svelte.ts:setMobileChatSidebarOpen",
+   "type": "function",
+   "name": "setMobileChatSidebarOpen",
+   "filePath": "dashboard/src/lib/stores/app.svelte.ts",
+   "lineRange": [
+    3596,
+    3597
+   ],
+   "summary": "Function setMobileChatSidebarOpen in dashboard/src/lib/stores/app.svelte.ts.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:dashboard/src/lib/stores/app.svelte.ts:mobileRightSidebarOpen",
+   "type": "function",
+   "name": "mobileRightSidebarOpen",
+   "filePath": "dashboard/src/lib/stores/app.svelte.ts",
+   "lineRange": [
+    3598,
+    3598
+   ],
+   "summary": "Function mobileRightSidebarOpen in dashboard/src/lib/stores/app.svelte.ts.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:dashboard/src/lib/stores/app.svelte.ts:toggleMobileRightSidebar",
+   "type": "function",
+   "name": "toggleMobileRightSidebar",
+   "filePath": "dashboard/src/lib/stores/app.svelte.ts",
+   "lineRange": [
+    3599,
+    3600
+   ],
+   "summary": "Function toggleMobileRightSidebar in dashboard/src/lib/stores/app.svelte.ts.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:dashboard/src/lib/stores/app.svelte.ts:setMobileRightSidebarOpen",
+   "type": "function",
+   "name": "setMobileRightSidebarOpen",
+   "filePath": "dashboard/src/lib/stores/app.svelte.ts",
+   "lineRange": [
+    3601,
+    3602
+   ],
+   "summary": "Function setMobileRightSidebarOpen in dashboard/src/lib/stores/app.svelte.ts.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:dashboard/src/lib/stores/app.svelte.ts:refreshState",
+   "type": "function",
+   "name": "refreshState",
+   "filePath": "dashboard/src/lib/stores/app.svelte.ts",
+   "lineRange": [
+    3604,
+    3604
+   ],
+   "summary": "Function refreshState in dashboard/src/lib/stores/app.svelte.ts.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:dashboard/src/lib/stores/app.svelte.ts:isConnected",
+   "type": "function",
+   "name": "isConnected",
+   "filePath": "dashboard/src/lib/stores/app.svelte.ts",
+   "lineRange": [
+    3607,
+    3607
+   ],
+   "summary": "Function isConnected in dashboard/src/lib/stores/app.svelte.ts.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:dashboard/src/lib/stores/app.svelte.ts:nodeIdentities",
+   "type": "function",
+   "name": "nodeIdentities",
+   "filePath": "dashboard/src/lib/stores/app.svelte.ts",
+   "lineRange": [
+    3610,
+    3610
+   ],
+   "summary": "Function nodeIdentities in dashboard/src/lib/stores/app.svelte.ts.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:dashboard/src/lib/stores/app.svelte.ts:nodeThunderbolt",
+   "type": "function",
+   "name": "nodeThunderbolt",
+   "filePath": "dashboard/src/lib/stores/app.svelte.ts",
+   "lineRange": [
+    3613,
+    3613
+   ],
+   "summary": "Function nodeThunderbolt in dashboard/src/lib/stores/app.svelte.ts.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:dashboard/src/lib/stores/app.svelte.ts:nodeRdmaCtl",
+   "type": "function",
+   "name": "nodeRdmaCtl",
+   "filePath": "dashboard/src/lib/stores/app.svelte.ts",
+   "lineRange": [
+    3614,
+    3614
+   ],
+   "summary": "Function nodeRdmaCtl in dashboard/src/lib/stores/app.svelte.ts.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:dashboard/src/lib/stores/app.svelte.ts:thunderboltBridgeCycles",
+   "type": "function",
+   "name": "thunderboltBridgeCycles",
+   "filePath": "dashboard/src/lib/stores/app.svelte.ts",
+   "lineRange": [
+    3615,
+    3615
+   ],
+   "summary": "Function thunderboltBridgeCycles in dashboard/src/lib/stores/app.svelte.ts.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:dashboard/src/lib/stores/app.svelte.ts:nodeThunderboltBridge",
+   "type": "function",
+   "name": "nodeThunderboltBridge",
+   "filePath": "dashboard/src/lib/stores/app.svelte.ts",
+   "lineRange": [
+    3616,
+    3616
+   ],
+   "summary": "Function nodeThunderboltBridge in dashboard/src/lib/stores/app.svelte.ts.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:dashboard/src/lib/stores/app.svelte.ts:imageGenerationParams",
+   "type": "function",
+   "name": "imageGenerationParams",
+   "filePath": "dashboard/src/lib/stores/app.svelte.ts",
+   "lineRange": [
+    3619,
+    3619
+   ],
+   "summary": "Function imageGenerationParams in dashboard/src/lib/stores/app.svelte.ts.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:dashboard/src/lib/stores/app.svelte.ts:setImageGenerationParams",
+   "type": "function",
+   "name": "setImageGenerationParams",
+   "filePath": "dashboard/src/lib/stores/app.svelte.ts",
+   "lineRange": [
+    3620,
+    3622
+   ],
+   "summary": "Function setImageGenerationParams in dashboard/src/lib/stores/app.svelte.ts.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:dashboard/src/lib/stores/app.svelte.ts:resetImageGenerationParams",
+   "type": "function",
+   "name": "resetImageGenerationParams",
+   "filePath": "dashboard/src/lib/stores/app.svelte.ts",
+   "lineRange": [
+    3623,
+    3624
+   ],
+   "summary": "Function resetImageGenerationParams in dashboard/src/lib/stores/app.svelte.ts.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:dashboard/src/lib/stores/app.svelte.ts:startDownload",
+   "type": "function",
+   "name": "startDownload",
+   "filePath": "dashboard/src/lib/stores/app.svelte.ts",
+   "lineRange": [
+    3627,
+    3628
+   ],
+   "summary": "Function startDownload in dashboard/src/lib/stores/app.svelte.ts.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:dashboard/src/lib/stores/app.svelte.ts:cancelDownload",
+   "type": "function",
+   "name": "cancelDownload",
+   "filePath": "dashboard/src/lib/stores/app.svelte.ts",
+   "lineRange": [
+    3629,
+    3630
+   ],
+   "summary": "Function cancelDownload in dashboard/src/lib/stores/app.svelte.ts.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:dashboard/src/lib/stores/app.svelte.ts:deleteDownload",
+   "type": "function",
+   "name": "deleteDownload",
+   "filePath": "dashboard/src/lib/stores/app.svelte.ts",
+   "lineRange": [
+    3631,
+    3632
+   ],
+   "summary": "Function deleteDownload in dashboard/src/lib/stores/app.svelte.ts.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:dashboard/src/lib/stores/app.svelte.ts:listTraces",
+   "type": "function",
+   "name": "listTraces",
+   "filePath": "dashboard/src/lib/stores/app.svelte.ts",
+   "lineRange": [
+    3635,
+    3635
+   ],
+   "summary": "Function listTraces in dashboard/src/lib/stores/app.svelte.ts.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:dashboard/src/lib/stores/app.svelte.ts:checkTraceExists",
+   "type": "function",
+   "name": "checkTraceExists",
+   "filePath": "dashboard/src/lib/stores/app.svelte.ts",
+   "lineRange": [
+    3636,
+    3637
+   ],
+   "summary": "Function checkTraceExists in dashboard/src/lib/stores/app.svelte.ts.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:dashboard/src/lib/stores/app.svelte.ts:fetchTraceStats",
+   "type": "function",
+   "name": "fetchTraceStats",
+   "filePath": "dashboard/src/lib/stores/app.svelte.ts",
+   "lineRange": [
+    3638,
+    3639
+   ],
+   "summary": "Function fetchTraceStats in dashboard/src/lib/stores/app.svelte.ts.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:dashboard/src/lib/stores/app.svelte.ts:getTraceRawUrl",
+   "type": "function",
+   "name": "getTraceRawUrl",
+   "filePath": "dashboard/src/lib/stores/app.svelte.ts",
+   "lineRange": [
+    3640,
+    3641
+   ],
+   "summary": "Function getTraceRawUrl in dashboard/src/lib/stores/app.svelte.ts.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:dashboard/src/lib/stores/app.svelte.ts:deleteTraces",
+   "type": "function",
+   "name": "deleteTraces",
+   "filePath": "dashboard/src/lib/stores/app.svelte.ts",
+   "lineRange": [
+    3642,
+    3643
+   ],
+   "summary": "Function deleteTraces in dashboard/src/lib/stores/app.svelte.ts.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:dashboard/src/lib/stores/app.svelte.ts:AppStore",
+   "type": "class",
+   "name": "AppStore",
+   "filePath": "dashboard/src/lib/stores/app.svelte.ts",
+   "lineRange": [
+    527,
+    3477
+   ],
+   "summary": "Class AppStore in dashboard/src/lib/stores/app.svelte.ts.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "function:dashboard/src/lib/stores/favorites.svelte.ts:favorites",
+   "type": "function",
+   "name": "favorites",
+   "filePath": "dashboard/src/lib/stores/favorites.svelte.ts",
+   "lineRange": [
+    85,
+    85
+   ],
+   "summary": "Function favorites in dashboard/src/lib/stores/favorites.svelte.ts.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:dashboard/src/lib/stores/favorites.svelte.ts:hasFavorites",
+   "type": "function",
+   "name": "hasFavorites",
+   "filePath": "dashboard/src/lib/stores/favorites.svelte.ts",
+   "lineRange": [
+    86,
+    86
+   ],
+   "summary": "Function hasFavorites in dashboard/src/lib/stores/favorites.svelte.ts.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:dashboard/src/lib/stores/favorites.svelte.ts:isFavorite",
+   "type": "function",
+   "name": "isFavorite",
+   "filePath": "dashboard/src/lib/stores/favorites.svelte.ts",
+   "lineRange": [
+    87,
+    88
+   ],
+   "summary": "Function isFavorite in dashboard/src/lib/stores/favorites.svelte.ts.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:dashboard/src/lib/stores/favorites.svelte.ts:toggleFavorite",
+   "type": "function",
+   "name": "toggleFavorite",
+   "filePath": "dashboard/src/lib/stores/favorites.svelte.ts",
+   "lineRange": [
+    89,
+    90
+   ],
+   "summary": "Function toggleFavorite in dashboard/src/lib/stores/favorites.svelte.ts.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:dashboard/src/lib/stores/favorites.svelte.ts:addFavorite",
+   "type": "function",
+   "name": "addFavorite",
+   "filePath": "dashboard/src/lib/stores/favorites.svelte.ts",
+   "lineRange": [
+    91,
+    92
+   ],
+   "summary": "Function addFavorite in dashboard/src/lib/stores/favorites.svelte.ts.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:dashboard/src/lib/stores/favorites.svelte.ts:removeFavorite",
+   "type": "function",
+   "name": "removeFavorite",
+   "filePath": "dashboard/src/lib/stores/favorites.svelte.ts",
+   "lineRange": [
+    93,
+    94
+   ],
+   "summary": "Function removeFavorite in dashboard/src/lib/stores/favorites.svelte.ts.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:dashboard/src/lib/stores/favorites.svelte.ts:getFavorites",
+   "type": "function",
+   "name": "getFavorites",
+   "filePath": "dashboard/src/lib/stores/favorites.svelte.ts",
+   "lineRange": [
+    95,
+    95
+   ],
+   "summary": "Function getFavorites in dashboard/src/lib/stores/favorites.svelte.ts.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:dashboard/src/lib/stores/favorites.svelte.ts:getFavoritesSet",
+   "type": "function",
+   "name": "getFavoritesSet",
+   "filePath": "dashboard/src/lib/stores/favorites.svelte.ts",
+   "lineRange": [
+    96,
+    96
+   ],
+   "summary": "Function getFavoritesSet in dashboard/src/lib/stores/favorites.svelte.ts.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:dashboard/src/lib/stores/favorites.svelte.ts:clearFavorites",
+   "type": "function",
+   "name": "clearFavorites",
+   "filePath": "dashboard/src/lib/stores/favorites.svelte.ts",
+   "lineRange": [
+    97,
+    97
+   ],
+   "summary": "Function clearFavorites in dashboard/src/lib/stores/favorites.svelte.ts.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:dashboard/src/lib/stores/favorites.svelte.ts:FavoritesStore",
+   "type": "class",
+   "name": "FavoritesStore",
+   "filePath": "dashboard/src/lib/stores/favorites.svelte.ts",
+   "lineRange": [
+    9,
+    81
+   ],
+   "summary": "Class FavoritesStore in dashboard/src/lib/stores/favorites.svelte.ts.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:dashboard/src/lib/stores/recents.svelte.ts:hasRecents",
+   "type": "function",
+   "name": "hasRecents",
+   "filePath": "dashboard/src/lib/stores/recents.svelte.ts",
+   "lineRange": [
+    70,
+    70
+   ],
+   "summary": "Function hasRecents in dashboard/src/lib/stores/recents.svelte.ts.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:dashboard/src/lib/stores/recents.svelte.ts:getRecentModelIds",
+   "type": "function",
+   "name": "getRecentModelIds",
+   "filePath": "dashboard/src/lib/stores/recents.svelte.ts",
+   "lineRange": [
+    71,
+    71
+   ],
+   "summary": "Function getRecentModelIds in dashboard/src/lib/stores/recents.svelte.ts.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:dashboard/src/lib/stores/recents.svelte.ts:getRecentEntries",
+   "type": "function",
+   "name": "getRecentEntries",
+   "filePath": "dashboard/src/lib/stores/recents.svelte.ts",
+   "lineRange": [
+    72,
+    72
+   ],
+   "summary": "Function getRecentEntries in dashboard/src/lib/stores/recents.svelte.ts.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:dashboard/src/lib/stores/recents.svelte.ts:recordRecentLaunch",
+   "type": "function",
+   "name": "recordRecentLaunch",
+   "filePath": "dashboard/src/lib/stores/recents.svelte.ts",
+   "lineRange": [
+    73,
+    74
+   ],
+   "summary": "Function recordRecentLaunch in dashboard/src/lib/stores/recents.svelte.ts.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:dashboard/src/lib/stores/recents.svelte.ts:clearRecents",
+   "type": "function",
+   "name": "clearRecents",
+   "filePath": "dashboard/src/lib/stores/recents.svelte.ts",
+   "lineRange": [
+    75,
+    75
+   ],
+   "summary": "Function clearRecents in dashboard/src/lib/stores/recents.svelte.ts.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:dashboard/src/lib/stores/recents.svelte.ts:RecentsStore",
+   "type": "class",
+   "name": "RecentsStore",
+   "filePath": "dashboard/src/lib/stores/recents.svelte.ts",
+   "lineRange": [
+    15,
+    66
+   ],
+   "summary": "Class RecentsStore in dashboard/src/lib/stores/recents.svelte.ts.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:dashboard/src/lib/stores/toast.svelte.ts:addToast",
+   "type": "function",
+   "name": "addToast",
+   "filePath": "dashboard/src/lib/stores/toast.svelte.ts",
+   "lineRange": [
+    44,
+    66
+   ],
+   "summary": "Function addToast in dashboard/src/lib/stores/toast.svelte.ts.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:dashboard/src/lib/stores/toast.svelte.ts:dismissToast",
+   "type": "function",
+   "name": "dismissToast",
+   "filePath": "dashboard/src/lib/stores/toast.svelte.ts",
+   "lineRange": [
+    68,
+    75
+   ],
+   "summary": "Function dismissToast in dashboard/src/lib/stores/toast.svelte.ts.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:dashboard/src/lib/stores/toast.svelte.ts:dismissByMessage",
+   "type": "function",
+   "name": "dismissByMessage",
+   "filePath": "dashboard/src/lib/stores/toast.svelte.ts",
+   "lineRange": [
+    78,
+    83
+   ],
+   "summary": "Function dismissByMessage in dashboard/src/lib/stores/toast.svelte.ts.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:dashboard/src/lib/stores/toast.svelte.ts:toasts",
+   "type": "function",
+   "name": "toasts",
+   "filePath": "dashboard/src/lib/stores/toast.svelte.ts",
+   "lineRange": [
+    85,
+    87
+   ],
+   "summary": "Function toasts in dashboard/src/lib/stores/toast.svelte.ts.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:dashboard/src/lib/types/files.ts:getFileCategory",
+   "type": "function",
+   "name": "getFileCategory",
+   "filePath": "dashboard/src/lib/types/files.ts",
+   "lineRange": [
+    141,
+    170
+   ],
+   "summary": "Function getFileCategory in dashboard/src/lib/types/files.ts.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:dashboard/src/lib/types/files.ts:getAcceptString",
+   "type": "function",
+   "name": "getAcceptString",
+   "filePath": "dashboard/src/lib/types/files.ts",
+   "lineRange": [
+    175,
+    196
+   ],
+   "summary": "Function getAcceptString in dashboard/src/lib/types/files.ts.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:dashboard/src/lib/types/files.ts:formatFileSize",
+   "type": "function",
+   "name": "formatFileSize",
+   "filePath": "dashboard/src/lib/types/files.ts",
+   "lineRange": [
+    201,
+    207
+   ],
+   "summary": "Function formatFileSize in dashboard/src/lib/types/files.ts.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:dashboard/src/lib/types/files.ts:readFileAsDataURL",
+   "type": "function",
+   "name": "readFileAsDataURL",
+   "filePath": "dashboard/src/lib/types/files.ts",
+   "lineRange": [
+    212,
+    219
+   ],
+   "summary": "Function readFileAsDataURL in dashboard/src/lib/types/files.ts.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:dashboard/src/lib/types/files.ts:readFileAsText",
+   "type": "function",
+   "name": "readFileAsText",
+   "filePath": "dashboard/src/lib/types/files.ts",
+   "lineRange": [
+    224,
+    231
+   ],
+   "summary": "Function readFileAsText in dashboard/src/lib/types/files.ts.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:dashboard/src/lib/types/files.ts:extractPdfContent",
+   "type": "function",
+   "name": "extractPdfContent",
+   "filePath": "dashboard/src/lib/types/files.ts",
+   "lineRange": [
+    233,
+    283
+   ],
+   "summary": "Function extractPdfContent in dashboard/src/lib/types/files.ts.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:dashboard/src/lib/types/files.ts:processUploadedFiles",
+   "type": "function",
+   "name": "processUploadedFiles",
+   "filePath": "dashboard/src/lib/types/files.ts",
+   "lineRange": [
+    288,
+    333
+   ],
+   "summary": "Function processUploadedFiles in dashboard/src/lib/types/files.ts.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:dashboard/src/lib/utils/clipboard.ts:copyText",
+   "type": "function",
+   "name": "copyText",
+   "filePath": "dashboard/src/lib/utils/clipboard.ts",
+   "lineRange": [
+    1,
+    55
+   ],
+   "summary": "Function copyText in dashboard/src/lib/utils/clipboard.ts.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:dashboard/src/lib/utils/downloads.ts:unwrapTagged",
+   "type": "function",
+   "name": "unwrapTagged",
+   "filePath": "dashboard/src/lib/utils/downloads.ts",
+   "lineRange": [
+    12,
+    21
+   ],
+   "summary": "Function unwrapTagged in dashboard/src/lib/utils/downloads.ts.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:dashboard/src/lib/utils/downloads.ts:extractModelIdFromDownload",
+   "type": "function",
+   "name": "extractModelIdFromDownload",
+   "filePath": "dashboard/src/lib/utils/downloads.ts",
+   "lineRange": [
+    24,
+    40
+   ],
+   "summary": "Function extractModelIdFromDownload in dashboard/src/lib/utils/downloads.ts.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:dashboard/src/lib/utils/downloads.ts:extractShardMetadata",
+   "type": "function",
+   "name": "extractShardMetadata",
+   "filePath": "dashboard/src/lib/utils/downloads.ts",
+   "lineRange": [
+    43,
+    50
+   ],
+   "summary": "Function extractShardMetadata in dashboard/src/lib/utils/downloads.ts.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:dashboard/src/lib/utils/downloads.ts:getDownloadTag",
+   "type": "function",
+   "name": "getDownloadTag",
+   "filePath": "dashboard/src/lib/utils/downloads.ts",
+   "lineRange": [
+    53,
+    58
+   ],
+   "summary": "Function getDownloadTag in dashboard/src/lib/utils/downloads.ts.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:dashboard/src/lib/utils/downloads.ts:isModelDownloadedOnNode",
+   "type": "function",
+   "name": "isModelDownloadedOnNode",
+   "filePath": "dashboard/src/lib/utils/downloads.ts",
+   "lineRange": [
+    77,
+    89
+   ],
+   "summary": "Function isModelDownloadedOnNode in dashboard/src/lib/utils/downloads.ts.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:dashboard/src/lib/utils/downloads.ts:getNodesWithModelDownloaded",
+   "type": "function",
+   "name": "getNodesWithModelDownloaded",
+   "filePath": "dashboard/src/lib/utils/downloads.ts",
+   "lineRange": [
+    92,
+    103
+   ],
+   "summary": "Function getNodesWithModelDownloaded in dashboard/src/lib/utils/downloads.ts.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:dashboard/src/lib/utils/downloads.ts:getShardMetadataForModel",
+   "type": "function",
+   "name": "getShardMetadataForModel",
+   "filePath": "dashboard/src/lib/utils/downloads.ts",
+   "lineRange": [
+    109,
+    130
+   ],
+   "summary": "Function getShardMetadataForModel in dashboard/src/lib/utils/downloads.ts.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:dashboard/src/lib/utils/downloads.ts:getModelDownloadStatus",
+   "type": "function",
+   "name": "getModelDownloadStatus",
+   "filePath": "dashboard/src/lib/utils/downloads.ts",
+   "lineRange": [
+    136,
+    152
+   ],
+   "summary": "Function getModelDownloadStatus in dashboard/src/lib/utils/downloads.ts.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:dashboard/src/lib/utils/model_family.ts:deriveBaseModel",
+   "type": "function",
+   "name": "deriveBaseModel",
+   "filePath": "dashboard/src/lib/utils/model_family.ts",
+   "lineRange": [
+    16,
+    22
+   ],
+   "summary": "Function deriveBaseModel in dashboard/src/lib/utils/model_family.ts.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:dashboard/src/lib/utils/model_family.ts:baseModelsCompatible",
+   "type": "function",
+   "name": "baseModelsCompatible",
+   "filePath": "dashboard/src/lib/utils/model_family.ts",
+   "lineRange": [
+    24,
+    26
+   ],
+   "summary": "Function baseModelsCompatible in dashboard/src/lib/utils/model_family.ts.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:dashboard/src/lib/utils/model_family.ts:deriveFamily",
+   "type": "function",
+   "name": "deriveFamily",
+   "filePath": "dashboard/src/lib/utils/model_family.ts",
+   "lineRange": [
+    29,
+    44
+   ],
+   "summary": "Function deriveFamily in dashboard/src/lib/utils/model_family.ts.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  }
+ ],
+ "edges": [
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:generateUUID",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:transformNetworkInterface",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:transformTopology",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:extractIpFromMultiaddr",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:hasStartedChat",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:hasStartedChat",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:messages",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:messages",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:currentResponse",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:currentResponse",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:isLoading",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:isLoading",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:ttftMs",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:ttftMs",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:tps",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:tps",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:totalTokens",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:totalTokens",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:prefillProgress",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:prefillProgress",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:topologyData",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:topologyData",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:instances",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:instances",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:runners",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:runners",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:instanceLinks",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:instanceLinks",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:featureFlags",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:featureFlags",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:createInstanceLink",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:createInstanceLink",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:updateInstanceLink",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:updateInstanceLink",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:deleteInstanceLink",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:deleteInstanceLink",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:downloads",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:downloads",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:nodeDisk",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:nodeDisk",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:placementPreviews",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:placementPreviews",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:selectedPreviewModelId",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:selectedPreviewModelId",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:isLoadingPreviews",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:isLoadingPreviews",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:lastUpdate",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:lastUpdate",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:isTopologyMinimized",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:isTopologyMinimized",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:selectedChatModel",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:selectedChatModel",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:thinkingEnabled",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:thinkingEnabled",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:debugMode",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:debugMode",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:topologyOnlyMode",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:topologyOnlyMode",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:chatSidebarVisible",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:chatSidebarVisible",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:stopGeneration",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:stopGeneration",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:startChat",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:startChat",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:sendMessage",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:sendMessage",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:generateImage",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:generateImage",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:editImage",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:editImage",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:editingImage",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:editingImage",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:setEditingImage",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:setEditingImage",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:clearEditingImage",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:clearEditingImage",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:clearChat",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:clearChat",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:setSelectedChatModel",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:setSelectedChatModel",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:selectPreviewModel",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:selectPreviewModel",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:togglePreviewNodeFilter",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:togglePreviewNodeFilter",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:clearPreviewNodeFilter",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:clearPreviewNodeFilter",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:previewNodeFilter",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:previewNodeFilter",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:deleteMessage",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:deleteMessage",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:editMessage",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:editMessage",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:editAndRegenerate",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:editAndRegenerate",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:regenerateLastResponse",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:regenerateLastResponse",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:regenerateFromToken",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:regenerateFromToken",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:conversations",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:conversations",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:activeConversationId",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:activeConversationId",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:createConversation",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:createConversation",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:loadConversation",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:loadConversation",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:deleteConversation",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:deleteConversation",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:deleteAllConversations",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:deleteAllConversations",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:renameConversation",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:renameConversation",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:getActiveConversation",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:getActiveConversation",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:setConversationThinking",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:setConversationThinking",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:isSidebarOpen",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:isSidebarOpen",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:toggleSidebar",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:toggleSidebar",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:toggleDebugMode",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:toggleDebugMode",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:setDebugMode",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:setDebugMode",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:toggleTopologyOnlyMode",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:toggleTopologyOnlyMode",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:setTopologyOnlyMode",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:setTopologyOnlyMode",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:toggleChatSidebarVisible",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:toggleChatSidebarVisible",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:setChatSidebarVisible",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:setChatSidebarVisible",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:mobileChatSidebarOpen",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:mobileChatSidebarOpen",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:toggleMobileChatSidebar",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:toggleMobileChatSidebar",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:setMobileChatSidebarOpen",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:setMobileChatSidebarOpen",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:mobileRightSidebarOpen",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:mobileRightSidebarOpen",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:toggleMobileRightSidebar",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:toggleMobileRightSidebar",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:setMobileRightSidebarOpen",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:setMobileRightSidebarOpen",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:refreshState",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:refreshState",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:isConnected",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:isConnected",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:nodeIdentities",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:nodeIdentities",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:nodeThunderbolt",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:nodeThunderbolt",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:nodeRdmaCtl",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:nodeRdmaCtl",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:thunderboltBridgeCycles",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:thunderboltBridgeCycles",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:nodeThunderboltBridge",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:nodeThunderboltBridge",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:imageGenerationParams",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:imageGenerationParams",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:setImageGenerationParams",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:setImageGenerationParams",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:resetImageGenerationParams",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:resetImageGenerationParams",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:startDownload",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:startDownload",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:cancelDownload",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:cancelDownload",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:deleteDownload",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:deleteDownload",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:listTraces",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:listTraces",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:checkTraceExists",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:checkTraceExists",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:fetchTraceStats",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:fetchTraceStats",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:getTraceRawUrl",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:getTraceRawUrl",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:deleteTraces",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:deleteTraces",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/app.svelte.ts",
+   "target": "class:dashboard/src/lib/stores/app.svelte.ts:AppStore",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/favorites.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/favorites.svelte.ts:favorites",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/favorites.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/favorites.svelte.ts:favorites",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/favorites.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/favorites.svelte.ts:hasFavorites",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/favorites.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/favorites.svelte.ts:hasFavorites",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/favorites.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/favorites.svelte.ts:isFavorite",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/favorites.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/favorites.svelte.ts:isFavorite",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/favorites.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/favorites.svelte.ts:toggleFavorite",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/favorites.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/favorites.svelte.ts:toggleFavorite",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/favorites.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/favorites.svelte.ts:addFavorite",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/favorites.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/favorites.svelte.ts:addFavorite",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/favorites.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/favorites.svelte.ts:removeFavorite",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/favorites.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/favorites.svelte.ts:removeFavorite",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/favorites.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/favorites.svelte.ts:getFavorites",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/favorites.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/favorites.svelte.ts:getFavorites",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/favorites.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/favorites.svelte.ts:getFavoritesSet",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/favorites.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/favorites.svelte.ts:getFavoritesSet",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/favorites.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/favorites.svelte.ts:clearFavorites",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/favorites.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/favorites.svelte.ts:clearFavorites",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/favorites.svelte.ts",
+   "target": "class:dashboard/src/lib/stores/favorites.svelte.ts:FavoritesStore",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/recents.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/recents.svelte.ts:hasRecents",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/recents.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/recents.svelte.ts:hasRecents",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/recents.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/recents.svelte.ts:getRecentModelIds",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/recents.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/recents.svelte.ts:getRecentModelIds",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/recents.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/recents.svelte.ts:getRecentEntries",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/recents.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/recents.svelte.ts:getRecentEntries",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/recents.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/recents.svelte.ts:recordRecentLaunch",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/recents.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/recents.svelte.ts:recordRecentLaunch",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/recents.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/recents.svelte.ts:clearRecents",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/recents.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/recents.svelte.ts:clearRecents",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/recents.svelte.ts",
+   "target": "class:dashboard/src/lib/stores/recents.svelte.ts:RecentsStore",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/toast.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/toast.svelte.ts:addToast",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/toast.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/toast.svelte.ts:addToast",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/toast.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/toast.svelte.ts:dismissToast",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/toast.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/toast.svelte.ts:dismissToast",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/toast.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/toast.svelte.ts:dismissByMessage",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/toast.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/toast.svelte.ts:dismissByMessage",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/toast.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/toast.svelte.ts:toasts",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:dashboard/src/lib/stores/toast.svelte.ts",
+   "target": "function:dashboard/src/lib/stores/toast.svelte.ts:toasts",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:dashboard/src/lib/types/files.ts",
+   "target": "function:dashboard/src/lib/types/files.ts:getFileCategory",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:dashboard/src/lib/types/files.ts",
+   "target": "function:dashboard/src/lib/types/files.ts:getFileCategory",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:dashboard/src/lib/types/files.ts",
+   "target": "function:dashboard/src/lib/types/files.ts:getAcceptString",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:dashboard/src/lib/types/files.ts",
+   "target": "function:dashboard/src/lib/types/files.ts:getAcceptString",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:dashboard/src/lib/types/files.ts",
+   "target": "function:dashboard/src/lib/types/files.ts:formatFileSize",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:dashboard/src/lib/types/files.ts",
+   "target": "function:dashboard/src/lib/types/files.ts:formatFileSize",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:dashboard/src/lib/types/files.ts",
+   "target": "function:dashboard/src/lib/types/files.ts:readFileAsDataURL",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:dashboard/src/lib/types/files.ts",
+   "target": "function:dashboard/src/lib/types/files.ts:readFileAsDataURL",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:dashboard/src/lib/types/files.ts",
+   "target": "function:dashboard/src/lib/types/files.ts:readFileAsText",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:dashboard/src/lib/types/files.ts",
+   "target": "function:dashboard/src/lib/types/files.ts:readFileAsText",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:dashboard/src/lib/types/files.ts",
+   "target": "function:dashboard/src/lib/types/files.ts:extractPdfContent",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:dashboard/src/lib/types/files.ts",
+   "target": "function:dashboard/src/lib/types/files.ts:processUploadedFiles",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:dashboard/src/lib/types/files.ts",
+   "target": "function:dashboard/src/lib/types/files.ts:processUploadedFiles",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:dashboard/src/lib/utils/clipboard.ts",
+   "target": "function:dashboard/src/lib/utils/clipboard.ts:copyText",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:dashboard/src/lib/utils/clipboard.ts",
+   "target": "function:dashboard/src/lib/utils/clipboard.ts:copyText",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:dashboard/src/lib/utils/downloads.ts",
+   "target": "function:dashboard/src/lib/utils/downloads.ts:unwrapTagged",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:dashboard/src/lib/utils/downloads.ts",
+   "target": "function:dashboard/src/lib/utils/downloads.ts:extractModelIdFromDownload",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:dashboard/src/lib/utils/downloads.ts",
+   "target": "function:dashboard/src/lib/utils/downloads.ts:extractModelIdFromDownload",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:dashboard/src/lib/utils/downloads.ts",
+   "target": "function:dashboard/src/lib/utils/downloads.ts:extractShardMetadata",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:dashboard/src/lib/utils/downloads.ts",
+   "target": "function:dashboard/src/lib/utils/downloads.ts:extractShardMetadata",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:dashboard/src/lib/utils/downloads.ts",
+   "target": "function:dashboard/src/lib/utils/downloads.ts:getDownloadTag",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:dashboard/src/lib/utils/downloads.ts",
+   "target": "function:dashboard/src/lib/utils/downloads.ts:getDownloadTag",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:dashboard/src/lib/utils/downloads.ts",
+   "target": "function:dashboard/src/lib/utils/downloads.ts:isModelDownloadedOnNode",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:dashboard/src/lib/utils/downloads.ts",
+   "target": "function:dashboard/src/lib/utils/downloads.ts:isModelDownloadedOnNode",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:dashboard/src/lib/utils/downloads.ts",
+   "target": "function:dashboard/src/lib/utils/downloads.ts:getNodesWithModelDownloaded",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:dashboard/src/lib/utils/downloads.ts",
+   "target": "function:dashboard/src/lib/utils/downloads.ts:getNodesWithModelDownloaded",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:dashboard/src/lib/utils/downloads.ts",
+   "target": "function:dashboard/src/lib/utils/downloads.ts:getShardMetadataForModel",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:dashboard/src/lib/utils/downloads.ts",
+   "target": "function:dashboard/src/lib/utils/downloads.ts:getShardMetadataForModel",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:dashboard/src/lib/utils/downloads.ts",
+   "target": "function:dashboard/src/lib/utils/downloads.ts:getModelDownloadStatus",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:dashboard/src/lib/utils/downloads.ts",
+   "target": "function:dashboard/src/lib/utils/downloads.ts:getModelDownloadStatus",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:dashboard/src/lib/utils/model_family.ts",
+   "target": "function:dashboard/src/lib/utils/model_family.ts:deriveBaseModel",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:dashboard/src/lib/utils/model_family.ts",
+   "target": "function:dashboard/src/lib/utils/model_family.ts:deriveBaseModel",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:dashboard/src/lib/utils/model_family.ts",
+   "target": "function:dashboard/src/lib/utils/model_family.ts:baseModelsCompatible",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:dashboard/src/lib/utils/model_family.ts",
+   "target": "function:dashboard/src/lib/utils/model_family.ts:baseModelsCompatible",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:dashboard/src/lib/utils/model_family.ts",
+   "target": "function:dashboard/src/lib/utils/model_family.ts:deriveFamily",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:dashboard/src/lib/utils/model_family.ts",
+   "target": "function:dashboard/src/lib/utils/model_family.ts:deriveFamily",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:dashboard/src/lib/stores/app.svelte.ts:transformTopology",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:extractIpFromMultiaddr",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:dashboard/src/lib/stores/app.svelte.ts:createConversation",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:generateUUID",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:dashboard/src/lib/stores/app.svelte.ts:sendMessage",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:generateUUID",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:dashboard/src/lib/stores/app.svelte.ts:generateImage",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:generateUUID",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:dashboard/src/lib/stores/app.svelte.ts:editImage",
+   "target": "function:dashboard/src/lib/stores/app.svelte.ts:generateUUID",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:dashboard/src/lib/stores/toast.svelte.ts:addToast",
+   "target": "function:dashboard/src/lib/stores/toast.svelte.ts:dismissToast",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:dashboard/src/lib/stores/toast.svelte.ts:dismissByMessage",
+   "target": "function:dashboard/src/lib/stores/toast.svelte.ts:dismissToast",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:dashboard/src/lib/types/files.ts:processUploadedFiles",
+   "target": "function:dashboard/src/lib/types/files.ts:getFileCategory",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:dashboard/src/lib/types/files.ts:processUploadedFiles",
+   "target": "function:dashboard/src/lib/types/files.ts:readFileAsDataURL",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:dashboard/src/lib/types/files.ts:processUploadedFiles",
+   "target": "function:dashboard/src/lib/types/files.ts:readFileAsText",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:dashboard/src/lib/types/files.ts:processUploadedFiles",
+   "target": "function:dashboard/src/lib/types/files.ts:extractPdfContent",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:dashboard/src/lib/types/files.ts:processUploadedFiles",
+   "target": "function:dashboard/src/lib/types/files.ts:readFileAsDataURL",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:dashboard/src/lib/utils/downloads.ts:extractModelIdFromDownload",
+   "target": "function:dashboard/src/lib/utils/downloads.ts:unwrapTagged",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:dashboard/src/lib/utils/downloads.ts:getDownloadTag",
+   "target": "function:dashboard/src/lib/utils/downloads.ts:unwrapTagged",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:dashboard/src/lib/utils/downloads.ts:getNodesWithModelDownloaded",
+   "target": "function:dashboard/src/lib/utils/downloads.ts:isModelDownloadedOnNode",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:dashboard/src/lib/utils/downloads.ts:getShardMetadataForModel",
+   "target": "function:dashboard/src/lib/utils/downloads.ts:extractShardMetadata",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:dashboard/src/lib/utils/model_family.ts:baseModelsCompatible",
+   "target": "function:dashboard/src/lib/utils/model_family.ts:deriveBaseModel",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:dashboard/src/lib/utils/model_family.ts:baseModelsCompatible",
+   "target": "function:dashboard/src/lib/utils/model_family.ts:deriveBaseModel",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  }
+ ]
+}

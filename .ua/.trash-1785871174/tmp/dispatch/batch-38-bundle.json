@@ -1,0 +1,201 @@
+{
+ "projectRoot": "/Users/chris/Documents/GitHub/exo",
+ "projectName": "exo",
+ "projectDescription": "exo connects all your devices into an AI cluster, enabling distributed inference of frontier LLMs (and image models) across multiple devices. It uses MLX as the inference backend with automatic device discovery, topology-aware tensor parallelism, RDMA-over-Thunderbolt support, and OpenAI/Claude/Ollama-compatible APIs.",
+ "languages": [
+  "Python",
+  "TypeScript",
+  "Svelte",
+  "Rust",
+  "Swift",
+  "Shell",
+  "Nix",
+  "Markdown",
+  "TOML",
+  "YAML",
+  "JSON"
+ ],
+ "skillDir": "/Users/chris/.understand-anything/repo/understand-anything-plugin/skills/understand",
+ "totalBatches": 46,
+ "batchIndex": 38,
+ "batchFiles": [
+  {
+   "path": ".typings/mlx_lm/convert.pyi",
+   "language": "python",
+   "sizeLines": 45,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".typings/mlx_lm/generate.pyi",
+   "language": "python",
+   "sizeLines": 557,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".typings/mlx_lm/models/__init__.pyi",
+   "language": "python",
+   "sizeLines": 1,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".typings/mlx_lm/models/activations.pyi",
+   "language": "python",
+   "sizeLines": 19,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".typings/mlx_lm/models/base.pyi",
+   "language": "python",
+   "sizeLines": 47,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".typings/mlx_lm/models/bitlinear_layers.pyi",
+   "language": "python",
+   "sizeLines": 26,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".typings/mlx_lm/models/cache.pyi",
+   "language": "python",
+   "sizeLines": 352,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".typings/mlx_lm/models/deepseek_v3.pyi",
+   "language": "python",
+   "sizeLines": 160,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".typings/mlx_lm/models/deepseek_v4.pyi",
+   "language": "python",
+   "sizeLines": 280,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".typings/mlx_lm/models/gated_delta.pyi",
+   "language": "python",
+   "sizeLines": 35,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".typings/mlx_lm/models/gemma4.pyi",
+   "language": "python",
+   "sizeLines": 31,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".typings/mlx_lm/models/gemma4_text.pyi",
+   "language": "python",
+   "sizeLines": 179,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".typings/mlx_lm/models/glm4_moe.pyi",
+   "language": "python",
+   "sizeLines": 153,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".typings/mlx_lm/models/glm_moe_dsa.pyi",
+   "language": "python",
+   "sizeLines": 46,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".typings/mlx_lm/models/gpt_oss.pyi",
+   "language": "python",
+   "sizeLines": 103,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".typings/mlx_lm/models/minimax.pyi",
+   "language": "python",
+   "sizeLines": 94,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".typings/mlx_lm/models/nemotron_h.pyi",
+   "language": "python",
+   "sizeLines": 168,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".typings/mlx_lm/models/qwen3_5.pyi",
+   "language": "python",
+   "sizeLines": 153,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".typings/mlx_lm/models/qwen3_5_moe.pyi",
+   "language": "python",
+   "sizeLines": 19,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".typings/mlx_lm/models/qwen3_next.pyi",
+   "language": "python",
+   "sizeLines": 128,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".typings/mlx_lm/models/rope_utils.pyi",
+   "language": "python",
+   "sizeLines": 51,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".typings/mlx_lm/models/step3p5.pyi",
+   "language": "python",
+   "sizeLines": 151,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".typings/mlx_lm/models/switch_layers.pyi",
+   "language": "python",
+   "sizeLines": 87,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".typings/mlx_lm/sample_utils.pyi",
+   "language": "python",
+   "sizeLines": 152,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".typings/mlx_lm/tokenizer_utils.pyi",
+   "language": "python",
+   "sizeLines": 190,
+   "fileCategory": "code"
+  }
+ ],
+ "batchImportData": {
+  ".typings/mlx_lm/convert.pyi": [],
+  ".typings/mlx_lm/generate.pyi": [],
+  ".typings/mlx_lm/models/__init__.pyi": [],
+  ".typings/mlx_lm/models/activations.pyi": [],
+  ".typings/mlx_lm/models/base.pyi": [],
+  ".typings/mlx_lm/models/bitlinear_layers.pyi": [],
+  ".typings/mlx_lm/models/cache.pyi": [],
+  ".typings/mlx_lm/models/deepseek_v3.pyi": [],
+  ".typings/mlx_lm/models/deepseek_v4.pyi": [],
+  ".typings/mlx_lm/models/gated_delta.pyi": [],
+  ".typings/mlx_lm/models/gemma4.pyi": [],
+  ".typings/mlx_lm/models/gemma4_text.pyi": [],
+  ".typings/mlx_lm/models/glm4_moe.pyi": [],
+  ".typings/mlx_lm/models/glm_moe_dsa.pyi": [],
+  ".typings/mlx_lm/models/gpt_oss.pyi": [],
+  ".typings/mlx_lm/models/minimax.pyi": [],
+  ".typings/mlx_lm/models/nemotron_h.pyi": [],
+  ".typings/mlx_lm/models/qwen3_5.pyi": [],
+  ".typings/mlx_lm/models/qwen3_5_moe.pyi": [],
+  ".typings/mlx_lm/models/qwen3_next.pyi": [],
+  ".typings/mlx_lm/models/rope_utils.pyi": [],
+  ".typings/mlx_lm/models/step3p5.pyi": [],
+  ".typings/mlx_lm/models/switch_layers.pyi": [],
+  ".typings/mlx_lm/sample_utils.pyi": [],
+  ".typings/mlx_lm/tokenizer_utils.pyi": []
+ },
+ "neighborMap": {}
+}

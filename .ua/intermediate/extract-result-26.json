@@ -1,0 +1,1382 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 25,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": ".typings/mflux/models/qwen/variants/txt2img/qwen_image.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 50,
+      "nonEmptyLines": 47,
+      "classes": [
+        {
+          "name": "QwenImage",
+          "startLine": 15,
+          "endLine": 50,
+          "methods": [
+            "__init__",
+            "generate_image",
+            "save_model",
+            "compute_guided_noise"
+          ],
+          "properties": [
+            "vae",
+            "transformer",
+            "text_encoder",
+            "bits",
+            "lora_paths",
+            "lora_scales",
+            "prompt_cache",
+            "tokenizers"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "QwenImage",
+          "line": 15,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mflux/models/qwen/weights/__init__.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 8,
+      "nonEmptyLines": 6,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": ".typings/mflux/models/qwen/weights/qwen_lora_mapping.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 10,
+      "nonEmptyLines": 8,
+      "classes": [
+        {
+          "name": "QwenLoRAMapping",
+          "startLine": 8,
+          "endLine": 10,
+          "methods": [
+            "get_mapping"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "QwenLoRAMapping",
+          "line": 8,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mflux/models/qwen/weights/qwen_weight_definition.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 23,
+      "nonEmptyLines": 20,
+      "classes": [
+        {
+          "name": "QwenWeightDefinition",
+          "startLine": 15,
+          "endLine": 23,
+          "methods": [
+            "get_components",
+            "get_tokenizers",
+            "get_download_patterns",
+            "quantization_predicate"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "QwenWeightDefinition",
+          "line": 15,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mflux/models/qwen/weights/qwen_weight_mapping.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 19,
+      "nonEmptyLines": 17,
+      "classes": [
+        {
+          "name": "QwenWeightMapping",
+          "startLine": 11,
+          "endLine": 19,
+          "methods": [
+            "get_transformer_mapping",
+            "get_vae_mapping",
+            "get_text_encoder_mapping",
+            "get_mapping"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "QwenWeightMapping",
+          "line": 11,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mflux/models/seedvr2/weights/seedvr2_weight_definition.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 23,
+      "nonEmptyLines": 20,
+      "classes": [
+        {
+          "name": "SeedVR2WeightDefinition",
+          "startLine": 15,
+          "endLine": 23,
+          "methods": [
+            "get_components",
+            "get_tokenizers",
+            "get_download_patterns",
+            "quantization_predicate"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "SeedVR2WeightDefinition",
+          "line": 15,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mflux/models/seedvr2/weights/seedvr2_weight_mapping.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 15,
+      "nonEmptyLines": 13,
+      "classes": [
+        {
+          "name": "SeedVR2WeightMapping",
+          "startLine": 11,
+          "endLine": 15,
+          "methods": [
+            "get_transformer_mapping",
+            "get_vae_mapping"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "SeedVR2WeightMapping",
+          "line": 11,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mflux/models/z_image/latent_creator/z_image_latent_creator.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 13,
+      "nonEmptyLines": 11,
+      "classes": [
+        {
+          "name": "ZImageLatentCreator",
+          "startLine": 7,
+          "endLine": 13,
+          "methods": [
+            "create_noise",
+            "pack_latents",
+            "unpack_latents"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "ZImageLatentCreator",
+          "line": 7,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mflux/models/z_image/weights/z_image_weight_definition.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 23,
+      "nonEmptyLines": 20,
+      "classes": [
+        {
+          "name": "ZImageWeightDefinition",
+          "startLine": 15,
+          "endLine": 23,
+          "methods": [
+            "get_components",
+            "get_tokenizers",
+            "get_download_patterns",
+            "quantization_predicate"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "ZImageWeightDefinition",
+          "line": 15,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mflux/models/z_image/weights/z_image_weight_mapping.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 16,
+      "nonEmptyLines": 14,
+      "classes": [
+        {
+          "name": "ZImageWeightMapping",
+          "startLine": 10,
+          "endLine": 16,
+          "methods": [
+            "get_text_encoder_mapping",
+            "get_vae_mapping",
+            "get_transformer_mapping"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "ZImageWeightMapping",
+          "line": 10,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mflux/release/__init__.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 3,
+      "nonEmptyLines": 3,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": ".typings/mflux/utils/__init__.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 7,
+      "nonEmptyLines": 6,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": ".typings/mflux/utils/box_values.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 25,
+      "nonEmptyLines": 21,
+      "classes": [
+        {
+          "name": "AbsoluteBoxValues",
+          "startLine": 8,
+          "endLine": 13,
+          "methods": [],
+          "properties": [
+            "top",
+            "right",
+            "bottom",
+            "left"
+          ]
+        },
+        {
+          "name": "BoxValueError",
+          "startLine": 15,
+          "endLine": 15,
+          "methods": [],
+          "properties": []
+        },
+        {
+          "name": "BoxValues",
+          "startLine": 18,
+          "endLine": 25,
+          "methods": [
+            "normalize_to_dimensions",
+            "parse"
+          ],
+          "properties": [
+            "top",
+            "right",
+            "bottom",
+            "left"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "AbsoluteBoxValues",
+          "line": 7,
+          "isDefault": false
+        },
+        {
+          "name": "BoxValueError",
+          "line": 15,
+          "isDefault": false
+        },
+        {
+          "name": "BoxValues",
+          "line": 17,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 3,
+        "functionCount": 0,
+        "classCount": 3
+      }
+    },
+    {
+      "path": ".typings/mflux/utils/exceptions.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 24,
+      "nonEmptyLines": 20,
+      "classes": [
+        {
+          "name": "MFluxException",
+          "startLine": 9,
+          "endLine": 9,
+          "methods": [],
+          "properties": []
+        },
+        {
+          "name": "ImageSavingException",
+          "startLine": 10,
+          "endLine": 10,
+          "methods": [],
+          "properties": []
+        },
+        {
+          "name": "MetadataEmbedException",
+          "startLine": 11,
+          "endLine": 11,
+          "methods": [],
+          "properties": []
+        },
+        {
+          "name": "MFluxUserException",
+          "startLine": 12,
+          "endLine": 12,
+          "methods": [],
+          "properties": []
+        },
+        {
+          "name": "PromptFileReadError",
+          "startLine": 13,
+          "endLine": 13,
+          "methods": [],
+          "properties": []
+        },
+        {
+          "name": "StopImageGenerationException",
+          "startLine": 14,
+          "endLine": 14,
+          "methods": [],
+          "properties": []
+        },
+        {
+          "name": "StopTrainingException",
+          "startLine": 15,
+          "endLine": 15,
+          "methods": [],
+          "properties": []
+        },
+        {
+          "name": "CommandExecutionError",
+          "startLine": 17,
+          "endLine": 20,
+          "methods": [
+            "__init__"
+          ],
+          "properties": []
+        },
+        {
+          "name": "ReferenceVsOutputImageError",
+          "startLine": 22,
+          "endLine": 22,
+          "methods": [],
+          "properties": []
+        },
+        {
+          "name": "ModelConfigError",
+          "startLine": 23,
+          "endLine": 23,
+          "methods": [],
+          "properties": []
+        },
+        {
+          "name": "InvalidBaseModel",
+          "startLine": 24,
+          "endLine": 24,
+          "methods": [],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "MFluxException",
+          "line": 9,
+          "isDefault": false
+        },
+        {
+          "name": "ImageSavingException",
+          "line": 10,
+          "isDefault": false
+        },
+        {
+          "name": "MetadataEmbedException",
+          "line": 11,
+          "isDefault": false
+        },
+        {
+          "name": "MFluxUserException",
+          "line": 12,
+          "isDefault": false
+        },
+        {
+          "name": "PromptFileReadError",
+          "line": 13,
+          "isDefault": false
+        },
+        {
+          "name": "StopImageGenerationException",
+          "line": 14,
+          "isDefault": false
+        },
+        {
+          "name": "StopTrainingException",
+          "line": 15,
+          "isDefault": false
+        },
+        {
+          "name": "CommandExecutionError",
+          "line": 17,
+          "isDefault": false
+        },
+        {
+          "name": "ReferenceVsOutputImageError",
+          "line": 22,
+          "isDefault": false
+        },
+        {
+          "name": "ModelConfigError",
+          "line": 23,
+          "isDefault": false
+        },
+        {
+          "name": "InvalidBaseModel",
+          "line": 24,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 11,
+        "functionCount": 0,
+        "classCount": 11
+      }
+    },
+    {
+      "path": ".typings/mflux/utils/generated_image.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 53,
+      "nonEmptyLines": 49,
+      "classes": [
+        {
+          "name": "GeneratedImage",
+          "startLine": 13,
+          "endLine": 53,
+          "methods": [
+            "__init__",
+            "get_right_half",
+            "save",
+            "save_with_heatmap",
+            "save_concept_heatmap"
+          ],
+          "properties": [
+            "image"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "GeneratedImage",
+          "line": 13,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mflux/utils/image_util.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 104,
+      "nonEmptyLines": 101,
+      "classes": [
+        {
+          "name": "ImageUtil",
+          "startLine": 17,
+          "endLine": 104,
+          "methods": [
+            "to_image",
+            "to_composite_image",
+            "to_array",
+            "load_image",
+            "expand_image",
+            "create_outpaint_mask_image",
+            "create_bordered_image",
+            "scale_to_dimensions",
+            "save_image",
+            "preprocess_for_model",
+            "preprocess_for_depth_pro"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "ImageUtil",
+          "line": 17,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mflux/utils/metadata_builder.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 16,
+      "nonEmptyLines": 13,
+      "classes": [
+        {
+          "name": "MetadataBuilder",
+          "startLine": 9,
+          "endLine": 16,
+          "methods": [
+            "embed_metadata",
+            "build_xmp_packet",
+            "build_iptc_binary"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "MetadataBuilder",
+          "line": 9,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mflux/utils/version_util.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 11,
+      "nonEmptyLines": 9,
+      "classes": [
+        {
+          "name": "VersionUtil",
+          "startLine": 9,
+          "endLine": 11,
+          "methods": [
+            "get_mflux_version"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "VersionUtil",
+          "line": 9,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mlx_lm/__init__.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 3,
+      "nonEmptyLines": 3,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": ".typings/mlx_lm/_version.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 5,
+      "nonEmptyLines": 4,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": ".typings/mlx_lm/convert.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 45,
+      "nonEmptyLines": 37,
+      "functions": [
+        {
+          "name": "mixed_quant_predicate_builder",
+          "startLine": 10,
+          "endLine": 12,
+          "params": [
+            "recipe",
+            "model",
+            "group_size"
+          ]
+        },
+        {
+          "name": "convert",
+          "startLine": 17,
+          "endLine": 33,
+          "params": [
+            "hf_path",
+            "mlx_path",
+            "quantize",
+            "q_group_size",
+            "q_bits",
+            "q_mode",
+            "dtype",
+            "upload_repo",
+            "revision",
+            "dequantize",
+            "quant_predicate",
+            "trust_remote_code"
+          ]
+        },
+        {
+          "name": "configure_parser",
+          "startLine": 34,
+          "endLine": 40,
+          "params": []
+        },
+        {
+          "name": "main",
+          "startLine": 42,
+          "endLine": 43,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "mixed_quant_predicate_builder",
+          "line": 10,
+          "isDefault": false
+        },
+        {
+          "name": "convert",
+          "line": 17,
+          "isDefault": false
+        },
+        {
+          "name": "configure_parser",
+          "line": 34,
+          "isDefault": false
+        },
+        {
+          "name": "main",
+          "line": 42,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 4,
+        "functionCount": 4,
+        "classCount": 0
+      }
+    },
+    {
+      "path": ".typings/mlx_lm/generate.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 557,
+      "nonEmptyLines": 507,
+      "functions": [
+        {
+          "name": "str2bool",
+          "startLine": 27,
+          "endLine": 28,
+          "params": [
+            "string"
+          ]
+        },
+        {
+          "name": "setup_arg_parser",
+          "startLine": 29,
+          "endLine": 31,
+          "params": []
+        },
+        {
+          "name": "wired_limit",
+          "startLine": 36,
+          "endLine": 46,
+          "params": [
+            "model",
+            "streams"
+          ]
+        },
+        {
+          "name": "maybe_quantize_kv_cache",
+          "startLine": 76,
+          "endLine": 81,
+          "params": [
+            "prompt_cache",
+            "quantized_kv_start",
+            "kv_group_size",
+            "kv_bits"
+          ]
+        },
+        {
+          "name": "generate_step",
+          "startLine": 82,
+          "endLine": 129,
+          "params": [
+            "prompt",
+            "model",
+            "max_tokens",
+            "sampler",
+            "logits_processors",
+            "max_kv_size",
+            "prompt_cache",
+            "prefill_step_size",
+            "kv_bits",
+            "kv_group_size",
+            "quantized_kv_start",
+            "prompt_progress_callback",
+            "input_embeddings"
+          ]
+        },
+        {
+          "name": "speculative_generate_step",
+          "startLine": 131,
+          "endLine": 175,
+          "params": [
+            "prompt",
+            "model",
+            "draft_model",
+            "num_draft_tokens",
+            "max_tokens",
+            "sampler",
+            "logits_processors",
+            "prompt_cache",
+            "prefill_step_size",
+            "kv_bits",
+            "kv_group_size",
+            "quantized_kv_start"
+          ]
+        },
+        {
+          "name": "stream_generate",
+          "startLine": 177,
+          "endLine": 205,
+          "params": [
+            "model",
+            "tokenizer",
+            "prompt",
+            "max_tokens",
+            "draft_model"
+          ]
+        },
+        {
+          "name": "generate",
+          "startLine": 207,
+          "endLine": 226,
+          "params": [
+            "model",
+            "tokenizer",
+            "prompt",
+            "verbose",
+            "**kwargs"
+          ]
+        },
+        {
+          "name": "_merge_caches",
+          "startLine": 228,
+          "endLine": 228,
+          "params": [
+            "caches"
+          ]
+        },
+        {
+          "name": "batch_generate",
+          "startLine": 520,
+          "endLine": 552,
+          "params": [
+            "model",
+            "tokenizer",
+            "prompts",
+            "prompt_caches",
+            "max_tokens",
+            "verbose",
+            "return_prompt_caches",
+            "logits_processors",
+            "**kwargs"
+          ]
+        },
+        {
+          "name": "main",
+          "startLine": 554,
+          "endLine": 555,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "GenerationResponse",
+          "startLine": 48,
+          "endLine": 74,
+          "methods": [],
+          "properties": [
+            "text",
+            "token",
+            "logprobs",
+            "from_draft",
+            "prompt_tokens",
+            "prompt_tps",
+            "generation_tokens",
+            "generation_tps",
+            "peak_memory",
+            "finish_reason"
+          ]
+        },
+        {
+          "name": "BatchStats",
+          "startLine": 230,
+          "endLine": 250,
+          "methods": [],
+          "properties": [
+            "prompt_tokens",
+            "prompt_tps",
+            "prompt_time",
+            "generation_tokens",
+            "generation_tps",
+            "generation_time",
+            "peak_memory"
+          ]
+        },
+        {
+          "name": "SequenceStateMachine",
+          "startLine": 252,
+          "endLine": 286,
+          "methods": [
+            "__init__",
+            "__deepcopy__",
+            "make_state",
+            "match"
+          ],
+          "properties": []
+        },
+        {
+          "name": "PromptProcessingBatch",
+          "startLine": 288,
+          "endLine": 355,
+          "methods": [
+            "__init__",
+            "__len__",
+            "extract_cache",
+            "extend",
+            "split",
+            "filter",
+            "prompt",
+            "generate",
+            "empty"
+          ],
+          "properties": []
+        },
+        {
+          "name": "GenerationBatch",
+          "startLine": 357,
+          "endLine": 426,
+          "methods": [
+            "__init__",
+            "__len__",
+            "extend",
+            "extract_cache",
+            "filter",
+            "_step",
+            "next",
+            "empty"
+          ],
+          "properties": [
+            "model",
+            "uids",
+            "prompt_cache",
+            "tokens",
+            "samplers",
+            "fallback_sampler",
+            "logits_processors",
+            "state_machines",
+            "max_tokens",
+            "_current_tokens",
+            "_current_logprobs",
+            "_next_tokens",
+            "_next_logprobs",
+            "_token_context",
+            "_num_tokens",
+            "_matcher_states"
+          ]
+        },
+        {
+          "name": "BatchGenerator",
+          "startLine": 428,
+          "endLine": 503,
+          "methods": [
+            "__init__",
+            "close",
+            "__del__",
+            "stats",
+            "_next",
+            "insert",
+            "insert_segments",
+            "extract_cache",
+            "remove",
+            "prompt_cache_nbytes",
+            "next",
+            "next_generated"
+          ],
+          "properties": [
+            "_unprocessed_sequences",
+            "_prompt_batch",
+            "_generation_batch",
+            "_currently_processing",
+            "_gen_tokens_counter",
+            "_steps_counter"
+          ]
+        },
+        {
+          "name": "BatchResponse",
+          "startLine": 506,
+          "endLine": 518,
+          "methods": [],
+          "properties": [
+            "texts",
+            "stats",
+            "caches"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "str2bool",
+          "line": 27,
+          "isDefault": false
+        },
+        {
+          "name": "setup_arg_parser",
+          "line": 29,
+          "isDefault": false
+        },
+        {
+          "name": "wired_limit",
+          "line": 35,
+          "isDefault": false
+        },
+        {
+          "name": "GenerationResponse",
+          "line": 47,
+          "isDefault": false
+        },
+        {
+          "name": "maybe_quantize_kv_cache",
+          "line": 76,
+          "isDefault": false
+        },
+        {
+          "name": "generate_step",
+          "line": 82,
+          "isDefault": false
+        },
+        {
+          "name": "speculative_generate_step",
+          "line": 131,
+          "isDefault": false
+        },
+        {
+          "name": "stream_generate",
+          "line": 177,
+          "isDefault": false
+        },
+        {
+          "name": "generate",
+          "line": 207,
+          "isDefault": false
+        },
+        {
+          "name": "_merge_caches",
+          "line": 228,
+          "isDefault": false
+        },
+        {
+          "name": "BatchStats",
+          "line": 229,
+          "isDefault": false
+        },
+        {
+          "name": "SequenceStateMachine",
+          "line": 252,
+          "isDefault": false
+        },
+        {
+          "name": "PromptProcessingBatch",
+          "line": 288,
+          "isDefault": false
+        },
+        {
+          "name": "GenerationBatch",
+          "line": 357,
+          "isDefault": false
+        },
+        {
+          "name": "BatchGenerator",
+          "line": 428,
+          "isDefault": false
+        },
+        {
+          "name": "BatchResponse",
+          "line": 505,
+          "isDefault": false
+        },
+        {
+          "name": "batch_generate",
+          "line": 520,
+          "isDefault": false
+        },
+        {
+          "name": "main",
+          "line": 554,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 18,
+        "functionCount": 11,
+        "classCount": 7
+      }
+    },
+    {
+      "path": ".typings/mlx_lm/models/__init__.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 1,
+      "nonEmptyLines": 1,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": ".typings/mlx_lm/models/activations.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 19,
+      "nonEmptyLines": 16,
+      "functions": [
+        {
+          "name": "swiglu",
+          "startLine": 10,
+          "endLine": 10,
+          "params": [
+            "gate",
+            "x"
+          ]
+        },
+        {
+          "name": "xielu",
+          "startLine": 12,
+          "endLine": 13,
+          "params": [
+            "x",
+            "alpha_p",
+            "alpha_n",
+            "beta",
+            "eps"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "XieLU",
+          "startLine": 15,
+          "endLine": 19,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "swiglu",
+          "line": 9,
+          "isDefault": false
+        },
+        {
+          "name": "xielu",
+          "line": 11,
+          "isDefault": false
+        },
+        {
+          "name": "XieLU",
+          "line": 15,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 3,
+        "functionCount": 2,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mlx_lm/models/base.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 47,
+      "nonEmptyLines": 43,
+      "functions": [
+        {
+          "name": "create_causal_mask",
+          "startLine": 16,
+          "endLine": 23,
+          "params": [
+            "N",
+            "offset",
+            "window_size",
+            "right_padding",
+            "left_padding"
+          ]
+        },
+        {
+          "name": "create_attention_mask",
+          "startLine": 24,
+          "endLine": 27,
+          "params": [
+            "h",
+            "cache",
+            "window_size",
+            "return_array"
+          ]
+        },
+        {
+          "name": "create_ssm_mask",
+          "startLine": 28,
+          "endLine": 29,
+          "params": [
+            "h",
+            "cache"
+          ]
+        },
+        {
+          "name": "quantized_scaled_dot_product_attention",
+          "startLine": 30,
+          "endLine": 38,
+          "params": [
+            "queries",
+            "q_keys",
+            "q_values",
+            "scale",
+            "mask",
+            "group_size",
+            "bits"
+          ]
+        },
+        {
+          "name": "scaled_dot_product_attention",
+          "startLine": 39,
+          "endLine": 47,
+          "params": [
+            "queries",
+            "keys",
+            "values",
+            "cache",
+            "scale",
+            "mask",
+            "sinks"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "BaseModelArgs",
+          "startLine": 11,
+          "endLine": 14,
+          "methods": [
+            "from_dict"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "BaseModelArgs",
+          "line": 10,
+          "isDefault": false
+        },
+        {
+          "name": "create_causal_mask",
+          "line": 16,
+          "isDefault": false
+        },
+        {
+          "name": "create_attention_mask",
+          "line": 24,
+          "isDefault": false
+        },
+        {
+          "name": "create_ssm_mask",
+          "line": 28,
+          "isDefault": false
+        },
+        {
+          "name": "quantized_scaled_dot_product_attention",
+          "line": 30,
+          "isDefault": false
+        },
+        {
+          "name": "scaled_dot_product_attention",
+          "line": 39,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 6,
+        "functionCount": 5,
+        "classCount": 1
+      }
+    }
+  ]
+}

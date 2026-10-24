@@ -1,0 +1,2676 @@
+{
+ "projectRoot": "/Users/chris/Documents/GitHub/exo",
+ "projectName": "exo",
+ "projectDescription": "exo connects all your devices into an AI cluster, enabling distributed inference of frontier LLMs (and image models) across multiple devices. It uses MLX as the inference backend with automatic device discovery, topology-aware tensor parallelism, RDMA-over-Thunderbolt support, and OpenAI/Claude/Ollama-compatible APIs.",
+ "languages": [
+  "Python",
+  "TypeScript",
+  "Svelte",
+  "Rust",
+  "Swift",
+  "Shell",
+  "Nix",
+  "Markdown",
+  "TOML",
+  "YAML",
+  "JSON"
+ ],
+ "skillDir": "/Users/chris/.understand-anything/repo/understand-anything-plugin/skills/understand",
+ "totalBatches": 46,
+ "batchIndex": 2,
+ "batchFiles": [
+  {
+   "path": "src/exo/api/tests/test_instance_deleted_stream_cleanup.py",
+   "language": "python",
+   "sizeLines": 97,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/shared/apply.py",
+   "language": "python",
+   "sizeLines": 502,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/shared/tests/test_apply/test_apply_instance_link.py",
+   "language": "python",
+   "sizeLines": 72,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/shared/tests/test_apply/test_apply_node_download.py",
+   "language": "python",
+   "sizeLines": 46,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/shared/tests/test_apply/test_apply_runner_deleted.py",
+   "language": "python",
+   "sizeLines": 26,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/shared/types/events.py",
+   "language": "python",
+   "sizeLines": 197,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/shared/types/instance_link.py",
+   "language": "python",
+   "sizeLines": 13,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/shared/types/state.py",
+   "language": "python",
+   "sizeLines": 94,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/shared/types/tasks.py",
+   "language": "python",
+   "sizeLines": 106,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/shared/types/worker/instances.py",
+   "language": "python",
+   "sizeLines": 67,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/shared/types/worker/runners.py",
+   "language": "python",
+   "sizeLines": 98,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/utils/fs.py",
+   "language": "python",
+   "sizeLines": 32,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/utils/keyed_backoff.py",
+   "language": "python",
+   "sizeLines": 35,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/worker/main.py",
+   "language": "python",
+   "sizeLines": 432,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/worker/plan.py",
+   "language": "python",
+   "sizeLines": 362,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/worker/runner/diagnostics.py",
+   "language": "python",
+   "sizeLines": 144,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/worker/runner/runner.py",
+   "language": "python",
+   "sizeLines": 394,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/worker/runner/supervisor.py",
+   "language": "python",
+   "sizeLines": 440,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/worker/tests/constants.py",
+   "language": "python",
+   "sizeLines": 34,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/worker/tests/unittests/conftest.py",
+   "language": "python",
+   "sizeLines": 101,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/worker/tests/unittests/test_plan/test_download_and_loading.py",
+   "language": "python",
+   "sizeLines": 239,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/worker/tests/unittests/test_plan/test_runner_lifecycle.py",
+   "language": "python",
+   "sizeLines": 215,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/worker/tests/unittests/test_plan/test_task_forwarding.py",
+   "language": "python",
+   "sizeLines": 303,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/worker/tests/unittests/test_plan/test_warmup.py",
+   "language": "python",
+   "sizeLines": 366,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/worker/tests/unittests/test_runner/test_event_ordering.py",
+   "language": "python",
+   "sizeLines": 370,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/worker/tests/unittests/test_runner/test_runner_supervisor.py",
+   "language": "python",
+   "sizeLines": 97,
+   "fileCategory": "code"
+  }
+ ],
+ "batchImportData": {
+  "src/exo/api/tests/test_instance_deleted_stream_cleanup.py": [
+   "src/exo/api/main.py",
+   "src/exo/api/types/__init__.py",
+   "src/exo/shared/types/common.py",
+   "src/exo/shared/types/state.py",
+   "src/exo/shared/types/tasks.py",
+   "src/exo/shared/types/text_generation.py",
+   "src/exo/shared/types/worker/instances.py"
+  ],
+  "src/exo/shared/apply.py": [
+   "src/exo/shared/models/model_cards.py",
+   "src/exo/shared/types/common.py",
+   "src/exo/shared/types/events.py",
+   "src/exo/shared/types/instance_link.py",
+   "src/exo/shared/types/profiling.py",
+   "src/exo/shared/types/state.py",
+   "src/exo/shared/types/tasks.py",
+   "src/exo/shared/types/topology.py",
+   "src/exo/shared/types/worker/downloads.py",
+   "src/exo/shared/types/worker/instances.py",
+   "src/exo/shared/types/worker/runners.py",
+   "src/exo/utils/info_gatherer/info_gatherer.py"
+  ],
+  "src/exo/shared/tests/test_apply/test_apply_instance_link.py": [
+   "src/exo/shared/apply.py",
+   "src/exo/shared/types/events.py",
+   "src/exo/shared/types/instance_link.py",
+   "src/exo/shared/types/state.py",
+   "src/exo/shared/types/worker/instances.py"
+  ],
+  "src/exo/shared/tests/test_apply/test_apply_node_download.py": [
+   "src/exo/shared/apply.py",
+   "src/exo/shared/tests/conftest.py",
+   "src/exo/shared/types/common.py",
+   "src/exo/shared/types/events.py",
+   "src/exo/shared/types/memory.py",
+   "src/exo/shared/types/state.py",
+   "src/exo/shared/types/worker/downloads.py",
+   "src/exo/worker/tests/constants.py"
+  ],
+  "src/exo/shared/tests/test_apply/test_apply_runner_deleted.py": [
+   "src/exo/shared/apply.py",
+   "src/exo/shared/types/events.py",
+   "src/exo/shared/types/state.py",
+   "src/exo/shared/types/worker/runners.py"
+  ],
+  "src/exo/shared/types/events.py": [
+   "src/exo/shared/models/model_cards.py",
+   "src/exo/shared/topology.py",
+   "src/exo/shared/types/chunks.py",
+   "src/exo/shared/types/common.py",
+   "src/exo/shared/types/instance_link.py",
+   "src/exo/shared/types/tasks.py",
+   "src/exo/shared/types/worker/downloads.py",
+   "src/exo/shared/types/worker/instances.py",
+   "src/exo/shared/types/worker/runners.py",
+   "src/exo/utils/info_gatherer/info_gatherer.py",
+   "src/exo/utils/pydantic_ext.py"
+  ],
+  "src/exo/shared/types/instance_link.py": [
+   "src/exo/shared/types/common.py",
+   "src/exo/shared/types/worker/instances.py",
+   "src/exo/utils/pydantic_ext.py"
+  ],
+  "src/exo/shared/types/state.py": [
+   "src/exo/shared/models/model_cards.py",
+   "src/exo/shared/topology.py",
+   "src/exo/shared/types/backends.py",
+   "src/exo/shared/types/common.py",
+   "src/exo/shared/types/instance_link.py",
+   "src/exo/shared/types/profiling.py",
+   "src/exo/shared/types/tasks.py",
+   "src/exo/shared/types/worker/downloads.py",
+   "src/exo/shared/types/worker/instances.py",
+   "src/exo/shared/types/worker/runners.py",
+   "src/exo/utils/pydantic_ext.py"
+  ],
+  "src/exo/shared/types/tasks.py": [
+   "src/exo/api/types/__init__.py",
+   "src/exo/shared/types/common.py",
+   "src/exo/shared/types/text_generation.py",
+   "src/exo/shared/types/worker/instances.py",
+   "src/exo/shared/types/worker/runners.py",
+   "src/exo/shared/types/worker/shards.py",
+   "src/exo/utils/pydantic_ext.py"
+  ],
+  "src/exo/shared/types/worker/instances.py": [
+   "src/exo/shared/models/model_cards.py",
+   "src/exo/shared/types/common.py",
+   "src/exo/shared/types/worker/runners.py",
+   "src/exo/utils/pydantic_ext.py"
+  ],
+  "src/exo/shared/types/worker/runners.py": [
+   "src/exo/shared/models/model_cards.py",
+   "src/exo/shared/types/common.py",
+   "src/exo/shared/types/worker/shards.py",
+   "src/exo/utils/pydantic_ext.py",
+   "src/exo/worker/runner/diagnostics.py"
+  ],
+  "src/exo/utils/fs.py": [],
+  "src/exo/utils/keyed_backoff.py": [],
+  "src/exo/worker/main.py": [
+   "src/exo/api/types/__init__.py",
+   "src/exo/download/download_utils.py",
+   "src/exo/routing/event_router.py",
+   "src/exo/shared/apply.py",
+   "src/exo/shared/constants.py",
+   "src/exo/shared/models/model_cards.py",
+   "src/exo/shared/types/chunks.py",
+   "src/exo/shared/types/commands.py",
+   "src/exo/shared/types/common.py",
+   "src/exo/shared/types/events.py",
+   "src/exo/shared/types/multiaddr.py",
+   "src/exo/shared/types/state.py",
+   "src/exo/shared/types/tasks.py",
+   "src/exo/shared/types/text_generation.py",
+   "src/exo/shared/types/topology.py",
+   "src/exo/shared/types/worker/downloads.py",
+   "src/exo/shared/types/worker/instances.py",
+   "src/exo/shared/types/worker/runners.py",
+   "src/exo/utils/channels.py",
+   "src/exo/utils/info_gatherer/info_gatherer.py",
+   "src/exo/utils/info_gatherer/net_profile.py",
+   "src/exo/utils/keyed_backoff.py",
+   "src/exo/utils/task_group.py",
+   "src/exo/worker/plan.py",
+   "src/exo/worker/runner/supervisor.py"
+  ],
+  "src/exo/worker/plan.py": [
+   "src/exo/shared/types/chunks.py",
+   "src/exo/shared/types/common.py",
+   "src/exo/shared/types/tasks.py",
+   "src/exo/shared/types/text_generation.py",
+   "src/exo/shared/types/worker/downloads.py",
+   "src/exo/shared/types/worker/instances.py",
+   "src/exo/shared/types/worker/runners.py",
+   "src/exo/utils/keyed_backoff.py",
+   "src/exo/worker/runner/supervisor.py"
+  ],
+  "src/exo/worker/runner/diagnostics.py": [
+   "src/exo/utils/pydantic_ext.py"
+  ],
+  "src/exo/worker/runner/runner.py": [
+   "src/exo/shared/constants.py",
+   "src/exo/shared/types/chunks.py",
+   "src/exo/shared/types/common.py",
+   "src/exo/shared/types/events.py",
+   "src/exo/shared/types/tasks.py",
+   "src/exo/shared/types/worker/instances.py",
+   "src/exo/shared/types/worker/runner_response.py",
+   "src/exo/shared/types/worker/runners.py",
+   "src/exo/utils/channels.py",
+   "src/exo/utils/ports.py",
+   "src/exo/worker/disaggregated/server.py",
+   "src/exo/worker/engines/base.py",
+   "src/exo/worker/runner/bootstrap.py"
+  ],
+  "src/exo/worker/runner/supervisor.py": [
+   "src/exo/shared/constants.py",
+   "src/exo/shared/types/chunks.py",
+   "src/exo/shared/types/events.py",
+   "src/exo/shared/types/tasks.py",
+   "src/exo/shared/types/worker/instances.py",
+   "src/exo/shared/types/worker/runners.py",
+   "src/exo/shared/types/worker/shards.py",
+   "src/exo/utils/async_process.py",
+   "src/exo/utils/channels.py",
+   "src/exo/utils/fs.py",
+   "src/exo/utils/task_group.py",
+   "src/exo/worker/runner/bootstrap.py",
+   "src/exo/worker/runner/diagnostics.py"
+  ],
+  "src/exo/worker/tests/constants.py": [
+   "src/exo/shared/models/model_cards.py",
+   "src/exo/shared/types/common.py",
+   "src/exo/shared/types/tasks.py",
+   "src/exo/shared/types/worker/instances.py"
+  ],
+  "src/exo/worker/tests/unittests/conftest.py": [
+   "src/exo/shared/models/model_cards.py",
+   "src/exo/shared/types/backends.py",
+   "src/exo/shared/types/common.py",
+   "src/exo/shared/types/memory.py",
+   "src/exo/shared/types/tasks.py",
+   "src/exo/shared/types/worker/instances.py",
+   "src/exo/shared/types/worker/runners.py",
+   "src/exo/shared/types/worker/shards.py"
+  ],
+  "src/exo/worker/tests/unittests/test_plan/test_download_and_loading.py": [
+   "src/exo/shared/types/common.py",
+   "src/exo/shared/types/memory.py",
+   "src/exo/shared/types/tasks.py",
+   "src/exo/shared/types/worker/downloads.py",
+   "src/exo/shared/types/worker/instances.py",
+   "src/exo/shared/types/worker/runners.py",
+   "src/exo/utils/keyed_backoff.py",
+   "src/exo/worker/plan.py",
+   "src/exo/worker/tests/constants.py",
+   "src/exo/worker/tests/unittests/conftest.py"
+  ],
+  "src/exo/worker/tests/unittests/test_plan/test_runner_lifecycle.py": [
+   "src/exo/shared/types/tasks.py",
+   "src/exo/shared/types/worker/instances.py",
+   "src/exo/shared/types/worker/runners.py",
+   "src/exo/utils/keyed_backoff.py",
+   "src/exo/worker/plan.py",
+   "src/exo/worker/tests/constants.py",
+   "src/exo/worker/tests/unittests/conftest.py"
+  ],
+  "src/exo/worker/tests/unittests/test_plan/test_task_forwarding.py": [
+   "src/exo/shared/types/tasks.py",
+   "src/exo/shared/types/text_generation.py",
+   "src/exo/shared/types/worker/instances.py",
+   "src/exo/shared/types/worker/runners.py",
+   "src/exo/utils/keyed_backoff.py",
+   "src/exo/worker/plan.py",
+   "src/exo/worker/tests/constants.py",
+   "src/exo/worker/tests/unittests/conftest.py"
+  ],
+  "src/exo/worker/tests/unittests/test_plan/test_warmup.py": [
+   "src/exo/shared/types/tasks.py",
+   "src/exo/shared/types/worker/instances.py",
+   "src/exo/shared/types/worker/runners.py",
+   "src/exo/utils/keyed_backoff.py",
+   "src/exo/worker/plan.py",
+   "src/exo/worker/tests/constants.py",
+   "src/exo/worker/tests/unittests/conftest.py"
+  ],
+  "src/exo/worker/tests/unittests/test_runner/test_event_ordering.py": [
+   "src/exo/shared/types/chunks.py",
+   "src/exo/shared/types/events.py",
+   "src/exo/shared/types/tasks.py",
+   "src/exo/shared/types/text_generation.py",
+   "src/exo/shared/types/worker/runner_response.py",
+   "src/exo/shared/types/worker/runners.py",
+   "src/exo/utils/channels.py",
+   "src/exo/worker/engines/mlx/builder.py",
+   "src/exo/worker/runner/llm_inference/batch_generator.py",
+   "src/exo/worker/runner/llm_inference/model_output_parsers.py",
+   "src/exo/worker/runner/runner.py",
+   "src/exo/worker/tests/constants.py",
+   "src/exo/worker/tests/unittests/conftest.py"
+  ],
+  "src/exo/worker/tests/unittests/test_runner/test_runner_supervisor.py": [
+   "src/exo/shared/models/model_cards.py",
+   "src/exo/shared/types/chunks.py",
+   "src/exo/shared/types/common.py",
+   "src/exo/shared/types/events.py",
+   "src/exo/shared/types/tasks.py",
+   "src/exo/shared/types/text_generation.py",
+   "src/exo/shared/types/worker/instances.py",
+   "src/exo/shared/types/worker/runners.py",
+   "src/exo/utils/async_process.py",
+   "src/exo/utils/channels.py",
+   "src/exo/worker/runner/bootstrap.py",
+   "src/exo/worker/runner/supervisor.py",
+   "src/exo/worker/tests/unittests/conftest.py"
+  ]
+ },
+ "neighborMap": {
+  "src/exo/api/tests/test_instance_deleted_stream_cleanup.py": [
+   {
+    "path": "src/exo/api/main.py",
+    "batchIndex": 3,
+    "symbols": [
+     "_format_to_content_type",
+     "_ensure_seed",
+     "_require_disaggregation_enabled",
+     "API"
+    ]
+   },
+   {
+    "path": "src/exo/api/types/__init__.py",
+    "batchIndex": 3,
+    "symbols": []
+   },
+   {
+    "path": "src/exo/shared/types/common.py",
+    "batchIndex": 3,
+    "symbols": [
+     "Id",
+     "NodeId",
+     "SystemId",
+     "ModelId",
+     "CommandId",
+     "TruncatingString",
+     "SessionId",
+     "Host"
+    ]
+   },
+   {
+    "path": "src/exo/shared/types/text_generation.py",
+    "batchIndex": 6,
+    "symbols": [
+     "resolve_reasoning_params",
+     "InputMessageContent",
+     "InputMessage",
+     "Base64Image",
+     "Base64ImageHash",
+     "_wrap_chat_value",
+     "TextGenerationTaskParams"
+    ]
+   }
+  ],
+  "src/exo/shared/apply.py": [
+   {
+    "path": "src/exo/shared/models/model_cards.py",
+    "batchIndex": 4,
+    "symbols": [
+     "_CardCache",
+     "detect_vision_from_config",
+     "_is_image_card",
+     "ModelTask",
+     "ComponentInfo",
+     "VisionCardConfig",
+     "SamplingValues",
+     "SamplingDefaults",
+     "ModelCard",
+     "ConfigData",
+     "fetch_config_data",
+     "fetch_safetensors_size"
+    ]
+   },
+   {
+    "path": "src/exo/shared/types/common.py",
+    "batchIndex": 3,
+    "symbols": [
+     "Id",
+     "NodeId",
+     "SystemId",
+     "ModelId",
+     "CommandId",
+     "TruncatingString",
+     "SessionId",
+     "Host"
+    ]
+   },
+   {
+    "path": "src/exo/shared/types/profiling.py",
+    "batchIndex": 8,
+    "symbols": [
+     "MemoryUsage",
+     "DiskUsage",
+     "SystemPerformanceProfile",
+     "NetworkInterfaceInfo",
+     "NodeIdentity",
+     "NodeNetworkInfo",
+     "NodeThunderboltInfo",
+     "NodeRdmaCtlStatus",
+     "ThunderboltBridgeStatus"
+    ]
+   },
+   {
+    "path": "src/exo/shared/types/topology.py",
+    "batchIndex": 8,
+    "symbols": [
+     "Cycle",
+     "RDMAConnection",
+     "SocketConnection",
+     "Connection"
+    ]
+   },
+   {
+    "path": "src/exo/shared/types/worker/downloads.py",
+    "batchIndex": 4,
+    "symbols": [
+     "DownloadProgressData",
+     "BaseDownloadProgress",
+     "DownloadPending",
+     "DownloadCompleted",
+     "DownloadFailed",
+     "DownloadOngoing",
+     "ModelSafetensorsIndexMetadata",
+     "ModelSafetensorsIndex",
+     "FileListEntry",
+     "RepoFileDownloadProgress",
+     "RepoDownloadProgress"
+    ]
+   },
+   {
+    "path": "src/exo/utils/info_gatherer/info_gatherer.py",
+    "batchIndex": 8,
+    "symbols": [
+     "_get_thunderbolt_devices",
+     "_get_bridge_services",
+     "_get_bridge_members",
+     "_find_thunderbolt_bridge",
+     "_is_service_enabled",
+     "StaticNodeInformation",
+     "NodeNetworkInterfaces",
+     "MacThunderboltIdentifiers",
+     "MacThunderboltConnections",
+     "RdmaCtlStatus",
+     "ThunderboltBridgeInfo",
+     "NodeConfig",
+     "MiscData",
+     "NodeDiskUsage",
+     "_gather_iface_map",
+     "_has_nvml_cuda",
+     "NodeBackends",
+     "InfoGatherer"
+    ]
+   },
+   {
+    "path": "src/exo/api/main.py",
+    "batchIndex": 3,
+    "symbols": [
+     "_format_to_content_type",
+     "_ensure_seed",
+     "_require_disaggregation_enabled",
+     "API"
+    ]
+   },
+   {
+    "path": "src/exo/master/main.py",
+    "batchIndex": 5,
+    "symbols": [
+     "_prefill_endpoint_for",
+     "Master"
+    ]
+   },
+   {
+    "path": "src/exo/shared/tests/test_apply/test_apply_custom_model_cards.py",
+    "batchIndex": 4,
+    "symbols": [
+     "_model_card",
+     "test_custom_model_card_added_is_reduced_into_state",
+     "test_custom_model_card_deleted_removes_card_from_state"
+    ]
+   },
+   {
+    "path": "src/exo/shared/tests/test_apply/test_apply_rdma_gating.py",
+    "batchIndex": 8,
+    "symbols": [
+     "_now",
+     "_make_state_with_thunderbolt_idents",
+     "_has_rdma_edge",
+     "test_mac_thunderbolt_connections_emits_rdma_when_both_endpoints_enabled",
+     "test_mac_thunderbolt_connections_skips_rdma_when_source_rdma_ctl_disabled",
+     "test_mac_thunderbolt_connections_skips_rdma_when_sink_rdma_ctl_disabled",
+     "test_mac_thunderbolt_connections_skips_rdma_when_rdma_ctl_status_missing",
+     "test_rdma_ctl_status_disabled_purges_existing_rdma_edges",
+     "test_topology_remove_all_rdma_connections_touching_keeps_socket_edges"
+    ]
+   }
+  ],
+  "src/exo/shared/tests/test_apply/test_apply_node_download.py": [
+   {
+    "path": "src/exo/shared/tests/conftest.py",
+    "batchIndex": 4,
+    "symbols": [
+     "event_loop",
+     "reset_event_loop",
+     "get_pipeline_shard_metadata",
+     "caplog"
+    ]
+   },
+   {
+    "path": "src/exo/shared/types/common.py",
+    "batchIndex": 3,
+    "symbols": [
+     "Id",
+     "NodeId",
+     "SystemId",
+     "ModelId",
+     "CommandId",
+     "TruncatingString",
+     "SessionId",
+     "Host"
+    ]
+   },
+   {
+    "path": "src/exo/shared/types/memory.py",
+    "batchIndex": 4,
+    "symbols": [
+     "Memory"
+    ]
+   },
+   {
+    "path": "src/exo/shared/types/worker/downloads.py",
+    "batchIndex": 4,
+    "symbols": [
+     "DownloadProgressData",
+     "BaseDownloadProgress",
+     "DownloadPending",
+     "DownloadCompleted",
+     "DownloadFailed",
+     "DownloadOngoing",
+     "ModelSafetensorsIndexMetadata",
+     "ModelSafetensorsIndex",
+     "FileListEntry",
+     "RepoFileDownloadProgress",
+     "RepoDownloadProgress"
+    ]
+   }
+  ],
+  "src/exo/shared/types/events.py": [
+   {
+    "path": "src/exo/shared/models/model_cards.py",
+    "batchIndex": 4,
+    "symbols": [
+     "_CardCache",
+     "detect_vision_from_config",
+     "_is_image_card",
+     "ModelTask",
+     "ComponentInfo",
+     "VisionCardConfig",
+     "SamplingValues",
+     "SamplingDefaults",
+     "ModelCard",
+     "ConfigData",
+     "fetch_config_data",
+     "fetch_safetensors_size"
+    ]
+   },
+   {
+    "path": "src/exo/shared/topology.py",
+    "batchIndex": 8,
+    "symbols": [
+     "TopologySnapshot",
+     "Topology",
+     "_get_ips_with_interface_type"
+    ]
+   },
+   {
+    "path": "src/exo/shared/types/chunks.py",
+    "batchIndex": 3,
+    "symbols": [
+     "BaseChunk",
+     "TokenChunk",
+     "ErrorChunk",
+     "ToolCallChunk",
+     "ImageChunk",
+     "InputImageChunk",
+     "PrefillProgressChunk"
+    ]
+   },
+   {
+    "path": "src/exo/shared/types/common.py",
+    "batchIndex": 3,
+    "symbols": [
+     "Id",
+     "NodeId",
+     "SystemId",
+     "ModelId",
+     "CommandId",
+     "TruncatingString",
+     "SessionId",
+     "Host"
+    ]
+   },
+   {
+    "path": "src/exo/shared/types/worker/downloads.py",
+    "batchIndex": 4,
+    "symbols": [
+     "DownloadProgressData",
+     "BaseDownloadProgress",
+     "DownloadPending",
+     "DownloadCompleted",
+     "DownloadFailed",
+     "DownloadOngoing",
+     "ModelSafetensorsIndexMetadata",
+     "ModelSafetensorsIndex",
+     "FileListEntry",
+     "RepoFileDownloadProgress",
+     "RepoDownloadProgress"
+    ]
+   },
+   {
+    "path": "src/exo/utils/info_gatherer/info_gatherer.py",
+    "batchIndex": 8,
+    "symbols": [
+     "_get_thunderbolt_devices",
+     "_get_bridge_services",
+     "_get_bridge_members",
+     "_find_thunderbolt_bridge",
+     "_is_service_enabled",
+     "StaticNodeInformation",
+     "NodeNetworkInterfaces",
+     "MacThunderboltIdentifiers",
+     "MacThunderboltConnections",
+     "RdmaCtlStatus",
+     "ThunderboltBridgeInfo",
+     "NodeConfig",
+     "MiscData",
+     "NodeDiskUsage",
+     "_gather_iface_map",
+     "_has_nvml_cuda",
+     "NodeBackends",
+     "InfoGatherer"
+    ]
+   },
+   {
+    "path": "src/exo/utils/pydantic_ext.py",
+    "batchIndex": 5,
+    "symbols": [
+     "FrozenModel",
+     "TaggedModel"
+    ]
+   },
+   {
+    "path": "src/exo/api/main.py",
+    "batchIndex": 3,
+    "symbols": [
+     "_format_to_content_type",
+     "_ensure_seed",
+     "_require_disaggregation_enabled",
+     "API"
+    ]
+   },
+   {
+    "path": "src/exo/download/coordinator.py",
+    "batchIndex": 4,
+    "symbols": [
+     "DownloadCoordinator"
+    ]
+   },
+   {
+    "path": "src/exo/download/tests/test_cancel_download.py",
+    "batchIndex": 4,
+    "symbols": [
+     "_make_shard",
+     "SlowShardDownloader",
+     "_setup_coordinator",
+     "_wait_for_pending",
+     "test_cancel_active_download_transitions_to_pending",
+     "test_cancel_nonexistent_download_is_noop",
+     "test_cancel_then_resume_download"
+    ]
+   },
+   {
+    "path": "src/exo/download/tests/test_download_status_not_lost.py",
+    "batchIndex": 4,
+    "symbols": [
+     "_make_shard",
+     "FakeShardDownloader",
+     "_setup_coordinator",
+     "_collect_events",
+     "test_completed_status_not_downgraded_by_rescan",
+     "test_incomplete_model_with_files_present_detected_as_complete",
+     "test_genuinely_incomplete_model_stays_pending"
+    ]
+   },
+   {
+    "path": "src/exo/download/tests/test_re_download.py",
+    "batchIndex": 4,
+    "symbols": [
+     "_make_shard",
+     "FakeShardDownloader",
+     "test_re_download_after_delete_completes",
+     "_wait_for_download_completed"
+    ]
+   },
+   {
+    "path": "src/exo/master/main.py",
+    "batchIndex": 5,
+    "symbols": [
+     "_prefill_endpoint_for",
+     "Master"
+    ]
+   },
+   {
+    "path": "src/exo/master/placement.py",
+    "batchIndex": 4,
+    "symbols": [
+     "add_instance_to_placements",
+     "_get_node_download_fraction",
+     "_cycle_download_score",
+     "place_instance",
+     "delete_instance",
+     "get_transition_events",
+     "cancel_unnecessary_downloads"
+    ]
+   },
+   {
+    "path": "src/exo/master/tests/test_master.py",
+    "batchIndex": 4,
+    "symbols": [
+     "test_master"
+    ]
+   },
+   {
+    "path": "src/exo/master/tests/test_placement.py",
+    "batchIndex": 8,
+    "symbols": [
+     "instance",
+     "model_card",
+     "_metal_only",
+     "place_instance_command",
+     "test_get_instance_placements_create_instance",
+     "test_get_instance_placements_one_node_exact_fit",
+     "test_get_instance_placements_one_node_fits_with_extra_memory",
+     "test_get_instance_placements_one_node_not_fit",
+     "test_get_transition_events_no_change",
+     "test_get_transition_events_create_instance",
+     "test_get_transition_events_delete_instance",
+     "test_placement_selects_leaf_nodes",
+     "test_tensor_rdma_backend_connectivity_matrix",
+     "_build_three_node_rdma_topology",
+     "test_place_mlx_jaccl_rejects_when_a_node_has_rdma_ctl_disabled",
+     "test_place_mlx_jaccl_rejects_when_node_rdma_ctl_missing",
+     "_make_task",
+     "test_get_transition_events_delete_instance_cancels_running_tasks",
+     "test_get_transition_events_delete_instance_cancels_pending_tasks",
+     "test_get_transition_events_delete_instance_ignores_completed_tasks",
+     "test_get_transition_events_delete_instance_cancels_only_matching_tasks",
+     "_make_shard_metadata",
+     "test_placement_prefers_cycle_with_downloaded_model",
+     "test_placement_prefers_cycle_with_higher_download_progress",
+     "test_placement_does_not_prefer_cycle_with_failed_download",
+     "test_placement_rejects_when_model_backends_disjoint_from_engine",
+     "test_placement_rejects_when_only_some_nodes_support_backend",
+     "test_mlx_jaccl_rejects_cuda_only_cycle"
+    ]
+   },
+   {
+    "path": "src/exo/routing/event_router.py",
+    "batchIndex": 5,
+    "symbols": [
+     "EventRouterClosedResourceError",
+     "EventRouterBrokenResourceError",
+     "EventRouter"
+    ]
+   },
+   {
+    "path": "src/exo/routing/tests/test_event_buffer.py",
+    "batchIndex": 5,
+    "symbols": [
+     "make_indexed_event",
+     "buffer",
+     "test_initial_state",
+     "test_ingest_and_drain_sequential_events",
+     "test_ingest_out_of_order_events",
+     "test_drain_with_gap_in_sequence",
+     "test_fill_gap_and_drain_remaining",
+     "test_ingest_drops_duplicate_indices",
+     "test_ingest_drops_stale_events",
+     "test_drain_and_ingest_with_new_sequence"
+    ]
+   },
+   {
+    "path": "src/exo/routing/topics.py",
+    "batchIndex": 5,
+    "symbols": [
+     "PublishPolicy",
+     "TypedTopic"
+    ]
+   },
+   {
+    "path": "src/exo/shared/tests/test_apply/test_apply_custom_model_cards.py",
+    "batchIndex": 4,
+    "symbols": [
+     "_model_card",
+     "test_custom_model_card_added_is_reduced_into_state",
+     "test_custom_model_card_deleted_removes_card_from_state"
+    ]
+   },
+   {
+    "path": "src/exo/shared/tests/test_apply/test_apply_rdma_gating.py",
+    "batchIndex": 8,
+    "symbols": [
+     "_now",
+     "_make_state_with_thunderbolt_idents",
+     "_has_rdma_edge",
+     "test_mac_thunderbolt_connections_emits_rdma_when_both_endpoints_enabled",
+     "test_mac_thunderbolt_connections_skips_rdma_when_source_rdma_ctl_disabled",
+     "test_mac_thunderbolt_connections_skips_rdma_when_sink_rdma_ctl_disabled",
+     "test_mac_thunderbolt_connections_skips_rdma_when_rdma_ctl_status_missing",
+     "test_rdma_ctl_status_disabled_purges_existing_rdma_edges",
+     "test_topology_remove_all_rdma_connections_touching_keeps_socket_edges"
+    ]
+   },
+   {
+    "path": "src/exo/utils/disk_event_log.py",
+    "batchIndex": 5,
+    "symbols": [
+     "_serialize_event",
+     "_deserialize_event",
+     "_unpack_header",
+     "_skip_record",
+     "_read_record",
+     "DiskEventLog"
+    ]
+   },
+   {
+    "path": "src/exo/utils/tests/test_event_log.py",
+    "batchIndex": 5,
+    "symbols": [
+     "log_dir",
+     "test_append_and_read_back",
+     "test_read_range",
+     "test_read_range_bounds",
+     "test_empty_log",
+     "_archives",
+     "test_rotation_on_close",
+     "test_rotation_on_construction_with_stale_file",
+     "test_empty_log_no_archive",
+     "test_close_is_idempotent",
+     "test_successive_sessions",
+     "test_rotation_keeps_at_most_5_archives"
+    ]
+   },
+   {
+    "path": "src/exo/worker/engines/image/builder.py",
+    "batchIndex": 1,
+    "symbols": [
+     "_is_primary_output_node",
+     "_send_traces_if_enabled",
+     "MfluxBuilder",
+     "ImageEngine"
+    ]
+   },
+   {
+    "path": "src/exo/worker/engines/mlx/builder.py",
+    "batchIndex": 6,
+    "symbols": [
+     "MlxBuilder"
+    ]
+   },
+   {
+    "path": "src/exo/worker/runner/bootstrap.py",
+    "batchIndex": 7,
+    "symbols": [
+     "RunnerTerminationError",
+     "entrypoint"
+    ]
+   },
+   {
+    "path": "src/exo/worker/runner/llm_inference/batch_generator.py",
+    "batchIndex": 7,
+    "symbols": [
+     "GeneratorQueue",
+     "_check_for_debug_prompts",
+     "SequentialGenerator",
+     "BatchGenerator"
+    ]
+   }
+  ],
+  "src/exo/shared/types/instance_link.py": [
+   {
+    "path": "src/exo/shared/types/common.py",
+    "batchIndex": 3,
+    "symbols": [
+     "Id",
+     "NodeId",
+     "SystemId",
+     "ModelId",
+     "CommandId",
+     "TruncatingString",
+     "SessionId",
+     "Host"
+    ]
+   },
+   {
+    "path": "src/exo/utils/pydantic_ext.py",
+    "batchIndex": 5,
+    "symbols": [
+     "FrozenModel",
+     "TaggedModel"
+    ]
+   },
+   {
+    "path": "src/exo/api/main.py",
+    "batchIndex": 3,
+    "symbols": [
+     "_format_to_content_type",
+     "_ensure_seed",
+     "_require_disaggregation_enabled",
+     "API"
+    ]
+   },
+   {
+    "path": "src/exo/master/main.py",
+    "batchIndex": 5,
+    "symbols": [
+     "_prefill_endpoint_for",
+     "Master"
+    ]
+   },
+   {
+    "path": "src/exo/shared/types/commands.py",
+    "batchIndex": 4,
+    "symbols": [
+     "BaseCommand",
+     "TestCommand",
+     "TextGeneration",
+     "ImageGeneration",
+     "ImageEdits",
+     "PlaceInstance",
+     "CreateInstance",
+     "DeleteInstance",
+     "TaskCancelled",
+     "TaskFinished",
+     "SendInputChunk",
+     "RequestEventLog",
+     "StartDownload",
+     "DeleteDownload",
+     "CancelDownload",
+     "AddCustomModelCard",
+     "DeleteCustomModelCard",
+     "SetInstanceLink",
+     "DeleteInstanceLink",
+     "ForwarderCommand",
+     "ForwarderDownloadCommand"
+    ]
+   }
+  ],
+  "src/exo/shared/types/state.py": [
+   {
+    "path": "src/exo/shared/models/model_cards.py",
+    "batchIndex": 4,
+    "symbols": [
+     "_CardCache",
+     "detect_vision_from_config",
+     "_is_image_card",
+     "ModelTask",
+     "ComponentInfo",
+     "VisionCardConfig",
+     "SamplingValues",
+     "SamplingDefaults",
+     "ModelCard",
+     "ConfigData",
+     "fetch_config_data",
+     "fetch_safetensors_size"
+    ]
+   },
+   {
+    "path": "src/exo/shared/topology.py",
+    "batchIndex": 8,
+    "symbols": [
+     "TopologySnapshot",
+     "Topology",
+     "_get_ips_with_interface_type"
+    ]
+   },
+   {
+    "path": "src/exo/shared/types/backends.py",
+    "batchIndex": 4,
+    "symbols": [
+     "Backend"
+    ]
+   },
+   {
+    "path": "src/exo/shared/types/common.py",
+    "batchIndex": 3,
+    "symbols": [
+     "Id",
+     "NodeId",
+     "SystemId",
+     "ModelId",
+     "CommandId",
+     "TruncatingString",
+     "SessionId",
+     "Host"
+    ]
+   },
+   {
+    "path": "src/exo/shared/types/profiling.py",
+    "batchIndex": 8,
+    "symbols": [
+     "MemoryUsage",
+     "DiskUsage",
+     "SystemPerformanceProfile",
+     "NetworkInterfaceInfo",
+     "NodeIdentity",
+     "NodeNetworkInfo",
+     "NodeThunderboltInfo",
+     "NodeRdmaCtlStatus",
+     "ThunderboltBridgeStatus"
+    ]
+   },
+   {
+    "path": "src/exo/shared/types/worker/downloads.py",
+    "batchIndex": 4,
+    "symbols": [
+     "DownloadProgressData",
+     "BaseDownloadProgress",
+     "DownloadPending",
+     "DownloadCompleted",
+     "DownloadFailed",
+     "DownloadOngoing",
+     "ModelSafetensorsIndexMetadata",
+     "ModelSafetensorsIndex",
+     "FileListEntry",
+     "RepoFileDownloadProgress",
+     "RepoDownloadProgress"
+    ]
+   },
+   {
+    "path": "src/exo/utils/pydantic_ext.py",
+    "batchIndex": 5,
+    "symbols": [
+     "FrozenModel",
+     "TaggedModel"
+    ]
+   },
+   {
+    "path": "src/exo/api/main.py",
+    "batchIndex": 3,
+    "symbols": [
+     "_format_to_content_type",
+     "_ensure_seed",
+     "_require_disaggregation_enabled",
+     "API"
+    ]
+   },
+   {
+    "path": "src/exo/master/main.py",
+    "batchIndex": 5,
+    "symbols": [
+     "_prefill_endpoint_for",
+     "Master"
+    ]
+   },
+   {
+    "path": "src/exo/shared/tests/test_apply/test_apply_custom_model_cards.py",
+    "batchIndex": 4,
+    "symbols": [
+     "_model_card",
+     "test_custom_model_card_added_is_reduced_into_state",
+     "test_custom_model_card_deleted_removes_card_from_state"
+    ]
+   },
+   {
+    "path": "src/exo/shared/tests/test_apply/test_apply_rdma_gating.py",
+    "batchIndex": 8,
+    "symbols": [
+     "_now",
+     "_make_state_with_thunderbolt_idents",
+     "_has_rdma_edge",
+     "test_mac_thunderbolt_connections_emits_rdma_when_both_endpoints_enabled",
+     "test_mac_thunderbolt_connections_skips_rdma_when_source_rdma_ctl_disabled",
+     "test_mac_thunderbolt_connections_skips_rdma_when_sink_rdma_ctl_disabled",
+     "test_mac_thunderbolt_connections_skips_rdma_when_rdma_ctl_status_missing",
+     "test_rdma_ctl_status_disabled_purges_existing_rdma_edges",
+     "test_topology_remove_all_rdma_connections_touching_keeps_socket_edges"
+    ]
+   },
+   {
+    "path": "src/exo/shared/tests/test_state_serialization.py",
+    "batchIndex": 8,
+    "symbols": [
+     "test_state_serialization_roundtrip"
+    ]
+   }
+  ],
+  "src/exo/shared/types/tasks.py": [
+   {
+    "path": "src/exo/api/types/__init__.py",
+    "batchIndex": 3,
+    "symbols": []
+   },
+   {
+    "path": "src/exo/shared/types/common.py",
+    "batchIndex": 3,
+    "symbols": [
+     "Id",
+     "NodeId",
+     "SystemId",
+     "ModelId",
+     "CommandId",
+     "TruncatingString",
+     "SessionId",
+     "Host"
+    ]
+   },
+   {
+    "path": "src/exo/shared/types/text_generation.py",
+    "batchIndex": 6,
+    "symbols": [
+     "resolve_reasoning_params",
+     "InputMessageContent",
+     "InputMessage",
+     "Base64Image",
+     "Base64ImageHash",
+     "_wrap_chat_value",
+     "TextGenerationTaskParams"
+    ]
+   },
+   {
+    "path": "src/exo/shared/types/worker/shards.py",
+    "batchIndex": 4,
+    "symbols": [
+     "Sharding",
+     "BaseShardMetadata",
+     "PipelineShardMetadata",
+     "CfgShardMetadata",
+     "TensorShardMetadata"
+    ]
+   },
+   {
+    "path": "src/exo/utils/pydantic_ext.py",
+    "batchIndex": 5,
+    "symbols": [
+     "FrozenModel",
+     "TaggedModel"
+    ]
+   },
+   {
+    "path": "src/exo/api/main.py",
+    "batchIndex": 3,
+    "symbols": [
+     "_format_to_content_type",
+     "_ensure_seed",
+     "_require_disaggregation_enabled",
+     "API"
+    ]
+   },
+   {
+    "path": "src/exo/master/main.py",
+    "batchIndex": 5,
+    "symbols": [
+     "_prefill_endpoint_for",
+     "Master"
+    ]
+   },
+   {
+    "path": "src/exo/master/placement.py",
+    "batchIndex": 4,
+    "symbols": [
+     "add_instance_to_placements",
+     "_get_node_download_fraction",
+     "_cycle_download_score",
+     "place_instance",
+     "delete_instance",
+     "get_transition_events",
+     "cancel_unnecessary_downloads"
+    ]
+   },
+   {
+    "path": "src/exo/master/tests/test_master.py",
+    "batchIndex": 4,
+    "symbols": [
+     "test_master"
+    ]
+   },
+   {
+    "path": "src/exo/master/tests/test_placement.py",
+    "batchIndex": 8,
+    "symbols": [
+     "instance",
+     "model_card",
+     "_metal_only",
+     "place_instance_command",
+     "test_get_instance_placements_create_instance",
+     "test_get_instance_placements_one_node_exact_fit",
+     "test_get_instance_placements_one_node_fits_with_extra_memory",
+     "test_get_instance_placements_one_node_not_fit",
+     "test_get_transition_events_no_change",
+     "test_get_transition_events_create_instance",
+     "test_get_transition_events_delete_instance",
+     "test_placement_selects_leaf_nodes",
+     "test_tensor_rdma_backend_connectivity_matrix",
+     "_build_three_node_rdma_topology",
+     "test_place_mlx_jaccl_rejects_when_a_node_has_rdma_ctl_disabled",
+     "test_place_mlx_jaccl_rejects_when_node_rdma_ctl_missing",
+     "_make_task",
+     "test_get_transition_events_delete_instance_cancels_running_tasks",
+     "test_get_transition_events_delete_instance_cancels_pending_tasks",
+     "test_get_transition_events_delete_instance_ignores_completed_tasks",
+     "test_get_transition_events_delete_instance_cancels_only_matching_tasks",
+     "_make_shard_metadata",
+     "test_placement_prefers_cycle_with_downloaded_model",
+     "test_placement_prefers_cycle_with_higher_download_progress",
+     "test_placement_does_not_prefer_cycle_with_failed_download",
+     "test_placement_rejects_when_model_backends_disjoint_from_engine",
+     "test_placement_rejects_when_only_some_nodes_support_backend",
+     "test_mlx_jaccl_rejects_cuda_only_cycle"
+    ]
+   },
+   {
+    "path": "src/exo/worker/engines/base.py",
+    "batchIndex": 6,
+    "symbols": [
+     "Engine",
+     "Builder"
+    ]
+   },
+   {
+    "path": "src/exo/worker/engines/image/builder.py",
+    "batchIndex": 1,
+    "symbols": [
+     "_is_primary_output_node",
+     "_send_traces_if_enabled",
+     "MfluxBuilder",
+     "ImageEngine"
+    ]
+   },
+   {
+    "path": "src/exo/worker/engines/mlx/builder.py",
+    "batchIndex": 6,
+    "symbols": [
+     "MlxBuilder"
+    ]
+   },
+   {
+    "path": "src/exo/worker/engines/mlx/utils_mlx.py",
+    "batchIndex": 7,
+    "symbols": [
+     "get_weights_size",
+     "HostList",
+     "mlx_distributed_init",
+     "initialize_mlx",
+     "load_mlx_items",
+     "shard_and_load",
+     "get_tokenizer",
+     "get_eos_token_ids_for_model",
+     "load_tokenizer_for_model_id",
+     "_normalize_tool_calls",
+     "_collect_nested_property_names",
+     "_schemas_lost_in_prompt",
+     "_patch_lossy_chat_template",
+     "_needs_dsml_encoding",
+     "_needs_v4_encoding",
+     "_v4_reasoning_effort",
+     "_strip_v4_thinking_markers",
+     "consolidate_system_messages",
+     "render_chat_template",
+     "apply_chat_template",
+     "system_prompt_token_count",
+     "detect_thinking_prompt_suffix",
+     "fix_unmatched_think_end_tokens",
+     "NullKVCache",
+     "mlx_force_oom",
+     "set_wired_limit_for_model",
+     "mlx_cleanup",
+     "mx_any",
+     "mx_barrier",
+     "_parse_kimi_tool_calls",
+     "mx_all_gather_tasks"
+    ]
+   },
+   {
+    "path": "src/exo/worker/runner/bootstrap.py",
+    "batchIndex": 7,
+    "symbols": [
+     "RunnerTerminationError",
+     "entrypoint"
+    ]
+   },
+   {
+    "path": "src/exo/worker/runner/llm_inference/batch_generator.py",
+    "batchIndex": 7,
+    "symbols": [
+     "GeneratorQueue",
+     "_check_for_debug_prompts",
+     "SequentialGenerator",
+     "BatchGenerator"
+    ]
+   },
+   {
+    "path": "src/exo/worker/tests/unittests/test_image/test_cancellation.py",
+    "batchIndex": 1,
+    "symbols": [
+     "_make_runner",
+     "FakeCancelReceiver",
+     "FakeImageRunner",
+     "TestIsSentinel",
+     "TestCheckCancellation",
+     "TestSendWrapper",
+     "TestImageRunnerCheckCancelled",
+     "TestDrainCondition"
+    ]
+   }
+  ],
+  "src/exo/shared/types/worker/instances.py": [
+   {
+    "path": "src/exo/shared/models/model_cards.py",
+    "batchIndex": 4,
+    "symbols": [
+     "_CardCache",
+     "detect_vision_from_config",
+     "_is_image_card",
+     "ModelTask",
+     "ComponentInfo",
+     "VisionCardConfig",
+     "SamplingValues",
+     "SamplingDefaults",
+     "ModelCard",
+     "ConfigData",
+     "fetch_config_data",
+     "fetch_safetensors_size"
+    ]
+   },
+   {
+    "path": "src/exo/shared/types/common.py",
+    "batchIndex": 3,
+    "symbols": [
+     "Id",
+     "NodeId",
+     "SystemId",
+     "ModelId",
+     "CommandId",
+     "TruncatingString",
+     "SessionId",
+     "Host"
+    ]
+   },
+   {
+    "path": "src/exo/utils/pydantic_ext.py",
+    "batchIndex": 5,
+    "symbols": [
+     "FrozenModel",
+     "TaggedModel"
+    ]
+   },
+   {
+    "path": "src/exo/api/main.py",
+    "batchIndex": 3,
+    "symbols": [
+     "_format_to_content_type",
+     "_ensure_seed",
+     "_require_disaggregation_enabled",
+     "API"
+    ]
+   },
+   {
+    "path": "src/exo/api/types/api.py",
+    "batchIndex": 4,
+    "symbols": [
+     "ErrorInfo",
+     "ErrorResponse",
+     "ModelListModel",
+     "ModelList",
+     "ChatCompletionMessageText",
+     "ChatCompletionMessageImageUrl",
+     "ToolCallItem",
+     "ToolCall",
+     "ChatCompletionMessage",
+     "BenchChatCompletionMessage",
+     "TopLogprobItem",
+     "LogprobsContentItem",
+     "Logprobs",
+     "PromptTokensDetails",
+     "CompletionTokensDetails",
+     "Usage",
+     "StreamingChoiceResponse",
+     "ChatCompletionChoice",
+     "ChatCompletionResponse",
+     "GenerationStats",
+     "ImageGenerationStats",
+     "NodePowerStats",
+     "PowerUsage",
+     "BenchChatCompletionResponse",
+     "StreamOptions",
+     "ChatCompletionRequest",
+     "BenchChatCompletionRequest",
+     "AddCustomModelParams",
+     "HuggingFaceSearchResult",
+     "PlaceInstanceParams",
+     "CreateInstanceParams",
+     "PlacementPreview",
+     "PlacementPreviewResponse",
+     "DeleteInstanceTaskParams",
+     "CreateInstanceResponse",
+     "DeleteInstanceResponse",
+     "AwaitInstanceReadyMessage",
+     "AwaitInstanceTimeoutMessage",
+     "CancelCommandResponse",
+     "InstanceLinkBody",
+     "InstanceLinkResponse",
+     "normalize_image_size",
+     "AdvancedImageParams",
+     "ImageGenerationTaskParams",
+     "BenchImageGenerationTaskParams",
+     "ImageEditsTaskParams",
+     "ImageData",
+     "ImageGenerationResponse",
+     "BenchImageGenerationResponse",
+     "ImageListItem",
+     "ImageListResponse",
+     "StartDownloadParams",
+     "StartDownloadResponse",
+     "DeleteDownloadResponse",
+     "CancelDownloadParams",
+     "CancelDownloadResponse",
+     "TraceEventResponse",
+     "TraceResponse",
+     "TraceCategoryStats",
+     "TraceRankStats",
+     "TraceStatsResponse",
+     "TraceListItem",
+     "TraceListResponse",
+     "DeleteTracesRequest",
+     "DeleteTracesResponse"
+    ]
+   },
+   {
+    "path": "src/exo/master/main.py",
+    "batchIndex": 5,
+    "symbols": [
+     "_prefill_endpoint_for",
+     "Master"
+    ]
+   },
+   {
+    "path": "src/exo/master/placement.py",
+    "batchIndex": 4,
+    "symbols": [
+     "add_instance_to_placements",
+     "_get_node_download_fraction",
+     "_cycle_download_score",
+     "place_instance",
+     "delete_instance",
+     "get_transition_events",
+     "cancel_unnecessary_downloads"
+    ]
+   },
+   {
+    "path": "src/exo/master/tests/test_master.py",
+    "batchIndex": 4,
+    "symbols": [
+     "test_master"
+    ]
+   },
+   {
+    "path": "src/exo/master/tests/test_placement.py",
+    "batchIndex": 8,
+    "symbols": [
+     "instance",
+     "model_card",
+     "_metal_only",
+     "place_instance_command",
+     "test_get_instance_placements_create_instance",
+     "test_get_instance_placements_one_node_exact_fit",
+     "test_get_instance_placements_one_node_fits_with_extra_memory",
+     "test_get_instance_placements_one_node_not_fit",
+     "test_get_transition_events_no_change",
+     "test_get_transition_events_create_instance",
+     "test_get_transition_events_delete_instance",
+     "test_placement_selects_leaf_nodes",
+     "test_tensor_rdma_backend_connectivity_matrix",
+     "_build_three_node_rdma_topology",
+     "test_place_mlx_jaccl_rejects_when_a_node_has_rdma_ctl_disabled",
+     "test_place_mlx_jaccl_rejects_when_node_rdma_ctl_missing",
+     "_make_task",
+     "test_get_transition_events_delete_instance_cancels_running_tasks",
+     "test_get_transition_events_delete_instance_cancels_pending_tasks",
+     "test_get_transition_events_delete_instance_ignores_completed_tasks",
+     "test_get_transition_events_delete_instance_cancels_only_matching_tasks",
+     "_make_shard_metadata",
+     "test_placement_prefers_cycle_with_downloaded_model",
+     "test_placement_prefers_cycle_with_higher_download_progress",
+     "test_placement_does_not_prefer_cycle_with_failed_download",
+     "test_placement_rejects_when_model_backends_disjoint_from_engine",
+     "test_placement_rejects_when_only_some_nodes_support_backend",
+     "test_mlx_jaccl_rejects_cuda_only_cycle"
+    ]
+   },
+   {
+    "path": "src/exo/shared/types/commands.py",
+    "batchIndex": 4,
+    "symbols": [
+     "BaseCommand",
+     "TestCommand",
+     "TextGeneration",
+     "ImageGeneration",
+     "ImageEdits",
+     "PlaceInstance",
+     "CreateInstance",
+     "DeleteInstance",
+     "TaskCancelled",
+     "TaskFinished",
+     "SendInputChunk",
+     "RequestEventLog",
+     "StartDownload",
+     "DeleteDownload",
+     "CancelDownload",
+     "AddCustomModelCard",
+     "DeleteCustomModelCard",
+     "SetInstanceLink",
+     "DeleteInstanceLink",
+     "ForwarderCommand",
+     "ForwarderDownloadCommand"
+    ]
+   },
+   {
+    "path": "src/exo/worker/engines/base.py",
+    "batchIndex": 6,
+    "symbols": [
+     "Engine",
+     "Builder"
+    ]
+   },
+   {
+    "path": "src/exo/worker/engines/image/builder.py",
+    "batchIndex": 1,
+    "symbols": [
+     "_is_primary_output_node",
+     "_send_traces_if_enabled",
+     "MfluxBuilder",
+     "ImageEngine"
+    ]
+   },
+   {
+    "path": "src/exo/worker/engines/mlx/builder.py",
+    "batchIndex": 6,
+    "symbols": [
+     "MlxBuilder"
+    ]
+   },
+   {
+    "path": "src/exo/worker/engines/mlx/utils_mlx.py",
+    "batchIndex": 7,
+    "symbols": [
+     "get_weights_size",
+     "HostList",
+     "mlx_distributed_init",
+     "initialize_mlx",
+     "load_mlx_items",
+     "shard_and_load",
+     "get_tokenizer",
+     "get_eos_token_ids_for_model",
+     "load_tokenizer_for_model_id",
+     "_normalize_tool_calls",
+     "_collect_nested_property_names",
+     "_schemas_lost_in_prompt",
+     "_patch_lossy_chat_template",
+     "_needs_dsml_encoding",
+     "_needs_v4_encoding",
+     "_v4_reasoning_effort",
+     "_strip_v4_thinking_markers",
+     "consolidate_system_messages",
+     "render_chat_template",
+     "apply_chat_template",
+     "system_prompt_token_count",
+     "detect_thinking_prompt_suffix",
+     "fix_unmatched_think_end_tokens",
+     "NullKVCache",
+     "mlx_force_oom",
+     "set_wired_limit_for_model",
+     "mlx_cleanup",
+     "mx_any",
+     "mx_barrier",
+     "_parse_kimi_tool_calls",
+     "mx_all_gather_tasks"
+    ]
+   },
+   {
+    "path": "src/exo/worker/runner/bootstrap.py",
+    "batchIndex": 7,
+    "symbols": [
+     "RunnerTerminationError",
+     "entrypoint"
+    ]
+   }
+  ],
+  "src/exo/shared/types/worker/runners.py": [
+   {
+    "path": "src/exo/shared/models/model_cards.py",
+    "batchIndex": 4,
+    "symbols": [
+     "_CardCache",
+     "detect_vision_from_config",
+     "_is_image_card",
+     "ModelTask",
+     "ComponentInfo",
+     "VisionCardConfig",
+     "SamplingValues",
+     "SamplingDefaults",
+     "ModelCard",
+     "ConfigData",
+     "fetch_config_data",
+     "fetch_safetensors_size"
+    ]
+   },
+   {
+    "path": "src/exo/shared/types/common.py",
+    "batchIndex": 3,
+    "symbols": [
+     "Id",
+     "NodeId",
+     "SystemId",
+     "ModelId",
+     "CommandId",
+     "TruncatingString",
+     "SessionId",
+     "Host"
+    ]
+   },
+   {
+    "path": "src/exo/shared/types/worker/shards.py",
+    "batchIndex": 4,
+    "symbols": [
+     "Sharding",
+     "BaseShardMetadata",
+     "PipelineShardMetadata",
+     "CfgShardMetadata",
+     "TensorShardMetadata"
+    ]
+   },
+   {
+    "path": "src/exo/utils/pydantic_ext.py",
+    "batchIndex": 5,
+    "symbols": [
+     "FrozenModel",
+     "TaggedModel"
+    ]
+   },
+   {
+    "path": "src/exo/master/placement_utils.py",
+    "batchIndex": 8,
+    "symbols": [
+     "filter_cycles_by_memory",
+     "get_smallest_cycles",
+     "allocate_layers_proportionally",
+     "_validate_cycle",
+     "_compute_total_memory",
+     "_allocate_and_validate_layers",
+     "get_shard_assignments_for_pipeline_parallel",
+     "_get_shard_assignments_for_cfg_parallel",
+     "_get_shard_assignments_for_pure_pipeline",
+     "get_shard_assignments_for_tensor_parallel",
+     "get_shard_assignments",
+     "get_mlx_jaccl_devices_matrix",
+     "_find_connection_ip",
+     "find_ip_prioritised",
+     "get_mlx_ring_hosts_by_node",
+     "get_mlx_jaccl_coordinators"
+    ]
+   },
+   {
+    "path": "src/exo/master/tests/test_placement.py",
+    "batchIndex": 8,
+    "symbols": [
+     "instance",
+     "model_card",
+     "_metal_only",
+     "place_instance_command",
+     "test_get_instance_placements_create_instance",
+     "test_get_instance_placements_one_node_exact_fit",
+     "test_get_instance_placements_one_node_fits_with_extra_memory",
+     "test_get_instance_placements_one_node_not_fit",
+     "test_get_transition_events_no_change",
+     "test_get_transition_events_create_instance",
+     "test_get_transition_events_delete_instance",
+     "test_placement_selects_leaf_nodes",
+     "test_tensor_rdma_backend_connectivity_matrix",
+     "_build_three_node_rdma_topology",
+     "test_place_mlx_jaccl_rejects_when_a_node_has_rdma_ctl_disabled",
+     "test_place_mlx_jaccl_rejects_when_node_rdma_ctl_missing",
+     "_make_task",
+     "test_get_transition_events_delete_instance_cancels_running_tasks",
+     "test_get_transition_events_delete_instance_cancels_pending_tasks",
+     "test_get_transition_events_delete_instance_ignores_completed_tasks",
+     "test_get_transition_events_delete_instance_cancels_only_matching_tasks",
+     "_make_shard_metadata",
+     "test_placement_prefers_cycle_with_downloaded_model",
+     "test_placement_prefers_cycle_with_higher_download_progress",
+     "test_placement_does_not_prefer_cycle_with_failed_download",
+     "test_placement_rejects_when_model_backends_disjoint_from_engine",
+     "test_placement_rejects_when_only_some_nodes_support_backend",
+     "test_mlx_jaccl_rejects_cuda_only_cycle"
+    ]
+   }
+  ],
+  "src/exo/worker/main.py": [
+   {
+    "path": "src/exo/api/types/__init__.py",
+    "batchIndex": 3,
+    "symbols": []
+   },
+   {
+    "path": "src/exo/download/download_utils.py",
+    "batchIndex": 4,
+    "symbols": [
+     "HuggingFaceAuthenticationError",
+     "HuggingFaceRateLimitError",
+     "_parse_retry_after",
+     "_build_auth_error_message",
+     "trim_etag",
+     "map_repo_file_download_progress_to_download_progress_data",
+     "map_repo_download_progress_to_download_progress_data",
+     "InsufficientDiskSpaceError",
+     "resolve_existing_model",
+     "is_read_only_model_dir",
+     "build_model_path",
+     "select_download_dir",
+     "select_download_dir_for_shard",
+     "resolve_model_dir",
+     "ensure_cache_dir",
+     "delete_model",
+     "seed_models",
+     "_scan_model_directory",
+     "is_model_directory_complete",
+     "_build_file_list_from_local_directory",
+     "fetch_file_list_with_cache",
+     "fetch_file_list_with_retry",
+     "_fetch_file_list",
+     "get_download_headers",
+     "create_http_session",
+     "calc_hash",
+     "file_meta",
+     "download_file_with_retry",
+     "_download_file",
+     "calculate_repo_progress",
+     "get_weight_map",
+     "resolve_allow_patterns",
+     "is_image_model",
+     "get_downloaded_size",
+     "download_shard"
+    ]
+   },
+   {
+    "path": "src/exo/routing/event_router.py",
+    "batchIndex": 5,
+    "symbols": [
+     "EventRouterClosedResourceError",
+     "EventRouterBrokenResourceError",
+     "EventRouter"
+    ]
+   },
+   {
+    "path": "src/exo/shared/constants.py",
+    "batchIndex": 1,
+    "symbols": [
+     "_get_xdg_dir",
+     "_parse_colon_dirs"
+    ]
+   },
+   {
+    "path": "src/exo/shared/models/model_cards.py",
+    "batchIndex": 4,
+    "symbols": [
+     "_CardCache",
+     "detect_vision_from_config",
+     "_is_image_card",
+     "ModelTask",
+     "ComponentInfo",
+     "VisionCardConfig",
+     "SamplingValues",
+     "SamplingDefaults",
+     "ModelCard",
+     "ConfigData",
+     "fetch_config_data",
+     "fetch_safetensors_size"
+    ]
+   },
+   {
+    "path": "src/exo/shared/types/chunks.py",
+    "batchIndex": 3,
+    "symbols": [
+     "BaseChunk",
+     "TokenChunk",
+     "ErrorChunk",
+     "ToolCallChunk",
+     "ImageChunk",
+     "InputImageChunk",
+     "PrefillProgressChunk"
+    ]
+   },
+   {
+    "path": "src/exo/shared/types/commands.py",
+    "batchIndex": 4,
+    "symbols": [
+     "BaseCommand",
+     "TestCommand",
+     "TextGeneration",
+     "ImageGeneration",
+     "ImageEdits",
+     "PlaceInstance",
+     "CreateInstance",
+     "DeleteInstance",
+     "TaskCancelled",
+     "TaskFinished",
+     "SendInputChunk",
+     "RequestEventLog",
+     "StartDownload",
+     "DeleteDownload",
+     "CancelDownload",
+     "AddCustomModelCard",
+     "DeleteCustomModelCard",
+     "SetInstanceLink",
+     "DeleteInstanceLink",
+     "ForwarderCommand",
+     "ForwarderDownloadCommand"
+    ]
+   },
+   {
+    "path": "src/exo/shared/types/common.py",
+    "batchIndex": 3,
+    "symbols": [
+     "Id",
+     "NodeId",
+     "SystemId",
+     "ModelId",
+     "CommandId",
+     "TruncatingString",
+     "SessionId",
+     "Host"
+    ]
+   },
+   {
+    "path": "src/exo/shared/types/multiaddr.py",
+    "batchIndex": 8,
+    "symbols": [
+     "Multiaddr"
+    ]
+   },
+   {
+    "path": "src/exo/shared/types/text_generation.py",
+    "batchIndex": 6,
+    "symbols": [
+     "resolve_reasoning_params",
+     "InputMessageContent",
+     "InputMessage",
+     "Base64Image",
+     "Base64ImageHash",
+     "_wrap_chat_value",
+     "TextGenerationTaskParams"
+    ]
+   },
+   {
+    "path": "src/exo/shared/types/topology.py",
+    "batchIndex": 8,
+    "symbols": [
+     "Cycle",
+     "RDMAConnection",
+     "SocketConnection",
+     "Connection"
+    ]
+   },
+   {
+    "path": "src/exo/shared/types/worker/downloads.py",
+    "batchIndex": 4,
+    "symbols": [
+     "DownloadProgressData",
+     "BaseDownloadProgress",
+     "DownloadPending",
+     "DownloadCompleted",
+     "DownloadFailed",
+     "DownloadOngoing",
+     "ModelSafetensorsIndexMetadata",
+     "ModelSafetensorsIndex",
+     "FileListEntry",
+     "RepoFileDownloadProgress",
+     "RepoDownloadProgress"
+    ]
+   },
+   {
+    "path": "src/exo/utils/channels.py",
+    "batchIndex": 5,
+    "symbols": [
+     "ErrorOverride",
+     "Sender",
+     "Receiver",
+     "_MpEndOfStream",
+     "MpState",
+     "MpSender",
+     "MpReceiver",
+     "channel",
+     "mp_channel"
+    ]
+   },
+   {
+    "path": "src/exo/utils/info_gatherer/info_gatherer.py",
+    "batchIndex": 8,
+    "symbols": [
+     "_get_thunderbolt_devices",
+     "_get_bridge_services",
+     "_get_bridge_members",
+     "_find_thunderbolt_bridge",
+     "_is_service_enabled",
+     "StaticNodeInformation",
+     "NodeNetworkInterfaces",
+     "MacThunderboltIdentifiers",
+     "MacThunderboltConnections",
+     "RdmaCtlStatus",
+     "ThunderboltBridgeInfo",
+     "NodeConfig",
+     "MiscData",
+     "NodeDiskUsage",
+     "_gather_iface_map",
+     "_has_nvml_cuda",
+     "NodeBackends",
+     "InfoGatherer"
+    ]
+   },
+   {
+    "path": "src/exo/utils/info_gatherer/net_profile.py",
+    "batchIndex": 8,
+    "symbols": [
+     "check_reachability",
+     "check_reachable"
+    ]
+   },
+   {
+    "path": "src/exo/utils/task_group.py",
+    "batchIndex": 5,
+    "symbols": [
+     "TaskGroup"
+    ]
+   },
+   {
+    "path": "src/exo/main.py",
+    "batchIndex": 5,
+    "symbols": [
+     "Node",
+     "main",
+     "main_inner",
+     "Args"
+    ]
+   }
+  ],
+  "src/exo/worker/plan.py": [
+   {
+    "path": "src/exo/shared/types/chunks.py",
+    "batchIndex": 3,
+    "symbols": [
+     "BaseChunk",
+     "TokenChunk",
+     "ErrorChunk",
+     "ToolCallChunk",
+     "ImageChunk",
+     "InputImageChunk",
+     "PrefillProgressChunk"
+    ]
+   },
+   {
+    "path": "src/exo/shared/types/common.py",
+    "batchIndex": 3,
+    "symbols": [
+     "Id",
+     "NodeId",
+     "SystemId",
+     "ModelId",
+     "CommandId",
+     "TruncatingString",
+     "SessionId",
+     "Host"
+    ]
+   },
+   {
+    "path": "src/exo/shared/types/text_generation.py",
+    "batchIndex": 6,
+    "symbols": [
+     "resolve_reasoning_params",
+     "InputMessageContent",
+     "InputMessage",
+     "Base64Image",
+     "Base64ImageHash",
+     "_wrap_chat_value",
+     "TextGenerationTaskParams"
+    ]
+   },
+   {
+    "path": "src/exo/shared/types/worker/downloads.py",
+    "batchIndex": 4,
+    "symbols": [
+     "DownloadProgressData",
+     "BaseDownloadProgress",
+     "DownloadPending",
+     "DownloadCompleted",
+     "DownloadFailed",
+     "DownloadOngoing",
+     "ModelSafetensorsIndexMetadata",
+     "ModelSafetensorsIndex",
+     "FileListEntry",
+     "RepoFileDownloadProgress",
+     "RepoDownloadProgress"
+    ]
+   }
+  ],
+  "src/exo/worker/runner/diagnostics.py": [
+   {
+    "path": "src/exo/utils/pydantic_ext.py",
+    "batchIndex": 5,
+    "symbols": [
+     "FrozenModel",
+     "TaggedModel"
+    ]
+   },
+   {
+    "path": "src/exo/shared/types/chunks.py",
+    "batchIndex": 3,
+    "symbols": [
+     "BaseChunk",
+     "TokenChunk",
+     "ErrorChunk",
+     "ToolCallChunk",
+     "ImageChunk",
+     "InputImageChunk",
+     "PrefillProgressChunk"
+    ]
+   }
+  ],
+  "src/exo/worker/runner/runner.py": [
+   {
+    "path": "src/exo/shared/constants.py",
+    "batchIndex": 1,
+    "symbols": [
+     "_get_xdg_dir",
+     "_parse_colon_dirs"
+    ]
+   },
+   {
+    "path": "src/exo/shared/types/chunks.py",
+    "batchIndex": 3,
+    "symbols": [
+     "BaseChunk",
+     "TokenChunk",
+     "ErrorChunk",
+     "ToolCallChunk",
+     "ImageChunk",
+     "InputImageChunk",
+     "PrefillProgressChunk"
+    ]
+   },
+   {
+    "path": "src/exo/shared/types/common.py",
+    "batchIndex": 3,
+    "symbols": [
+     "Id",
+     "NodeId",
+     "SystemId",
+     "ModelId",
+     "CommandId",
+     "TruncatingString",
+     "SessionId",
+     "Host"
+    ]
+   },
+   {
+    "path": "src/exo/shared/types/worker/runner_response.py",
+    "batchIndex": 6,
+    "symbols": [
+     "BaseRunnerResponse",
+     "GenerationResponse",
+     "ImageGenerationResponse",
+     "PartialImageResponse",
+     "ToolCallResponse",
+     "FinishedResponse",
+     "ModelLoadingResponse",
+     "CancelledResponse",
+     "PrefillProgressResponse"
+    ]
+   },
+   {
+    "path": "src/exo/utils/channels.py",
+    "batchIndex": 5,
+    "symbols": [
+     "ErrorOverride",
+     "Sender",
+     "Receiver",
+     "_MpEndOfStream",
+     "MpState",
+     "MpSender",
+     "MpReceiver",
+     "channel",
+     "mp_channel"
+    ]
+   },
+   {
+    "path": "src/exo/utils/ports.py",
+    "batchIndex": 6,
+    "symbols": [
+     "random_ephemeral_port"
+    ]
+   },
+   {
+    "path": "src/exo/worker/disaggregated/server.py",
+    "batchIndex": 6,
+    "symbols": [
+     "PrefillRequest",
+     "write_request",
+     "read_request",
+     "_send_error",
+     "_PrefillHandler",
+     "PrefillServer"
+    ]
+   },
+   {
+    "path": "src/exo/worker/engines/base.py",
+    "batchIndex": 6,
+    "symbols": [
+     "Engine",
+     "Builder"
+    ]
+   },
+   {
+    "path": "src/exo/worker/runner/bootstrap.py",
+    "batchIndex": 7,
+    "symbols": [
+     "RunnerTerminationError",
+     "entrypoint"
+    ]
+   }
+  ],
+  "src/exo/worker/runner/supervisor.py": [
+   {
+    "path": "src/exo/shared/constants.py",
+    "batchIndex": 1,
+    "symbols": [
+     "_get_xdg_dir",
+     "_parse_colon_dirs"
+    ]
+   },
+   {
+    "path": "src/exo/shared/types/chunks.py",
+    "batchIndex": 3,
+    "symbols": [
+     "BaseChunk",
+     "TokenChunk",
+     "ErrorChunk",
+     "ToolCallChunk",
+     "ImageChunk",
+     "InputImageChunk",
+     "PrefillProgressChunk"
+    ]
+   },
+   {
+    "path": "src/exo/shared/types/worker/shards.py",
+    "batchIndex": 4,
+    "symbols": [
+     "Sharding",
+     "BaseShardMetadata",
+     "PipelineShardMetadata",
+     "CfgShardMetadata",
+     "TensorShardMetadata"
+    ]
+   },
+   {
+    "path": "src/exo/utils/async_process.py",
+    "batchIndex": 5,
+    "symbols": [
+     "AsyncProcess",
+     "_run_with_captured_stdio",
+     "_drain_fd",
+     "_close_fd"
+    ]
+   },
+   {
+    "path": "src/exo/utils/channels.py",
+    "batchIndex": 5,
+    "symbols": [
+     "ErrorOverride",
+     "Sender",
+     "Receiver",
+     "_MpEndOfStream",
+     "MpState",
+     "MpSender",
+     "MpReceiver",
+     "channel",
+     "mp_channel"
+    ]
+   },
+   {
+    "path": "src/exo/utils/task_group.py",
+    "batchIndex": 5,
+    "symbols": [
+     "TaskGroup"
+    ]
+   },
+   {
+    "path": "src/exo/worker/runner/bootstrap.py",
+    "batchIndex": 7,
+    "symbols": [
+     "RunnerTerminationError",
+     "entrypoint"
+    ]
+   }
+  ],
+  "src/exo/worker/tests/constants.py": [
+   {
+    "path": "src/exo/shared/models/model_cards.py",
+    "batchIndex": 4,
+    "symbols": [
+     "_CardCache",
+     "detect_vision_from_config",
+     "_is_image_card",
+     "ModelTask",
+     "ComponentInfo",
+     "VisionCardConfig",
+     "SamplingValues",
+     "SamplingDefaults",
+     "ModelCard",
+     "ConfigData",
+     "fetch_config_data",
+     "fetch_safetensors_size"
+    ]
+   },
+   {
+    "path": "src/exo/shared/types/common.py",
+    "batchIndex": 3,
+    "symbols": [
+     "Id",
+     "NodeId",
+     "SystemId",
+     "ModelId",
+     "CommandId",
+     "TruncatingString",
+     "SessionId",
+     "Host"
+    ]
+   }
+  ],
+  "src/exo/worker/tests/unittests/conftest.py": [
+   {
+    "path": "src/exo/shared/models/model_cards.py",
+    "batchIndex": 4,
+    "symbols": [
+     "_CardCache",
+     "detect_vision_from_config",
+     "_is_image_card",
+     "ModelTask",
+     "ComponentInfo",
+     "VisionCardConfig",
+     "SamplingValues",
+     "SamplingDefaults",
+     "ModelCard",
+     "ConfigData",
+     "fetch_config_data",
+     "fetch_safetensors_size"
+    ]
+   },
+   {
+    "path": "src/exo/shared/types/backends.py",
+    "batchIndex": 4,
+    "symbols": [
+     "Backend"
+    ]
+   },
+   {
+    "path": "src/exo/shared/types/common.py",
+    "batchIndex": 3,
+    "symbols": [
+     "Id",
+     "NodeId",
+     "SystemId",
+     "ModelId",
+     "CommandId",
+     "TruncatingString",
+     "SessionId",
+     "Host"
+    ]
+   },
+   {
+    "path": "src/exo/shared/types/memory.py",
+    "batchIndex": 4,
+    "symbols": [
+     "Memory"
+    ]
+   },
+   {
+    "path": "src/exo/shared/types/worker/shards.py",
+    "batchIndex": 4,
+    "symbols": [
+     "Sharding",
+     "BaseShardMetadata",
+     "PipelineShardMetadata",
+     "CfgShardMetadata",
+     "TensorShardMetadata"
+    ]
+   }
+  ],
+  "src/exo/worker/tests/unittests/test_plan/test_download_and_loading.py": [
+   {
+    "path": "src/exo/shared/types/common.py",
+    "batchIndex": 3,
+    "symbols": [
+     "Id",
+     "NodeId",
+     "SystemId",
+     "ModelId",
+     "CommandId",
+     "TruncatingString",
+     "SessionId",
+     "Host"
+    ]
+   },
+   {
+    "path": "src/exo/shared/types/memory.py",
+    "batchIndex": 4,
+    "symbols": [
+     "Memory"
+    ]
+   },
+   {
+    "path": "src/exo/shared/types/worker/downloads.py",
+    "batchIndex": 4,
+    "symbols": [
+     "DownloadProgressData",
+     "BaseDownloadProgress",
+     "DownloadPending",
+     "DownloadCompleted",
+     "DownloadFailed",
+     "DownloadOngoing",
+     "ModelSafetensorsIndexMetadata",
+     "ModelSafetensorsIndex",
+     "FileListEntry",
+     "RepoFileDownloadProgress",
+     "RepoDownloadProgress"
+    ]
+   }
+  ],
+  "src/exo/worker/tests/unittests/test_plan/test_task_forwarding.py": [
+   {
+    "path": "src/exo/shared/types/text_generation.py",
+    "batchIndex": 6,
+    "symbols": [
+     "resolve_reasoning_params",
+     "InputMessageContent",
+     "InputMessage",
+     "Base64Image",
+     "Base64ImageHash",
+     "_wrap_chat_value",
+     "TextGenerationTaskParams"
+    ]
+   }
+  ],
+  "src/exo/worker/tests/unittests/test_runner/test_event_ordering.py": [
+   {
+    "path": "src/exo/shared/types/chunks.py",
+    "batchIndex": 3,
+    "symbols": [
+     "BaseChunk",
+     "TokenChunk",
+     "ErrorChunk",
+     "ToolCallChunk",
+     "ImageChunk",
+     "InputImageChunk",
+     "PrefillProgressChunk"
+    ]
+   },
+   {
+    "path": "src/exo/shared/types/text_generation.py",
+    "batchIndex": 6,
+    "symbols": [
+     "resolve_reasoning_params",
+     "InputMessageContent",
+     "InputMessage",
+     "Base64Image",
+     "Base64ImageHash",
+     "_wrap_chat_value",
+     "TextGenerationTaskParams"
+    ]
+   },
+   {
+    "path": "src/exo/shared/types/worker/runner_response.py",
+    "batchIndex": 6,
+    "symbols": [
+     "BaseRunnerResponse",
+     "GenerationResponse",
+     "ImageGenerationResponse",
+     "PartialImageResponse",
+     "ToolCallResponse",
+     "FinishedResponse",
+     "ModelLoadingResponse",
+     "CancelledResponse",
+     "PrefillProgressResponse"
+    ]
+   },
+   {
+    "path": "src/exo/utils/channels.py",
+    "batchIndex": 5,
+    "symbols": [
+     "ErrorOverride",
+     "Sender",
+     "Receiver",
+     "_MpEndOfStream",
+     "MpState",
+     "MpSender",
+     "MpReceiver",
+     "channel",
+     "mp_channel"
+    ]
+   },
+   {
+    "path": "src/exo/worker/engines/mlx/builder.py",
+    "batchIndex": 6,
+    "symbols": [
+     "MlxBuilder"
+    ]
+   },
+   {
+    "path": "src/exo/worker/runner/llm_inference/batch_generator.py",
+    "batchIndex": 7,
+    "symbols": [
+     "GeneratorQueue",
+     "_check_for_debug_prompts",
+     "SequentialGenerator",
+     "BatchGenerator"
+    ]
+   },
+   {
+    "path": "src/exo/worker/runner/llm_inference/model_output_parsers.py",
+    "batchIndex": 7,
+    "symbols": [
+     "get_gpt_oss_encoding",
+     "count_reasoning_tokens",
+     "apply_all_parsers",
+     "map_responses_to_chunks",
+     "parse_gpt_oss",
+     "parse_deepseek_v32",
+     "parse_deepseek_v4",
+     "_parse_dsml_stream",
+     "_could_be_marker_prefix",
+     "parse_thinking_models",
+     "parse_tool_calls"
+    ]
+   }
+  ],
+  "src/exo/worker/tests/unittests/test_runner/test_runner_supervisor.py": [
+   {
+    "path": "src/exo/shared/models/model_cards.py",
+    "batchIndex": 4,
+    "symbols": [
+     "_CardCache",
+     "detect_vision_from_config",
+     "_is_image_card",
+     "ModelTask",
+     "ComponentInfo",
+     "VisionCardConfig",
+     "SamplingValues",
+     "SamplingDefaults",
+     "ModelCard",
+     "ConfigData",
+     "fetch_config_data",
+     "fetch_safetensors_size"
+    ]
+   },
+   {
+    "path": "src/exo/shared/types/chunks.py",
+    "batchIndex": 3,
+    "symbols": [
+     "BaseChunk",
+     "TokenChunk",
+     "ErrorChunk",
+     "ToolCallChunk",
+     "ImageChunk",
+     "InputImageChunk",
+     "PrefillProgressChunk"
+    ]
+   },
+   {
+    "path": "src/exo/shared/types/common.py",
+    "batchIndex": 3,
+    "symbols": [
+     "Id",
+     "NodeId",
+     "SystemId",
+     "ModelId",
+     "CommandId",
+     "TruncatingString",
+     "SessionId",
+     "Host"
+    ]
+   },
+   {
+    "path": "src/exo/shared/types/text_generation.py",
+    "batchIndex": 6,
+    "symbols": [
+     "resolve_reasoning_params",
+     "InputMessageContent",
+     "InputMessage",
+     "Base64Image",
+     "Base64ImageHash",
+     "_wrap_chat_value",
+     "TextGenerationTaskParams"
+    ]
+   },
+   {
+    "path": "src/exo/utils/async_process.py",
+    "batchIndex": 5,
+    "symbols": [
+     "AsyncProcess",
+     "_run_with_captured_stdio",
+     "_drain_fd",
+     "_close_fd"
+    ]
+   },
+   {
+    "path": "src/exo/utils/channels.py",
+    "batchIndex": 5,
+    "symbols": [
+     "ErrorOverride",
+     "Sender",
+     "Receiver",
+     "_MpEndOfStream",
+     "MpState",
+     "MpSender",
+     "MpReceiver",
+     "channel",
+     "mp_channel"
+    ]
+   },
+   {
+    "path": "src/exo/worker/runner/bootstrap.py",
+    "batchIndex": 7,
+    "symbols": [
+     "RunnerTerminationError",
+     "entrypoint"
+    ]
+   }
+  ]
+ }
+}

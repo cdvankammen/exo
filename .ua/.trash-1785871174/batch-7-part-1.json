@@ -1,0 +1,1475 @@
+{
+ "nodes": [
+  {
+   "id": "file:src/exo/worker/engines/mlx/generator/remote_prefill.py",
+   "type": "file",
+   "name": "remote_prefill.py",
+   "filePath": "src/exo/worker/engines/mlx/generator/remote_prefill.py",
+   "summary": "Implements remote prefill for disaggregated inference: streams KV-cache chunks from a remote prefill server over HTTP and ingests them into the local MLX cache while reporting throughput and prefill progress.",
+   "tags": [
+    "inference",
+    "prefill",
+    "disaggregated",
+    "mlx",
+    "kv-cache"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:src/exo/worker/engines/mlx/generator/remote_prefill.py:remote_prefill",
+   "type": "function",
+   "name": "remote_prefill",
+   "filePath": "src/exo/worker/engines/mlx/generator/remote_prefill.py",
+   "lineRange": [
+    19,
+    72
+   ],
+   "summary": "Fetches prefill results from a remote endpoint, ingests KV chunks into the local cache, and returns throughput plus snapshot of SSM states.",
+   "tags": [
+    "prefill",
+    "disaggregated",
+    "network"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:src/exo/worker/engines/mlx/tests/test_batch_generate.py",
+   "type": "file",
+   "name": "test_batch_generate.py",
+   "filePath": "src/exo/worker/engines/mlx/tests/test_batch_generate.py",
+   "summary": "Parity tests comparing batched (b2) vs sequential (b1) token generation for Llama and Qwen3.5 MoE models using seeded random weights and shared KV caches.",
+   "tags": [
+    "test",
+    "batch-generation",
+    "mlx",
+    "parity",
+    "inference"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "function:src/exo/worker/engines/mlx/tests/test_batch_generate.py:_init_random",
+   "type": "function",
+   "name": "_init_random",
+   "filePath": "src/exo/worker/engines/mlx/tests/test_batch_generate.py",
+   "lineRange": [
+    34,
+    44
+   ],
+   "summary": "Initializes model weights with seeded random values for deterministic test comparisons.",
+   "tags": [
+    "test",
+    "setup"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/worker/engines/mlx/tests/test_batch_generate.py:_run_b1_vs_b2",
+   "type": "function",
+   "name": "_run_b1_vs_b2",
+   "filePath": "src/exo/worker/engines/mlx/tests/test_batch_generate.py",
+   "lineRange": [
+    47,
+    147
+   ],
+   "summary": "Runs batched and sequential generation over a prompt and compares logits at each step, asserting parity within a tolerance.",
+   "tags": [
+    "test",
+    "parity",
+    "batch-generation"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "function:src/exo/worker/engines/mlx/tests/test_batch_generate.py:_make_tokenizer",
+   "type": "function",
+   "name": "_make_tokenizer",
+   "filePath": "src/exo/worker/engines/mlx/tests/test_batch_generate.py",
+   "lineRange": [
+    150,
+    161
+   ],
+   "summary": "Downloads a snapshot and constructs a TokenizerWrapper for the test model.",
+   "tags": [
+    "test",
+    "tokenizer"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/worker/engines/mlx/tests/test_batch_generate.py:test_batch_b2_llama",
+   "type": "function",
+   "name": "test_batch_b2_llama",
+   "filePath": "src/exo/worker/engines/mlx/tests/test_batch_generate.py",
+   "lineRange": [
+    165,
+    198
+   ],
+   "summary": "Verifies batched generation matches sequential generation for a small Llama model.",
+   "tags": [
+    "test",
+    "llama",
+    "batch-generation"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:src/exo/worker/engines/mlx/tests/test_batch_generate.py:test_batch_b2_qwen35_moe",
+   "type": "function",
+   "name": "test_batch_b2_qwen35_moe",
+   "filePath": "src/exo/worker/engines/mlx/tests/test_batch_generate.py",
+   "lineRange": [
+    202,
+    268
+   ],
+   "summary": "Verifies batched generation parity for a Qwen3.5 MoE model.",
+   "tags": [
+    "test",
+    "qwen",
+    "moe",
+    "batch-generation"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:src/exo/worker/engines/mlx/tests/test_extract_top_logprobs.py",
+   "type": "file",
+   "name": "test_extract_top_logprobs.py",
+   "filePath": "src/exo/worker/engines/mlx/tests/test_extract_top_logprobs.py",
+   "summary": "Unit tests for extract_top_logprobs covering top-k ordering, NaN filtering, vocabulary clamping, and token byte handling.",
+   "tags": [
+    "test",
+    "logprobs",
+    "sampling",
+    "mlx"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/worker/engines/mlx/tests/test_extract_top_logprobs.py:TestExtractTopLogprobsFallback",
+   "type": "class",
+   "name": "TestExtractTopLogprobsFallback",
+   "filePath": "src/exo/worker/engines/mlx/tests/test_extract_top_logprobs.py",
+   "lineRange": [
+    23,
+    69
+   ],
+   "summary": "Exercises logprob extraction edge cases: sorted top-k output, NaN filtering, vocab clamping, and correct token bytes.",
+   "tags": [
+    "test",
+    "logprobs",
+    "sampling"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:src/exo/worker/engines/mlx/types.py",
+   "type": "file",
+   "name": "types.py",
+   "filePath": "src/exo/worker/engines/mlx/types.py",
+   "summary": "Defines the KVCacheType union of MLX KV-cache variants and the Model wrapper class that provides a typed call interface over untyped MLX nn.Module models.",
+   "tags": [
+    "type-definition",
+    "mlx",
+    "data-model",
+    "kv-cache"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/worker/engines/mlx/types.py:Model",
+   "type": "class",
+   "name": "Model",
+   "filePath": "src/exo/worker/engines/mlx/types.py",
+   "lineRange": [
+    29,
+    37
+   ],
+   "summary": "Typed wrapper over MLX nn.Module guaranteeing a __call__(x, cache, input_embeddings) interface for EXO inference.",
+   "tags": [
+    "type-definition",
+    "mlx",
+    "data-model"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:src/exo/worker/engines/mlx/utils_mlx.py",
+   "type": "file",
+   "name": "utils_mlx.py",
+   "filePath": "src/exo/worker/engines/mlx/utils_mlx.py",
+   "summary": "Core MLX engine utilities: distributed init and hostfile management, model sharding/loading, tokenizer loading with tool-call templating, chat-template rendering with thinking-marker fixes, and memory/OOM control helpers.",
+   "tags": [
+    "mlx",
+    "inference",
+    "utility",
+    "tokenizer",
+    "sharding"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "function:src/exo/worker/engines/mlx/utils_mlx.py:get_weights_size",
+   "type": "function",
+   "name": "get_weights_size",
+   "filePath": "src/exo/worker/engines/mlx/utils_mlx.py",
+   "lineRange": [
+    71,
+    81
+   ],
+   "summary": "Computes the total size of model weights by summing tensor bytes.",
+   "tags": [
+    "utility",
+    "mlx",
+    "memory"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/worker/engines/mlx/utils_mlx.py:mlx_distributed_init",
+   "type": "function",
+   "name": "mlx_distributed_init",
+   "filePath": "src/exo/worker/engines/mlx/utils_mlx.py",
+   "lineRange": [
+    90,
+    147
+   ],
+   "summary": "Initializes MLX distributed process groups and writes the hostfile needed for multi-device operation.",
+   "tags": [
+    "distributed",
+    "mlx",
+    "setup"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:src/exo/worker/engines/mlx/utils_mlx.py:initialize_mlx",
+   "type": "function",
+   "name": "initialize_mlx",
+   "filePath": "src/exo/worker/engines/mlx/utils_mlx.py",
+   "lineRange": [
+    150,
+    160
+   ],
+   "summary": "Entry hook that initializes the MLX distributed environment.",
+   "tags": [
+    "distributed",
+    "mlx"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/worker/engines/mlx/utils_mlx.py:load_mlx_items",
+   "type": "function",
+   "name": "load_mlx_items",
+   "filePath": "src/exo/worker/engines/mlx/utils_mlx.py",
+   "lineRange": [
+    163,
+    229
+   ],
+   "summary": "Loads MLX model weights, shards them across devices, loads tokenizer and vision processor, and emits model-loading progress responses.",
+   "tags": [
+    "mlx",
+    "loading",
+    "sharding",
+    "vision"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "function:src/exo/worker/engines/mlx/utils_mlx.py:shard_and_load",
+   "type": "function",
+   "name": "shard_and_load",
+   "filePath": "src/exo/worker/engines/mlx/utils_mlx.py",
+   "lineRange": [
+    232,
+    286
+   ],
+   "summary": "Applies tensor or pipeline auto-parallel sharding strategies and loads the model onto the device group.",
+   "tags": [
+    "mlx",
+    "sharding",
+    "parallelism"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:src/exo/worker/engines/mlx/utils_mlx.py:get_tokenizer",
+   "type": "function",
+   "name": "get_tokenizer",
+   "filePath": "src/exo/worker/engines/mlx/utils_mlx.py",
+   "lineRange": [
+    289,
+    295
+   ],
+   "summary": "Delegates tokenizer construction to load_tokenizer_for_model_id.",
+   "tags": [
+    "tokenizer",
+    "utility"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/worker/engines/mlx/utils_mlx.py:get_eos_token_ids_for_model",
+   "type": "function",
+   "name": "get_eos_token_ids_for_model",
+   "filePath": "src/exo/worker/engines/mlx/utils_mlx.py",
+   "lineRange": [
+    298,
+    332
+   ],
+   "summary": "Returns the EOS token IDs appropriate for a given model family.",
+   "tags": [
+    "tokenizer",
+    "utility"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:src/exo/worker/engines/mlx/utils_mlx.py:load_tokenizer_for_model_id",
+   "type": "function",
+   "name": "load_tokenizer_for_model_id",
+   "filePath": "src/exo/worker/engines/mlx/utils_mlx.py",
+   "lineRange": [
+    335,
+    410
+   ],
+   "summary": "Loads a model tokenizer, applying remote-code patching, tool-call templating, and thinking-token support.",
+   "tags": [
+    "tokenizer",
+    "loading",
+    "templating"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "function:src/exo/worker/engines/mlx/utils_mlx.py:_normalize_tool_calls",
+   "type": "function",
+   "name": "_normalize_tool_calls",
+   "filePath": "src/exo/worker/engines/mlx/utils_mlx.py",
+   "lineRange": [
+    413,
+    432
+   ],
+   "summary": "Normalizes parsed tool calls into a canonical (name, arguments) shape.",
+   "tags": [
+    "tool-calls",
+    "normalization"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/worker/engines/mlx/utils_mlx.py:_collect_nested_property_names",
+   "type": "function",
+   "name": "_collect_nested_property_names",
+   "filePath": "src/exo/worker/engines/mlx/utils_mlx.py",
+   "lineRange": [
+    435,
+    448
+   ],
+   "summary": "Walks a JSON schema collecting nested property names for tool-call validation.",
+   "tags": [
+    "json-schema",
+    "validation"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/worker/engines/mlx/utils_mlx.py:_schemas_lost_in_prompt",
+   "type": "function",
+   "name": "_schemas_lost_in_prompt",
+   "filePath": "src/exo/worker/engines/mlx/utils_mlx.py",
+   "lineRange": [
+    451,
+    459
+   ],
+   "summary": "Checks whether any tool schemas were omitted from the rendered prompt.",
+   "tags": [
+    "tool-calls",
+    "prompt"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/worker/engines/mlx/utils_mlx.py:_patch_lossy_chat_template",
+   "type": "function",
+   "name": "_patch_lossy_chat_template",
+   "filePath": "src/exo/worker/engines/mlx/utils_mlx.py",
+   "lineRange": [
+    467,
+    482
+   ],
+   "summary": "Repairs chat templates that drop tool schemas or system content during rendering.",
+   "tags": [
+    "templating",
+    "tool-calls"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/worker/engines/mlx/utils_mlx.py:_v4_reasoning_effort",
+   "type": "function",
+   "name": "_v4_reasoning_effort",
+   "filePath": "src/exo/worker/engines/mlx/utils_mlx.py",
+   "lineRange": [
+    493,
+    499
+   ],
+   "summary": "Extracts reasoning-effort config for DeepSeek V4 style models.",
+   "tags": [
+    "reasoning",
+    "config"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/worker/engines/mlx/utils_mlx.py:_strip_v4_thinking_markers",
+   "type": "function",
+   "name": "_strip_v4_thinking_markers",
+   "filePath": "src/exo/worker/engines/mlx/utils_mlx.py",
+   "lineRange": [
+    502,
+    512
+   ],
+   "summary": "Strips V4 think markers from reasoning text for consistent output.",
+   "tags": [
+    "reasoning",
+    "templating"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/worker/engines/mlx/utils_mlx.py:consolidate_system_messages",
+   "type": "function",
+   "name": "consolidate_system_messages",
+   "filePath": "src/exo/worker/engines/mlx/utils_mlx.py",
+   "lineRange": [
+    515,
+    538
+   ],
+   "summary": "Merges multiple system messages into one at the front of the message list for lossless templating.",
+   "tags": [
+    "templating",
+    "messages"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:src/exo/worker/engines/mlx/utils_mlx.py:render_chat_template",
+   "type": "function",
+   "name": "render_chat_template",
+   "filePath": "src/exo/worker/engines/mlx/utils_mlx.py",
+   "lineRange": [
+    541,
+    655
+   ],
+   "summary": "Renders the full chat template for a task, applying tool schemas and thinking-token handling.",
+   "tags": [
+    "templating",
+    "prompt"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "function:src/exo/worker/engines/mlx/utils_mlx.py:apply_chat_template",
+   "type": "function",
+   "name": "apply_chat_template",
+   "filePath": "src/exo/worker/engines/mlx/utils_mlx.py",
+   "lineRange": [
+    658,
+    681
+   ],
+   "summary": "Public entrypoint applying the chat template to task params and returning the tokenized prompt string.",
+   "tags": [
+    "templating",
+    "prompt"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:src/exo/worker/engines/mlx/utils_mlx.py:system_prompt_token_count",
+   "type": "function",
+   "name": "system_prompt_token_count",
+   "filePath": "src/exo/worker/engines/mlx/utils_mlx.py",
+   "lineRange": [
+    684,
+    704
+   ],
+   "summary": "Counts tokens consumed by the system prompt portion of a task.",
+   "tags": [
+    "tokenizer",
+    "utility"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/worker/engines/mlx/utils_mlx.py:detect_thinking_prompt_suffix",
+   "type": "function",
+   "name": "detect_thinking_prompt_suffix",
+   "filePath": "src/exo/worker/engines/mlx/utils_mlx.py",
+   "lineRange": [
+    707,
+    714
+   ],
+   "summary": "Detects whether the prompt ends mid-think so parsing can start in thinking mode.",
+   "tags": [
+    "reasoning",
+    "detection"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/worker/engines/mlx/utils_mlx.py:fix_unmatched_think_end_tokens",
+   "type": "function",
+   "name": "fix_unmatched_think_end_tokens",
+   "filePath": "src/exo/worker/engines/mlx/utils_mlx.py",
+   "lineRange": [
+    717,
+    754
+   ],
+   "summary": "Repairs rendered prompts with unmatched think-end tokens to keep thinking mode stable.",
+   "tags": [
+    "reasoning",
+    "templating"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:src/exo/worker/engines/mlx/utils_mlx.py:mlx_force_oom",
+   "type": "function",
+   "name": "mlx_force_oom",
+   "filePath": "src/exo/worker/engines/mlx/utils_mlx.py",
+   "lineRange": [
+    781,
+    793
+   ],
+   "summary": "Forces an out-of-memory condition by allocating a large buffer (test/debug helper).",
+   "tags": [
+    "memory",
+    "debug"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/worker/engines/mlx/utils_mlx.py:set_wired_limit_for_model",
+   "type": "function",
+   "name": "set_wired_limit_for_model",
+   "filePath": "src/exo/worker/engines/mlx/utils_mlx.py",
+   "lineRange": [
+    796,
+    818
+   ],
+   "summary": "Raises the macOS wired memory limit so large models fit in RAM.",
+   "tags": [
+    "memory",
+    "macos"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:src/exo/worker/engines/mlx/utils_mlx.py:mlx_cleanup",
+   "type": "function",
+   "name": "mlx_cleanup",
+   "filePath": "src/exo/worker/engines/mlx/utils_mlx.py",
+   "lineRange": [
+    821,
+    830
+   ],
+   "summary": "Resets wired memory limits and clears MLX runtime state.",
+   "tags": [
+    "memory",
+    "cleanup"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/worker/engines/mlx/utils_mlx.py:mx_any",
+   "type": "function",
+   "name": "mx_any",
+   "filePath": "src/exo/worker/engines/mlx/utils_mlx.py",
+   "lineRange": [
+    833,
+    840
+   ],
+   "summary": "Cross-device collective OR over boolean tensors.",
+   "tags": [
+    "distributed",
+    "collective"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/worker/engines/mlx/utils_mlx.py:mx_barrier",
+   "type": "function",
+   "name": "mx_barrier",
+   "filePath": "src/exo/worker/engines/mlx/utils_mlx.py",
+   "lineRange": [
+    843,
+    850
+   ],
+   "summary": "Cross-device barrier synchronization helper.",
+   "tags": [
+    "distributed",
+    "collective"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/worker/engines/mlx/utils_mlx.py:_parse_kimi_tool_calls",
+   "type": "function",
+   "name": "_parse_kimi_tool_calls",
+   "filePath": "src/exo/worker/engines/mlx/utils_mlx.py",
+   "lineRange": [
+    853,
+    885
+   ],
+   "summary": "Parses Kimi-style tool calls from raw model output.",
+   "tags": [
+    "tool-calls",
+    "parsing"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:src/exo/worker/engines/mlx/utils_mlx.py:mx_all_gather_tasks",
+   "type": "function",
+   "name": "mx_all_gather_tasks",
+   "filePath": "src/exo/worker/engines/mlx/utils_mlx.py",
+   "lineRange": [
+    888,
+    938
+   ],
+   "summary": "All-gathers task IDs across the device group for agreeing on shared work.",
+   "tags": [
+    "distributed",
+    "collective"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "class:src/exo/worker/engines/mlx/utils_mlx.py:HostList",
+   "type": "class",
+   "name": "HostList",
+   "filePath": "src/exo/worker/engines/mlx/utils_mlx.py",
+   "lineRange": [
+    84,
+    87
+   ],
+   "summary": "Small wrapper listing distributed host endpoints for hostfile generation.",
+   "tags": [
+    "distributed",
+    "type-definition"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/worker/engines/mlx/utils_mlx.py:NullKVCache",
+   "type": "class",
+   "name": "NullKVCache",
+   "filePath": "src/exo/worker/engines/mlx/utils_mlx.py",
+   "lineRange": [
+    757,
+    778
+   ],
+   "summary": "No-op KV cache used as a placeholder for models without KV state.",
+   "tags": [
+    "kv-cache",
+    "mlx"
+   ],
+   "complexity": "simple"
+  }
+ ],
+ "edges": [
+  {
+   "source": "file:src/exo/worker/engines/mlx/generator/remote_prefill.py",
+   "target": "function:src/exo/worker/engines/mlx/generator/remote_prefill.py:remote_prefill",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/generator/remote_prefill.py",
+   "target": "function:src/exo/worker/engines/mlx/generator/remote_prefill.py:remote_prefill",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/generator/remote_prefill.py",
+   "target": "file:src/exo/worker/disaggregated/protocol.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/generator/remote_prefill.py",
+   "target": "file:src/exo/worker/disaggregated/server.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/generator/remote_prefill.py",
+   "target": "file:src/exo/worker/engines/mlx/cache.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/generator/remote_prefill.py",
+   "target": "file:src/exo/worker/engines/mlx/disaggregated/client.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/generator/remote_prefill.py",
+   "target": "file:src/exo/worker/engines/mlx/types.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/generator/remote_prefill.py",
+   "target": "file:src/exo/worker/runner/bootstrap.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "function:src/exo/worker/engines/mlx/generator/remote_prefill.py:remote_prefill",
+   "target": "class:src/exo/worker/disaggregated/server.py:PrefillRequest",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:src/exo/worker/engines/mlx/generator/remote_prefill.py:remote_prefill",
+   "target": "function:src/exo/worker/engines/mlx/disaggregated/client.py:remote_prefill_fetch",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:src/exo/worker/engines/mlx/generator/remote_prefill.py:remote_prefill",
+   "target": "function:src/exo/worker/engines/mlx/disaggregated/client.py:ingest_into_mlx_cache",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:src/exo/worker/engines/mlx/generator/remote_prefill.py:remote_prefill",
+   "target": "function:src/exo/worker/engines/mlx/cache.py:snapshot_ssm_states",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/tests/test_batch_generate.py",
+   "target": "function:src/exo/worker/engines/mlx/tests/test_batch_generate.py:_init_random",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/tests/test_batch_generate.py",
+   "target": "function:src/exo/worker/engines/mlx/tests/test_batch_generate.py:_init_random",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/tests/test_batch_generate.py",
+   "target": "function:src/exo/worker/engines/mlx/tests/test_batch_generate.py:_run_b1_vs_b2",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/tests/test_batch_generate.py",
+   "target": "function:src/exo/worker/engines/mlx/tests/test_batch_generate.py:_run_b1_vs_b2",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/tests/test_batch_generate.py",
+   "target": "function:src/exo/worker/engines/mlx/tests/test_batch_generate.py:_make_tokenizer",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/tests/test_batch_generate.py",
+   "target": "function:src/exo/worker/engines/mlx/tests/test_batch_generate.py:_make_tokenizer",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/tests/test_batch_generate.py",
+   "target": "function:src/exo/worker/engines/mlx/tests/test_batch_generate.py:test_batch_b2_llama",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/tests/test_batch_generate.py",
+   "target": "function:src/exo/worker/engines/mlx/tests/test_batch_generate.py:test_batch_b2_llama",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/tests/test_batch_generate.py",
+   "target": "function:src/exo/worker/engines/mlx/tests/test_batch_generate.py:test_batch_b2_qwen35_moe",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/tests/test_batch_generate.py",
+   "target": "function:src/exo/worker/engines/mlx/tests/test_batch_generate.py:test_batch_b2_qwen35_moe",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/tests/test_batch_generate.py",
+   "target": "file:src/exo/worker/engines/mlx/cache.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/tests/test_batch_generate.py",
+   "target": "file:src/exo/worker/engines/mlx/generator/batch_generate.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/tests/test_batch_generate.py",
+   "target": "file:src/exo/worker/engines/mlx/generator/generate.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/tests/test_batch_generate.py",
+   "target": "file:src/exo/worker/engines/mlx/types.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "function:src/exo/worker/engines/mlx/tests/test_batch_generate.py:_run_b1_vs_b2",
+   "target": "function:src/exo/worker/engines/mlx/generator/generate.py:prefill",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:src/exo/worker/engines/mlx/tests/test_batch_generate.py:_run_b1_vs_b2",
+   "target": "function:src/exo/worker/engines/mlx/cache.py:make_kv_cache",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:src/exo/worker/engines/mlx/tests/test_batch_generate.py:test_batch_b2_llama",
+   "target": "function:src/exo/worker/engines/mlx/cache.py:encode_prompt",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:src/exo/worker/engines/mlx/tests/test_batch_generate.py:test_batch_b2_qwen35_moe",
+   "target": "function:src/exo/worker/engines/mlx/cache.py:encode_prompt",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/tests/test_extract_top_logprobs.py",
+   "target": "class:src/exo/worker/engines/mlx/tests/test_extract_top_logprobs.py:TestExtractTopLogprobsFallback",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/tests/test_extract_top_logprobs.py",
+   "target": "class:src/exo/worker/engines/mlx/tests/test_extract_top_logprobs.py:TestExtractTopLogprobsFallback",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/tests/test_extract_top_logprobs.py",
+   "target": "file:src/exo/worker/engines/mlx/generator/generate.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "class:src/exo/worker/engines/mlx/tests/test_extract_top_logprobs.py:TestExtractTopLogprobsFallback",
+   "target": "function:src/exo/worker/engines/mlx/generator/generate.py:extract_top_logprobs",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/types.py",
+   "target": "class:src/exo/worker/engines/mlx/types.py:Model",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/types.py",
+   "target": "class:src/exo/worker/engines/mlx/types.py:Model",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/types.py",
+   "target": "file:src/exo/worker/engines/mlx/__init__.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/utils_mlx.py",
+   "target": "function:src/exo/worker/engines/mlx/utils_mlx.py:get_weights_size",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/utils_mlx.py",
+   "target": "function:src/exo/worker/engines/mlx/utils_mlx.py:get_weights_size",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/utils_mlx.py",
+   "target": "function:src/exo/worker/engines/mlx/utils_mlx.py:mlx_distributed_init",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/utils_mlx.py",
+   "target": "function:src/exo/worker/engines/mlx/utils_mlx.py:mlx_distributed_init",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/utils_mlx.py",
+   "target": "function:src/exo/worker/engines/mlx/utils_mlx.py:initialize_mlx",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/utils_mlx.py",
+   "target": "function:src/exo/worker/engines/mlx/utils_mlx.py:initialize_mlx",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/utils_mlx.py",
+   "target": "function:src/exo/worker/engines/mlx/utils_mlx.py:load_mlx_items",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/utils_mlx.py",
+   "target": "function:src/exo/worker/engines/mlx/utils_mlx.py:load_mlx_items",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/utils_mlx.py",
+   "target": "function:src/exo/worker/engines/mlx/utils_mlx.py:shard_and_load",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/utils_mlx.py",
+   "target": "function:src/exo/worker/engines/mlx/utils_mlx.py:shard_and_load",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/utils_mlx.py",
+   "target": "function:src/exo/worker/engines/mlx/utils_mlx.py:get_tokenizer",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/utils_mlx.py",
+   "target": "function:src/exo/worker/engines/mlx/utils_mlx.py:get_tokenizer",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/utils_mlx.py",
+   "target": "function:src/exo/worker/engines/mlx/utils_mlx.py:get_eos_token_ids_for_model",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/utils_mlx.py",
+   "target": "function:src/exo/worker/engines/mlx/utils_mlx.py:get_eos_token_ids_for_model",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/utils_mlx.py",
+   "target": "function:src/exo/worker/engines/mlx/utils_mlx.py:load_tokenizer_for_model_id",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/utils_mlx.py",
+   "target": "function:src/exo/worker/engines/mlx/utils_mlx.py:load_tokenizer_for_model_id",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/utils_mlx.py",
+   "target": "function:src/exo/worker/engines/mlx/utils_mlx.py:_normalize_tool_calls",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/utils_mlx.py",
+   "target": "function:src/exo/worker/engines/mlx/utils_mlx.py:_normalize_tool_calls",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/utils_mlx.py",
+   "target": "function:src/exo/worker/engines/mlx/utils_mlx.py:_collect_nested_property_names",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/utils_mlx.py",
+   "target": "function:src/exo/worker/engines/mlx/utils_mlx.py:_collect_nested_property_names",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/utils_mlx.py",
+   "target": "function:src/exo/worker/engines/mlx/utils_mlx.py:_schemas_lost_in_prompt",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/utils_mlx.py",
+   "target": "function:src/exo/worker/engines/mlx/utils_mlx.py:_schemas_lost_in_prompt",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/utils_mlx.py",
+   "target": "function:src/exo/worker/engines/mlx/utils_mlx.py:_patch_lossy_chat_template",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/utils_mlx.py",
+   "target": "function:src/exo/worker/engines/mlx/utils_mlx.py:_patch_lossy_chat_template",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/utils_mlx.py",
+   "target": "function:src/exo/worker/engines/mlx/utils_mlx.py:_v4_reasoning_effort",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/utils_mlx.py",
+   "target": "function:src/exo/worker/engines/mlx/utils_mlx.py:_v4_reasoning_effort",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/utils_mlx.py",
+   "target": "function:src/exo/worker/engines/mlx/utils_mlx.py:_strip_v4_thinking_markers",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/utils_mlx.py",
+   "target": "function:src/exo/worker/engines/mlx/utils_mlx.py:_strip_v4_thinking_markers",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/utils_mlx.py",
+   "target": "function:src/exo/worker/engines/mlx/utils_mlx.py:consolidate_system_messages",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/utils_mlx.py",
+   "target": "function:src/exo/worker/engines/mlx/utils_mlx.py:consolidate_system_messages",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/utils_mlx.py",
+   "target": "function:src/exo/worker/engines/mlx/utils_mlx.py:render_chat_template",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/utils_mlx.py",
+   "target": "function:src/exo/worker/engines/mlx/utils_mlx.py:render_chat_template",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/utils_mlx.py",
+   "target": "function:src/exo/worker/engines/mlx/utils_mlx.py:apply_chat_template",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/utils_mlx.py",
+   "target": "function:src/exo/worker/engines/mlx/utils_mlx.py:apply_chat_template",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/utils_mlx.py",
+   "target": "function:src/exo/worker/engines/mlx/utils_mlx.py:system_prompt_token_count",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/utils_mlx.py",
+   "target": "function:src/exo/worker/engines/mlx/utils_mlx.py:system_prompt_token_count",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/utils_mlx.py",
+   "target": "function:src/exo/worker/engines/mlx/utils_mlx.py:detect_thinking_prompt_suffix",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/utils_mlx.py",
+   "target": "function:src/exo/worker/engines/mlx/utils_mlx.py:detect_thinking_prompt_suffix",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/utils_mlx.py",
+   "target": "function:src/exo/worker/engines/mlx/utils_mlx.py:fix_unmatched_think_end_tokens",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/utils_mlx.py",
+   "target": "function:src/exo/worker/engines/mlx/utils_mlx.py:fix_unmatched_think_end_tokens",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/utils_mlx.py",
+   "target": "function:src/exo/worker/engines/mlx/utils_mlx.py:mlx_force_oom",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/utils_mlx.py",
+   "target": "function:src/exo/worker/engines/mlx/utils_mlx.py:mlx_force_oom",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/utils_mlx.py",
+   "target": "function:src/exo/worker/engines/mlx/utils_mlx.py:set_wired_limit_for_model",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/utils_mlx.py",
+   "target": "function:src/exo/worker/engines/mlx/utils_mlx.py:set_wired_limit_for_model",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/utils_mlx.py",
+   "target": "function:src/exo/worker/engines/mlx/utils_mlx.py:mlx_cleanup",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/utils_mlx.py",
+   "target": "function:src/exo/worker/engines/mlx/utils_mlx.py:mlx_cleanup",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/utils_mlx.py",
+   "target": "function:src/exo/worker/engines/mlx/utils_mlx.py:mx_any",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/utils_mlx.py",
+   "target": "function:src/exo/worker/engines/mlx/utils_mlx.py:mx_any",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/utils_mlx.py",
+   "target": "function:src/exo/worker/engines/mlx/utils_mlx.py:mx_barrier",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/utils_mlx.py",
+   "target": "function:src/exo/worker/engines/mlx/utils_mlx.py:mx_barrier",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/utils_mlx.py",
+   "target": "function:src/exo/worker/engines/mlx/utils_mlx.py:_parse_kimi_tool_calls",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/utils_mlx.py",
+   "target": "function:src/exo/worker/engines/mlx/utils_mlx.py:_parse_kimi_tool_calls",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/utils_mlx.py",
+   "target": "function:src/exo/worker/engines/mlx/utils_mlx.py:mx_all_gather_tasks",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/utils_mlx.py",
+   "target": "function:src/exo/worker/engines/mlx/utils_mlx.py:mx_all_gather_tasks",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/utils_mlx.py",
+   "target": "class:src/exo/worker/engines/mlx/utils_mlx.py:HostList",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/utils_mlx.py",
+   "target": "class:src/exo/worker/engines/mlx/utils_mlx.py:HostList",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/utils_mlx.py",
+   "target": "class:src/exo/worker/engines/mlx/utils_mlx.py:NullKVCache",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/utils_mlx.py",
+   "target": "class:src/exo/worker/engines/mlx/utils_mlx.py:NullKVCache",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/utils_mlx.py",
+   "target": "file:src/exo/download/download_utils.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/utils_mlx.py",
+   "target": "file:src/exo/shared/models/model_cards.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/utils_mlx.py",
+   "target": "file:src/exo/shared/types/common.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/utils_mlx.py",
+   "target": "file:src/exo/shared/types/memory.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/utils_mlx.py",
+   "target": "file:src/exo/shared/types/tasks.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/utils_mlx.py",
+   "target": "file:src/exo/shared/types/text_generation.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/utils_mlx.py",
+   "target": "file:src/exo/shared/types/worker/instances.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/utils_mlx.py",
+   "target": "file:src/exo/shared/types/worker/runner_response.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/utils_mlx.py",
+   "target": "file:src/exo/shared/types/worker/shards.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/utils_mlx.py",
+   "target": "file:src/exo/worker/engines/mlx/auto_parallel.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/utils_mlx.py",
+   "target": "file:src/exo/worker/engines/mlx/constants.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/utils_mlx.py",
+   "target": "file:src/exo/worker/engines/mlx/types.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/utils_mlx.py",
+   "target": "file:src/exo/worker/runner/bootstrap.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "function:src/exo/worker/engines/mlx/utils_mlx.py:load_mlx_items",
+   "target": "function:src/exo/download/download_utils.py:build_model_path",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:src/exo/worker/engines/mlx/utils_mlx.py:load_mlx_items",
+   "target": "function:src/exo/worker/engines/mlx/vision.py:get_inner_model",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:src/exo/worker/engines/mlx/utils_mlx.py:load_mlx_items",
+   "target": "class:src/exo/worker/engines/mlx/vision.py:VisionProcessor",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:src/exo/worker/engines/mlx/utils_mlx.py:shard_and_load",
+   "target": "function:src/exo/worker/engines/mlx/auto_parallel.py:tensor_auto_parallel",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:src/exo/worker/engines/mlx/utils_mlx.py:shard_and_load",
+   "target": "function:src/exo/worker/engines/mlx/auto_parallel.py:pipeline_auto_parallel",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  }
+ ]
+}

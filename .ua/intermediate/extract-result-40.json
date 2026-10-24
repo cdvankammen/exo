@@ -1,0 +1,7087 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 25,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": "src/exo/utils/info_gatherer/system_info.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 243,
+      "nonEmptyLines": 197,
+      "functions": [
+        {
+          "name": "_linux_interface_types",
+          "startLine": 14,
+          "endLine": 30,
+          "params": []
+        },
+        {
+          "name": "get_os_version",
+          "startLine": 33,
+          "endLine": 42,
+          "params": []
+        },
+        {
+          "name": "get_os_build_version",
+          "startLine": 45,
+          "endLine": 59,
+          "params": []
+        },
+        {
+          "name": "get_friendly_name",
+          "startLine": 62,
+          "endLine": 79,
+          "params": []
+        },
+        {
+          "name": "_get_interface_types_from_networksetup",
+          "startLine": 82,
+          "endLine": 114,
+          "params": []
+        },
+        {
+          "name": "_classify_linux_interface",
+          "startLine": 117,
+          "endLine": 143,
+          "params": [
+            "interface_name"
+          ]
+        },
+        {
+          "name": "get_network_interfaces",
+          "startLine": 146,
+          "endLine": 178,
+          "params": []
+        },
+        {
+          "name": "_get_cuda_gpu_name",
+          "startLine": 181,
+          "endLine": 201,
+          "params": []
+        },
+        {
+          "name": "get_model_and_chip",
+          "startLine": 204,
+          "endLine": 243,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "_linux_interface_types",
+          "line": 14,
+          "isDefault": false
+        },
+        {
+          "name": "get_os_version",
+          "line": 33,
+          "isDefault": false
+        },
+        {
+          "name": "get_os_build_version",
+          "line": 45,
+          "isDefault": false
+        },
+        {
+          "name": "get_friendly_name",
+          "line": 62,
+          "isDefault": false
+        },
+        {
+          "name": "_get_interface_types_from_networksetup",
+          "line": 82,
+          "isDefault": false
+        },
+        {
+          "name": "_classify_linux_interface",
+          "line": 117,
+          "isDefault": false
+        },
+        {
+          "name": "get_network_interfaces",
+          "line": 146,
+          "isDefault": false
+        },
+        {
+          "name": "_get_cuda_gpu_name",
+          "line": 181,
+          "isDefault": false
+        },
+        {
+          "name": "get_model_and_chip",
+          "line": 204,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "_linux_interface_types",
+          "callee": "psutil.net_if_addrs",
+          "lineNumber": 17
+        },
+        {
+          "caller": "_linux_interface_types",
+          "callee": "iface.startswith",
+          "lineNumber": 18
+        },
+        {
+          "caller": "_linux_interface_types",
+          "callee": "iface.startswith",
+          "lineNumber": 20
+        },
+        {
+          "caller": "_linux_interface_types",
+          "callee": "re.match",
+          "lineNumber": 22
+        },
+        {
+          "caller": "_linux_interface_types",
+          "callee": "iface.startswith",
+          "lineNumber": 24
+        },
+        {
+          "caller": "_linux_interface_types",
+          "callee": "iface.startswith",
+          "lineNumber": 26
+        },
+        {
+          "caller": "get_os_version",
+          "callee": "platform.mac_ver",
+          "lineNumber": 40
+        },
+        {
+          "caller": "get_os_version",
+          "callee": "platform.system",
+          "lineNumber": 42
+        },
+        {
+          "caller": "get_os_build_version",
+          "callee": "fail_after",
+          "lineNumber": 54
+        },
+        {
+          "caller": "get_os_build_version",
+          "callee": "run_process",
+          "lineNumber": 55
+        },
+        {
+          "caller": "get_os_build_version",
+          "callee": "process.stdout.decode(\"utf-8\", errors=\"replace\").strip",
+          "lineNumber": 59
+        },
+        {
+          "caller": "get_os_build_version",
+          "callee": "process.stdout.decode",
+          "lineNumber": 59
+        },
+        {
+          "caller": "get_friendly_name",
+          "callee": "socket.gethostname",
+          "lineNumber": 68
+        },
+        {
+          "caller": "get_friendly_name",
+          "callee": "fail_after",
+          "lineNumber": 74
+        },
+        {
+          "caller": "get_friendly_name",
+          "callee": "run_process",
+          "lineNumber": 75
+        },
+        {
+          "caller": "get_friendly_name",
+          "callee": "process.stdout.decode(\"utf-8\", errors=\"replace\").strip",
+          "lineNumber": 79
+        },
+        {
+          "caller": "get_friendly_name",
+          "callee": "process.stdout.decode",
+          "lineNumber": 79
+        },
+        {
+          "caller": "_get_interface_types_from_networksetup",
+          "callee": "_linux_interface_types",
+          "lineNumber": 85
+        },
+        {
+          "caller": "_get_interface_types_from_networksetup",
+          "callee": "fail_after",
+          "lineNumber": 88
+        },
+        {
+          "caller": "_get_interface_types_from_networksetup",
+          "callee": "run_process",
+          "lineNumber": 89
+        },
+        {
+          "caller": "_get_interface_types_from_networksetup",
+          "callee": "result.stdout.decode().splitlines",
+          "lineNumber": 96
+        },
+        {
+          "caller": "_get_interface_types_from_networksetup",
+          "callee": "result.stdout.decode",
+          "lineNumber": 96
+        },
+        {
+          "caller": "_get_interface_types_from_networksetup",
+          "callee": "line.startswith",
+          "lineNumber": 97
+        },
+        {
+          "caller": "_get_interface_types_from_networksetup",
+          "callee": "line.split(\":\", 1)[1].strip",
+          "lineNumber": 98
+        },
+        {
+          "caller": "_get_interface_types_from_networksetup",
+          "callee": "line.split",
+          "lineNumber": 98
+        },
+        {
+          "caller": "_get_interface_types_from_networksetup",
+          "callee": "port_name.startswith",
+          "lineNumber": 103
+        },
+        {
+          "caller": "_get_interface_types_from_networksetup",
+          "callee": "line.startswith",
+          "lineNumber": 107
+        },
+        {
+          "caller": "_get_interface_types_from_networksetup",
+          "callee": "line.split(\":\", 1)[1].strip",
+          "lineNumber": 108
+        },
+        {
+          "caller": "_get_interface_types_from_networksetup",
+          "callee": "line.split",
+          "lineNumber": 108
+        },
+        {
+          "caller": "_get_interface_types_from_networksetup",
+          "callee": "device.startswith",
+          "lineNumber": 110
+        },
+        {
+          "caller": "_classify_linux_interface",
+          "callee": "Path",
+          "lineNumber": 128
+        },
+        {
+          "caller": "_classify_linux_interface",
+          "callee": "(sysfs_path / \"wireless\").exists",
+          "lineNumber": 129
+        },
+        {
+          "caller": "_classify_linux_interface",
+          "callee": "int",
+          "lineNumber": 134
+        },
+        {
+          "caller": "_classify_linux_interface",
+          "callee": "(sysfs_path / \"speed\").read_text().strip",
+          "lineNumber": 134
+        },
+        {
+          "caller": "_classify_linux_interface",
+          "callee": "(sysfs_path / \"speed\").read_text",
+          "lineNumber": 134
+        },
+        {
+          "caller": "_classify_linux_interface",
+          "callee": "(sysfs_path / \"device\").exists",
+          "lineNumber": 141
+        },
+        {
+          "caller": "get_network_interfaces",
+          "callee": "_get_interface_types_from_networksetup",
+          "lineNumber": 156
+        },
+        {
+          "caller": "get_network_interfaces",
+          "callee": "psutil.net_if_addrs().items",
+          "lineNumber": 159
+        },
+        {
+          "caller": "get_network_interfaces",
+          "callee": "psutil.net_if_addrs",
+          "lineNumber": 159
+        },
+        {
+          "caller": "get_network_interfaces",
+          "callee": "interface_types.get",
+          "lineNumber": 160
+        },
+        {
+          "caller": "get_network_interfaces",
+          "callee": "_classify_linux_interface",
+          "lineNumber": 163
+        },
+        {
+          "caller": "get_network_interfaces",
+          "callee": "interfaces_info.append",
+          "lineNumber": 167
+        },
+        {
+          "caller": "get_network_interfaces",
+          "callee": "NetworkInterfaceInfo",
+          "lineNumber": 168
+        },
+        {
+          "caller": "_get_cuda_gpu_name",
+          "callee": "fail_after",
+          "lineNumber": 191
+        },
+        {
+          "caller": "_get_cuda_gpu_name",
+          "callee": "run_process",
+          "lineNumber": 192
+        },
+        {
+          "caller": "_get_cuda_gpu_name",
+          "callee": "process.stdout.decode(\"utf-8\", errors=\"replace\").strip().splitlines",
+          "lineNumber": 200
+        },
+        {
+          "caller": "_get_cuda_gpu_name",
+          "callee": "process.stdout.decode(\"utf-8\", errors=\"replace\").strip",
+          "lineNumber": 200
+        },
+        {
+          "caller": "_get_cuda_gpu_name",
+          "callee": "process.stdout.decode",
+          "lineNumber": 200
+        },
+        {
+          "caller": "_get_cuda_gpu_name",
+          "callee": "first_line[0].strip",
+          "lineNumber": 201
+        },
+        {
+          "caller": "get_model_and_chip",
+          "callee": "_get_cuda_gpu_name",
+          "lineNumber": 216
+        },
+        {
+          "caller": "get_model_and_chip",
+          "callee": "fail_after",
+          "lineNumber": 222
+        },
+        {
+          "caller": "get_model_and_chip",
+          "callee": "run_process",
+          "lineNumber": 223
+        },
+        {
+          "caller": "get_model_and_chip",
+          "callee": "process.stdout.decode().strip",
+          "lineNumber": 233
+        },
+        {
+          "caller": "get_model_and_chip",
+          "callee": "process.stdout.decode",
+          "lineNumber": 233
+        },
+        {
+          "caller": "get_model_and_chip",
+          "callee": "next",
+          "lineNumber": 235
+        },
+        {
+          "caller": "get_model_and_chip",
+          "callee": "output.split",
+          "lineNumber": 236
+        },
+        {
+          "caller": "get_model_and_chip",
+          "callee": "model_line.split",
+          "lineNumber": 238
+        },
+        {
+          "caller": "get_model_and_chip",
+          "callee": "next",
+          "lineNumber": 240
+        },
+        {
+          "caller": "get_model_and_chip",
+          "callee": "output.split",
+          "lineNumber": 240
+        },
+        {
+          "caller": "get_model_and_chip",
+          "callee": "chip_line.split",
+          "lineNumber": 241
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 9,
+        "functionCount": 9,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/exo/utils/info_gatherer/tests/test_net_profile.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 89,
+      "nonEmptyLines": 59,
+      "functions": [
+        {
+          "name": "test_first_measurement_is_material",
+          "startLine": 10,
+          "endLine": 11,
+          "params": []
+        },
+        {
+          "name": "test_small_absolute_jitter_is_ignored",
+          "startLine": 14,
+          "endLine": 17,
+          "params": []
+        },
+        {
+          "name": "test_small_relative_change_is_ignored",
+          "startLine": 20,
+          "endLine": 22,
+          "params": []
+        },
+        {
+          "name": "test_large_change_is_material",
+          "startLine": 25,
+          "endLine": 28,
+          "params": []
+        },
+        {
+          "name": "test_bandwidth_first_measurement_is_material",
+          "startLine": 31,
+          "endLine": 32,
+          "params": []
+        },
+        {
+          "name": "test_bandwidth_small_relative_change_is_ignored",
+          "startLine": 35,
+          "endLine": 37,
+          "params": []
+        },
+        {
+          "name": "test_bandwidth_large_change_is_material",
+          "startLine": 40,
+          "endLine": 43,
+          "params": []
+        },
+        {
+          "name": "test_probe_bandwidth_computes_mbps",
+          "startLine": 46,
+          "endLine": 66,
+          "params": []
+        },
+        {
+          "name": "test_probe_bandwidth_short_body_returns_none",
+          "startLine": 69,
+          "endLine": 78,
+          "params": []
+        },
+        {
+          "name": "test_probe_bandwidth_error_returns_none",
+          "startLine": 81,
+          "endLine": 89,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "test_first_measurement_is_material",
+          "line": 10,
+          "isDefault": false
+        },
+        {
+          "name": "test_small_absolute_jitter_is_ignored",
+          "line": 14,
+          "isDefault": false
+        },
+        {
+          "name": "test_small_relative_change_is_ignored",
+          "line": 20,
+          "isDefault": false
+        },
+        {
+          "name": "test_large_change_is_material",
+          "line": 25,
+          "isDefault": false
+        },
+        {
+          "name": "test_bandwidth_first_measurement_is_material",
+          "line": 31,
+          "isDefault": false
+        },
+        {
+          "name": "test_bandwidth_small_relative_change_is_ignored",
+          "line": 35,
+          "isDefault": false
+        },
+        {
+          "name": "test_bandwidth_large_change_is_material",
+          "line": 40,
+          "isDefault": false
+        },
+        {
+          "name": "test_probe_bandwidth_computes_mbps",
+          "line": 46,
+          "isDefault": false
+        },
+        {
+          "name": "test_probe_bandwidth_short_body_returns_none",
+          "line": 69,
+          "isDefault": false
+        },
+        {
+          "name": "test_probe_bandwidth_error_returns_none",
+          "line": 81,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "test_first_measurement_is_material",
+          "callee": "latency_changed_materially",
+          "lineNumber": 11
+        },
+        {
+          "caller": "test_small_absolute_jitter_is_ignored",
+          "callee": "latency_changed_materially",
+          "lineNumber": 16
+        },
+        {
+          "caller": "test_small_absolute_jitter_is_ignored",
+          "callee": "latency_changed_materially",
+          "lineNumber": 17
+        },
+        {
+          "caller": "test_small_relative_change_is_ignored",
+          "callee": "latency_changed_materially",
+          "lineNumber": 21
+        },
+        {
+          "caller": "test_small_relative_change_is_ignored",
+          "callee": "latency_changed_materially",
+          "lineNumber": 22
+        },
+        {
+          "caller": "test_large_change_is_material",
+          "callee": "latency_changed_materially",
+          "lineNumber": 27
+        },
+        {
+          "caller": "test_large_change_is_material",
+          "callee": "latency_changed_materially",
+          "lineNumber": 28
+        },
+        {
+          "caller": "test_bandwidth_first_measurement_is_material",
+          "callee": "bandwidth_changed_materially",
+          "lineNumber": 32
+        },
+        {
+          "caller": "test_bandwidth_small_relative_change_is_ignored",
+          "callee": "bandwidth_changed_materially",
+          "lineNumber": 36
+        },
+        {
+          "caller": "test_bandwidth_small_relative_change_is_ignored",
+          "callee": "bandwidth_changed_materially",
+          "lineNumber": 37
+        },
+        {
+          "caller": "test_bandwidth_large_change_is_material",
+          "callee": "bandwidth_changed_materially",
+          "lineNumber": 42
+        },
+        {
+          "caller": "test_bandwidth_large_change_is_material",
+          "callee": "bandwidth_changed_materially",
+          "lineNumber": 43
+        },
+        {
+          "caller": "test_probe_bandwidth_computes_mbps",
+          "callee": "MagicMock",
+          "lineNumber": 47
+        },
+        {
+          "caller": "test_probe_bandwidth_computes_mbps",
+          "callee": "MagicMock",
+          "lineNumber": 48
+        },
+        {
+          "caller": "test_probe_bandwidth_computes_mbps",
+          "callee": "AsyncMock",
+          "lineNumber": 51
+        },
+        {
+          "caller": "test_probe_bandwidth_computes_mbps",
+          "callee": "patch",
+          "lineNumber": 62
+        },
+        {
+          "caller": "test_probe_bandwidth_computes_mbps",
+          "callee": "probe_bandwidth",
+          "lineNumber": 63
+        },
+        {
+          "caller": "test_probe_bandwidth_computes_mbps",
+          "callee": "abs",
+          "lineNumber": 66
+        },
+        {
+          "caller": "test_probe_bandwidth_short_body_returns_none",
+          "callee": "MagicMock",
+          "lineNumber": 70
+        },
+        {
+          "caller": "test_probe_bandwidth_short_body_returns_none",
+          "callee": "MagicMock",
+          "lineNumber": 71
+        },
+        {
+          "caller": "test_probe_bandwidth_short_body_returns_none",
+          "callee": "AsyncMock",
+          "lineNumber": 74
+        },
+        {
+          "caller": "test_probe_bandwidth_short_body_returns_none",
+          "callee": "probe_bandwidth",
+          "lineNumber": 76
+        },
+        {
+          "caller": "test_probe_bandwidth_error_returns_none",
+          "callee": "MagicMock",
+          "lineNumber": 84
+        },
+        {
+          "caller": "test_probe_bandwidth_error_returns_none",
+          "callee": "AsyncMock",
+          "lineNumber": 85
+        },
+        {
+          "caller": "test_probe_bandwidth_error_returns_none",
+          "callee": "httpx.NetworkError",
+          "lineNumber": 85
+        },
+        {
+          "caller": "test_probe_bandwidth_error_returns_none",
+          "callee": "probe_bandwidth",
+          "lineNumber": 87
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 10,
+        "functionCount": 10,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/exo/utils/info_gatherer/tests/test_node_config.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 59,
+      "nonEmptyLines": 44,
+      "classes": [
+        {
+          "name": "TestMonitorNodeConfig",
+          "startLine": 18,
+          "endLine": 59,
+          "methods": [
+            "test_monitor_node_config_reannounces_periodically",
+            "test_monitor_node_config_skips_when_gather_returns_none"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "TestMonitorNodeConfig",
+          "line": 18,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "fake_gather",
+          "callee": "ig.NodeConfig",
+          "lineNumber": 31
+        },
+        {
+          "caller": "test_monitor_node_config_reannounces_periodically",
+          "callee": "monkeypatch.setattr",
+          "lineNumber": 33
+        },
+        {
+          "caller": "test_monitor_node_config_reannounces_periodically",
+          "callee": "ig.InfoGatherer",
+          "lineNumber": 35
+        },
+        {
+          "caller": "test_monitor_node_config_reannounces_periodically",
+          "callee": "anyio.move_on_after",
+          "lineNumber": 36
+        },
+        {
+          "caller": "test_monitor_node_config_reannounces_periodically",
+          "callee": "gatherer._monitor_node_config",
+          "lineNumber": 37
+        },
+        {
+          "caller": "test_monitor_node_config_reannounces_periodically",
+          "callee": "sender.statistics",
+          "lineNumber": 40
+        },
+        {
+          "caller": "test_monitor_node_config_reannounces_periodically",
+          "callee": "receiver.receive_nowait",
+          "lineNumber": 41
+        },
+        {
+          "caller": "test_monitor_node_config_reannounces_periodically",
+          "callee": "isinstance",
+          "lineNumber": 42
+        },
+        {
+          "caller": "test_monitor_node_config_skips_when_gather_returns_none",
+          "callee": "monkeypatch.setattr",
+          "lineNumber": 53
+        },
+        {
+          "caller": "test_monitor_node_config_skips_when_gather_returns_none",
+          "callee": "ig.InfoGatherer",
+          "lineNumber": 55
+        },
+        {
+          "caller": "test_monitor_node_config_skips_when_gather_returns_none",
+          "callee": "anyio.move_on_after",
+          "lineNumber": 56
+        },
+        {
+          "caller": "test_monitor_node_config_skips_when_gather_returns_none",
+          "callee": "gatherer._monitor_node_config",
+          "lineNumber": 57
+        },
+        {
+          "caller": "test_monitor_node_config_skips_when_gather_returns_none",
+          "callee": "sender.statistics",
+          "lineNumber": 59
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "src/exo/utils/info_gatherer/tests/test_tb_parsing.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 86,
+      "nonEmptyLines": 75,
+      "functions": [
+        {
+          "name": "test_tb_parsing",
+          "startLine": 18,
+          "endLine": 25,
+          "params": []
+        },
+        {
+          "name": "test_conn_resolves_peer_through_intermediate_hub",
+          "startLine": 28,
+          "endLine": 59,
+          "params": []
+        },
+        {
+          "name": "test_conn_returns_first_peer_for_direct_link",
+          "startLine": 62,
+          "endLine": 76,
+          "params": []
+        },
+        {
+          "name": "test_conn_returns_none_when_no_peer_present",
+          "startLine": 79,
+          "endLine": 86,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "test_tb_parsing",
+          "line": 14,
+          "isDefault": false
+        },
+        {
+          "name": "test_conn_resolves_peer_through_intermediate_hub",
+          "line": 28,
+          "isDefault": false
+        },
+        {
+          "name": "test_conn_returns_first_peer_for_direct_link",
+          "line": 62,
+          "isDefault": false
+        },
+        {
+          "name": "test_conn_returns_none_when_no_peer_present",
+          "line": 79,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "test_tb_parsing",
+          "callee": "ThunderboltConnectivity.gather",
+          "lineNumber": 19
+        },
+        {
+          "caller": "test_tb_parsing",
+          "callee": "_gather_iface_map",
+          "lineNumber": 20
+        },
+        {
+          "caller": "test_tb_parsing",
+          "callee": "datum.ident",
+          "lineNumber": 24
+        },
+        {
+          "caller": "test_tb_parsing",
+          "callee": "datum.conn",
+          "lineNumber": 25
+        },
+        {
+          "caller": "test_conn_resolves_peer_through_intermediate_hub",
+          "callee": "ThunderboltConnectivityData.model_validate",
+          "lineNumber": 55
+        },
+        {
+          "caller": "test_conn_resolves_peer_through_intermediate_hub",
+          "callee": "datum.conn",
+          "lineNumber": 56
+        },
+        {
+          "caller": "test_conn_returns_first_peer_for_direct_link",
+          "callee": "ThunderboltConnectivityData.model_validate",
+          "lineNumber": 73
+        },
+        {
+          "caller": "test_conn_returns_first_peer_for_direct_link",
+          "callee": "datum.conn",
+          "lineNumber": 74
+        },
+        {
+          "caller": "test_conn_returns_none_when_no_peer_present",
+          "callee": "ThunderboltConnectivityData.model_validate",
+          "lineNumber": 85
+        },
+        {
+          "caller": "test_conn_returns_none_when_no_peer_present",
+          "callee": "datum.conn",
+          "lineNumber": 86
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 4,
+        "functionCount": 4,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/exo/utils/info_gatherer/tests/test_topology_fix.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 370,
+      "nonEmptyLines": 294,
+      "classes": [
+        {
+          "name": "TestSocketConnectionHash",
+          "startLine": 34,
+          "endLine": 63,
+          "methods": [
+            "test_same_ip_different_ports_are_distinct_keys",
+            "test_equal_connections_have_equal_hashes",
+            "test_same_port_different_ip_differ",
+            "test_dict_lookup_returns_correct_entry_with_same_ip_different_ports"
+          ],
+          "properties": []
+        },
+        {
+          "name": "TestCheckReachabilityPerPeerPort",
+          "startLine": 71,
+          "endLine": 177,
+          "methods": [
+            "test_uses_peer_port_in_url",
+            "test_returns_latency_on_success",
+            "test_returns_none_on_non_200",
+            "test_returns_none_on_node_id_mismatch"
+          ],
+          "properties": []
+        },
+        {
+          "name": "TestProbeFailureDiagnostics",
+          "startLine": 185,
+          "endLine": 247,
+          "methods": [
+            "test_node_id_mismatch_logs_warning",
+            "test_connection_error_logs_warning"
+          ],
+          "properties": []
+        },
+        {
+          "name": "TestEagerNetworkInterfacesEmit",
+          "startLine": 255,
+          "endLine": 282,
+          "methods": [
+            "test_watch_system_info_emits_immediately_not_after_sleep"
+          ],
+          "properties": []
+        },
+        {
+          "name": "TestTopologySnapshotContract",
+          "startLine": 290,
+          "endLine": 370,
+          "methods": [
+            "test_snapshot_has_connections_dict",
+            "test_snapshot_connections_keyed_by_source_sink",
+            "test_roundtrip_preserves_edges",
+            "test_empty_topology_has_no_connections",
+            "test_total_edges_from_connections"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "TestSocketConnectionHash",
+          "line": 34,
+          "isDefault": false
+        },
+        {
+          "name": "TestCheckReachabilityPerPeerPort",
+          "line": 71,
+          "isDefault": false
+        },
+        {
+          "name": "TestProbeFailureDiagnostics",
+          "line": 185,
+          "isDefault": false
+        },
+        {
+          "name": "TestEagerNetworkInterfacesEmit",
+          "line": 255,
+          "isDefault": false
+        },
+        {
+          "name": "TestTopologySnapshotContract",
+          "line": 290,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "test_same_ip_different_ports_are_distinct_keys",
+          "callee": "SocketConnection",
+          "lineNumber": 42
+        },
+        {
+          "caller": "test_same_ip_different_ports_are_distinct_keys",
+          "callee": "Multiaddr",
+          "lineNumber": 42
+        },
+        {
+          "caller": "test_same_ip_different_ports_are_distinct_keys",
+          "callee": "SocketConnection",
+          "lineNumber": 43
+        },
+        {
+          "caller": "test_same_ip_different_ports_are_distinct_keys",
+          "callee": "Multiaddr",
+          "lineNumber": 43
+        },
+        {
+          "caller": "test_same_ip_different_ports_are_distinct_keys",
+          "callee": "hash",
+          "lineNumber": 44
+        },
+        {
+          "caller": "test_same_ip_different_ports_are_distinct_keys",
+          "callee": "hash",
+          "lineNumber": 44
+        },
+        {
+          "caller": "test_equal_connections_have_equal_hashes",
+          "callee": "SocketConnection",
+          "lineNumber": 47
+        },
+        {
+          "caller": "test_equal_connections_have_equal_hashes",
+          "callee": "Multiaddr",
+          "lineNumber": 47
+        },
+        {
+          "caller": "test_equal_connections_have_equal_hashes",
+          "callee": "SocketConnection",
+          "lineNumber": 48
+        },
+        {
+          "caller": "test_equal_connections_have_equal_hashes",
+          "callee": "Multiaddr",
+          "lineNumber": 48
+        },
+        {
+          "caller": "test_equal_connections_have_equal_hashes",
+          "callee": "hash",
+          "lineNumber": 50
+        },
+        {
+          "caller": "test_equal_connections_have_equal_hashes",
+          "callee": "hash",
+          "lineNumber": 50
+        },
+        {
+          "caller": "test_same_port_different_ip_differ",
+          "callee": "SocketConnection",
+          "lineNumber": 53
+        },
+        {
+          "caller": "test_same_port_different_ip_differ",
+          "callee": "Multiaddr",
+          "lineNumber": 53
+        },
+        {
+          "caller": "test_same_port_different_ip_differ",
+          "callee": "SocketConnection",
+          "lineNumber": 54
+        },
+        {
+          "caller": "test_same_port_different_ip_differ",
+          "callee": "Multiaddr",
+          "lineNumber": 54
+        },
+        {
+          "caller": "test_same_port_different_ip_differ",
+          "callee": "hash",
+          "lineNumber": 55
+        },
+        {
+          "caller": "test_same_port_different_ip_differ",
+          "callee": "hash",
+          "lineNumber": 55
+        },
+        {
+          "caller": "test_dict_lookup_returns_correct_entry_with_same_ip_different_ports",
+          "callee": "SocketConnection",
+          "lineNumber": 59
+        },
+        {
+          "caller": "test_dict_lookup_returns_correct_entry_with_same_ip_different_ports",
+          "callee": "Multiaddr",
+          "lineNumber": 59
+        },
+        {
+          "caller": "test_dict_lookup_returns_correct_entry_with_same_ip_different_ports",
+          "callee": "SocketConnection",
+          "lineNumber": 60
+        },
+        {
+          "caller": "test_dict_lookup_returns_correct_entry_with_same_ip_different_ports",
+          "callee": "Multiaddr",
+          "lineNumber": 60
+        },
+        {
+          "caller": "test_uses_peer_port_in_url",
+          "callee": "NodeId",
+          "lineNumber": 78
+        },
+        {
+          "caller": "test_uses_peer_port_in_url",
+          "callee": "MagicMock",
+          "lineNumber": 81
+        },
+        {
+          "caller": "test_uses_peer_port_in_url",
+          "callee": "str",
+          "lineNumber": 83
+        },
+        {
+          "caller": "test_uses_peer_port_in_url",
+          "callee": "AsyncMock",
+          "lineNumber": 85
+        },
+        {
+          "caller": "test_uses_peer_port_in_url",
+          "callee": "AsyncMock",
+          "lineNumber": 86
+        },
+        {
+          "caller": "test_uses_peer_port_in_url",
+          "callee": "check_reachability",
+          "lineNumber": 89
+        },
+        {
+          "caller": "test_uses_peer_port_in_url",
+          "callee": "str",
+          "lineNumber": 101
+        },
+        {
+          "caller": "test_returns_latency_on_success",
+          "callee": "NodeId",
+          "lineNumber": 107
+        },
+        {
+          "caller": "test_returns_latency_on_success",
+          "callee": "MagicMock",
+          "lineNumber": 110
+        },
+        {
+          "caller": "test_returns_latency_on_success",
+          "callee": "str",
+          "lineNumber": 112
+        },
+        {
+          "caller": "test_returns_latency_on_success",
+          "callee": "AsyncMock",
+          "lineNumber": 114
+        },
+        {
+          "caller": "test_returns_latency_on_success",
+          "callee": "AsyncMock",
+          "lineNumber": 115
+        },
+        {
+          "caller": "test_returns_latency_on_success",
+          "callee": "check_reachability",
+          "lineNumber": 117
+        },
+        {
+          "caller": "test_returns_none_on_non_200",
+          "callee": "NodeId",
+          "lineNumber": 131
+        },
+        {
+          "caller": "test_returns_none_on_non_200",
+          "callee": "MagicMock",
+          "lineNumber": 134
+        },
+        {
+          "caller": "test_returns_none_on_non_200",
+          "callee": "AsyncMock",
+          "lineNumber": 138
+        },
+        {
+          "caller": "test_returns_none_on_non_200",
+          "callee": "AsyncMock",
+          "lineNumber": 139
+        },
+        {
+          "caller": "test_returns_none_on_non_200",
+          "callee": "patch",
+          "lineNumber": 141
+        },
+        {
+          "caller": "test_returns_none_on_non_200",
+          "callee": "check_reachability",
+          "lineNumber": 142
+        },
+        {
+          "caller": "test_returns_none_on_node_id_mismatch",
+          "callee": "NodeId",
+          "lineNumber": 156
+        },
+        {
+          "caller": "test_returns_none_on_node_id_mismatch",
+          "callee": "NodeId",
+          "lineNumber": 157
+        },
+        {
+          "caller": "test_returns_none_on_node_id_mismatch",
+          "callee": "MagicMock",
+          "lineNumber": 160
+        },
+        {
+          "caller": "test_returns_none_on_node_id_mismatch",
+          "callee": "str",
+          "lineNumber": 162
+        },
+        {
+          "caller": "test_returns_none_on_node_id_mismatch",
+          "callee": "AsyncMock",
+          "lineNumber": 164
+        },
+        {
+          "caller": "test_returns_none_on_node_id_mismatch",
+          "callee": "AsyncMock",
+          "lineNumber": 165
+        },
+        {
+          "caller": "test_returns_none_on_node_id_mismatch",
+          "callee": "patch",
+          "lineNumber": 167
+        },
+        {
+          "caller": "test_returns_none_on_node_id_mismatch",
+          "callee": "check_reachability",
+          "lineNumber": 168
+        },
+        {
+          "caller": "test_node_id_mismatch_logs_warning",
+          "callee": "NodeId",
+          "lineNumber": 192
+        },
+        {
+          "caller": "test_node_id_mismatch_logs_warning",
+          "callee": "NodeId",
+          "lineNumber": 193
+        },
+        {
+          "caller": "test_node_id_mismatch_logs_warning",
+          "callee": "MagicMock",
+          "lineNumber": 196
+        },
+        {
+          "caller": "test_node_id_mismatch_logs_warning",
+          "callee": "str",
+          "lineNumber": 198
+        },
+        {
+          "caller": "test_node_id_mismatch_logs_warning",
+          "callee": "AsyncMock",
+          "lineNumber": 200
+        },
+        {
+          "caller": "test_node_id_mismatch_logs_warning",
+          "callee": "AsyncMock",
+          "lineNumber": 201
+        },
+        {
+          "caller": "test_node_id_mismatch_logs_warning",
+          "callee": "patch",
+          "lineNumber": 204
+        },
+        {
+          "caller": "test_node_id_mismatch_logs_warning",
+          "callee": "patch",
+          "lineNumber": 205
+        },
+        {
+          "caller": "test_node_id_mismatch_logs_warning",
+          "callee": "check_reachability",
+          "lineNumber": 207
+        },
+        {
+          "caller": "test_node_id_mismatch_logs_warning",
+          "callee": "mock_logger.warning.assert_called",
+          "lineNumber": 215
+        },
+        {
+          "caller": "test_node_id_mismatch_logs_warning",
+          "callee": "log_msg.lower",
+          "lineNumber": 217
+        },
+        {
+          "caller": "test_node_id_mismatch_logs_warning",
+          "callee": "log_msg.lower",
+          "lineNumber": 217
+        },
+        {
+          "caller": "test_connection_error_logs_warning",
+          "callee": "NodeId",
+          "lineNumber": 224
+        },
+        {
+          "caller": "test_connection_error_logs_warning",
+          "callee": "AsyncMock",
+          "lineNumber": 227
+        },
+        {
+          "caller": "test_connection_error_logs_warning",
+          "callee": "AsyncMock",
+          "lineNumber": 228
+        },
+        {
+          "caller": "test_connection_error_logs_warning",
+          "callee": "httpx.ConnectError",
+          "lineNumber": 229
+        },
+        {
+          "caller": "test_connection_error_logs_warning",
+          "callee": "patch",
+          "lineNumber": 233
+        },
+        {
+          "caller": "test_connection_error_logs_warning",
+          "callee": "patch",
+          "lineNumber": 234
+        },
+        {
+          "caller": "test_connection_error_logs_warning",
+          "callee": "check_reachability",
+          "lineNumber": 236
+        },
+        {
+          "caller": "test_connection_error_logs_warning",
+          "callee": "mock_logger.warning.assert_called",
+          "lineNumber": 245
+        },
+        {
+          "caller": "test_connection_error_logs_warning",
+          "callee": "log_msg.lower",
+          "lineNumber": 247
+        },
+        {
+          "caller": "test_connection_error_logs_warning",
+          "callee": "log_msg.lower",
+          "lineNumber": 247
+        },
+        {
+          "caller": "test_watch_system_info_emits_immediately_not_after_sleep",
+          "callee": "inspect.getsource",
+          "lineNumber": 267
+        },
+        {
+          "caller": "test_watch_system_info_emits_immediately_not_after_sleep",
+          "callee": "l.strip",
+          "lineNumber": 272
+        },
+        {
+          "caller": "test_watch_system_info_emits_immediately_not_after_sleep",
+          "callee": "src.splitlines",
+          "lineNumber": 272
+        },
+        {
+          "caller": "test_watch_system_info_emits_immediately_not_after_sleep",
+          "callee": "l.strip",
+          "lineNumber": 272
+        },
+        {
+          "caller": "test_watch_system_info_emits_immediately_not_after_sleep",
+          "callee": "next",
+          "lineNumber": 275
+        },
+        {
+          "caller": "test_watch_system_info_emits_immediately_not_after_sleep",
+          "callee": "l.startswith",
+          "lineNumber": 277
+        },
+        {
+          "caller": "test_watch_system_info_emits_immediately_not_after_sleep",
+          "callee": "l.startswith",
+          "lineNumber": 277
+        },
+        {
+          "caller": "test_watch_system_info_emits_immediately_not_after_sleep",
+          "callee": "l.startswith",
+          "lineNumber": 278
+        },
+        {
+          "caller": "test_snapshot_has_connections_dict",
+          "callee": "Topology",
+          "lineNumber": 295
+        },
+        {
+          "caller": "test_snapshot_has_connections_dict",
+          "callee": "NodeId",
+          "lineNumber": 296
+        },
+        {
+          "caller": "test_snapshot_has_connections_dict",
+          "callee": "NodeId",
+          "lineNumber": 296
+        },
+        {
+          "caller": "test_snapshot_has_connections_dict",
+          "callee": "SocketConnection",
+          "lineNumber": 297
+        },
+        {
+          "caller": "test_snapshot_has_connections_dict",
+          "callee": "Multiaddr",
+          "lineNumber": 297
+        },
+        {
+          "caller": "test_snapshot_has_connections_dict",
+          "callee": "t.add_connection",
+          "lineNumber": 298
+        },
+        {
+          "caller": "test_snapshot_has_connections_dict",
+          "callee": "Connection",
+          "lineNumber": 298
+        },
+        {
+          "caller": "test_snapshot_has_connections_dict",
+          "callee": "t.to_snapshot",
+          "lineNumber": 300
+        },
+        {
+          "caller": "test_snapshot_has_connections_dict",
+          "callee": "snap.model_dump",
+          "lineNumber": 301
+        },
+        {
+          "caller": "test_snapshot_connections_keyed_by_source_sink",
+          "callee": "Topology",
+          "lineNumber": 309
+        },
+        {
+          "caller": "test_snapshot_connections_keyed_by_source_sink",
+          "callee": "NodeId",
+          "lineNumber": 310
+        },
+        {
+          "caller": "test_snapshot_connections_keyed_by_source_sink",
+          "callee": "NodeId",
+          "lineNumber": 310
+        },
+        {
+          "caller": "test_snapshot_connections_keyed_by_source_sink",
+          "callee": "SocketConnection",
+          "lineNumber": 311
+        },
+        {
+          "caller": "test_snapshot_connections_keyed_by_source_sink",
+          "callee": "Multiaddr",
+          "lineNumber": 311
+        },
+        {
+          "caller": "test_snapshot_connections_keyed_by_source_sink",
+          "callee": "SocketConnection",
+          "lineNumber": 312
+        },
+        {
+          "caller": "test_snapshot_connections_keyed_by_source_sink",
+          "callee": "Multiaddr",
+          "lineNumber": 312
+        },
+        {
+          "caller": "test_snapshot_connections_keyed_by_source_sink",
+          "callee": "t.add_connection",
+          "lineNumber": 313
+        },
+        {
+          "caller": "test_snapshot_connections_keyed_by_source_sink",
+          "callee": "Connection",
+          "lineNumber": 313
+        },
+        {
+          "caller": "test_snapshot_connections_keyed_by_source_sink",
+          "callee": "t.add_connection",
+          "lineNumber": 314
+        },
+        {
+          "caller": "test_snapshot_connections_keyed_by_source_sink",
+          "callee": "Connection",
+          "lineNumber": 314
+        },
+        {
+          "caller": "test_snapshot_connections_keyed_by_source_sink",
+          "callee": "t.to_snapshot",
+          "lineNumber": 316
+        },
+        {
+          "caller": "test_snapshot_connections_keyed_by_source_sink",
+          "callee": "len",
+          "lineNumber": 321
+        },
+        {
+          "caller": "test_roundtrip_preserves_edges",
+          "callee": "Topology",
+          "lineNumber": 325
+        },
+        {
+          "caller": "test_roundtrip_preserves_edges",
+          "callee": "NodeId",
+          "lineNumber": 326
+        },
+        {
+          "caller": "test_roundtrip_preserves_edges",
+          "callee": "NodeId",
+          "lineNumber": 326
+        },
+        {
+          "caller": "test_roundtrip_preserves_edges",
+          "callee": "NodeId",
+          "lineNumber": 326
+        },
+        {
+          "caller": "test_roundtrip_preserves_edges",
+          "callee": "SocketConnection",
+          "lineNumber": 327
+        },
+        {
+          "caller": "test_roundtrip_preserves_edges",
+          "callee": "Multiaddr",
+          "lineNumber": 327
+        },
+        {
+          "caller": "test_roundtrip_preserves_edges",
+          "callee": "RDMAConnection",
+          "lineNumber": 328
+        },
+        {
+          "caller": "test_roundtrip_preserves_edges",
+          "callee": "t.add_connection",
+          "lineNumber": 329
+        },
+        {
+          "caller": "test_roundtrip_preserves_edges",
+          "callee": "Connection",
+          "lineNumber": 329
+        },
+        {
+          "caller": "test_roundtrip_preserves_edges",
+          "callee": "t.add_connection",
+          "lineNumber": 330
+        },
+        {
+          "caller": "test_roundtrip_preserves_edges",
+          "callee": "Connection",
+          "lineNumber": 330
+        },
+        {
+          "caller": "test_roundtrip_preserves_edges",
+          "callee": "t.to_snapshot",
+          "lineNumber": 332
+        },
+        {
+          "caller": "test_roundtrip_preserves_edges",
+          "callee": "Topology.from_snapshot",
+          "lineNumber": 333
+        },
+        {
+          "caller": "test_roundtrip_preserves_edges",
+          "callee": "len",
+          "lineNumber": 336
+        },
+        {
+          "caller": "test_roundtrip_preserves_edges",
+          "callee": "list",
+          "lineNumber": 336
+        },
+        {
+          "caller": "test_roundtrip_preserves_edges",
+          "callee": "t2.list_nodes",
+          "lineNumber": 336
+        },
+        {
+          "caller": "test_roundtrip_preserves_edges",
+          "callee": "list",
+          "lineNumber": 337
+        },
+        {
+          "caller": "test_roundtrip_preserves_edges",
+          "callee": "t2.list_connections",
+          "lineNumber": 337
+        },
+        {
+          "caller": "test_roundtrip_preserves_edges",
+          "callee": "len",
+          "lineNumber": 338
+        },
+        {
+          "caller": "test_empty_topology_has_no_connections",
+          "callee": "Topology",
+          "lineNumber": 341
+        },
+        {
+          "caller": "test_empty_topology_has_no_connections",
+          "callee": "t.add_node",
+          "lineNumber": 342
+        },
+        {
+          "caller": "test_empty_topology_has_no_connections",
+          "callee": "NodeId",
+          "lineNumber": 342
+        },
+        {
+          "caller": "test_empty_topology_has_no_connections",
+          "callee": "t.to_snapshot",
+          "lineNumber": 343
+        },
+        {
+          "caller": "test_total_edges_from_connections",
+          "callee": "Topology",
+          "lineNumber": 348
+        },
+        {
+          "caller": "test_total_edges_from_connections",
+          "callee": "NodeId",
+          "lineNumber": 349
+        },
+        {
+          "caller": "test_total_edges_from_connections",
+          "callee": "NodeId",
+          "lineNumber": 349
+        },
+        {
+          "caller": "test_total_edges_from_connections",
+          "callee": "NodeId",
+          "lineNumber": 349
+        },
+        {
+          "caller": "test_total_edges_from_connections",
+          "callee": "t.add_connection",
+          "lineNumber": 350
+        },
+        {
+          "caller": "test_total_edges_from_connections",
+          "callee": "Connection",
+          "lineNumber": 350
+        },
+        {
+          "caller": "test_total_edges_from_connections",
+          "callee": "SocketConnection",
+          "lineNumber": 352
+        },
+        {
+          "caller": "test_total_edges_from_connections",
+          "callee": "Multiaddr",
+          "lineNumber": 352
+        },
+        {
+          "caller": "test_total_edges_from_connections",
+          "callee": "t.add_connection",
+          "lineNumber": 354
+        },
+        {
+          "caller": "test_total_edges_from_connections",
+          "callee": "Connection",
+          "lineNumber": 354
+        },
+        {
+          "caller": "test_total_edges_from_connections",
+          "callee": "SocketConnection",
+          "lineNumber": 356
+        },
+        {
+          "caller": "test_total_edges_from_connections",
+          "callee": "Multiaddr",
+          "lineNumber": 356
+        },
+        {
+          "caller": "test_total_edges_from_connections",
+          "callee": "t.add_connection",
+          "lineNumber": 358
+        },
+        {
+          "caller": "test_total_edges_from_connections",
+          "callee": "Connection",
+          "lineNumber": 358
+        },
+        {
+          "caller": "test_total_edges_from_connections",
+          "callee": "SocketConnection",
+          "lineNumber": 360
+        },
+        {
+          "caller": "test_total_edges_from_connections",
+          "callee": "Multiaddr",
+          "lineNumber": 360
+        },
+        {
+          "caller": "test_total_edges_from_connections",
+          "callee": "t.to_snapshot().model_dump",
+          "lineNumber": 363
+        },
+        {
+          "caller": "test_total_edges_from_connections",
+          "callee": "t.to_snapshot",
+          "lineNumber": 363
+        },
+        {
+          "caller": "test_total_edges_from_connections",
+          "callee": "sum",
+          "lineNumber": 365
+        },
+        {
+          "caller": "test_total_edges_from_connections",
+          "callee": "len",
+          "lineNumber": 366
+        },
+        {
+          "caller": "test_total_edges_from_connections",
+          "callee": "conns.values",
+          "lineNumber": 367
+        },
+        {
+          "caller": "test_total_edges_from_connections",
+          "callee": "sink_map.values",
+          "lineNumber": 368
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 5,
+        "functionCount": 0,
+        "classCount": 5
+      }
+    },
+    {
+      "path": "src/exo/utils/keyed_backoff.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 39,
+      "nonEmptyLines": 31,
+      "classes": [
+        {
+          "name": "KeyedBackoff",
+          "startLine": 6,
+          "endLine": 39,
+          "methods": [
+            "__init__",
+            "should_proceed",
+            "record_attempt",
+            "attempts",
+            "tracked_keys",
+            "reset"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "KeyedBackoff",
+          "line": 5,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "should_proceed",
+          "callee": "time.monotonic",
+          "lineNumber": 17
+        },
+        {
+          "caller": "should_proceed",
+          "callee": "self._last_time.get",
+          "lineNumber": 18
+        },
+        {
+          "caller": "should_proceed",
+          "callee": "self._attempts.get",
+          "lineNumber": 19
+        },
+        {
+          "caller": "should_proceed",
+          "callee": "min",
+          "lineNumber": 20
+        },
+        {
+          "caller": "record_attempt",
+          "callee": "time.monotonic",
+          "lineNumber": 25
+        },
+        {
+          "caller": "record_attempt",
+          "callee": "self._attempts.get",
+          "lineNumber": 26
+        },
+        {
+          "caller": "attempts",
+          "callee": "self._attempts.get",
+          "lineNumber": 30
+        },
+        {
+          "caller": "tracked_keys",
+          "callee": "set",
+          "lineNumber": 34
+        },
+        {
+          "caller": "tracked_keys",
+          "callee": "set",
+          "lineNumber": 34
+        },
+        {
+          "caller": "reset",
+          "callee": "self._attempts.pop",
+          "lineNumber": 38
+        },
+        {
+          "caller": "reset",
+          "callee": "self._last_time.pop",
+          "lineNumber": 39
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "src/exo/utils/phantom.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 11,
+      "nonEmptyLines": 9,
+      "classes": [
+        {
+          "name": "_PhantomData",
+          "startLine": 1,
+          "endLine": 4,
+          "methods": [],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "_PhantomData",
+          "line": 1,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "src/exo/utils/ports.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 6,
+      "nonEmptyLines": 4,
+      "functions": [
+        {
+          "name": "random_ephemeral_port",
+          "startLine": 4,
+          "endLine": 6,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "random_ephemeral_port",
+          "line": 4,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "random_ephemeral_port",
+          "callee": "random.randint",
+          "lineNumber": 5
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/exo/utils/power_sampler.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 213,
+      "nonEmptyLines": 190,
+      "functions": [
+        {
+          "name": "trapezoidal_energy",
+          "startLine": 143,
+          "endLine": 161,
+          "params": [
+            "ts_profiles",
+            "elapsed"
+          ]
+        },
+        {
+          "name": "trapezoidal_energy_range",
+          "startLine": 164,
+          "endLine": 213,
+          "params": [
+            "ts_profiles",
+            "t_start",
+            "t_end"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "PowerSampler",
+          "startLine": 14,
+          "endLine": 140,
+          "methods": [
+            "__init__",
+            "_take_sample",
+            "run",
+            "mark_prefill_done",
+            "result"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "PowerSampler",
+          "line": 13,
+          "isDefault": false
+        },
+        {
+          "name": "trapezoidal_energy",
+          "line": 143,
+          "isDefault": false
+        },
+        {
+          "name": "trapezoidal_energy_range",
+          "line": 164,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "__init__",
+          "callee": "defaultdict",
+          "lineNumber": 24
+        },
+        {
+          "caller": "_take_sample",
+          "callee": "time.perf_counter",
+          "lineNumber": 31
+        },
+        {
+          "caller": "_take_sample",
+          "callee": "self._get_node_system().items",
+          "lineNumber": 32
+        },
+        {
+          "caller": "_take_sample",
+          "callee": "self._get_node_system",
+          "lineNumber": 32
+        },
+        {
+          "caller": "_take_sample",
+          "callee": "self._samples[node_id].append",
+          "lineNumber": 33
+        },
+        {
+          "caller": "run",
+          "callee": "time.perf_counter",
+          "lineNumber": 36
+        },
+        {
+          "caller": "run",
+          "callee": "self._take_sample",
+          "lineNumber": 37
+        },
+        {
+          "caller": "run",
+          "callee": "anyio.sleep",
+          "lineNumber": 39
+        },
+        {
+          "caller": "run",
+          "callee": "self._take_sample",
+          "lineNumber": 40
+        },
+        {
+          "caller": "mark_prefill_done",
+          "callee": "time.perf_counter",
+          "lineNumber": 51
+        },
+        {
+          "caller": "mark_prefill_done",
+          "callee": "self._take_sample",
+          "lineNumber": 52
+        },
+        {
+          "caller": "result",
+          "callee": "time.perf_counter",
+          "lineNumber": 58
+        },
+        {
+          "caller": "result",
+          "callee": "self._take_sample",
+          "lineNumber": 59
+        },
+        {
+          "caller": "result",
+          "callee": "max",
+          "lineNumber": 65
+        },
+        {
+          "caller": "result",
+          "callee": "min",
+          "lineNumber": 65
+        },
+        {
+          "caller": "result",
+          "callee": "self._samples.items",
+          "lineNumber": 71
+        },
+        {
+          "caller": "result",
+          "callee": "len",
+          "lineNumber": 72
+        },
+        {
+          "caller": "result",
+          "callee": "trapezoidal_energy",
+          "lineNumber": 75
+        },
+        {
+          "caller": "result",
+          "callee": "trapezoidal_energy_range",
+          "lineNumber": 84
+        },
+        {
+          "caller": "result",
+          "callee": "trapezoidal_energy_range",
+          "lineNumber": 85
+        },
+        {
+          "caller": "result",
+          "callee": "node_stats.append",
+          "lineNumber": 95
+        },
+        {
+          "caller": "result",
+          "callee": "NodePowerStats",
+          "lineNumber": 96
+        },
+        {
+          "caller": "result",
+          "callee": "PowerUsage",
+          "lineNumber": 129
+        },
+        {
+          "caller": "trapezoidal_energy",
+          "callee": "len",
+          "lineNumber": 151
+        },
+        {
+          "caller": "trapezoidal_energy",
+          "callee": "range",
+          "lineNumber": 154
+        },
+        {
+          "caller": "trapezoidal_energy",
+          "callee": "len",
+          "lineNumber": 154
+        },
+        {
+          "caller": "trapezoidal_energy_range",
+          "callee": "len",
+          "lineNumber": 179
+        },
+        {
+          "caller": "trapezoidal_energy_range",
+          "callee": "len",
+          "lineNumber": 181
+        },
+        {
+          "caller": "power_at",
+          "callee": "range",
+          "lineNumber": 189
+        },
+        {
+          "caller": "power_at",
+          "callee": "len",
+          "lineNumber": 189
+        },
+        {
+          "caller": "trapezoidal_energy_range",
+          "callee": "power_at",
+          "lineNumber": 200
+        },
+        {
+          "caller": "trapezoidal_energy_range",
+          "callee": "power_at",
+          "lineNumber": 201
+        },
+        {
+          "caller": "trapezoidal_energy_range",
+          "callee": "range",
+          "lineNumber": 208
+        },
+        {
+          "caller": "trapezoidal_energy_range",
+          "callee": "len",
+          "lineNumber": 208
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 3,
+        "functionCount": 2,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "src/exo/utils/pydantic_ext.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 36,
+      "nonEmptyLines": 28,
+      "classes": [
+        {
+          "name": "FrozenModel",
+          "startLine": 11,
+          "endLine": 18,
+          "methods": [],
+          "properties": []
+        },
+        {
+          "name": "TaggedModel",
+          "startLine": 21,
+          "endLine": 36,
+          "methods": [
+            "_serialize",
+            "_validate",
+            "__str__"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "FrozenModel",
+          "line": 11,
+          "isDefault": false
+        },
+        {
+          "name": "TaggedModel",
+          "line": 21,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "_serialize",
+          "callee": "handler",
+          "lineNumber": 24
+        },
+        {
+          "caller": "_validate",
+          "callee": "isinstance",
+          "lineNumber": 30
+        },
+        {
+          "caller": "_validate",
+          "callee": "len",
+          "lineNumber": 30
+        },
+        {
+          "caller": "_validate",
+          "callee": "handler",
+          "lineNumber": 31
+        },
+        {
+          "caller": "_validate",
+          "callee": "handler",
+          "lineNumber": 33
+        },
+        {
+          "caller": "__str__",
+          "callee": "super().__str__",
+          "lineNumber": 36
+        },
+        {
+          "caller": "__str__",
+          "callee": "super",
+          "lineNumber": 36
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 2,
+        "functionCount": 0,
+        "classCount": 2
+      }
+    },
+    {
+      "path": "src/exo/utils/reactive.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 32,
+      "nonEmptyLines": 22,
+      "classes": [
+        {
+          "name": "OnChange",
+          "startLine": 9,
+          "endLine": 10,
+          "methods": [
+            "__call__"
+          ],
+          "properties": []
+        },
+        {
+          "name": "Reactive",
+          "startLine": 13,
+          "endLine": 32,
+          "methods": [
+            "__init__",
+            "value",
+            "value"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "OnChange",
+          "line": 9,
+          "isDefault": false
+        },
+        {
+          "name": "Reactive",
+          "line": 13,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "value",
+          "callee": "self._on_change",
+          "lineNumber": 32
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 2,
+        "functionCount": 0,
+        "classCount": 2
+      }
+    },
+    {
+      "path": "src/exo/utils/settings.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 245,
+      "nonEmptyLines": 215,
+      "functions": [
+        {
+          "name": "get_settings_manager",
+          "startLine": 240,
+          "endLine": 245,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "SettingSpec",
+          "startLine": 32,
+          "endLine": 66,
+          "methods": [
+            "__init__",
+            "coerce"
+          ],
+          "properties": []
+        },
+        {
+          "name": "SettingsManager",
+          "startLine": 112,
+          "endLine": 231,
+          "methods": [
+            "__init__",
+            "_load",
+            "_save",
+            "resolve",
+            "get_value",
+            "snapshot",
+            "apply_override"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "SettingSpec",
+          "line": 32,
+          "isDefault": false
+        },
+        {
+          "name": "SettingsManager",
+          "line": 112,
+          "isDefault": false
+        },
+        {
+          "name": "get_settings_manager",
+          "line": 240,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "coerce",
+          "callee": "raw.strip().lower",
+          "lineNumber": 55
+        },
+        {
+          "caller": "coerce",
+          "callee": "raw.strip",
+          "lineNumber": 55
+        },
+        {
+          "caller": "coerce",
+          "callee": "ValueError",
+          "lineNumber": 60
+        },
+        {
+          "caller": "coerce",
+          "callee": "int",
+          "lineNumber": 62
+        },
+        {
+          "caller": "coerce",
+          "callee": "float",
+          "lineNumber": 64
+        },
+        {
+          "caller": "__init__",
+          "callee": "threading.Lock",
+          "lineNumber": 117
+        },
+        {
+          "caller": "__init__",
+          "callee": "self._load",
+          "lineNumber": 119
+        },
+        {
+          "caller": "_load",
+          "callee": "self._settings_file.is_file",
+          "lineNumber": 124
+        },
+        {
+          "caller": "_load",
+          "callee": "json.loads",
+          "lineNumber": 125
+        },
+        {
+          "caller": "_load",
+          "callee": "self._settings_file.read_text",
+          "lineNumber": 126
+        },
+        {
+          "caller": "_load",
+          "callee": "isinstance",
+          "lineNumber": 128
+        },
+        {
+          "caller": "_load",
+          "callee": "cast",
+          "lineNumber": 129
+        },
+        {
+          "caller": "_load",
+          "callee": "str",
+          "lineNumber": 131
+        },
+        {
+          "caller": "_load",
+          "callee": "raw_dict.items",
+          "lineNumber": 132
+        },
+        {
+          "caller": "_load",
+          "callee": "logger.warning",
+          "lineNumber": 136
+        },
+        {
+          "caller": "_save",
+          "callee": "self._settings_file.parent.mkdir",
+          "lineNumber": 140
+        },
+        {
+          "caller": "_save",
+          "callee": "self._settings_file.with_suffix",
+          "lineNumber": 141
+        },
+        {
+          "caller": "_save",
+          "callee": "tmp.write_text",
+          "lineNumber": 142
+        },
+        {
+          "caller": "_save",
+          "callee": "json.dumps",
+          "lineNumber": 143
+        },
+        {
+          "caller": "_save",
+          "callee": "tmp.replace",
+          "lineNumber": 146
+        },
+        {
+          "caller": "_save",
+          "callee": "logger.error",
+          "lineNumber": 148
+        },
+        {
+          "caller": "resolve",
+          "callee": "CATALOG.get",
+          "lineNumber": 156
+        },
+        {
+          "caller": "resolve",
+          "callee": "self._overrides.get",
+          "lineNumber": 160
+        },
+        {
+          "caller": "resolve",
+          "callee": "os.environ.get",
+          "lineNumber": 163
+        },
+        {
+          "caller": "get_value",
+          "callee": "CATALOG.get",
+          "lineNumber": 180
+        },
+        {
+          "caller": "get_value",
+          "callee": "self._overrides.get",
+          "lineNumber": 183
+        },
+        {
+          "caller": "get_value",
+          "callee": "os.environ.get",
+          "lineNumber": 186
+        },
+        {
+          "caller": "snapshot",
+          "callee": "sorted",
+          "lineNumber": 195
+        },
+        {
+          "caller": "snapshot",
+          "callee": "self.resolve",
+          "lineNumber": 197
+        },
+        {
+          "caller": "snapshot",
+          "callee": "spec.coerce",
+          "lineNumber": 210
+        },
+        {
+          "caller": "snapshot",
+          "callee": "entries.append",
+          "lineNumber": 216
+        },
+        {
+          "caller": "apply_override",
+          "callee": "CATALOG.get",
+          "lineNumber": 221
+        },
+        {
+          "caller": "apply_override",
+          "callee": "ValueError",
+          "lineNumber": 223
+        },
+        {
+          "caller": "apply_override",
+          "callee": "self._overrides.pop",
+          "lineNumber": 226
+        },
+        {
+          "caller": "apply_override",
+          "callee": "spec.coerce",
+          "lineNumber": 229
+        },
+        {
+          "caller": "apply_override",
+          "callee": "self._save",
+          "lineNumber": 231
+        },
+        {
+          "caller": "get_settings_manager",
+          "callee": "SettingsManager",
+          "lineNumber": 244
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 3,
+        "functionCount": 1,
+        "classCount": 2
+      }
+    },
+    {
+      "path": "src/exo/utils/stall_watchdog.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 69,
+      "nonEmptyLines": 57,
+      "classes": [
+        {
+          "name": "StallWatchdog",
+          "startLine": 14,
+          "endLine": 69,
+          "methods": [
+            "__init__",
+            "kick",
+            "close",
+            "__enter__",
+            "__exit__",
+            "_watch"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "StallWatchdog",
+          "line": 13,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "__init__",
+          "callee": "threading.Event",
+          "lineNumber": 30
+        },
+        {
+          "caller": "__init__",
+          "callee": "threading.Event",
+          "lineNumber": 31
+        },
+        {
+          "caller": "__init__",
+          "callee": "threading.Thread",
+          "lineNumber": 34
+        },
+        {
+          "caller": "__init__",
+          "callee": "self._thread.start",
+          "lineNumber": 37
+        },
+        {
+          "caller": "kick",
+          "callee": "self._kicked.set",
+          "lineNumber": 41
+        },
+        {
+          "caller": "close",
+          "callee": "self._closed.set",
+          "lineNumber": 44
+        },
+        {
+          "caller": "__exit__",
+          "callee": "self.close",
+          "lineNumber": 55
+        },
+        {
+          "caller": "_watch",
+          "callee": "self._kicked.clear",
+          "lineNumber": 59
+        },
+        {
+          "caller": "_watch",
+          "callee": "self._closed.wait",
+          "lineNumber": 60
+        },
+        {
+          "caller": "_watch",
+          "callee": "self._kicked.is_set",
+          "lineNumber": 62
+        },
+        {
+          "caller": "_watch",
+          "callee": "logger.critical",
+          "lineNumber": 64
+        },
+        {
+          "caller": "_watch",
+          "callee": "faulthandler.dump_traceback",
+          "lineNumber": 68
+        },
+        {
+          "caller": "_watch",
+          "callee": "os._exit",
+          "lineNumber": 69
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "src/exo/utils/task_group.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 65,
+      "nonEmptyLines": 55,
+      "classes": [
+        {
+          "name": "TaskGroup",
+          "startLine": 11,
+          "endLine": 65,
+          "methods": [
+            "is_running",
+            "cancel_tasks",
+            "cancel_called",
+            "start_soon",
+            "queue",
+            "__aenter__",
+            "__aexit__"
+          ],
+          "properties": [
+            "_tg",
+            "_queued"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "TaskGroup",
+          "line": 10,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "cancel_tasks",
+          "callee": "self._tg.cancel_scope.cancel",
+          "lineNumber": 20
+        },
+        {
+          "caller": "start_soon",
+          "callee": "self._tg.start_soon",
+          "lineNumber": 34
+        },
+        {
+          "caller": "queue",
+          "callee": "self._queued.append",
+          "lineNumber": 44
+        },
+        {
+          "caller": "__aenter__",
+          "callee": "create_task_group",
+          "lineNumber": 49
+        },
+        {
+          "caller": "__aenter__",
+          "callee": "self._tg.__aenter__",
+          "lineNumber": 50
+        },
+        {
+          "caller": "__aenter__",
+          "callee": "self._tg.start_soon",
+          "lineNumber": 52
+        },
+        {
+          "caller": "__aexit__",
+          "callee": "self._tg.__aexit__",
+          "lineNumber": 65
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "src/exo/utils/tests/conftest.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 8,
+      "nonEmptyLines": 5,
+      "functions": [
+        {
+          "name": "mp_force_spawn",
+          "startLine": 7,
+          "endLine": 8,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "mp_force_spawn",
+          "line": 6,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "mp_force_spawn",
+          "callee": "mp.set_start_method",
+          "lineNumber": 8
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/exo/utils/tests/test_async_process.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 417,
+      "nonEmptyLines": 320,
+      "functions": [
+        {
+          "name": "_write_to_stdio",
+          "startLine": 17,
+          "endLine": 21,
+          "params": [
+            "prefix",
+            "stderr_suffix"
+          ]
+        },
+        {
+          "name": "_write_large_output",
+          "startLine": 24,
+          "endLine": 26,
+          "params": []
+        },
+        {
+          "name": "_write_all",
+          "startLine": 29,
+          "endLine": 33,
+          "params": [
+            "fd",
+            "data"
+          ]
+        },
+        {
+          "name": "_write_large_exact_output",
+          "startLine": 36,
+          "endLine": 38,
+          "params": [
+            "size"
+          ]
+        },
+        {
+          "name": "_raise_after_stderr_write",
+          "startLine": 41,
+          "endLine": 43,
+          "params": []
+        },
+        {
+          "name": "_exit_after_stdio_write",
+          "startLine": 46,
+          "endLine": 49,
+          "params": [
+            "prefix",
+            "exitcode"
+          ]
+        },
+        {
+          "name": "_abort_after_stdio_write",
+          "startLine": 52,
+          "endLine": 55,
+          "params": [
+            "prefix"
+          ]
+        },
+        {
+          "name": "_close_stdio_and_exit",
+          "startLine": 58,
+          "endLine": 61,
+          "params": []
+        },
+        {
+          "name": "_send_over_mp_channel",
+          "startLine": 64,
+          "endLine": 66,
+          "params": [
+            "send"
+          ]
+        },
+        {
+          "name": "_mlx_force_oom",
+          "startLine": 69,
+          "endLine": 87,
+          "params": [
+            "size"
+          ]
+        },
+        {
+          "name": "_collect_stream",
+          "startLine": 90,
+          "endLine": 98,
+          "params": [
+            "stream",
+            "output"
+          ]
+        },
+        {
+          "name": "_collect_process_output",
+          "startLine": 101,
+          "endLine": 115,
+          "params": [
+            "process"
+          ]
+        },
+        {
+          "name": "_fd_identity",
+          "startLine": 118,
+          "endLine": 120,
+          "params": [
+            "fd"
+          ]
+        },
+        {
+          "name": "_fd_count",
+          "startLine": 123,
+          "endLine": 127,
+          "params": []
+        },
+        {
+          "name": "_started_process",
+          "startLine": 131,
+          "endLine": 137,
+          "params": [
+            "process"
+          ]
+        },
+        {
+          "name": "_run_and_collect",
+          "startLine": 140,
+          "endLine": 152,
+          "params": [
+            "target",
+            "args",
+            "kwargs"
+          ]
+        },
+        {
+          "name": "test_spawn_process_captures_stdout_and_stderr_separately",
+          "startLine": 156,
+          "endLine": 177,
+          "params": [
+            "capfd"
+          ]
+        },
+        {
+          "name": "test_process_with_no_target_exits_successfully",
+          "startLine": 181,
+          "endLine": 186,
+          "params": []
+        },
+        {
+          "name": "test_output_receivers_and_wait_are_safe_immediately_after_run_starts",
+          "startLine": 190,
+          "endLine": 211,
+          "params": []
+        },
+        {
+          "name": "test_stop_before_run_raises",
+          "startLine": 215,
+          "endLine": 224,
+          "params": []
+        },
+        {
+          "name": "test_process_run_is_one_shot",
+          "startLine": 228,
+          "endLine": 234,
+          "params": []
+        },
+        {
+          "name": "test_stdout_receiver_yields_bytes_chunks",
+          "startLine": 238,
+          "endLine": 247,
+          "params": []
+        },
+        {
+          "name": "test_output_can_be_read_after_process_exits",
+          "startLine": 251,
+          "endLine": 263,
+          "params": []
+        },
+        {
+          "name": "test_large_stdout_and_stderr_are_not_lost",
+          "startLine": 267,
+          "endLine": 276,
+          "params": []
+        },
+        {
+          "name": "test_child_exception_traceback_is_captured_from_stderr",
+          "startLine": 280,
+          "endLine": 289,
+          "params": []
+        },
+        {
+          "name": "test_repeated_bad_children_do_not_pollute_or_replace_parent_stdio",
+          "startLine": 293,
+          "endLine": 344,
+          "params": [
+            "capfd"
+          ]
+        },
+        {
+          "name": "test_child_can_close_stdio_without_corrupting_parent_stdio",
+          "startLine": 348,
+          "endLine": 365,
+          "params": [
+            "capfd"
+          ]
+        },
+        {
+          "name": "test_repeated_crashing_children_do_not_grow_parent_fd_table",
+          "startLine": 369,
+          "endLine": 387,
+          "params": []
+        },
+        {
+          "name": "test_process_can_use_mp_channel_with_global_spawn_context",
+          "startLine": 391,
+          "endLine": 401,
+          "params": []
+        },
+        {
+          "name": "test_death",
+          "startLine": 406,
+          "endLine": 417,
+          "params": [
+            "capsys"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "_write_to_stdio",
+          "line": 17,
+          "isDefault": false
+        },
+        {
+          "name": "_write_large_output",
+          "line": 24,
+          "isDefault": false
+        },
+        {
+          "name": "_write_all",
+          "line": 29,
+          "isDefault": false
+        },
+        {
+          "name": "_write_large_exact_output",
+          "line": 36,
+          "isDefault": false
+        },
+        {
+          "name": "_raise_after_stderr_write",
+          "line": 41,
+          "isDefault": false
+        },
+        {
+          "name": "_exit_after_stdio_write",
+          "line": 46,
+          "isDefault": false
+        },
+        {
+          "name": "_abort_after_stdio_write",
+          "line": 52,
+          "isDefault": false
+        },
+        {
+          "name": "_close_stdio_and_exit",
+          "line": 58,
+          "isDefault": false
+        },
+        {
+          "name": "_send_over_mp_channel",
+          "line": 64,
+          "isDefault": false
+        },
+        {
+          "name": "_mlx_force_oom",
+          "line": 69,
+          "isDefault": false
+        },
+        {
+          "name": "_collect_stream",
+          "line": 90,
+          "isDefault": false
+        },
+        {
+          "name": "_collect_process_output",
+          "line": 101,
+          "isDefault": false
+        },
+        {
+          "name": "_fd_identity",
+          "line": 118,
+          "isDefault": false
+        },
+        {
+          "name": "_fd_count",
+          "line": 123,
+          "isDefault": false
+        },
+        {
+          "name": "_started_process",
+          "line": 130,
+          "isDefault": false
+        },
+        {
+          "name": "_run_and_collect",
+          "line": 140,
+          "isDefault": false
+        },
+        {
+          "name": "test_spawn_process_captures_stdout_and_stderr_separately",
+          "line": 155,
+          "isDefault": false
+        },
+        {
+          "name": "test_process_with_no_target_exits_successfully",
+          "line": 180,
+          "isDefault": false
+        },
+        {
+          "name": "test_output_receivers_and_wait_are_safe_immediately_after_run_starts",
+          "line": 189,
+          "isDefault": false
+        },
+        {
+          "name": "test_stop_before_run_raises",
+          "line": 214,
+          "isDefault": false
+        },
+        {
+          "name": "test_process_run_is_one_shot",
+          "line": 227,
+          "isDefault": false
+        },
+        {
+          "name": "test_stdout_receiver_yields_bytes_chunks",
+          "line": 237,
+          "isDefault": false
+        },
+        {
+          "name": "test_output_can_be_read_after_process_exits",
+          "line": 250,
+          "isDefault": false
+        },
+        {
+          "name": "test_large_stdout_and_stderr_are_not_lost",
+          "line": 266,
+          "isDefault": false
+        },
+        {
+          "name": "test_child_exception_traceback_is_captured_from_stderr",
+          "line": 279,
+          "isDefault": false
+        },
+        {
+          "name": "test_repeated_bad_children_do_not_pollute_or_replace_parent_stdio",
+          "line": 292,
+          "isDefault": false
+        },
+        {
+          "name": "test_child_can_close_stdio_without_corrupting_parent_stdio",
+          "line": 347,
+          "isDefault": false
+        },
+        {
+          "name": "test_repeated_crashing_children_do_not_grow_parent_fd_table",
+          "line": 368,
+          "isDefault": false
+        },
+        {
+          "name": "test_process_can_use_mp_channel_with_global_spawn_context",
+          "line": 390,
+          "isDefault": false
+        },
+        {
+          "name": "test_death",
+          "line": 404,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "_write_to_stdio",
+          "callee": "print",
+          "lineNumber": 18
+        },
+        {
+          "caller": "_write_to_stdio",
+          "callee": "print",
+          "lineNumber": 19
+        },
+        {
+          "caller": "_write_to_stdio",
+          "callee": "os.write",
+          "lineNumber": 20
+        },
+        {
+          "caller": "_write_to_stdio",
+          "callee": "f\"{prefix}: fd stdout\\n\".encode",
+          "lineNumber": 20
+        },
+        {
+          "caller": "_write_to_stdio",
+          "callee": "os.write",
+          "lineNumber": 21
+        },
+        {
+          "caller": "_write_to_stdio",
+          "callee": "f\"{prefix}: fd stderr {stderr_suffix}\\n\".encode",
+          "lineNumber": 21
+        },
+        {
+          "caller": "_write_large_output",
+          "callee": "os.write",
+          "lineNumber": 25
+        },
+        {
+          "caller": "_write_large_output",
+          "callee": "os.write",
+          "lineNumber": 26
+        },
+        {
+          "caller": "_write_all",
+          "callee": "memoryview",
+          "lineNumber": 30
+        },
+        {
+          "caller": "_write_all",
+          "callee": "os.write",
+          "lineNumber": 32
+        },
+        {
+          "caller": "_write_large_exact_output",
+          "callee": "_write_all",
+          "lineNumber": 37
+        },
+        {
+          "caller": "_write_large_exact_output",
+          "callee": "_write_all",
+          "lineNumber": 38
+        },
+        {
+          "caller": "_raise_after_stderr_write",
+          "callee": "os.write",
+          "lineNumber": 42
+        },
+        {
+          "caller": "_raise_after_stderr_write",
+          "callee": "RuntimeError",
+          "lineNumber": 43
+        },
+        {
+          "caller": "_exit_after_stdio_write",
+          "callee": "os.write",
+          "lineNumber": 47
+        },
+        {
+          "caller": "_exit_after_stdio_write",
+          "callee": "f\"{prefix}: stdout before _exit\\n\".encode",
+          "lineNumber": 47
+        },
+        {
+          "caller": "_exit_after_stdio_write",
+          "callee": "os.write",
+          "lineNumber": 48
+        },
+        {
+          "caller": "_exit_after_stdio_write",
+          "callee": "f\"{prefix}: stderr before _exit\\n\".encode",
+          "lineNumber": 48
+        },
+        {
+          "caller": "_exit_after_stdio_write",
+          "callee": "os._exit",
+          "lineNumber": 49
+        },
+        {
+          "caller": "_abort_after_stdio_write",
+          "callee": "os.write",
+          "lineNumber": 53
+        },
+        {
+          "caller": "_abort_after_stdio_write",
+          "callee": "f\"{prefix}: stdout before abort\\n\".encode",
+          "lineNumber": 53
+        },
+        {
+          "caller": "_abort_after_stdio_write",
+          "callee": "os.write",
+          "lineNumber": 54
+        },
+        {
+          "caller": "_abort_after_stdio_write",
+          "callee": "f\"{prefix}: stderr before abort\\n\".encode",
+          "lineNumber": 54
+        },
+        {
+          "caller": "_abort_after_stdio_write",
+          "callee": "os.abort",
+          "lineNumber": 55
+        },
+        {
+          "caller": "_close_stdio_and_exit",
+          "callee": "os.close",
+          "lineNumber": 59
+        },
+        {
+          "caller": "_close_stdio_and_exit",
+          "callee": "os.close",
+          "lineNumber": 60
+        },
+        {
+          "caller": "_close_stdio_and_exit",
+          "callee": "os._exit",
+          "lineNumber": 61
+        },
+        {
+          "caller": "_send_over_mp_channel",
+          "callee": "send.send",
+          "lineNumber": 65
+        },
+        {
+          "caller": "_send_over_mp_channel",
+          "callee": "send.close",
+          "lineNumber": 66
+        },
+        {
+          "caller": "_mlx_force_oom",
+          "callee": "print",
+          "lineNumber": 75
+        },
+        {
+          "caller": "_mlx_force_oom",
+          "callee": "mx.set_default_device",
+          "lineNumber": 77
+        },
+        {
+          "caller": "_mlx_force_oom",
+          "callee": "mx.random.uniform",
+          "lineNumber": 78
+        },
+        {
+          "caller": "_mlx_force_oom",
+          "callee": "mx.random.uniform",
+          "lineNumber": 79
+        },
+        {
+          "caller": "_mlx_force_oom",
+          "callee": "mx.eval",
+          "lineNumber": 80
+        },
+        {
+          "caller": "_mlx_force_oom",
+          "callee": "mx.matmul",
+          "lineNumber": 81
+        },
+        {
+          "caller": "_mlx_force_oom",
+          "callee": "mx.matmul",
+          "lineNumber": 82
+        },
+        {
+          "caller": "_mlx_force_oom",
+          "callee": "mx.matmul",
+          "lineNumber": 83
+        },
+        {
+          "caller": "_mlx_force_oom",
+          "callee": "mx.sigmoid",
+          "lineNumber": 84
+        },
+        {
+          "caller": "_mlx_force_oom",
+          "callee": "mx.eval",
+          "lineNumber": 85
+        },
+        {
+          "caller": "_mlx_force_oom",
+          "callee": "print",
+          "lineNumber": 87
+        },
+        {
+          "caller": "_collect_stream",
+          "callee": "output.extend",
+          "lineNumber": 96
+        },
+        {
+          "caller": "_collect_stream",
+          "callee": "stream.receive",
+          "lineNumber": 96
+        },
+        {
+          "caller": "_collect_process_output",
+          "callee": "bytearray",
+          "lineNumber": 104
+        },
+        {
+          "caller": "_collect_process_output",
+          "callee": "bytearray",
+          "lineNumber": 105
+        },
+        {
+          "caller": "_collect_process_output",
+          "callee": "create_task_group",
+          "lineNumber": 108
+        },
+        {
+          "caller": "_collect_process_output",
+          "callee": "task_group.start_soon",
+          "lineNumber": 109
+        },
+        {
+          "caller": "_collect_process_output",
+          "callee": "task_group.start_soon",
+          "lineNumber": 110
+        },
+        {
+          "caller": "_collect_process_output",
+          "callee": "exitcodes.append",
+          "lineNumber": 111
+        },
+        {
+          "caller": "_collect_process_output",
+          "callee": "process.wait",
+          "lineNumber": 111
+        },
+        {
+          "caller": "_collect_process_output",
+          "callee": "RuntimeError",
+          "lineNumber": 114
+        },
+        {
+          "caller": "_collect_process_output",
+          "callee": "bytes",
+          "lineNumber": 115
+        },
+        {
+          "caller": "_collect_process_output",
+          "callee": "bytes",
+          "lineNumber": 115
+        },
+        {
+          "caller": "_fd_identity",
+          "callee": "os.fstat",
+          "lineNumber": 119
+        },
+        {
+          "caller": "_fd_count",
+          "callee": "contextlib.suppress",
+          "lineNumber": 125
+        },
+        {
+          "caller": "_fd_count",
+          "callee": "len",
+          "lineNumber": 126
+        },
+        {
+          "caller": "_fd_count",
+          "callee": "os.listdir",
+          "lineNumber": 126
+        },
+        {
+          "caller": "_started_process",
+          "callee": "create_task_group",
+          "lineNumber": 132
+        },
+        {
+          "caller": "_started_process",
+          "callee": "task_group.start",
+          "lineNumber": 133
+        },
+        {
+          "caller": "_started_process",
+          "callee": "process.stop",
+          "lineNumber": 137
+        },
+        {
+          "caller": "_run_and_collect",
+          "callee": "AsyncProcess",
+          "lineNumber": 146
+        },
+        {
+          "caller": "_run_and_collect",
+          "callee": "_started_process",
+          "lineNumber": 151
+        },
+        {
+          "caller": "_run_and_collect",
+          "callee": "_collect_process_output",
+          "lineNumber": 152
+        },
+        {
+          "caller": "test_spawn_process_captures_stdout_and_stderr_separately",
+          "callee": "AsyncProcess",
+          "lineNumber": 159
+        },
+        {
+          "caller": "test_spawn_process_captures_stdout_and_stderr_separately",
+          "callee": "_started_process",
+          "lineNumber": 164
+        },
+        {
+          "caller": "test_spawn_process_captures_stdout_and_stderr_separately",
+          "callee": "_collect_process_output",
+          "lineNumber": 165
+        },
+        {
+          "caller": "test_spawn_process_captures_stdout_and_stderr_separately",
+          "callee": "capfd.readouterr",
+          "lineNumber": 167
+        },
+        {
+          "caller": "test_spawn_process_captures_stdout_and_stderr_separately",
+          "callee": "stdout_bytes.decode",
+          "lineNumber": 168
+        },
+        {
+          "caller": "test_spawn_process_captures_stdout_and_stderr_separately",
+          "callee": "stderr_bytes.decode",
+          "lineNumber": 169
+        },
+        {
+          "caller": "test_process_with_no_target_exits_successfully",
+          "callee": "_run_and_collect",
+          "lineNumber": 182
+        },
+        {
+          "caller": "test_output_receivers_and_wait_are_safe_immediately_after_run_starts",
+          "callee": "AsyncProcess",
+          "lineNumber": 193
+        },
+        {
+          "caller": "test_output_receivers_and_wait_are_safe_immediately_after_run_starts",
+          "callee": "create_task_group",
+          "lineNumber": 200
+        },
+        {
+          "caller": "test_output_receivers_and_wait_are_safe_immediately_after_run_starts",
+          "callee": "task_group.start",
+          "lineNumber": 201
+        },
+        {
+          "caller": "test_output_receivers_and_wait_are_safe_immediately_after_run_starts",
+          "callee": "_collect_process_output",
+          "lineNumber": 203
+        },
+        {
+          "caller": "test_output_receivers_and_wait_are_safe_immediately_after_run_starts",
+          "callee": "process.stop",
+          "lineNumber": 205
+        },
+        {
+          "caller": "test_stop_before_run_raises",
+          "callee": "AsyncProcess",
+          "lineNumber": 216
+        },
+        {
+          "caller": "test_stop_before_run_raises",
+          "callee": "process.is_alive",
+          "lineNumber": 222
+        },
+        {
+          "caller": "test_stop_before_run_raises",
+          "callee": "pytest.raises",
+          "lineNumber": 223
+        },
+        {
+          "caller": "test_stop_before_run_raises",
+          "callee": "process.stop",
+          "lineNumber": 224
+        },
+        {
+          "caller": "test_process_run_is_one_shot",
+          "callee": "AsyncProcess",
+          "lineNumber": 229
+        },
+        {
+          "caller": "test_process_run_is_one_shot",
+          "callee": "process.run",
+          "lineNumber": 231
+        },
+        {
+          "caller": "test_process_run_is_one_shot",
+          "callee": "pytest.raises",
+          "lineNumber": 233
+        },
+        {
+          "caller": "test_process_run_is_one_shot",
+          "callee": "process.run",
+          "lineNumber": 234
+        },
+        {
+          "caller": "test_stdout_receiver_yields_bytes_chunks",
+          "callee": "AsyncProcess",
+          "lineNumber": 239
+        },
+        {
+          "caller": "test_stdout_receiver_yields_bytes_chunks",
+          "callee": "_started_process",
+          "lineNumber": 241
+        },
+        {
+          "caller": "test_stdout_receiver_yields_bytes_chunks",
+          "callee": "process.stdout.receive",
+          "lineNumber": 242
+        },
+        {
+          "caller": "test_stdout_receiver_yields_bytes_chunks",
+          "callee": "_collect_process_output",
+          "lineNumber": 243
+        },
+        {
+          "caller": "test_output_can_be_read_after_process_exits",
+          "callee": "AsyncProcess",
+          "lineNumber": 252
+        },
+        {
+          "caller": "test_output_can_be_read_after_process_exits",
+          "callee": "create_task_group",
+          "lineNumber": 254
+        },
+        {
+          "caller": "test_output_can_be_read_after_process_exits",
+          "callee": "task_group.start",
+          "lineNumber": 255
+        },
+        {
+          "caller": "test_output_can_be_read_after_process_exits",
+          "callee": "process.wait",
+          "lineNumber": 256
+        },
+        {
+          "caller": "test_output_can_be_read_after_process_exits",
+          "callee": "process.stdout.receive",
+          "lineNumber": 258
+        },
+        {
+          "caller": "test_output_can_be_read_after_process_exits",
+          "callee": "process.stderr.receive",
+          "lineNumber": 259
+        },
+        {
+          "caller": "test_output_can_be_read_after_process_exits",
+          "callee": "pytest.raises",
+          "lineNumber": 260
+        },
+        {
+          "caller": "test_output_can_be_read_after_process_exits",
+          "callee": "process.stdout.receive",
+          "lineNumber": 261
+        },
+        {
+          "caller": "test_output_can_be_read_after_process_exits",
+          "callee": "pytest.raises",
+          "lineNumber": 262
+        },
+        {
+          "caller": "test_output_can_be_read_after_process_exits",
+          "callee": "process.stderr.receive",
+          "lineNumber": 263
+        },
+        {
+          "caller": "test_large_stdout_and_stderr_are_not_lost",
+          "callee": "_run_and_collect",
+          "lineNumber": 269
+        },
+        {
+          "caller": "test_child_exception_traceback_is_captured_from_stderr",
+          "callee": "AsyncProcess",
+          "lineNumber": 281
+        },
+        {
+          "caller": "test_child_exception_traceback_is_captured_from_stderr",
+          "callee": "_started_process",
+          "lineNumber": 283
+        },
+        {
+          "caller": "test_child_exception_traceback_is_captured_from_stderr",
+          "callee": "_collect_process_output",
+          "lineNumber": 284
+        },
+        {
+          "caller": "test_child_exception_traceback_is_captured_from_stderr",
+          "callee": "stderr_bytes.decode",
+          "lineNumber": 287
+        },
+        {
+          "caller": "test_repeated_bad_children_do_not_pollute_or_replace_parent_stdio",
+          "callee": "_fd_identity",
+          "lineNumber": 298
+        },
+        {
+          "caller": "test_repeated_bad_children_do_not_pollute_or_replace_parent_stdio",
+          "callee": "_fd_identity",
+          "lineNumber": 299
+        },
+        {
+          "caller": "test_repeated_bad_children_do_not_pollute_or_replace_parent_stdio",
+          "callee": "range",
+          "lineNumber": 307
+        },
+        {
+          "caller": "test_repeated_bad_children_do_not_pollute_or_replace_parent_stdio",
+          "callee": "_run_and_collect",
+          "lineNumber": 309
+        },
+        {
+          "caller": "test_repeated_bad_children_do_not_pollute_or_replace_parent_stdio",
+          "callee": "print",
+          "lineNumber": 327
+        },
+        {
+          "caller": "test_repeated_bad_children_do_not_pollute_or_replace_parent_stdio",
+          "callee": "print",
+          "lineNumber": 328
+        },
+        {
+          "caller": "test_repeated_bad_children_do_not_pollute_or_replace_parent_stdio",
+          "callee": "capfd.readouterr",
+          "lineNumber": 330
+        },
+        {
+          "caller": "test_repeated_bad_children_do_not_pollute_or_replace_parent_stdio",
+          "callee": "_fd_identity",
+          "lineNumber": 334
+        },
+        {
+          "caller": "test_repeated_bad_children_do_not_pollute_or_replace_parent_stdio",
+          "callee": "_fd_identity",
+          "lineNumber": 335
+        },
+        {
+          "caller": "test_child_can_close_stdio_without_corrupting_parent_stdio",
+          "callee": "_fd_identity",
+          "lineNumber": 351
+        },
+        {
+          "caller": "test_child_can_close_stdio_without_corrupting_parent_stdio",
+          "callee": "_fd_identity",
+          "lineNumber": 352
+        },
+        {
+          "caller": "test_child_can_close_stdio_without_corrupting_parent_stdio",
+          "callee": "_run_and_collect",
+          "lineNumber": 354
+        },
+        {
+          "caller": "test_child_can_close_stdio_without_corrupting_parent_stdio",
+          "callee": "os.write",
+          "lineNumber": 355
+        },
+        {
+          "caller": "test_child_can_close_stdio_without_corrupting_parent_stdio",
+          "callee": "os.write",
+          "lineNumber": 356
+        },
+        {
+          "caller": "test_child_can_close_stdio_without_corrupting_parent_stdio",
+          "callee": "capfd.readouterr",
+          "lineNumber": 357
+        },
+        {
+          "caller": "test_child_can_close_stdio_without_corrupting_parent_stdio",
+          "callee": "_fd_identity",
+          "lineNumber": 362
+        },
+        {
+          "caller": "test_child_can_close_stdio_without_corrupting_parent_stdio",
+          "callee": "_fd_identity",
+          "lineNumber": 363
+        },
+        {
+          "caller": "test_repeated_crashing_children_do_not_grow_parent_fd_table",
+          "callee": "_run_and_collect",
+          "lineNumber": 370
+        },
+        {
+          "caller": "test_repeated_crashing_children_do_not_grow_parent_fd_table",
+          "callee": "_fd_count",
+          "lineNumber": 371
+        },
+        {
+          "caller": "test_repeated_crashing_children_do_not_grow_parent_fd_table",
+          "callee": "pytest.skip",
+          "lineNumber": 373
+        },
+        {
+          "caller": "test_repeated_crashing_children_do_not_grow_parent_fd_table",
+          "callee": "range",
+          "lineNumber": 375
+        },
+        {
+          "caller": "test_repeated_crashing_children_do_not_grow_parent_fd_table",
+          "callee": "_run_and_collect",
+          "lineNumber": 376
+        },
+        {
+          "caller": "test_repeated_crashing_children_do_not_grow_parent_fd_table",
+          "callee": "f\"fd-child-{iteration}: stdout before _exit\\n\".encode",
+          "lineNumber": 382
+        },
+        {
+          "caller": "test_repeated_crashing_children_do_not_grow_parent_fd_table",
+          "callee": "f\"fd-child-{iteration}: stderr before _exit\\n\".encode",
+          "lineNumber": 383
+        },
+        {
+          "caller": "test_repeated_crashing_children_do_not_grow_parent_fd_table",
+          "callee": "_fd_count",
+          "lineNumber": 385
+        },
+        {
+          "caller": "test_process_can_use_mp_channel_with_global_spawn_context",
+          "callee": "AsyncProcess",
+          "lineNumber": 393
+        },
+        {
+          "caller": "test_process_can_use_mp_channel_with_global_spawn_context",
+          "callee": "_started_process",
+          "lineNumber": 395
+        },
+        {
+          "caller": "test_process_can_use_mp_channel_with_global_spawn_context",
+          "callee": "fail_after",
+          "lineNumber": 396
+        },
+        {
+          "caller": "test_process_can_use_mp_channel_with_global_spawn_context",
+          "callee": "recv.receive_async",
+          "lineNumber": 397
+        },
+        {
+          "caller": "test_process_can_use_mp_channel_with_global_spawn_context",
+          "callee": "process.wait",
+          "lineNumber": 398
+        },
+        {
+          "caller": "test_process_can_use_mp_channel_with_global_spawn_context",
+          "callee": "contextlib.suppress",
+          "lineNumber": 400
+        },
+        {
+          "caller": "test_process_can_use_mp_channel_with_global_spawn_context",
+          "callee": "recv.close",
+          "lineNumber": 401
+        },
+        {
+          "caller": "test_death",
+          "callee": "capsys.disabled",
+          "lineNumber": 407
+        },
+        {
+          "caller": "test_death",
+          "callee": "AsyncProcess",
+          "lineNumber": 408
+        },
+        {
+          "caller": "test_death",
+          "callee": "_started_process",
+          "lineNumber": 411
+        },
+        {
+          "caller": "test_death",
+          "callee": "_collect_process_output",
+          "lineNumber": 412
+        },
+        {
+          "caller": "test_death",
+          "callee": "print",
+          "lineNumber": 414
+        },
+        {
+          "caller": "test_death",
+          "callee": "print",
+          "lineNumber": 416
+        },
+        {
+          "caller": "test_death",
+          "callee": "stdout.decode",
+          "lineNumber": 416
+        },
+        {
+          "caller": "test_death",
+          "callee": "print",
+          "lineNumber": 417
+        },
+        {
+          "caller": "test_death",
+          "callee": "stderr.decode",
+          "lineNumber": 417
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 30,
+        "functionCount": 30,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/exo/utils/tests/test_channels.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 121,
+      "nonEmptyLines": 89,
+      "functions": [
+        {
+          "name": "foo",
+          "startLine": 41,
+          "endLine": 45,
+          "params": [
+            "recv"
+          ]
+        },
+        {
+          "name": "bar",
+          "startLine": 48,
+          "endLine": 58,
+          "params": [
+            "send"
+          ]
+        },
+        {
+          "name": "test_channel_ipc",
+          "startLine": 62,
+          "endLine": 70,
+          "params": []
+        },
+        {
+          "name": "test_channel_error_override_replaces_sync_errors_with_subclasses",
+          "startLine": 73,
+          "endLine": 88,
+          "params": []
+        },
+        {
+          "name": "test_channel_error_override_replaces_async_errors_with_subclasses",
+          "startLine": 92,
+          "endLine": 104,
+          "params": []
+        },
+        {
+          "name": "test_channel_error_override_is_preserved_by_clones",
+          "startLine": 108,
+          "endLine": 121,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "CustomClosedResourceError",
+          "startLine": 17,
+          "endLine": 18,
+          "methods": [],
+          "properties": []
+        },
+        {
+          "name": "CustomBrokenResourceError",
+          "startLine": 21,
+          "endLine": 22,
+          "methods": [],
+          "properties": []
+        },
+        {
+          "name": "CustomEndOfStream",
+          "startLine": 25,
+          "endLine": 26,
+          "methods": [],
+          "properties": []
+        },
+        {
+          "name": "CustomWouldBlock",
+          "startLine": 29,
+          "endLine": 30,
+          "methods": [],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "CustomClosedResourceError",
+          "line": 17,
+          "isDefault": false
+        },
+        {
+          "name": "CustomBrokenResourceError",
+          "line": 21,
+          "isDefault": false
+        },
+        {
+          "name": "CustomEndOfStream",
+          "line": 25,
+          "isDefault": false
+        },
+        {
+          "name": "CustomWouldBlock",
+          "line": 29,
+          "isDefault": false
+        },
+        {
+          "name": "foo",
+          "line": 41,
+          "isDefault": false
+        },
+        {
+          "name": "bar",
+          "line": 48,
+          "isDefault": false
+        },
+        {
+          "name": "test_channel_ipc",
+          "line": 61,
+          "isDefault": false
+        },
+        {
+          "name": "test_channel_error_override_replaces_sync_errors_with_subclasses",
+          "line": 73,
+          "isDefault": false
+        },
+        {
+          "name": "test_channel_error_override_replaces_async_errors_with_subclasses",
+          "line": 91,
+          "isDefault": false
+        },
+        {
+          "name": "test_channel_error_override_is_preserved_by_clones",
+          "line": 107,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "foo",
+          "callee": "expected.pop",
+          "lineNumber": 45
+        },
+        {
+          "caller": "bar",
+          "callee": "logger.warning",
+          "lineNumber": 49
+        },
+        {
+          "caller": "bar",
+          "callee": "send.send",
+          "lineNumber": 50
+        },
+        {
+          "caller": "bar",
+          "callee": "time.sleep",
+          "lineNumber": 51
+        },
+        {
+          "caller": "bar",
+          "callee": "logger.warning",
+          "lineNumber": 52
+        },
+        {
+          "caller": "bar",
+          "callee": "send.send",
+          "lineNumber": 53
+        },
+        {
+          "caller": "bar",
+          "callee": "time.sleep",
+          "lineNumber": 54
+        },
+        {
+          "caller": "bar",
+          "callee": "logger.warning",
+          "lineNumber": 55
+        },
+        {
+          "caller": "bar",
+          "callee": "send.send",
+          "lineNumber": 56
+        },
+        {
+          "caller": "bar",
+          "callee": "time.sleep",
+          "lineNumber": 57
+        },
+        {
+          "caller": "bar",
+          "callee": "send.close",
+          "lineNumber": 58
+        },
+        {
+          "caller": "test_channel_ipc",
+          "callee": "fail_after",
+          "lineNumber": 63
+        },
+        {
+          "caller": "test_channel_ipc",
+          "callee": "mp.Process",
+          "lineNumber": 65
+        },
+        {
+          "caller": "test_channel_ipc",
+          "callee": "mp.Process",
+          "lineNumber": 66
+        },
+        {
+          "caller": "test_channel_ipc",
+          "callee": "p1.start",
+          "lineNumber": 67
+        },
+        {
+          "caller": "test_channel_ipc",
+          "callee": "p2.start",
+          "lineNumber": 68
+        },
+        {
+          "caller": "test_channel_ipc",
+          "callee": "p1.join",
+          "lineNumber": 69
+        },
+        {
+          "caller": "test_channel_ipc",
+          "callee": "p2.join",
+          "lineNumber": 70
+        },
+        {
+          "caller": "test_channel_error_override_replaces_sync_errors_with_subclasses",
+          "callee": "pytest.raises",
+          "lineNumber": 76
+        },
+        {
+          "caller": "test_channel_error_override_replaces_sync_errors_with_subclasses",
+          "callee": "send.send_nowait",
+          "lineNumber": 77
+        },
+        {
+          "caller": "test_channel_error_override_replaces_sync_errors_with_subclasses",
+          "callee": "type",
+          "lineNumber": 78
+        },
+        {
+          "caller": "test_channel_error_override_replaces_sync_errors_with_subclasses",
+          "callee": "recv.close",
+          "lineNumber": 80
+        },
+        {
+          "caller": "test_channel_error_override_replaces_sync_errors_with_subclasses",
+          "callee": "pytest.raises",
+          "lineNumber": 81
+        },
+        {
+          "caller": "test_channel_error_override_replaces_sync_errors_with_subclasses",
+          "callee": "send.send_nowait",
+          "lineNumber": 82
+        },
+        {
+          "caller": "test_channel_error_override_replaces_sync_errors_with_subclasses",
+          "callee": "type",
+          "lineNumber": 83
+        },
+        {
+          "caller": "test_channel_error_override_replaces_sync_errors_with_subclasses",
+          "callee": "send.close",
+          "lineNumber": 85
+        },
+        {
+          "caller": "test_channel_error_override_replaces_sync_errors_with_subclasses",
+          "callee": "pytest.raises",
+          "lineNumber": 86
+        },
+        {
+          "caller": "test_channel_error_override_replaces_sync_errors_with_subclasses",
+          "callee": "send.send_nowait",
+          "lineNumber": 87
+        },
+        {
+          "caller": "test_channel_error_override_replaces_sync_errors_with_subclasses",
+          "callee": "type",
+          "lineNumber": 88
+        },
+        {
+          "caller": "test_channel_error_override_replaces_async_errors_with_subclasses",
+          "callee": "recv.close",
+          "lineNumber": 94
+        },
+        {
+          "caller": "test_channel_error_override_replaces_async_errors_with_subclasses",
+          "callee": "pytest.raises",
+          "lineNumber": 96
+        },
+        {
+          "caller": "test_channel_error_override_replaces_async_errors_with_subclasses",
+          "callee": "send.send",
+          "lineNumber": 97
+        },
+        {
+          "caller": "test_channel_error_override_replaces_async_errors_with_subclasses",
+          "callee": "type",
+          "lineNumber": 98
+        },
+        {
+          "caller": "test_channel_error_override_replaces_async_errors_with_subclasses",
+          "callee": "send.close",
+          "lineNumber": 101
+        },
+        {
+          "caller": "test_channel_error_override_replaces_async_errors_with_subclasses",
+          "callee": "pytest.raises",
+          "lineNumber": 102
+        },
+        {
+          "caller": "test_channel_error_override_replaces_async_errors_with_subclasses",
+          "callee": "recv.receive",
+          "lineNumber": 103
+        },
+        {
+          "caller": "test_channel_error_override_replaces_async_errors_with_subclasses",
+          "callee": "type",
+          "lineNumber": 104
+        },
+        {
+          "caller": "test_channel_error_override_is_preserved_by_clones",
+          "callee": "send.clone",
+          "lineNumber": 110
+        },
+        {
+          "caller": "test_channel_error_override_is_preserved_by_clones",
+          "callee": "recv.close",
+          "lineNumber": 111
+        },
+        {
+          "caller": "test_channel_error_override_is_preserved_by_clones",
+          "callee": "pytest.raises",
+          "lineNumber": 113
+        },
+        {
+          "caller": "test_channel_error_override_is_preserved_by_clones",
+          "callee": "send_clone.send",
+          "lineNumber": 114
+        },
+        {
+          "caller": "test_channel_error_override_is_preserved_by_clones",
+          "callee": "recv.clone_sender",
+          "lineNumber": 117
+        },
+        {
+          "caller": "test_channel_error_override_is_preserved_by_clones",
+          "callee": "recv.close",
+          "lineNumber": 118
+        },
+        {
+          "caller": "test_channel_error_override_is_preserved_by_clones",
+          "callee": "pytest.raises",
+          "lineNumber": 120
+        },
+        {
+          "caller": "test_channel_error_override_is_preserved_by_clones",
+          "callee": "cloned_send.send",
+          "lineNumber": 121
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 10,
+        "functionCount": 6,
+        "classCount": 4
+      }
+    },
+    {
+      "path": "src/exo/utils/tests/test_event_log.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 196,
+      "nonEmptyLines": 138,
+      "functions": [
+        {
+          "name": "log_dir",
+          "startLine": 10,
+          "endLine": 11,
+          "params": [
+            "tmp_path"
+          ]
+        },
+        {
+          "name": "test_append_and_read_back",
+          "startLine": 14,
+          "endLine": 27,
+          "params": [
+            "log_dir"
+          ]
+        },
+        {
+          "name": "test_read_range",
+          "startLine": 30,
+          "endLine": 41,
+          "params": [
+            "log_dir"
+          ]
+        },
+        {
+          "name": "test_read_range_bounds",
+          "startLine": 44,
+          "endLine": 58,
+          "params": [
+            "log_dir"
+          ]
+        },
+        {
+          "name": "test_empty_log",
+          "startLine": 61,
+          "endLine": 66,
+          "params": [
+            "log_dir"
+          ]
+        },
+        {
+          "name": "_archives",
+          "startLine": 69,
+          "endLine": 70,
+          "params": [
+            "log_dir"
+          ]
+        },
+        {
+          "name": "test_rotation_on_close",
+          "startLine": 73,
+          "endLine": 83,
+          "params": [
+            "log_dir"
+          ]
+        },
+        {
+          "name": "test_rotation_on_construction_with_stale_file",
+          "startLine": 86,
+          "endLine": 96,
+          "params": [
+            "log_dir"
+          ]
+        },
+        {
+          "name": "test_empty_log_no_archive",
+          "startLine": 99,
+          "endLine": 107,
+          "params": [
+            "log_dir"
+          ]
+        },
+        {
+          "name": "test_close_is_idempotent",
+          "startLine": 110,
+          "endLine": 117,
+          "params": [
+            "log_dir"
+          ]
+        },
+        {
+          "name": "test_successive_sessions",
+          "startLine": 120,
+          "endLine": 140,
+          "params": [
+            "log_dir"
+          ]
+        },
+        {
+          "name": "test_rotation_keeps_at_most_5_archives",
+          "startLine": 143,
+          "endLine": 155,
+          "params": [
+            "log_dir"
+          ]
+        },
+        {
+          "name": "test_stale_close_does_not_remove_successor_active_log",
+          "startLine": 158,
+          "endLine": 181,
+          "params": [
+            "log_dir"
+          ]
+        },
+        {
+          "name": "test_stale_close_of_empty_log_does_not_unlink_successor",
+          "startLine": 184,
+          "endLine": 196,
+          "params": [
+            "log_dir"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "log_dir",
+          "line": 9,
+          "isDefault": false
+        },
+        {
+          "name": "test_append_and_read_back",
+          "line": 14,
+          "isDefault": false
+        },
+        {
+          "name": "test_read_range",
+          "line": 30,
+          "isDefault": false
+        },
+        {
+          "name": "test_read_range_bounds",
+          "line": 44,
+          "isDefault": false
+        },
+        {
+          "name": "test_empty_log",
+          "line": 61,
+          "isDefault": false
+        },
+        {
+          "name": "_archives",
+          "line": 69,
+          "isDefault": false
+        },
+        {
+          "name": "test_rotation_on_close",
+          "line": 73,
+          "isDefault": false
+        },
+        {
+          "name": "test_rotation_on_construction_with_stale_file",
+          "line": 86,
+          "isDefault": false
+        },
+        {
+          "name": "test_empty_log_no_archive",
+          "line": 99,
+          "isDefault": false
+        },
+        {
+          "name": "test_close_is_idempotent",
+          "line": 110,
+          "isDefault": false
+        },
+        {
+          "name": "test_successive_sessions",
+          "line": 120,
+          "isDefault": false
+        },
+        {
+          "name": "test_rotation_keeps_at_most_5_archives",
+          "line": 143,
+          "isDefault": false
+        },
+        {
+          "name": "test_stale_close_does_not_remove_successor_active_log",
+          "line": 158,
+          "isDefault": false
+        },
+        {
+          "name": "test_stale_close_of_empty_log_does_not_unlink_successor",
+          "line": 184,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "test_append_and_read_back",
+          "callee": "DiskEventLog",
+          "lineNumber": 15
+        },
+        {
+          "caller": "test_append_and_read_back",
+          "callee": "TestEvent",
+          "lineNumber": 16
+        },
+        {
+          "caller": "test_append_and_read_back",
+          "callee": "range",
+          "lineNumber": 16
+        },
+        {
+          "caller": "test_append_and_read_back",
+          "callee": "log.append",
+          "lineNumber": 18
+        },
+        {
+          "caller": "test_append_and_read_back",
+          "callee": "len",
+          "lineNumber": 20
+        },
+        {
+          "caller": "test_append_and_read_back",
+          "callee": "list",
+          "lineNumber": 22
+        },
+        {
+          "caller": "test_append_and_read_back",
+          "callee": "log.read_all",
+          "lineNumber": 22
+        },
+        {
+          "caller": "test_append_and_read_back",
+          "callee": "len",
+          "lineNumber": 23
+        },
+        {
+          "caller": "test_append_and_read_back",
+          "callee": "zip",
+          "lineNumber": 24
+        },
+        {
+          "caller": "test_append_and_read_back",
+          "callee": "log.close",
+          "lineNumber": 27
+        },
+        {
+          "caller": "test_read_range",
+          "callee": "DiskEventLog",
+          "lineNumber": 31
+        },
+        {
+          "caller": "test_read_range",
+          "callee": "TestEvent",
+          "lineNumber": 32
+        },
+        {
+          "caller": "test_read_range",
+          "callee": "range",
+          "lineNumber": 32
+        },
+        {
+          "caller": "test_read_range",
+          "callee": "log.append",
+          "lineNumber": 34
+        },
+        {
+          "caller": "test_read_range",
+          "callee": "list",
+          "lineNumber": 36
+        },
+        {
+          "caller": "test_read_range",
+          "callee": "log.read_range",
+          "lineNumber": 36
+        },
+        {
+          "caller": "test_read_range",
+          "callee": "len",
+          "lineNumber": 37
+        },
+        {
+          "caller": "test_read_range",
+          "callee": "enumerate",
+          "lineNumber": 38
+        },
+        {
+          "caller": "test_read_range",
+          "callee": "log.close",
+          "lineNumber": 41
+        },
+        {
+          "caller": "test_read_range_bounds",
+          "callee": "DiskEventLog",
+          "lineNumber": 45
+        },
+        {
+          "caller": "test_read_range_bounds",
+          "callee": "TestEvent",
+          "lineNumber": 46
+        },
+        {
+          "caller": "test_read_range_bounds",
+          "callee": "range",
+          "lineNumber": 46
+        },
+        {
+          "caller": "test_read_range_bounds",
+          "callee": "log.append",
+          "lineNumber": 48
+        },
+        {
+          "caller": "test_read_range_bounds",
+          "callee": "list",
+          "lineNumber": 51
+        },
+        {
+          "caller": "test_read_range_bounds",
+          "callee": "log.read_range",
+          "lineNumber": 51
+        },
+        {
+          "caller": "test_read_range_bounds",
+          "callee": "list",
+          "lineNumber": 53
+        },
+        {
+          "caller": "test_read_range_bounds",
+          "callee": "log.read_range",
+          "lineNumber": 53
+        },
+        {
+          "caller": "test_read_range_bounds",
+          "callee": "list",
+          "lineNumber": 55
+        },
+        {
+          "caller": "test_read_range_bounds",
+          "callee": "log.read_range",
+          "lineNumber": 55
+        },
+        {
+          "caller": "test_read_range_bounds",
+          "callee": "len",
+          "lineNumber": 56
+        },
+        {
+          "caller": "test_read_range_bounds",
+          "callee": "log.close",
+          "lineNumber": 58
+        },
+        {
+          "caller": "test_empty_log",
+          "callee": "DiskEventLog",
+          "lineNumber": 62
+        },
+        {
+          "caller": "test_empty_log",
+          "callee": "len",
+          "lineNumber": 63
+        },
+        {
+          "caller": "test_empty_log",
+          "callee": "list",
+          "lineNumber": 64
+        },
+        {
+          "caller": "test_empty_log",
+          "callee": "log.read_all",
+          "lineNumber": 64
+        },
+        {
+          "caller": "test_empty_log",
+          "callee": "list",
+          "lineNumber": 65
+        },
+        {
+          "caller": "test_empty_log",
+          "callee": "log.read_range",
+          "lineNumber": 65
+        },
+        {
+          "caller": "test_empty_log",
+          "callee": "log.close",
+          "lineNumber": 66
+        },
+        {
+          "caller": "_archives",
+          "callee": "sorted",
+          "lineNumber": 70
+        },
+        {
+          "caller": "_archives",
+          "callee": "log_dir.glob",
+          "lineNumber": 70
+        },
+        {
+          "caller": "test_rotation_on_close",
+          "callee": "DiskEventLog",
+          "lineNumber": 74
+        },
+        {
+          "caller": "test_rotation_on_close",
+          "callee": "log.append",
+          "lineNumber": 75
+        },
+        {
+          "caller": "test_rotation_on_close",
+          "callee": "TestEvent",
+          "lineNumber": 75
+        },
+        {
+          "caller": "test_rotation_on_close",
+          "callee": "log.close",
+          "lineNumber": 76
+        },
+        {
+          "caller": "test_rotation_on_close",
+          "callee": "active.exists",
+          "lineNumber": 79
+        },
+        {
+          "caller": "test_rotation_on_close",
+          "callee": "_archives",
+          "lineNumber": 81
+        },
+        {
+          "caller": "test_rotation_on_close",
+          "callee": "len",
+          "lineNumber": 82
+        },
+        {
+          "caller": "test_rotation_on_close",
+          "callee": "archives[0].stat",
+          "lineNumber": 83
+        },
+        {
+          "caller": "test_rotation_on_construction_with_stale_file",
+          "callee": "log_dir.mkdir",
+          "lineNumber": 87
+        },
+        {
+          "caller": "test_rotation_on_construction_with_stale_file",
+          "callee": "(log_dir / \"events.bin\").write_bytes",
+          "lineNumber": 88
+        },
+        {
+          "caller": "test_rotation_on_construction_with_stale_file",
+          "callee": "DiskEventLog",
+          "lineNumber": 90
+        },
+        {
+          "caller": "test_rotation_on_construction_with_stale_file",
+          "callee": "_archives",
+          "lineNumber": 91
+        },
+        {
+          "caller": "test_rotation_on_construction_with_stale_file",
+          "callee": "len",
+          "lineNumber": 92
+        },
+        {
+          "caller": "test_rotation_on_construction_with_stale_file",
+          "callee": "archives[0].exists",
+          "lineNumber": 93
+        },
+        {
+          "caller": "test_rotation_on_construction_with_stale_file",
+          "callee": "len",
+          "lineNumber": 94
+        },
+        {
+          "caller": "test_rotation_on_construction_with_stale_file",
+          "callee": "log.close",
+          "lineNumber": 96
+        },
+        {
+          "caller": "test_empty_log_no_archive",
+          "callee": "DiskEventLog",
+          "lineNumber": 101
+        },
+        {
+          "caller": "test_empty_log_no_archive",
+          "callee": "log.close",
+          "lineNumber": 102
+        },
+        {
+          "caller": "test_empty_log_no_archive",
+          "callee": "active.exists",
+          "lineNumber": 106
+        },
+        {
+          "caller": "test_empty_log_no_archive",
+          "callee": "_archives",
+          "lineNumber": 107
+        },
+        {
+          "caller": "test_close_is_idempotent",
+          "callee": "DiskEventLog",
+          "lineNumber": 111
+        },
+        {
+          "caller": "test_close_is_idempotent",
+          "callee": "log.append",
+          "lineNumber": 112
+        },
+        {
+          "caller": "test_close_is_idempotent",
+          "callee": "TestEvent",
+          "lineNumber": 112
+        },
+        {
+          "caller": "test_close_is_idempotent",
+          "callee": "log.close",
+          "lineNumber": 113
+        },
+        {
+          "caller": "test_close_is_idempotent",
+          "callee": "_archives",
+          "lineNumber": 114
+        },
+        {
+          "caller": "test_close_is_idempotent",
+          "callee": "log.close",
+          "lineNumber": 115
+        },
+        {
+          "caller": "test_close_is_idempotent",
+          "callee": "_archives",
+          "lineNumber": 117
+        },
+        {
+          "caller": "test_successive_sessions",
+          "callee": "DiskEventLog",
+          "lineNumber": 122
+        },
+        {
+          "caller": "test_successive_sessions",
+          "callee": "log1.append",
+          "lineNumber": 123
+        },
+        {
+          "caller": "test_successive_sessions",
+          "callee": "TestEvent",
+          "lineNumber": 123
+        },
+        {
+          "caller": "test_successive_sessions",
+          "callee": "log1.close",
+          "lineNumber": 124
+        },
+        {
+          "caller": "test_successive_sessions",
+          "callee": "_archives",
+          "lineNumber": 126
+        },
+        {
+          "caller": "test_successive_sessions",
+          "callee": "DiskEventLog",
+          "lineNumber": 128
+        },
+        {
+          "caller": "test_successive_sessions",
+          "callee": "log2.append",
+          "lineNumber": 129
+        },
+        {
+          "caller": "test_successive_sessions",
+          "callee": "TestEvent",
+          "lineNumber": 129
+        },
+        {
+          "caller": "test_successive_sessions",
+          "callee": "log2.append",
+          "lineNumber": 130
+        },
+        {
+          "caller": "test_successive_sessions",
+          "callee": "TestEvent",
+          "lineNumber": 130
+        },
+        {
+          "caller": "test_successive_sessions",
+          "callee": "log2.close",
+          "lineNumber": 131
+        },
+        {
+          "caller": "test_successive_sessions",
+          "callee": "_archives",
+          "lineNumber": 134
+        },
+        {
+          "caller": "test_successive_sessions",
+          "callee": "_archives",
+          "lineNumber": 135
+        },
+        {
+          "caller": "test_successive_sessions",
+          "callee": "first_archive.exists",
+          "lineNumber": 137
+        },
+        {
+          "caller": "test_successive_sessions",
+          "callee": "second_archive.exists",
+          "lineNumber": 138
+        },
+        {
+          "caller": "test_rotation_keeps_at_most_5_archives",
+          "callee": "range",
+          "lineNumber": 146
+        },
+        {
+          "caller": "test_rotation_keeps_at_most_5_archives",
+          "callee": "DiskEventLog",
+          "lineNumber": 147
+        },
+        {
+          "caller": "test_rotation_keeps_at_most_5_archives",
+          "callee": "log.append",
+          "lineNumber": 148
+        },
+        {
+          "caller": "test_rotation_keeps_at_most_5_archives",
+          "callee": "TestEvent",
+          "lineNumber": 148
+        },
+        {
+          "caller": "test_rotation_keeps_at_most_5_archives",
+          "callee": "log.close",
+          "lineNumber": 149
+        },
+        {
+          "caller": "test_rotation_keeps_at_most_5_archives",
+          "callee": "all_archives.append",
+          "lineNumber": 150
+        },
+        {
+          "caller": "test_rotation_keeps_at_most_5_archives",
+          "callee": "_archives",
+          "lineNumber": 150
+        },
+        {
+          "caller": "test_rotation_keeps_at_most_5_archives",
+          "callee": "old.exists",
+          "lineNumber": 153
+        },
+        {
+          "caller": "test_rotation_keeps_at_most_5_archives",
+          "callee": "recent.exists",
+          "lineNumber": 155
+        },
+        {
+          "caller": "test_stale_close_does_not_remove_successor_active_log",
+          "callee": "DiskEventLog",
+          "lineNumber": 165
+        },
+        {
+          "caller": "test_stale_close_does_not_remove_successor_active_log",
+          "callee": "stale.append",
+          "lineNumber": 166
+        },
+        {
+          "caller": "test_stale_close_does_not_remove_successor_active_log",
+          "callee": "TestEvent",
+          "lineNumber": 166
+        },
+        {
+          "caller": "test_stale_close_does_not_remove_successor_active_log",
+          "callee": "DiskEventLog",
+          "lineNumber": 168
+        },
+        {
+          "caller": "test_stale_close_does_not_remove_successor_active_log",
+          "callee": "TestEvent",
+          "lineNumber": 169
+        },
+        {
+          "caller": "test_stale_close_does_not_remove_successor_active_log",
+          "callee": "successor.append",
+          "lineNumber": 170
+        },
+        {
+          "caller": "test_stale_close_does_not_remove_successor_active_log",
+          "callee": "_archives",
+          "lineNumber": 172
+        },
+        {
+          "caller": "test_stale_close_does_not_remove_successor_active_log",
+          "callee": "stale.close",
+          "lineNumber": 173
+        },
+        {
+          "caller": "test_stale_close_does_not_remove_successor_active_log",
+          "callee": "(log_dir / \"events.bin\").exists",
+          "lineNumber": 175
+        },
+        {
+          "caller": "test_stale_close_does_not_remove_successor_active_log",
+          "callee": "_archives",
+          "lineNumber": 176
+        },
+        {
+          "caller": "test_stale_close_does_not_remove_successor_active_log",
+          "callee": "list",
+          "lineNumber": 177
+        },
+        {
+          "caller": "test_stale_close_does_not_remove_successor_active_log",
+          "callee": "successor.read_all",
+          "lineNumber": 177
+        },
+        {
+          "caller": "test_stale_close_does_not_remove_successor_active_log",
+          "callee": "len",
+          "lineNumber": 178
+        },
+        {
+          "caller": "test_stale_close_does_not_remove_successor_active_log",
+          "callee": "successor.close",
+          "lineNumber": 181
+        },
+        {
+          "caller": "test_stale_close_of_empty_log_does_not_unlink_successor",
+          "callee": "DiskEventLog",
+          "lineNumber": 186
+        },
+        {
+          "caller": "test_stale_close_of_empty_log_does_not_unlink_successor",
+          "callee": "DiskEventLog",
+          "lineNumber": 188
+        },
+        {
+          "caller": "test_stale_close_of_empty_log_does_not_unlink_successor",
+          "callee": "successor.append",
+          "lineNumber": 189
+        },
+        {
+          "caller": "test_stale_close_of_empty_log_does_not_unlink_successor",
+          "callee": "TestEvent",
+          "lineNumber": 189
+        },
+        {
+          "caller": "test_stale_close_of_empty_log_does_not_unlink_successor",
+          "callee": "stale.close",
+          "lineNumber": 191
+        },
+        {
+          "caller": "test_stale_close_of_empty_log_does_not_unlink_successor",
+          "callee": "(log_dir / \"events.bin\").exists",
+          "lineNumber": 193
+        },
+        {
+          "caller": "test_stale_close_of_empty_log_does_not_unlink_successor",
+          "callee": "len",
+          "lineNumber": 194
+        },
+        {
+          "caller": "test_stale_close_of_empty_log_does_not_unlink_successor",
+          "callee": "list",
+          "lineNumber": 194
+        },
+        {
+          "caller": "test_stale_close_of_empty_log_does_not_unlink_successor",
+          "callee": "successor.read_all",
+          "lineNumber": 194
+        },
+        {
+          "caller": "test_stale_close_of_empty_log_does_not_unlink_successor",
+          "callee": "successor.close",
+          "lineNumber": 196
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 14,
+        "functionCount": 14,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/exo/utils/tests/test_extra_fields_warner.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 179,
+      "nonEmptyLines": 139,
+      "functions": [
+        {
+          "name": "captured_warnings",
+          "startLine": 16,
+          "endLine": 33,
+          "params": []
+        },
+        {
+          "name": "test_known_fields_parse_without_warning",
+          "startLine": 44,
+          "endLine": 52,
+          "params": [
+            "captured_warnings"
+          ]
+        },
+        {
+          "name": "test_unknown_field_is_dropped_and_warned",
+          "startLine": 55,
+          "endLine": 71,
+          "params": [
+            "captured_warnings"
+          ]
+        },
+        {
+          "name": "test_repeat_unknown_field_is_rate_limited",
+          "startLine": 74,
+          "endLine": 83,
+          "params": [
+            "captured_warnings"
+          ]
+        },
+        {
+          "name": "test_distinct_unknown_fields_each_warn_once",
+          "startLine": 86,
+          "endLine": 99,
+          "params": [
+            "captured_warnings"
+          ]
+        },
+        {
+          "name": "test_aliased_field_does_not_warn",
+          "startLine": 102,
+          "endLine": 108,
+          "params": [
+            "captured_warnings"
+          ]
+        },
+        {
+          "name": "test_alias_choices_does_not_warn",
+          "startLine": 111,
+          "endLine": 123,
+          "params": [
+            "captured_warnings"
+          ]
+        },
+        {
+          "name": "test_alias_path_top_level_key_does_not_warn",
+          "startLine": 126,
+          "endLine": 139,
+          "params": [
+            "captured_warnings"
+          ]
+        },
+        {
+          "name": "test_subclass_inherits_validator",
+          "startLine": 142,
+          "endLine": 156,
+          "params": [
+            "captured_warnings"
+          ]
+        },
+        {
+          "name": "test_non_dict_input_is_passthrough",
+          "startLine": 159,
+          "endLine": 166,
+          "params": [
+            "captured_warnings"
+          ]
+        },
+        {
+          "name": "test_does_not_affect_unrelated_basemodels",
+          "startLine": 169,
+          "endLine": 179,
+          "params": [
+            "captured_warnings"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "_ChatLikeRequest",
+          "startLine": 36,
+          "endLine": 41,
+          "methods": [],
+          "properties": [
+            "model",
+            "temperature",
+            "max_tokens"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "captured_warnings",
+          "line": 15,
+          "isDefault": false
+        },
+        {
+          "name": "_ChatLikeRequest",
+          "line": 36,
+          "isDefault": false
+        },
+        {
+          "name": "test_known_fields_parse_without_warning",
+          "line": 44,
+          "isDefault": false
+        },
+        {
+          "name": "test_unknown_field_is_dropped_and_warned",
+          "line": 55,
+          "isDefault": false
+        },
+        {
+          "name": "test_repeat_unknown_field_is_rate_limited",
+          "line": 74,
+          "isDefault": false
+        },
+        {
+          "name": "test_distinct_unknown_fields_each_warn_once",
+          "line": 86,
+          "isDefault": false
+        },
+        {
+          "name": "test_aliased_field_does_not_warn",
+          "line": 102,
+          "isDefault": false
+        },
+        {
+          "name": "test_alias_choices_does_not_warn",
+          "line": 111,
+          "isDefault": false
+        },
+        {
+          "name": "test_alias_path_top_level_key_does_not_warn",
+          "line": 126,
+          "isDefault": false
+        },
+        {
+          "name": "test_subclass_inherits_validator",
+          "line": 142,
+          "isDefault": false
+        },
+        {
+          "name": "test_non_dict_input_is_passthrough",
+          "line": 159,
+          "isDefault": false
+        },
+        {
+          "name": "test_does_not_affect_unrelated_basemodels",
+          "line": 169,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "captured_warnings",
+          "callee": "_reset_rate_limit_state",
+          "lineNumber": 22
+        },
+        {
+          "caller": "captured_warnings",
+          "callee": "logger.add",
+          "lineNumber": 24
+        },
+        {
+          "caller": "captured_warnings",
+          "callee": "messages.append",
+          "lineNumber": 25
+        },
+        {
+          "caller": "captured_warnings",
+          "callee": "str",
+          "lineNumber": 25
+        },
+        {
+          "caller": "captured_warnings",
+          "callee": "logger.remove",
+          "lineNumber": 32
+        },
+        {
+          "caller": "captured_warnings",
+          "callee": "_reset_rate_limit_state",
+          "lineNumber": 33
+        },
+        {
+          "caller": "test_known_fields_parse_without_warning",
+          "callee": "_ChatLikeRequest.model_validate",
+          "lineNumber": 45
+        },
+        {
+          "caller": "test_unknown_field_is_dropped_and_warned",
+          "callee": "_ChatLikeRequest.model_validate",
+          "lineNumber": 58
+        },
+        {
+          "caller": "test_unknown_field_is_dropped_and_warned",
+          "callee": "hasattr",
+          "lineNumber": 65
+        },
+        {
+          "caller": "test_unknown_field_is_dropped_and_warned",
+          "callee": "len",
+          "lineNumber": 68
+        },
+        {
+          "caller": "test_repeat_unknown_field_is_rate_limited",
+          "callee": "range",
+          "lineNumber": 77
+        },
+        {
+          "caller": "test_repeat_unknown_field_is_rate_limited",
+          "callee": "_ChatLikeRequest.model_validate",
+          "lineNumber": 78
+        },
+        {
+          "caller": "test_repeat_unknown_field_is_rate_limited",
+          "callee": "len",
+          "lineNumber": 82
+        },
+        {
+          "caller": "test_distinct_unknown_fields_each_warn_once",
+          "callee": "_ChatLikeRequest.model_validate",
+          "lineNumber": 89
+        },
+        {
+          "caller": "test_distinct_unknown_fields_each_warn_once",
+          "callee": "_ChatLikeRequest.model_validate",
+          "lineNumber": 90
+        },
+        {
+          "caller": "test_distinct_unknown_fields_each_warn_once",
+          "callee": "_ChatLikeRequest.model_validate",
+          "lineNumber": 91
+        },
+        {
+          "caller": "test_distinct_unknown_fields_each_warn_once",
+          "callee": "len",
+          "lineNumber": 94
+        },
+        {
+          "caller": "test_aliased_field_does_not_warn",
+          "callee": "Field",
+          "lineNumber": 104
+        },
+        {
+          "caller": "test_aliased_field_does_not_warn",
+          "callee": "_Aliased.model_validate",
+          "lineNumber": 106
+        },
+        {
+          "caller": "test_alias_choices_does_not_warn",
+          "callee": "Field",
+          "lineNumber": 113
+        },
+        {
+          "caller": "test_alias_choices_does_not_warn",
+          "callee": "AliasChoices",
+          "lineNumber": 115
+        },
+        {
+          "caller": "test_alias_choices_does_not_warn",
+          "callee": "_MultiAlias.model_validate",
+          "lineNumber": 119
+        },
+        {
+          "caller": "test_alias_choices_does_not_warn",
+          "callee": "_MultiAlias.model_validate",
+          "lineNumber": 120
+        },
+        {
+          "caller": "test_alias_path_top_level_key_does_not_warn",
+          "callee": "Field",
+          "lineNumber": 130
+        },
+        {
+          "caller": "test_alias_path_top_level_key_does_not_warn",
+          "callee": "AliasPath",
+          "lineNumber": 131
+        },
+        {
+          "caller": "test_alias_path_top_level_key_does_not_warn",
+          "callee": "_Pathed.model_validate",
+          "lineNumber": 137
+        },
+        {
+          "caller": "test_subclass_inherits_validator",
+          "callee": "_BenchChatLike.model_validate",
+          "lineNumber": 148
+        },
+        {
+          "caller": "test_subclass_inherits_validator",
+          "callee": "len",
+          "lineNumber": 153
+        },
+        {
+          "caller": "test_non_dict_input_is_passthrough",
+          "callee": "_ChatLikeRequest",
+          "lineNumber": 163
+        },
+        {
+          "caller": "test_non_dict_input_is_passthrough",
+          "callee": "_ChatLikeRequest.model_validate",
+          "lineNumber": 164
+        },
+        {
+          "caller": "test_does_not_affect_unrelated_basemodels",
+          "callee": "_Plain.model_validate",
+          "lineNumber": 177
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 12,
+        "functionCount": 11,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "src/exo/utils/tests/test_keyed_backoff.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 13,
+      "nonEmptyLines": 7,
+      "functions": [
+        {
+          "name": "test_tracked_keys_reports_and_resets_backoff_state",
+          "startLine": 4,
+          "endLine": 13,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "test_tracked_keys_reports_and_resets_backoff_state",
+          "line": 4,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "test_tracked_keys_reports_and_resets_backoff_state",
+          "callee": "backoff.record_attempt",
+          "lineNumber": 7
+        },
+        {
+          "caller": "test_tracked_keys_reports_and_resets_backoff_state",
+          "callee": "backoff.tracked_keys",
+          "lineNumber": 9
+        },
+        {
+          "caller": "test_tracked_keys_reports_and_resets_backoff_state",
+          "callee": "backoff.reset",
+          "lineNumber": 11
+        },
+        {
+          "caller": "test_tracked_keys_reports_and_resets_backoff_state",
+          "callee": "backoff.tracked_keys",
+          "lineNumber": 13
+        },
+        {
+          "caller": "test_tracked_keys_reports_and_resets_backoff_state",
+          "callee": "set",
+          "lineNumber": 13
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/exo/utils/tests/test_node_backends.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 74,
+      "nonEmptyLines": 57,
+      "classes": [
+        {
+          "name": "TestNodeBackendsGather",
+          "startLine": 14,
+          "endLine": 74,
+          "methods": [
+            "test_cuda_via_nvml",
+            "test_cuda_via_mlx_fallback_without_pynvml",
+            "test_cpu_only_node",
+            "test_darwin_advertises_metal"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "TestNodeBackendsGather",
+          "line": 14,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "test_cuda_via_nvml",
+          "callee": "monkeypatch.setattr",
+          "lineNumber": 17
+        },
+        {
+          "caller": "test_cuda_via_nvml",
+          "callee": "monkeypatch.setattr",
+          "lineNumber": 18
+        },
+        {
+          "caller": "test_cuda_via_nvml",
+          "callee": "monkeypatch.setattr",
+          "lineNumber": 19
+        },
+        {
+          "caller": "test_cuda_via_nvml",
+          "callee": "ig.NodeBackends.gather",
+          "lineNumber": 21
+        },
+        {
+          "caller": "test_cuda_via_mlx_fallback_without_pynvml",
+          "callee": "monkeypatch.setattr",
+          "lineNumber": 33
+        },
+        {
+          "caller": "test_cuda_via_mlx_fallback_without_pynvml",
+          "callee": "monkeypatch.setattr",
+          "lineNumber": 34
+        },
+        {
+          "caller": "test_cuda_via_mlx_fallback_without_pynvml",
+          "callee": "monkeypatch.setattr",
+          "lineNumber": 35
+        },
+        {
+          "caller": "test_cuda_via_mlx_fallback_without_pynvml",
+          "callee": "ig.NodeBackends.gather",
+          "lineNumber": 37
+        },
+        {
+          "caller": "test_cpu_only_node",
+          "callee": "monkeypatch.setattr",
+          "lineNumber": 46
+        },
+        {
+          "caller": "test_cpu_only_node",
+          "callee": "monkeypatch.setattr",
+          "lineNumber": 47
+        },
+        {
+          "caller": "test_cpu_only_node",
+          "callee": "monkeypatch.setattr",
+          "lineNumber": 48
+        },
+        {
+          "caller": "test_cpu_only_node",
+          "callee": "ig.NodeBackends.gather",
+          "lineNumber": 50
+        },
+        {
+          "caller": "test_darwin_advertises_metal",
+          "callee": "monkeypatch.setattr",
+          "lineNumber": 64
+        },
+        {
+          "caller": "test_darwin_advertises_metal",
+          "callee": "monkeypatch.setattr",
+          "lineNumber": 65
+        },
+        {
+          "caller": "test_darwin_advertises_metal",
+          "callee": "monkeypatch.setattr",
+          "lineNumber": 66
+        },
+        {
+          "caller": "test_darwin_advertises_metal",
+          "callee": "ig.NodeBackends.gather",
+          "lineNumber": 68
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "src/exo/utils/tests/test_pidfile.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 74,
+      "nonEmptyLines": 57,
+      "functions": [
+        {
+          "name": "_run_child_acquire_pidfile",
+          "startLine": 33,
+          "endLine": 39,
+          "params": [
+            "path"
+          ]
+        },
+        {
+          "name": "test_acquire_exo_pidfile_writes_current_pid_and_removes_on_drop",
+          "startLine": 42,
+          "endLine": 54,
+          "params": [
+            "tmp_path"
+          ]
+        },
+        {
+          "name": "test_acquire_exo_pidfile_rejects_second_process",
+          "startLine": 57,
+          "endLine": 74,
+          "params": [
+            "tmp_path"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "_run_child_acquire_pidfile",
+          "line": 33,
+          "isDefault": false
+        },
+        {
+          "name": "test_acquire_exo_pidfile_writes_current_pid_and_removes_on_drop",
+          "line": 42,
+          "isDefault": false
+        },
+        {
+          "name": "test_acquire_exo_pidfile_rejects_second_process",
+          "line": 57,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "_run_child_acquire_pidfile",
+          "callee": "subprocess.run",
+          "lineNumber": 34
+        },
+        {
+          "caller": "_run_child_acquire_pidfile",
+          "callee": "str",
+          "lineNumber": 35
+        },
+        {
+          "caller": "test_acquire_exo_pidfile_writes_current_pid_and_removes_on_drop",
+          "callee": "Pidfile",
+          "lineNumber": 47
+        },
+        {
+          "caller": "test_acquire_exo_pidfile_writes_current_pid_and_removes_on_drop",
+          "callee": "handle.write",
+          "lineNumber": 48
+        },
+        {
+          "caller": "test_acquire_exo_pidfile_writes_current_pid_and_removes_on_drop",
+          "callee": "path.read_text",
+          "lineNumber": 49
+        },
+        {
+          "caller": "test_acquire_exo_pidfile_writes_current_pid_and_removes_on_drop",
+          "callee": "str",
+          "lineNumber": 49
+        },
+        {
+          "caller": "test_acquire_exo_pidfile_writes_current_pid_and_removes_on_drop",
+          "callee": "os.getpid",
+          "lineNumber": 49
+        },
+        {
+          "caller": "test_acquire_exo_pidfile_writes_current_pid_and_removes_on_drop",
+          "callee": "gc.collect",
+          "lineNumber": 52
+        },
+        {
+          "caller": "test_acquire_exo_pidfile_writes_current_pid_and_removes_on_drop",
+          "callee": "path.exists",
+          "lineNumber": 54
+        },
+        {
+          "caller": "test_acquire_exo_pidfile_rejects_second_process",
+          "callee": "Pidfile",
+          "lineNumber": 62
+        },
+        {
+          "caller": "test_acquire_exo_pidfile_rejects_second_process",
+          "callee": "handle.write",
+          "lineNumber": 63
+        },
+        {
+          "caller": "test_acquire_exo_pidfile_rejects_second_process",
+          "callee": "_run_child_acquire_pidfile",
+          "lineNumber": 65
+        },
+        {
+          "caller": "test_acquire_exo_pidfile_rejects_second_process",
+          "callee": "gc.collect",
+          "lineNumber": 70
+        },
+        {
+          "caller": "test_acquire_exo_pidfile_rejects_second_process",
+          "callee": "_run_child_acquire_pidfile",
+          "lineNumber": 72
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 3,
+        "functionCount": 3,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/exo/utils/tests/test_power_sampler.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 297,
+      "nonEmptyLines": 241,
+      "functions": [
+        {
+          "name": "_make_profile",
+          "startLine": 12,
+          "endLine": 13,
+          "params": [
+            "sys_power"
+          ]
+        },
+        {
+          "name": "single_node_sampler",
+          "startLine": 21,
+          "endLine": 25,
+          "params": []
+        },
+        {
+          "name": "multi_node_state",
+          "startLine": 29,
+          "endLine": 33,
+          "params": []
+        },
+        {
+          "name": "test_single_sample",
+          "startLine": 36,
+          "endLine": 48,
+          "params": [
+            "single_node_sampler"
+          ]
+        },
+        {
+          "name": "test_multi_node_averaging",
+          "startLine": 51,
+          "endLine": 63,
+          "params": [
+            "multi_node_state"
+          ]
+        },
+        {
+          "name": "test_energy_calculation",
+          "startLine": 66,
+          "endLine": 75,
+          "params": [
+            "single_node_sampler"
+          ]
+        },
+        {
+          "name": "test_changing_power_is_averaged",
+          "startLine": 78,
+          "endLine": 95,
+          "params": []
+        },
+        {
+          "name": "test_empty_state",
+          "startLine": 98,
+          "endLine": 111,
+          "params": []
+        },
+        {
+          "name": "test_trapezoidal_unit_dt_weighting",
+          "startLine": 114,
+          "endLine": 132,
+          "params": []
+        },
+        {
+          "name": "test_trapezoidal_unit_single_sample",
+          "startLine": 135,
+          "endLine": 141,
+          "params": []
+        },
+        {
+          "name": "test_trapezoidal_range_interpolation",
+          "startLine": 144,
+          "endLine": 157,
+          "params": []
+        },
+        {
+          "name": "test_trapezoidal_range_zero_window",
+          "startLine": 160,
+          "endLine": 166,
+          "params": []
+        },
+        {
+          "name": "test_trapezoidal_range_splits_sum_to_full",
+          "startLine": 169,
+          "endLine": 186,
+          "params": []
+        },
+        {
+          "name": "test_prefill_generation_split",
+          "startLine": 189,
+          "endLine": 240,
+          "params": []
+        },
+        {
+          "name": "test_no_split_when_unmarked",
+          "startLine": 243,
+          "endLine": 260,
+          "params": []
+        },
+        {
+          "name": "test_mark_prefill_done_is_idempotent",
+          "startLine": 263,
+          "endLine": 277,
+          "params": []
+        },
+        {
+          "name": "test_result_stops_sampling",
+          "startLine": 280,
+          "endLine": 297,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "_make_profile",
+          "line": 12,
+          "isDefault": false
+        },
+        {
+          "name": "single_node_sampler",
+          "line": 20,
+          "isDefault": false
+        },
+        {
+          "name": "multi_node_state",
+          "line": 28,
+          "isDefault": false
+        },
+        {
+          "name": "test_single_sample",
+          "line": 36,
+          "isDefault": false
+        },
+        {
+          "name": "test_multi_node_averaging",
+          "line": 51,
+          "isDefault": false
+        },
+        {
+          "name": "test_energy_calculation",
+          "line": 66,
+          "isDefault": false
+        },
+        {
+          "name": "test_changing_power_is_averaged",
+          "line": 78,
+          "isDefault": false
+        },
+        {
+          "name": "test_empty_state",
+          "line": 98,
+          "isDefault": false
+        },
+        {
+          "name": "test_trapezoidal_unit_dt_weighting",
+          "line": 114,
+          "isDefault": false
+        },
+        {
+          "name": "test_trapezoidal_unit_single_sample",
+          "line": 135,
+          "isDefault": false
+        },
+        {
+          "name": "test_trapezoidal_range_interpolation",
+          "line": 144,
+          "isDefault": false
+        },
+        {
+          "name": "test_trapezoidal_range_zero_window",
+          "line": 160,
+          "isDefault": false
+        },
+        {
+          "name": "test_trapezoidal_range_splits_sum_to_full",
+          "line": 169,
+          "isDefault": false
+        },
+        {
+          "name": "test_prefill_generation_split",
+          "line": 189,
+          "isDefault": false
+        },
+        {
+          "name": "test_no_split_when_unmarked",
+          "line": 243,
+          "isDefault": false
+        },
+        {
+          "name": "test_mark_prefill_done_is_idempotent",
+          "line": 263,
+          "isDefault": false
+        },
+        {
+          "name": "test_result_stops_sampling",
+          "line": 280,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "_make_profile",
+          "callee": "SystemPerformanceProfile",
+          "lineNumber": 13
+        },
+        {
+          "caller": "single_node_sampler",
+          "callee": "_make_profile",
+          "lineNumber": 23
+        },
+        {
+          "caller": "single_node_sampler",
+          "callee": "PowerSampler",
+          "lineNumber": 25
+        },
+        {
+          "caller": "multi_node_state",
+          "callee": "_make_profile",
+          "lineNumber": 31
+        },
+        {
+          "caller": "multi_node_state",
+          "callee": "_make_profile",
+          "lineNumber": 32
+        },
+        {
+          "caller": "test_single_sample",
+          "callee": "anyio.create_task_group",
+          "lineNumber": 38
+        },
+        {
+          "caller": "test_single_sample",
+          "callee": "tg.start_soon",
+          "lineNumber": 39
+        },
+        {
+          "caller": "test_single_sample",
+          "callee": "anyio.sleep",
+          "lineNumber": 40
+        },
+        {
+          "caller": "test_single_sample",
+          "callee": "tg.cancel_scope.cancel",
+          "lineNumber": 41
+        },
+        {
+          "caller": "test_single_sample",
+          "callee": "single_node_sampler.result",
+          "lineNumber": 43
+        },
+        {
+          "caller": "test_single_sample",
+          "callee": "len",
+          "lineNumber": 44
+        },
+        {
+          "caller": "test_multi_node_averaging",
+          "callee": "PowerSampler",
+          "lineNumber": 55
+        },
+        {
+          "caller": "test_multi_node_averaging",
+          "callee": "anyio.create_task_group",
+          "lineNumber": 56
+        },
+        {
+          "caller": "test_multi_node_averaging",
+          "callee": "tg.start_soon",
+          "lineNumber": 57
+        },
+        {
+          "caller": "test_multi_node_averaging",
+          "callee": "anyio.sleep",
+          "lineNumber": 58
+        },
+        {
+          "caller": "test_multi_node_averaging",
+          "callee": "tg.cancel_scope.cancel",
+          "lineNumber": 59
+        },
+        {
+          "caller": "test_multi_node_averaging",
+          "callee": "sampler.result",
+          "lineNumber": 61
+        },
+        {
+          "caller": "test_multi_node_averaging",
+          "callee": "len",
+          "lineNumber": 62
+        },
+        {
+          "caller": "test_energy_calculation",
+          "callee": "anyio.create_task_group",
+          "lineNumber": 68
+        },
+        {
+          "caller": "test_energy_calculation",
+          "callee": "tg.start_soon",
+          "lineNumber": 69
+        },
+        {
+          "caller": "test_energy_calculation",
+          "callee": "anyio.sleep",
+          "lineNumber": 70
+        },
+        {
+          "caller": "test_energy_calculation",
+          "callee": "tg.cancel_scope.cancel",
+          "lineNumber": 71
+        },
+        {
+          "caller": "test_energy_calculation",
+          "callee": "single_node_sampler.result",
+          "lineNumber": 73
+        },
+        {
+          "caller": "test_changing_power_is_averaged",
+          "callee": "_make_profile",
+          "lineNumber": 81
+        },
+        {
+          "caller": "test_changing_power_is_averaged",
+          "callee": "PowerSampler",
+          "lineNumber": 83
+        },
+        {
+          "caller": "test_changing_power_is_averaged",
+          "callee": "anyio.create_task_group",
+          "lineNumber": 85
+        },
+        {
+          "caller": "test_changing_power_is_averaged",
+          "callee": "tg.start_soon",
+          "lineNumber": 86
+        },
+        {
+          "caller": "test_changing_power_is_averaged",
+          "callee": "anyio.sleep",
+          "lineNumber": 87
+        },
+        {
+          "caller": "test_changing_power_is_averaged",
+          "callee": "_make_profile",
+          "lineNumber": 88
+        },
+        {
+          "caller": "test_changing_power_is_averaged",
+          "callee": "anyio.sleep",
+          "lineNumber": 89
+        },
+        {
+          "caller": "test_changing_power_is_averaged",
+          "callee": "tg.cancel_scope.cancel",
+          "lineNumber": 90
+        },
+        {
+          "caller": "test_changing_power_is_averaged",
+          "callee": "sampler.result",
+          "lineNumber": 92
+        },
+        {
+          "caller": "test_empty_state",
+          "callee": "PowerSampler",
+          "lineNumber": 101
+        },
+        {
+          "caller": "test_empty_state",
+          "callee": "anyio.create_task_group",
+          "lineNumber": 103
+        },
+        {
+          "caller": "test_empty_state",
+          "callee": "tg.start_soon",
+          "lineNumber": 104
+        },
+        {
+          "caller": "test_empty_state",
+          "callee": "anyio.sleep",
+          "lineNumber": 105
+        },
+        {
+          "caller": "test_empty_state",
+          "callee": "tg.cancel_scope.cancel",
+          "lineNumber": 106
+        },
+        {
+          "caller": "test_empty_state",
+          "callee": "sampler.result",
+          "lineNumber": 108
+        },
+        {
+          "caller": "test_empty_state",
+          "callee": "len",
+          "lineNumber": 109
+        },
+        {
+          "caller": "test_trapezoidal_unit_dt_weighting",
+          "callee": "_make_profile",
+          "lineNumber": 122
+        },
+        {
+          "caller": "test_trapezoidal_unit_dt_weighting",
+          "callee": "_make_profile",
+          "lineNumber": 123
+        },
+        {
+          "caller": "test_trapezoidal_unit_dt_weighting",
+          "callee": "_make_profile",
+          "lineNumber": 124
+        },
+        {
+          "caller": "test_trapezoidal_unit_dt_weighting",
+          "callee": "trapezoidal_energy",
+          "lineNumber": 126
+        },
+        {
+          "caller": "test_trapezoidal_unit_dt_weighting",
+          "callee": "abs",
+          "lineNumber": 128
+        },
+        {
+          "caller": "test_trapezoidal_unit_dt_weighting",
+          "callee": "abs",
+          "lineNumber": 132
+        },
+        {
+          "caller": "test_trapezoidal_unit_single_sample",
+          "callee": "_make_profile",
+          "lineNumber": 140
+        },
+        {
+          "caller": "test_trapezoidal_unit_single_sample",
+          "callee": "trapezoidal_energy",
+          "lineNumber": 141
+        },
+        {
+          "caller": "test_trapezoidal_range_interpolation",
+          "callee": "_make_profile",
+          "lineNumber": 150
+        },
+        {
+          "caller": "test_trapezoidal_range_interpolation",
+          "callee": "_make_profile",
+          "lineNumber": 151
+        },
+        {
+          "caller": "test_trapezoidal_range_interpolation",
+          "callee": "abs",
+          "lineNumber": 154
+        },
+        {
+          "caller": "test_trapezoidal_range_interpolation",
+          "callee": "trapezoidal_energy_range",
+          "lineNumber": 154
+        },
+        {
+          "caller": "test_trapezoidal_range_interpolation",
+          "callee": "trapezoidal_energy_range",
+          "lineNumber": 156
+        },
+        {
+          "caller": "test_trapezoidal_range_interpolation",
+          "callee": "abs",
+          "lineNumber": 157
+        },
+        {
+          "caller": "test_trapezoidal_range_zero_window",
+          "callee": "_make_profile",
+          "lineNumber": 164
+        },
+        {
+          "caller": "test_trapezoidal_range_zero_window",
+          "callee": "_make_profile",
+          "lineNumber": 164
+        },
+        {
+          "caller": "test_trapezoidal_range_zero_window",
+          "callee": "trapezoidal_energy_range",
+          "lineNumber": 165
+        },
+        {
+          "caller": "test_trapezoidal_range_zero_window",
+          "callee": "trapezoidal_energy_range",
+          "lineNumber": 166
+        },
+        {
+          "caller": "test_trapezoidal_range_splits_sum_to_full",
+          "callee": "_make_profile",
+          "lineNumber": 177
+        },
+        {
+          "caller": "test_trapezoidal_range_splits_sum_to_full",
+          "callee": "_make_profile",
+          "lineNumber": 178
+        },
+        {
+          "caller": "test_trapezoidal_range_splits_sum_to_full",
+          "callee": "_make_profile",
+          "lineNumber": 179
+        },
+        {
+          "caller": "test_trapezoidal_range_splits_sum_to_full",
+          "callee": "_make_profile",
+          "lineNumber": 180
+        },
+        {
+          "caller": "test_trapezoidal_range_splits_sum_to_full",
+          "callee": "trapezoidal_energy",
+          "lineNumber": 182
+        },
+        {
+          "caller": "test_trapezoidal_range_splits_sum_to_full",
+          "callee": "trapezoidal_energy_range",
+          "lineNumber": 184
+        },
+        {
+          "caller": "test_trapezoidal_range_splits_sum_to_full",
+          "callee": "trapezoidal_energy_range",
+          "lineNumber": 185
+        },
+        {
+          "caller": "test_trapezoidal_range_splits_sum_to_full",
+          "callee": "abs",
+          "lineNumber": 186
+        },
+        {
+          "caller": "test_prefill_generation_split",
+          "callee": "_make_profile",
+          "lineNumber": 192
+        },
+        {
+          "caller": "test_prefill_generation_split",
+          "callee": "PowerSampler",
+          "lineNumber": 194
+        },
+        {
+          "caller": "test_prefill_generation_split",
+          "callee": "anyio.create_task_group",
+          "lineNumber": 196
+        },
+        {
+          "caller": "test_prefill_generation_split",
+          "callee": "tg.start_soon",
+          "lineNumber": 197
+        },
+        {
+          "caller": "test_prefill_generation_split",
+          "callee": "anyio.sleep",
+          "lineNumber": 199
+        },
+        {
+          "caller": "test_prefill_generation_split",
+          "callee": "sampler.mark_prefill_done",
+          "lineNumber": 204
+        },
+        {
+          "caller": "test_prefill_generation_split",
+          "callee": "_make_profile",
+          "lineNumber": 205
+        },
+        {
+          "caller": "test_prefill_generation_split",
+          "callee": "anyio.sleep",
+          "lineNumber": 207
+        },
+        {
+          "caller": "test_prefill_generation_split",
+          "callee": "tg.cancel_scope.cancel",
+          "lineNumber": 208
+        },
+        {
+          "caller": "test_prefill_generation_split",
+          "callee": "sampler.result",
+          "lineNumber": 210
+        },
+        {
+          "caller": "test_prefill_generation_split",
+          "callee": "abs",
+          "lineNumber": 220
+        },
+        {
+          "caller": "test_prefill_generation_split",
+          "callee": "abs",
+          "lineNumber": 228
+        },
+        {
+          "caller": "test_no_split_when_unmarked",
+          "callee": "_make_profile",
+          "lineNumber": 246
+        },
+        {
+          "caller": "test_no_split_when_unmarked",
+          "callee": "PowerSampler",
+          "lineNumber": 248
+        },
+        {
+          "caller": "test_no_split_when_unmarked",
+          "callee": "anyio.create_task_group",
+          "lineNumber": 249
+        },
+        {
+          "caller": "test_no_split_when_unmarked",
+          "callee": "tg.start_soon",
+          "lineNumber": 250
+        },
+        {
+          "caller": "test_no_split_when_unmarked",
+          "callee": "anyio.sleep",
+          "lineNumber": 251
+        },
+        {
+          "caller": "test_no_split_when_unmarked",
+          "callee": "tg.cancel_scope.cancel",
+          "lineNumber": 252
+        },
+        {
+          "caller": "test_no_split_when_unmarked",
+          "callee": "sampler.result",
+          "lineNumber": 254
+        },
+        {
+          "caller": "test_mark_prefill_done_is_idempotent",
+          "callee": "_make_profile",
+          "lineNumber": 266
+        },
+        {
+          "caller": "test_mark_prefill_done_is_idempotent",
+          "callee": "PowerSampler",
+          "lineNumber": 268
+        },
+        {
+          "caller": "test_mark_prefill_done_is_idempotent",
+          "callee": "anyio.create_task_group",
+          "lineNumber": 269
+        },
+        {
+          "caller": "test_mark_prefill_done_is_idempotent",
+          "callee": "tg.start_soon",
+          "lineNumber": 270
+        },
+        {
+          "caller": "test_mark_prefill_done_is_idempotent",
+          "callee": "anyio.sleep",
+          "lineNumber": 271
+        },
+        {
+          "caller": "test_mark_prefill_done_is_idempotent",
+          "callee": "sampler.mark_prefill_done",
+          "lineNumber": 272
+        },
+        {
+          "caller": "test_mark_prefill_done_is_idempotent",
+          "callee": "anyio.sleep",
+          "lineNumber": 274
+        },
+        {
+          "caller": "test_mark_prefill_done_is_idempotent",
+          "callee": "sampler.mark_prefill_done",
+          "lineNumber": 275
+        },
+        {
+          "caller": "test_mark_prefill_done_is_idempotent",
+          "callee": "tg.cancel_scope.cancel",
+          "lineNumber": 277
+        },
+        {
+          "caller": "test_result_stops_sampling",
+          "callee": "_make_profile",
+          "lineNumber": 283
+        },
+        {
+          "caller": "test_result_stops_sampling",
+          "callee": "PowerSampler",
+          "lineNumber": 285
+        },
+        {
+          "caller": "test_result_stops_sampling",
+          "callee": "anyio.create_task_group",
+          "lineNumber": 288
+        },
+        {
+          "caller": "test_result_stops_sampling",
+          "callee": "tg.start_soon",
+          "lineNumber": 289
+        },
+        {
+          "caller": "test_result_stops_sampling",
+          "callee": "anyio.sleep",
+          "lineNumber": 290
+        },
+        {
+          "caller": "test_result_stops_sampling",
+          "callee": "sampler.result",
+          "lineNumber": 291
+        },
+        {
+          "caller": "test_result_stops_sampling",
+          "callee": "anyio.sleep",
+          "lineNumber": 293
+        },
+        {
+          "caller": "test_result_stops_sampling",
+          "callee": "tg.cancel_scope.cancel",
+          "lineNumber": 294
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 17,
+        "functionCount": 17,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/exo/utils/tests/test_rdma_verbs_validation.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 176,
+      "nonEmptyLines": 134,
+      "functions": [
+        {
+          "name": "_run_process_side_effect",
+          "startLine": 16,
+          "endLine": 28,
+          "params": [
+            "outputs"
+          ]
+        },
+        {
+          "name": "mock_run_process",
+          "startLine": 32,
+          "endLine": 37,
+          "params": [
+            "monkeypatch"
+          ]
+        },
+        {
+          "name": "_ibv_devices_output",
+          "startLine": 40,
+          "endLine": 44,
+          "params": [
+            "devices"
+          ]
+        },
+        {
+          "name": "_ibv_devinfo_active_output",
+          "startLine": 47,
+          "endLine": 54,
+          "params": []
+        },
+        {
+          "name": "_ibv_devinfo_down_output",
+          "startLine": 57,
+          "endLine": 63,
+          "params": []
+        },
+        {
+          "name": "test_gather_false_when_ibv_devices_empty",
+          "startLine": 66,
+          "endLine": 80,
+          "params": [
+            "mock_run_process"
+          ]
+        },
+        {
+          "name": "test_gather_true_when_device_and_active_port",
+          "startLine": 83,
+          "endLine": 97,
+          "params": [
+            "mock_run_process"
+          ]
+        },
+        {
+          "name": "test_gather_false_when_device_but_port_down",
+          "startLine": 100,
+          "endLine": 115,
+          "params": [
+            "mock_run_process"
+          ]
+        },
+        {
+          "name": "test_gather_fail_open_when_ibv_devinfo_missing",
+          "startLine": 118,
+          "endLine": 144,
+          "params": [
+            "mock_run_process"
+          ]
+        },
+        {
+          "name": "test_gather_fail_open_when_ibv_devinfo_errors",
+          "startLine": 147,
+          "endLine": 161,
+          "params": [
+            "mock_run_process"
+          ]
+        },
+        {
+          "name": "test_gather_disabled_rdma_ctl",
+          "startLine": 164,
+          "endLine": 176,
+          "params": [
+            "mock_run_process"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "_Proc",
+          "startLine": 10,
+          "endLine": 13,
+          "methods": [
+            "__init__"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "_Proc",
+          "line": 10,
+          "isDefault": false
+        },
+        {
+          "name": "_run_process_side_effect",
+          "line": 16,
+          "isDefault": false
+        },
+        {
+          "name": "mock_run_process",
+          "line": 31,
+          "isDefault": false
+        },
+        {
+          "name": "_ibv_devices_output",
+          "line": 40,
+          "isDefault": false
+        },
+        {
+          "name": "_ibv_devinfo_active_output",
+          "line": 47,
+          "isDefault": false
+        },
+        {
+          "name": "_ibv_devinfo_down_output",
+          "line": 57,
+          "isDefault": false
+        },
+        {
+          "name": "test_gather_false_when_ibv_devices_empty",
+          "line": 66,
+          "isDefault": false
+        },
+        {
+          "name": "test_gather_true_when_device_and_active_port",
+          "line": 83,
+          "isDefault": false
+        },
+        {
+          "name": "test_gather_false_when_device_but_port_down",
+          "line": 100,
+          "isDefault": false
+        },
+        {
+          "name": "test_gather_fail_open_when_ibv_devinfo_missing",
+          "line": 118,
+          "isDefault": false
+        },
+        {
+          "name": "test_gather_fail_open_when_ibv_devinfo_errors",
+          "line": 147,
+          "isDefault": false
+        },
+        {
+          "name": "test_gather_disabled_rdma_ctl",
+          "line": 164,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "__init__",
+          "callee": "stdout.encode",
+          "lineNumber": 12
+        },
+        {
+          "caller": "_fake_run_process",
+          "callee": "tuple",
+          "lineNumber": 22
+        },
+        {
+          "caller": "_fake_run_process",
+          "callee": "_Proc",
+          "lineNumber": 25
+        },
+        {
+          "caller": "_fake_run_process",
+          "callee": "_Proc",
+          "lineNumber": 26
+        },
+        {
+          "caller": "mock_run_process",
+          "callee": "AsyncMock",
+          "lineNumber": 33
+        },
+        {
+          "caller": "mock_run_process",
+          "callee": "monkeypatch.setattr",
+          "lineNumber": 34
+        },
+        {
+          "caller": "_ibv_devices_output",
+          "callee": "enumerate",
+          "lineNumber": 42
+        },
+        {
+          "caller": "_ibv_devices_output",
+          "callee": "lines.append",
+          "lineNumber": 43
+        },
+        {
+          "caller": "_ibv_devices_output",
+          "callee": "\"\\n\".join",
+          "lineNumber": 44
+        },
+        {
+          "caller": "test_gather_false_when_ibv_devices_empty",
+          "callee": "_run_process_side_effect",
+          "lineNumber": 69
+        },
+        {
+          "caller": "test_gather_false_when_ibv_devices_empty",
+          "callee": "_ibv_devices_output",
+          "lineNumber": 72
+        },
+        {
+          "caller": "test_gather_false_when_ibv_devices_empty",
+          "callee": "RdmaCtlStatus.gather",
+          "lineNumber": 76
+        },
+        {
+          "caller": "test_gather_true_when_device_and_active_port",
+          "callee": "_run_process_side_effect",
+          "lineNumber": 86
+        },
+        {
+          "caller": "test_gather_true_when_device_and_active_port",
+          "callee": "_ibv_devices_output",
+          "lineNumber": 89
+        },
+        {
+          "caller": "test_gather_true_when_device_and_active_port",
+          "callee": "_ibv_devinfo_active_output",
+          "lineNumber": 90
+        },
+        {
+          "caller": "test_gather_true_when_device_and_active_port",
+          "callee": "RdmaCtlStatus.gather",
+          "lineNumber": 94
+        },
+        {
+          "caller": "test_gather_false_when_device_but_port_down",
+          "callee": "_run_process_side_effect",
+          "lineNumber": 104
+        },
+        {
+          "caller": "test_gather_false_when_device_but_port_down",
+          "callee": "_ibv_devices_output",
+          "lineNumber": 107
+        },
+        {
+          "caller": "test_gather_false_when_device_but_port_down",
+          "callee": "_ibv_devinfo_down_output",
+          "lineNumber": 108
+        },
+        {
+          "caller": "test_gather_false_when_device_but_port_down",
+          "callee": "RdmaCtlStatus.gather",
+          "lineNumber": 112
+        },
+        {
+          "caller": "test_gather_fail_open_when_ibv_devinfo_missing",
+          "callee": "_run_process_side_effect",
+          "lineNumber": 122
+        },
+        {
+          "caller": "test_gather_fail_open_when_ibv_devinfo_missing",
+          "callee": "_ibv_devices_output",
+          "lineNumber": 125
+        },
+        {
+          "caller": "test_gather_fail_open_when_ibv_devinfo_missing",
+          "callee": "patch",
+          "lineNumber": 136
+        },
+        {
+          "caller": "test_gather_fail_open_when_ibv_devinfo_missing",
+          "callee": "RdmaCtlStatus.gather",
+          "lineNumber": 141
+        },
+        {
+          "caller": "test_gather_fail_open_when_ibv_devinfo_errors",
+          "callee": "_run_process_side_effect",
+          "lineNumber": 150
+        },
+        {
+          "caller": "test_gather_fail_open_when_ibv_devinfo_errors",
+          "callee": "_ibv_devices_output",
+          "lineNumber": 153
+        },
+        {
+          "caller": "test_gather_fail_open_when_ibv_devinfo_errors",
+          "callee": "RdmaCtlStatus.gather",
+          "lineNumber": 158
+        },
+        {
+          "caller": "test_gather_disabled_rdma_ctl",
+          "callee": "_run_process_side_effect",
+          "lineNumber": 167
+        },
+        {
+          "caller": "test_gather_disabled_rdma_ctl",
+          "callee": "RdmaCtlStatus.gather",
+          "lineNumber": 173
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 12,
+        "functionCount": 11,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "src/exo/utils/tests/test_settings.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 164,
+      "nonEmptyLines": 122,
+      "functions": [
+        {
+          "name": "settings_manager",
+          "startLine": 11,
+          "endLine": 12,
+          "params": [
+            "tmp_path"
+          ]
+        },
+        {
+          "name": "test_catalog_has_expected_knobs",
+          "startLine": 15,
+          "endLine": 25,
+          "params": []
+        },
+        {
+          "name": "test_resolve_precedence_override_beats_env",
+          "startLine": 28,
+          "endLine": 38,
+          "params": [
+            "settings_manager",
+            "monkeypatch"
+          ]
+        },
+        {
+          "name": "test_resolve_precedence_env_beats_default",
+          "startLine": 41,
+          "endLine": 50,
+          "params": [
+            "settings_manager",
+            "monkeypatch"
+          ]
+        },
+        {
+          "name": "test_resolve_default_when_unset",
+          "startLine": 53,
+          "endLine": 62,
+          "params": [
+            "settings_manager",
+            "monkeypatch"
+          ]
+        },
+        {
+          "name": "test_resolve_unknown_var_returns_none",
+          "startLine": 65,
+          "endLine": 66,
+          "params": [
+            "settings_manager"
+          ]
+        },
+        {
+          "name": "test_apply_override_unknown_var_raises",
+          "startLine": 69,
+          "endLine": 73,
+          "params": [
+            "settings_manager"
+          ]
+        },
+        {
+          "name": "test_apply_override_validates_type",
+          "startLine": 76,
+          "endLine": 78,
+          "params": [
+            "settings_manager"
+          ]
+        },
+        {
+          "name": "test_apply_override_clears_with_none",
+          "startLine": 81,
+          "endLine": 89,
+          "params": [
+            "settings_manager"
+          ]
+        },
+        {
+          "name": "test_overrides_persist_to_disk",
+          "startLine": 92,
+          "endLine": 108,
+          "params": [
+            "tmp_path"
+          ]
+        },
+        {
+          "name": "test_snapshot_includes_catalog_metadata",
+          "startLine": 111,
+          "endLine": 121,
+          "params": [
+            "settings_manager"
+          ]
+        },
+        {
+          "name": "test_get_value_override_beats_env_and_default",
+          "startLine": 124,
+          "endLine": 129,
+          "params": [
+            "settings_manager",
+            "monkeypatch"
+          ]
+        },
+        {
+          "name": "test_get_value_env_beats_caller_default",
+          "startLine": 132,
+          "endLine": 136,
+          "params": [
+            "settings_manager",
+            "monkeypatch"
+          ]
+        },
+        {
+          "name": "test_get_value_falls_back_to_caller_default_not_catalog",
+          "startLine": 139,
+          "endLine": 146,
+          "params": [
+            "settings_manager",
+            "monkeypatch"
+          ]
+        },
+        {
+          "name": "test_get_value_unknown_var_returns_caller_default",
+          "startLine": 149,
+          "endLine": 153,
+          "params": [
+            "settings_manager"
+          ]
+        },
+        {
+          "name": "test_spec_coerce_bool",
+          "startLine": 156,
+          "endLine": 164,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "settings_manager",
+          "line": 10,
+          "isDefault": false
+        },
+        {
+          "name": "test_catalog_has_expected_knobs",
+          "line": 15,
+          "isDefault": false
+        },
+        {
+          "name": "test_resolve_precedence_override_beats_env",
+          "line": 28,
+          "isDefault": false
+        },
+        {
+          "name": "test_resolve_precedence_env_beats_default",
+          "line": 41,
+          "isDefault": false
+        },
+        {
+          "name": "test_resolve_default_when_unset",
+          "line": 53,
+          "isDefault": false
+        },
+        {
+          "name": "test_resolve_unknown_var_returns_none",
+          "line": 65,
+          "isDefault": false
+        },
+        {
+          "name": "test_apply_override_unknown_var_raises",
+          "line": 69,
+          "isDefault": false
+        },
+        {
+          "name": "test_apply_override_validates_type",
+          "line": 76,
+          "isDefault": false
+        },
+        {
+          "name": "test_apply_override_clears_with_none",
+          "line": 81,
+          "isDefault": false
+        },
+        {
+          "name": "test_overrides_persist_to_disk",
+          "line": 92,
+          "isDefault": false
+        },
+        {
+          "name": "test_snapshot_includes_catalog_metadata",
+          "line": 111,
+          "isDefault": false
+        },
+        {
+          "name": "test_get_value_override_beats_env_and_default",
+          "line": 124,
+          "isDefault": false
+        },
+        {
+          "name": "test_get_value_env_beats_caller_default",
+          "line": 132,
+          "isDefault": false
+        },
+        {
+          "name": "test_get_value_falls_back_to_caller_default_not_catalog",
+          "line": 139,
+          "isDefault": false
+        },
+        {
+          "name": "test_get_value_unknown_var_returns_caller_default",
+          "line": 149,
+          "isDefault": false
+        },
+        {
+          "name": "test_spec_coerce_bool",
+          "line": 156,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "settings_manager",
+          "callee": "SettingsManager",
+          "lineNumber": 12
+        },
+        {
+          "caller": "test_resolve_precedence_override_beats_env",
+          "callee": "monkeypatch.setenv",
+          "lineNumber": 31
+        },
+        {
+          "caller": "test_resolve_precedence_override_beats_env",
+          "callee": "settings_manager.apply_override",
+          "lineNumber": 32
+        },
+        {
+          "caller": "test_resolve_precedence_override_beats_env",
+          "callee": "settings_manager.resolve",
+          "lineNumber": 34
+        },
+        {
+          "caller": "test_resolve_precedence_env_beats_default",
+          "callee": "monkeypatch.setenv",
+          "lineNumber": 44
+        },
+        {
+          "caller": "test_resolve_precedence_env_beats_default",
+          "callee": "settings_manager.resolve",
+          "lineNumber": 46
+        },
+        {
+          "caller": "test_resolve_default_when_unset",
+          "callee": "monkeypatch.delenv",
+          "lineNumber": 56
+        },
+        {
+          "caller": "test_resolve_default_when_unset",
+          "callee": "settings_manager.resolve",
+          "lineNumber": 58
+        },
+        {
+          "caller": "test_resolve_unknown_var_returns_none",
+          "callee": "settings_manager.resolve",
+          "lineNumber": 66
+        },
+        {
+          "caller": "test_apply_override_unknown_var_raises",
+          "callee": "pytest.raises",
+          "lineNumber": 72
+        },
+        {
+          "caller": "test_apply_override_unknown_var_raises",
+          "callee": "settings_manager.apply_override",
+          "lineNumber": 73
+        },
+        {
+          "caller": "test_apply_override_validates_type",
+          "callee": "pytest.raises",
+          "lineNumber": 77
+        },
+        {
+          "caller": "test_apply_override_validates_type",
+          "callee": "settings_manager.apply_override",
+          "lineNumber": 78
+        },
+        {
+          "caller": "test_apply_override_clears_with_none",
+          "callee": "settings_manager.apply_override",
+          "lineNumber": 82
+        },
+        {
+          "caller": "test_apply_override_clears_with_none",
+          "callee": "settings_manager.resolve",
+          "lineNumber": 83
+        },
+        {
+          "caller": "test_apply_override_clears_with_none",
+          "callee": "settings_manager.apply_override",
+          "lineNumber": 86
+        },
+        {
+          "caller": "test_apply_override_clears_with_none",
+          "callee": "settings_manager.resolve",
+          "lineNumber": 88
+        },
+        {
+          "caller": "test_overrides_persist_to_disk",
+          "callee": "SettingsManager",
+          "lineNumber": 94
+        },
+        {
+          "caller": "test_overrides_persist_to_disk",
+          "callee": "manager.apply_override",
+          "lineNumber": 95
+        },
+        {
+          "caller": "test_overrides_persist_to_disk",
+          "callee": "settings_file.is_file",
+          "lineNumber": 97
+        },
+        {
+          "caller": "test_overrides_persist_to_disk",
+          "callee": "json.loads",
+          "lineNumber": 98
+        },
+        {
+          "caller": "test_overrides_persist_to_disk",
+          "callee": "settings_file.read_text",
+          "lineNumber": 98
+        },
+        {
+          "caller": "test_overrides_persist_to_disk",
+          "callee": "SettingsManager",
+          "lineNumber": 103
+        },
+        {
+          "caller": "test_overrides_persist_to_disk",
+          "callee": "reloaded.resolve",
+          "lineNumber": 104
+        },
+        {
+          "caller": "test_snapshot_includes_catalog_metadata",
+          "callee": "settings_manager.snapshot",
+          "lineNumber": 114
+        },
+        {
+          "caller": "test_snapshot_includes_catalog_metadata",
+          "callee": "len",
+          "lineNumber": 116
+        },
+        {
+          "caller": "test_snapshot_includes_catalog_metadata",
+          "callee": "len",
+          "lineNumber": 116
+        },
+        {
+          "caller": "test_snapshot_includes_catalog_metadata",
+          "callee": "next",
+          "lineNumber": 117
+        },
+        {
+          "caller": "test_get_value_override_beats_env_and_default",
+          "callee": "monkeypatch.setenv",
+          "lineNumber": 127
+        },
+        {
+          "caller": "test_get_value_override_beats_env_and_default",
+          "callee": "settings_manager.apply_override",
+          "lineNumber": 128
+        },
+        {
+          "caller": "test_get_value_override_beats_env_and_default",
+          "callee": "settings_manager.get_value",
+          "lineNumber": 129
+        },
+        {
+          "caller": "test_get_value_env_beats_caller_default",
+          "callee": "monkeypatch.setenv",
+          "lineNumber": 135
+        },
+        {
+          "caller": "test_get_value_env_beats_caller_default",
+          "callee": "settings_manager.get_value",
+          "lineNumber": 136
+        },
+        {
+          "caller": "test_get_value_falls_back_to_caller_default_not_catalog",
+          "callee": "monkeypatch.delenv",
+          "lineNumber": 145
+        },
+        {
+          "caller": "test_get_value_falls_back_to_caller_default_not_catalog",
+          "callee": "settings_manager.get_value",
+          "lineNumber": 146
+        },
+        {
+          "caller": "test_get_value_unknown_var_returns_caller_default",
+          "callee": "settings_manager.get_value",
+          "lineNumber": 152
+        },
+        {
+          "caller": "test_get_value_unknown_var_returns_caller_default",
+          "callee": "settings_manager.get_value",
+          "lineNumber": 153
+        },
+        {
+          "caller": "test_spec_coerce_bool",
+          "callee": "SettingSpec",
+          "lineNumber": 157
+        },
+        {
+          "caller": "test_spec_coerce_bool",
+          "callee": "spec.coerce",
+          "lineNumber": 158
+        },
+        {
+          "caller": "test_spec_coerce_bool",
+          "callee": "spec.coerce",
+          "lineNumber": 159
+        },
+        {
+          "caller": "test_spec_coerce_bool",
+          "callee": "spec.coerce",
+          "lineNumber": 160
+        },
+        {
+          "caller": "test_spec_coerce_bool",
+          "callee": "spec.coerce",
+          "lineNumber": 161
+        },
+        {
+          "caller": "test_spec_coerce_bool",
+          "callee": "spec.coerce",
+          "lineNumber": 162
+        },
+        {
+          "caller": "test_spec_coerce_bool",
+          "callee": "pytest.raises",
+          "lineNumber": 163
+        },
+        {
+          "caller": "test_spec_coerce_bool",
+          "callee": "spec.coerce",
+          "lineNumber": 164
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 16,
+        "functionCount": 16,
+        "classCount": 0
+      }
+    }
+  ]
+}

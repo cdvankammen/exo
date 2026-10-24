@@ -1,0 +1,1892 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 24,
+  "filesSkipped": [
+    "rust/parts.nix"
+  ],
+  "analysisOutcomes": {
+    "structure": {
+      "succeeded": 24,
+      "failed": 0
+    },
+    "callGraph": {
+      "succeeded": 24,
+      "failed": 0,
+      "skipped": 0
+    }
+  },
+  "results": [
+    {
+      "path": "rust/networking/examples/serve_storage.rs",
+      "language": "rust",
+      "fileCategory": "code",
+      "totalLines": 74,
+      "nonEmptyLines": 70,
+      "functions": [
+        {
+          "name": "main",
+          "startLine": 9,
+          "endLine": 74,
+          "params": []
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "main",
+          "callee": "env_logger::try_init_from_env(Env::new().default_filter_or(\"info\")).expect",
+          "lineNumber": 10
+        },
+        {
+          "caller": "main",
+          "callee": "env_logger::try_init_from_env",
+          "lineNumber": 10
+        },
+        {
+          "caller": "main",
+          "callee": "Env::new().default_filter_or",
+          "lineNumber": 10
+        },
+        {
+          "caller": "main",
+          "callee": "Env::new",
+          "lineNumber": 10
+        },
+        {
+          "caller": "main",
+          "callee": "networking::cfg",
+          "lineNumber": 12
+        },
+        {
+          "caller": "main",
+          "callee": "networking::open",
+          "lineNumber": 13
+        },
+        {
+          "caller": "main",
+          "callee": "session\n        .z\n        .liveliness().declare_token",
+          "lineNumber": 14
+        },
+        {
+          "caller": "main",
+          "callee": "session\n        .z.liveliness",
+          "lineNumber": 14
+        },
+        {
+          "caller": "main",
+          "callee": "session\n        .z\n        .liveliness()\n        .declare_subscriber(\"nodes/*/live\")\n        .history(true).callback",
+          "lineNumber": 19
+        },
+        {
+          "caller": "main",
+          "callee": "session\n        .z\n        .liveliness()\n        .declare_subscriber(\"nodes/*/live\").history",
+          "lineNumber": 19
+        },
+        {
+          "caller": "main",
+          "callee": "session\n        .z\n        .liveliness().declare_subscriber",
+          "lineNumber": 19
+        },
+        {
+          "caller": "main",
+          "callee": "session\n        .z.liveliness",
+          "lineNumber": 19
+        },
+        {
+          "caller": "main",
+          "callee": "tokio::time::sleep",
+          "lineNumber": 39
+        },
+        {
+          "caller": "main",
+          "callee": "Duration::from_secs",
+          "lineNumber": 39
+        },
+        {
+          "caller": "main",
+          "callee": "session\n                .z\n                .get(\"**\").callback",
+          "lineNumber": 40
+        },
+        {
+          "caller": "main",
+          "callee": "session\n                .z.get",
+          "lineNumber": 40
+        },
+        {
+          "caller": "main",
+          "callee": "reply.into_result().expect",
+          "lineNumber": 44
+        },
+        {
+          "caller": "main",
+          "callee": "reply.into_result",
+          "lineNumber": 44
+        },
+        {
+          "caller": "main",
+          "callee": "Result::<()>::Ok",
+          "lineNumber": 53
+        },
+        {
+          "caller": "main",
+          "callee": "session.z.declare_subscriber",
+          "lineNumber": 55
+        },
+        {
+          "caller": "main",
+          "callee": "subs.recv_async",
+          "lineNumber": 59
+        },
+        {
+          "caller": "main",
+          "callee": "Ok",
+          "lineNumber": 73
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "rust/networking/examples/z_get.rs",
+      "language": "rust",
+      "fileCategory": "code",
+      "totalLines": 41,
+      "nonEmptyLines": 39,
+      "functions": [
+        {
+          "name": "main",
+          "startLine": 9,
+          "endLine": 41,
+          "params": []
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "main",
+          "callee": "env_logger::try_init_from_env(Env::new().default_filter_or(\"info\")).expect",
+          "lineNumber": 10
+        },
+        {
+          "caller": "main",
+          "callee": "env_logger::try_init_from_env",
+          "lineNumber": 10
+        },
+        {
+          "caller": "main",
+          "callee": "Env::new().default_filter_or",
+          "lineNumber": 10
+        },
+        {
+          "caller": "main",
+          "callee": "Env::new",
+          "lineNumber": 10
+        },
+        {
+          "caller": "main",
+          "callee": "networking::cfg",
+          "lineNumber": 12
+        },
+        {
+          "caller": "main",
+          "callee": "networking::open",
+          "lineNumber": 13
+        },
+        {
+          "caller": "main",
+          "callee": "session\n        .z\n        .liveliness()\n        .declare_subscriber(\"**\")\n        .history(true).wait",
+          "lineNumber": 14
+        },
+        {
+          "caller": "main",
+          "callee": "session\n        .z\n        .liveliness()\n        .declare_subscriber(\"**\").history",
+          "lineNumber": 14
+        },
+        {
+          "caller": "main",
+          "callee": "session\n        .z\n        .liveliness().declare_subscriber",
+          "lineNumber": 14
+        },
+        {
+          "caller": "main",
+          "callee": "session\n        .z.liveliness",
+          "lineNumber": 14
+        },
+        {
+          "caller": "main",
+          "callee": "other_live.recv_async",
+          "lineNumber": 20
+        },
+        {
+          "caller": "main",
+          "callee": "session.z.liveliness().get(\"**\").wait",
+          "lineNumber": 21
+        },
+        {
+          "caller": "main",
+          "callee": "session.z.liveliness().get",
+          "lineNumber": 21
+        },
+        {
+          "caller": "main",
+          "callee": "session.z.liveliness",
+          "lineNumber": 21
+        },
+        {
+          "caller": "main",
+          "callee": "other_live.recv_async",
+          "lineNumber": 22
+        },
+        {
+          "caller": "main",
+          "callee": "env::args().nth(1).expect",
+          "lineNumber": 25
+        },
+        {
+          "caller": "main",
+          "callee": "env::args().nth",
+          "lineNumber": 25
+        },
+        {
+          "caller": "main",
+          "callee": "env::args",
+          "lineNumber": 25
+        },
+        {
+          "caller": "main",
+          "callee": "session.z.liveliness().get",
+          "lineNumber": 27
+        },
+        {
+          "caller": "main",
+          "callee": "session.z.liveliness",
+          "lineNumber": 27
+        },
+        {
+          "caller": "main",
+          "callee": "subs.recv_async",
+          "lineNumber": 28
+        },
+        {
+          "caller": "main",
+          "callee": "r.into_result",
+          "lineNumber": 29
+        },
+        {
+          "caller": "main",
+          "callee": "Ok",
+          "lineNumber": 40
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "scripts/download_model_to_cluster.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 212,
+      "nonEmptyLines": 175,
+      "functions": [
+        {
+          "name": "fetch_topology_nodes",
+          "startLine": 31,
+          "endLine": 44,
+          "params": [
+            "client",
+            "base"
+          ]
+        },
+        {
+          "name": "build_shard_payload",
+          "startLine": 47,
+          "endLine": 56,
+          "params": [
+            "card"
+          ]
+        },
+        {
+          "name": "ensure_model_card_registered",
+          "startLine": 59,
+          "endLine": 73,
+          "params": [
+            "client",
+            "base",
+            "model_id"
+          ]
+        },
+        {
+          "name": "node_model_status",
+          "startLine": 76,
+          "endLine": 103,
+          "params": [
+            "downloads_state",
+            "node_id",
+            "model_id"
+          ]
+        },
+        {
+          "name": "poll_until_complete",
+          "startLine": 106,
+          "endLine": 153,
+          "params": [
+            "client",
+            "base",
+            "node_ids",
+            "model_id",
+            "timeout_s"
+          ]
+        },
+        {
+          "name": "run",
+          "startLine": 156,
+          "endLine": 193,
+          "params": [
+            "args"
+          ]
+        },
+        {
+          "name": "main",
+          "startLine": 196,
+          "endLine": 208,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "fetch_topology_nodes",
+          "line": 31,
+          "isDefault": false
+        },
+        {
+          "name": "build_shard_payload",
+          "line": 47,
+          "isDefault": false
+        },
+        {
+          "name": "ensure_model_card_registered",
+          "line": 59,
+          "isDefault": false
+        },
+        {
+          "name": "node_model_status",
+          "line": 76,
+          "isDefault": false
+        },
+        {
+          "name": "poll_until_complete",
+          "line": 106,
+          "isDefault": false
+        },
+        {
+          "name": "run",
+          "line": 156,
+          "isDefault": false
+        },
+        {
+          "name": "main",
+          "line": 196,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "fetch_topology_nodes",
+          "callee": "client.get",
+          "lineNumber": 32
+        },
+        {
+          "caller": "fetch_topology_nodes",
+          "callee": "r.raise_for_status",
+          "lineNumber": 33
+        },
+        {
+          "caller": "fetch_topology_nodes",
+          "callee": "r.json",
+          "lineNumber": 34
+        },
+        {
+          "caller": "fetch_topology_nodes",
+          "callee": "topology.get",
+          "lineNumber": 35
+        },
+        {
+          "caller": "fetch_topology_nodes",
+          "callee": "isinstance",
+          "lineNumber": 36
+        },
+        {
+          "caller": "fetch_topology_nodes",
+          "callee": "list",
+          "lineNumber": 37
+        },
+        {
+          "caller": "fetch_topology_nodes",
+          "callee": "nodes.keys",
+          "lineNumber": 37
+        },
+        {
+          "caller": "fetch_topology_nodes",
+          "callee": "isinstance",
+          "lineNumber": 40
+        },
+        {
+          "caller": "fetch_topology_nodes",
+          "callee": "result.append",
+          "lineNumber": 41
+        },
+        {
+          "caller": "fetch_topology_nodes",
+          "callee": "isinstance",
+          "lineNumber": 42
+        },
+        {
+          "caller": "fetch_topology_nodes",
+          "callee": "result.append",
+          "lineNumber": 43
+        },
+        {
+          "caller": "fetch_topology_nodes",
+          "callee": "str",
+          "lineNumber": 43
+        },
+        {
+          "caller": "fetch_topology_nodes",
+          "callee": "n.get",
+          "lineNumber": 43
+        },
+        {
+          "caller": "fetch_topology_nodes",
+          "callee": "n.get",
+          "lineNumber": 43
+        },
+        {
+          "caller": "build_shard_payload",
+          "callee": "PipelineShardMetadata",
+          "lineNumber": 48
+        },
+        {
+          "caller": "build_shard_payload",
+          "callee": "shard.model_dump",
+          "lineNumber": 56
+        },
+        {
+          "caller": "ensure_model_card_registered",
+          "callee": "client.get",
+          "lineNumber": 62
+        },
+        {
+          "caller": "ensure_model_card_registered",
+          "callee": "r.raise_for_status",
+          "lineNumber": 63
+        },
+        {
+          "caller": "ensure_model_card_registered",
+          "callee": "(r.json() or {}).get",
+          "lineNumber": 64
+        },
+        {
+          "caller": "ensure_model_card_registered",
+          "callee": "r.json",
+          "lineNumber": 64
+        },
+        {
+          "caller": "ensure_model_card_registered",
+          "callee": "m.get",
+          "lineNumber": 66
+        },
+        {
+          "caller": "ensure_model_card_registered",
+          "callee": "m.get",
+          "lineNumber": 66
+        },
+        {
+          "caller": "ensure_model_card_registered",
+          "callee": "logger.info",
+          "lineNumber": 67
+        },
+        {
+          "caller": "ensure_model_card_registered",
+          "callee": "logger.info",
+          "lineNumber": 70
+        },
+        {
+          "caller": "ensure_model_card_registered",
+          "callee": "client.post",
+          "lineNumber": 71
+        },
+        {
+          "caller": "ensure_model_card_registered",
+          "callee": "RuntimeError",
+          "lineNumber": 73
+        },
+        {
+          "caller": "node_model_status",
+          "callee": "downloads_state.get",
+          "lineNumber": 79
+        },
+        {
+          "caller": "node_model_status",
+          "callee": "isinstance",
+          "lineNumber": 80
+        },
+        {
+          "caller": "node_model_status",
+          "callee": "isinstance",
+          "lineNumber": 84
+        },
+        {
+          "caller": "node_model_status",
+          "callee": "len",
+          "lineNumber": 84
+        },
+        {
+          "caller": "node_model_status",
+          "callee": "entry.items",
+          "lineNumber": 86
+        },
+        {
+          "caller": "node_model_status",
+          "callee": "(payload or {}).get",
+          "lineNumber": 87
+        },
+        {
+          "caller": "node_model_status",
+          "callee": "(payload or {}).get",
+          "lineNumber": 87
+        },
+        {
+          "caller": "node_model_status",
+          "callee": "isinstance",
+          "lineNumber": 90
+        },
+        {
+          "caller": "node_model_status",
+          "callee": "len",
+          "lineNumber": 90
+        },
+        {
+          "caller": "node_model_status",
+          "callee": "shard_meta.items",
+          "lineNumber": 92
+        },
+        {
+          "caller": "node_model_status",
+          "callee": "(inner or {}).get",
+          "lineNumber": 93
+        },
+        {
+          "caller": "node_model_status",
+          "callee": "(inner or {}).get",
+          "lineNumber": 93
+        },
+        {
+          "caller": "node_model_status",
+          "callee": "mc.get",
+          "lineNumber": 94
+        },
+        {
+          "caller": "node_model_status",
+          "callee": "mc.get",
+          "lineNumber": 94
+        },
+        {
+          "caller": "poll_until_complete",
+          "callee": "time.monotonic",
+          "lineNumber": 113
+        },
+        {
+          "caller": "poll_until_complete",
+          "callee": "client.get",
+          "lineNumber": 115
+        },
+        {
+          "caller": "poll_until_complete",
+          "callee": "r.raise_for_status",
+          "lineNumber": 116
+        },
+        {
+          "caller": "poll_until_complete",
+          "callee": "r.json",
+          "lineNumber": 117
+        },
+        {
+          "caller": "poll_until_complete",
+          "callee": "node_model_status",
+          "lineNumber": 120
+        },
+        {
+          "caller": "poll_until_complete",
+          "callee": "statuses.items",
+          "lineNumber": 123
+        },
+        {
+          "caller": "poll_until_complete",
+          "callee": "downloads_state.get",
+          "lineNumber": 124
+        },
+        {
+          "caller": "poll_until_complete",
+          "callee": "isinstance",
+          "lineNumber": 127
+        },
+        {
+          "caller": "poll_until_complete",
+          "callee": "(entry[\"DownloadOngoing\"] or {}).get",
+          "lineNumber": 129
+        },
+        {
+          "caller": "poll_until_complete",
+          "callee": "(prog.get(\"downloaded\") or {}).get",
+          "lineNumber": 132
+        },
+        {
+          "caller": "poll_until_complete",
+          "callee": "prog.get",
+          "lineNumber": 132
+        },
+        {
+          "caller": "poll_until_complete",
+          "callee": "(prog.get(\"total\") or {}).get",
+          "lineNumber": 133
+        },
+        {
+          "caller": "poll_until_complete",
+          "callee": "prog.get",
+          "lineNumber": 133
+        },
+        {
+          "caller": "poll_until_complete",
+          "callee": "prog.get",
+          "lineNumber": 135
+        },
+        {
+          "caller": "poll_until_complete",
+          "callee": "logger.info",
+          "lineNumber": 136
+        },
+        {
+          "caller": "poll_until_complete",
+          "callee": "all",
+          "lineNumber": 139
+        },
+        {
+          "caller": "poll_until_complete",
+          "callee": "statuses.values",
+          "lineNumber": 139
+        },
+        {
+          "caller": "poll_until_complete",
+          "callee": "logger.info",
+          "lineNumber": 140
+        },
+        {
+          "caller": "poll_until_complete",
+          "callee": "list",
+          "lineNumber": 140
+        },
+        {
+          "caller": "poll_until_complete",
+          "callee": "statuses.keys",
+          "lineNumber": 140
+        },
+        {
+          "caller": "poll_until_complete",
+          "callee": "statuses.items",
+          "lineNumber": 143
+        },
+        {
+          "caller": "poll_until_complete",
+          "callee": "RuntimeError",
+          "lineNumber": 145
+        },
+        {
+          "caller": "poll_until_complete",
+          "callee": "time.monotonic",
+          "lineNumber": 147
+        },
+        {
+          "caller": "poll_until_complete",
+          "callee": "statuses.items",
+          "lineNumber": 148
+        },
+        {
+          "caller": "poll_until_complete",
+          "callee": "TimeoutError",
+          "lineNumber": 149
+        },
+        {
+          "caller": "poll_until_complete",
+          "callee": "asyncio.sleep",
+          "lineNumber": 153
+        },
+        {
+          "caller": "run",
+          "callee": "logger.info",
+          "lineNumber": 160
+        },
+        {
+          "caller": "run",
+          "callee": "ModelCard.fetch_from_hf",
+          "lineNumber": 161
+        },
+        {
+          "caller": "run",
+          "callee": "ModelId",
+          "lineNumber": 161
+        },
+        {
+          "caller": "run",
+          "callee": "logger.info",
+          "lineNumber": 162
+        },
+        {
+          "caller": "run",
+          "callee": "build_shard_payload",
+          "lineNumber": 168
+        },
+        {
+          "caller": "run",
+          "callee": "httpx.AsyncClient",
+          "lineNumber": 170
+        },
+        {
+          "caller": "run",
+          "callee": "ensure_model_card_registered",
+          "lineNumber": 171
+        },
+        {
+          "caller": "run",
+          "callee": "fetch_topology_nodes",
+          "lineNumber": 173
+        },
+        {
+          "caller": "run",
+          "callee": "logger.error",
+          "lineNumber": 175
+        },
+        {
+          "caller": "run",
+          "callee": "logger.info",
+          "lineNumber": 177
+        },
+        {
+          "caller": "run",
+          "callee": "len",
+          "lineNumber": 177
+        },
+        {
+          "caller": "run",
+          "callee": "logger.info",
+          "lineNumber": 181
+        },
+        {
+          "caller": "run",
+          "callee": "client.post",
+          "lineNumber": 182
+        },
+        {
+          "caller": "run",
+          "callee": "RuntimeError",
+          "lineNumber": 184
+        },
+        {
+          "caller": "run",
+          "callee": "logger.info",
+          "lineNumber": 188
+        },
+        {
+          "caller": "run",
+          "callee": "poll_until_complete",
+          "lineNumber": 189
+        },
+        {
+          "caller": "main",
+          "callee": "argparse.ArgumentParser",
+          "lineNumber": 197
+        },
+        {
+          "caller": "main",
+          "callee": "parser.add_argument",
+          "lineNumber": 198
+        },
+        {
+          "caller": "main",
+          "callee": "parser.add_argument",
+          "lineNumber": 199
+        },
+        {
+          "caller": "main",
+          "callee": "parser.add_argument",
+          "lineNumber": 200
+        },
+        {
+          "caller": "main",
+          "callee": "parser.add_argument",
+          "lineNumber": 201
+        },
+        {
+          "caller": "main",
+          "callee": "parser.parse_args",
+          "lineNumber": 207
+        },
+        {
+          "caller": "main",
+          "callee": "asyncio.run",
+          "lineNumber": 208
+        },
+        {
+          "caller": "main",
+          "callee": "run",
+          "lineNumber": 208
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 7,
+        "functionCount": 7,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "scripts/fetch_kv_heads.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 133,
+      "nonEmptyLines": 104,
+      "functions": [
+        {
+          "name": "fetch_kv_heads",
+          "startLine": 29,
+          "endLine": 43,
+          "params": [
+            "model_id"
+          ]
+        },
+        {
+          "name": "update_toml",
+          "startLine": 46,
+          "endLine": 66,
+          "params": [
+            "path",
+            "kv_heads"
+          ]
+        },
+        {
+          "name": "process_card",
+          "startLine": 69,
+          "endLine": 82,
+          "params": [
+            "path"
+          ]
+        },
+        {
+          "name": "main",
+          "startLine": 85,
+          "endLine": 129,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "fetch_kv_heads",
+          "line": 29,
+          "isDefault": false
+        },
+        {
+          "name": "update_toml",
+          "line": 46,
+          "isDefault": false
+        },
+        {
+          "name": "process_card",
+          "line": 69,
+          "isDefault": false
+        },
+        {
+          "name": "main",
+          "line": 85,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "fetch_kv_heads",
+          "callee": "urllib.request.urlopen",
+          "lineNumber": 33
+        },
+        {
+          "caller": "fetch_kv_heads",
+          "callee": "json.loads",
+          "lineNumber": 34
+        },
+        {
+          "caller": "fetch_kv_heads",
+          "callee": "resp.read",
+          "lineNumber": 34
+        },
+        {
+          "caller": "fetch_kv_heads",
+          "callee": "print",
+          "lineNumber": 36
+        },
+        {
+          "caller": "fetch_kv_heads",
+          "callee": "config.get",
+          "lineNumber": 39
+        },
+        {
+          "caller": "fetch_kv_heads",
+          "callee": "int",
+          "lineNumber": 41
+        },
+        {
+          "caller": "update_toml",
+          "callee": "path.read_text",
+          "lineNumber": 48
+        },
+        {
+          "caller": "update_toml",
+          "callee": "tomlkit.parse",
+          "lineNumber": 49
+        },
+        {
+          "caller": "update_toml",
+          "callee": "doc.get",
+          "lineNumber": 51
+        },
+        {
+          "caller": "update_toml",
+          "callee": "tomlkit.document",
+          "lineNumber": 56
+        },
+        {
+          "caller": "update_toml",
+          "callee": "doc.items",
+          "lineNumber": 57
+        },
+        {
+          "caller": "update_toml",
+          "callee": "path.write_text",
+          "lineNumber": 61
+        },
+        {
+          "caller": "update_toml",
+          "callee": "tomlkit.dumps",
+          "lineNumber": 61
+        },
+        {
+          "caller": "update_toml",
+          "callee": "path.write_text",
+          "lineNumber": 64
+        },
+        {
+          "caller": "update_toml",
+          "callee": "tomlkit.dumps",
+          "lineNumber": 64
+        },
+        {
+          "caller": "process_card",
+          "callee": "path.read_text",
+          "lineNumber": 71
+        },
+        {
+          "caller": "process_card",
+          "callee": "tomlkit.parse",
+          "lineNumber": 72
+        },
+        {
+          "caller": "process_card",
+          "callee": "doc.get",
+          "lineNumber": 73
+        },
+        {
+          "caller": "process_card",
+          "callee": "fetch_kv_heads",
+          "lineNumber": 77
+        },
+        {
+          "caller": "process_card",
+          "callee": "str",
+          "lineNumber": 77
+        },
+        {
+          "caller": "process_card",
+          "callee": "update_toml",
+          "lineNumber": 81
+        },
+        {
+          "caller": "main",
+          "callee": "argparse.ArgumentParser",
+          "lineNumber": 86
+        },
+        {
+          "caller": "main",
+          "callee": "parser.add_mutually_exclusive_group",
+          "lineNumber": 89
+        },
+        {
+          "caller": "main",
+          "callee": "group.add_argument",
+          "lineNumber": 90
+        },
+        {
+          "caller": "main",
+          "callee": "group.add_argument",
+          "lineNumber": 95
+        },
+        {
+          "caller": "main",
+          "callee": "parser.parse_args",
+          "lineNumber": 100
+        },
+        {
+          "caller": "main",
+          "callee": "sorted",
+          "lineNumber": 102
+        },
+        {
+          "caller": "main",
+          "callee": "CARDS_DIR.glob",
+          "lineNumber": 102
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 104
+        },
+        {
+          "caller": "main",
+          "callee": "sys.exit",
+          "lineNumber": 105
+        },
+        {
+          "caller": "main",
+          "callee": "path.read_text",
+          "lineNumber": 111
+        },
+        {
+          "caller": "main",
+          "callee": "to_process.append",
+          "lineNumber": 114
+        },
+        {
+          "caller": "main",
+          "callee": "ThreadPoolExecutor",
+          "lineNumber": 119
+        },
+        {
+          "caller": "main",
+          "callee": "pool.submit",
+          "lineNumber": 120
+        },
+        {
+          "caller": "main",
+          "callee": "as_completed",
+          "lineNumber": 121
+        },
+        {
+          "caller": "main",
+          "callee": "future.result",
+          "lineNumber": 122
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 123
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 129
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 4,
+        "functionCount": 4,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/exo/api/__init__.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 1,
+      "nonEmptyLines": 0,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/exo/api/adapters/__init__.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 1,
+      "nonEmptyLines": 1,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/exo/download/tests/__init__.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 1,
+      "nonEmptyLines": 0,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/exo/master/__init__.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 1,
+      "nonEmptyLines": 0,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/exo/routing/__init__.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 1,
+      "nonEmptyLines": 0,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/exo/shared/__init__.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 1,
+      "nonEmptyLines": 0,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/exo/shared/tests/__init__.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 1,
+      "nonEmptyLines": 1,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/exo/shared/tests/test_xdg_paths.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 213,
+      "nonEmptyLines": 162,
+      "functions": [
+        {
+          "name": "test_xdg_paths_on_linux",
+          "startLine": 9,
+          "endLine": 32,
+          "params": []
+        },
+        {
+          "name": "test_xdg_default_paths_on_linux",
+          "startLine": 35,
+          "endLine": 56,
+          "params": []
+        },
+        {
+          "name": "test_legacy_exo_home_takes_precedence",
+          "startLine": 59,
+          "endLine": 77,
+          "params": []
+        },
+        {
+          "name": "test_macos_uses_traditional_paths",
+          "startLine": 80,
+          "endLine": 97,
+          "params": []
+        },
+        {
+          "name": "test_models_in_data_dir",
+          "startLine": 100,
+          "endLine": 111,
+          "params": []
+        },
+        {
+          "name": "test_default_dir_always_prepended_to_models_dirs",
+          "startLine": 114,
+          "endLine": 130,
+          "params": []
+        },
+        {
+          "name": "test_default_models_dir_override",
+          "startLine": 133,
+          "endLine": 155,
+          "params": []
+        },
+        {
+          "name": "test_default_dir_only_entry_when_env_unset",
+          "startLine": 158,
+          "endLine": 172,
+          "params": []
+        },
+        {
+          "name": "test_overlap_between_dirs_and_read_only_dirs",
+          "startLine": 175,
+          "endLine": 196,
+          "params": []
+        },
+        {
+          "name": "test_empty_read_only_dirs_when_unset",
+          "startLine": 199,
+          "endLine": 213,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "test_xdg_paths_on_linux",
+          "line": 9,
+          "isDefault": false
+        },
+        {
+          "name": "test_xdg_default_paths_on_linux",
+          "line": 35,
+          "isDefault": false
+        },
+        {
+          "name": "test_legacy_exo_home_takes_precedence",
+          "line": 59,
+          "isDefault": false
+        },
+        {
+          "name": "test_macos_uses_traditional_paths",
+          "line": 80,
+          "isDefault": false
+        },
+        {
+          "name": "test_models_in_data_dir",
+          "line": 100,
+          "isDefault": false
+        },
+        {
+          "name": "test_default_dir_always_prepended_to_models_dirs",
+          "line": 114,
+          "isDefault": false
+        },
+        {
+          "name": "test_default_models_dir_override",
+          "line": 133,
+          "isDefault": false
+        },
+        {
+          "name": "test_default_dir_only_entry_when_env_unset",
+          "line": 158,
+          "isDefault": false
+        },
+        {
+          "name": "test_overlap_between_dirs_and_read_only_dirs",
+          "line": 175,
+          "isDefault": false
+        },
+        {
+          "name": "test_empty_read_only_dirs_when_unset",
+          "line": 199,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "test_xdg_paths_on_linux",
+          "callee": "mock.patch.dict",
+          "lineNumber": 12
+        },
+        {
+          "caller": "test_xdg_paths_on_linux",
+          "callee": "mock.patch.object",
+          "lineNumber": 21
+        },
+        {
+          "caller": "test_xdg_paths_on_linux",
+          "callee": "importlib.reload",
+          "lineNumber": 28
+        },
+        {
+          "caller": "test_xdg_paths_on_linux",
+          "callee": "Path",
+          "lineNumber": 30
+        },
+        {
+          "caller": "test_xdg_paths_on_linux",
+          "callee": "Path",
+          "lineNumber": 31
+        },
+        {
+          "caller": "test_xdg_paths_on_linux",
+          "callee": "Path",
+          "lineNumber": 32
+        },
+        {
+          "caller": "test_xdg_default_paths_on_linux",
+          "callee": "os.environ.items",
+          "lineNumber": 40
+        },
+        {
+          "caller": "test_xdg_default_paths_on_linux",
+          "callee": "k.startswith",
+          "lineNumber": 41
+        },
+        {
+          "caller": "test_xdg_default_paths_on_linux",
+          "callee": "mock.patch.dict",
+          "lineNumber": 44
+        },
+        {
+          "caller": "test_xdg_default_paths_on_linux",
+          "callee": "mock.patch.object",
+          "lineNumber": 45
+        },
+        {
+          "caller": "test_xdg_default_paths_on_linux",
+          "callee": "importlib.reload",
+          "lineNumber": 51
+        },
+        {
+          "caller": "test_xdg_default_paths_on_linux",
+          "callee": "Path.home",
+          "lineNumber": 53
+        },
+        {
+          "caller": "test_legacy_exo_home_takes_precedence",
+          "callee": "mock.patch.dict",
+          "lineNumber": 61
+        },
+        {
+          "caller": "test_legacy_exo_home_takes_precedence",
+          "callee": "importlib.reload",
+          "lineNumber": 73
+        },
+        {
+          "caller": "test_legacy_exo_home_takes_precedence",
+          "callee": "Path.home",
+          "lineNumber": 75
+        },
+        {
+          "caller": "test_macos_uses_traditional_paths",
+          "callee": "os.environ.items",
+          "lineNumber": 83
+        },
+        {
+          "caller": "test_macos_uses_traditional_paths",
+          "callee": "mock.patch.dict",
+          "lineNumber": 85
+        },
+        {
+          "caller": "test_macos_uses_traditional_paths",
+          "callee": "mock.patch.object",
+          "lineNumber": 86
+        },
+        {
+          "caller": "test_macos_uses_traditional_paths",
+          "callee": "importlib.reload",
+          "lineNumber": 92
+        },
+        {
+          "caller": "test_macos_uses_traditional_paths",
+          "callee": "Path.home",
+          "lineNumber": 94
+        },
+        {
+          "caller": "test_models_in_data_dir",
+          "callee": "os.environ.items",
+          "lineNumber": 103
+        },
+        {
+          "caller": "test_models_in_data_dir",
+          "callee": "mock.patch.dict",
+          "lineNumber": 104
+        },
+        {
+          "caller": "test_models_in_data_dir",
+          "callee": "importlib.reload",
+          "lineNumber": 109
+        },
+        {
+          "caller": "test_default_dir_always_prepended_to_models_dirs",
+          "callee": "os.environ.items",
+          "lineNumber": 118
+        },
+        {
+          "caller": "test_default_dir_always_prepended_to_models_dirs",
+          "callee": "mock.patch.dict",
+          "lineNumber": 122
+        },
+        {
+          "caller": "test_default_dir_always_prepended_to_models_dirs",
+          "callee": "importlib.reload",
+          "lineNumber": 127
+        },
+        {
+          "caller": "test_default_dir_always_prepended_to_models_dirs",
+          "callee": "Path",
+          "lineNumber": 130
+        },
+        {
+          "caller": "test_default_models_dir_override",
+          "callee": "os.environ.items",
+          "lineNumber": 137
+        },
+        {
+          "caller": "test_default_models_dir_override",
+          "callee": "mock.patch.dict",
+          "lineNumber": 147
+        },
+        {
+          "caller": "test_default_models_dir_override",
+          "callee": "importlib.reload",
+          "lineNumber": 152
+        },
+        {
+          "caller": "test_default_models_dir_override",
+          "callee": "Path",
+          "lineNumber": 154
+        },
+        {
+          "caller": "test_default_dir_only_entry_when_env_unset",
+          "callee": "os.environ.items",
+          "lineNumber": 162
+        },
+        {
+          "caller": "test_default_dir_only_entry_when_env_unset",
+          "callee": "mock.patch.dict",
+          "lineNumber": 165
+        },
+        {
+          "caller": "test_default_dir_only_entry_when_env_unset",
+          "callee": "importlib.reload",
+          "lineNumber": 170
+        },
+        {
+          "caller": "test_overlap_between_dirs_and_read_only_dirs",
+          "callee": "os.environ.items",
+          "lineNumber": 179
+        },
+        {
+          "caller": "test_overlap_between_dirs_and_read_only_dirs",
+          "callee": "mock.patch.dict",
+          "lineNumber": 184
+        },
+        {
+          "caller": "test_overlap_between_dirs_and_read_only_dirs",
+          "callee": "importlib.reload",
+          "lineNumber": 189
+        },
+        {
+          "caller": "test_overlap_between_dirs_and_read_only_dirs",
+          "callee": "Path",
+          "lineNumber": 192
+        },
+        {
+          "caller": "test_overlap_between_dirs_and_read_only_dirs",
+          "callee": "Path",
+          "lineNumber": 193
+        },
+        {
+          "caller": "test_overlap_between_dirs_and_read_only_dirs",
+          "callee": "Path",
+          "lineNumber": 195
+        },
+        {
+          "caller": "test_overlap_between_dirs_and_read_only_dirs",
+          "callee": "Path",
+          "lineNumber": 196
+        },
+        {
+          "caller": "test_empty_read_only_dirs_when_unset",
+          "callee": "os.environ.items",
+          "lineNumber": 203
+        },
+        {
+          "caller": "test_empty_read_only_dirs_when_unset",
+          "callee": "mock.patch.dict",
+          "lineNumber": 206
+        },
+        {
+          "caller": "test_empty_read_only_dirs_when_unset",
+          "callee": "importlib.reload",
+          "lineNumber": 211
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 10,
+        "functionCount": 10,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/exo/shared/types/__init__.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 1,
+      "nonEmptyLines": 0,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/exo/shared/types/worker/__init__.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 1,
+      "nonEmptyLines": 0,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/exo/utils/info_gatherer/__init__.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 1,
+      "nonEmptyLines": 0,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/exo/utils/reactive.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 32,
+      "nonEmptyLines": 22,
+      "classes": [
+        {
+          "name": "OnChange",
+          "startLine": 9,
+          "endLine": 10,
+          "methods": [
+            "__call__"
+          ],
+          "properties": []
+        },
+        {
+          "name": "Reactive",
+          "startLine": 13,
+          "endLine": 32,
+          "methods": [
+            "__init__",
+            "value",
+            "value"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "OnChange",
+          "line": 9,
+          "isDefault": false
+        },
+        {
+          "name": "Reactive",
+          "line": 13,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "value",
+          "callee": "self._on_change",
+          "lineNumber": 32
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 2,
+        "functionCount": 0,
+        "classCount": 2
+      }
+    },
+    {
+      "path": "src/exo/utils/tests/conftest.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 8,
+      "nonEmptyLines": 5,
+      "functions": [
+        {
+          "name": "mp_force_spawn",
+          "startLine": 7,
+          "endLine": 8,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "mp_force_spawn",
+          "line": 6,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "mp_force_spawn",
+          "callee": "mp.set_start_method",
+          "lineNumber": 8
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/exo/utils/tests/test_pidfile.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 74,
+      "nonEmptyLines": 57,
+      "functions": [
+        {
+          "name": "_run_child_acquire_pidfile",
+          "startLine": 33,
+          "endLine": 39,
+          "params": [
+            "path"
+          ]
+        },
+        {
+          "name": "test_acquire_exo_pidfile_writes_current_pid_and_removes_on_drop",
+          "startLine": 42,
+          "endLine": 54,
+          "params": [
+            "tmp_path"
+          ]
+        },
+        {
+          "name": "test_acquire_exo_pidfile_rejects_second_process",
+          "startLine": 57,
+          "endLine": 74,
+          "params": [
+            "tmp_path"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "_run_child_acquire_pidfile",
+          "line": 33,
+          "isDefault": false
+        },
+        {
+          "name": "test_acquire_exo_pidfile_writes_current_pid_and_removes_on_drop",
+          "line": 42,
+          "isDefault": false
+        },
+        {
+          "name": "test_acquire_exo_pidfile_rejects_second_process",
+          "line": 57,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "_run_child_acquire_pidfile",
+          "callee": "subprocess.run",
+          "lineNumber": 34
+        },
+        {
+          "caller": "_run_child_acquire_pidfile",
+          "callee": "str",
+          "lineNumber": 35
+        },
+        {
+          "caller": "test_acquire_exo_pidfile_writes_current_pid_and_removes_on_drop",
+          "callee": "Pidfile",
+          "lineNumber": 47
+        },
+        {
+          "caller": "test_acquire_exo_pidfile_writes_current_pid_and_removes_on_drop",
+          "callee": "handle.write",
+          "lineNumber": 48
+        },
+        {
+          "caller": "test_acquire_exo_pidfile_writes_current_pid_and_removes_on_drop",
+          "callee": "path.read_text",
+          "lineNumber": 49
+        },
+        {
+          "caller": "test_acquire_exo_pidfile_writes_current_pid_and_removes_on_drop",
+          "callee": "str",
+          "lineNumber": 49
+        },
+        {
+          "caller": "test_acquire_exo_pidfile_writes_current_pid_and_removes_on_drop",
+          "callee": "os.getpid",
+          "lineNumber": 49
+        },
+        {
+          "caller": "test_acquire_exo_pidfile_writes_current_pid_and_removes_on_drop",
+          "callee": "gc.collect",
+          "lineNumber": 52
+        },
+        {
+          "caller": "test_acquire_exo_pidfile_writes_current_pid_and_removes_on_drop",
+          "callee": "path.exists",
+          "lineNumber": 54
+        },
+        {
+          "caller": "test_acquire_exo_pidfile_rejects_second_process",
+          "callee": "Pidfile",
+          "lineNumber": 62
+        },
+        {
+          "caller": "test_acquire_exo_pidfile_rejects_second_process",
+          "callee": "handle.write",
+          "lineNumber": 63
+        },
+        {
+          "caller": "test_acquire_exo_pidfile_rejects_second_process",
+          "callee": "_run_child_acquire_pidfile",
+          "lineNumber": 65
+        },
+        {
+          "caller": "test_acquire_exo_pidfile_rejects_second_process",
+          "callee": "gc.collect",
+          "lineNumber": 70
+        },
+        {
+          "caller": "test_acquire_exo_pidfile_rejects_second_process",
+          "callee": "_run_child_acquire_pidfile",
+          "lineNumber": 72
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 3,
+        "functionCount": 3,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/exo/worker/__init__.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 1,
+      "nonEmptyLines": 0,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/exo/worker/disaggregated/__init__.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 1,
+      "nonEmptyLines": 0,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/exo/worker/engines/__init__.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 1,
+      "nonEmptyLines": 0,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/exo/worker/engines/mlx/disaggregated/__init__.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 1,
+      "nonEmptyLines": 0,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/exo/worker/engines/mlx/disaggregated/tests/__init__.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 1,
+      "nonEmptyLines": 0,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/exo/worker/engines/mlx/generator/__init__.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 1,
+      "nonEmptyLines": 0,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    }
+  ]
+}

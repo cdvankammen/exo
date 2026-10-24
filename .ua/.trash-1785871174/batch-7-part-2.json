@@ -1,0 +1,1688 @@
+{
+ "nodes": [
+  {
+   "id": "file:src/exo/worker/engines/mlx/vision.py",
+   "type": "file",
+   "name": "vision.py",
+   "filePath": "src/exo/worker/engines/mlx/vision.py",
+   "summary": "Vision-language support for MLX engines: loads vision processors and projectors, builds VLM prompts, finds and encodes image regions, and runs sync/async multi-device vision pipeline passes for image models.",
+   "tags": [
+    "vision",
+    "mlx",
+    "vlm",
+    "inference",
+    "image-model"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "function:src/exo/worker/engines/mlx/vision.py:_run_processor",
+   "type": "function",
+   "name": "_run_processor",
+   "filePath": "src/exo/worker/engines/mlx/vision.py",
+   "lineRange": [
+    61,
+    85
+   ],
+   "summary": "Runs an image processor on a batch of images and converts torch tensors to MLX arrays.",
+   "tags": [
+    "vision",
+    "processing"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:src/exo/worker/engines/mlx/vision.py:_instantiate_projector",
+   "type": "function",
+   "name": "_instantiate_projector",
+   "filePath": "src/exo/worker/engines/mlx/vision.py",
+   "lineRange": [
+    88,
+    109
+   ],
+   "summary": "Instantiates the vision projector module from model weights.",
+   "tags": [
+    "vision",
+    "projector"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/worker/engines/mlx/vision.py:_patch_video_processor",
+   "type": "function",
+   "name": "_patch_video_processor",
+   "filePath": "src/exo/worker/engines/mlx/vision.py",
+   "lineRange": [
+    112,
+    125
+   ],
+   "summary": "Applies compatibility patches to video processors for MLX VLM models.",
+   "tags": [
+    "vision",
+    "video"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/worker/engines/mlx/vision.py:_format_vlm_messages",
+   "type": "function",
+   "name": "_format_vlm_messages",
+   "filePath": "src/exo/worker/engines/mlx/vision.py",
+   "lineRange": [
+    134,
+    152
+   ],
+   "summary": "Formats chat messages into the message format expected by MLX VLM prompt utilities.",
+   "tags": [
+    "vision",
+    "prompt"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/worker/engines/mlx/vision.py:build_vision_prompt",
+   "type": "function",
+   "name": "build_vision_prompt",
+   "filePath": "src/exo/worker/engines/mlx/vision.py",
+   "lineRange": [
+    155,
+    182
+   ],
+   "summary": "Builds the final prompt string for vision-language tasks from messages and image media.",
+   "tags": [
+    "vision",
+    "prompt"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:src/exo/worker/engines/mlx/vision.py:get_inner_model",
+   "type": "function",
+   "name": "get_inner_model",
+   "filePath": "src/exo/worker/engines/mlx/vision.py",
+   "lineRange": [
+    627,
+    638
+   ],
+   "summary": "Unwraps the inner transformer model from a wrapped vision model.",
+   "tags": [
+    "vision",
+    "utility"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/worker/engines/mlx/vision.py:create_vision_embeddings",
+   "type": "function",
+   "name": "create_vision_embeddings",
+   "filePath": "src/exo/worker/engines/mlx/vision.py",
+   "lineRange": [
+    641,
+    681
+   ],
+   "summary": "Computes vision embeddings for image regions and scatters them into the text embedding sequence.",
+   "tags": [
+    "vision",
+    "embeddings"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:src/exo/worker/engines/mlx/vision.py:_find_media_regions",
+   "type": "function",
+   "name": "_find_media_regions",
+   "filePath": "src/exo/worker/engines/mlx/vision.py",
+   "lineRange": [
+    684,
+    716
+   ],
+   "summary": "Locates base64 image regions in the token stream and hashes them for caching.",
+   "tags": [
+    "vision",
+    "media"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:src/exo/worker/engines/mlx/vision.py:prepare_vision",
+   "type": "function",
+   "name": "prepare_vision",
+   "filePath": "src/exo/worker/engines/mlx/vision.py",
+   "lineRange": [
+    821,
+    844
+   ],
+   "summary": "Top-level preparation hook: builds the vision prompt, encodes images, and returns processed inputs for the engine.",
+   "tags": [
+    "vision",
+    "engine"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "class:src/exo/worker/engines/mlx/vision.py:MediaRegion",
+   "type": "class",
+   "name": "MediaRegion",
+   "filePath": "src/exo/worker/engines/mlx/vision.py",
+   "lineRange": [
+    186,
+    189
+   ],
+   "summary": "Describes a base64 image region found within a token stream.",
+   "tags": [
+    "vision",
+    "type-definition"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/worker/engines/mlx/vision.py:VisionResult",
+   "type": "class",
+   "name": "VisionResult",
+   "filePath": "src/exo/worker/engines/mlx/vision.py",
+   "lineRange": [
+    193,
+    198
+   ],
+   "summary": "Container for vision processing output: prompt text and image embeddings.",
+   "tags": [
+    "vision",
+    "type-definition"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/worker/engines/mlx/vision.py:VisionEncoder",
+   "type": "class",
+   "name": "VisionEncoder",
+   "filePath": "src/exo/worker/engines/mlx/vision.py",
+   "lineRange": [
+    201,
+    624
+   ],
+   "summary": "Loads vision processor/projector weights, encodes images into embeddings, and caches image features.",
+   "tags": [
+    "vision",
+    "encoder",
+    "mlx"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "class:src/exo/worker/engines/mlx/vision.py:VisionProcessor",
+   "type": "class",
+   "name": "VisionProcessor",
+   "filePath": "src/exo/worker/engines/mlx/vision.py",
+   "lineRange": [
+    719,
+    818
+   ],
+   "summary": "Orchestrates vision prompt building, image encoding, and media-region detection for a generation task.",
+   "tags": [
+    "vision",
+    "processing",
+    "orchestration"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:src/exo/worker/runner/bootstrap.py",
+   "type": "file",
+   "name": "bootstrap.py",
+   "filePath": "src/exo/worker/runner/bootstrap.py",
+   "summary": "Runner process bootstrap entrypoint: raises file-descriptor limits, sets MLX fast-synch flags, constructs the image or MLX engine builder, and runs the Runner main loop while reporting termination errors back through the event channel.",
+   "tags": [
+    "entry-point",
+    "runner",
+    "bootstrap",
+    "process"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:src/exo/worker/runner/bootstrap.py:entrypoint",
+   "type": "function",
+   "name": "entrypoint",
+   "filePath": "src/exo/worker/runner/bootstrap.py",
+   "lineRange": [
+    40,
+    105
+   ],
+   "summary": "Entrypoint for a worker runner process: configures runtime limits, builds the appropriate engine, and runs the runner loop until termination.",
+   "tags": [
+    "entry-point",
+    "runner",
+    "orchestration"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "class:src/exo/worker/runner/bootstrap.py:RunnerTerminationError",
+   "type": "class",
+   "name": "RunnerTerminationError",
+   "filePath": "src/exo/worker/runner/bootstrap.py",
+   "lineRange": [
+    19,
+    37
+   ],
+   "summary": "Frozen dataclass capturing exception type, message, repr, and traceback when a runner terminates abnormally.",
+   "tags": [
+    "error-handling",
+    "type-definition"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:src/exo/worker/runner/llm_inference/batch_generator.py",
+   "type": "file",
+   "name": "batch_generator.py",
+   "filePath": "src/exo/worker/runner/llm_inference/batch_generator.py",
+   "summary": "Engine orchestration for LLM inference: sequential and batched generators that run MLX generation, apply chat templates and output parsers, emit SSE chunks, coordinate tasks across devices, and serve disaggregated prefill.",
+   "tags": [
+    "engine",
+    "inference",
+    "batch-generation",
+    "orchestration",
+    "generator"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "function:src/exo/worker/runner/llm_inference/batch_generator.py:_check_for_debug_prompts",
+   "type": "function",
+   "name": "_check_for_debug_prompts",
+   "filePath": "src/exo/worker/runner/llm_inference/batch_generator.py",
+   "lineRange": [
+    72,
+    86
+   ],
+   "summary": "Scans prompts for debug triggers that force runner failure, OOM, or timeout for testing.",
+   "tags": [
+    "debug",
+    "testing"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/worker/runner/llm_inference/batch_generator.py:GeneratorQueue",
+   "type": "class",
+   "name": "GeneratorQueue",
+   "filePath": "src/exo/worker/runner/llm_inference/batch_generator.py",
+   "lineRange": [
+    52,
+    64
+   ],
+   "summary": "FIFO queue generator yielding pending items or None when empty.",
+   "tags": [
+    "queue",
+    "utility"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/worker/runner/llm_inference/batch_generator.py:SequentialGenerator",
+   "type": "class",
+   "name": "SequentialGenerator",
+   "filePath": "src/exo/worker/runner/llm_inference/batch_generator.py",
+   "lineRange": [
+    90,
+    317
+   ],
+   "summary": "Engine implementing single-request sequential token generation with warmup, prefill progress, and chunk streaming.",
+   "tags": [
+    "engine",
+    "generator",
+    "inference"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "class:src/exo/worker/runner/llm_inference/batch_generator.py:BatchGenerator",
+   "type": "class",
+   "name": "BatchGenerator",
+   "filePath": "src/exo/worker/runner/llm_inference/batch_generator.py",
+   "lineRange": [
+    321,
+    572
+   ],
+   "summary": "Engine for batched multi-request generation: agrees on tasks across devices, applies chat templates and output parsers, streams SSE chunks, and serves disaggregated prefill requests.",
+   "tags": [
+    "engine",
+    "batch-generation",
+    "distributed",
+    "inference"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "file:src/exo/worker/runner/llm_inference/model_output_parsers.py",
+   "type": "file",
+   "name": "model_output_parsers.py",
+   "filePath": "src/exo/worker/runner/llm_inference/model_output_parsers.py",
+   "summary": "Streams model generation responses through model-specific parsers (GPT-OSS, DeepSeek V3.2/V4, thinking models, generic tool calls) converting raw GenerationResponses into GenerationChunks with finish reasoning and token accounting.",
+   "tags": [
+    "parsing",
+    "streaming",
+    "tool-calls",
+    "inference",
+    "chunks"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "function:src/exo/worker/runner/llm_inference/model_output_parsers.py:count_reasoning_tokens",
+   "type": "function",
+   "name": "count_reasoning_tokens",
+   "filePath": "src/exo/worker/runner/llm_inference/model_output_parsers.py",
+   "lineRange": [
+    41,
+    64
+   ],
+   "summary": "Counts thinking tokens and patches reasoning-token usage into the final response.",
+   "tags": [
+    "reasoning",
+    "usage"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:src/exo/worker/runner/llm_inference/model_output_parsers.py:apply_all_parsers",
+   "type": "function",
+   "name": "apply_all_parsers",
+   "filePath": "src/exo/worker/runner/llm_inference/model_output_parsers.py",
+   "lineRange": [
+    67,
+    113
+   ],
+   "summary": "Chains the correct parser pipeline for a model type and maps responses into GenerationChunks.",
+   "tags": [
+    "parsing",
+    "orchestration"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "function:src/exo/worker/runner/llm_inference/model_output_parsers.py:map_responses_to_chunks",
+   "type": "function",
+   "name": "map_responses_to_chunks",
+   "filePath": "src/exo/worker/runner/llm_inference/model_output_parsers.py",
+   "lineRange": [
+    116,
+    152
+   ],
+   "summary": "Converts a runner response into the corresponding GenerationChunk subtype.",
+   "tags": [
+    "chunks",
+    "mapping"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:src/exo/worker/runner/llm_inference/model_output_parsers.py:parse_gpt_oss",
+   "type": "function",
+   "name": "parse_gpt_oss",
+   "filePath": "src/exo/worker/runner/llm_inference/model_output_parsers.py",
+   "lineRange": [
+    155,
+    219
+   ],
+   "summary": "Parses GPT-OSS model output into text and tool-call chunks using a Harmony streamable parser.",
+   "tags": [
+    "gpt-oss",
+    "parsing",
+    "tool-calls"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "function:src/exo/worker/runner/llm_inference/model_output_parsers.py:parse_deepseek_v32",
+   "type": "function",
+   "name": "parse_deepseek_v32",
+   "filePath": "src/exo/worker/runner/llm_inference/model_output_parsers.py",
+   "lineRange": [
+    222,
+    240
+   ],
+   "summary": "Parses DeepSeek V3.2 streaming output with thinking markers.",
+   "tags": [
+    "deepseek",
+    "parsing"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:src/exo/worker/runner/llm_inference/model_output_parsers.py:parse_deepseek_v4",
+   "type": "function",
+   "name": "parse_deepseek_v4",
+   "filePath": "src/exo/worker/runner/llm_inference/model_output_parsers.py",
+   "lineRange": [
+    243,
+    249
+   ],
+   "summary": "Parses DeepSeek V4 streaming output with thinking markers.",
+   "tags": [
+    "deepseek",
+    "parsing"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/worker/runner/llm_inference/model_output_parsers.py:_parse_dsml_stream",
+   "type": "function",
+   "name": "_parse_dsml_stream",
+   "filePath": "src/exo/worker/runner/llm_inference/model_output_parsers.py",
+   "lineRange": [
+    252,
+    348
+   ],
+   "summary": "State machine parsing DeepSeek-MLX marker streams, buffering partial marker prefixes.",
+   "tags": [
+    "deepseek",
+    "streaming",
+    "parsing"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "function:src/exo/worker/runner/llm_inference/model_output_parsers.py:_could_be_marker_prefix",
+   "type": "function",
+   "name": "_could_be_marker_prefix",
+   "filePath": "src/exo/worker/runner/llm_inference/model_output_parsers.py",
+   "lineRange": [
+    351,
+    358
+   ],
+   "summary": "Checks whether buffered text could be the start of a marker token.",
+   "tags": [
+    "streaming",
+    "detection"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/worker/runner/llm_inference/model_output_parsers.py:parse_thinking_models",
+   "type": "function",
+   "name": "parse_thinking_models",
+   "filePath": "src/exo/worker/runner/llm_inference/model_output_parsers.py",
+   "lineRange": [
+    361,
+    413
+   ],
+   "summary": "Parses thinking-model output, splitting reasoning and answer spans and draining buffered thinking text.",
+   "tags": [
+    "thinking",
+    "parsing"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:src/exo/worker/runner/llm_inference/model_output_parsers.py:parse_tool_calls",
+   "type": "function",
+   "name": "parse_tool_calls",
+   "filePath": "src/exo/worker/runner/llm_inference/model_output_parsers.py",
+   "lineRange": [
+    416,
+    492
+   ],
+   "summary": "Parses generic tool calls from assistant output using the configured tool parser.",
+   "tags": [
+    "tool-calls",
+    "parsing"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "file:src/exo/worker/runner/llm_inference/tool_parsers.py",
+   "type": "file",
+   "name": "tool_parsers.py",
+   "filePath": "src/exo/worker/runner/llm_inference/tool_parsers.py",
+   "summary": "Tool-call parsing helpers that detect JSON/MLX tool-call formats and coerce parsed arguments against JSON schemas for OpenAI-compatible tool use.",
+   "tags": [
+    "tool-calls",
+    "parsing",
+    "json-schema",
+    "validation"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:src/exo/worker/runner/llm_inference/tool_parsers.py:_json_type_matches",
+   "type": "function",
+   "name": "_json_type_matches",
+   "filePath": "src/exo/worker/runner/llm_inference/tool_parsers.py",
+   "lineRange": [
+    26,
+    43
+   ],
+   "summary": "Checks whether a value matches an expected JSON schema type.",
+   "tags": [
+    "json-schema",
+    "validation"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/worker/runner/llm_inference/tool_parsers.py:_coerce_tool_arg_with_schema",
+   "type": "function",
+   "name": "_coerce_tool_arg_with_schema",
+   "filePath": "src/exo/worker/runner/llm_inference/tool_parsers.py",
+   "lineRange": [
+    46,
+    139
+   ],
+   "summary": "Coerces a single tool-call argument to match its JSON schema type.",
+   "tags": [
+    "json-schema",
+    "validation"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "function:src/exo/worker/runner/llm_inference/tool_parsers.py:_coerce_tool_calls_to_schema",
+   "type": "function",
+   "name": "_coerce_tool_calls_to_schema",
+   "filePath": "src/exo/worker/runner/llm_inference/tool_parsers.py",
+   "lineRange": [
+    142,
+    183
+   ],
+   "summary": "Coerces all tool-call arguments to conform to the provided tool schemas.",
+   "tags": [
+    "json-schema",
+    "validation"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:src/exo/worker/runner/llm_inference/tool_parsers.py:make_mlx_parser",
+   "type": "function",
+   "name": "make_mlx_parser",
+   "filePath": "src/exo/worker/runner/llm_inference/tool_parsers.py",
+   "lineRange": [
+    186,
+    208
+   ],
+   "summary": "Builds a tool parser for MLX models' tool-call output format.",
+   "tags": [
+    "tool-calls",
+    "parser-factory"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:src/exo/worker/runner/llm_inference/tool_parsers.py:_parse_json_calls",
+   "type": "function",
+   "name": "_parse_json_calls",
+   "filePath": "src/exo/worker/runner/llm_inference/tool_parsers.py",
+   "lineRange": [
+    212,
+    222
+   ],
+   "summary": "Parses raw JSON tool-call output into ToolCallItem objects.",
+   "tags": [
+    "tool-calls",
+    "parsing"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/worker/runner/llm_inference/tool_parsers.py:_flatten",
+   "type": "function",
+   "name": "_flatten",
+   "filePath": "src/exo/worker/runner/llm_inference/tool_parsers.py",
+   "lineRange": [
+    225,
+    229
+   ],
+   "summary": "Flattens nested JSON tool-call structures.",
+   "tags": [
+    "utility"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/worker/runner/llm_inference/tool_parsers.py:make_json_parser",
+   "type": "function",
+   "name": "make_json_parser",
+   "filePath": "src/exo/worker/runner/llm_inference/tool_parsers.py",
+   "lineRange": [
+    232,
+    237
+   ],
+   "summary": "Builds a tool parser for generic JSON tool-call output.",
+   "tags": [
+    "tool-calls",
+    "parser-factory"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/worker/runner/llm_inference/tool_parsers.py:infer_tool_parser",
+   "type": "function",
+   "name": "infer_tool_parser",
+   "filePath": "src/exo/worker/runner/llm_inference/tool_parsers.py",
+   "lineRange": [
+    240,
+    244
+   ],
+   "summary": "Selects the appropriate tool parser based on the model type.",
+   "tags": [
+    "tool-calls",
+    "parser-factory"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/worker/runner/llm_inference/tool_parsers.py:ToolParser",
+   "type": "class",
+   "name": "ToolParser",
+   "filePath": "src/exo/worker/runner/llm_inference/tool_parsers.py",
+   "lineRange": [
+    10,
+    23
+   ],
+   "summary": "Dataclass wrapping a start/end parsing delimiter and inner parser, with schema coercion for tool calls.",
+   "tags": [
+    "tool-calls",
+    "type-definition"
+   ],
+   "complexity": "simple"
+  }
+ ],
+ "edges": [
+  {
+   "source": "file:src/exo/worker/engines/mlx/vision.py",
+   "target": "function:src/exo/worker/engines/mlx/vision.py:_run_processor",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/vision.py",
+   "target": "function:src/exo/worker/engines/mlx/vision.py:_run_processor",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/vision.py",
+   "target": "function:src/exo/worker/engines/mlx/vision.py:_instantiate_projector",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/vision.py",
+   "target": "function:src/exo/worker/engines/mlx/vision.py:_instantiate_projector",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/vision.py",
+   "target": "function:src/exo/worker/engines/mlx/vision.py:_patch_video_processor",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/vision.py",
+   "target": "function:src/exo/worker/engines/mlx/vision.py:_patch_video_processor",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/vision.py",
+   "target": "function:src/exo/worker/engines/mlx/vision.py:_format_vlm_messages",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/vision.py",
+   "target": "function:src/exo/worker/engines/mlx/vision.py:_format_vlm_messages",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/vision.py",
+   "target": "function:src/exo/worker/engines/mlx/vision.py:build_vision_prompt",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/vision.py",
+   "target": "function:src/exo/worker/engines/mlx/vision.py:build_vision_prompt",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/vision.py",
+   "target": "function:src/exo/worker/engines/mlx/vision.py:get_inner_model",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/vision.py",
+   "target": "function:src/exo/worker/engines/mlx/vision.py:get_inner_model",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/vision.py",
+   "target": "function:src/exo/worker/engines/mlx/vision.py:create_vision_embeddings",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/vision.py",
+   "target": "function:src/exo/worker/engines/mlx/vision.py:create_vision_embeddings",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/vision.py",
+   "target": "function:src/exo/worker/engines/mlx/vision.py:_find_media_regions",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/vision.py",
+   "target": "function:src/exo/worker/engines/mlx/vision.py:_find_media_regions",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/vision.py",
+   "target": "function:src/exo/worker/engines/mlx/vision.py:prepare_vision",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/vision.py",
+   "target": "function:src/exo/worker/engines/mlx/vision.py:prepare_vision",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/vision.py",
+   "target": "class:src/exo/worker/engines/mlx/vision.py:MediaRegion",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/vision.py",
+   "target": "class:src/exo/worker/engines/mlx/vision.py:MediaRegion",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/vision.py",
+   "target": "class:src/exo/worker/engines/mlx/vision.py:VisionResult",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/vision.py",
+   "target": "class:src/exo/worker/engines/mlx/vision.py:VisionResult",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/vision.py",
+   "target": "class:src/exo/worker/engines/mlx/vision.py:VisionEncoder",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/vision.py",
+   "target": "class:src/exo/worker/engines/mlx/vision.py:VisionEncoder",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/vision.py",
+   "target": "class:src/exo/worker/engines/mlx/vision.py:VisionProcessor",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/vision.py",
+   "target": "class:src/exo/worker/engines/mlx/vision.py:VisionProcessor",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/vision.py",
+   "target": "file:src/exo/download/download_utils.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/vision.py",
+   "target": "file:src/exo/shared/models/model_cards.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/vision.py",
+   "target": "file:src/exo/shared/types/common.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/vision.py",
+   "target": "file:src/exo/shared/types/text_generation.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/vision.py",
+   "target": "file:src/exo/worker/engines/mlx/cache.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/vision.py",
+   "target": "file:src/exo/worker/engines/mlx/types.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/vision.py",
+   "target": "file:src/exo/worker/engines/mlx/utils_mlx.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/engines/mlx/vision.py",
+   "target": "file:src/exo/worker/runner/bootstrap.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "class:src/exo/worker/engines/mlx/vision.py:VisionProcessor",
+   "target": "function:src/exo/worker/engines/mlx/cache.py:encode_prompt",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "class:src/exo/worker/engines/mlx/vision.py:VisionProcessor",
+   "target": "function:src/exo/worker/engines/mlx/utils_mlx.py:fix_unmatched_think_end_tokens",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/runner/bootstrap.py",
+   "target": "function:src/exo/worker/runner/bootstrap.py:entrypoint",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/runner/bootstrap.py",
+   "target": "function:src/exo/worker/runner/bootstrap.py:entrypoint",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/runner/bootstrap.py",
+   "target": "class:src/exo/worker/runner/bootstrap.py:RunnerTerminationError",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/runner/bootstrap.py",
+   "target": "class:src/exo/worker/runner/bootstrap.py:RunnerTerminationError",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/runner/bootstrap.py",
+   "target": "file:src/exo/shared/types/events.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/runner/bootstrap.py",
+   "target": "file:src/exo/shared/types/tasks.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/runner/bootstrap.py",
+   "target": "file:src/exo/shared/types/worker/instances.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/runner/bootstrap.py",
+   "target": "file:src/exo/utils/channels.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/runner/bootstrap.py",
+   "target": "file:src/exo/worker/engines/base.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "function:src/exo/worker/runner/bootstrap.py:entrypoint",
+   "target": "class:src/exo/worker/engines/mlx/builder.py:MlxBuilder",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:src/exo/worker/runner/bootstrap.py:entrypoint",
+   "target": "class:src/exo/worker/engines/image/builder.py:MfluxBuilder",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/runner/llm_inference/batch_generator.py",
+   "target": "function:src/exo/worker/runner/llm_inference/batch_generator.py:_check_for_debug_prompts",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/runner/llm_inference/batch_generator.py",
+   "target": "function:src/exo/worker/runner/llm_inference/batch_generator.py:_check_for_debug_prompts",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/runner/llm_inference/batch_generator.py",
+   "target": "class:src/exo/worker/runner/llm_inference/batch_generator.py:GeneratorQueue",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/runner/llm_inference/batch_generator.py",
+   "target": "class:src/exo/worker/runner/llm_inference/batch_generator.py:GeneratorQueue",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/runner/llm_inference/batch_generator.py",
+   "target": "class:src/exo/worker/runner/llm_inference/batch_generator.py:SequentialGenerator",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/runner/llm_inference/batch_generator.py",
+   "target": "class:src/exo/worker/runner/llm_inference/batch_generator.py:SequentialGenerator",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/runner/llm_inference/batch_generator.py",
+   "target": "class:src/exo/worker/runner/llm_inference/batch_generator.py:BatchGenerator",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/runner/llm_inference/batch_generator.py",
+   "target": "class:src/exo/worker/runner/llm_inference/batch_generator.py:BatchGenerator",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/runner/llm_inference/batch_generator.py",
+   "target": "file:src/exo/shared/constants.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/runner/llm_inference/batch_generator.py",
+   "target": "file:src/exo/shared/types/chunks.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/runner/llm_inference/batch_generator.py",
+   "target": "file:src/exo/shared/types/common.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/runner/llm_inference/batch_generator.py",
+   "target": "file:src/exo/shared/types/events.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/runner/llm_inference/batch_generator.py",
+   "target": "file:src/exo/shared/types/tasks.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/runner/llm_inference/batch_generator.py",
+   "target": "file:src/exo/shared/types/text_generation.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/runner/llm_inference/batch_generator.py",
+   "target": "file:src/exo/shared/types/worker/runner_response.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/runner/llm_inference/batch_generator.py",
+   "target": "file:src/exo/utils/channels.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/runner/llm_inference/batch_generator.py",
+   "target": "file:src/exo/worker/disaggregated/server.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/runner/llm_inference/batch_generator.py",
+   "target": "file:src/exo/worker/engines/base.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/runner/llm_inference/batch_generator.py",
+   "target": "file:src/exo/worker/engines/mlx/cache.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/runner/llm_inference/batch_generator.py",
+   "target": "file:src/exo/worker/engines/mlx/disaggregated/adapter.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/runner/llm_inference/batch_generator.py",
+   "target": "file:src/exo/worker/engines/mlx/disaggregated/serve.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/runner/llm_inference/batch_generator.py",
+   "target": "file:src/exo/worker/engines/mlx/generator/batch_generate.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/runner/llm_inference/batch_generator.py",
+   "target": "file:src/exo/worker/engines/mlx/generator/generate.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/runner/llm_inference/batch_generator.py",
+   "target": "file:src/exo/worker/engines/mlx/types.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/runner/llm_inference/batch_generator.py",
+   "target": "file:src/exo/worker/engines/mlx/utils_mlx.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/runner/llm_inference/batch_generator.py",
+   "target": "file:src/exo/worker/engines/mlx/vision.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/runner/llm_inference/batch_generator.py",
+   "target": "file:src/exo/worker/runner/bootstrap.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/runner/llm_inference/batch_generator.py",
+   "target": "file:src/exo/worker/runner/llm_inference/model_output_parsers.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/runner/llm_inference/batch_generator.py",
+   "target": "file:src/exo/worker/runner/llm_inference/tool_parsers.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "function:src/exo/worker/runner/llm_inference/batch_generator.py:_check_for_debug_prompts",
+   "target": "function:src/exo/worker/engines/mlx/utils_mlx.py:mlx_force_oom",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "class:src/exo/worker/runner/llm_inference/batch_generator.py:SequentialGenerator",
+   "target": "function:src/exo/worker/engines/mlx/generator/generate.py:warmup_inference",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "class:src/exo/worker/runner/llm_inference/batch_generator.py:SequentialGenerator",
+   "target": "function:src/exo/worker/engines/mlx/generator/generate.py:mlx_generate",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "class:src/exo/worker/runner/llm_inference/batch_generator.py:BatchGenerator",
+   "target": "class:src/exo/worker/engines/mlx/generator/batch_generate.py:ExoBatchGenerator",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "class:src/exo/worker/runner/llm_inference/batch_generator.py:BatchGenerator",
+   "target": "function:src/exo/worker/engines/mlx/utils_mlx.py:mx_all_gather_tasks",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "class:src/exo/worker/runner/llm_inference/batch_generator.py:BatchGenerator",
+   "target": "function:src/exo/worker/engines/mlx/utils_mlx.py:mx_any",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "class:src/exo/worker/runner/llm_inference/batch_generator.py:BatchGenerator",
+   "target": "function:src/exo/worker/engines/mlx/utils_mlx.py:apply_chat_template",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "class:src/exo/worker/runner/llm_inference/batch_generator.py:BatchGenerator",
+   "target": "function:src/exo/worker/runner/llm_inference/model_output_parsers.py:apply_all_parsers",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "class:src/exo/worker/runner/llm_inference/batch_generator.py:BatchGenerator",
+   "target": "function:src/exo/worker/engines/mlx/disaggregated/serve.py:run_prefill_for_request",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "class:src/exo/worker/runner/llm_inference/batch_generator.py:BatchGenerator",
+   "target": "function:src/exo/worker/engines/mlx/disaggregated/adapter.py:write_cache_to_wire",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/runner/llm_inference/batch_generator.py",
+   "target": "file:src/exo/worker/tests/unittests/test_runner/test_finish_reason_sse.py",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  },
+  {
+   "source": "file:src/exo/worker/runner/llm_inference/model_output_parsers.py",
+   "target": "function:src/exo/worker/runner/llm_inference/model_output_parsers.py:count_reasoning_tokens",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/runner/llm_inference/model_output_parsers.py",
+   "target": "function:src/exo/worker/runner/llm_inference/model_output_parsers.py:count_reasoning_tokens",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/runner/llm_inference/model_output_parsers.py",
+   "target": "function:src/exo/worker/runner/llm_inference/model_output_parsers.py:apply_all_parsers",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/runner/llm_inference/model_output_parsers.py",
+   "target": "function:src/exo/worker/runner/llm_inference/model_output_parsers.py:apply_all_parsers",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/runner/llm_inference/model_output_parsers.py",
+   "target": "function:src/exo/worker/runner/llm_inference/model_output_parsers.py:map_responses_to_chunks",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/runner/llm_inference/model_output_parsers.py",
+   "target": "function:src/exo/worker/runner/llm_inference/model_output_parsers.py:map_responses_to_chunks",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/runner/llm_inference/model_output_parsers.py",
+   "target": "function:src/exo/worker/runner/llm_inference/model_output_parsers.py:parse_gpt_oss",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/runner/llm_inference/model_output_parsers.py",
+   "target": "function:src/exo/worker/runner/llm_inference/model_output_parsers.py:parse_gpt_oss",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/runner/llm_inference/model_output_parsers.py",
+   "target": "function:src/exo/worker/runner/llm_inference/model_output_parsers.py:parse_deepseek_v32",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/runner/llm_inference/model_output_parsers.py",
+   "target": "function:src/exo/worker/runner/llm_inference/model_output_parsers.py:parse_deepseek_v32",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/runner/llm_inference/model_output_parsers.py",
+   "target": "function:src/exo/worker/runner/llm_inference/model_output_parsers.py:parse_deepseek_v4",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/runner/llm_inference/model_output_parsers.py",
+   "target": "function:src/exo/worker/runner/llm_inference/model_output_parsers.py:parse_deepseek_v4",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/runner/llm_inference/model_output_parsers.py",
+   "target": "function:src/exo/worker/runner/llm_inference/model_output_parsers.py:_parse_dsml_stream",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/runner/llm_inference/model_output_parsers.py",
+   "target": "function:src/exo/worker/runner/llm_inference/model_output_parsers.py:_parse_dsml_stream",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/runner/llm_inference/model_output_parsers.py",
+   "target": "function:src/exo/worker/runner/llm_inference/model_output_parsers.py:_could_be_marker_prefix",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/runner/llm_inference/model_output_parsers.py",
+   "target": "function:src/exo/worker/runner/llm_inference/model_output_parsers.py:_could_be_marker_prefix",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/runner/llm_inference/model_output_parsers.py",
+   "target": "function:src/exo/worker/runner/llm_inference/model_output_parsers.py:parse_thinking_models",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/runner/llm_inference/model_output_parsers.py",
+   "target": "function:src/exo/worker/runner/llm_inference/model_output_parsers.py:parse_thinking_models",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/runner/llm_inference/model_output_parsers.py",
+   "target": "function:src/exo/worker/runner/llm_inference/model_output_parsers.py:parse_tool_calls",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/runner/llm_inference/model_output_parsers.py",
+   "target": "function:src/exo/worker/runner/llm_inference/model_output_parsers.py:parse_tool_calls",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/runner/llm_inference/model_output_parsers.py",
+   "target": "file:src/exo/api/types/__init__.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/runner/llm_inference/model_output_parsers.py",
+   "target": "file:src/exo/shared/types/chunks.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/runner/llm_inference/model_output_parsers.py",
+   "target": "file:src/exo/shared/types/common.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/runner/llm_inference/model_output_parsers.py",
+   "target": "file:src/exo/shared/types/worker/runner_response.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/runner/llm_inference/model_output_parsers.py",
+   "target": "file:src/exo/worker/engines/mlx/types.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/runner/llm_inference/model_output_parsers.py",
+   "target": "file:src/exo/worker/engines/mlx/utils_mlx.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/runner/llm_inference/model_output_parsers.py",
+   "target": "file:src/exo/worker/runner/bootstrap.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/runner/llm_inference/model_output_parsers.py",
+   "target": "file:src/exo/worker/runner/llm_inference/tool_parsers.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "function:src/exo/worker/runner/llm_inference/model_output_parsers.py:apply_all_parsers",
+   "target": "function:src/exo/worker/engines/mlx/utils_mlx.py:detect_thinking_prompt_suffix",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:src/exo/worker/runner/llm_inference/model_output_parsers.py:parse_tool_calls",
+   "target": "class:src/exo/worker/runner/llm_inference/tool_parsers.py:ToolParser",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/runner/llm_inference/model_output_parsers.py",
+   "target": "file:src/exo/worker/tests/unittests/test_runner/test_dsml_e2e.py",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  },
+  {
+   "source": "file:src/exo/worker/runner/llm_inference/model_output_parsers.py",
+   "target": "file:src/exo/worker/tests/unittests/test_runner/test_finish_reason_sse.py",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  },
+  {
+   "source": "file:src/exo/worker/runner/llm_inference/model_output_parsers.py",
+   "target": "file:src/exo/worker/tests/unittests/test_runner/test_parse_gpt_oss.py",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  },
+  {
+   "source": "file:src/exo/worker/runner/llm_inference/model_output_parsers.py",
+   "target": "file:src/exo/worker/tests/unittests/test_runner/test_parse_tool_calls.py",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  },
+  {
+   "source": "file:src/exo/worker/runner/llm_inference/tool_parsers.py",
+   "target": "function:src/exo/worker/runner/llm_inference/tool_parsers.py:_json_type_matches",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/runner/llm_inference/tool_parsers.py",
+   "target": "function:src/exo/worker/runner/llm_inference/tool_parsers.py:_json_type_matches",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/runner/llm_inference/tool_parsers.py",
+   "target": "function:src/exo/worker/runner/llm_inference/tool_parsers.py:_coerce_tool_arg_with_schema",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/runner/llm_inference/tool_parsers.py",
+   "target": "function:src/exo/worker/runner/llm_inference/tool_parsers.py:_coerce_tool_arg_with_schema",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/runner/llm_inference/tool_parsers.py",
+   "target": "function:src/exo/worker/runner/llm_inference/tool_parsers.py:_coerce_tool_calls_to_schema",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/runner/llm_inference/tool_parsers.py",
+   "target": "function:src/exo/worker/runner/llm_inference/tool_parsers.py:_coerce_tool_calls_to_schema",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/runner/llm_inference/tool_parsers.py",
+   "target": "function:src/exo/worker/runner/llm_inference/tool_parsers.py:make_mlx_parser",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/runner/llm_inference/tool_parsers.py",
+   "target": "function:src/exo/worker/runner/llm_inference/tool_parsers.py:make_mlx_parser",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/runner/llm_inference/tool_parsers.py",
+   "target": "function:src/exo/worker/runner/llm_inference/tool_parsers.py:_parse_json_calls",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/runner/llm_inference/tool_parsers.py",
+   "target": "function:src/exo/worker/runner/llm_inference/tool_parsers.py:_parse_json_calls",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/runner/llm_inference/tool_parsers.py",
+   "target": "function:src/exo/worker/runner/llm_inference/tool_parsers.py:_flatten",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/runner/llm_inference/tool_parsers.py",
+   "target": "function:src/exo/worker/runner/llm_inference/tool_parsers.py:_flatten",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/runner/llm_inference/tool_parsers.py",
+   "target": "function:src/exo/worker/runner/llm_inference/tool_parsers.py:make_json_parser",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/runner/llm_inference/tool_parsers.py",
+   "target": "function:src/exo/worker/runner/llm_inference/tool_parsers.py:make_json_parser",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/runner/llm_inference/tool_parsers.py",
+   "target": "function:src/exo/worker/runner/llm_inference/tool_parsers.py:infer_tool_parser",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/runner/llm_inference/tool_parsers.py",
+   "target": "function:src/exo/worker/runner/llm_inference/tool_parsers.py:infer_tool_parser",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/runner/llm_inference/tool_parsers.py",
+   "target": "class:src/exo/worker/runner/llm_inference/tool_parsers.py:ToolParser",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/runner/llm_inference/tool_parsers.py",
+   "target": "class:src/exo/worker/runner/llm_inference/tool_parsers.py:ToolParser",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/runner/llm_inference/tool_parsers.py",
+   "target": "file:src/exo/api/types/__init__.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/runner/llm_inference/tool_parsers.py",
+   "target": "file:src/exo/worker/tests/unittests/test_runner/test_finish_reason_sse.py",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  },
+  {
+   "source": "file:src/exo/worker/runner/llm_inference/tool_parsers.py",
+   "target": "file:src/exo/worker/tests/unittests/test_runner/test_parse_tool_calls.py",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  }
+ ]
+}

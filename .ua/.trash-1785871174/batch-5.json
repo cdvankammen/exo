@@ -1,0 +1,5512 @@
+{
+ "nodes": [
+  {
+   "id": "file:src/exo/__init__.py",
+   "type": "file",
+   "name": "__init__.py",
+   "filePath": "src/exo/__init__.py",
+   "summary": "__init__.py \u2014 code file in the exo project.",
+   "tags": [
+    "entry-point",
+    "barrel"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:src/exo/__main__.py",
+   "type": "file",
+   "name": "__main__.py",
+   "filePath": "src/exo/__main__.py",
+   "summary": "Defines 1 function(s) and 0 class(es) for src/exo/__main__.py.",
+   "tags": [
+    "entry-point"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:src/exo/main.py",
+   "type": "file",
+   "name": "main.py",
+   "filePath": "src/exo/main.py",
+   "summary": "Defines 2 function(s) and 2 class(es) for src/exo/main.py.",
+   "tags": [
+    "entry-point"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "file:src/exo/master/main.py",
+   "type": "file",
+   "name": "main.py",
+   "filePath": "src/exo/master/main.py",
+   "summary": "Defines 1 function(s) and 1 class(es) for src/exo/master/main.py.",
+   "tags": [
+    "entry-point"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "file:src/exo/routing/connection_message.py",
+   "type": "file",
+   "name": "connection_message.py",
+   "filePath": "src/exo/routing/connection_message.py",
+   "summary": "Defines 0 function(s) and 1 class(es) for src/exo/routing/connection_message.py.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:src/exo/routing/event_router.py",
+   "type": "file",
+   "name": "event_router.py",
+   "filePath": "src/exo/routing/event_router.py",
+   "summary": "Defines 0 function(s) and 3 class(es) for src/exo/routing/event_router.py.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:src/exo/routing/router.py",
+   "type": "file",
+   "name": "router.py",
+   "filePath": "src/exo/routing/router.py",
+   "summary": "Defines 1 function(s) and 2 class(es) for src/exo/routing/router.py.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "file:src/exo/routing/tests/test_event_buffer.py",
+   "type": "file",
+   "name": "test_event_buffer.py",
+   "filePath": "src/exo/routing/tests/test_event_buffer.py",
+   "summary": "Defines 10 function(s) and 0 class(es) for src/exo/routing/tests/test_event_buffer.py.",
+   "tags": [
+    "test"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:src/exo/routing/topics.py",
+   "type": "file",
+   "name": "topics.py",
+   "filePath": "src/exo/routing/topics.py",
+   "summary": "Defines 0 function(s) and 2 class(es) for src/exo/routing/topics.py.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:src/exo/shared/election.py",
+   "type": "file",
+   "name": "election.py",
+   "filePath": "src/exo/shared/election.py",
+   "summary": "Defines 0 function(s) and 3 class(es) for src/exo/shared/election.py.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "file:src/exo/shared/tests/test_election.py",
+   "type": "file",
+   "name": "test_election.py",
+   "filePath": "src/exo/shared/tests/test_election.py",
+   "summary": "Defines 9 function(s) and 0 class(es) for src/exo/shared/tests/test_election.py.",
+   "tags": [
+    "test"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "file:src/exo/utils/__init__.py",
+   "type": "file",
+   "name": "__init__.py",
+   "filePath": "src/exo/utils/__init__.py",
+   "summary": "Defines 2 function(s) and 0 class(es) for src/exo/utils/__init__.py.",
+   "tags": [
+    "entry-point",
+    "barrel"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:src/exo/utils/async_process.py",
+   "type": "file",
+   "name": "async_process.py",
+   "filePath": "src/exo/utils/async_process.py",
+   "summary": "Defines 3 function(s) and 1 class(es) for src/exo/utils/async_process.py.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "file:src/exo/utils/channels.py",
+   "type": "file",
+   "name": "channels.py",
+   "filePath": "src/exo/utils/channels.py",
+   "summary": "Defines 0 function(s) and 9 class(es) for src/exo/utils/channels.py.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "file:src/exo/utils/disk_event_log.py",
+   "type": "file",
+   "name": "disk_event_log.py",
+   "filePath": "src/exo/utils/disk_event_log.py",
+   "summary": "Defines 5 function(s) and 1 class(es) for src/exo/utils/disk_event_log.py.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:src/exo/utils/event_buffer.py",
+   "type": "file",
+   "name": "event_buffer.py",
+   "filePath": "src/exo/utils/event_buffer.py",
+   "summary": "Defines 0 function(s) and 2 class(es) for src/exo/utils/event_buffer.py.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:src/exo/utils/phantom.py",
+   "type": "file",
+   "name": "phantom.py",
+   "filePath": "src/exo/utils/phantom.py",
+   "summary": "Defines 0 function(s) and 1 class(es) for src/exo/utils/phantom.py.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:src/exo/utils/pydantic_ext.py",
+   "type": "file",
+   "name": "pydantic_ext.py",
+   "filePath": "src/exo/utils/pydantic_ext.py",
+   "summary": "Defines 0 function(s) and 2 class(es) for src/exo/utils/pydantic_ext.py.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:src/exo/utils/task_group.py",
+   "type": "file",
+   "name": "task_group.py",
+   "filePath": "src/exo/utils/task_group.py",
+   "summary": "Defines 0 function(s) and 1 class(es) for src/exo/utils/task_group.py.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:src/exo/utils/tests/test_async_process.py",
+   "type": "file",
+   "name": "test_async_process.py",
+   "filePath": "src/exo/utils/tests/test_async_process.py",
+   "summary": "Defines 30 function(s) and 0 class(es) for src/exo/utils/tests/test_async_process.py.",
+   "tags": [
+    "test"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "file:src/exo/utils/tests/test_channels.py",
+   "type": "file",
+   "name": "test_channels.py",
+   "filePath": "src/exo/utils/tests/test_channels.py",
+   "summary": "Defines 6 function(s) and 4 class(es) for src/exo/utils/tests/test_channels.py.",
+   "tags": [
+    "test"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:src/exo/utils/tests/test_event_log.py",
+   "type": "file",
+   "name": "test_event_log.py",
+   "filePath": "src/exo/utils/tests/test_event_log.py",
+   "summary": "Defines 12 function(s) and 0 class(es) for src/exo/utils/tests/test_event_log.py.",
+   "tags": [
+    "test"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:src/exo/utils/tests/test_tagged.py",
+   "type": "file",
+   "name": "test_tagged.py",
+   "filePath": "src/exo/utils/tests/test_tagged.py",
+   "summary": "Defines 11 function(s) and 13 class(es) for src/exo/utils/tests/test_tagged.py.",
+   "tags": [
+    "test"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:src/exo/__main__.py:_maybe_run_inline_code",
+   "type": "function",
+   "name": "_maybe_run_inline_code",
+   "filePath": "src/exo/__main__.py",
+   "lineRange": [
+    13,
+    32
+   ],
+   "summary": "Function _maybe_run_inline_code in src/exo/__main__.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/main.py:main",
+   "type": "function",
+   "name": "main",
+   "filePath": "src/exo/main.py",
+   "lineRange": [
+    278,
+    329
+   ],
+   "summary": "Function main in src/exo/main.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:src/exo/main.py:main_inner",
+   "type": "function",
+   "name": "main_inner",
+   "filePath": "src/exo/main.py",
+   "lineRange": [
+    332,
+    377
+   ],
+   "summary": "Function main_inner in src/exo/main.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/main.py:Node",
+   "type": "class",
+   "name": "Node",
+   "filePath": "src/exo/main.py",
+   "lineRange": [
+    37,
+    275
+   ],
+   "summary": "Class Node in src/exo/main.py.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "class:src/exo/main.py:Args",
+   "type": "class",
+   "name": "Args",
+   "filePath": "src/exo/main.py",
+   "lineRange": [
+    380,
+    504
+   ],
+   "summary": "Class Args in src/exo/main.py.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:src/exo/master/main.py:_prefill_endpoint_for",
+   "type": "function",
+   "name": "_prefill_endpoint_for",
+   "filePath": "src/exo/master/main.py",
+   "lineRange": [
+    82,
+    119
+   ],
+   "summary": "Function _prefill_endpoint_for in src/exo/master/main.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/master/main.py:Master",
+   "type": "class",
+   "name": "Master",
+   "filePath": "src/exo/master/main.py",
+   "lineRange": [
+    122,
+    560
+   ],
+   "summary": "Class Master in src/exo/master/main.py.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "class:src/exo/routing/connection_message.py:ConnectionMessage",
+   "type": "class",
+   "name": "ConnectionMessage",
+   "filePath": "src/exo/routing/connection_message.py",
+   "lineRange": [
+    8,
+    13
+   ],
+   "summary": "Class ConnectionMessage in src/exo/routing/connection_message.py.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/routing/event_router.py:EventRouterClosedResourceError",
+   "type": "class",
+   "name": "EventRouterClosedResourceError",
+   "filePath": "src/exo/routing/event_router.py",
+   "lineRange": [
+    24,
+    25
+   ],
+   "summary": "Class EventRouterClosedResourceError in src/exo/routing/event_router.py.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/routing/event_router.py:EventRouterBrokenResourceError",
+   "type": "class",
+   "name": "EventRouterBrokenResourceError",
+   "filePath": "src/exo/routing/event_router.py",
+   "lineRange": [
+    28,
+    29
+   ],
+   "summary": "Class EventRouterBrokenResourceError in src/exo/routing/event_router.py.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/routing/event_router.py:EventRouter",
+   "type": "class",
+   "name": "EventRouter",
+   "filePath": "src/exo/routing/event_router.py",
+   "lineRange": [
+    43,
+    181
+   ],
+   "summary": "Class EventRouter in src/exo/routing/event_router.py.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:src/exo/routing/router.py:get_node_zid",
+   "type": "function",
+   "name": "get_node_zid",
+   "filePath": "src/exo/routing/router.py",
+   "lineRange": [
+    232,
+    264
+   ],
+   "summary": "Function get_node_zid in src/exo/routing/router.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/routing/router.py:TopicRouter",
+   "type": "class",
+   "name": "TopicRouter",
+   "filePath": "src/exo/routing/router.py",
+   "lineRange": [
+    34,
+    96
+   ],
+   "summary": "Class TopicRouter in src/exo/routing/router.py.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "class:src/exo/routing/router.py:Router",
+   "type": "class",
+   "name": "Router",
+   "filePath": "src/exo/routing/router.py",
+   "lineRange": [
+    99,
+    229
+   ],
+   "summary": "Class Router in src/exo/routing/router.py.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:src/exo/routing/tests/test_event_buffer.py:make_indexed_event",
+   "type": "function",
+   "name": "make_indexed_event",
+   "filePath": "src/exo/routing/tests/test_event_buffer.py",
+   "lineRange": [
+    7,
+    9
+   ],
+   "summary": "Function make_indexed_event in src/exo/routing/tests/test_event_buffer.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/routing/tests/test_event_buffer.py:buffer",
+   "type": "function",
+   "name": "buffer",
+   "filePath": "src/exo/routing/tests/test_event_buffer.py",
+   "lineRange": [
+    13,
+    15
+   ],
+   "summary": "Function buffer in src/exo/routing/tests/test_event_buffer.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/routing/tests/test_event_buffer.py:test_initial_state",
+   "type": "function",
+   "name": "test_initial_state",
+   "filePath": "src/exo/routing/tests/test_event_buffer.py",
+   "lineRange": [
+    19,
+    23
+   ],
+   "summary": "Function test_initial_state in src/exo/routing/tests/test_event_buffer.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/routing/tests/test_event_buffer.py:test_ingest_and_drain_sequential_events",
+   "type": "function",
+   "name": "test_ingest_and_drain_sequential_events",
+   "filePath": "src/exo/routing/tests/test_event_buffer.py",
+   "lineRange": [
+    27,
+    35
+   ],
+   "summary": "Function test_ingest_and_drain_sequential_events in src/exo/routing/tests/test_event_buffer.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/routing/tests/test_event_buffer.py:test_ingest_out_of_order_events",
+   "type": "function",
+   "name": "test_ingest_out_of_order_events",
+   "filePath": "src/exo/routing/tests/test_event_buffer.py",
+   "lineRange": [
+    39,
+    51
+   ],
+   "summary": "Function test_ingest_out_of_order_events in src/exo/routing/tests/test_event_buffer.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/routing/tests/test_event_buffer.py:test_drain_with_gap_in_sequence",
+   "type": "function",
+   "name": "test_drain_with_gap_in_sequence",
+   "filePath": "src/exo/routing/tests/test_event_buffer.py",
+   "lineRange": [
+    55,
+    68
+   ],
+   "summary": "Function test_drain_with_gap_in_sequence in src/exo/routing/tests/test_event_buffer.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/routing/tests/test_event_buffer.py:test_fill_gap_and_drain_remaining",
+   "type": "function",
+   "name": "test_fill_gap_and_drain_remaining",
+   "filePath": "src/exo/routing/tests/test_event_buffer.py",
+   "lineRange": [
+    72,
+    87
+   ],
+   "summary": "Function test_fill_gap_and_drain_remaining in src/exo/routing/tests/test_event_buffer.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/routing/tests/test_event_buffer.py:test_ingest_drops_duplicate_indices",
+   "type": "function",
+   "name": "test_ingest_drops_duplicate_indices",
+   "filePath": "src/exo/routing/tests/test_event_buffer.py",
+   "lineRange": [
+    91,
+    106
+   ],
+   "summary": "Function test_ingest_drops_duplicate_indices in src/exo/routing/tests/test_event_buffer.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/routing/tests/test_event_buffer.py:test_ingest_drops_stale_events",
+   "type": "function",
+   "name": "test_ingest_drops_stale_events",
+   "filePath": "src/exo/routing/tests/test_event_buffer.py",
+   "lineRange": [
+    110,
+    124
+   ],
+   "summary": "Function test_ingest_drops_stale_events in src/exo/routing/tests/test_event_buffer.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/routing/tests/test_event_buffer.py:test_drain_and_ingest_with_new_sequence",
+   "type": "function",
+   "name": "test_drain_and_ingest_with_new_sequence",
+   "filePath": "src/exo/routing/tests/test_event_buffer.py",
+   "lineRange": [
+    128,
+    143
+   ],
+   "summary": "Function test_drain_and_ingest_with_new_sequence in src/exo/routing/tests/test_event_buffer.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/routing/topics.py:PublishPolicy",
+   "type": "class",
+   "name": "PublishPolicy",
+   "filePath": "src/exo/routing/topics.py",
+   "lineRange": [
+    14,
+    20
+   ],
+   "summary": "Class PublishPolicy in src/exo/routing/topics.py.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/routing/topics.py:TypedTopic",
+   "type": "class",
+   "name": "TypedTopic",
+   "filePath": "src/exo/routing/topics.py",
+   "lineRange": [
+    24,
+    37
+   ],
+   "summary": "Class TypedTopic in src/exo/routing/topics.py.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/shared/election.py:ElectionMessage",
+   "type": "class",
+   "name": "ElectionMessage",
+   "filePath": "src/exo/shared/election.py",
+   "lineRange": [
+    21,
+    39
+   ],
+   "summary": "Class ElectionMessage in src/exo/shared/election.py.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/shared/election.py:ElectionResult",
+   "type": "class",
+   "name": "ElectionResult",
+   "filePath": "src/exo/shared/election.py",
+   "lineRange": [
+    42,
+    45
+   ],
+   "summary": "Class ElectionResult in src/exo/shared/election.py.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/shared/election.py:Election",
+   "type": "class",
+   "name": "Election",
+   "filePath": "src/exo/shared/election.py",
+   "lineRange": [
+    48,
+    265
+   ],
+   "summary": "Class Election in src/exo/shared/election.py.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "function:src/exo/shared/tests/test_election.py:em",
+   "type": "function",
+   "name": "em",
+   "filePath": "src/exo/shared/tests/test_election.py",
+   "lineRange": [
+    15,
+    36
+   ],
+   "summary": "Function em in src/exo/shared/tests/test_election.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/shared/tests/test_election.py:fast_election_timeout",
+   "type": "function",
+   "name": "fast_election_timeout",
+   "filePath": "src/exo/shared/tests/test_election.py",
+   "lineRange": [
+    45,
+    46
+   ],
+   "summary": "Function fast_election_timeout in src/exo/shared/tests/test_election.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/shared/tests/test_election.py:test_single_round_broadcasts_and_updates_seniority_on_self_win",
+   "type": "function",
+   "name": "test_single_round_broadcasts_and_updates_seniority_on_self_win",
+   "filePath": "src/exo/shared/tests/test_election.py",
+   "lineRange": [
+    50,
+    102
+   ],
+   "summary": "Function test_single_round_broadcasts_and_updates_seniority_on_self_win in src/exo/shared/tests/test_election.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:src/exo/shared/tests/test_election.py:test_peer_with_higher_seniority_wins_and_we_switch_master",
+   "type": "function",
+   "name": "test_peer_with_higher_seniority_wins_and_we_switch_master",
+   "filePath": "src/exo/shared/tests/test_election.py",
+   "lineRange": [
+    106,
+    156
+   ],
+   "summary": "Function test_peer_with_higher_seniority_wins_and_we_switch_master in src/exo/shared/tests/test_election.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:src/exo/shared/tests/test_election.py:test_ignores_older_messages",
+   "type": "function",
+   "name": "test_ignores_older_messages",
+   "filePath": "src/exo/shared/tests/test_election.py",
+   "lineRange": [
+    160,
+    205
+   ],
+   "summary": "Function test_ignores_older_messages in src/exo/shared/tests/test_election.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/shared/tests/test_election.py:test_two_rounds_emit_two_broadcasts_and_increment_clock",
+   "type": "function",
+   "name": "test_two_rounds_emit_two_broadcasts_and_increment_clock",
+   "filePath": "src/exo/shared/tests/test_election.py",
+   "lineRange": [
+    209,
+    251
+   ],
+   "summary": "Function test_two_rounds_emit_two_broadcasts_and_increment_clock in src/exo/shared/tests/test_election.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/shared/tests/test_election.py:test_promotion_new_seniority_counts_participants",
+   "type": "function",
+   "name": "test_promotion_new_seniority_counts_participants",
+   "filePath": "src/exo/shared/tests/test_election.py",
+   "lineRange": [
+    255,
+    300
+   ],
+   "summary": "Function test_promotion_new_seniority_counts_participants in src/exo/shared/tests/test_election.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/shared/tests/test_election.py:test_connection_message_triggers_new_round_broadcast",
+   "type": "function",
+   "name": "test_connection_message_triggers_new_round_broadcast",
+   "filePath": "src/exo/shared/tests/test_election.py",
+   "lineRange": [
+    304,
+    345
+   ],
+   "summary": "Function test_connection_message_triggers_new_round_broadcast in src/exo/shared/tests/test_election.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/shared/tests/test_election.py:test_tie_breaker_prefers_node_with_more_commands_seen",
+   "type": "function",
+   "name": "test_tie_breaker_prefers_node_with_more_commands_seen",
+   "filePath": "src/exo/shared/tests/test_election.py",
+   "lineRange": [
+    349,
+    404
+   ],
+   "summary": "Function test_tie_breaker_prefers_node_with_more_commands_seen in src/exo/shared/tests/test_election.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:src/exo/utils/__init__.py:ensure_type",
+   "type": "function",
+   "name": "ensure_type",
+   "filePath": "src/exo/utils/__init__.py",
+   "lineRange": [
+    11,
+    14
+   ],
+   "summary": "Function ensure_type in src/exo/utils/__init__.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/utils/__init__.py:todo",
+   "type": "function",
+   "name": "todo",
+   "filePath": "src/exo/utils/__init__.py",
+   "lineRange": [
+    17,
+    21
+   ],
+   "summary": "Function todo in src/exo/utils/__init__.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/utils/async_process.py:_run_with_captured_stdio",
+   "type": "function",
+   "name": "_run_with_captured_stdio",
+   "filePath": "src/exo/utils/async_process.py",
+   "lineRange": [
+    247,
+    267
+   ],
+   "summary": "Function _run_with_captured_stdio in src/exo/utils/async_process.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/utils/async_process.py:_drain_fd",
+   "type": "function",
+   "name": "_drain_fd",
+   "filePath": "src/exo/utils/async_process.py",
+   "lineRange": [
+    270,
+    282
+   ],
+   "summary": "Function _drain_fd in src/exo/utils/async_process.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/utils/async_process.py:_close_fd",
+   "type": "function",
+   "name": "_close_fd",
+   "filePath": "src/exo/utils/async_process.py",
+   "lineRange": [
+    285,
+    289
+   ],
+   "summary": "Function _close_fd in src/exo/utils/async_process.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/utils/async_process.py:AsyncProcess",
+   "type": "class",
+   "name": "AsyncProcess",
+   "filePath": "src/exo/utils/async_process.py",
+   "lineRange": [
+    40,
+    243
+   ],
+   "summary": "Class AsyncProcess in src/exo/utils/async_process.py.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "class:src/exo/utils/channels.py:ErrorOverride",
+   "type": "class",
+   "name": "ErrorOverride",
+   "filePath": "src/exo/utils/channels.py",
+   "lineRange": [
+    35,
+    107
+   ],
+   "summary": "Class ErrorOverride in src/exo/utils/channels.py.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "class:src/exo/utils/channels.py:Sender",
+   "type": "class",
+   "name": "Sender",
+   "filePath": "src/exo/utils/channels.py",
+   "lineRange": [
+    110,
+    148
+   ],
+   "summary": "Class Sender in src/exo/utils/channels.py.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/utils/channels.py:Receiver",
+   "type": "class",
+   "name": "Receiver",
+   "filePath": "src/exo/utils/channels.py",
+   "lineRange": [
+    151,
+    215
+   ],
+   "summary": "Class Receiver in src/exo/utils/channels.py.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "class:src/exo/utils/channels.py:_MpEndOfStream",
+   "type": "class",
+   "name": "_MpEndOfStream",
+   "filePath": "src/exo/utils/channels.py",
+   "lineRange": [
+    218,
+    219
+   ],
+   "summary": "Class _MpEndOfStream in src/exo/utils/channels.py.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/utils/channels.py:MpState",
+   "type": "class",
+   "name": "MpState",
+   "filePath": "src/exo/utils/channels.py",
+   "lineRange": [
+    222,
+    237
+   ],
+   "summary": "Class MpState in src/exo/utils/channels.py.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/utils/channels.py:MpSender",
+   "type": "class",
+   "name": "MpSender",
+   "filePath": "src/exo/utils/channels.py",
+   "lineRange": [
+    241,
+    304
+   ],
+   "summary": "Class MpSender in src/exo/utils/channels.py.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "class:src/exo/utils/channels.py:MpReceiver",
+   "type": "class",
+   "name": "MpReceiver",
+   "filePath": "src/exo/utils/channels.py",
+   "lineRange": [
+    308,
+    423
+   ],
+   "summary": "Class MpReceiver in src/exo/utils/channels.py.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "class:src/exo/utils/channels.py:channel",
+   "type": "class",
+   "name": "channel",
+   "filePath": "src/exo/utils/channels.py",
+   "lineRange": [
+    426,
+    439
+   ],
+   "summary": "Class channel in src/exo/utils/channels.py.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/utils/channels.py:mp_channel",
+   "type": "class",
+   "name": "mp_channel",
+   "filePath": "src/exo/utils/channels.py",
+   "lineRange": [
+    442,
+    456
+   ],
+   "summary": "Class mp_channel in src/exo/utils/channels.py.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/utils/disk_event_log.py:_serialize_event",
+   "type": "function",
+   "name": "_serialize_event",
+   "filePath": "src/exo/utils/disk_event_log.py",
+   "lineRange": [
+    23,
+    24
+   ],
+   "summary": "Function _serialize_event in src/exo/utils/disk_event_log.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/utils/disk_event_log.py:_deserialize_event",
+   "type": "function",
+   "name": "_deserialize_event",
+   "filePath": "src/exo/utils/disk_event_log.py",
+   "lineRange": [
+    27,
+    34
+   ],
+   "summary": "Function _deserialize_event in src/exo/utils/disk_event_log.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/utils/disk_event_log.py:_unpack_header",
+   "type": "function",
+   "name": "_unpack_header",
+   "filePath": "src/exo/utils/disk_event_log.py",
+   "lineRange": [
+    37,
+    38
+   ],
+   "summary": "Function _unpack_header in src/exo/utils/disk_event_log.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/utils/disk_event_log.py:_skip_record",
+   "type": "function",
+   "name": "_skip_record",
+   "filePath": "src/exo/utils/disk_event_log.py",
+   "lineRange": [
+    41,
+    47
+   ],
+   "summary": "Function _skip_record in src/exo/utils/disk_event_log.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/utils/disk_event_log.py:_read_record",
+   "type": "function",
+   "name": "_read_record",
+   "filePath": "src/exo/utils/disk_event_log.py",
+   "lineRange": [
+    50,
+    59
+   ],
+   "summary": "Function _read_record in src/exo/utils/disk_event_log.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/utils/disk_event_log.py:DiskEventLog",
+   "type": "class",
+   "name": "DiskEventLog",
+   "filePath": "src/exo/utils/disk_event_log.py",
+   "lineRange": [
+    62,
+    187
+   ],
+   "summary": "Class DiskEventLog in src/exo/utils/disk_event_log.py.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "class:src/exo/utils/event_buffer.py:OrderedBuffer",
+   "type": "class",
+   "name": "OrderedBuffer",
+   "filePath": "src/exo/utils/event_buffer.py",
+   "lineRange": [
+    4,
+    48
+   ],
+   "summary": "Class OrderedBuffer in src/exo/utils/event_buffer.py.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/utils/event_buffer.py:MultiSourceBuffer",
+   "type": "class",
+   "name": "MultiSourceBuffer",
+   "filePath": "src/exo/utils/event_buffer.py",
+   "lineRange": [
+    51,
+    70
+   ],
+   "summary": "Class MultiSourceBuffer in src/exo/utils/event_buffer.py.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/utils/phantom.py:_PhantomData",
+   "type": "class",
+   "name": "_PhantomData",
+   "filePath": "src/exo/utils/phantom.py",
+   "lineRange": [
+    1,
+    4
+   ],
+   "summary": "Class _PhantomData in src/exo/utils/phantom.py.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/utils/pydantic_ext.py:FrozenModel",
+   "type": "class",
+   "name": "FrozenModel",
+   "filePath": "src/exo/utils/pydantic_ext.py",
+   "lineRange": [
+    11,
+    18
+   ],
+   "summary": "Class FrozenModel in src/exo/utils/pydantic_ext.py.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/utils/pydantic_ext.py:TaggedModel",
+   "type": "class",
+   "name": "TaggedModel",
+   "filePath": "src/exo/utils/pydantic_ext.py",
+   "lineRange": [
+    21,
+    36
+   ],
+   "summary": "Class TaggedModel in src/exo/utils/pydantic_ext.py.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/utils/task_group.py:TaskGroup",
+   "type": "class",
+   "name": "TaskGroup",
+   "filePath": "src/exo/utils/task_group.py",
+   "lineRange": [
+    11,
+    65
+   ],
+   "summary": "Class TaskGroup in src/exo/utils/task_group.py.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:src/exo/utils/tests/test_async_process.py:_write_to_stdio",
+   "type": "function",
+   "name": "_write_to_stdio",
+   "filePath": "src/exo/utils/tests/test_async_process.py",
+   "lineRange": [
+    17,
+    21
+   ],
+   "summary": "Function _write_to_stdio in src/exo/utils/tests/test_async_process.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/utils/tests/test_async_process.py:_write_large_output",
+   "type": "function",
+   "name": "_write_large_output",
+   "filePath": "src/exo/utils/tests/test_async_process.py",
+   "lineRange": [
+    24,
+    26
+   ],
+   "summary": "Function _write_large_output in src/exo/utils/tests/test_async_process.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/utils/tests/test_async_process.py:_write_all",
+   "type": "function",
+   "name": "_write_all",
+   "filePath": "src/exo/utils/tests/test_async_process.py",
+   "lineRange": [
+    29,
+    33
+   ],
+   "summary": "Function _write_all in src/exo/utils/tests/test_async_process.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/utils/tests/test_async_process.py:_write_large_exact_output",
+   "type": "function",
+   "name": "_write_large_exact_output",
+   "filePath": "src/exo/utils/tests/test_async_process.py",
+   "lineRange": [
+    36,
+    38
+   ],
+   "summary": "Function _write_large_exact_output in src/exo/utils/tests/test_async_process.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/utils/tests/test_async_process.py:_raise_after_stderr_write",
+   "type": "function",
+   "name": "_raise_after_stderr_write",
+   "filePath": "src/exo/utils/tests/test_async_process.py",
+   "lineRange": [
+    41,
+    43
+   ],
+   "summary": "Function _raise_after_stderr_write in src/exo/utils/tests/test_async_process.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/utils/tests/test_async_process.py:_exit_after_stdio_write",
+   "type": "function",
+   "name": "_exit_after_stdio_write",
+   "filePath": "src/exo/utils/tests/test_async_process.py",
+   "lineRange": [
+    46,
+    49
+   ],
+   "summary": "Function _exit_after_stdio_write in src/exo/utils/tests/test_async_process.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/utils/tests/test_async_process.py:_abort_after_stdio_write",
+   "type": "function",
+   "name": "_abort_after_stdio_write",
+   "filePath": "src/exo/utils/tests/test_async_process.py",
+   "lineRange": [
+    52,
+    55
+   ],
+   "summary": "Function _abort_after_stdio_write in src/exo/utils/tests/test_async_process.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/utils/tests/test_async_process.py:_close_stdio_and_exit",
+   "type": "function",
+   "name": "_close_stdio_and_exit",
+   "filePath": "src/exo/utils/tests/test_async_process.py",
+   "lineRange": [
+    58,
+    61
+   ],
+   "summary": "Function _close_stdio_and_exit in src/exo/utils/tests/test_async_process.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/utils/tests/test_async_process.py:_send_over_mp_channel",
+   "type": "function",
+   "name": "_send_over_mp_channel",
+   "filePath": "src/exo/utils/tests/test_async_process.py",
+   "lineRange": [
+    64,
+    66
+   ],
+   "summary": "Function _send_over_mp_channel in src/exo/utils/tests/test_async_process.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/utils/tests/test_async_process.py:_mlx_force_oom",
+   "type": "function",
+   "name": "_mlx_force_oom",
+   "filePath": "src/exo/utils/tests/test_async_process.py",
+   "lineRange": [
+    69,
+    87
+   ],
+   "summary": "Function _mlx_force_oom in src/exo/utils/tests/test_async_process.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/utils/tests/test_async_process.py:_collect_stream",
+   "type": "function",
+   "name": "_collect_stream",
+   "filePath": "src/exo/utils/tests/test_async_process.py",
+   "lineRange": [
+    90,
+    98
+   ],
+   "summary": "Function _collect_stream in src/exo/utils/tests/test_async_process.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/utils/tests/test_async_process.py:_collect_process_output",
+   "type": "function",
+   "name": "_collect_process_output",
+   "filePath": "src/exo/utils/tests/test_async_process.py",
+   "lineRange": [
+    101,
+    115
+   ],
+   "summary": "Function _collect_process_output in src/exo/utils/tests/test_async_process.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/utils/tests/test_async_process.py:_fd_identity",
+   "type": "function",
+   "name": "_fd_identity",
+   "filePath": "src/exo/utils/tests/test_async_process.py",
+   "lineRange": [
+    118,
+    120
+   ],
+   "summary": "Function _fd_identity in src/exo/utils/tests/test_async_process.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/utils/tests/test_async_process.py:_fd_count",
+   "type": "function",
+   "name": "_fd_count",
+   "filePath": "src/exo/utils/tests/test_async_process.py",
+   "lineRange": [
+    123,
+    127
+   ],
+   "summary": "Function _fd_count in src/exo/utils/tests/test_async_process.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/utils/tests/test_async_process.py:_started_process",
+   "type": "function",
+   "name": "_started_process",
+   "filePath": "src/exo/utils/tests/test_async_process.py",
+   "lineRange": [
+    131,
+    137
+   ],
+   "summary": "Function _started_process in src/exo/utils/tests/test_async_process.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/utils/tests/test_async_process.py:_run_and_collect",
+   "type": "function",
+   "name": "_run_and_collect",
+   "filePath": "src/exo/utils/tests/test_async_process.py",
+   "lineRange": [
+    140,
+    152
+   ],
+   "summary": "Function _run_and_collect in src/exo/utils/tests/test_async_process.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/utils/tests/test_async_process.py:test_spawn_process_captures_stdout_and_stderr_separately",
+   "type": "function",
+   "name": "test_spawn_process_captures_stdout_and_stderr_separately",
+   "filePath": "src/exo/utils/tests/test_async_process.py",
+   "lineRange": [
+    156,
+    177
+   ],
+   "summary": "Function test_spawn_process_captures_stdout_and_stderr_separately in src/exo/utils/tests/test_async_process.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/utils/tests/test_async_process.py:test_process_with_no_target_exits_successfully",
+   "type": "function",
+   "name": "test_process_with_no_target_exits_successfully",
+   "filePath": "src/exo/utils/tests/test_async_process.py",
+   "lineRange": [
+    181,
+    186
+   ],
+   "summary": "Function test_process_with_no_target_exits_successfully in src/exo/utils/tests/test_async_process.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/utils/tests/test_async_process.py:test_output_receivers_and_wait_are_safe_immediately_after_run_starts",
+   "type": "function",
+   "name": "test_output_receivers_and_wait_are_safe_immediately_after_run_starts",
+   "filePath": "src/exo/utils/tests/test_async_process.py",
+   "lineRange": [
+    190,
+    211
+   ],
+   "summary": "Function test_output_receivers_and_wait_are_safe_immediately_after_run_starts in src/exo/utils/tests/test_async_process.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/utils/tests/test_async_process.py:test_stop_before_run_raises",
+   "type": "function",
+   "name": "test_stop_before_run_raises",
+   "filePath": "src/exo/utils/tests/test_async_process.py",
+   "lineRange": [
+    215,
+    224
+   ],
+   "summary": "Function test_stop_before_run_raises in src/exo/utils/tests/test_async_process.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/utils/tests/test_async_process.py:test_process_run_is_one_shot",
+   "type": "function",
+   "name": "test_process_run_is_one_shot",
+   "filePath": "src/exo/utils/tests/test_async_process.py",
+   "lineRange": [
+    228,
+    234
+   ],
+   "summary": "Function test_process_run_is_one_shot in src/exo/utils/tests/test_async_process.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/utils/tests/test_async_process.py:test_stdout_receiver_yields_bytes_chunks",
+   "type": "function",
+   "name": "test_stdout_receiver_yields_bytes_chunks",
+   "filePath": "src/exo/utils/tests/test_async_process.py",
+   "lineRange": [
+    238,
+    247
+   ],
+   "summary": "Function test_stdout_receiver_yields_bytes_chunks in src/exo/utils/tests/test_async_process.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/utils/tests/test_async_process.py:test_output_can_be_read_after_process_exits",
+   "type": "function",
+   "name": "test_output_can_be_read_after_process_exits",
+   "filePath": "src/exo/utils/tests/test_async_process.py",
+   "lineRange": [
+    251,
+    263
+   ],
+   "summary": "Function test_output_can_be_read_after_process_exits in src/exo/utils/tests/test_async_process.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/utils/tests/test_async_process.py:test_large_stdout_and_stderr_are_not_lost",
+   "type": "function",
+   "name": "test_large_stdout_and_stderr_are_not_lost",
+   "filePath": "src/exo/utils/tests/test_async_process.py",
+   "lineRange": [
+    267,
+    276
+   ],
+   "summary": "Function test_large_stdout_and_stderr_are_not_lost in src/exo/utils/tests/test_async_process.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/utils/tests/test_async_process.py:test_child_exception_traceback_is_captured_from_stderr",
+   "type": "function",
+   "name": "test_child_exception_traceback_is_captured_from_stderr",
+   "filePath": "src/exo/utils/tests/test_async_process.py",
+   "lineRange": [
+    280,
+    289
+   ],
+   "summary": "Function test_child_exception_traceback_is_captured_from_stderr in src/exo/utils/tests/test_async_process.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/utils/tests/test_async_process.py:test_repeated_bad_children_do_not_pollute_or_replace_parent_stdio",
+   "type": "function",
+   "name": "test_repeated_bad_children_do_not_pollute_or_replace_parent_stdio",
+   "filePath": "src/exo/utils/tests/test_async_process.py",
+   "lineRange": [
+    293,
+    344
+   ],
+   "summary": "Function test_repeated_bad_children_do_not_pollute_or_replace_parent_stdio in src/exo/utils/tests/test_async_process.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:src/exo/utils/tests/test_async_process.py:test_child_can_close_stdio_without_corrupting_parent_stdio",
+   "type": "function",
+   "name": "test_child_can_close_stdio_without_corrupting_parent_stdio",
+   "filePath": "src/exo/utils/tests/test_async_process.py",
+   "lineRange": [
+    348,
+    365
+   ],
+   "summary": "Function test_child_can_close_stdio_without_corrupting_parent_stdio in src/exo/utils/tests/test_async_process.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/utils/tests/test_async_process.py:test_repeated_crashing_children_do_not_grow_parent_fd_table",
+   "type": "function",
+   "name": "test_repeated_crashing_children_do_not_grow_parent_fd_table",
+   "filePath": "src/exo/utils/tests/test_async_process.py",
+   "lineRange": [
+    369,
+    387
+   ],
+   "summary": "Function test_repeated_crashing_children_do_not_grow_parent_fd_table in src/exo/utils/tests/test_async_process.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/utils/tests/test_async_process.py:test_process_can_use_mp_channel_with_global_spawn_context",
+   "type": "function",
+   "name": "test_process_can_use_mp_channel_with_global_spawn_context",
+   "filePath": "src/exo/utils/tests/test_async_process.py",
+   "lineRange": [
+    391,
+    401
+   ],
+   "summary": "Function test_process_can_use_mp_channel_with_global_spawn_context in src/exo/utils/tests/test_async_process.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/utils/tests/test_async_process.py:test_death",
+   "type": "function",
+   "name": "test_death",
+   "filePath": "src/exo/utils/tests/test_async_process.py",
+   "lineRange": [
+    406,
+    417
+   ],
+   "summary": "Function test_death in src/exo/utils/tests/test_async_process.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/utils/tests/test_channels.py:foo",
+   "type": "function",
+   "name": "foo",
+   "filePath": "src/exo/utils/tests/test_channels.py",
+   "lineRange": [
+    41,
+    45
+   ],
+   "summary": "Function foo in src/exo/utils/tests/test_channels.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/utils/tests/test_channels.py:bar",
+   "type": "function",
+   "name": "bar",
+   "filePath": "src/exo/utils/tests/test_channels.py",
+   "lineRange": [
+    48,
+    58
+   ],
+   "summary": "Function bar in src/exo/utils/tests/test_channels.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/utils/tests/test_channels.py:test_channel_ipc",
+   "type": "function",
+   "name": "test_channel_ipc",
+   "filePath": "src/exo/utils/tests/test_channels.py",
+   "lineRange": [
+    62,
+    70
+   ],
+   "summary": "Function test_channel_ipc in src/exo/utils/tests/test_channels.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/utils/tests/test_channels.py:test_channel_error_override_replaces_sync_errors_with_subclasses",
+   "type": "function",
+   "name": "test_channel_error_override_replaces_sync_errors_with_subclasses",
+   "filePath": "src/exo/utils/tests/test_channels.py",
+   "lineRange": [
+    73,
+    88
+   ],
+   "summary": "Function test_channel_error_override_replaces_sync_errors_with_subclasses in src/exo/utils/tests/test_channels.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/utils/tests/test_channels.py:test_channel_error_override_replaces_async_errors_with_subclasses",
+   "type": "function",
+   "name": "test_channel_error_override_replaces_async_errors_with_subclasses",
+   "filePath": "src/exo/utils/tests/test_channels.py",
+   "lineRange": [
+    92,
+    104
+   ],
+   "summary": "Function test_channel_error_override_replaces_async_errors_with_subclasses in src/exo/utils/tests/test_channels.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/utils/tests/test_channels.py:test_channel_error_override_is_preserved_by_clones",
+   "type": "function",
+   "name": "test_channel_error_override_is_preserved_by_clones",
+   "filePath": "src/exo/utils/tests/test_channels.py",
+   "lineRange": [
+    108,
+    121
+   ],
+   "summary": "Function test_channel_error_override_is_preserved_by_clones in src/exo/utils/tests/test_channels.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/utils/tests/test_channels.py:CustomClosedResourceError",
+   "type": "class",
+   "name": "CustomClosedResourceError",
+   "filePath": "src/exo/utils/tests/test_channels.py",
+   "lineRange": [
+    17,
+    18
+   ],
+   "summary": "Class CustomClosedResourceError in src/exo/utils/tests/test_channels.py.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/utils/tests/test_channels.py:CustomBrokenResourceError",
+   "type": "class",
+   "name": "CustomBrokenResourceError",
+   "filePath": "src/exo/utils/tests/test_channels.py",
+   "lineRange": [
+    21,
+    22
+   ],
+   "summary": "Class CustomBrokenResourceError in src/exo/utils/tests/test_channels.py.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/utils/tests/test_channels.py:CustomEndOfStream",
+   "type": "class",
+   "name": "CustomEndOfStream",
+   "filePath": "src/exo/utils/tests/test_channels.py",
+   "lineRange": [
+    25,
+    26
+   ],
+   "summary": "Class CustomEndOfStream in src/exo/utils/tests/test_channels.py.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/utils/tests/test_channels.py:CustomWouldBlock",
+   "type": "class",
+   "name": "CustomWouldBlock",
+   "filePath": "src/exo/utils/tests/test_channels.py",
+   "lineRange": [
+    29,
+    30
+   ],
+   "summary": "Class CustomWouldBlock in src/exo/utils/tests/test_channels.py.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/utils/tests/test_event_log.py:log_dir",
+   "type": "function",
+   "name": "log_dir",
+   "filePath": "src/exo/utils/tests/test_event_log.py",
+   "lineRange": [
+    10,
+    11
+   ],
+   "summary": "Function log_dir in src/exo/utils/tests/test_event_log.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/utils/tests/test_event_log.py:test_append_and_read_back",
+   "type": "function",
+   "name": "test_append_and_read_back",
+   "filePath": "src/exo/utils/tests/test_event_log.py",
+   "lineRange": [
+    14,
+    27
+   ],
+   "summary": "Function test_append_and_read_back in src/exo/utils/tests/test_event_log.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/utils/tests/test_event_log.py:test_read_range",
+   "type": "function",
+   "name": "test_read_range",
+   "filePath": "src/exo/utils/tests/test_event_log.py",
+   "lineRange": [
+    30,
+    41
+   ],
+   "summary": "Function test_read_range in src/exo/utils/tests/test_event_log.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/utils/tests/test_event_log.py:test_read_range_bounds",
+   "type": "function",
+   "name": "test_read_range_bounds",
+   "filePath": "src/exo/utils/tests/test_event_log.py",
+   "lineRange": [
+    44,
+    58
+   ],
+   "summary": "Function test_read_range_bounds in src/exo/utils/tests/test_event_log.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/utils/tests/test_event_log.py:test_empty_log",
+   "type": "function",
+   "name": "test_empty_log",
+   "filePath": "src/exo/utils/tests/test_event_log.py",
+   "lineRange": [
+    61,
+    66
+   ],
+   "summary": "Function test_empty_log in src/exo/utils/tests/test_event_log.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/utils/tests/test_event_log.py:_archives",
+   "type": "function",
+   "name": "_archives",
+   "filePath": "src/exo/utils/tests/test_event_log.py",
+   "lineRange": [
+    69,
+    70
+   ],
+   "summary": "Function _archives in src/exo/utils/tests/test_event_log.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/utils/tests/test_event_log.py:test_rotation_on_close",
+   "type": "function",
+   "name": "test_rotation_on_close",
+   "filePath": "src/exo/utils/tests/test_event_log.py",
+   "lineRange": [
+    73,
+    83
+   ],
+   "summary": "Function test_rotation_on_close in src/exo/utils/tests/test_event_log.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/utils/tests/test_event_log.py:test_rotation_on_construction_with_stale_file",
+   "type": "function",
+   "name": "test_rotation_on_construction_with_stale_file",
+   "filePath": "src/exo/utils/tests/test_event_log.py",
+   "lineRange": [
+    86,
+    96
+   ],
+   "summary": "Function test_rotation_on_construction_with_stale_file in src/exo/utils/tests/test_event_log.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/utils/tests/test_event_log.py:test_empty_log_no_archive",
+   "type": "function",
+   "name": "test_empty_log_no_archive",
+   "filePath": "src/exo/utils/tests/test_event_log.py",
+   "lineRange": [
+    99,
+    107
+   ],
+   "summary": "Function test_empty_log_no_archive in src/exo/utils/tests/test_event_log.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/utils/tests/test_event_log.py:test_close_is_idempotent",
+   "type": "function",
+   "name": "test_close_is_idempotent",
+   "filePath": "src/exo/utils/tests/test_event_log.py",
+   "lineRange": [
+    110,
+    117
+   ],
+   "summary": "Function test_close_is_idempotent in src/exo/utils/tests/test_event_log.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/utils/tests/test_event_log.py:test_successive_sessions",
+   "type": "function",
+   "name": "test_successive_sessions",
+   "filePath": "src/exo/utils/tests/test_event_log.py",
+   "lineRange": [
+    120,
+    140
+   ],
+   "summary": "Function test_successive_sessions in src/exo/utils/tests/test_event_log.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/utils/tests/test_event_log.py:test_rotation_keeps_at_most_5_archives",
+   "type": "function",
+   "name": "test_rotation_keeps_at_most_5_archives",
+   "filePath": "src/exo/utils/tests/test_event_log.py",
+   "lineRange": [
+    143,
+    155
+   ],
+   "summary": "Function test_rotation_keeps_at_most_5_archives in src/exo/utils/tests/test_event_log.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/utils/tests/test_tagged.py:test_plain_union_prefers_first_member_when_shapes_are_identical",
+   "type": "function",
+   "name": "test_plain_union_prefers_first_member_when_shapes_are_identical",
+   "filePath": "src/exo/utils/tests/test_tagged.py",
+   "lineRange": [
+    8,
+    20
+   ],
+   "summary": "Function test_plain_union_prefers_first_member_when_shapes_are_identical in src/exo/utils/tests/test_tagged.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/utils/tests/test_tagged.py:test_tagged_union_serializes_and_deserializes_two_identical_shapes_correctly",
+   "type": "function",
+   "name": "test_tagged_union_serializes_and_deserializes_two_identical_shapes_correctly",
+   "filePath": "src/exo/utils/tests/test_tagged.py",
+   "lineRange": [
+    23,
+    43
+   ],
+   "summary": "Function test_tagged_union_serializes_and_deserializes_two_identical_shapes_correctly in src/exo/utils/tests/test_tagged.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/utils/tests/test_tagged.py:test_tagged_union_rejects_unknown_tag",
+   "type": "function",
+   "name": "test_tagged_union_rejects_unknown_tag",
+   "filePath": "src/exo/utils/tests/test_tagged.py",
+   "lineRange": [
+    46,
+    55
+   ],
+   "summary": "Function test_tagged_union_rejects_unknown_tag in src/exo/utils/tests/test_tagged.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/utils/tests/test_tagged.py:test_two_tagged_classes_with_different_shapes_are_independent_and_not_cross_deserializable",
+   "type": "function",
+   "name": "test_two_tagged_classes_with_different_shapes_are_independent_and_not_cross_deserializable",
+   "filePath": "src/exo/utils/tests/test_tagged.py",
+   "lineRange": [
+    58,
+    84
+   ],
+   "summary": "Function test_two_tagged_classes_with_different_shapes_are_independent_and_not_cross_deserializable in src/exo/utils/tests/test_tagged.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/utils/tests/test_tagged.py:test_single_level_tagging",
+   "type": "function",
+   "name": "test_single_level_tagging",
+   "filePath": "src/exo/utils/tests/test_tagged.py",
+   "lineRange": [
+    105,
+    112
+   ],
+   "summary": "Function test_single_level_tagging in src/exo/utils/tests/test_tagged.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/utils/tests/test_tagged.py:test_nested_externally_tagged_union_serializes_recursively",
+   "type": "function",
+   "name": "test_nested_externally_tagged_union_serializes_recursively",
+   "filePath": "src/exo/utils/tests/test_tagged.py",
+   "lineRange": [
+    115,
+    123
+   ],
+   "summary": "Function test_nested_externally_tagged_union_serializes_recursively in src/exo/utils/tests/test_tagged.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/utils/tests/test_tagged.py:test_two_level_nested_tagging",
+   "type": "function",
+   "name": "test_two_level_nested_tagging",
+   "filePath": "src/exo/utils/tests/test_tagged.py",
+   "lineRange": [
+    126,
+    133
+   ],
+   "summary": "Function test_two_level_nested_tagging in src/exo/utils/tests/test_tagged.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/utils/tests/test_tagged.py:test_three_level_nested_tagging",
+   "type": "function",
+   "name": "test_three_level_nested_tagging",
+   "filePath": "src/exo/utils/tests/test_tagged.py",
+   "lineRange": [
+    136,
+    150
+   ],
+   "summary": "Function test_three_level_nested_tagging in src/exo/utils/tests/test_tagged.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/utils/tests/test_tagged.py:test_lists_and_mixed_nested_structures",
+   "type": "function",
+   "name": "test_lists_and_mixed_nested_structures",
+   "filePath": "src/exo/utils/tests/test_tagged.py",
+   "lineRange": [
+    153,
+    177
+   ],
+   "summary": "Function test_lists_and_mixed_nested_structures in src/exo/utils/tests/test_tagged.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/utils/tests/test_tagged.py:test_no_double_tagging_on_repeated_calls",
+   "type": "function",
+   "name": "test_no_double_tagging_on_repeated_calls",
+   "filePath": "src/exo/utils/tests/test_tagged.py",
+   "lineRange": [
+    180,
+    190
+   ],
+   "summary": "Function test_no_double_tagging_on_repeated_calls in src/exo/utils/tests/test_tagged.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/utils/tests/test_tagged.py:test_tagged_union_is_fast",
+   "type": "function",
+   "name": "test_tagged_union_is_fast",
+   "filePath": "src/exo/utils/tests/test_tagged.py",
+   "lineRange": [
+    239,
+    250
+   ],
+   "summary": "Function test_tagged_union_is_fast in src/exo/utils/tests/test_tagged.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/utils/tests/test_tagged.py:Inner",
+   "type": "class",
+   "name": "Inner",
+   "filePath": "src/exo/utils/tests/test_tagged.py",
+   "lineRange": [
+    87,
+    88
+   ],
+   "summary": "Class Inner in src/exo/utils/tests/test_tagged.py.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/utils/tests/test_tagged.py:Outer",
+   "type": "class",
+   "name": "Outer",
+   "filePath": "src/exo/utils/tests/test_tagged.py",
+   "lineRange": [
+    91,
+    92
+   ],
+   "summary": "Class Outer in src/exo/utils/tests/test_tagged.py.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/utils/tests/test_tagged.py:Wrapper",
+   "type": "class",
+   "name": "Wrapper",
+   "filePath": "src/exo/utils/tests/test_tagged.py",
+   "lineRange": [
+    95,
+    97
+   ],
+   "summary": "Class Wrapper in src/exo/utils/tests/test_tagged.py.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/utils/tests/test_tagged.py:Container",
+   "type": "class",
+   "name": "Container",
+   "filePath": "src/exo/utils/tests/test_tagged.py",
+   "lineRange": [
+    100,
+    102
+   ],
+   "summary": "Class Container in src/exo/utils/tests/test_tagged.py.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/utils/tests/test_tagged.py:L3A",
+   "type": "class",
+   "name": "L3A",
+   "filePath": "src/exo/utils/tests/test_tagged.py",
+   "lineRange": [
+    193,
+    194
+   ],
+   "summary": "Class L3A in src/exo/utils/tests/test_tagged.py.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/utils/tests/test_tagged.py:L3B",
+   "type": "class",
+   "name": "L3B",
+   "filePath": "src/exo/utils/tests/test_tagged.py",
+   "lineRange": [
+    197,
+    198
+   ],
+   "summary": "Class L3B in src/exo/utils/tests/test_tagged.py.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/utils/tests/test_tagged.py:L3C",
+   "type": "class",
+   "name": "L3C",
+   "filePath": "src/exo/utils/tests/test_tagged.py",
+   "lineRange": [
+    201,
+    202
+   ],
+   "summary": "Class L3C in src/exo/utils/tests/test_tagged.py.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/utils/tests/test_tagged.py:L2A",
+   "type": "class",
+   "name": "L2A",
+   "filePath": "src/exo/utils/tests/test_tagged.py",
+   "lineRange": [
+    208,
+    209
+   ],
+   "summary": "Class L2A in src/exo/utils/tests/test_tagged.py.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/utils/tests/test_tagged.py:L2B",
+   "type": "class",
+   "name": "L2B",
+   "filePath": "src/exo/utils/tests/test_tagged.py",
+   "lineRange": [
+    212,
+    213
+   ],
+   "summary": "Class L2B in src/exo/utils/tests/test_tagged.py.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/utils/tests/test_tagged.py:L2C",
+   "type": "class",
+   "name": "L2C",
+   "filePath": "src/exo/utils/tests/test_tagged.py",
+   "lineRange": [
+    216,
+    217
+   ],
+   "summary": "Class L2C in src/exo/utils/tests/test_tagged.py.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/utils/tests/test_tagged.py:L1A",
+   "type": "class",
+   "name": "L1A",
+   "filePath": "src/exo/utils/tests/test_tagged.py",
+   "lineRange": [
+    223,
+    224
+   ],
+   "summary": "Class L1A in src/exo/utils/tests/test_tagged.py.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/utils/tests/test_tagged.py:L1B",
+   "type": "class",
+   "name": "L1B",
+   "filePath": "src/exo/utils/tests/test_tagged.py",
+   "lineRange": [
+    227,
+    228
+   ],
+   "summary": "Class L1B in src/exo/utils/tests/test_tagged.py.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/utils/tests/test_tagged.py:L1C",
+   "type": "class",
+   "name": "L1C",
+   "filePath": "src/exo/utils/tests/test_tagged.py",
+   "lineRange": [
+    231,
+    232
+   ],
+   "summary": "Class L1C in src/exo/utils/tests/test_tagged.py.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  }
+ ],
+ "edges": [
+  {
+   "source": "file:src/exo/__main__.py",
+   "target": "function:src/exo/__main__.py:_maybe_run_inline_code",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/__main__.py",
+   "target": "function:src/exo/__main__.py:_maybe_run_inline_code",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/main.py",
+   "target": "function:src/exo/main.py:main",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/main.py",
+   "target": "function:src/exo/main.py:main",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/main.py",
+   "target": "function:src/exo/main.py:main_inner",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/main.py",
+   "target": "function:src/exo/main.py:main_inner",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/main.py",
+   "target": "class:src/exo/main.py:Node",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/main.py",
+   "target": "class:src/exo/main.py:Node",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/main.py",
+   "target": "class:src/exo/main.py:Args",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/main.py",
+   "target": "class:src/exo/main.py:Args",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/master/main.py",
+   "target": "function:src/exo/master/main.py:_prefill_endpoint_for",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/master/main.py",
+   "target": "function:src/exo/master/main.py:_prefill_endpoint_for",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/master/main.py",
+   "target": "class:src/exo/master/main.py:Master",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/master/main.py",
+   "target": "class:src/exo/master/main.py:Master",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/routing/connection_message.py",
+   "target": "class:src/exo/routing/connection_message.py:ConnectionMessage",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/routing/connection_message.py",
+   "target": "class:src/exo/routing/connection_message.py:ConnectionMessage",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/routing/event_router.py",
+   "target": "class:src/exo/routing/event_router.py:EventRouterClosedResourceError",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/routing/event_router.py",
+   "target": "class:src/exo/routing/event_router.py:EventRouterClosedResourceError",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/routing/event_router.py",
+   "target": "class:src/exo/routing/event_router.py:EventRouterBrokenResourceError",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/routing/event_router.py",
+   "target": "class:src/exo/routing/event_router.py:EventRouterBrokenResourceError",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/routing/event_router.py",
+   "target": "class:src/exo/routing/event_router.py:EventRouter",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/routing/event_router.py",
+   "target": "class:src/exo/routing/event_router.py:EventRouter",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/routing/router.py",
+   "target": "function:src/exo/routing/router.py:get_node_zid",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/routing/router.py",
+   "target": "function:src/exo/routing/router.py:get_node_zid",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/routing/router.py",
+   "target": "class:src/exo/routing/router.py:TopicRouter",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/routing/router.py",
+   "target": "class:src/exo/routing/router.py:TopicRouter",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/routing/router.py",
+   "target": "class:src/exo/routing/router.py:Router",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/routing/router.py",
+   "target": "class:src/exo/routing/router.py:Router",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/routing/tests/test_event_buffer.py",
+   "target": "function:src/exo/routing/tests/test_event_buffer.py:make_indexed_event",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/routing/tests/test_event_buffer.py",
+   "target": "function:src/exo/routing/tests/test_event_buffer.py:make_indexed_event",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/routing/tests/test_event_buffer.py",
+   "target": "function:src/exo/routing/tests/test_event_buffer.py:buffer",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/routing/tests/test_event_buffer.py",
+   "target": "function:src/exo/routing/tests/test_event_buffer.py:buffer",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/routing/tests/test_event_buffer.py",
+   "target": "function:src/exo/routing/tests/test_event_buffer.py:test_initial_state",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/routing/tests/test_event_buffer.py",
+   "target": "function:src/exo/routing/tests/test_event_buffer.py:test_initial_state",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/routing/tests/test_event_buffer.py",
+   "target": "function:src/exo/routing/tests/test_event_buffer.py:test_ingest_and_drain_sequential_events",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/routing/tests/test_event_buffer.py",
+   "target": "function:src/exo/routing/tests/test_event_buffer.py:test_ingest_and_drain_sequential_events",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/routing/tests/test_event_buffer.py",
+   "target": "function:src/exo/routing/tests/test_event_buffer.py:test_ingest_out_of_order_events",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/routing/tests/test_event_buffer.py",
+   "target": "function:src/exo/routing/tests/test_event_buffer.py:test_ingest_out_of_order_events",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/routing/tests/test_event_buffer.py",
+   "target": "function:src/exo/routing/tests/test_event_buffer.py:test_drain_with_gap_in_sequence",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/routing/tests/test_event_buffer.py",
+   "target": "function:src/exo/routing/tests/test_event_buffer.py:test_drain_with_gap_in_sequence",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/routing/tests/test_event_buffer.py",
+   "target": "function:src/exo/routing/tests/test_event_buffer.py:test_fill_gap_and_drain_remaining",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/routing/tests/test_event_buffer.py",
+   "target": "function:src/exo/routing/tests/test_event_buffer.py:test_fill_gap_and_drain_remaining",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/routing/tests/test_event_buffer.py",
+   "target": "function:src/exo/routing/tests/test_event_buffer.py:test_ingest_drops_duplicate_indices",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/routing/tests/test_event_buffer.py",
+   "target": "function:src/exo/routing/tests/test_event_buffer.py:test_ingest_drops_duplicate_indices",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/routing/tests/test_event_buffer.py",
+   "target": "function:src/exo/routing/tests/test_event_buffer.py:test_ingest_drops_stale_events",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/routing/tests/test_event_buffer.py",
+   "target": "function:src/exo/routing/tests/test_event_buffer.py:test_ingest_drops_stale_events",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/routing/tests/test_event_buffer.py",
+   "target": "function:src/exo/routing/tests/test_event_buffer.py:test_drain_and_ingest_with_new_sequence",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/routing/tests/test_event_buffer.py",
+   "target": "function:src/exo/routing/tests/test_event_buffer.py:test_drain_and_ingest_with_new_sequence",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/routing/topics.py",
+   "target": "class:src/exo/routing/topics.py:PublishPolicy",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/routing/topics.py",
+   "target": "class:src/exo/routing/topics.py:PublishPolicy",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/routing/topics.py",
+   "target": "class:src/exo/routing/topics.py:TypedTopic",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/routing/topics.py",
+   "target": "class:src/exo/routing/topics.py:TypedTopic",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/shared/election.py",
+   "target": "class:src/exo/shared/election.py:ElectionMessage",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/shared/election.py",
+   "target": "class:src/exo/shared/election.py:ElectionMessage",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/shared/election.py",
+   "target": "class:src/exo/shared/election.py:ElectionResult",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/shared/election.py",
+   "target": "class:src/exo/shared/election.py:ElectionResult",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/shared/election.py",
+   "target": "class:src/exo/shared/election.py:Election",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/shared/election.py",
+   "target": "class:src/exo/shared/election.py:Election",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/shared/tests/test_election.py",
+   "target": "function:src/exo/shared/tests/test_election.py:em",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/shared/tests/test_election.py",
+   "target": "function:src/exo/shared/tests/test_election.py:em",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/shared/tests/test_election.py",
+   "target": "function:src/exo/shared/tests/test_election.py:fast_election_timeout",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/shared/tests/test_election.py",
+   "target": "function:src/exo/shared/tests/test_election.py:fast_election_timeout",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/shared/tests/test_election.py",
+   "target": "function:src/exo/shared/tests/test_election.py:test_single_round_broadcasts_and_updates_seniority_on_self_win",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/shared/tests/test_election.py",
+   "target": "function:src/exo/shared/tests/test_election.py:test_single_round_broadcasts_and_updates_seniority_on_self_win",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/shared/tests/test_election.py",
+   "target": "function:src/exo/shared/tests/test_election.py:test_peer_with_higher_seniority_wins_and_we_switch_master",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/shared/tests/test_election.py",
+   "target": "function:src/exo/shared/tests/test_election.py:test_peer_with_higher_seniority_wins_and_we_switch_master",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/shared/tests/test_election.py",
+   "target": "function:src/exo/shared/tests/test_election.py:test_ignores_older_messages",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/shared/tests/test_election.py",
+   "target": "function:src/exo/shared/tests/test_election.py:test_ignores_older_messages",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/shared/tests/test_election.py",
+   "target": "function:src/exo/shared/tests/test_election.py:test_two_rounds_emit_two_broadcasts_and_increment_clock",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/shared/tests/test_election.py",
+   "target": "function:src/exo/shared/tests/test_election.py:test_two_rounds_emit_two_broadcasts_and_increment_clock",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/shared/tests/test_election.py",
+   "target": "function:src/exo/shared/tests/test_election.py:test_promotion_new_seniority_counts_participants",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/shared/tests/test_election.py",
+   "target": "function:src/exo/shared/tests/test_election.py:test_promotion_new_seniority_counts_participants",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/shared/tests/test_election.py",
+   "target": "function:src/exo/shared/tests/test_election.py:test_connection_message_triggers_new_round_broadcast",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/shared/tests/test_election.py",
+   "target": "function:src/exo/shared/tests/test_election.py:test_connection_message_triggers_new_round_broadcast",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/shared/tests/test_election.py",
+   "target": "function:src/exo/shared/tests/test_election.py:test_tie_breaker_prefers_node_with_more_commands_seen",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/shared/tests/test_election.py",
+   "target": "function:src/exo/shared/tests/test_election.py:test_tie_breaker_prefers_node_with_more_commands_seen",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/utils/__init__.py",
+   "target": "function:src/exo/utils/__init__.py:ensure_type",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/utils/__init__.py",
+   "target": "function:src/exo/utils/__init__.py:ensure_type",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/utils/__init__.py",
+   "target": "function:src/exo/utils/__init__.py:todo",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/utils/__init__.py",
+   "target": "function:src/exo/utils/__init__.py:todo",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/utils/async_process.py",
+   "target": "function:src/exo/utils/async_process.py:_run_with_captured_stdio",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/utils/async_process.py",
+   "target": "function:src/exo/utils/async_process.py:_run_with_captured_stdio",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/utils/async_process.py",
+   "target": "function:src/exo/utils/async_process.py:_drain_fd",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/utils/async_process.py",
+   "target": "function:src/exo/utils/async_process.py:_drain_fd",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/utils/async_process.py",
+   "target": "function:src/exo/utils/async_process.py:_close_fd",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/utils/async_process.py",
+   "target": "function:src/exo/utils/async_process.py:_close_fd",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/utils/async_process.py",
+   "target": "class:src/exo/utils/async_process.py:AsyncProcess",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/utils/async_process.py",
+   "target": "class:src/exo/utils/async_process.py:AsyncProcess",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/utils/channels.py",
+   "target": "class:src/exo/utils/channels.py:ErrorOverride",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/utils/channels.py",
+   "target": "class:src/exo/utils/channels.py:ErrorOverride",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/utils/channels.py",
+   "target": "class:src/exo/utils/channels.py:Sender",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/utils/channels.py",
+   "target": "class:src/exo/utils/channels.py:Sender",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/utils/channels.py",
+   "target": "class:src/exo/utils/channels.py:Receiver",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/utils/channels.py",
+   "target": "class:src/exo/utils/channels.py:Receiver",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/utils/channels.py",
+   "target": "class:src/exo/utils/channels.py:_MpEndOfStream",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/utils/channels.py",
+   "target": "class:src/exo/utils/channels.py:_MpEndOfStream",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/utils/channels.py",
+   "target": "class:src/exo/utils/channels.py:MpState",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/utils/channels.py",
+   "target": "class:src/exo/utils/channels.py:MpState",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/utils/channels.py",
+   "target": "class:src/exo/utils/channels.py:MpSender",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/utils/channels.py",
+   "target": "class:src/exo/utils/channels.py:MpSender",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/utils/channels.py",
+   "target": "class:src/exo/utils/channels.py:MpReceiver",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/utils/channels.py",
+   "target": "class:src/exo/utils/channels.py:MpReceiver",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/utils/channels.py",
+   "target": "class:src/exo/utils/channels.py:channel",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/utils/channels.py",
+   "target": "class:src/exo/utils/channels.py:channel",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/utils/channels.py",
+   "target": "class:src/exo/utils/channels.py:mp_channel",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/utils/channels.py",
+   "target": "class:src/exo/utils/channels.py:mp_channel",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/utils/disk_event_log.py",
+   "target": "function:src/exo/utils/disk_event_log.py:_serialize_event",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/utils/disk_event_log.py",
+   "target": "function:src/exo/utils/disk_event_log.py:_serialize_event",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/utils/disk_event_log.py",
+   "target": "function:src/exo/utils/disk_event_log.py:_deserialize_event",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/utils/disk_event_log.py",
+   "target": "function:src/exo/utils/disk_event_log.py:_deserialize_event",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/utils/disk_event_log.py",
+   "target": "function:src/exo/utils/disk_event_log.py:_unpack_header",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/utils/disk_event_log.py",
+   "target": "function:src/exo/utils/disk_event_log.py:_unpack_header",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/utils/disk_event_log.py",
+   "target": "function:src/exo/utils/disk_event_log.py:_skip_record",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/utils/disk_event_log.py",
+   "target": "function:src/exo/utils/disk_event_log.py:_skip_record",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/utils/disk_event_log.py",
+   "target": "function:src/exo/utils/disk_event_log.py:_read_record",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/utils/disk_event_log.py",
+   "target": "function:src/exo/utils/disk_event_log.py:_read_record",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/utils/disk_event_log.py",
+   "target": "class:src/exo/utils/disk_event_log.py:DiskEventLog",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/utils/disk_event_log.py",
+   "target": "class:src/exo/utils/disk_event_log.py:DiskEventLog",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/utils/event_buffer.py",
+   "target": "class:src/exo/utils/event_buffer.py:OrderedBuffer",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/utils/event_buffer.py",
+   "target": "class:src/exo/utils/event_buffer.py:OrderedBuffer",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/utils/event_buffer.py",
+   "target": "class:src/exo/utils/event_buffer.py:MultiSourceBuffer",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/utils/event_buffer.py",
+   "target": "class:src/exo/utils/event_buffer.py:MultiSourceBuffer",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/utils/phantom.py",
+   "target": "class:src/exo/utils/phantom.py:_PhantomData",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/utils/phantom.py",
+   "target": "class:src/exo/utils/phantom.py:_PhantomData",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/utils/pydantic_ext.py",
+   "target": "class:src/exo/utils/pydantic_ext.py:FrozenModel",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/utils/pydantic_ext.py",
+   "target": "class:src/exo/utils/pydantic_ext.py:FrozenModel",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/utils/pydantic_ext.py",
+   "target": "class:src/exo/utils/pydantic_ext.py:TaggedModel",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/utils/pydantic_ext.py",
+   "target": "class:src/exo/utils/pydantic_ext.py:TaggedModel",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/utils/task_group.py",
+   "target": "class:src/exo/utils/task_group.py:TaskGroup",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/utils/task_group.py",
+   "target": "class:src/exo/utils/task_group.py:TaskGroup",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_async_process.py",
+   "target": "function:src/exo/utils/tests/test_async_process.py:_write_to_stdio",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_async_process.py",
+   "target": "function:src/exo/utils/tests/test_async_process.py:_write_to_stdio",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_async_process.py",
+   "target": "function:src/exo/utils/tests/test_async_process.py:_write_large_output",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_async_process.py",
+   "target": "function:src/exo/utils/tests/test_async_process.py:_write_large_output",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_async_process.py",
+   "target": "function:src/exo/utils/tests/test_async_process.py:_write_all",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_async_process.py",
+   "target": "function:src/exo/utils/tests/test_async_process.py:_write_all",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_async_process.py",
+   "target": "function:src/exo/utils/tests/test_async_process.py:_write_large_exact_output",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_async_process.py",
+   "target": "function:src/exo/utils/tests/test_async_process.py:_write_large_exact_output",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_async_process.py",
+   "target": "function:src/exo/utils/tests/test_async_process.py:_raise_after_stderr_write",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_async_process.py",
+   "target": "function:src/exo/utils/tests/test_async_process.py:_raise_after_stderr_write",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_async_process.py",
+   "target": "function:src/exo/utils/tests/test_async_process.py:_exit_after_stdio_write",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_async_process.py",
+   "target": "function:src/exo/utils/tests/test_async_process.py:_exit_after_stdio_write",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_async_process.py",
+   "target": "function:src/exo/utils/tests/test_async_process.py:_abort_after_stdio_write",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_async_process.py",
+   "target": "function:src/exo/utils/tests/test_async_process.py:_abort_after_stdio_write",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_async_process.py",
+   "target": "function:src/exo/utils/tests/test_async_process.py:_close_stdio_and_exit",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_async_process.py",
+   "target": "function:src/exo/utils/tests/test_async_process.py:_close_stdio_and_exit",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_async_process.py",
+   "target": "function:src/exo/utils/tests/test_async_process.py:_send_over_mp_channel",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_async_process.py",
+   "target": "function:src/exo/utils/tests/test_async_process.py:_send_over_mp_channel",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_async_process.py",
+   "target": "function:src/exo/utils/tests/test_async_process.py:_mlx_force_oom",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_async_process.py",
+   "target": "function:src/exo/utils/tests/test_async_process.py:_mlx_force_oom",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_async_process.py",
+   "target": "function:src/exo/utils/tests/test_async_process.py:_collect_stream",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_async_process.py",
+   "target": "function:src/exo/utils/tests/test_async_process.py:_collect_stream",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_async_process.py",
+   "target": "function:src/exo/utils/tests/test_async_process.py:_collect_process_output",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_async_process.py",
+   "target": "function:src/exo/utils/tests/test_async_process.py:_collect_process_output",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_async_process.py",
+   "target": "function:src/exo/utils/tests/test_async_process.py:_fd_identity",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_async_process.py",
+   "target": "function:src/exo/utils/tests/test_async_process.py:_fd_identity",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_async_process.py",
+   "target": "function:src/exo/utils/tests/test_async_process.py:_fd_count",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_async_process.py",
+   "target": "function:src/exo/utils/tests/test_async_process.py:_fd_count",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_async_process.py",
+   "target": "function:src/exo/utils/tests/test_async_process.py:_started_process",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_async_process.py",
+   "target": "function:src/exo/utils/tests/test_async_process.py:_started_process",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_async_process.py",
+   "target": "function:src/exo/utils/tests/test_async_process.py:_run_and_collect",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_async_process.py",
+   "target": "function:src/exo/utils/tests/test_async_process.py:_run_and_collect",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_async_process.py",
+   "target": "function:src/exo/utils/tests/test_async_process.py:test_spawn_process_captures_stdout_and_stderr_separately",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_async_process.py",
+   "target": "function:src/exo/utils/tests/test_async_process.py:test_spawn_process_captures_stdout_and_stderr_separately",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_async_process.py",
+   "target": "function:src/exo/utils/tests/test_async_process.py:test_process_with_no_target_exits_successfully",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_async_process.py",
+   "target": "function:src/exo/utils/tests/test_async_process.py:test_process_with_no_target_exits_successfully",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_async_process.py",
+   "target": "function:src/exo/utils/tests/test_async_process.py:test_output_receivers_and_wait_are_safe_immediately_after_run_starts",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_async_process.py",
+   "target": "function:src/exo/utils/tests/test_async_process.py:test_output_receivers_and_wait_are_safe_immediately_after_run_starts",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_async_process.py",
+   "target": "function:src/exo/utils/tests/test_async_process.py:test_stop_before_run_raises",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_async_process.py",
+   "target": "function:src/exo/utils/tests/test_async_process.py:test_stop_before_run_raises",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_async_process.py",
+   "target": "function:src/exo/utils/tests/test_async_process.py:test_process_run_is_one_shot",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_async_process.py",
+   "target": "function:src/exo/utils/tests/test_async_process.py:test_process_run_is_one_shot",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_async_process.py",
+   "target": "function:src/exo/utils/tests/test_async_process.py:test_stdout_receiver_yields_bytes_chunks",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_async_process.py",
+   "target": "function:src/exo/utils/tests/test_async_process.py:test_stdout_receiver_yields_bytes_chunks",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_async_process.py",
+   "target": "function:src/exo/utils/tests/test_async_process.py:test_output_can_be_read_after_process_exits",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_async_process.py",
+   "target": "function:src/exo/utils/tests/test_async_process.py:test_output_can_be_read_after_process_exits",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_async_process.py",
+   "target": "function:src/exo/utils/tests/test_async_process.py:test_large_stdout_and_stderr_are_not_lost",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_async_process.py",
+   "target": "function:src/exo/utils/tests/test_async_process.py:test_large_stdout_and_stderr_are_not_lost",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_async_process.py",
+   "target": "function:src/exo/utils/tests/test_async_process.py:test_child_exception_traceback_is_captured_from_stderr",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_async_process.py",
+   "target": "function:src/exo/utils/tests/test_async_process.py:test_child_exception_traceback_is_captured_from_stderr",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_async_process.py",
+   "target": "function:src/exo/utils/tests/test_async_process.py:test_repeated_bad_children_do_not_pollute_or_replace_parent_stdio",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_async_process.py",
+   "target": "function:src/exo/utils/tests/test_async_process.py:test_repeated_bad_children_do_not_pollute_or_replace_parent_stdio",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_async_process.py",
+   "target": "function:src/exo/utils/tests/test_async_process.py:test_child_can_close_stdio_without_corrupting_parent_stdio",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_async_process.py",
+   "target": "function:src/exo/utils/tests/test_async_process.py:test_child_can_close_stdio_without_corrupting_parent_stdio",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_async_process.py",
+   "target": "function:src/exo/utils/tests/test_async_process.py:test_repeated_crashing_children_do_not_grow_parent_fd_table",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_async_process.py",
+   "target": "function:src/exo/utils/tests/test_async_process.py:test_repeated_crashing_children_do_not_grow_parent_fd_table",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_async_process.py",
+   "target": "function:src/exo/utils/tests/test_async_process.py:test_process_can_use_mp_channel_with_global_spawn_context",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_async_process.py",
+   "target": "function:src/exo/utils/tests/test_async_process.py:test_process_can_use_mp_channel_with_global_spawn_context",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_async_process.py",
+   "target": "function:src/exo/utils/tests/test_async_process.py:test_death",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_async_process.py",
+   "target": "function:src/exo/utils/tests/test_async_process.py:test_death",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_channels.py",
+   "target": "function:src/exo/utils/tests/test_channels.py:foo",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_channels.py",
+   "target": "function:src/exo/utils/tests/test_channels.py:foo",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_channels.py",
+   "target": "function:src/exo/utils/tests/test_channels.py:bar",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_channels.py",
+   "target": "function:src/exo/utils/tests/test_channels.py:bar",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_channels.py",
+   "target": "function:src/exo/utils/tests/test_channels.py:test_channel_ipc",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_channels.py",
+   "target": "function:src/exo/utils/tests/test_channels.py:test_channel_ipc",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_channels.py",
+   "target": "function:src/exo/utils/tests/test_channels.py:test_channel_error_override_replaces_sync_errors_with_subclasses",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_channels.py",
+   "target": "function:src/exo/utils/tests/test_channels.py:test_channel_error_override_replaces_sync_errors_with_subclasses",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_channels.py",
+   "target": "function:src/exo/utils/tests/test_channels.py:test_channel_error_override_replaces_async_errors_with_subclasses",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_channels.py",
+   "target": "function:src/exo/utils/tests/test_channels.py:test_channel_error_override_replaces_async_errors_with_subclasses",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_channels.py",
+   "target": "function:src/exo/utils/tests/test_channels.py:test_channel_error_override_is_preserved_by_clones",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_channels.py",
+   "target": "function:src/exo/utils/tests/test_channels.py:test_channel_error_override_is_preserved_by_clones",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_channels.py",
+   "target": "class:src/exo/utils/tests/test_channels.py:CustomClosedResourceError",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_channels.py",
+   "target": "class:src/exo/utils/tests/test_channels.py:CustomClosedResourceError",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_channels.py",
+   "target": "class:src/exo/utils/tests/test_channels.py:CustomBrokenResourceError",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_channels.py",
+   "target": "class:src/exo/utils/tests/test_channels.py:CustomBrokenResourceError",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_channels.py",
+   "target": "class:src/exo/utils/tests/test_channels.py:CustomEndOfStream",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_channels.py",
+   "target": "class:src/exo/utils/tests/test_channels.py:CustomEndOfStream",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_channels.py",
+   "target": "class:src/exo/utils/tests/test_channels.py:CustomWouldBlock",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_channels.py",
+   "target": "class:src/exo/utils/tests/test_channels.py:CustomWouldBlock",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_event_log.py",
+   "target": "function:src/exo/utils/tests/test_event_log.py:log_dir",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_event_log.py",
+   "target": "function:src/exo/utils/tests/test_event_log.py:log_dir",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_event_log.py",
+   "target": "function:src/exo/utils/tests/test_event_log.py:test_append_and_read_back",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_event_log.py",
+   "target": "function:src/exo/utils/tests/test_event_log.py:test_append_and_read_back",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_event_log.py",
+   "target": "function:src/exo/utils/tests/test_event_log.py:test_read_range",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_event_log.py",
+   "target": "function:src/exo/utils/tests/test_event_log.py:test_read_range",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_event_log.py",
+   "target": "function:src/exo/utils/tests/test_event_log.py:test_read_range_bounds",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_event_log.py",
+   "target": "function:src/exo/utils/tests/test_event_log.py:test_read_range_bounds",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_event_log.py",
+   "target": "function:src/exo/utils/tests/test_event_log.py:test_empty_log",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_event_log.py",
+   "target": "function:src/exo/utils/tests/test_event_log.py:test_empty_log",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_event_log.py",
+   "target": "function:src/exo/utils/tests/test_event_log.py:_archives",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_event_log.py",
+   "target": "function:src/exo/utils/tests/test_event_log.py:_archives",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_event_log.py",
+   "target": "function:src/exo/utils/tests/test_event_log.py:test_rotation_on_close",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_event_log.py",
+   "target": "function:src/exo/utils/tests/test_event_log.py:test_rotation_on_close",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_event_log.py",
+   "target": "function:src/exo/utils/tests/test_event_log.py:test_rotation_on_construction_with_stale_file",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_event_log.py",
+   "target": "function:src/exo/utils/tests/test_event_log.py:test_rotation_on_construction_with_stale_file",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_event_log.py",
+   "target": "function:src/exo/utils/tests/test_event_log.py:test_empty_log_no_archive",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_event_log.py",
+   "target": "function:src/exo/utils/tests/test_event_log.py:test_empty_log_no_archive",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_event_log.py",
+   "target": "function:src/exo/utils/tests/test_event_log.py:test_close_is_idempotent",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_event_log.py",
+   "target": "function:src/exo/utils/tests/test_event_log.py:test_close_is_idempotent",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_event_log.py",
+   "target": "function:src/exo/utils/tests/test_event_log.py:test_successive_sessions",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_event_log.py",
+   "target": "function:src/exo/utils/tests/test_event_log.py:test_successive_sessions",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_event_log.py",
+   "target": "function:src/exo/utils/tests/test_event_log.py:test_rotation_keeps_at_most_5_archives",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_event_log.py",
+   "target": "function:src/exo/utils/tests/test_event_log.py:test_rotation_keeps_at_most_5_archives",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_tagged.py",
+   "target": "function:src/exo/utils/tests/test_tagged.py:test_plain_union_prefers_first_member_when_shapes_are_identical",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_tagged.py",
+   "target": "function:src/exo/utils/tests/test_tagged.py:test_plain_union_prefers_first_member_when_shapes_are_identical",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_tagged.py",
+   "target": "function:src/exo/utils/tests/test_tagged.py:test_tagged_union_serializes_and_deserializes_two_identical_shapes_correctly",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_tagged.py",
+   "target": "function:src/exo/utils/tests/test_tagged.py:test_tagged_union_serializes_and_deserializes_two_identical_shapes_correctly",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_tagged.py",
+   "target": "function:src/exo/utils/tests/test_tagged.py:test_tagged_union_rejects_unknown_tag",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_tagged.py",
+   "target": "function:src/exo/utils/tests/test_tagged.py:test_tagged_union_rejects_unknown_tag",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_tagged.py",
+   "target": "function:src/exo/utils/tests/test_tagged.py:test_two_tagged_classes_with_different_shapes_are_independent_and_not_cross_deserializable",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_tagged.py",
+   "target": "function:src/exo/utils/tests/test_tagged.py:test_two_tagged_classes_with_different_shapes_are_independent_and_not_cross_deserializable",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_tagged.py",
+   "target": "function:src/exo/utils/tests/test_tagged.py:test_single_level_tagging",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_tagged.py",
+   "target": "function:src/exo/utils/tests/test_tagged.py:test_single_level_tagging",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_tagged.py",
+   "target": "function:src/exo/utils/tests/test_tagged.py:test_nested_externally_tagged_union_serializes_recursively",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_tagged.py",
+   "target": "function:src/exo/utils/tests/test_tagged.py:test_nested_externally_tagged_union_serializes_recursively",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_tagged.py",
+   "target": "function:src/exo/utils/tests/test_tagged.py:test_two_level_nested_tagging",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_tagged.py",
+   "target": "function:src/exo/utils/tests/test_tagged.py:test_two_level_nested_tagging",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_tagged.py",
+   "target": "function:src/exo/utils/tests/test_tagged.py:test_three_level_nested_tagging",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_tagged.py",
+   "target": "function:src/exo/utils/tests/test_tagged.py:test_three_level_nested_tagging",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_tagged.py",
+   "target": "function:src/exo/utils/tests/test_tagged.py:test_lists_and_mixed_nested_structures",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_tagged.py",
+   "target": "function:src/exo/utils/tests/test_tagged.py:test_lists_and_mixed_nested_structures",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_tagged.py",
+   "target": "function:src/exo/utils/tests/test_tagged.py:test_no_double_tagging_on_repeated_calls",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_tagged.py",
+   "target": "function:src/exo/utils/tests/test_tagged.py:test_no_double_tagging_on_repeated_calls",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_tagged.py",
+   "target": "function:src/exo/utils/tests/test_tagged.py:test_tagged_union_is_fast",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_tagged.py",
+   "target": "function:src/exo/utils/tests/test_tagged.py:test_tagged_union_is_fast",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_tagged.py",
+   "target": "class:src/exo/utils/tests/test_tagged.py:Inner",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_tagged.py",
+   "target": "class:src/exo/utils/tests/test_tagged.py:Inner",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_tagged.py",
+   "target": "class:src/exo/utils/tests/test_tagged.py:Outer",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_tagged.py",
+   "target": "class:src/exo/utils/tests/test_tagged.py:Outer",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_tagged.py",
+   "target": "class:src/exo/utils/tests/test_tagged.py:Wrapper",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_tagged.py",
+   "target": "class:src/exo/utils/tests/test_tagged.py:Wrapper",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_tagged.py",
+   "target": "class:src/exo/utils/tests/test_tagged.py:Container",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_tagged.py",
+   "target": "class:src/exo/utils/tests/test_tagged.py:Container",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_tagged.py",
+   "target": "class:src/exo/utils/tests/test_tagged.py:L3A",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_tagged.py",
+   "target": "class:src/exo/utils/tests/test_tagged.py:L3A",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_tagged.py",
+   "target": "class:src/exo/utils/tests/test_tagged.py:L3B",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_tagged.py",
+   "target": "class:src/exo/utils/tests/test_tagged.py:L3B",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_tagged.py",
+   "target": "class:src/exo/utils/tests/test_tagged.py:L3C",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_tagged.py",
+   "target": "class:src/exo/utils/tests/test_tagged.py:L3C",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_tagged.py",
+   "target": "class:src/exo/utils/tests/test_tagged.py:L2A",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_tagged.py",
+   "target": "class:src/exo/utils/tests/test_tagged.py:L2A",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_tagged.py",
+   "target": "class:src/exo/utils/tests/test_tagged.py:L2B",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_tagged.py",
+   "target": "class:src/exo/utils/tests/test_tagged.py:L2B",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_tagged.py",
+   "target": "class:src/exo/utils/tests/test_tagged.py:L2C",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_tagged.py",
+   "target": "class:src/exo/utils/tests/test_tagged.py:L2C",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_tagged.py",
+   "target": "class:src/exo/utils/tests/test_tagged.py:L1A",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_tagged.py",
+   "target": "class:src/exo/utils/tests/test_tagged.py:L1A",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_tagged.py",
+   "target": "class:src/exo/utils/tests/test_tagged.py:L1B",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_tagged.py",
+   "target": "class:src/exo/utils/tests/test_tagged.py:L1B",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_tagged.py",
+   "target": "class:src/exo/utils/tests/test_tagged.py:L1C",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_tagged.py",
+   "target": "class:src/exo/utils/tests/test_tagged.py:L1C",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/__main__.py",
+   "target": "file:src/exo/main.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/main.py",
+   "target": "file:src/exo/__init__.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/main.py",
+   "target": "file:src/exo/api/main.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/main.py",
+   "target": "file:src/exo/download/coordinator.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/main.py",
+   "target": "file:src/exo/download/impl_shard_downloader.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/main.py",
+   "target": "file:src/exo/master/main.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/main.py",
+   "target": "file:src/exo/routing/event_router.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/main.py",
+   "target": "file:src/exo/routing/router.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/main.py",
+   "target": "file:src/exo/routing/topics.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/main.py",
+   "target": "file:src/exo/shared/constants.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/main.py",
+   "target": "file:src/exo/shared/election.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/main.py",
+   "target": "file:src/exo/shared/logging.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/main.py",
+   "target": "file:src/exo/shared/types/common.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/main.py",
+   "target": "file:src/exo/utils/__init__.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/main.py",
+   "target": "file:src/exo/utils/channels.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/main.py",
+   "target": "file:src/exo/utils/pydantic_ext.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/main.py",
+   "target": "file:src/exo/utils/task_group.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/main.py",
+   "target": "file:src/exo/worker/main.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/master/main.py",
+   "target": "file:src/exo/master/placement.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/master/main.py",
+   "target": "file:src/exo/master/placement_utils.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/master/main.py",
+   "target": "file:src/exo/routing/event_router.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/master/main.py",
+   "target": "file:src/exo/shared/apply.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/master/main.py",
+   "target": "file:src/exo/shared/constants.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/master/main.py",
+   "target": "file:src/exo/shared/types/commands.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/master/main.py",
+   "target": "file:src/exo/shared/types/common.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/master/main.py",
+   "target": "file:src/exo/shared/types/events.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/master/main.py",
+   "target": "file:src/exo/shared/types/instance_link.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/master/main.py",
+   "target": "file:src/exo/shared/types/state.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/master/main.py",
+   "target": "file:src/exo/shared/types/tasks.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/master/main.py",
+   "target": "file:src/exo/shared/types/worker/instances.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/master/main.py",
+   "target": "file:src/exo/utils/channels.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/master/main.py",
+   "target": "file:src/exo/utils/disk_event_log.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/master/main.py",
+   "target": "file:src/exo/utils/event_buffer.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/master/main.py",
+   "target": "file:src/exo/utils/task_group.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/routing/connection_message.py",
+   "target": "file:src/exo/utils/pydantic_ext.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/routing/event_router.py",
+   "target": "file:src/exo/shared/types/commands.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/routing/event_router.py",
+   "target": "file:src/exo/shared/types/common.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/routing/event_router.py",
+   "target": "file:src/exo/shared/types/events.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/routing/event_router.py",
+   "target": "file:src/exo/utils/__init__.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/routing/event_router.py",
+   "target": "file:src/exo/utils/channels.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/routing/event_router.py",
+   "target": "file:src/exo/utils/event_buffer.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/routing/event_router.py",
+   "target": "file:src/exo/utils/task_group.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/routing/router.py",
+   "target": "file:src/exo/routing/connection_message.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/routing/router.py",
+   "target": "file:src/exo/routing/topics.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/routing/router.py",
+   "target": "file:src/exo/shared/constants.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/routing/router.py",
+   "target": "file:src/exo/shared/types/common.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/routing/router.py",
+   "target": "file:src/exo/utils/channels.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/routing/router.py",
+   "target": "file:src/exo/utils/pydantic_ext.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/routing/router.py",
+   "target": "file:src/exo/utils/task_group.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/routing/tests/test_event_buffer.py",
+   "target": "file:src/exo/shared/types/events.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/routing/tests/test_event_buffer.py",
+   "target": "file:src/exo/utils/event_buffer.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/routing/topics.py",
+   "target": "file:src/exo/routing/connection_message.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/routing/topics.py",
+   "target": "file:src/exo/shared/election.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/routing/topics.py",
+   "target": "file:src/exo/shared/types/commands.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/routing/topics.py",
+   "target": "file:src/exo/shared/types/events.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/routing/topics.py",
+   "target": "file:src/exo/utils/pydantic_ext.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/shared/election.py",
+   "target": "file:src/exo/routing/connection_message.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/shared/election.py",
+   "target": "file:src/exo/shared/types/commands.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/shared/election.py",
+   "target": "file:src/exo/shared/types/common.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/shared/election.py",
+   "target": "file:src/exo/utils/channels.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/shared/election.py",
+   "target": "file:src/exo/utils/pydantic_ext.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/shared/election.py",
+   "target": "file:src/exo/utils/task_group.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/shared/tests/test_election.py",
+   "target": "file:src/exo/routing/connection_message.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/shared/tests/test_election.py",
+   "target": "file:src/exo/shared/election.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/shared/tests/test_election.py",
+   "target": "file:src/exo/shared/types/commands.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/shared/tests/test_election.py",
+   "target": "file:src/exo/shared/types/common.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/shared/tests/test_election.py",
+   "target": "file:src/exo/utils/channels.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/utils/__init__.py",
+   "target": "file:src/exo/utils/phantom.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/utils/async_process.py",
+   "target": "file:src/exo/utils/__init__.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/utils/async_process.py",
+   "target": "file:src/exo/utils/channels.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/utils/disk_event_log.py",
+   "target": "file:src/exo/shared/types/events.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_async_process.py",
+   "target": "file:src/exo/utils/async_process.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_async_process.py",
+   "target": "file:src/exo/utils/channels.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_channels.py",
+   "target": "file:src/exo/utils/channels.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_event_log.py",
+   "target": "file:src/exo/shared/types/events.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_event_log.py",
+   "target": "file:src/exo/utils/disk_event_log.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/utils/tests/test_tagged.py",
+   "target": "file:src/exo/utils/pydantic_ext.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "function:src/exo/main.py:main",
+   "target": "function:src/exo/main.py:main_inner",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:src/exo/main.py:main",
+   "target": "function:src/exo/main.py:main_inner",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:src/exo/routing/tests/test_event_buffer.py:test_ingest_and_drain_sequential_events",
+   "target": "function:src/exo/routing/tests/test_event_buffer.py:make_indexed_event",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:src/exo/routing/tests/test_event_buffer.py:test_ingest_and_drain_sequential_events",
+   "target": "function:src/exo/routing/tests/test_event_buffer.py:make_indexed_event",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:src/exo/routing/tests/test_event_buffer.py:test_ingest_and_drain_sequential_events",
+   "target": "function:src/exo/routing/tests/test_event_buffer.py:make_indexed_event",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:src/exo/routing/tests/test_event_buffer.py:test_ingest_out_of_order_events",
+   "target": "function:src/exo/routing/tests/test_event_buffer.py:make_indexed_event",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:src/exo/routing/tests/test_event_buffer.py:test_ingest_out_of_order_events",
+   "target": "function:src/exo/routing/tests/test_event_buffer.py:make_indexed_event",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:src/exo/routing/tests/test_event_buffer.py:test_ingest_out_of_order_events",
+   "target": "function:src/exo/routing/tests/test_event_buffer.py:make_indexed_event",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:src/exo/routing/tests/test_event_buffer.py:test_drain_with_gap_in_sequence",
+   "target": "function:src/exo/routing/tests/test_event_buffer.py:make_indexed_event",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:src/exo/routing/tests/test_event_buffer.py:test_drain_with_gap_in_sequence",
+   "target": "function:src/exo/routing/tests/test_event_buffer.py:make_indexed_event",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:src/exo/routing/tests/test_event_buffer.py:test_fill_gap_and_drain_remaining",
+   "target": "function:src/exo/routing/tests/test_event_buffer.py:make_indexed_event",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:src/exo/routing/tests/test_event_buffer.py:test_fill_gap_and_drain_remaining",
+   "target": "function:src/exo/routing/tests/test_event_buffer.py:make_indexed_event",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:src/exo/routing/tests/test_event_buffer.py:test_fill_gap_and_drain_remaining",
+   "target": "function:src/exo/routing/tests/test_event_buffer.py:make_indexed_event",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:src/exo/routing/tests/test_event_buffer.py:test_ingest_drops_duplicate_indices",
+   "target": "function:src/exo/routing/tests/test_event_buffer.py:make_indexed_event",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:src/exo/routing/tests/test_event_buffer.py:test_ingest_drops_duplicate_indices",
+   "target": "function:src/exo/routing/tests/test_event_buffer.py:make_indexed_event",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:src/exo/routing/tests/test_event_buffer.py:test_ingest_drops_stale_events",
+   "target": "function:src/exo/routing/tests/test_event_buffer.py:make_indexed_event",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:src/exo/routing/tests/test_event_buffer.py:test_ingest_drops_stale_events",
+   "target": "function:src/exo/routing/tests/test_event_buffer.py:make_indexed_event",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:src/exo/routing/tests/test_event_buffer.py:test_ingest_drops_stale_events",
+   "target": "function:src/exo/routing/tests/test_event_buffer.py:make_indexed_event",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:src/exo/routing/tests/test_event_buffer.py:test_ingest_drops_stale_events",
+   "target": "function:src/exo/routing/tests/test_event_buffer.py:make_indexed_event",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:src/exo/routing/tests/test_event_buffer.py:test_drain_and_ingest_with_new_sequence",
+   "target": "function:src/exo/routing/tests/test_event_buffer.py:make_indexed_event",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:src/exo/routing/tests/test_event_buffer.py:test_drain_and_ingest_with_new_sequence",
+   "target": "function:src/exo/routing/tests/test_event_buffer.py:make_indexed_event",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:src/exo/routing/tests/test_event_buffer.py:test_drain_and_ingest_with_new_sequence",
+   "target": "function:src/exo/routing/tests/test_event_buffer.py:make_indexed_event",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:src/exo/routing/tests/test_event_buffer.py:test_drain_and_ingest_with_new_sequence",
+   "target": "function:src/exo/routing/tests/test_event_buffer.py:make_indexed_event",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:src/exo/shared/tests/test_election.py:test_single_round_broadcasts_and_updates_seniority_on_self_win",
+   "target": "function:src/exo/shared/tests/test_election.py:em",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:src/exo/shared/tests/test_election.py:test_peer_with_higher_seniority_wins_and_we_switch_master",
+   "target": "function:src/exo/shared/tests/test_election.py:em",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:src/exo/shared/tests/test_election.py:test_ignores_older_messages",
+   "target": "function:src/exo/shared/tests/test_election.py:em",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:src/exo/shared/tests/test_election.py:test_ignores_older_messages",
+   "target": "function:src/exo/shared/tests/test_election.py:em",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:src/exo/shared/tests/test_election.py:test_two_rounds_emit_two_broadcasts_and_increment_clock",
+   "target": "function:src/exo/shared/tests/test_election.py:em",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:src/exo/shared/tests/test_election.py:test_two_rounds_emit_two_broadcasts_and_increment_clock",
+   "target": "function:src/exo/shared/tests/test_election.py:em",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:src/exo/shared/tests/test_election.py:test_promotion_new_seniority_counts_participants",
+   "target": "function:src/exo/shared/tests/test_election.py:em",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:src/exo/shared/tests/test_election.py:test_promotion_new_seniority_counts_participants",
+   "target": "function:src/exo/shared/tests/test_election.py:em",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:src/exo/shared/tests/test_election.py:test_tie_breaker_prefers_node_with_more_commands_seen",
+   "target": "function:src/exo/shared/tests/test_election.py:em",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:src/exo/utils/async_process.py:_run_with_captured_stdio",
+   "target": "function:src/exo/utils/async_process.py:_close_fd",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:src/exo/utils/async_process.py:_drain_fd",
+   "target": "function:src/exo/utils/async_process.py:_close_fd",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:src/exo/utils/disk_event_log.py:_skip_record",
+   "target": "function:src/exo/utils/disk_event_log.py:_unpack_header",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:src/exo/utils/disk_event_log.py:_read_record",
+   "target": "function:src/exo/utils/disk_event_log.py:_unpack_header",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:src/exo/utils/disk_event_log.py:_read_record",
+   "target": "function:src/exo/utils/disk_event_log.py:_deserialize_event",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:src/exo/utils/tests/test_async_process.py:_write_large_exact_output",
+   "target": "function:src/exo/utils/tests/test_async_process.py:_write_all",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:src/exo/utils/tests/test_async_process.py:_write_large_exact_output",
+   "target": "function:src/exo/utils/tests/test_async_process.py:_write_all",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:src/exo/utils/tests/test_async_process.py:_run_and_collect",
+   "target": "function:src/exo/utils/tests/test_async_process.py:_started_process",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:src/exo/utils/tests/test_async_process.py:_run_and_collect",
+   "target": "function:src/exo/utils/tests/test_async_process.py:_collect_process_output",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:src/exo/utils/tests/test_async_process.py:test_spawn_process_captures_stdout_and_stderr_separately",
+   "target": "function:src/exo/utils/tests/test_async_process.py:_started_process",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:src/exo/utils/tests/test_async_process.py:test_spawn_process_captures_stdout_and_stderr_separately",
+   "target": "function:src/exo/utils/tests/test_async_process.py:_collect_process_output",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:src/exo/utils/tests/test_async_process.py:test_process_with_no_target_exits_successfully",
+   "target": "function:src/exo/utils/tests/test_async_process.py:_run_and_collect",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:src/exo/utils/tests/test_async_process.py:test_output_receivers_and_wait_are_safe_immediately_after_run_starts",
+   "target": "function:src/exo/utils/tests/test_async_process.py:_collect_process_output",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:src/exo/utils/tests/test_async_process.py:test_stdout_receiver_yields_bytes_chunks",
+   "target": "function:src/exo/utils/tests/test_async_process.py:_started_process",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:src/exo/utils/tests/test_async_process.py:test_stdout_receiver_yields_bytes_chunks",
+   "target": "function:src/exo/utils/tests/test_async_process.py:_collect_process_output",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:src/exo/utils/tests/test_async_process.py:test_large_stdout_and_stderr_are_not_lost",
+   "target": "function:src/exo/utils/tests/test_async_process.py:_run_and_collect",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:src/exo/utils/tests/test_async_process.py:test_child_exception_traceback_is_captured_from_stderr",
+   "target": "function:src/exo/utils/tests/test_async_process.py:_started_process",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:src/exo/utils/tests/test_async_process.py:test_child_exception_traceback_is_captured_from_stderr",
+   "target": "function:src/exo/utils/tests/test_async_process.py:_collect_process_output",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:src/exo/utils/tests/test_async_process.py:test_repeated_bad_children_do_not_pollute_or_replace_parent_stdio",
+   "target": "function:src/exo/utils/tests/test_async_process.py:_fd_identity",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:src/exo/utils/tests/test_async_process.py:test_repeated_bad_children_do_not_pollute_or_replace_parent_stdio",
+   "target": "function:src/exo/utils/tests/test_async_process.py:_fd_identity",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:src/exo/utils/tests/test_async_process.py:test_repeated_bad_children_do_not_pollute_or_replace_parent_stdio",
+   "target": "function:src/exo/utils/tests/test_async_process.py:_run_and_collect",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:src/exo/utils/tests/test_async_process.py:test_repeated_bad_children_do_not_pollute_or_replace_parent_stdio",
+   "target": "function:src/exo/utils/tests/test_async_process.py:_fd_identity",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:src/exo/utils/tests/test_async_process.py:test_repeated_bad_children_do_not_pollute_or_replace_parent_stdio",
+   "target": "function:src/exo/utils/tests/test_async_process.py:_fd_identity",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:src/exo/utils/tests/test_async_process.py:test_child_can_close_stdio_without_corrupting_parent_stdio",
+   "target": "function:src/exo/utils/tests/test_async_process.py:_fd_identity",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:src/exo/utils/tests/test_async_process.py:test_child_can_close_stdio_without_corrupting_parent_stdio",
+   "target": "function:src/exo/utils/tests/test_async_process.py:_fd_identity",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:src/exo/utils/tests/test_async_process.py:test_child_can_close_stdio_without_corrupting_parent_stdio",
+   "target": "function:src/exo/utils/tests/test_async_process.py:_run_and_collect",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:src/exo/utils/tests/test_async_process.py:test_child_can_close_stdio_without_corrupting_parent_stdio",
+   "target": "function:src/exo/utils/tests/test_async_process.py:_fd_identity",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:src/exo/utils/tests/test_async_process.py:test_child_can_close_stdio_without_corrupting_parent_stdio",
+   "target": "function:src/exo/utils/tests/test_async_process.py:_fd_identity",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:src/exo/utils/tests/test_async_process.py:test_repeated_crashing_children_do_not_grow_parent_fd_table",
+   "target": "function:src/exo/utils/tests/test_async_process.py:_run_and_collect",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:src/exo/utils/tests/test_async_process.py:test_repeated_crashing_children_do_not_grow_parent_fd_table",
+   "target": "function:src/exo/utils/tests/test_async_process.py:_fd_count",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:src/exo/utils/tests/test_async_process.py:test_repeated_crashing_children_do_not_grow_parent_fd_table",
+   "target": "function:src/exo/utils/tests/test_async_process.py:_run_and_collect",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:src/exo/utils/tests/test_async_process.py:test_repeated_crashing_children_do_not_grow_parent_fd_table",
+   "target": "function:src/exo/utils/tests/test_async_process.py:_fd_count",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:src/exo/utils/tests/test_async_process.py:test_process_can_use_mp_channel_with_global_spawn_context",
+   "target": "function:src/exo/utils/tests/test_async_process.py:_started_process",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:src/exo/utils/tests/test_async_process.py:test_death",
+   "target": "function:src/exo/utils/tests/test_async_process.py:_started_process",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:src/exo/utils/tests/test_async_process.py:test_death",
+   "target": "function:src/exo/utils/tests/test_async_process.py:_collect_process_output",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:src/exo/utils/tests/test_event_log.py:test_rotation_on_close",
+   "target": "function:src/exo/utils/tests/test_event_log.py:_archives",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:src/exo/utils/tests/test_event_log.py:test_rotation_on_construction_with_stale_file",
+   "target": "function:src/exo/utils/tests/test_event_log.py:_archives",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:src/exo/utils/tests/test_event_log.py:test_empty_log_no_archive",
+   "target": "function:src/exo/utils/tests/test_event_log.py:_archives",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:src/exo/utils/tests/test_event_log.py:test_close_is_idempotent",
+   "target": "function:src/exo/utils/tests/test_event_log.py:_archives",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:src/exo/utils/tests/test_event_log.py:test_close_is_idempotent",
+   "target": "function:src/exo/utils/tests/test_event_log.py:_archives",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:src/exo/utils/tests/test_event_log.py:test_successive_sessions",
+   "target": "function:src/exo/utils/tests/test_event_log.py:_archives",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:src/exo/utils/tests/test_event_log.py:test_successive_sessions",
+   "target": "function:src/exo/utils/tests/test_event_log.py:_archives",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:src/exo/utils/tests/test_event_log.py:test_successive_sessions",
+   "target": "function:src/exo/utils/tests/test_event_log.py:_archives",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:src/exo/utils/tests/test_event_log.py:test_rotation_keeps_at_most_5_archives",
+   "target": "function:src/exo/utils/tests/test_event_log.py:_archives",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/shared/types/events.py",
+   "target": "file:src/exo/routing/tests/test_event_buffer.py",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  },
+  {
+   "source": "file:src/exo/utils/event_buffer.py",
+   "target": "file:src/exo/routing/tests/test_event_buffer.py",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  },
+  {
+   "source": "file:src/exo/routing/connection_message.py",
+   "target": "file:src/exo/shared/tests/test_election.py",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  },
+  {
+   "source": "file:src/exo/shared/election.py",
+   "target": "file:src/exo/shared/tests/test_election.py",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  },
+  {
+   "source": "file:src/exo/shared/types/commands.py",
+   "target": "file:src/exo/shared/tests/test_election.py",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  },
+  {
+   "source": "file:src/exo/shared/types/common.py",
+   "target": "file:src/exo/shared/tests/test_election.py",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  },
+  {
+   "source": "file:src/exo/utils/channels.py",
+   "target": "file:src/exo/shared/tests/test_election.py",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  },
+  {
+   "source": "file:src/exo/utils/async_process.py",
+   "target": "file:src/exo/utils/tests/test_async_process.py",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  },
+  {
+   "source": "file:src/exo/utils/channels.py",
+   "target": "file:src/exo/utils/tests/test_async_process.py",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  },
+  {
+   "source": "file:src/exo/utils/channels.py",
+   "target": "file:src/exo/utils/tests/test_channels.py",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  },
+  {
+   "source": "file:src/exo/shared/types/events.py",
+   "target": "file:src/exo/utils/tests/test_event_log.py",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  },
+  {
+   "source": "file:src/exo/utils/disk_event_log.py",
+   "target": "file:src/exo/utils/tests/test_event_log.py",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  },
+  {
+   "source": "file:src/exo/utils/pydantic_ext.py",
+   "target": "file:src/exo/utils/tests/test_tagged.py",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  }
+ ]
+}

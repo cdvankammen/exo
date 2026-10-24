@@ -1,0 +1,1747 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 12,
+  "filesSkipped": [
+    ".clauderules",
+    ".cursorrules",
+    ".envrc",
+    ".feeder/tasks.db",
+    ".githooks/post-checkout",
+    ".githooks/post-commit",
+    ".githooks/post-merge",
+    ".githooks/pre-push",
+    ".github/CODEOWNERS",
+    ".mnemo/graph.lbug",
+    ".python-version",
+    ".swift-format",
+    ".typings/.gitkeep"
+  ],
+  "analysisOutcomes": {
+    "structure": {
+      "succeeded": 12,
+      "failed": 0
+    },
+    "callGraph": {
+      "succeeded": 0,
+      "failed": 0,
+      "skipped": 12
+    }
+  },
+  "results": [
+    {
+      "path": ".github/ISSUE_TEMPLATE/bug_report.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 43,
+      "nonEmptyLines": 31,
+      "sections": [
+        {
+          "heading": "Describe the bug",
+          "level": 2,
+          "line": 9
+        },
+        {
+          "heading": "To Reproduce",
+          "level": 2,
+          "line": 13
+        },
+        {
+          "heading": "Expected behavior",
+          "level": 2,
+          "line": 20
+        },
+        {
+          "heading": "Actual behavior",
+          "level": 2,
+          "line": 24
+        },
+        {
+          "heading": "Environment",
+          "level": 2,
+          "line": 28
+        },
+        {
+          "heading": "Additional context",
+          "level": 2,
+          "line": 41
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 6
+      }
+    },
+    {
+      "path": ".github/ISSUE_TEMPLATE/feature_request.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 11,
+      "nonEmptyLines": 9,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 0
+      }
+    },
+    {
+      "path": ".github/actions/conditional-commit/action.yml",
+      "language": "yaml",
+      "fileCategory": "config",
+      "totalLines": 16,
+      "nonEmptyLines": 14,
+      "sections": [
+        {
+          "heading": "name",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "description",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "inputs",
+          "level": 1,
+          "line": 4
+        },
+        {
+          "heading": "runs",
+          "level": 1,
+          "line": 9
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 4
+      }
+    },
+    {
+      "path": ".github/actions/format/action.yml",
+      "language": "yaml",
+      "fileCategory": "config",
+      "totalLines": 10,
+      "nonEmptyLines": 8,
+      "sections": [
+        {
+          "heading": "name",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "description",
+          "level": 1,
+          "line": 3
+        },
+        {
+          "heading": "runs",
+          "level": 1,
+          "line": 5
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 3
+      }
+    },
+    {
+      "path": ".github/actions/lint-check/action.yml",
+      "language": "yaml",
+      "fileCategory": "config",
+      "totalLines": 10,
+      "nonEmptyLines": 8,
+      "sections": [
+        {
+          "heading": "name",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "description",
+          "level": 1,
+          "line": 3
+        },
+        {
+          "heading": "runs",
+          "level": 1,
+          "line": 5
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 3
+      }
+    },
+    {
+      "path": ".github/actions/lint/action.yml",
+      "language": "yaml",
+      "fileCategory": "config",
+      "totalLines": 10,
+      "nonEmptyLines": 8,
+      "sections": [
+        {
+          "heading": "name",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "description",
+          "level": 1,
+          "line": 3
+        },
+        {
+          "heading": "runs",
+          "level": 1,
+          "line": 5
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 3
+      }
+    },
+    {
+      "path": ".github/actions/regenerate-protobufs/action.yml",
+      "language": "yaml",
+      "fileCategory": "config",
+      "totalLines": 10,
+      "nonEmptyLines": 8,
+      "sections": [
+        {
+          "heading": "name",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "description",
+          "level": 1,
+          "line": 3
+        },
+        {
+          "heading": "runs",
+          "level": 1,
+          "line": 5
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 3
+      }
+    },
+    {
+      "path": ".github/actions/setup-python-uv/action.yml",
+      "language": "yaml",
+      "fileCategory": "config",
+      "totalLines": 20,
+      "nonEmptyLines": 16,
+      "sections": [
+        {
+          "heading": "name",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "description",
+          "level": 1,
+          "line": 3
+        },
+        {
+          "heading": "runs",
+          "level": 1,
+          "line": 5
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 3
+      }
+    },
+    {
+      "path": ".github/actions/unit-test/action.yml",
+      "language": "yaml",
+      "fileCategory": "config",
+      "totalLines": 12,
+      "nonEmptyLines": 10,
+      "sections": [
+        {
+          "heading": "name",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "description",
+          "level": 1,
+          "line": 3
+        },
+        {
+          "heading": "runs",
+          "level": 1,
+          "line": 5
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 3
+      }
+    },
+    {
+      "path": ".github/actions/verify-clean/action.yml",
+      "language": "yaml",
+      "fileCategory": "config",
+      "totalLines": 20,
+      "nonEmptyLines": 17,
+      "sections": [
+        {
+          "heading": "name",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "description",
+          "level": 1,
+          "line": 3
+        },
+        {
+          "heading": "inputs",
+          "level": 1,
+          "line": 5
+        },
+        {
+          "heading": "runs",
+          "level": 1,
+          "line": 10
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 4
+      }
+    },
+    {
+      "path": ".github/pull_request_template.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 23,
+      "nonEmptyLines": 15,
+      "sections": [
+        {
+          "heading": "Motivation",
+          "level": 2,
+          "line": 1
+        },
+        {
+          "heading": "Changes",
+          "level": 2,
+          "line": 6
+        },
+        {
+          "heading": "Why It Works",
+          "level": 2,
+          "line": 10
+        },
+        {
+          "heading": "Test Plan",
+          "level": 2,
+          "line": 14
+        },
+        {
+          "heading": "Manual Testing",
+          "level": 3,
+          "line": 16
+        },
+        {
+          "heading": "Automated Testing",
+          "level": 3,
+          "line": 21
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 6
+      }
+    },
+    {
+      "path": ".mnemo/parse-cache.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 1,
+      "nonEmptyLines": 1,
+      "sections": [
+        {
+          "heading": "8db31255ff9f7a16",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "2ca8e818b7dc0b8a",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "a0eabbd37d573c74",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "918c2efb9f15b177",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "7681040d25fc7a20",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "9687afe7083bfe7c",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "a5ca488bf85a5c9e",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "f26da11678da817c",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "e3b0c44298fc1c14",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "9db7cdffe534e74f",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "3a07afdbf1aab1a0",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "7728f7eac5f2cadf",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "c9d1c15dd49a4d1b",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "63d8240aa1586616",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "ebe13ca036d7ac31",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "993fd68dcb4efd1e",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "947fb64137118d24",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "96e2274863ec1b17",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "e9ada0ca8c14cd78",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "80168e17f6851bcc",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "56007c9abcabac51",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "686285942f208dea",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "b4a1d942fda3292c",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "1412a41538fac0f7",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "c9c76c75bb9ccb03",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "a9ed8cc025fb970f",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "5d83782ef9968b65",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "1b98f38957d6e1ae",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "0005b4bd718cad8e",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "465b6e2d281d89bf",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "9a84c1b7e7d5778f",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "b687c6fdae0c5f43",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "8d3697a80ad308bb",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "6fbdc557d1c710fd",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "56955c82af85f16a",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "3b17f317d703f933",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "8b252f54a6d6b8e0",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "e2879eaf37aa8245",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "c4d441d598aad755",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "f7d84cd39c3dda19",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "ffaff7625f89fe59",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "bdf320ba6676079e",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "7aa4fb2619864833",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "002e8d77acd12efd",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "49fcdb587b71957a",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "b930a75c8381d4ff",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "666faa81f18158c4",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "d854b3d49dfecff3",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "f1061eb1c3eee168",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "276f406f10dd01f9",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "617c27f9407fd107",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "1ac18fe66195ee4e",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "215ceb474dd5bb8c",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "0ca019f5e46db2ec",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "d0468944c017e794",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "205a8d5aa7ecb3f6",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "2cc90e8d0534f21e",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "5ebbdbc365962134",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "21f0deb499f7a51a",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "8dd61c94e1c91875",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "053021dc59624916",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "c90cc5398e20836d",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "8382ad54c70f70f0",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "9e33f69793fbadea",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "6cd9c5619bf5ba70",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "bf715816e03ddd4a",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "d94761fbba90cce2",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "0e8fb622dbec5136",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "6f9fa07255a2663b",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "72a7351b6dc24c01",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "235b2c825e7beb0f",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "ee0b6bf15c56c86b",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "ff32693ae59075e5",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "45dcbb5674272d9e",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "bb1a9ad68ca66672",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "af890a0e1c9fda08",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "ca940150d855694a",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "499bb3b2cc8ff51b",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "46502ea2330d84df",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "50534e12357b008e",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "e43ac78205b1b3aa",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "7bb79afe468b865a",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "3d31fd43f82259e9",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "66afbc6a1afdd28b",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "dd1a6913cfbb2f46",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "582a6d6dd55b7d36",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "1b46a8c8ca436e88",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "7e4740c910dc2c52",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "b2948e3dac3b9da4",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "5700caafb144aef1",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "5b0186d513cc23b1",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "5900cb76eca1f606",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "a43bdfab8f1832d7",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "72f69fe63d44f7ad",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "060ee64982799fe4",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "f380dc8fc4f87599",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "f916049b8aeb9ac7",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "c490fc325d8f50b3",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "0e65d51e31a28b2f",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "cfb3d5d6deb7d4fc",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "0751b33d5f3c3957",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "e3d7d1b51aee6345",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "28076ad165190afc",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "f9948772d8a78130",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "301cd72068c37cce",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "df2aa955a964681a",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "4628236e64dc1124",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "e4077f53ae657f1f",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "b18e90d8fd63c7a5",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "92958b465ba42627",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "0fc6233a187cd9be",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "0fdc313b648d17cc",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "45c43d93e33ac9e3",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "688025a400fd6e62",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "6b08d5d0411bd78d",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "d122d1fa362e32cc",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "8136fdf96eb2c701",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "d0bef282328c2a36",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "ee10068c51a4e782",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "e7f1287277a3dd16",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "ca05322fcf53370d",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "3628feecbb4d3a0c",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "50380c1272cc2e14",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "e80f152f065346d8",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "99e0be503c2e34bc",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "6ae662868208a699",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "7953c94edc4898ec",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "5e0496fde81943c9",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "e81007a952ff17a8",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "0a61e63845613850",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "6b870f2126aa9aa4",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "9a1df04ff715df0b",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "567e943dc7eb0823",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "753fa7c594d2e081",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "44ec89611c682965",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "88bff8fb89197895",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "4baaf6a62c80f8b8",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "8f076b71c0ec4f42",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "648bcb04023b9389",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "adcc098ac14587e4",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "8952fc67a20f3f1c",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "e266893cb75517cb",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "a76b368dba20ba71",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "b238de4e01016fa5",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "3ea1c26ff837d502",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "0f51b3858167a082",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "4c2e862c86f0415a",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "0b44f2604ede7424",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "e0501fb7dc0b4507",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "e7adb8e86664a249",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "defbf5d0495089a2",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "dd4785894a4c885f",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "d0fe621b2d7786f1",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "e5abd303d1070442",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "b7e79fce99081fde",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "bf764224fcd37e76",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "5b908ec3c99f9a3a",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "0b6be002f93d73b0",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "09d94afa5b72e1e4",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "29f90d214566d5bb",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "79f2cad6485e4a10",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "3e5405f52bc84859",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "bea1a94c352090c1",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "dcb700157284f895",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "2e8e87e291c97b27",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "55b796bf956b7018",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "e8ac4f0a5c6842f7",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "8d45c4bb37a8a348",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "443cf8e94caa6e32",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "61d7d3c9cc42958b",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "10978aa1154907b0",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "a3155fb6b9751079",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "1c5c1c562ee39a17",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "d6d831bb60547f7e",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "ba71e8459eed335d",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "1eb2350362c7e875",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "f3f85c59ab194abd",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "f97f76b99c97e937",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "a9112598142a0133",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "e9d5fcdd0726f2d6",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "552c0601db9ce17c",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "c7ee3b2f6b159ae5",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "8ab7d27d8cb241ec",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "8afe9a589e821479",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "68bd6c9c9ac9305c",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "d5224989d316fe22",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "ad819e991908ed96",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "ce5157225c3b940c",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "150347431eff3b32",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "eb0680bd891da087",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "06968b037ddd047f",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "cef8aae60a83737a",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "c99bc3cf88eccbac",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "3f973c2f60d7197a",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "d0f6a39aafaaca97",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "5f9f8952317d1770",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "98ca062e37d535be",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "08cdabf2fa199fc7",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "d86105482e81409f",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "762443f31637c482",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "e0f0663b65fca6c9",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "72e1724cb8e9f191",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "1536f90da7628a8c",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "e1c073870e173546",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "fa692540dd1723b3",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "8bd74c67ea649602",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "d730b0fdcfb73af4",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "c52a2935d5510992",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "d27b0bb2cb1f5f4a",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "d347c3b49e403f54",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "9199421569998c7d",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "e151332ebe46e7bd",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "6fe3b875a3603621",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "72aaf5d0c7b1afd0",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "ad0bcdd421b0a147",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "a8c3b5eeab54959d",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "df1e38c001211cd8",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "1fe2db11d76fac35",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "165b49d62c997bd0",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "caaef5ab018e12b9",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "547fafbf5fa9a43c",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "4cb42cd9c2baf3ca",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "5f76e5ef76e4319c",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "ca0b8a9b2577c922",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "13d190f7f2448593",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "c309891921e3a3c0",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "35863ccb6810ba7f",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "827d0b21970a97c0",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "6084dfb017458c95",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "254db00a2609be28",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "cd9581e150e4ed70",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "ff1ecbb39ea57042",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "da0a15130767af9b",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "fb9c41c26806518a",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "6aecc6a4d53487b2",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "e874973736e09b50",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "4fadef63f1df8c5c",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "f1d87a0e84ee7832",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "346cc903229c269a",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "2a69c0f265a6dcd9",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "e7b96bc653a8842e",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "1e177966873a4fcb",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "130c2eba5166e3d9",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "d2c960f88ce65665",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "6521e6324fb4d1f5",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "f854d7dbcfd79c03",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "e648150f66b52468",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "2882ecb73e942fd8",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "cef1c82ac8a44a88",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "cc34dd02e7e59d4f",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "d947b4157ab04b69",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "159bc90a01aeeb8b",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "077d49a56e379c3b",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "216694dca125b748",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "13e950ee40451735",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "c1162154d4940213",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "3a7f7217f53c0fad",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "b99da3f0207ed2a9",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "3282b08f36bc55cb",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "e57e72903ebaa772",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "08ccad9a2b1c03a4",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "7f232c2a9ff7c87f",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "e59d4d73591d408f",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "555adee5c5b56825",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "86ece721de955a68",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "d4be18361fe21af0",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "087a1f2c292d3245",
+          "level": 1,
+          "line": 1
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 267
+      }
+    }
+  ]
+}

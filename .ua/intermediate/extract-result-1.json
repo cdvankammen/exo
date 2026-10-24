@@ -1,0 +1,69 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 2,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": ".github/workflows/build-app.yml",
+      "language": "yaml",
+      "fileCategory": "infra",
+      "totalLines": 568,
+      "nonEmptyLines": 499,
+      "sections": [
+        {
+          "heading": "name",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "on",
+          "level": 1,
+          "line": 14
+        },
+        {
+          "heading": "jobs",
+          "level": 1,
+          "line": 22
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 3
+      }
+    },
+    {
+      "path": ".github/workflows/pipeline.yml",
+      "language": "yaml",
+      "fileCategory": "infra",
+      "totalLines": 117,
+      "nonEmptyLines": 98,
+      "sections": [
+        {
+          "heading": "name",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "on",
+          "level": 1,
+          "line": 3
+        },
+        {
+          "heading": "jobs",
+          "level": 1,
+          "line": 10
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 3
+      }
+    }
+  ]
+}

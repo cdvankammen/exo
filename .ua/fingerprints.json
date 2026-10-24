@@ -1,0 +1,5413 @@
+{
+  "version": "1.0.0",
+  "gitCommitHash": "8be52d7",
+  "generatedAt": "2026-09-10T16:36:17.088Z",
+  "files": {
+    "AGENTS.md": {
+      "filePath": "AGENTS.md",
+      "contentHash": "6fe046c7f2045b31aa9d57f8012f1c23117b49b015f688687d64d5bd196b31bd",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 204,
+      "hasStructuralAnalysis": true
+    },
+    "CLAUDE.md": {
+      "filePath": "CLAUDE.md",
+      "contentHash": "6fe046c7f2045b31aa9d57f8012f1c23117b49b015f688687d64d5bd196b31bd",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 204,
+      "hasStructuralAnalysis": true
+    },
+    "CONTRIBUTING.md": {
+      "filePath": "CONTRIBUTING.md",
+      "contentHash": "6c055f7170ac262878e44d8988a19b27de8081d1a0357c1fbf05e020b41f8109",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 189,
+      "hasStructuralAnalysis": true
+    },
+    "Cargo.toml": {
+      "filePath": "Cargo.toml",
+      "contentHash": "d454306733ce29b7126c1a79dec29dd9e574a887ff18c18945d2b8a3bb8e0452",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 175,
+      "hasStructuralAnalysis": true
+    },
+    "PLATFORMS.md": {
+      "filePath": "PLATFORMS.md",
+      "contentHash": "c8c46593b08a0c0344bc34c02612458ca146e10532a8d19df8e5e63a7d396692",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 39,
+      "hasStructuralAnalysis": true
+    },
+    "README.md": {
+      "filePath": "README.md",
+      "contentHash": "703ff90db4b6a0f19c7e2902024eba9d218b5e81c8b4ca2a5ef5669a5ac8a690",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 723,
+      "hasStructuralAnalysis": true
+    },
+    "RULES.md": {
+      "filePath": "RULES.md",
+      "contentHash": "4635bb50ec0750c457b25d6ef63f38a747719de4f0982fc4183338fa2c65986d",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 84,
+      "hasStructuralAnalysis": true
+    },
+    "SETUP-LOCAL.md": {
+      "filePath": "SETUP-LOCAL.md",
+      "contentHash": "572b9f665f5984e64ed51246f62182338eddb79d9696b66ac39e8dda600bb58b",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 259,
+      "hasStructuralAnalysis": true
+    },
+    "TODO.md": {
+      "filePath": "TODO.md",
+      "contentHash": "4e83e48c6891f3b01f4d5fb6f97c9d392685ba1158bc523ffce309f9d54d2489",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 14,
+      "hasStructuralAnalysis": true
+    },
+    "app/EXO/EXO/Assets.xcassets/AccentColor.colorset/Contents.json": {
+      "filePath": "app/EXO/EXO/Assets.xcassets/AccentColor.colorset/Contents.json",
+      "contentHash": "9af65086fa30b49252fae1a1225731691de794f7775af74d71befeb507d12b7c",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 12,
+      "hasStructuralAnalysis": true
+    },
+    "app/EXO/EXO/Assets.xcassets/AppIcon.appiconset/Contents.json": {
+      "filePath": "app/EXO/EXO/Assets.xcassets/AppIcon.appiconset/Contents.json",
+      "contentHash": "d42c7101eeaa9007f8490e7a78b54c928e3ad193ab60ee4a9ccee70c178ef394",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 69,
+      "hasStructuralAnalysis": true
+    },
+    "app/EXO/EXO/Assets.xcassets/Contents.json": {
+      "filePath": "app/EXO/EXO/Assets.xcassets/Contents.json",
+      "contentHash": "0fd49ba3c3585c709678e0046a821c3c60685ec7063720d30d3a3448be3a208b",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 7,
+      "hasStructuralAnalysis": true
+    },
+    "app/EXO/EXO/Assets.xcassets/menubar-icon.imageset/Contents.json": {
+      "filePath": "app/EXO/EXO/Assets.xcassets/menubar-icon.imageset/Contents.json",
+      "contentHash": "252a5fa65808b00c583b1ea243fe00d2f99e6a85347ce6aaf36fce820473c249",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 22,
+      "hasStructuralAnalysis": true
+    },
+    "app/EXO/EXO/ContentView.swift": {
+      "filePath": "app/EXO/EXO/ContentView.swift",
+      "contentHash": "63d8240aa158661615887532d50fe5dbd473355fae3d72b1617eb18619e59469",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 698,
+      "hasStructuralAnalysis": false
+    },
+    "app/EXO/EXO/EXOApp.swift": {
+      "filePath": "app/EXO/EXO/EXOApp.swift",
+      "contentHash": "427390d457bf10813fb1b601a7879096500acb213d02d31ce06e3e2c68dd86f6",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 289,
+      "hasStructuralAnalysis": false
+    },
+    "app/EXO/EXO/ExoProcessController.swift": {
+      "filePath": "app/EXO/EXO/ExoProcessController.swift",
+      "contentHash": "04e671d464e22418142f53ea1338f5331de7a72e5e524d1755b75f81d39f042f",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 521,
+      "hasStructuralAnalysis": false
+    },
+    "app/EXO/EXO/Models/ClusterState.swift": {
+      "filePath": "app/EXO/EXO/Models/ClusterState.swift",
+      "contentHash": "947fb64137118d242004b26d76e4d4a9657f43725f7eb3d73d9b197ee6905174",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 477,
+      "hasStructuralAnalysis": false
+    },
+    "app/EXO/EXO/Preview Content/Preview Assets.xcassets/Contents.json": {
+      "filePath": "app/EXO/EXO/Preview Content/Preview Assets.xcassets/Contents.json",
+      "contentHash": "0fd49ba3c3585c709678e0046a821c3c60685ec7063720d30d3a3448be3a208b",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 7,
+      "hasStructuralAnalysis": true
+    },
+    "app/EXO/EXO/Services/BugReportService.swift": {
+      "filePath": "app/EXO/EXO/Services/BugReportService.swift",
+      "contentHash": "0005b4bd718cad8ee86953beee8ae511102b5c5651e55d25021e8b7fa2dab129",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 571,
+      "hasStructuralAnalysis": false
+    },
+    "app/EXO/EXO/Services/ClusterStateService.swift": {
+      "filePath": "app/EXO/EXO/Services/ClusterStateService.swift",
+      "contentHash": "9a84c1b7e7d5778f7478589cf29d192549b0ebbe886416f2c1baf7a269350556",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 193,
+      "hasStructuralAnalysis": false
+    },
+    "app/EXO/EXO/Services/LocalNetworkChecker.swift": {
+      "filePath": "app/EXO/EXO/Services/LocalNetworkChecker.swift",
+      "contentHash": "465b6e2d281d89bf371c9caf3cf4c8abb95a094e49dd581914a81f4ad328d8f3",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 184,
+      "hasStructuralAnalysis": false
+    },
+    "app/EXO/EXO/Services/NetworkSetupHelper.swift": {
+      "filePath": "app/EXO/EXO/Services/NetworkSetupHelper.swift",
+      "contentHash": "b687c6fdae0c5f43da466a875397a026d4beae3b110e59db77ab8d174f29c98d",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 383,
+      "hasStructuralAnalysis": false
+    },
+    "app/EXO/EXO/Services/NetworkStatusService.swift": {
+      "filePath": "app/EXO/EXO/Services/NetworkStatusService.swift",
+      "contentHash": "1b98f38957d6e1ae4e8c16cb062313094752645eff36ffcdaefb9b4a85b93c80",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 230,
+      "hasStructuralAnalysis": false
+    },
+    "app/EXO/EXO/Services/ThunderboltBridgeDetector.swift": {
+      "filePath": "app/EXO/EXO/Services/ThunderboltBridgeDetector.swift",
+      "contentHash": "5d83782ef9968b6591a1a7c2987eb29e3e6afe1a34cc7cc02bc7b42ab6bae2af",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 195,
+      "hasStructuralAnalysis": false
+    },
+    "app/EXO/EXO/Services/ThunderboltBridgeService.swift": {
+      "filePath": "app/EXO/EXO/Services/ThunderboltBridgeService.swift",
+      "contentHash": "a9ed8cc025fb970f84be89297639a63ad0b87748b5ed54d17cd2b87f52d4561e",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 262,
+      "hasStructuralAnalysis": false
+    },
+    "app/EXO/EXO/ViewModels/InstanceViewModel.swift": {
+      "filePath": "app/EXO/EXO/ViewModels/InstanceViewModel.swift",
+      "contentHash": "993fd68dcb4efd1effb53b7718b1816be3cc4a6cfa2e6b388a9f651f0f0c445a",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 249,
+      "hasStructuralAnalysis": false
+    },
+    "app/EXO/EXO/ViewModels/NodeViewModel.swift": {
+      "filePath": "app/EXO/EXO/ViewModels/NodeViewModel.swift",
+      "contentHash": "ebe13ca036d7ac318885742f8359033da64f6139189ed4e23f9472e6b207c062",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 132,
+      "hasStructuralAnalysis": false
+    },
+    "app/EXO/EXO/Views/BugReportWindowController.swift": {
+      "filePath": "app/EXO/EXO/Views/BugReportWindowController.swift",
+      "contentHash": "56007c9abcabac517338223ce2d239669b2216bca8172e0cadff141bef79b979",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 243,
+      "hasStructuralAnalysis": false
+    },
+    "app/EXO/EXO/Views/FirstLaunchPopout.swift": {
+      "filePath": "app/EXO/EXO/Views/FirstLaunchPopout.swift",
+      "contentHash": "c9c76c75bb9ccb031d6c28cbdd50c6a7ed2119eaaa859d10a3a377adac6ec8cd",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 201,
+      "hasStructuralAnalysis": false
+    },
+    "app/EXO/EXO/Views/InstanceRowView.swift": {
+      "filePath": "app/EXO/EXO/Views/InstanceRowView.swift",
+      "contentHash": "b4a1d942fda3292c0f48661a56eede1b1cb7159608d2b3eb067f1f1b595dd605",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 338,
+      "hasStructuralAnalysis": false
+    },
+    "app/EXO/EXO/Views/NodeDetailView.swift": {
+      "filePath": "app/EXO/EXO/Views/NodeDetailView.swift",
+      "contentHash": "686285942f208deae01058ca9f6ddf707b0d0047d2ad8276c609aa008e54843c",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 35,
+      "hasStructuralAnalysis": false
+    },
+    "app/EXO/EXO/Views/NodeRowView.swift": {
+      "filePath": "app/EXO/EXO/Views/NodeRowView.swift",
+      "contentHash": "e9ada0ca8c14cd78b91942bee4ee84f7e6f1bd9e29d49aca426161733c0ec23e",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 31,
+      "hasStructuralAnalysis": false
+    },
+    "app/EXO/EXO/Views/SettingsView.swift": {
+      "filePath": "app/EXO/EXO/Views/SettingsView.swift",
+      "contentHash": "96e2274863ec1b170ea753a9a7029b2b8429b26c1e85b6345e0c7e72e442c80a",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 719,
+      "hasStructuralAnalysis": false
+    },
+    "app/EXO/EXO/Views/SettingsWindowController.swift": {
+      "filePath": "app/EXO/EXO/Views/SettingsWindowController.swift",
+      "contentHash": "80168e17f6851bccd5cf4cb3f6369496df57a89a118fae175449178adec28ace",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 48,
+      "hasStructuralAnalysis": false
+    },
+    "app/EXO/EXO/Views/TopologyMiniView.swift": {
+      "filePath": "app/EXO/EXO/Views/TopologyMiniView.swift",
+      "contentHash": "1412a41538fac0f7118af77d899169911cc96407cf5f192df1f4a0825d6bf13d",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 174,
+      "hasStructuralAnalysis": false
+    },
+    "app/EXO/EXO/main.swift": {
+      "filePath": "app/EXO/EXO/main.swift",
+      "contentHash": "c9d1c15dd49a4d1b196b2aa9845f94cfcf23ebeba3b5035756b40fa0b30ca28e",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 86,
+      "hasStructuralAnalysis": false
+    },
+    "app/EXO/EXOTests/EXOTests.swift": {
+      "filePath": "app/EXO/EXOTests/EXOTests.swift",
+      "contentHash": "8d3697a80ad308bba125c38825df8dc9900b81b2eb80ab4cc2f378d846945be1",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 19,
+      "hasStructuralAnalysis": false
+    },
+    "app/EXO/EXOUITests/EXOUITests.swift": {
+      "filePath": "app/EXO/EXOUITests/EXOUITests.swift",
+      "contentHash": "56955c82af85f16a313bb82fe3b51f9ab0ea9e5c90873e8fdc610ed36dadd97d",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 44,
+      "hasStructuralAnalysis": false
+    },
+    "app/EXO/EXOUITests/EXOUITestsLaunchTests.swift": {
+      "filePath": "app/EXO/EXOUITests/EXOUITestsLaunchTests.swift",
+      "contentHash": "6fbdc557d1c710fd267e53ead989154824b6ab7c7c9d5e9cfde871bef6d50a56",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 34,
+      "hasStructuralAnalysis": false
+    },
+    "bench/METHODOLOGY.md": {
+      "filePath": "bench/METHODOLOGY.md",
+      "contentHash": "8c265f18049dc9aa22c230bd0f8051d16566e2825ccdf539fdb0daea7c327a1c",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 162,
+      "hasStructuralAnalysis": true
+    },
+    "bench/bench.toml": {
+      "filePath": "bench/bench.toml",
+      "contentHash": "0941f46304ca0389ad0ada7794fe40df8dd76b8ea5fd31afda9d9f7f72ebbbb2",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 6,
+      "hasStructuralAnalysis": true
+    },
+    "bench/eval_configs/models.toml": {
+      "filePath": "bench/eval_configs/models.toml",
+      "contentHash": "1ec7305dc9dcfcf1b779b73aeebf01569e526f59d5c6c9ef423a1e043ae35aad",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 348,
+      "hasStructuralAnalysis": true
+    },
+    "bench/eval_tool_calls.py": {
+      "filePath": "bench/eval_tool_calls.py",
+      "contentHash": "918c2efb9f15b17728d3834305640c82ae5c0f4a4123517d71af794949e4b23e",
+      "functions": [
+        {
+          "name": "load_scenarios",
+          "params": [
+            "path"
+          ],
+          "returnType": "list[Scenario]",
+          "exported": true,
+          "lineCount": 71
+        },
+        {
+          "name": "validate_args",
+          "params": [
+            "args_str",
+            "required_keys"
+          ],
+          "returnType": "tuple[bool, str | None]",
+          "exported": true,
+          "lineCount": 12
+        },
+        {
+          "name": "validate_nested_args",
+          "params": [
+            "args_str",
+            "array_key",
+            "required_item_keys"
+          ],
+          "returnType": "tuple[bool, str | None]",
+          "exported": true,
+          "lineCount": 27
+        },
+        {
+          "name": "call_api",
+          "params": [
+            "client",
+            "host",
+            "port",
+            "path",
+            "body",
+            "timeout"
+          ],
+          "returnType": "tuple[dict[str, Any], float]",
+          "exported": true,
+          "lineCount": 15
+        },
+        {
+          "name": "_openai_build_request",
+          "params": [
+            "model",
+            "messages",
+            "tools"
+          ],
+          "returnType": "tuple[str, dict[str, Any]]",
+          "exported": true,
+          "lineCount": 14
+        },
+        {
+          "name": "_openai_parse_response",
+          "params": [
+            "data"
+          ],
+          "returnType": "ParsedResponse",
+          "exported": true,
+          "lineCount": 25
+        },
+        {
+          "name": "_openai_build_followup",
+          "params": [
+            "messages",
+            "tools",
+            "model",
+            "parsed",
+            "tool_result"
+          ],
+          "returnType": "tuple[str, dict[str, Any]]",
+          "exported": true,
+          "lineCount": 38
+        },
+        {
+          "name": "_claude_translate_tools",
+          "params": [
+            "tools"
+          ],
+          "returnType": "list[dict[str, Any]]",
+          "exported": true,
+          "lineCount": 13
+        },
+        {
+          "name": "_claude_translate_messages",
+          "params": [
+            "messages"
+          ],
+          "returnType": "list[dict[str, Any]]",
+          "exported": true,
+          "lineCount": 61
+        },
+        {
+          "name": "_claude_build_request",
+          "params": [
+            "model",
+            "messages",
+            "tools"
+          ],
+          "returnType": "tuple[str, dict[str, Any]]",
+          "exported": true,
+          "lineCount": 26
+        },
+        {
+          "name": "_claude_parse_response",
+          "params": [
+            "data"
+          ],
+          "returnType": "ParsedResponse",
+          "exported": true,
+          "lineCount": 42
+        },
+        {
+          "name": "_claude_build_followup",
+          "params": [
+            "messages",
+            "tools",
+            "model",
+            "parsed",
+            "tool_result"
+          ],
+          "returnType": "tuple[str, dict[str, Any]]",
+          "exported": true,
+          "lineCount": 64
+        },
+        {
+          "name": "_responses_translate_input",
+          "params": [
+            "messages"
+          ],
+          "returnType": "list[dict[str, Any]]",
+          "exported": true,
+          "lineCount": 47
+        },
+        {
+          "name": "_responses_build_request",
+          "params": [
+            "model",
+            "messages",
+            "tools"
+          ],
+          "returnType": "tuple[str, dict[str, Any]]",
+          "exported": true,
+          "lineCount": 16
+        },
+        {
+          "name": "_responses_parse_response",
+          "params": [
+            "data"
+          ],
+          "returnType": "ParsedResponse",
+          "exported": true,
+          "lineCount": 43
+        },
+        {
+          "name": "_responses_build_followup",
+          "params": [
+            "messages",
+            "tools",
+            "model",
+            "parsed",
+            "tool_result"
+          ],
+          "returnType": "tuple[str, dict[str, Any]]",
+          "exported": true,
+          "lineCount": 38
+        },
+        {
+          "name": "run_scenario",
+          "params": [
+            "client",
+            "host",
+            "port",
+            "model",
+            "scenario",
+            "api_name",
+            "timeout",
+            "verbose"
+          ],
+          "returnType": "list[ScenarioResult]",
+          "exported": true,
+          "lineCount": 181
+        },
+        {
+          "name": "result_to_dict",
+          "params": [
+            "result"
+          ],
+          "returnType": "dict[str, Any]",
+          "exported": true,
+          "lineCount": 11
+        },
+        {
+          "name": "_placement_sort_key",
+          "params": [
+            "p"
+          ],
+          "returnType": "tuple[int, int]",
+          "exported": true,
+          "lineCount": 12
+        },
+        {
+          "name": "main",
+          "params": [],
+          "returnType": "None",
+          "exported": true,
+          "lineCount": 258
+        }
+      ],
+      "classes": [
+        {
+          "name": "Scenario",
+          "methods": [],
+          "properties": [
+            "name",
+            "description",
+            "messages",
+            "tools",
+            "expect_tool_call",
+            "expected_function",
+            "required_arg_keys",
+            "tool_result",
+            "nested_array_key",
+            "required_item_keys"
+          ],
+          "exported": true,
+          "lineCount": 11
+        },
+        {
+          "name": "ParsedResponse",
+          "methods": [],
+          "properties": [
+            "finish_reason",
+            "has_tool_call",
+            "tool_call",
+            "content"
+          ],
+          "exported": true,
+          "lineCount": 5
+        },
+        {
+          "name": "ScenarioResult",
+          "methods": [],
+          "properties": [
+            "name",
+            "api",
+            "phase",
+            "passed",
+            "checks",
+            "error",
+            "latency_ms"
+          ],
+          "exported": true,
+          "lineCount": 8
+        }
+      ],
+      "imports": [
+        {
+          "source": "argparse",
+          "specifiers": [
+            "argparse"
+          ]
+        },
+        {
+          "source": "contextlib",
+          "specifiers": [
+            "contextlib"
+          ]
+        },
+        {
+          "source": "io",
+          "specifiers": [
+            "io"
+          ]
+        },
+        {
+          "source": "json",
+          "specifiers": [
+            "json"
+          ]
+        },
+        {
+          "source": "os",
+          "specifiers": [
+            "os"
+          ]
+        },
+        {
+          "source": "sys",
+          "specifiers": [
+            "sys"
+          ]
+        },
+        {
+          "source": "time",
+          "specifiers": [
+            "time"
+          ]
+        },
+        {
+          "source": "tomllib",
+          "specifiers": [
+            "tomllib"
+          ]
+        },
+        {
+          "source": "concurrent.futures",
+          "specifiers": [
+            "ThreadPoolExecutor",
+            "as_completed"
+          ]
+        },
+        {
+          "source": "dataclasses",
+          "specifiers": [
+            "dataclass",
+            "field"
+          ]
+        },
+        {
+          "source": "pathlib",
+          "specifiers": [
+            "Path"
+          ]
+        },
+        {
+          "source": "typing",
+          "specifiers": [
+            "Any",
+            "Literal"
+          ]
+        },
+        {
+          "source": "httpx",
+          "specifiers": [
+            "httpx"
+          ]
+        },
+        {
+          "source": "exo_tools.client",
+          "specifiers": [
+            "ExoClient",
+            "ExoHttpError"
+          ]
+        },
+        {
+          "source": "exo_tools.harness",
+          "specifiers": [
+            "add_common_instance_args",
+            "capture_cluster_snapshot",
+            "instance_id_from_instance",
+            "nodes_used_in_instance",
+            "resolve_model_short_id",
+            "run_planning_phase",
+            "settle_and_fetch_placements",
+            "wait_for_instance_gone",
+            "wait_for_instance_ready"
+          ]
+        }
+      ],
+      "exports": [
+        "Scenario",
+        "load_scenarios",
+        "ParsedResponse",
+        "ScenarioResult",
+        "validate_args",
+        "validate_nested_args",
+        "call_api",
+        "_openai_build_request",
+        "_openai_parse_response",
+        "_openai_build_followup",
+        "_claude_translate_tools",
+        "_claude_translate_messages",
+        "_claude_build_request",
+        "_claude_parse_response",
+        "_claude_build_followup",
+        "_responses_translate_input",
+        "_responses_build_request",
+        "_responses_parse_response",
+        "_responses_build_followup",
+        "run_scenario",
+        "result_to_dict",
+        "_placement_sort_key",
+        "main"
+      ],
+      "totalLines": 1154,
+      "hasStructuralAnalysis": true
+    },
+    "bench/exo_bench.py": {
+      "filePath": "bench/exo_bench.py",
+      "contentHash": "9687afe7083bfe7c5c0ac344942b7dae3ebb93fc646e262b2ed6109ae95ac0a1",
+      "functions": [
+        {
+          "name": "load_tokenizer_for_bench",
+          "params": [
+            "model_id"
+          ],
+          "returnType": "Any",
+          "exported": true,
+          "lineCount": 104
+        },
+        {
+          "name": "format_peak_memory",
+          "params": [
+            "b"
+          ],
+          "returnType": "str",
+          "exported": true,
+          "lineCount": 6
+        },
+        {
+          "name": "parse_int_list",
+          "params": [
+            "values"
+          ],
+          "returnType": "list[int]",
+          "exported": true,
+          "lineCount": 8
+        },
+        {
+          "name": "run_one_completion",
+          "params": [
+            "client",
+            "model_id",
+            "pp_hint",
+            "tg",
+            "prompt_sizer",
+            "use_prefix_cache",
+            "stream"
+          ],
+          "returnType": "tuple[dict[str, Any], int]",
+          "exported": true,
+          "lineCount": 83
+        },
+        {
+          "name": "main",
+          "params": [],
+          "returnType": "int",
+          "exported": true,
+          "lineCount": 505
+        }
+      ],
+      "classes": [
+        {
+          "name": "SystemMetricsSampler",
+          "methods": [
+            "__init__",
+            "start",
+            "stop",
+            "_poll_loop",
+            "energy_between",
+            "summarize",
+            "print_summary"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 80
+        },
+        {
+          "name": "PromptSizer",
+          "methods": [
+            "__init__",
+            "_make_counter",
+            "build"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 69
+        }
+      ],
+      "imports": [
+        {
+          "source": "argparse",
+          "specifiers": [
+            "argparse"
+          ]
+        },
+        {
+          "source": "contextlib",
+          "specifiers": [
+            "contextlib"
+          ]
+        },
+        {
+          "source": "itertools",
+          "specifiers": [
+            "itertools"
+          ]
+        },
+        {
+          "source": "json",
+          "specifiers": [
+            "json"
+          ]
+        },
+        {
+          "source": "sys",
+          "specifiers": [
+            "sys"
+          ]
+        },
+        {
+          "source": "threading",
+          "specifiers": [
+            "threading"
+          ]
+        },
+        {
+          "source": "time",
+          "specifiers": [
+            "time"
+          ]
+        },
+        {
+          "source": "collections.abc",
+          "specifiers": [
+            "Callable"
+          ]
+        },
+        {
+          "source": "concurrent.futures",
+          "specifiers": [
+            "ThreadPoolExecutor",
+            "as_completed"
+          ]
+        },
+        {
+          "source": "pathlib",
+          "specifiers": [
+            "Path"
+          ]
+        },
+        {
+          "source": "statistics",
+          "specifiers": [
+            "mean"
+          ]
+        },
+        {
+          "source": "typing",
+          "specifiers": [
+            "Any"
+          ]
+        },
+        {
+          "source": "exo_tools.client",
+          "specifiers": [
+            "ExoClient",
+            "ExoHttpError"
+          ]
+        },
+        {
+          "source": "exo_tools.harness",
+          "specifiers": [
+            "add_common_instance_args",
+            "capture_cluster_snapshot",
+            "find_existing_instance",
+            "instance_id_from_instance",
+            "node_ids_from_instance",
+            "nodes_used_in_instance",
+            "resolve_model_short_id",
+            "run_planning_phase",
+            "settle_and_fetch_placements",
+            "wait_for_instance_gone",
+            "wait_for_instance_ready"
+          ]
+        },
+        {
+          "source": "loguru",
+          "specifiers": [
+            "logger"
+          ]
+        },
+        {
+          "source": "transformers",
+          "specifiers": [
+            "AutoTokenizer"
+          ]
+        }
+      ],
+      "exports": [
+        "load_tokenizer_for_bench",
+        "format_peak_memory",
+        "SystemMetricsSampler",
+        "parse_int_list",
+        "run_one_completion",
+        "PromptSizer",
+        "main"
+      ],
+      "totalLines": 937,
+      "hasStructuralAnalysis": true
+    },
+    "bench/exo_eval.py": {
+      "filePath": "bench/exo_eval.py",
+      "contentHash": "7681040d25fc7a2055a0a0286e53ab9257ca3ac57a720f75a5519b264356ceb8",
+      "functions": [
+        {
+          "name": "load_model_config",
+          "params": [
+            "model_id"
+          ],
+          "returnType": "dict[str, Any] | None",
+          "exported": true,
+          "lineCount": 12
+        },
+        {
+          "name": "extract_mc_answer",
+          "params": [
+            "text",
+            "valid_letters"
+          ],
+          "returnType": "str | None",
+          "exported": true,
+          "lineCount": 12
+        },
+        {
+          "name": "extract_boxed_answer",
+          "params": [
+            "text"
+          ],
+          "returnType": "str | None",
+          "exported": true,
+          "lineCount": 22
+        },
+        {
+          "name": "extract_code_block",
+          "params": [
+            "text",
+            "preserve_indent"
+          ],
+          "returnType": "str | None",
+          "exported": true,
+          "lineCount": 16
+        },
+        {
+          "name": "check_aime_answer",
+          "params": [
+            "extracted",
+            "gold"
+          ],
+          "returnType": "bool",
+          "exported": true,
+          "lineCount": 12
+        },
+        {
+          "name": "_lcb_worker",
+          "params": [
+            "sample",
+            "code",
+            "timeout",
+            "result_holder",
+            "metadata_holder"
+          ],
+          "returnType": "None",
+          "exported": true,
+          "lineCount": 17
+        },
+        {
+          "name": "run_livecodebench_test",
+          "params": [
+            "code",
+            "sample",
+            "timeout"
+          ],
+          "returnType": "tuple[bool, str]",
+          "exported": true,
+          "lineCount": 41
+        },
+        {
+          "name": "run_humaneval_test",
+          "params": [
+            "problem",
+            "completion",
+            "timeout"
+          ],
+          "returnType": "tuple[bool, str]",
+          "exported": true,
+          "lineCount": 10
+        },
+        {
+          "name": "format_gpqa_question",
+          "params": [
+            "doc",
+            "idx"
+          ],
+          "returnType": "tuple[str, str]",
+          "exported": true,
+          "lineCount": 15
+        },
+        {
+          "name": "format_mmlu_pro_question",
+          "params": [
+            "doc"
+          ],
+          "returnType": "tuple[str, str]",
+          "exported": true,
+          "lineCount": 8
+        },
+        {
+          "name": "format_aime_question",
+          "params": [
+            "doc"
+          ],
+          "returnType": "tuple[str, int]",
+          "exported": true,
+          "lineCount": 3
+        },
+        {
+          "name": "format_humaneval_question",
+          "params": [
+            "doc"
+          ],
+          "returnType": "tuple[str, dict]",
+          "exported": true,
+          "lineCount": 14
+        },
+        {
+          "name": "format_livecodebench_question",
+          "params": [
+            "doc"
+          ],
+          "returnType": "tuple[str, str | None, dict]",
+          "exported": true,
+          "lineCount": 56
+        },
+        {
+          "name": "_call_api",
+          "params": [
+            "client",
+            "base_url",
+            "model",
+            "prompt",
+            "temperature",
+            "max_tokens",
+            "timeout",
+            "system_message",
+            "reasoning_effort",
+            "top_p",
+            "top_k",
+            "min_p",
+            "enable_thinking"
+          ],
+          "returnType": "ApiResult",
+          "exported": true,
+          "lineCount": 66
+        },
+        {
+          "name": "_check_instance_health",
+          "params": [
+            "base_url"
+          ],
+          "returnType": "bool",
+          "exported": true,
+          "lineCount": 8
+        },
+        {
+          "name": "call_with_retries",
+          "params": [
+            "client",
+            "base_url",
+            "model",
+            "prompt",
+            "temperature",
+            "max_tokens",
+            "timeout",
+            "system_message",
+            "reasoning_effort",
+            "top_p",
+            "top_k",
+            "min_p",
+            "enable_thinking",
+            "instance_failed"
+          ],
+          "returnType": "ApiResult | None",
+          "exported": true,
+          "lineCount": 64
+        },
+        {
+          "name": "evaluate_benchmark",
+          "params": [
+            "benchmark_name",
+            "base_url",
+            "model",
+            "temperature",
+            "max_tokens",
+            "concurrency",
+            "limit",
+            "offset",
+            "timeout",
+            "reasoning_effort",
+            "top_p",
+            "top_k",
+            "min_p",
+            "enable_thinking",
+            "difficulty",
+            "checkpoint_path",
+            "release_version"
+          ],
+          "returnType": "list[QuestionResult]",
+          "exported": true,
+          "lineCount": 373
+        },
+        {
+          "name": "_write_checkpoint",
+          "params": [
+            "path",
+            "result"
+          ],
+          "returnType": "None",
+          "exported": true,
+          "lineCount": 21
+        },
+        {
+          "name": "print_results",
+          "params": [
+            "benchmark_name",
+            "results",
+            "concurrency"
+          ],
+          "returnType": "dict[str, Any]",
+          "exported": true,
+          "lineCount": 55
+        },
+        {
+          "name": "print_comparison",
+          "params": [
+            "benchmark_name",
+            "results_by_c"
+          ],
+          "returnType": "None",
+          "exported": true,
+          "lineCount": 46
+        },
+        {
+          "name": "pick_tasks_interactive",
+          "params": [],
+          "returnType": "list[str]",
+          "exported": true,
+          "lineCount": 62
+        },
+        {
+          "name": "save_results",
+          "params": [
+            "results_dir",
+            "benchmark_name",
+            "model",
+            "concurrency",
+            "results",
+            "scores",
+            "cluster"
+          ],
+          "returnType": "Path",
+          "exported": true,
+          "lineCount": 45
+        },
+        {
+          "name": "_checkpoint_path",
+          "params": [
+            "results_dir",
+            "benchmark",
+            "model",
+            "concurrency"
+          ],
+          "returnType": "Path",
+          "exported": true,
+          "lineCount": 7
+        },
+        {
+          "name": "parse_int_list",
+          "params": [
+            "values"
+          ],
+          "returnType": "list[int]",
+          "exported": true,
+          "lineCount": 7
+        },
+        {
+          "name": "main",
+          "params": [],
+          "returnType": "int",
+          "exported": true,
+          "lineCount": 409
+        }
+      ],
+      "classes": [
+        {
+          "name": "InstanceFailedError",
+          "methods": [],
+          "properties": [],
+          "exported": true,
+          "lineCount": 2
+        },
+        {
+          "name": "QuestionResult",
+          "methods": [],
+          "properties": [
+            "question_id",
+            "prompt",
+            "response",
+            "extracted_answer",
+            "gold_answer",
+            "correct",
+            "error",
+            "prompt_tokens",
+            "completion_tokens",
+            "reasoning_tokens",
+            "reasoning_content",
+            "finish_reason",
+            "elapsed_s",
+            "power_watts",
+            "energy_joules"
+          ],
+          "exported": true,
+          "lineCount": 16
+        },
+        {
+          "name": "BenchmarkConfig",
+          "methods": [],
+          "properties": [
+            "name",
+            "description",
+            "dataset_name",
+            "dataset_config",
+            "split",
+            "kind"
+          ],
+          "exported": true,
+          "lineCount": 7
+        },
+        {
+          "name": "ApiResult",
+          "methods": [],
+          "properties": [
+            "content",
+            "prompt_tokens",
+            "completion_tokens",
+            "reasoning_tokens",
+            "reasoning_content",
+            "finish_reason",
+            "power_watts",
+            "energy_joules"
+          ],
+          "exported": true,
+          "lineCount": 9
+        }
+      ],
+      "imports": [
+        {
+          "source": "argparse",
+          "specifiers": [
+            "argparse"
+          ]
+        },
+        {
+          "source": "asyncio",
+          "specifiers": [
+            "asyncio"
+          ]
+        },
+        {
+          "source": "contextlib",
+          "specifiers": [
+            "contextlib"
+          ]
+        },
+        {
+          "source": "json",
+          "specifiers": [
+            "json"
+          ]
+        },
+        {
+          "source": "multiprocessing",
+          "specifiers": [
+            "multiprocessing"
+          ]
+        },
+        {
+          "source": "random",
+          "specifiers": [
+            "random"
+          ]
+        },
+        {
+          "source": "re",
+          "specifiers": [
+            "re"
+          ]
+        },
+        {
+          "source": "sys",
+          "specifiers": [
+            "sys"
+          ]
+        },
+        {
+          "source": "time",
+          "specifiers": [
+            "time"
+          ]
+        },
+        {
+          "source": "tomllib",
+          "specifiers": [
+            "tomllib"
+          ]
+        },
+        {
+          "source": "dataclasses",
+          "specifiers": [
+            "dataclass"
+          ]
+        },
+        {
+          "source": "pathlib",
+          "specifiers": [
+            "Path"
+          ]
+        },
+        {
+          "source": "typing",
+          "specifiers": [
+            "Any"
+          ]
+        },
+        {
+          "source": "httpx",
+          "specifiers": [
+            "httpx"
+          ]
+        },
+        {
+          "source": "exo_tools.client",
+          "specifiers": [
+            "ExoClient",
+            "ExoHttpError"
+          ]
+        },
+        {
+          "source": "exo_tools.harness",
+          "specifiers": [
+            "add_common_instance_args",
+            "capture_cluster_snapshot",
+            "find_existing_instance",
+            "instance_id_from_instance",
+            "nodes_used_in_instance",
+            "resolve_model_short_id",
+            "run_planning_phase",
+            "settle_and_fetch_placements",
+            "wait_for_instance_gone",
+            "wait_for_instance_ready"
+          ]
+        },
+        {
+          "source": "loguru",
+          "specifiers": [
+            "logger"
+          ]
+        }
+      ],
+      "exports": [
+        "InstanceFailedError",
+        "load_model_config",
+        "extract_mc_answer",
+        "extract_boxed_answer",
+        "extract_code_block",
+        "check_aime_answer",
+        "_lcb_worker",
+        "run_livecodebench_test",
+        "run_humaneval_test",
+        "QuestionResult",
+        "BenchmarkConfig",
+        "format_gpqa_question",
+        "format_mmlu_pro_question",
+        "format_aime_question",
+        "format_humaneval_question",
+        "format_livecodebench_question",
+        "ApiResult",
+        "_call_api",
+        "_check_instance_health",
+        "call_with_retries",
+        "evaluate_benchmark",
+        "_write_checkpoint",
+        "print_results",
+        "print_comparison",
+        "pick_tasks_interactive",
+        "save_results",
+        "_checkpoint_path",
+        "parse_int_list",
+        "main"
+      ],
+      "totalLines": 1753,
+      "hasStructuralAnalysis": true
+    },
+    "bench/parallel_requests.py": {
+      "filePath": "bench/parallel_requests.py",
+      "contentHash": "a0eabbd37d573c74613426f2dbb916c2ba4d0c58efc653edfe5eda838b8fb385",
+      "functions": [
+        {
+          "name": "write",
+          "params": [
+            "s"
+          ],
+          "returnType": "None",
+          "exported": true,
+          "lineCount": 2
+        },
+        {
+          "name": "fetch_models",
+          "params": [],
+          "returnType": "list[str]",
+          "exported": true,
+          "lineCount": 14
+        },
+        {
+          "name": "pick_model",
+          "params": [],
+          "returnType": "str | None",
+          "exported": true,
+          "lineCount": 47
+        },
+        {
+          "name": "render_progress",
+          "params": [
+            "first"
+          ],
+          "returnType": "None",
+          "exported": true,
+          "lineCount": 27
+        },
+        {
+          "name": "send_request",
+          "params": [
+            "session",
+            "i",
+            "lock"
+          ],
+          "returnType": "None",
+          "exported": true,
+          "lineCount": 38
+        },
+        {
+          "name": "run_requests",
+          "params": [
+            "print_stdout"
+          ],
+          "returnType": "None",
+          "exported": true,
+          "lineCount": 46
+        },
+        {
+          "name": "main",
+          "params": [],
+          "returnType": "None",
+          "exported": true,
+          "lineCount": 19
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "argparse",
+          "specifiers": [
+            "argparse"
+          ]
+        },
+        {
+          "source": "asyncio",
+          "specifiers": [
+            "asyncio"
+          ]
+        },
+        {
+          "source": "sys",
+          "specifiers": [
+            "sys"
+          ]
+        },
+        {
+          "source": "termios",
+          "specifiers": [
+            "termios"
+          ]
+        },
+        {
+          "source": "time",
+          "specifiers": [
+            "time"
+          ]
+        },
+        {
+          "source": "tty",
+          "specifiers": [
+            "tty"
+          ]
+        },
+        {
+          "source": "aiohttp",
+          "specifiers": [
+            "aiohttp"
+          ]
+        }
+      ],
+      "exports": [
+        "write",
+        "fetch_models",
+        "pick_model",
+        "render_progress",
+        "send_request",
+        "run_requests",
+        "main"
+      ],
+      "totalLines": 256,
+      "hasStructuralAnalysis": true
+    },
+    "bench/prefill-decode.toml": {
+      "filePath": "bench/prefill-decode.toml",
+      "contentHash": "b974ece1b4e212ba3a97164e88bb62284037c79fd11325fa1d49f04bb312dbd6",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 37,
+      "hasStructuralAnalysis": true
+    },
+    "bench/prefill_decode_bench.py": {
+      "filePath": "bench/prefill_decode_bench.py",
+      "contentHash": "2ca8e818b7dc0b8a07e09c6ab920dbe78a88da8e68fdb0e126bdbbd1c1a61224",
+      "functions": [
+        {
+          "name": "_node_id_to_friendly",
+          "params": [
+            "client"
+          ],
+          "returnType": "dict[str, str]",
+          "exported": true,
+          "lineCount": 9
+        },
+        {
+          "name": "_placement_node_friendly_names",
+          "params": [
+            "placement",
+            "id_to_friendly"
+          ],
+          "returnType": "list[str]",
+          "exported": true,
+          "lineCount": 5
+        },
+        {
+          "name": "_filter_by_node",
+          "params": [
+            "placements",
+            "friendly_name",
+            "id_to_friendly"
+          ],
+          "returnType": "list[dict[str, Any]]",
+          "exported": true,
+          "lineCount": 12
+        },
+        {
+          "name": "_node_id_by_friendly",
+          "params": [
+            "id_to_friendly",
+            "target"
+          ],
+          "returnType": "str | None",
+          "exported": true,
+          "lineCount": 6
+        },
+        {
+          "name": "_load_toml",
+          "params": [
+            "path"
+          ],
+          "returnType": "dict[str, Any]",
+          "exported": true,
+          "lineCount": 3
+        },
+        {
+          "name": "_inject_toml_into_argv",
+          "params": [],
+          "returnType": "None",
+          "exported": true,
+          "lineCount": 43
+        },
+        {
+          "name": "_merge_toml_into_args",
+          "params": [
+            "args",
+            "cfg"
+          ],
+          "returnType": "None",
+          "exported": true,
+          "lineCount": 11
+        },
+        {
+          "name": "_side_args",
+          "params": [
+            "base",
+            "overrides"
+          ],
+          "returnType": "argparse.Namespace",
+          "exported": true,
+          "lineCount": 15
+        },
+        {
+          "name": "_pick_two_distinct_placements",
+          "params": [
+            "placements"
+          ],
+          "returnType": "tuple[dict[str, Any], dict[str, Any]] | None",
+          "exported": true,
+          "lineCount": 16
+        },
+        {
+          "name": "_create_instance_link",
+          "params": [
+            "client",
+            "prefill_instance_id",
+            "decode_instance_id"
+          ],
+          "returnType": "str",
+          "exported": true,
+          "lineCount": 14
+        },
+        {
+          "name": "_list_instance_links",
+          "params": [
+            "client"
+          ],
+          "returnType": "list[dict[str, Any]]",
+          "exported": true,
+          "lineCount": 3
+        },
+        {
+          "name": "_delete_instance_link",
+          "params": [
+            "client",
+            "link_id"
+          ],
+          "returnType": "None",
+          "exported": true,
+          "lineCount": 2
+        },
+        {
+          "name": "run_one",
+          "params": [
+            "client",
+            "model_id",
+            "pp_hint",
+            "tg",
+            "prompt_sizer"
+          ],
+          "returnType": "tuple[dict[str, Any], int]",
+          "exported": true,
+          "lineCount": 30
+        },
+        {
+          "name": "_run_phase",
+          "params": [
+            "client",
+            "label",
+            "pp_tg_pairs",
+            "model_id",
+            "prompt_sizer",
+            "warmup",
+            "repeat",
+            "common_meta"
+          ],
+          "returnType": "list[dict[str, Any]]",
+          "exported": true,
+          "lineCount": 55
+        },
+        {
+          "name": "_summarise",
+          "params": [
+            "rows"
+          ],
+          "returnType": "dict[tuple[int, int], dict[str, float]]",
+          "exported": true,
+          "lineCount": 13
+        },
+        {
+          "name": "_print_diff",
+          "params": [
+            "disagg_rows",
+            "decode_alone_rows",
+            "prefill_alone_rows"
+          ],
+          "returnType": "None",
+          "exported": true,
+          "lineCount": 46
+        },
+        {
+          "name": "main",
+          "params": [],
+          "returnType": "int",
+          "exported": true,
+          "lineCount": 391
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "argparse",
+          "specifiers": [
+            "argparse"
+          ]
+        },
+        {
+          "source": "contextlib",
+          "specifiers": [
+            "contextlib"
+          ]
+        },
+        {
+          "source": "copy",
+          "specifiers": [
+            "copy"
+          ]
+        },
+        {
+          "source": "itertools",
+          "specifiers": [
+            "itertools"
+          ]
+        },
+        {
+          "source": "json",
+          "specifiers": [
+            "json"
+          ]
+        },
+        {
+          "source": "sys",
+          "specifiers": [
+            "sys"
+          ]
+        },
+        {
+          "source": "time",
+          "specifiers": [
+            "time"
+          ]
+        },
+        {
+          "source": "tomllib",
+          "specifiers": [
+            "tomllib"
+          ]
+        },
+        {
+          "source": "pathlib",
+          "specifiers": [
+            "Path"
+          ]
+        },
+        {
+          "source": "statistics",
+          "specifiers": [
+            "mean"
+          ]
+        },
+        {
+          "source": "typing",
+          "specifiers": [
+            "Any"
+          ]
+        },
+        {
+          "source": "exo_bench",
+          "specifiers": [
+            "PromptSizer",
+            "format_peak_memory",
+            "load_tokenizer_for_bench",
+            "parse_int_list"
+          ]
+        },
+        {
+          "source": "exo_tools.client",
+          "specifiers": [
+            "ExoClient",
+            "ExoHttpError"
+          ]
+        },
+        {
+          "source": "exo_tools.harness",
+          "specifiers": [
+            "add_common_instance_args",
+            "instance_id_from_instance",
+            "node_ids_from_instance",
+            "nodes_used_in_instance",
+            "resolve_model_short_id",
+            "run_planning_phase",
+            "settle_and_fetch_placements",
+            "unwrap_instance",
+            "wait_for_instance_gone",
+            "wait_for_instance_ready"
+          ]
+        },
+        {
+          "source": "loguru",
+          "specifiers": [
+            "logger"
+          ]
+        }
+      ],
+      "exports": [
+        "_node_id_to_friendly",
+        "_placement_node_friendly_names",
+        "_filter_by_node",
+        "_node_id_by_friendly",
+        "_load_toml",
+        "_inject_toml_into_argv",
+        "_merge_toml_into_args",
+        "_side_args",
+        "_pick_two_distinct_placements",
+        "_create_instance_link",
+        "_list_instance_links",
+        "_delete_instance_link",
+        "run_one",
+        "_run_phase",
+        "_summarise",
+        "_print_diff",
+        "main"
+      ],
+      "totalLines": 785,
+      "hasStructuralAnalysis": true
+    },
+    "bench/pyproject.toml": {
+      "filePath": "bench/pyproject.toml",
+      "contentHash": "d7a507bd3193e1f8ee27e0119498cf97616a49821d54346e48b0dbd89c25a882",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 24,
+      "hasStructuralAnalysis": true
+    },
+    "bench/scenarios.toml": {
+      "filePath": "bench/scenarios.toml",
+      "contentHash": "2be4a46b4d4d38a756a04a686314ef6bfc2ece3f488ffdca4a9cb35af1b819d3",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 307,
+      "hasStructuralAnalysis": true
+    },
+    "bench/single-m3-ultra.toml": {
+      "filePath": "bench/single-m3-ultra.toml",
+      "contentHash": "7f6f2dc7cf3636628636fa362e25419820e0d804ae5cec8639f55caa67d9ba4b",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 190,
+      "hasStructuralAnalysis": true
+    },
+    "bench/vendor/__init__.py": {
+      "filePath": "bench/vendor/__init__.py",
+      "contentHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 1,
+      "hasStructuralAnalysis": true
+    },
+    "bench/vendor/lcb_testing_util.py": {
+      "filePath": "bench/vendor/lcb_testing_util.py",
+      "contentHash": "30c5a22e9dff85655195778ec29679d799883ef3403b01dca013f99321ce2121",
+      "functions": [
+        {
+          "name": "truncatefn",
+          "params": [
+            "s",
+            "length"
+          ],
+          "exported": true,
+          "lineCount": 9
+        },
+        {
+          "name": "timeout_handler",
+          "params": [
+            "signum",
+            "frame"
+          ],
+          "exported": true,
+          "lineCount": 3
+        },
+        {
+          "name": "clean_if_name",
+          "params": [
+            "code"
+          ],
+          "returnType": "str",
+          "exported": true,
+          "lineCount": 14
+        },
+        {
+          "name": "make_function",
+          "params": [
+            "code"
+          ],
+          "returnType": "str",
+          "exported": true,
+          "lineCount": 30
+        },
+        {
+          "name": "call_method",
+          "params": [
+            "method",
+            "inputs"
+          ],
+          "exported": true,
+          "lineCount": 27
+        },
+        {
+          "name": "get_function",
+          "params": [
+            "compiled_sol",
+            "fn_name"
+          ],
+          "exported": true,
+          "lineCount": 6
+        },
+        {
+          "name": "compile_code",
+          "params": [
+            "code",
+            "timeout"
+          ],
+          "exported": true,
+          "lineCount": 20
+        },
+        {
+          "name": "convert_line_to_decimals",
+          "params": [
+            "line"
+          ],
+          "returnType": "tuple[bool, list[Decimal]]",
+          "exported": true,
+          "lineCount": 6
+        },
+        {
+          "name": "get_stripped_lines",
+          "params": [
+            "val"
+          ],
+          "exported": true,
+          "lineCount": 5
+        },
+        {
+          "name": "grade_call_based",
+          "params": [
+            "code",
+            "all_inputs",
+            "all_outputs",
+            "fn_name",
+            "timeout"
+          ],
+          "exported": true,
+          "lineCount": 79
+        },
+        {
+          "name": "grade_stdio",
+          "params": [
+            "code",
+            "all_inputs",
+            "all_outputs",
+            "timeout"
+          ],
+          "exported": true,
+          "lineCount": 116
+        },
+        {
+          "name": "run_test",
+          "params": [
+            "sample",
+            "test",
+            "debug",
+            "timeout"
+          ],
+          "exported": true,
+          "lineCount": 79
+        },
+        {
+          "name": "reliability_guard",
+          "params": [
+            "maximum_memory_bytes"
+          ],
+          "exported": true,
+          "lineCount": 84
+        }
+      ],
+      "classes": [
+        {
+          "name": "CODE_TYPE",
+          "methods": [],
+          "properties": [],
+          "exported": true,
+          "lineCount": 3
+        },
+        {
+          "name": "TimeoutException",
+          "methods": [],
+          "properties": [],
+          "exported": true,
+          "lineCount": 2
+        },
+        {
+          "name": "Capturing",
+          "methods": [
+            "__enter__",
+            "__exit__"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 12
+        },
+        {
+          "name": "MockStdinWithBuffer",
+          "methods": [
+            "__init__",
+            "read",
+            "readline",
+            "readlines",
+            "__getattr__"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 18
+        },
+        {
+          "name": "MockBuffer",
+          "methods": [
+            "__init__",
+            "read",
+            "readline"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 10
+        }
+      ],
+      "imports": [
+        {
+          "source": "ast",
+          "specifiers": [
+            "ast"
+          ]
+        },
+        {
+          "source": "faulthandler",
+          "specifiers": [
+            "faulthandler"
+          ]
+        },
+        {
+          "source": "json",
+          "specifiers": [
+            "json"
+          ]
+        },
+        {
+          "source": "platform",
+          "specifiers": [
+            "platform"
+          ]
+        },
+        {
+          "source": "signal",
+          "specifiers": [
+            "signal"
+          ]
+        },
+        {
+          "source": "sys",
+          "specifiers": [
+            "sys"
+          ]
+        },
+        {
+          "source": "time",
+          "specifiers": [
+            "time"
+          ]
+        },
+        {
+          "source": "datetime",
+          "specifiers": [
+            "datetime"
+          ]
+        },
+        {
+          "source": "decimal",
+          "specifiers": [
+            "Decimal"
+          ]
+        },
+        {
+          "source": "enum",
+          "specifiers": [
+            "Enum"
+          ]
+        },
+        {
+          "source": "io",
+          "specifiers": [
+            "StringIO"
+          ]
+        },
+        {
+          "source": "types",
+          "specifiers": [
+            "ModuleType"
+          ]
+        },
+        {
+          "source": "unittest.mock",
+          "specifiers": [
+            "mock_open",
+            "patch"
+          ]
+        }
+      ],
+      "exports": [
+        "truncatefn",
+        "CODE_TYPE",
+        "TimeoutException",
+        "timeout_handler",
+        "Capturing",
+        "MockStdinWithBuffer",
+        "MockBuffer",
+        "clean_if_name",
+        "make_function",
+        "call_method",
+        "get_function",
+        "compile_code",
+        "convert_line_to_decimals",
+        "get_stripped_lines",
+        "grade_call_based",
+        "grade_stdio",
+        "run_test",
+        "reliability_guard"
+      ],
+      "totalLines": 594,
+      "hasStructuralAnalysis": true
+    },
+    "continuity/README.md": {
+      "filePath": "continuity/README.md",
+      "contentHash": "25bf163b5fe51fcdd56180f7ca3e1ef41bff84ff3022f3a46cb269535b76990d",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 16,
+      "hasStructuralAnalysis": true
+    },
+    "continuity/action-ledger.md": {
+      "filePath": "continuity/action-ledger.md",
+      "contentHash": "283e60e25e4df75d7347f8f23d28a8de658456d52ea02952b6fa9445f9fed8b0",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 27,
+      "hasStructuralAnalysis": true
+    },
+    "continuity/artifact-ledger.md": {
+      "filePath": "continuity/artifact-ledger.md",
+      "contentHash": "4d360d81dbaea54fb5fb49db0c3bd127dcb51ebb45f34556963fba58d6284d81",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 12,
+      "hasStructuralAnalysis": true
+    },
+    "continuity/critique-ledger.md": {
+      "filePath": "continuity/critique-ledger.md",
+      "contentHash": "b829b0be9076413d8465c91592ec9272ddf4cf440343d9d473a386f02fb278f8",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 12,
+      "hasStructuralAnalysis": true
+    },
+    "continuity/current-state.md": {
+      "filePath": "continuity/current-state.md",
+      "contentHash": "eb55ae066d6ef40f68b0214449e9d9c1cbb2f8c644d025ce4789b5ab77206b7b",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 51,
+      "hasStructuralAnalysis": true
+    },
+    "continuity/decision-ledger.md": {
+      "filePath": "continuity/decision-ledger.md",
+      "contentHash": "e932485bbab9f611a3177377118c863af0477f9a4add3a4461ebdc724521a773",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 32,
+      "hasStructuralAnalysis": true
+    },
+    "continuity/full-history-index.md": {
+      "filePath": "continuity/full-history-index.md",
+      "contentHash": "d14174629e5fd53d249c02cd106a86e88da1daf1d31a1231146179cccd798532",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 11,
+      "hasStructuralAnalysis": true
+    },
+    "continuity/handoff-ledger.md": {
+      "filePath": "continuity/handoff-ledger.md",
+      "contentHash": "df4dd8e14a26117dd9d9f7663472d8d9ce9b63f8669dcfa7b5f4a1f1ebea71d5",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 11,
+      "hasStructuralAnalysis": true
+    },
+    "continuity/implementation-ledger.md": {
+      "filePath": "continuity/implementation-ledger.md",
+      "contentHash": "3d6749084d6e4c84458a03e7a4adaf9b0575033cc17ad39da58973c7d8c648c2",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 13,
+      "hasStructuralAnalysis": true
+    },
+    "continuity/lessons-learned.md": {
+      "filePath": "continuity/lessons-learned.md",
+      "contentHash": "349c0ce8e65bb1f3ee5eff7e48d375d14cc7a75cc2cd8e000427ea812e0ae364",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 35,
+      "hasStructuralAnalysis": true
+    },
+    "continuity/missing-history.md": {
+      "filePath": "continuity/missing-history.md",
+      "contentHash": "379c0fa011de9e4e9acf59397658425e345d70c03af9ea91e626c1e01bd8ade4",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 14,
+      "hasStructuralAnalysis": true
+    },
+    "continuity/next-actions.md": {
+      "filePath": "continuity/next-actions.md",
+      "contentHash": "c6f43600e9ff218f6bdf4e3a83ddf2fcc23a91348ab6ec067262fcd1801849d8",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 25,
+      "hasStructuralAnalysis": true
+    },
+    "continuity/open-questions.md": {
+      "filePath": "continuity/open-questions.md",
+      "contentHash": "f5665c78728736bfd54ff3081b62dd976fecb61e43227e9fa94e4765ea1957c7",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 14,
+      "hasStructuralAnalysis": true
+    },
+    "continuity/project-origin.md": {
+      "filePath": "continuity/project-origin.md",
+      "contentHash": "be188ec37c5af2d3e7dd9b66dcf65eaa6d5d67c8fef1385a3f15639e3af500f5",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 8,
+      "hasStructuralAnalysis": true
+    },
+    "continuity/test-ledger.md": {
+      "filePath": "continuity/test-ledger.md",
+      "contentHash": "be3ab1d7af9779b83acad5fd307f73b507718cf8de4cfe4b39bfb11f66a2fe6e",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 42,
+      "hasStructuralAnalysis": true
+    },
+    "dashboard/package-lock.json": {
+      "filePath": "dashboard/package-lock.json",
+      "contentHash": "af3564cafe7ce04d72fb9606c7c8170d5f992fb0c19ecbf2f4852cd55ab2c053",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 3399,
+      "hasStructuralAnalysis": true
+    },
+    "dashboard/package.json": {
+      "filePath": "dashboard/package.json",
+      "contentHash": "d7e356855a8dc11cba9e7b2bee013a43343d7abafdb2e107cb6b1cc02619da09",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 39,
+      "hasStructuralAnalysis": true
+    },
+    "dashboard/src/app.d.ts": {
+      "filePath": "dashboard/src/app.d.ts",
+      "contentHash": "21f0deb499f7a51aa5251dd3592a0cb14410d0bef3d86cffac0197e36331758a",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 14,
+      "hasStructuralAnalysis": true
+    },
+    "dashboard/src/lib/components/ChatAttachments.svelte": {
+      "filePath": "dashboard/src/lib/components/ChatAttachments.svelte",
+      "contentHash": "206ff0e5180845ca092a6086f0af34f2cd64b7ebde0c5353facb3183bc835901",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 95,
+      "hasStructuralAnalysis": false
+    },
+    "dashboard/src/lib/components/ChatForm.svelte": {
+      "filePath": "dashboard/src/lib/components/ChatForm.svelte",
+      "contentHash": "6b58fa0a1d77ee3d5db826d2646b70cdcce570888d647a36df2ffe7ccdae404b",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 752,
+      "hasStructuralAnalysis": false
+    },
+    "dashboard/src/lib/components/ChatMessages.svelte": {
+      "filePath": "dashboard/src/lib/components/ChatMessages.svelte",
+      "contentHash": "6812586fad62b3b61d0984db4cb377c7914782f8e88d3b0b2df58b5a77abbcda",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 882,
+      "hasStructuralAnalysis": false
+    },
+    "dashboard/src/lib/components/ChatModelSelector.svelte": {
+      "filePath": "dashboard/src/lib/components/ChatModelSelector.svelte",
+      "contentHash": "1f5c40d5cde8a13b701576f1023324b4baac67d57732a27a5f8e103f4909a7ab",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 405,
+      "hasStructuralAnalysis": false
+    },
+    "dashboard/src/lib/components/ChatSidebar.svelte": {
+      "filePath": "dashboard/src/lib/components/ChatSidebar.svelte",
+      "contentHash": "ca1a270b85dd2ae80f8936a7acf3fad594d99b67c708934a47f4ece32ff945c5",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 629,
+      "hasStructuralAnalysis": false
+    },
+    "dashboard/src/lib/components/ConnectionBanner.svelte": {
+      "filePath": "dashboard/src/lib/components/ConnectionBanner.svelte",
+      "contentHash": "495bed9271bd388f12ff17c01082c685c887b5875d4b2d6d74b5e5d6f6597a99",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 21,
+      "hasStructuralAnalysis": false
+    },
+    "dashboard/src/lib/components/DeviceIcon.svelte": {
+      "filePath": "dashboard/src/lib/components/DeviceIcon.svelte",
+      "contentHash": "0538bb43b2d213f0e0339faeab074ff8dee110dab8ea677e3d65510311b23e3b",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 278,
+      "hasStructuralAnalysis": false
+    },
+    "dashboard/src/lib/components/EjectButton.svelte": {
+      "filePath": "dashboard/src/lib/components/EjectButton.svelte",
+      "contentHash": "db7b325e33cadcabdb2d4ea61a20c4452b62d109d0486a3d5d52404aee2b5dd8",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 63,
+      "hasStructuralAnalysis": false
+    },
+    "dashboard/src/lib/components/FamilyLogos.svelte": {
+      "filePath": "dashboard/src/lib/components/FamilyLogos.svelte",
+      "contentHash": "51221ca41368cb545a7ff34661c385174de500643c6d4e357cdd8fc4e2a52726",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 110,
+      "hasStructuralAnalysis": false
+    },
+    "dashboard/src/lib/components/FamilySidebar.svelte": {
+      "filePath": "dashboard/src/lib/components/FamilySidebar.svelte",
+      "contentHash": "be49ecaa022d98b1f712b196c4ad530e26647974f08cdf1e0d683b28aa352ed8",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 197,
+      "hasStructuralAnalysis": false
+    },
+    "dashboard/src/lib/components/HeaderNav.svelte": {
+      "filePath": "dashboard/src/lib/components/HeaderNav.svelte",
+      "contentHash": "46338fa0a2ca722063778f17d2c0c806678843bc826b3f130f041f5e14e039a9",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 366,
+      "hasStructuralAnalysis": false
+    },
+    "dashboard/src/lib/components/HuggingFaceResultItem.svelte": {
+      "filePath": "dashboard/src/lib/components/HuggingFaceResultItem.svelte",
+      "contentHash": "dab4263ac96a41c40068115fdda1fb3f07e9971c70810bae44130cef1429c160",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 157,
+      "hasStructuralAnalysis": false
+    },
+    "dashboard/src/lib/components/ImageLightbox.svelte": {
+      "filePath": "dashboard/src/lib/components/ImageLightbox.svelte",
+      "contentHash": "e27c1d44a3d0bfa1d6503b1629dc56d485aea9ae0de1e75001189a8814b0b269",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 97,
+      "hasStructuralAnalysis": false
+    },
+    "dashboard/src/lib/components/ImageParamsPanel.svelte": {
+      "filePath": "dashboard/src/lib/components/ImageParamsPanel.svelte",
+      "contentHash": "d1c95495fc0f22642db615a5b1007507e5b858f8c42ae388f3d4bd5f80998e7d",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 696,
+      "hasStructuralAnalysis": false
+    },
+    "dashboard/src/lib/components/IntegrationCard.svelte": {
+      "filePath": "dashboard/src/lib/components/IntegrationCard.svelte",
+      "contentHash": "b357a0b7fc1cbd72edb2d08a88248b97f4baee49911fd8c9df4ba99df67f629e",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 63,
+      "hasStructuralAnalysis": false
+    },
+    "dashboard/src/lib/components/MarkdownContent.svelte": {
+      "filePath": "dashboard/src/lib/components/MarkdownContent.svelte",
+      "contentHash": "d3b541bac09720a20bea362004c5a95320ee78e866c267c83880c43e00a9e2d2",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 1075,
+      "hasStructuralAnalysis": false
+    },
+    "dashboard/src/lib/components/ModelCard.svelte": {
+      "filePath": "dashboard/src/lib/components/ModelCard.svelte",
+      "contentHash": "09850fc76e55f2482b9d7a728de6037f0ceae93ec459e5b1f8dcf967f4799430",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 1098,
+      "hasStructuralAnalysis": false
+    },
+    "dashboard/src/lib/components/ModelFilterPopover.svelte": {
+      "filePath": "dashboard/src/lib/components/ModelFilterPopover.svelte",
+      "contentHash": "187ea34fa95f7674f030a81eb19b247359f9b03fb8c064591a76f068ba43c594",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 280,
+      "hasStructuralAnalysis": false
+    },
+    "dashboard/src/lib/components/ModelPickerGroup.svelte": {
+      "filePath": "dashboard/src/lib/components/ModelPickerGroup.svelte",
+      "contentHash": "364b31a4589a1d4536a22d806c453120cedc3ffc3b538687c8adabb75e558e42",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 655,
+      "hasStructuralAnalysis": false
+    },
+    "dashboard/src/lib/components/ModelPickerModal.svelte": {
+      "filePath": "dashboard/src/lib/components/ModelPickerModal.svelte",
+      "contentHash": "9baaed2ec915eac5317a4ed889ea1bce247408d0d4313c617cba7485942ecdb9",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 1256,
+      "hasStructuralAnalysis": false
+    },
+    "dashboard/src/lib/components/PrefillDecodeDisaggregation.svelte": {
+      "filePath": "dashboard/src/lib/components/PrefillDecodeDisaggregation.svelte",
+      "contentHash": "de8161545800425b5e4441cbe8958b625fd077b38cd65cf2c165edb846abd20c",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 566,
+      "hasStructuralAnalysis": false
+    },
+    "dashboard/src/lib/components/PrefillProgressBar.svelte": {
+      "filePath": "dashboard/src/lib/components/PrefillProgressBar.svelte",
+      "contentHash": "bc5428f04eba08e4389affffc6528f8f9ccccd91da1ed816ca343cf0e9060b47",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 71,
+      "hasStructuralAnalysis": false
+    },
+    "dashboard/src/lib/components/ToastContainer.svelte": {
+      "filePath": "dashboard/src/lib/components/ToastContainer.svelte",
+      "contentHash": "a4de04b08085338a8dfd3afb762d29c670e7be56471e9d10d50837d1e8c87738",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 118,
+      "hasStructuralAnalysis": false
+    },
+    "dashboard/src/lib/components/TokenHeatmap.svelte": {
+      "filePath": "dashboard/src/lib/components/TokenHeatmap.svelte",
+      "contentHash": "b2cc14edc27361918812c1cc56ffdda5c959ff96a692fb19154fa2a221262d95",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 237,
+      "hasStructuralAnalysis": false
+    },
+    "dashboard/src/lib/components/TopologyGraph.svelte": {
+      "filePath": "dashboard/src/lib/components/TopologyGraph.svelte",
+      "contentHash": "d564cb42b4c300a74b03b80f14f37ce3086300648682ce6928d55d52257a49fe",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 1251,
+      "hasStructuralAnalysis": false
+    },
+    "dashboard/src/lib/components/index.ts": {
+      "filePath": "dashboard/src/lib/components/index.ts",
+      "contentHash": "7a48b508e1ecd4d6e8113c900a9e225e622bcaed724cf6a61a06dc29085d5abd",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [
+        "TopologyGraph",
+        "ChatForm",
+        "ChatMessages",
+        "ChatAttachments",
+        "ChatSidebar",
+        "ModelCard",
+        "MarkdownContent",
+        "ImageParamsPanel",
+        "FamilyLogos",
+        "FamilySidebar",
+        "HuggingFaceResultItem",
+        "ModelFilterPopover",
+        "ModelPickerGroup",
+        "ModelPickerModal",
+        "ChatModelSelector",
+        "IntegrationCard",
+        "EjectButton"
+      ],
+      "totalLines": 18,
+      "hasStructuralAnalysis": true
+    },
+    "dashboard/src/lib/stores/app.svelte.ts": {
+      "filePath": "dashboard/src/lib/stores/app.svelte.ts",
+      "contentHash": "575b3a68071fe46dafb3e8a712e52eb1b4e57bcb6c9270b6727231d86e697ea3",
+      "functions": [
+        {
+          "name": "loadSamplingParams",
+          "params": [],
+          "returnType": "{\n  temperature: number | null;\n  topP: number | null;\n  topK: number | null;\n  seed: number | null;\n  maxTokens: number | null;\n}",
+          "exported": false,
+          "lineCount": 23
+        },
+        {
+          "name": "generateUUID",
+          "params": [],
+          "returnType": "string",
+          "exported": false,
+          "lineCount": 14
+        },
+        {
+          "name": "transformNetworkInterface",
+          "params": [
+            "iface"
+          ],
+          "returnType": "{\n  name?: string;\n  addresses: string[];\n}",
+          "exported": false,
+          "lineCount": 33
+        },
+        {
+          "name": "transformTopology",
+          "params": [
+            "raw",
+            "granularState"
+          ],
+          "returnType": "TopologyData",
+          "exported": false,
+          "lineCount": 100
+        },
+        {
+          "name": "extractIpFromMultiaddr",
+          "params": [
+            "ma"
+          ],
+          "returnType": "string | undefined",
+          "exported": false,
+          "lineCount": 11
+        },
+        {
+          "name": "hasStartedChat",
+          "params": [],
+          "exported": true,
+          "lineCount": 1
+        },
+        {
+          "name": "messages",
+          "params": [],
+          "exported": true,
+          "lineCount": 1
+        },
+        {
+          "name": "currentResponse",
+          "params": [],
+          "exported": true,
+          "lineCount": 1
+        },
+        {
+          "name": "isLoading",
+          "params": [],
+          "exported": true,
+          "lineCount": 1
+        },
+        {
+          "name": "ttftMs",
+          "params": [],
+          "exported": true,
+          "lineCount": 1
+        },
+        {
+          "name": "tps",
+          "params": [],
+          "exported": true,
+          "lineCount": 1
+        },
+        {
+          "name": "promptTps",
+          "params": [],
+          "exported": true,
+          "lineCount": 1
+        },
+        {
+          "name": "peakMemoryBytes",
+          "params": [],
+          "exported": true,
+          "lineCount": 1
+        },
+        {
+          "name": "prefixCacheHit",
+          "params": [],
+          "exported": true,
+          "lineCount": 1
+        },
+        {
+          "name": "totalTokens",
+          "params": [],
+          "exported": true,
+          "lineCount": 1
+        },
+        {
+          "name": "prefillProgress",
+          "params": [],
+          "exported": true,
+          "lineCount": 1
+        },
+        {
+          "name": "topologyData",
+          "params": [],
+          "exported": true,
+          "lineCount": 1
+        },
+        {
+          "name": "instances",
+          "params": [],
+          "exported": true,
+          "lineCount": 1
+        },
+        {
+          "name": "runners",
+          "params": [],
+          "exported": true,
+          "lineCount": 1
+        },
+        {
+          "name": "instanceLinks",
+          "params": [],
+          "exported": true,
+          "lineCount": 1
+        },
+        {
+          "name": "featureFlags",
+          "params": [],
+          "exported": true,
+          "lineCount": 1
+        },
+        {
+          "name": "warnings",
+          "params": [],
+          "exported": true,
+          "lineCount": 1
+        },
+        {
+          "name": "createInstanceLink",
+          "params": [
+            "prefillInstances",
+            "decodeInstances"
+          ],
+          "exported": true,
+          "lineCount": 4
+        },
+        {
+          "name": "updateInstanceLink",
+          "params": [
+            "linkId",
+            "prefillInstances",
+            "decodeInstances"
+          ],
+          "exported": true,
+          "lineCount": 5
+        },
+        {
+          "name": "deleteInstanceLink",
+          "params": [
+            "linkId"
+          ],
+          "exported": true,
+          "lineCount": 2
+        },
+        {
+          "name": "downloads",
+          "params": [],
+          "exported": true,
+          "lineCount": 1
+        },
+        {
+          "name": "nodeDisk",
+          "params": [],
+          "exported": true,
+          "lineCount": 1
+        },
+        {
+          "name": "placementPreviews",
+          "params": [],
+          "exported": true,
+          "lineCount": 1
+        },
+        {
+          "name": "selectedPreviewModelId",
+          "params": [],
+          "exported": true,
+          "lineCount": 1
+        },
+        {
+          "name": "isLoadingPreviews",
+          "params": [],
+          "exported": true,
+          "lineCount": 1
+        },
+        {
+          "name": "lastUpdate",
+          "params": [],
+          "exported": true,
+          "lineCount": 1
+        },
+        {
+          "name": "isTopologyMinimized",
+          "params": [],
+          "exported": true,
+          "lineCount": 1
+        },
+        {
+          "name": "selectedChatModel",
+          "params": [],
+          "exported": true,
+          "lineCount": 1
+        },
+        {
+          "name": "thinkingEnabled",
+          "params": [],
+          "exported": true,
+          "lineCount": 1
+        },
+        {
+          "name": "debugMode",
+          "params": [],
+          "exported": true,
+          "lineCount": 1
+        },
+        {
+          "name": "topologyOnlyMode",
+          "params": [],
+          "exported": true,
+          "lineCount": 1
+        },
+        {
+          "name": "chatSidebarVisible",
+          "params": [],
+          "exported": true,
+          "lineCount": 1
+        },
+        {
+          "name": "stopGeneration",
+          "params": [],
+          "exported": true,
+          "lineCount": 1
+        },
+        {
+          "name": "startChat",
+          "params": [],
+          "exported": true,
+          "lineCount": 1
+        },
+        {
+          "name": "sendMessage",
+          "params": [
+            "content",
+            "files",
+            "enableThinking"
+          ],
+          "exported": true,
+          "lineCount": 12
+        },
+        {
+          "name": "pendingQueue",
+          "params": [],
+          "exported": true,
+          "lineCount": 1
+        },
+        {
+          "name": "removeFromQueue",
+          "params": [
+            "queueId"
+          ],
+          "exported": true,
+          "lineCount": 2
+        },
+        {
+          "name": "updateQueuedMessage",
+          "params": [
+            "queueId",
+            "content"
+          ],
+          "exported": true,
+          "lineCount": 2
+        },
+        {
+          "name": "moveQueuedMessage",
+          "params": [
+            "fromIndex",
+            "delta"
+          ],
+          "exported": true,
+          "lineCount": 2
+        },
+        {
+          "name": "clearQueue",
+          "params": [],
+          "exported": true,
+          "lineCount": 1
+        },
+        {
+          "name": "samplingParams",
+          "params": [],
+          "exported": true,
+          "lineCount": 1
+        },
+        {
+          "name": "setSamplingParam",
+          "params": [
+            "key",
+            "value"
+          ],
+          "exported": true,
+          "lineCount": 4
+        },
+        {
+          "name": "generateImage",
+          "params": [
+            "prompt",
+            "modelId"
+          ],
+          "exported": true,
+          "lineCount": 2
+        },
+        {
+          "name": "editImage",
+          "params": [
+            "prompt",
+            "imageDataUrl",
+            "modelId"
+          ],
+          "exported": true,
+          "lineCount": 5
+        },
+        {
+          "name": "editingImage",
+          "params": [],
+          "exported": true,
+          "lineCount": 1
+        },
+        {
+          "name": "setEditingImage",
+          "params": [
+            "imageDataUrl",
+            "sourceMessage"
+          ],
+          "exported": true,
+          "lineCount": 2
+        },
+        {
+          "name": "clearEditingImage",
+          "params": [],
+          "exported": true,
+          "lineCount": 1
+        },
+        {
+          "name": "clearChat",
+          "params": [],
+          "exported": true,
+          "lineCount": 1
+        },
+        {
+          "name": "setSelectedChatModel",
+          "params": [
+            "modelId"
+          ],
+          "exported": true,
+          "lineCount": 2
+        },
+        {
+          "name": "selectPreviewModel",
+          "params": [
+            "modelId"
+          ],
+          "exported": true,
+          "lineCount": 2
+        },
+        {
+          "name": "togglePreviewNodeFilter",
+          "params": [
+            "nodeId"
+          ],
+          "exported": true,
+          "lineCount": 2
+        },
+        {
+          "name": "clearPreviewNodeFilter",
+          "params": [],
+          "exported": true,
+          "lineCount": 1
+        },
+        {
+          "name": "previewNodeFilter",
+          "params": [],
+          "exported": true,
+          "lineCount": 1
+        },
+        {
+          "name": "deleteMessage",
+          "params": [
+            "messageId"
+          ],
+          "exported": true,
+          "lineCount": 2
+        },
+        {
+          "name": "editMessage",
+          "params": [
+            "messageId",
+            "newContent"
+          ],
+          "exported": true,
+          "lineCount": 2
+        },
+        {
+          "name": "editAndRegenerate",
+          "params": [
+            "messageId",
+            "newContent"
+          ],
+          "exported": true,
+          "lineCount": 2
+        },
+        {
+          "name": "regenerateLastResponse",
+          "params": [],
+          "exported": true,
+          "lineCount": 1
+        },
+        {
+          "name": "regenerateFromToken",
+          "params": [
+            "messageId",
+            "tokenIndex"
+          ],
+          "exported": true,
+          "lineCount": 2
+        },
+        {
+          "name": "conversations",
+          "params": [],
+          "exported": true,
+          "lineCount": 1
+        },
+        {
+          "name": "activeConversationId",
+          "params": [],
+          "exported": true,
+          "lineCount": 1
+        },
+        {
+          "name": "createConversation",
+          "params": [
+            "name"
+          ],
+          "exported": true,
+          "lineCount": 2
+        },
+        {
+          "name": "loadConversation",
+          "params": [
+            "id"
+          ],
+          "exported": true,
+          "lineCount": 1
+        },
+        {
+          "name": "deleteConversation",
+          "params": [
+            "id"
+          ],
+          "exported": true,
+          "lineCount": 2
+        },
+        {
+          "name": "deleteAllConversations",
+          "params": [],
+          "exported": true,
+          "lineCount": 1
+        },
+        {
+          "name": "renameConversation",
+          "params": [
+            "id",
+            "name"
+          ],
+          "exported": true,
+          "lineCount": 2
+        },
+        {
+          "name": "getActiveConversation",
+          "params": [],
+          "exported": true,
+          "lineCount": 1
+        },
+        {
+          "name": "setConversationThinking",
+          "params": [
+            "enabled"
+          ],
+          "exported": true,
+          "lineCount": 2
+        },
+        {
+          "name": "isSidebarOpen",
+          "params": [],
+          "exported": true,
+          "lineCount": 1
+        },
+        {
+          "name": "toggleSidebar",
+          "params": [],
+          "exported": true,
+          "lineCount": 1
+        },
+        {
+          "name": "toggleDebugMode",
+          "params": [],
+          "exported": true,
+          "lineCount": 1
+        },
+        {
+          "name": "setDebugMode",
+          "params": [
+            "enabled"
+          ],
+          "exported": true,
+          "lineCount": 2
+        },
+        {
+          "name": "toggleTopologyOnlyMode",
+          "params": [],
+          "exported": true,
+          "lineCount": 1
+        },
+        {
+          "name": "setTopologyOnlyMode",
+          "params": [
+            "enabled"
+          ],
+          "exported": true,
+          "lineCount": 2
+        },
+        {
+          "name": "allowMemoryOverride",
+          "params": [],
+          "exported": true,
+          "lineCount": 1
+        },
+        {
+          "name": "toggleAllowMemoryOverride",
+          "params": [],
+          "exported": true,
+          "lineCount": 2
+        },
+        {
+          "name": "setAllowMemoryOverride",
+          "params": [
+            "enabled"
+          ],
+          "exported": true,
+          "lineCount": 2
+        },
+        {
+          "name": "toggleChatSidebarVisible",
+          "params": [],
+          "exported": true,
+          "lineCount": 2
+        },
+        {
+          "name": "setChatSidebarVisible",
+          "params": [
+            "visible"
+          ],
+          "exported": true,
+          "lineCount": 2
+        },
+        {
+          "name": "mobileChatSidebarOpen",
+          "params": [],
+          "exported": true,
+          "lineCount": 1
+        },
+        {
+          "name": "toggleMobileChatSidebar",
+          "params": [],
+          "exported": true,
+          "lineCount": 1
+        },
+        {
+          "name": "setMobileChatSidebarOpen",
+          "params": [
+            "open"
+          ],
+          "exported": true,
+          "lineCount": 2
+        },
+        {
+          "name": "mobileRightSidebarOpen",
+          "params": [],
+          "exported": true,
+          "lineCount": 1
+        },
+        {
+          "name": "toggleMobileRightSidebar",
+          "params": [],
+          "exported": true,
+          "lineCount": 2
+        },
+        {
+          "name": "setMobileRightSidebarOpen",
+          "params": [
+            "open"
+          ],
+          "exported": true,
+          "lineCount": 2
+        },
+        {
+          "name": "refreshState",
+          "params": [],
+          "exported": true,
+          "lineCount": 1
+        },
+        {
+          "name": "isConnected",
+          "params": [],
+          "exported": true,
+          "lineCount": 1
+        },
+        {
+          "name": "nodeIdentities",
+          "params": [],
+          "exported": true,
+          "lineCount": 1
+        },
+        {
+          "name": "nodeThunderbolt",
+          "params": [],
+          "exported": true,
+          "lineCount": 1
+        },
+        {
+          "name": "nodeRdmaCtl",
+          "params": [],
+          "exported": true,
+          "lineCount": 1
+        },
+        {
+          "name": "thunderboltBridgeCycles",
+          "params": [],
+          "exported": true,
+          "lineCount": 1
+        },
+        {
+          "name": "nodeThunderboltBridge",
+          "params": [],
+          "exported": true,
+          "lineCount": 1
+        },
+        {
+          "name": "imageGenerationParams",
+          "params": [],
+          "exported": true,
+          "lineCount": 1
+        },
+        {
+          "name": "setImageGenerationParams",
+          "params": [
+            "params"
+          ],
+          "exported": true,
+          "lineCount": 3
+        },
+        {
+          "name": "resetImageGenerationParams",
+          "params": [],
+          "exported": true,
+          "lineCount": 2
+        },
+        {
+          "name": "startDownload",
+          "params": [
+            "nodeId",
+            "shardMetadata",
+            "forceOverride"
+          ],
+          "exported": true,
+          "lineCount": 5
+        },
+        {
+          "name": "cancelDownload",
+          "params": [
+            "nodeId",
+            "modelId"
+          ],
+          "exported": true,
+          "lineCount": 2
+        },
+        {
+          "name": "deleteDownload",
+          "params": [
+            "nodeId",
+            "modelId"
+          ],
+          "exported": true,
+          "lineCount": 2
+        },
+        {
+          "name": "listTraces",
+          "params": [],
+          "exported": true,
+          "lineCount": 1
+        },
+        {
+          "name": "checkTraceExists",
+          "params": [
+            "taskId"
+          ],
+          "exported": true,
+          "lineCount": 2
+        },
+        {
+          "name": "fetchTraceStats",
+          "params": [
+            "taskId"
+          ],
+          "exported": true,
+          "lineCount": 2
+        },
+        {
+          "name": "getTraceRawUrl",
+          "params": [
+            "taskId"
+          ],
+          "exported": true,
+          "lineCount": 2
+        },
+        {
+          "name": "deleteTraces",
+          "params": [
+            "taskIds"
+          ],
+          "exported": true,
+          "lineCount": 2
+        },
+        {
+          "name": "listLogs",
+          "params": [],
+          "exported": true,
+          "lineCount": 1
+        },
+        {
+          "name": "getLogTail",
+          "params": [
+            "name",
+            "lines"
+          ],
+          "exported": true,
+          "lineCount": 2
+        },
+        {
+          "name": "getLogAll",
+          "params": [
+            "lines"
+          ],
+          "exported": true,
+          "lineCount": 1
+        },
+        {
+          "name": "getLogRawUrl",
+          "params": [
+            "name"
+          ],
+          "exported": true,
+          "lineCount": 1
+        },
+        {
+          "name": "listLogErrors",
+          "params": [
+            "level",
+            "lines"
+          ],
+          "exported": true,
+          "lineCount": 2
+        }
+      ],
+      "classes": [
+        {
+          "name": "AppStore",
+          "methods": [
+            "constructor",
+            "loadConversationsFromStorage",
+            "saveConversationsToStorage",
+            "loadDebugModeFromStorage",
+            "saveDebugModeToStorage",
+            "loadTopologyOnlyModeFromStorage",
+            "loadAllowMemoryOverrideFromStorage",
+            "saveAllowMemoryOverrideToStorage",
+            "saveTopologyOnlyModeToStorage",
+            "loadChatSidebarVisibleFromStorage",
+            "saveChatSidebarVisibleToStorage",
+            "loadImageGenerationParamsFromStorage",
+            "saveImageGenerationParamsToStorage",
+            "getImageGenerationParams",
+            "setImageGenerationParams",
+            "resetImageGenerationParams",
+            "setEditingImage",
+            "clearEditingImage",
+            "createConversation",
+            "loadConversation",
+            "deleteConversation",
+            "deleteAllConversations",
+            "renameConversation",
+            "getTaggedValue",
+            "extractInstanceModelId",
+            "describeInstance",
+            "buildConversationModelInfo",
+            "applyConversationModelInfo",
+            "getModelTail",
+            "isBetterModelId",
+            "refreshConversationModelFromInstances",
+            "getDebugMode",
+            "updateActiveConversation",
+            "persistActiveConversation",
+            "updateConversationMessage",
+            "syncActiveMessagesIfNeeded",
+            "conversationExists",
+            "persistConversation",
+            "addMessageToConversation",
+            "toggleSidebar",
+            "setDebugMode",
+            "toggleDebugMode",
+            "getTopologyOnlyMode",
+            "setTopologyOnlyMode",
+            "toggleTopologyOnlyMode",
+            "getAllowMemoryOverride",
+            "setAllowMemoryOverride",
+            "toggleAllowMemoryOverride",
+            "getChatSidebarVisible",
+            "setChatSidebarVisible",
+            "toggleChatSidebarVisible",
+            "getMobileChatSidebarOpen",
+            "setMobileChatSidebarOpen",
+            "toggleMobileChatSidebar",
+            "getMobileRightSidebarOpen",
+            "setMobileRightSidebarOpen",
+            "toggleMobileRightSidebar",
+            "startPolling",
+            "stopPolling",
+            "fetchFeatureFlags",
+            "fetchWarnings",
+            "fetchState",
+            "fetchPlacementPreviews",
+            "startPreviewsPolling",
+            "stopPreviewsPolling",
+            "selectPreviewModel",
+            "togglePreviewNodeFilter",
+            "clearPreviewNodeFilter",
+            "handleTopologyChange",
+            "startChat",
+            "addMessage",
+            "deleteMessage",
+            "editMessage",
+            "editAndRegenerate",
+            "regenerateLastResponse",
+            "regenerateFromToken",
+            "regenerateChatCompletion",
+            "setSelectedModel",
+            "applyGenerationStats",
+            "stripThinkingTags",
+            "parseSSEStream",
+            "handleStreamingError",
+            "getModelForRequest",
+            "sendMessage",
+            "removeFromQueue",
+            "updateQueuedMessage",
+            "clearQueue",
+            "moveQueuedMessage",
+            "setSamplingParam",
+            "stopGeneration",
+            "generateImage",
+            "editImage",
+            "clearChat",
+            "getActiveConversation",
+            "setConversationThinking",
+            "startDownload",
+            "cancelDownload",
+            "createInstanceLink",
+            "updateInstanceLink",
+            "deleteInstanceLink",
+            "deleteDownload",
+            "listTraces",
+            "checkTraceExists",
+            "fetchTraceStats",
+            "deleteTraces",
+            "getTraceRawUrl",
+            "listLogs",
+            "getLogTail",
+            "getLogAll",
+            "listLogErrors",
+            "getLogRawUrl"
+          ],
+          "properties": [
+            "conversations",
+            "activeConversationId",
+            "hasStartedChat",
+            "messages",
+            "currentResponse",
+            "isLoading",
+            "activeGenerations",
+            "samplingParams",
+            "pendingQueue",
+            "ttftMs",
+            "tps",
+            "promptTps",
+            "peakMemoryBytes",
+            "prefixCacheHit",
+            "totalTokens",
+            "prefillProgress",
+            "currentAbortController",
+            "topologyData",
+            "instances",
+            "runners",
+            "instanceLinks",
+            "featureFlags",
+            "warnings",
+            "downloads",
+            "nodeDisk",
+            "placementPreviews",
+            "selectedPreviewModelId",
+            "isLoadingPreviews",
+            "previewNodeFilter",
+            "lastUpdate",
+            "nodeIdentities",
+            "thunderboltBridgeCycles",
+            "nodeThunderbolt",
+            "nodeRdmaCtl",
+            "nodeThunderboltBridge",
+            "isTopologyMinimized",
+            "isSidebarOpen",
+            "debugMode",
+            "topologyOnlyMode",
+            "allowMemoryOverride",
+            "chatSidebarVisible",
+            "mobileChatSidebarOpen",
+            "mobileRightSidebarOpen",
+            "imageGenerationParams",
+            "editingImage",
+            "isConnected",
+            "consecutiveFailures",
+            "CONNECTION_LOST_THRESHOLD",
+            "fetchInterval",
+            "warningsInterval",
+            "previewsInterval",
+            "lastConversationPersistTs",
+            "previousNodeIds",
+            "thinkingEnabled",
+            "selectedChatModel"
+          ],
+          "exported": false,
+          "lineCount": 3267
+        }
+      ],
+      "imports": [
+        {
+          "source": "$app/environment",
+          "specifiers": [
+            "browser"
+          ]
+        }
+      ],
+      "exports": [
+        "appStore",
+        "hasStartedChat",
+        "messages",
+        "currentResponse",
+        "isLoading",
+        "ttftMs",
+        "tps",
+        "promptTps",
+        "peakMemoryBytes",
+        "prefixCacheHit",
+        "totalTokens",
+        "prefillProgress",
+        "topologyData",
+        "instances",
+        "runners",
+        "instanceLinks",
+        "featureFlags",
+        "warnings",
+        "createInstanceLink",
+        "updateInstanceLink",
+        "deleteInstanceLink",
+        "downloads",
+        "nodeDisk",
+        "placementPreviews",
+        "selectedPreviewModelId",
+        "isLoadingPreviews",
+        "lastUpdate",
+        "isTopologyMinimized",
+        "selectedChatModel",
+        "thinkingEnabled",
+        "debugMode",
+        "topologyOnlyMode",
+        "chatSidebarVisible",
+        "stopGeneration",
+        "startChat",
+        "sendMessage",
+        "pendingQueue",
+        "removeFromQueue",
+        "updateQueuedMessage",
+        "moveQueuedMessage",
+        "clearQueue",
+        "samplingParams",
+        "setSamplingParam",
+        "generateImage",
+        "editImage",
+        "editingImage",
+        "setEditingImage",
+        "clearEditingImage",
+        "clearChat",
+        "setSelectedChatModel",
+        "selectPreviewModel",
+        "togglePreviewNodeFilter",
+        "clearPreviewNodeFilter",
+        "previewNodeFilter",
+        "deleteMessage",
+        "editMessage",
+        "editAndRegenerate",
+        "regenerateLastResponse",
+        "regenerateFromToken",
+        "conversations",
+        "activeConversationId",
+        "createConversation",
+        "loadConversation",
+        "deleteConversation",
+        "deleteAllConversations",
+        "renameConversation",
+        "getActiveConversation",
+        "setConversationThinking",
+        "isSidebarOpen",
+        "toggleSidebar",
+        "toggleDebugMode",
+        "setDebugMode",
+        "toggleTopologyOnlyMode",
+        "setTopologyOnlyMode",
+        "allowMemoryOverride",
+        "toggleAllowMemoryOverride",
+        "setAllowMemoryOverride",
+        "toggleChatSidebarVisible",
+        "setChatSidebarVisible",
+        "mobileChatSidebarOpen",
+        "toggleMobileChatSidebar",
+        "setMobileChatSidebarOpen",
+        "mobileRightSidebarOpen",
+        "toggleMobileRightSidebar",
+        "setMobileRightSidebarOpen",
+        "refreshState",
+        "isConnected",
+        "nodeIdentities",
+        "nodeThunderbolt",
+        "nodeRdmaCtl",
+        "thunderboltBridgeCycles",
+        "nodeThunderboltBridge",
+        "imageGenerationParams",
+        "setImageGenerationParams",
+        "resetImageGenerationParams",
+        "startDownload",
+        "cancelDownload",
+        "deleteDownload",
+        "listTraces",
+        "checkTraceExists",
+        "fetchTraceStats",
+        "getTraceRawUrl",
+        "deleteTraces",
+        "listLogs",
+        "getLogTail",
+        "getLogAll",
+        "getLogRawUrl",
+        "listLogErrors"
+      ],
+      "totalLines": 4064,
+      "hasStructuralAnalysis": true
+    },
+    "dashboard/src/lib/stores/favorites.svelte.ts": {
+      "filePath": "dashboard/src/lib/stores/favorites.svelte.ts",
+      "contentHash": "053021dc5962491620011893938d8682e4f64e453ce236d5a258ccf55e1e72a8",
+      "functions": [
+        {
+          "name": "favorites",
+          "params": [],
+          "exported": true,
+          "lineCount": 1
+        },
+        {
+          "name": "hasFavorites",
+          "params": [],
+          "exported": true,
+          "lineCount": 1
+        },
+        {
+          "name": "isFavorite",
+          "params": [
+            "baseModelId"
+          ],
+          "exported": true,
+          "lineCount": 2
+        },
+        {
+          "name": "toggleFavorite",
+          "params": [
+            "baseModelId"
+          ],
+          "exported": true,
+          "lineCount": 2
+        },
+        {
+          "name": "addFavorite",
+          "params": [
+            "baseModelId"
+          ],
+          "exported": true,
+          "lineCount": 2
+        },
+        {
+          "name": "removeFavorite",
+          "params": [
+            "baseModelId"
+          ],
+          "exported": true,
+          "lineCount": 2
+        },
+        {
+          "name": "getFavorites",
+          "params": [],
+          "exported": true,
+          "lineCount": 1
+        },
+        {
+          "name": "getFavoritesSet",
+          "params": [],
+          "exported": true,
+          "lineCount": 1
+        },
+        {
+          "name": "clearFavorites",
+          "params": [],
+          "exported": true,
+          "lineCount": 1
+        }
+      ],
+      "classes": [
+        {
+          "name": "FavoritesStore",
+          "methods": [
+            "constructor",
+            "loadFromStorage",
+            "saveToStorage",
+            "add",
+            "remove",
+            "toggle",
+            "isFavorite",
+            "getAll",
+            "getSet",
+            "hasAny",
+            "clearAll"
+          ],
+          "properties": [
+            "favorites"
+          ],
+          "exported": false,
+          "lineCount": 73
+        }
+      ],
+      "imports": [
+        {
+          "source": "$app/environment",
+          "specifiers": [
+            "browser"
+          ]
+        }
+      ],
+      "exports": [
+        "favoritesStore",
+        "favorites",
+        "hasFavorites",
+        "isFavorite",
+        "toggleFavorite",
+        "addFavorite",
+        "removeFavorite",
+        "getFavorites",
+        "getFavoritesSet",
+        "clearFavorites"
+      ],
+      "totalLines": 98,
+      "hasStructuralAnalysis": true
+    },
+    "dashboard/src/lib/stores/recents.svelte.ts": {
+      "filePath": "dashboard/src/lib/stores/recents.svelte.ts",
+      "contentHash": "9e33f69793fbadeaea0ee60d578b4e796614423df41329a89b75ff99f0de4658",
+      "functions": [
+        {
+          "name": "hasRecents",
+          "params": [],
+          "exported": true,
+          "lineCount": 1
+        },
+        {
+          "name": "getRecentModelIds",
+          "params": [],
+          "exported": true,
+          "lineCount": 1
+        },
+        {
+          "name": "getRecentEntries",
+          "params": [],
+          "exported": true,
+          "lineCount": 1
+        },
+        {
+          "name": "recordRecentLaunch",
+          "params": [
+            "modelId"
+          ],
+          "exported": true,
+          "lineCount": 2
+        },
+        {
+          "name": "clearRecents",
+          "params": [],
+          "exported": true,
+          "lineCount": 1
+        }
+      ],
+      "classes": [
+        {
+          "name": "RecentsStore",
+          "methods": [
+            "constructor",
+            "loadFromStorage",
+            "saveToStorage",
+            "recordLaunch",
+            "getRecentModelIds",
+            "hasAny",
+            "clearAll"
+          ],
+          "properties": [
+            "recents"
+          ],
+          "exported": false,
+          "lineCount": 52
+        }
+      ],
+      "imports": [
+        {
+          "source": "$app/environment",
+          "specifiers": [
+            "browser"
+          ]
+        }
+      ],
+      "exports": [
+        "recentsStore",
+        "hasRecents",
+        "getRecentModelIds",
+        "getRecentEntries",
+        "recordRecentLaunch",
+        "clearRecents"
+      ],
+      "totalLines": 76,
+      "hasStructuralAnalysis": true
+    },
+    "dashboard/src/lib/stores/toast.svelte.ts": {
+      "filePath": "dashboard/src/lib/stores/toast.svelte.ts",
+      "contentHash": "8382ad54c70f70f0b006c364beac687a471a7ec5a37f9504ab3f329a29112e5c",
+      "functions": [
+        {
+          "name": "generateId",
+          "params": [],
+          "returnType": "string",
+          "exported": false,
+          "lineCount": 3
+        },
+        {
+          "name": "addToast",
+          "params": [
+            "input"
+          ],
+          "returnType": "string",
+          "exported": true,
+          "lineCount": 23
+        },
+        {
+          "name": "dismissToast",
+          "params": [
+            "id"
+          ],
+          "returnType": "void",
+          "exported": true,
+          "lineCount": 8
+        },
+        {
+          "name": "dismissByMessage",
+          "params": [
+            "message"
+          ],
+          "returnType": "void",
+          "exported": true,
+          "lineCount": 6
+        },
+        {
+          "name": "toasts",
+          "params": [],
+          "returnType": "Toast[]",
+          "exported": true,
+          "lineCount": 3
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "exports": [
+        "addToast",
+        "dismissToast",
+        "dismissByMessage",
+        "toasts"
+      ],
+      "totalLines": 88,
+      "hasStructuralAnalysis": true
+    },
+    "dashboard/src/lib/types/files.ts": {
+      "filePath": "dashboard/src/lib/types/files.ts",
+      "contentHash": "8dd61c94e1c91875b13204fce3fb6f59e64cae1bafada5ec37761700e27afd08",
+      "functions": [
+        {
+          "name": "getFileCategory",
+          "params": [
+            "mimeType",
+            "fileName"
+          ],
+          "returnType": "FileCategory",
+          "exported": true,
+          "lineCount": 30
+        },
+        {
+          "name": "getAcceptString",
+          "params": [
+            "categories"
+          ],
+          "returnType": "string",
+          "exported": true,
+          "lineCount": 22
+        },
+        {
+          "name": "formatFileSize",
+          "params": [
+            "bytes"
+          ],
+          "returnType": "string",
+          "exported": true,
+          "lineCount": 7
+        },
+        {
+          "name": "readFileAsDataURL",
+          "params": [
+            "file"
+          ],
+          "returnType": "Promise<string>",
+          "exported": true,
+          "lineCount": 8
+        },
+        {
+          "name": "readFileAsText",
+          "params": [
+            "file"
+          ],
+          "returnType": "Promise<string>",
+          "exported": true,
+          "lineCount": 8
+        },
+        {
+          "name": "extractPdfContent",
+          "params": [
+            "file"
+          ],
+          "returnType": "Promise<{ text: string; pageImages: string[] }>",
+          "exported": false,
+          "lineCount": 51
+        },
+        {
+          "name": "processUploadedFiles",
+          "params": [
+            "files"
+          ],
+          "returnType": "Promise<ChatUploadedFile[]>",
+          "exported": true,
+          "lineCount": 46
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "pdfjs-dist",
+          "specifiers": [
+            "getDocument",
+            "GlobalWorkerOptions",
+            "version"
+          ]
+        },
+        {
+          "source": "pdfjs-dist/types/src/display/api",
+          "specifiers": [
+            "DocumentInitParameters"
+          ]
+        }
+      ],
+      "exports": [
+        "IMAGE_EXTENSIONS",
+        "IMAGE_MIME_TYPES",
+        "TEXT_EXTENSIONS",
+        "TEXT_MIME_TYPES",
+        "PDF_EXTENSIONS",
+        "PDF_MIME_TYPES",
+        "AUDIO_EXTENSIONS",
+        "AUDIO_MIME_TYPES",
+        "getFileCategory",
+        "getAcceptString",
+        "formatFileSize",
+        "readFileAsDataURL",
+        "readFileAsText",
+        "processUploadedFiles"
+      ],
+      "totalLines": 334,
+      "hasStructuralAnalysis": true
+    },
+    "dashboard/src/lib/utils/clipboard.ts": {
+      "filePath": "dashboard/src/lib/utils/clipboard.ts",
+      "contentHash": "6cd9c5619bf5ba709cf64f215fa0a260d8d6782f527ab46c0e671456344e5561",
+      "functions": [
+        {
+          "name": "copyText",
+          "params": [
+            "text"
+          ],
+          "returnType": "Promise<boolean>",
+          "exported": true,
+          "lineCount": 55
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "exports": [
+        "copyText"
+      ],
+      "totalLines": 56,
+      "hasStructuralAnalysis": true
+    },
+    "dashboard/src/lib/utils/downloads.ts": {
+      "filePath": "dashboard/src/lib/utils/downloads.ts",
+      "contentHash": "d94761fbba90cce2f1ba1a419ad2fe3890df5d77c05e8d5276576913931c4b03",
+      "functions": [
+        {
+          "name": "unwrapTagged",
+          "params": [
+            "obj"
+          ],
+          "returnType": "[string, Record<string, unknown>] | null",
+          "exported": false,
+          "lineCount": 10
+        },
+        {
+          "name": "extractModelIdFromDownload",
+          "params": [
+            "downloadPayload"
+          ],
+          "returnType": "string | null",
+          "exported": true,
+          "lineCount": 17
+        },
+        {
+          "name": "extractShardMetadata",
+          "params": [
+            "downloadPayload"
+          ],
+          "returnType": "Record<string, unknown> | null",
+          "exported": true,
+          "lineCount": 8
+        },
+        {
+          "name": "getDownloadTag",
+          "params": [
+            "entry"
+          ],
+          "returnType": "[string, Record<string, unknown>] | null",
+          "exported": true,
+          "lineCount": 6
+        },
+        {
+          "name": "isModelDownloadedOnNode",
+          "params": [
+            "downloadsData",
+            "nodeId",
+            "modelId"
+          ],
+          "returnType": "boolean",
+          "exported": true,
+          "lineCount": 13
+        },
+        {
+          "name": "getNodesWithModelDownloaded",
+          "params": [
+            "downloadsData",
+            "modelId"
+          ],
+          "returnType": "string[]",
+          "exported": true,
+          "lineCount": 12
+        },
+        {
+          "name": "getShardMetadataForModel",
+          "params": [
+            "downloadsData",
+            "modelId"
+          ],
+          "returnType": "Record<string, unknown> | null",
+          "exported": true,
+          "lineCount": 22
+        },
+        {
+          "name": "getModelDownloadStatus",
+          "params": [
+            "downloadsData",
+            "nodeId",
+            "modelId"
+          ],
+          "returnType": "string | null",
+          "exported": true,
+          "lineCount": 17
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "exports": [
+        "extractModelIdFromDownload",
+        "extractShardMetadata",
+        "getDownloadTag",
+        "isModelDownloadedOnNode",
+        "getNodesWithModelDownloaded",
+        "getShardMetadataForModel",
+        "getModelDownloadStatus"
+      ],
+      "totalLines": 153,
+      "hasStructuralAnalysis": true
+    },
+    "dashboard/src/lib/utils/model_family.ts": {
+      "filePath": "dashboard/src/lib/utils/model_family.ts",
+      "contentHash": "bf715816e03ddd4a47082309fa884aacb4613cc8beaf4a3f5f2de491b8a7c524",
+      "functions": [
+        {
+          "name": "normalize",
+          "params": [
+            "s"
+          ],
+          "returnType": "string",
+          "exported": false,
+          "lineCount": 7
+        },
+        {
+          "name": "deriveBaseModel",
+          "params": [
+            "modelId"
+          ],
+          "returnType": "string",
+          "exported": true,
+          "lineCount": 7
+        },
+        {
+          "name": "baseModelsCompatible",
+          "params": [
+            "a",
+            "b"
+          ],
+          "returnType": "boolean",
+          "exported": true,
+          "lineCount": 3
+        },
+        {
+          "name": "deriveFamily",
+          "params": [
+            "modelId"
+          ],
+          "returnType": "string",
+          "exported": true,
+          "lineCount": 16
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "exports": [
+        "deriveBaseModel",
+        "baseModelsCompatible",
+        "deriveFamily"
+      ],
+      "totalLines": 45,
+      "hasStructuralAnalysis": true
+    },
+    "dashboard/src/routes/+layout.svelte": {
+      "filePath": "dashboard/src/routes/+layout.svelte",
+      "contentHash": "03eb58fef353927104ba33da1711f5bc2a6ce471a17f028416d547f4e553082b",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 19,
+      "hasStructuralAnalysis": false
+    },
+    "dashboard/src/routes/+page.svelte": {
+      "filePath": "dashboard/src/routes/+page.svelte",
+      "contentHash": "0de4149a7794a7566ef5f4005b9f015844756bb4879f7e71182261e875c1c1a2",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 7144,
+      "hasStructuralAnalysis": false
+    },
+    "dashboard/src/routes/advanced/+page.svelte": {
+      "filePath": "dashboard/src/routes/advanced/+page.svelte",
+      "contentHash": "f6b84741f70a4dd9448b4bcf4c18330d3ebc4b99100c283f9021710a14825f3d",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 82,
+      "hasStructuralAnalysis": false
+    },
+    "dashboard/src/routes/downloads/+page.svelte": {
+      "filePath": "dashboard/src/routes/downloads/+page.svelte",
+      "contentHash": "57e02ee12e00695e8c8dc9d5582523eb4c9090fd9fdb95010401f68b7c6b6a1d",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 882,
+      "hasStructuralAnalysis": false
+    },
+    "dashboard/src/routes/integrations/+page.svelte": {
+      "filePath": "dashboard/src/routes/integrations/+page.svelte",
+      "contentHash": "e8fa432850258e3459c1de6d77ad8127d0268a5653aabf65833fa64072da3ef7",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 689,
+      "hasStructuralAnalysis": false
+    },
+    "dashboard/src/routes/logs/+page.svelte": {
+      "filePath": "dashboard/src/routes/logs/+page.svelte",
+      "contentHash": "ea917282600d31aaccfccdf2bc4359f48e75bbb9ca617743f93cc74b06d6841c",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 617,
+      "hasStructuralAnalysis": false
+    },
+    "dashboard/src/routes/settings/+page.svelte": {
+      "filePath": "dashboard/src/routes/settings/+page.svelte",
+      "contentHash": "3c3f9bb2503bc798ec5978292e745a3e5bfecb4122dc398e943551bff52d47f1",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 563,
+      "hasStructuralAnalysis": false
+    },
+    "dashboard/src/routes/traces/+page.svelte": {
+      "filePath": "dashboard/src/routes/traces/+page.svelte",
+      "contentHash": "776806a0211119aac3a157f051bf3cbbffee2a976eab015f9e4c1e06ab7e1145",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 278,
+      "hasStructuralAnalysis": false
+    },
+    "dashboard/src/routes/traces/[taskId]/+page.svelte": {
+      "filePath": "dashboard/src/routes/traces/[taskId]/+page.svelte",
+      "contentHash": "6381b7691813eee18a76803622cca84116bf2f5cc846cedba265a2dd185df158",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 368,
+      "hasStructuralAnalysis": false
+    },
+    "dashboard/static/shared/accessibility.js": {
+      "filePath": "dashboard/static/shared/accessibility.js",
+      "contentHash": "107bc6ac69b8fda1fd5169a5b95a16e9597c98a95b84650c45e9697e8923cd96",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 37,
+      "hasStructuralAnalysis": true
+    },
+    "dashboard/static/shared/components.js": {
+      "filePath": "dashboard/static/shared/components.js",
+      "contentHash": "64fd2f71308b78a477fcb80283425a503cb520da8a710cfa31611f67031a0903",
+      "functions": [
+        {
+          "name": "renderKPIs",
+          "params": [
+            "containerId",
+            "kpis"
+          ],
+          "exported": false,
+          "lineCount": 5
+        },
+        {
+          "name": "renderTable",
+          "params": [
+            "containerId",
+            "headers",
+            "rows"
+          ],
+          "exported": false,
+          "lineCount": 5
+        },
+        {
+          "name": "setupNav",
+          "params": [
+            "navSelector",
+            "defaultView"
+          ],
+          "exported": false,
+          "lineCount": 21
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 33,
+      "hasStructuralAnalysis": true
+    },
+    "dashboard/static/shared/keyboard-shortcuts.js": {
+      "filePath": "dashboard/static/shared/keyboard-shortcuts.js",
+      "contentHash": "48a9fa67fe4c9b501ccea6a4ef996f2da2bc41f7b692a115c148a4ca7c1a24ee",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 20,
+      "hasStructuralAnalysis": true
+    },
+    "dashboard/static/shared/pdf-export.js": {
+      "filePath": "dashboard/static/shared/pdf-export.js",
+      "contentHash": "bd10ca9c40cfd58e33bb729fde77aa9f07b79c964c4f67001ff13a37cda8e0b2",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 10,
+      "hasStructuralAnalysis": true
+    },
+    "dashboard/static/shared/theme-switcher.js": {
+      "filePath": "dashboard/static/shared/theme-switcher.js",
+      "contentHash": "3d5b1a1422d7ed97e8d0d385f6bbd061aac4e2b1fa8cb33b45a1f842ea1b8f62",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 61,
+      "hasStructuralAnalysis": true
+    },
+    "dashboard/svelte.config.js": {
+      "filePath": "dashboard/svelte.config.js",
+      "contentHash": "2cc90e8d0534f21eb1e08f92ad3a9ea42a51a08482829458d17a7de9eafa2111",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "@sveltejs/adapter-static",
+          "specifiers": [
+            "adapter"
+          ]
+        },
+        {
+          "source": "@sveltejs/vite-plugin-svelte",
+          "specifiers": [
+            "vitePreprocess"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 29,
+      "hasStructuralAnalysis": true
+    },
+    "dashboard/tsconfig.json": {
+      "filePath": "dashboard/tsconfig.json",
+      "contentHash": "1e6fa87ecb110c39e65963dda2b78b5547eb90bd1c3672248ce726d2a334cc93",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 16,
+      "hasStructuralAnalysis": true
+    },
+    "dashboard/vite.config.ts": {
+      "filePath": "dashboard/vite.config.ts",
+      "contentHash": "5ebbdbc365962134aa81dd5aa53ccd8f687ad37f1cce731219c770074c0f049b",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "@tailwindcss/vite",
+          "specifiers": [
+            "tailwindcss"
+          ]
+        },
+        {
+          "source": "@sveltejs/kit/vite",
+          "specifiers": [
+            "sveltekit"
+          ]
+        },
+        {
+          "source": "vite",
+          "specifiers": [
+            "defineConfig"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 16,
+      "hasStructuralAnalysis": true
+    },
+    "docs/api.md": {
+      "filePath": "docs/api.md",
+      "contentHash": "0dd29e34c208e928c9ad80273f38ac01273e6b8ac651dcc6669be26cc40adb5c",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 788,
+      "hasStructuralAnalysis": true
+    },
+    "docs/architecture.md": {
+      "filePath": "docs/architecture.md",
+      "contentHash": "32f8db0014c9c0e0c8325d8322fa8bbc72afca997afde4e2692826a146e0f252",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 60,
+      "hasStructuralAnalysis": true
+    },
+    "docs/turboquant-mlx-pdd-plan.md": {
+      "filePath": "docs/turboquant-mlx-pdd-plan.md",
+      "contentHash": "08f24cb24cc0837a2a98ccb377fe8b0183e521b03090a2b7f298f248119f3e41",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 174,
+      "hasStructuralAnalysis": true
+    },
+    "nix/apple-sdk/metadata/versions.json": {
+      "filePath": "nix/apple-sdk/metadata/versions.json",
+      "contentHash": "ab7120bbdcf722663556a54f7a885b8fdfac8fb44efff32798d05d3fbe47b5c1",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 27,
+      "hasStructuralAnalysis": true
+    },
+    "package-lock.json": {
+      "filePath": "package-lock.json",
+      "contentHash": "783b1c1eee7004c9387786f535337ae348e18277763283e49cda03d8ec8d2dcb",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 7,
+      "hasStructuralAnalysis": true
+    },
+    "packaging/dmg/generate-background.py": {
+      "filePath": "packaging/dmg/generate-background.py",
+      "contentHash": "8db31255ff9f7a1669b1a62aa9bcccc86ea53382595f0dbb2b0230109b839e23",
+      "functions": [
+        {
+          "name": "draw_arrow",
+          "params": [
+            "draw"
+          ],
+          "returnType": "None",
+          "exported": true,
+          "lineCount": 38
+        },
+        {
+          "name": "generate_background",
+          "params": [
+            "output_path"
+          ],
+          "returnType": "None",
+          "exported": true,
+          "lineCount": 6
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "math",
+          "specifiers": [
+            "math"
+          ]
+        },
+        {
+          "source": "sys",
+          "specifiers": [
+            "sys"
+          ]
+        },
+        {
+          "source": "pathlib",
+          "specifiers": [
+            "Path"
+          ]
+        },
+        {
+          "source": "PIL",
+          "specifiers": [
+            "Image",
+            "ImageDraw"
+          ]
+        }
+      ],
+      "exports": [
+        "draw_arrow",
+        "generate_background"
+      ],
+      "totalLines": 92,
+      "hasStructuralAnalysis": true
+    },
+    "planANDprompt/README.md": {
+      "filePath": "planANDprompt/README.md",
+      "contentHash": "7e719830cec7418b49610de9d4f15bc3967d58eea82e9f0e71e282ca80e08896",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 19,
+      "hasStructuralAnalysis": true
+    },
+    "planANDprompt/cleaned-prompts.md": {
+      "filePath": "planANDprompt/cleaned-prompts.md",
+      "contentHash": "fce5b846ce22dae34a6b592144df956cd752c5195ebfd28c86ac0ea70c237e7d",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 27,
+      "hasStructuralAnalysis": true
+    },
+    "planANDprompt/executed-prompts.md": {
+      "filePath": "planANDprompt/executed-prompts.md",
+      "contentHash": "8b3ec377087746509ef68a56415ab3d96b58fe475cdfa120e14b3cdbded4176f",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 34,
+      "hasStructuralAnalysis": true
+    },
+    "planANDprompt/improved-prompts.md": {
+      "filePath": "planANDprompt/improved-prompts.md",
+      "contentHash": "db96f7a57e2bf4f812fcaea903727860273cba4fe10f078af9fe8cba44dd058e",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 21,
+      "hasStructuralAnalysis": true
+    },
+    "planANDprompt/original-prompts.md": {
+      "filePath": "planANDprompt/original-prompts.md",
+      "contentHash": "25864f94ab2d29a546808507d9ec379e490c091688bb9987225112d320f8b0a0",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 32,
+      "hasStructuralAnalysis": true
+    },
+    "planANDprompt/planned-prompts.md": {
+      "filePath": "planANDprompt/planned-prompts.md",
+      "contentHash": "b99aef3400793a9a52298365c9366dde77ad21075688915480fa918292d19613",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 13,
+      "hasStructuralAnalysis": true
+    },
+    "planANDprompt/prompt-history.md": {
+      "filePath": "planANDprompt/prompt-history.md",
+      "contentHash": "4cf112036ee80bdfd3b18cd0eb670a7096b350266d1df63b1d91095829d07f07",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 19,
+      "hasStructuralAnalysis": true
+    },
+    "planANDprompt/prompt-index.md": {
+      "filePath": "planANDprompt/prompt-index.md",
+      "contentHash": "f27b705429ce1472ac51c3af608caea6ecc6d72aeed7d0869a90f4ca567c21a2",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 13,
+      "hasStructuralAnalysis": true
+    },
+    "planANDprompt/prompt-ledger.md": {
+      "filePath": "planANDprompt/prompt-ledger.md",
+      "contentHash": "e311fdcb9ec5071a4f874b90c0c484fb5e5e5e4ddf5acfb575a1247cd1c60389",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 11,
+      "hasStructuralAnalysis": true
+    },
+    "planANDprompt/prompt-to-output-map.md": {
+      "filePath": "planANDprompt/prompt-to-output-map.md",
+      "contentHash": "a910b00cefe25e74af2bb2e7419405db424a9a1dcee9a867251c1383cd27dfd0",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 12,
+      "hasStructuralAnalysis": true
+    },
+    "promptsANDplans/AGENT-CONTEXT.md": {
+      "filePath": "promptsANDplans/AGENT-CONTEXT.md",
+      "contentHash": "d6edaba056824f0303118af47f0e261f59d3af93b37476064f7cb347bed101d7",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 193,
+      "hasStructuralAnalysis": true
+    },
+    "promptsANDplans/API-AND-USAGE.md": {
+      "filePath": "promptsANDplans/API-AND-USAGE.md",
+      "contentHash": "99a645ec7f2c15e515c4ea60b83a79860986e0794646fae7c538bd39442edf1a",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 491,
+      "hasStructuralAnalysis": true
+    },
+    "promptsANDplans/ARCHITECTURE.md": {
+      "filePath": "promptsANDplans/ARCHITECTURE.md",
+      "contentHash": "9babd32fa4e73862cd00f95a8dd8fb6ca5e1431a57b0afd7421987aaccbe5a69",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 482,
+      "hasStructuralAnalysis": true
+    },
+    "promptsANDplans/DEPENDENCIES.md": {
+      "filePath": "promptsANDplans/DEPENDENCIES.md",
+      "contentHash": "3bec07a944a639988e07d97e2f8828a7f0e0bc7f0ec3b7bbec3a5bd04068a8c0",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 190,
+      "hasStructuralAnalysis": true
+    },
+    "promptsANDplans/FILE-INVENTORY.md": {
+      "filePath": "promptsANDplans/FILE-INVENTORY.md",
+      "contentHash": "d8a74dd534623e8dfe35fffeabb60c8a2523ed59d025867f70b97bf4cc9ff392",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 2021,
+      "hasStructuralAnalysis": true
+    },
+    "promptsANDplans/GIT-HISTORY-AND-UPSTREAM.md": {
+      "filePath": "promptsANDplans/GIT-HISTORY-AND-UPSTREAM.md",
+      "contentHash": "ab3d9c01488749db9504a8794b4375887d030176d1a5a6a6826f6eba6662ace0",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 287,
+      "hasStructuralAnalysis": true
+    },
+    "promptsANDplans/KNOWN-ISSUES-AND-ROADMAP.md": {
+      "filePath": "promptsANDplans/KNOWN-ISSUES-AND-ROADMAP.md",
+      "contentHash": "f1fc62b927be010e471e24e3e8e73cb229e5be802e68b44920acb673cd042cf6",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 196,
+      "hasStructuralAnalysis": true
+    },
+    "promptsANDplans/PROJECT-OVERVIEW.md": {
+      "filePath": "promptsANDplans/PROJECT-OVERVIEW.md",
+      "contentHash": "88ba0dd11fd0364a306cca1f81738ef1b05c888a0904d7e99ebe46b241881fae",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 263,
+      "hasStructuralAnalysis": true
+    },
+    "promptsANDplans/README.md": {
+      "filePath": "promptsANDplans/README.md",
+      "contentHash": "64a8d21e55a7ce1a91d9d3e470949c05776b1eae62f35fe88f903981fc3957b9",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 80,
+      "hasStructuralAnalysis": true
+    },
+    "promptsANDplans/branches/2026-08-06.md": {
+      "filePath": "promptsANDplans/branches/2026-08-06.md",
+      "contentHash": "cb34ce2480a1edfef7e6ea08007d615b2b7c1e15f367d47563ee04501380d5e7",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 39,
+      "hasStructuralAnalysis": true
+    },
+    "promptsANDplans/branches/2026-08-07.md": {
+      "filePath": "promptsANDplans/branches/2026-08-07.md",
+      "contentHash": "6d210894c4b90008df72d7c2f430bfc80b27a918695e8717b3fdd0b0f45ebb5b",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 18,
+      "hasStructuralAnalysis": true
+    },
+    "promptsANDplans/branches/README.md": {
+      "filePath": "promptsANDplans/branches/README.md",
+      "contentHash": "6e0dd015b3c69384ac188f319151c61b8ed044128225d492a2701c82be98d6c1",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 57,
+      "hasStructuralAnalysis": true
+    },
+    "promptsANDplans/decisions/2026-08-06.md": {
+      "filePath": "promptsANDplans/decisions/2026-08-06.md",
+      "contentHash": "2c1620253e597e99be89130f87516a3afdf53daa991eceba9e7e0f11544c3f28",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 19,
+      "hasStructuralAnalysis": true
+    },
+    "promptsANDplans/decisions/2026-08-07.md": {
+      "filePath": "promptsANDplans/decisions/2026-08-07.md",
+      "contentHash": "25a2a7dcaddd333998f45ea0ee4e680c724b398da54d1bb125c005f2faba0421",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 26,
+      "hasStructuralAnalysis": true
+    },
+    "promptsANDplans/decisions/README.md": {
+      "filePath": "promptsANDplans/decisions/README.md",
+      "contentHash": "b7678b5bba67a8dd6e4e1c158179c2cf661fc8e7e9588874363440de4f50735f",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 62,
+      "hasStructuralAnalysis": true
+    },
+    "promptsANDplans/examples/2026-08-06.md": {
+      "filePath": "promptsANDplans/examples/2026-08-06.md",
+      "contentHash": "f726c48495e492446d2ce89c967f2fe7c13f3cbe553ffad46501074952b65257",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 58,
+      "hasStructuralAnalysis": true
+    },
+    "promptsANDplans/examples/README.md": {
+      "filePath": "promptsANDplans/examples/README.md",
+      "contentHash": "40c712447449912f1e874390321195fda98e5dbb80d2aa64ae0e2a97f9dad61f",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 155,
+      "hasStructuralAnalysis": true
+    },
+    "promptsANDplans/learnings/2026-08-06.md": {
+      "filePath": "promptsANDplans/learnings/2026-08-06.md",
+      "contentHash": "1e55e518a27f1ee78bfde95ab24ce65735c7daeed097d930496095475bf825d1",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 19,
+      "hasStructuralAnalysis": true
+    },
+    "promptsANDplans/learnings/README.md": {
+      "filePath": "promptsANDplans/learnings/README.md",
+      "contentHash": "93dcce94adf4ae8ec79509dc80d6272f27868f69883476fee7dd01a3eaa8dc84",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 55,
+      "hasStructuralAnalysis": true
+    },
+    "promptsANDplans/notes/2026-08-06.md": {
+      "filePath": "promptsANDplans/notes/2026-08-06.md",
+      "contentHash": "85cf435af0377fb05472a689556eec995e9f38b7548ff7844ddeae62c9136be7",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 26,
+      "hasStructuralAnalysis": true
+    },
+    "promptsANDplans/notes/README.md": {
+      "filePath": "promptsANDplans/notes/README.md",
+      "contentHash": "350b9d8ce88a2e41e22175108d2c041e7cbf3527bda694a16d53073fcef30045",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 74,
+      "hasStructuralAnalysis": true
+    },
+    "promptsANDplans/prompts/2026-08-06.md": {
+      "filePath": "promptsANDplans/prompts/2026-08-06.md",
+      "contentHash": "e9ae5ac9c150b8656de7d8b41fd720baa5b3c5f7a2eefd6297868da1c18c13a7",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 16,
+      "hasStructuralAnalysis": true
+    },
+    "promptsANDplans/prompts/README.md": {
+      "filePath": "promptsANDplans/prompts/README.md",
+      "contentHash": "1a89bd5ec8557843601ca2ebd9d1943092810275d2231129e5d27db9b6212f9e",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 40,
+      "hasStructuralAnalysis": true
+    },
+    "promptsANDplans/references/2026-08-06.md": {
+      "filePath": "promptsANDplans/references/2026-08-06.md",
+      "contentHash": "acf12155574a01531e12b070119a9a7362ba8375b536e81c712093d4e409f97a",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 40,
+      "hasStructuralAnalysis": true
+    },
+    "promptsANDplans/references/README.md": {
+      "filePath": "promptsANDplans/references/README.md",
+      "contentHash": "eca30d9de83da0833460b122feeba81745db693ef69e14e93ca406343c71213f",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 110,
+      "hasStructuralAnalysis": true
+    },
+    "promptsANDplans/research/README.md": {
+      "filePath": "promptsANDplans/research/README.md",
+      "contentHash": "f1e800dbf3e59b6b061c4fb16f9ac37d217df898fb6af68fdfe408881abb7c1a",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 40,
+      "hasStructuralAnalysis": true
+    },
+    "promptsANDplans/research/build-architecture-dev-loop.md": {
+      "filePath": "promptsANDplans/research/build-architecture-dev-loop.md",
+      "contentHash": "6d493156ec41c4d5fd599e6296d3a03392b4e4d9116cd82734a09695dad146ac",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 139,
+      "hasStructuralAnalysis": true
+    },
+    "promptsANDplans/research/decision-support-2026-08-07.md": {
+      "filePath": "promptsANDplans/research/decision-support-2026-08-07.md",
+      "contentHash": "b93cdc9f8f242e2f015c8e4ab30a89426dd6eba22b9ac4cae49aba16fb02f08a",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 134,
+      "hasStructuralAnalysis": true
+    },
+    "promptsANDplans/research/eject-ui-work-log-2026-08-06.md": {
+      "filePath": "promptsANDplans/research/eject-ui-work-log-2026-08-06.md",
+      "contentHash": "3cd7b27ba2a7c726e62e8e695845209f24c160662a776f87d6223b1df07d509b",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 223,
+      "hasStructuralAnalysis": true
+    },
+    "promptsANDplans/research/error-ux-implementation-research.md": {
+      "filePath": "promptsANDplans/research/error-ux-implementation-research.md",
+      "contentHash": "6553a40919d041c7226a79ae3ec735e89b008af2c993f07b3b156226fea67754",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 161,
+      "hasStructuralAnalysis": true
+    },
+    "promptsANDplans/research/error-ux-research.md": {
+      "filePath": "promptsANDplans/research/error-ux-research.md",
+      "contentHash": "d568296365a6a99e2be5c858b6150efc3ffdcfa0f97c7c8149e2a1d1c2691a8a",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 154,
+      "hasStructuralAnalysis": true
+    },
+    "promptsANDplans/research/linux-deployment-log-2026-08-06.md": {
+      "filePath": "promptsANDplans/research/linux-deployment-log-2026-08-06.md",
+      "contentHash": "25f4c9e1c82305d0eea854170f4b02f2398777b70f83ac7390f9987b4fac9b7f",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 328,
+      "hasStructuralAnalysis": true
+    },
+    "promptsANDplans/research/linux-nvidia-cuda-setup-guide.md": {
+      "filePath": "promptsANDplans/research/linux-nvidia-cuda-setup-guide.md",
+      "contentHash": "78a9c57560816d3c519bf121621a3417db332f483851c2ccf304e73becaa537a",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 410,
+      "hasStructuralAnalysis": true
+    },
+    "promptsANDplans/research/memory-bandwidth-ssd-prs.md": {
+      "filePath": "promptsANDplans/research/memory-bandwidth-ssd-prs.md",
+      "contentHash": "b86899b7b8b5769e49ff508a868a7ffe89cba10912aac1a2066b9d88b7028751",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 137,
+      "hasStructuralAnalysis": true
+    },
+    "promptsANDplans/research/message-queueing-steering-research.md": {
+      "filePath": "promptsANDplans/research/message-queueing-steering-research.md",
+      "contentHash": "42c61b66592c1838a61cea47f6c9846f57e3ad2fca02646006688510e25ab344",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 205,
+      "hasStructuralAnalysis": true
+    },
+    "promptsANDplans/research/pr-merge-campaign-tracker.md": {
+      "filePath": "promptsANDplans/research/pr-merge-campaign-tracker.md",
+      "contentHash": "3646ae2cc8383a941cf945c60b8d7cdc0fbca4b7eadb55db13ba16cc7d09c74a",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 259,
+      "hasStructuralAnalysis": true
+    },
+    "promptsANDplans/research/rdma-multi-node-investigation.md": {
+      "filePath": "promptsANDplans/research/rdma-multi-node-investigation.md",
+      "contentHash": "ade7257fe125c0f5180ec318c428e48954af4a5dedc5fa542cd1af7fc6ee993f",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 122,
+      "hasStructuralAnalysis": true
+    },
+    "promptsANDplans/research/remaining-prs/deep-dive-2129-2200-heterogeneous.md": {
+      "filePath": "promptsANDplans/research/remaining-prs/deep-dive-2129-2200-heterogeneous.md",
+      "contentHash": "4dfe459dfd64af2d7659f906828e1b8bf57e1848fd486ef4f392f80bfef1ff60",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 144,
+      "hasStructuralAnalysis": true
+    },
+    "promptsANDplans/research/remaining-prs/track-a-2063-2064/README.md": {
+      "filePath": "promptsANDplans/research/remaining-prs/track-a-2063-2064/README.md",
+      "contentHash": "58ca1f0fa9874896faaf428441767ad55f2faee84c398be06c25ce436c73db32",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 36,
+      "hasStructuralAnalysis": true
+    },
+    "promptsANDplans/research/remaining-prs/track-b-1598/README.md": {
+      "filePath": "promptsANDplans/research/remaining-prs/track-b-1598/README.md",
+      "contentHash": "f69f702c7521d3f1c1189ae5c2a6828bde28533f2803ed387dfd0fa68f918c26",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 35,
+      "hasStructuralAnalysis": true
+    },
+    "promptsANDplans/research/remaining-prs/track-c-tier1/README.md": {
+      "filePath": "promptsANDplans/research/remaining-prs/track-c-tier1/README.md",
+      "contentHash": "b03b90f807da7fd27079616505b6e4b424665e4206c560675576147f83bd65a0",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 27,
+      "hasStructuralAnalysis": true
+    },
+    "promptsANDplans/research/remaining-prs/triage-report.md": {
+      "filePath": "promptsANDplans/research/remaining-prs/triage-report.md",
+      "contentHash": "66d49be3cc85b6c2be3a795947af6adcd860daf1b7c4678f04363352ac7a7232",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 107,
+      "hasStructuralAnalysis": true
+    },
+    "promptsANDplans/research/session-qa-log-2026-08-06.md": {
+      "filePath": "promptsANDplans/research/session-qa-log-2026-08-06.md",
+      "contentHash": "0466602d5f069da3ce95ff6a50e6496d0bfa5ea1ccabf333e6c8e03364694211",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 243,
+      "hasStructuralAnalysis": true
+    },
+    "promptsANDplans/research/session-tracking-2026-08-06.md": {
+      "filePath": "promptsANDplans/research/session-tracking-2026-08-06.md",
+      "contentHash": "ba323201c1469ea8b9b99ccca142a271b9757184b16ce968bbd7bf31333b1b68",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 630,
+      "hasStructuralAnalysis": true
+    },
+    "promptsANDplans/research/session-tracking-2026-08-07.md": {
+      "filePath": "promptsANDplans/research/session-tracking-2026-08-07.md",
+      "contentHash": "31b316583d29425dc9aa9f7aa2327fa333ef17e7520f981bfb1779513f991caf",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 20,
+      "hasStructuralAnalysis": true
+    },
+    "promptsANDplans/research/settings-manager-design.md": {
+      "filePath": "promptsANDplans/research/settings-manager-design.md",
+      "contentHash": "8f698fe508fca93db84d03f28cd9b7cef43e6d9963b8141764c458167ee9e0ad",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 143,
+      "hasStructuralAnalysis": true
+    },
+    "promptsANDplans/research/vscode-insiders-patch-log-2026-08-06.md": {
+      "filePath": "promptsANDplans/research/vscode-insiders-patch-log-2026-08-06.md",
+      "contentHash": "2ed41ce4fccb30a705d186ce2fb9b11bc115b4b5be9cdbe1d401c4830786335c",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 94,
+      "hasStructuralAnalysis": true
+    },
+    "promptsANDplans/tasks/2026-08-06.md": {
+      "filePath": "promptsANDplans/tasks/2026-08-06.md",
+      "contentHash": "24de75cbd10f1e9bfa60622db7ef3c3b428b8287550a3a5c6493790a294ea49e",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 26,
+      "hasStructuralAnalysis": true
+    },
+    "promptsANDplans/tasks/2026-08-07-wave5-t1-t3.md": {
+      "filePath": "promptsANDplans/tasks/2026-08-07-wave5-t1-t3.md",
+      "contentHash": "32178c95669c74e34c2a30d79cadf462b8b68bad9b4e9c5db28a36c1106d66c4",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 184,
+      "hasStructuralAnalysis": true
+    },
+    "promptsANDplans/tasks/README.md": {
+      "filePath": "promptsANDplans/tasks/README.md",
+      "contentHash": "3aa48251b16b7a49b70349150364a22aedc89a29e6d1813774064ba0c4cd7c8c",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 153,
+      "hasStructuralAnalysis": true
+    },
+    "promptsANDplans/tasks/work-queue-chart.md": {
+      "filePath": "promptsANDplans/tasks/work-queue-chart.md",
+      "contentHash": "f728604cebc0d4377957ac27d0752eb9f683f03ecd778ee875cbc417a7778beb",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 47,
+      "hasStructuralAnalysis": true
+    },
+    "pyproject.toml": {
+      "filePath": "pyproject.toml",
+      "contentHash": "3796114dd52a4c016c6ca60cf61033f3a9be95e245e4d5b697c8c09235ff3d70",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 255,
+      "hasStructuralAnalysis": true
+    },
+    "resources/image_model_cards/exolabs--FLUX.1-Kontext-dev-4bit.toml": {
+      "filePath": "resources/image_model_cards/exolabs--FLUX.1-Kontext-dev-4bit.toml",
+      "contentHash": "3b336be4a1011b3f697dcfa9a3e9fc2fd988de8233cae0d502400cd44481862f",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 51,
+      "hasStructuralAnalysis": true
+    },
+    "resources/image_model_cards/exolabs--FLUX.1-Kontext-dev-8bit.toml": {
+      "filePath": "resources/image_model_cards/exolabs--FLUX.1-Kontext-dev-8bit.toml",
+      "contentHash": "af95baa0dcf74d35fbd9c0ac46c23ab9ad9b351704b945192c957d92a779c676",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 51,
+      "hasStructuralAnalysis": true
+    },
+    "resources/image_model_cards/exolabs--FLUX.1-Kontext-dev.toml": {
+      "filePath": "resources/image_model_cards/exolabs--FLUX.1-Kontext-dev.toml",
+      "contentHash": "4597d826f28558973b3f3115f3fedfaf65ae66a006387ac73a5f35da3694f9a0",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 51,
+      "hasStructuralAnalysis": true
+    },
+    "resources/image_model_cards/exolabs--FLUX.1-Krea-dev-4bit.toml": {
+      "filePath": "resources/image_model_cards/exolabs--FLUX.1-Krea-dev-4bit.toml",
+      "contentHash": "30be14427887b6095a01001fe79e58c21f5498045e8f54774386e31328ed05ac",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 51,
+      "hasStructuralAnalysis": true
+    },
+    "resources/image_model_cards/exolabs--FLUX.1-Krea-dev-8bit.toml": {
+      "filePath": "resources/image_model_cards/exolabs--FLUX.1-Krea-dev-8bit.toml",
+      "contentHash": "dfbc42189ab0072dc916d57a36e60e35df9c2aabe9efb7cc2e4b8d6f009d1a29",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 51,
+      "hasStructuralAnalysis": true
+    },
+    "resources/image_model_cards/exolabs--FLUX.1-Krea-dev.toml": {
+      "filePath": "resources/image_model_cards/exolabs--FLUX.1-Krea-dev.toml",
+      "contentHash": "d9b2353fc184f3e618420e053b4243b62ec9cbfa0b3cf5d18d985111d7ef19aa",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 51,
+      "hasStructuralAnalysis": true
+    },
+    "resources/image_model_cards/exolabs--FLUX.1-dev-4bit.toml": {
+      "filePath": "resources/image_model_cards/exolabs--FLUX.1-dev-4bit.toml",
+      "contentHash": "8ab41f6a37ed0c3263855dd98bf8cd2fb9f160c63ac0e5ba1720a4e9835067eb",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 51,
+      "hasStructuralAnalysis": true
+    },
+    "resources/image_model_cards/exolabs--FLUX.1-dev-8bit.toml": {
+      "filePath": "resources/image_model_cards/exolabs--FLUX.1-dev-8bit.toml",
+      "contentHash": "2564bebfda7d67c4b9a430be6ca399b66ab6d4872b2e42f470907ab996877126",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 51,
+      "hasStructuralAnalysis": true
+    },
+    "resources/image_model_cards/exolabs--FLUX.1-dev.toml": {
+      "filePath": "resources/image_model_cards/exolabs--FLUX.1-dev.toml",
+      "contentHash": "41756a810a40c20c0375521abadf43fe18bfe635190c60d443e4109acb9821ac",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 51,
+      "hasStructuralAnalysis": true
+    },
+    "resources/image_model_cards/exolabs--FLUX.1-schnell-4bit.toml": {
+      "filePath": "resources/image_model_cards/exolabs--FLUX.1-schnell-4bit.toml",
+      "contentHash": "e851f83aef3fb688dbc0c90abc65825cc93e7113d6aaaaafc7f7f57382d52841",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 51,
+      "hasStructuralAnalysis": true
+    }
+  }
+}

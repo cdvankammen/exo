@@ -1,0 +1,49 @@
+{
+ "projectRoot": "/Users/chris/Documents/GitHub/exo",
+ "batchFiles": [
+  {
+   "path": "bench/METHODOLOGY.md",
+   "language": "markdown",
+   "sizeLines": 161,
+   "fileCategory": "docs"
+  },
+  {
+   "path": "bench/bench.toml",
+   "language": "toml",
+   "sizeLines": 5,
+   "fileCategory": "config"
+  },
+  {
+   "path": "bench/prefill-decode.toml",
+   "language": "toml",
+   "sizeLines": 36,
+   "fileCategory": "config"
+  },
+  {
+   "path": "bench/pyproject.toml",
+   "language": "toml",
+   "sizeLines": 23,
+   "fileCategory": "config"
+  },
+  {
+   "path": "bench/scenarios.toml",
+   "language": "toml",
+   "sizeLines": 306,
+   "fileCategory": "config"
+  },
+  {
+   "path": "bench/single-m3-ultra.toml",
+   "language": "toml",
+   "sizeLines": 189,
+   "fileCategory": "config"
+  }
+ ],
+ "batchImportData": {
+  "bench/METHODOLOGY.md": [],
+  "bench/bench.toml": [],
+  "bench/prefill-decode.toml": [],
+  "bench/pyproject.toml": [],
+  "bench/scenarios.toml": [],
+  "bench/single-m3-ultra.toml": []
+ }
+}

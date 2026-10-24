@@ -1,0 +1,537 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 20,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": "resources/inference_model_cards/mlx-community--Step-3.5-Flash-6bit.toml",
+      "language": "toml",
+      "fileCategory": "config",
+      "totalLines": 27,
+      "nonEmptyLines": 24,
+      "sections": [
+        {
+          "heading": "storage_size",
+          "level": 1,
+          "line": 14
+        },
+        {
+          "heading": "sampling_defaults",
+          "level": 1,
+          "line": 19
+        },
+        {
+          "heading": "sampling_defaults.thinking",
+          "level": 2,
+          "line": 25
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 3
+      }
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--Step-3.5-Flash-8Bit.toml",
+      "language": "toml",
+      "fileCategory": "config",
+      "totalLines": 27,
+      "nonEmptyLines": 24,
+      "sections": [
+        {
+          "heading": "storage_size",
+          "level": 1,
+          "line": 14
+        },
+        {
+          "heading": "sampling_defaults",
+          "level": 1,
+          "line": 19
+        },
+        {
+          "heading": "sampling_defaults.thinking",
+          "level": 2,
+          "line": 25
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 3
+      }
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--gemma-4-12B-it-4bit.toml",
+      "language": "toml",
+      "fileCategory": "config",
+      "totalLines": 22,
+      "nonEmptyLines": 20,
+      "sections": [
+        {
+          "heading": "storage_size",
+          "level": 1,
+          "line": 14
+        },
+        {
+          "heading": "sampling_defaults",
+          "level": 1,
+          "line": 19
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 2
+      }
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--gemma-4-26b-a4b-it-4bit.toml",
+      "language": "toml",
+      "fileCategory": "config",
+      "totalLines": 22,
+      "nonEmptyLines": 20,
+      "sections": [
+        {
+          "heading": "storage_size",
+          "level": 1,
+          "line": 14
+        },
+        {
+          "heading": "sampling_defaults",
+          "level": 1,
+          "line": 19
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 2
+      }
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--gemma-4-26b-a4b-it-6bit.toml",
+      "language": "toml",
+      "fileCategory": "config",
+      "totalLines": 22,
+      "nonEmptyLines": 20,
+      "sections": [
+        {
+          "heading": "storage_size",
+          "level": 1,
+          "line": 14
+        },
+        {
+          "heading": "sampling_defaults",
+          "level": 1,
+          "line": 19
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 2
+      }
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--gemma-4-26b-a4b-it-8bit.toml",
+      "language": "toml",
+      "fileCategory": "config",
+      "totalLines": 22,
+      "nonEmptyLines": 20,
+      "sections": [
+        {
+          "heading": "storage_size",
+          "level": 1,
+          "line": 14
+        },
+        {
+          "heading": "sampling_defaults",
+          "level": 1,
+          "line": 19
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 2
+      }
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--gemma-4-26b-a4b-it-bf16.toml",
+      "language": "toml",
+      "fileCategory": "config",
+      "totalLines": 22,
+      "nonEmptyLines": 20,
+      "sections": [
+        {
+          "heading": "storage_size",
+          "level": 1,
+          "line": 14
+        },
+        {
+          "heading": "sampling_defaults",
+          "level": 1,
+          "line": 19
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 2
+      }
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--gemma-4-31b-it-4bit.toml",
+      "language": "toml",
+      "fileCategory": "config",
+      "totalLines": 22,
+      "nonEmptyLines": 20,
+      "sections": [
+        {
+          "heading": "storage_size",
+          "level": 1,
+          "line": 14
+        },
+        {
+          "heading": "sampling_defaults",
+          "level": 1,
+          "line": 19
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 2
+      }
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--gemma-4-31b-it-6bit.toml",
+      "language": "toml",
+      "fileCategory": "config",
+      "totalLines": 22,
+      "nonEmptyLines": 20,
+      "sections": [
+        {
+          "heading": "storage_size",
+          "level": 1,
+          "line": 14
+        },
+        {
+          "heading": "sampling_defaults",
+          "level": 1,
+          "line": 19
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 2
+      }
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--gemma-4-31b-it-8bit.toml",
+      "language": "toml",
+      "fileCategory": "config",
+      "totalLines": 22,
+      "nonEmptyLines": 20,
+      "sections": [
+        {
+          "heading": "storage_size",
+          "level": 1,
+          "line": 14
+        },
+        {
+          "heading": "sampling_defaults",
+          "level": 1,
+          "line": 19
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 2
+      }
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--gemma-4-31b-it-bf16.toml",
+      "language": "toml",
+      "fileCategory": "config",
+      "totalLines": 22,
+      "nonEmptyLines": 20,
+      "sections": [
+        {
+          "heading": "storage_size",
+          "level": 1,
+          "line": 14
+        },
+        {
+          "heading": "sampling_defaults",
+          "level": 1,
+          "line": 19
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 2
+      }
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--gemma-4-e2b-it-4bit.toml",
+      "language": "toml",
+      "fileCategory": "config",
+      "totalLines": 22,
+      "nonEmptyLines": 20,
+      "sections": [
+        {
+          "heading": "storage_size",
+          "level": 1,
+          "line": 14
+        },
+        {
+          "heading": "sampling_defaults",
+          "level": 1,
+          "line": 19
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 2
+      }
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--gemma-4-e2b-it-6bit.toml",
+      "language": "toml",
+      "fileCategory": "config",
+      "totalLines": 22,
+      "nonEmptyLines": 20,
+      "sections": [
+        {
+          "heading": "storage_size",
+          "level": 1,
+          "line": 14
+        },
+        {
+          "heading": "sampling_defaults",
+          "level": 1,
+          "line": 19
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 2
+      }
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--gemma-4-e2b-it-8bit.toml",
+      "language": "toml",
+      "fileCategory": "config",
+      "totalLines": 22,
+      "nonEmptyLines": 20,
+      "sections": [
+        {
+          "heading": "storage_size",
+          "level": 1,
+          "line": 14
+        },
+        {
+          "heading": "sampling_defaults",
+          "level": 1,
+          "line": 19
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 2
+      }
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--gemma-4-e2b-it-bf16.toml",
+      "language": "toml",
+      "fileCategory": "config",
+      "totalLines": 22,
+      "nonEmptyLines": 20,
+      "sections": [
+        {
+          "heading": "storage_size",
+          "level": 1,
+          "line": 14
+        },
+        {
+          "heading": "sampling_defaults",
+          "level": 1,
+          "line": 19
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 2
+      }
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--gemma-4-e4b-it-4bit.toml",
+      "language": "toml",
+      "fileCategory": "config",
+      "totalLines": 22,
+      "nonEmptyLines": 20,
+      "sections": [
+        {
+          "heading": "storage_size",
+          "level": 1,
+          "line": 14
+        },
+        {
+          "heading": "sampling_defaults",
+          "level": 1,
+          "line": 19
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 2
+      }
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--gemma-4-e4b-it-6bit.toml",
+      "language": "toml",
+      "fileCategory": "config",
+      "totalLines": 22,
+      "nonEmptyLines": 20,
+      "sections": [
+        {
+          "heading": "storage_size",
+          "level": 1,
+          "line": 14
+        },
+        {
+          "heading": "sampling_defaults",
+          "level": 1,
+          "line": 19
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 2
+      }
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--gemma-4-e4b-it-8bit.toml",
+      "language": "toml",
+      "fileCategory": "config",
+      "totalLines": 22,
+      "nonEmptyLines": 20,
+      "sections": [
+        {
+          "heading": "storage_size",
+          "level": 1,
+          "line": 14
+        },
+        {
+          "heading": "sampling_defaults",
+          "level": 1,
+          "line": 19
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 2
+      }
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--gemma-4-e4b-it-bf16.toml",
+      "language": "toml",
+      "fileCategory": "config",
+      "totalLines": 22,
+      "nonEmptyLines": 20,
+      "sections": [
+        {
+          "heading": "storage_size",
+          "level": 1,
+          "line": 14
+        },
+        {
+          "heading": "sampling_defaults",
+          "level": 1,
+          "line": 19
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 2
+      }
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--gpt-oss-120b-MXFP4-Q8.toml",
+      "language": "toml",
+      "fileCategory": "config",
+      "totalLines": 22,
+      "nonEmptyLines": 21,
+      "sections": [
+        {
+          "heading": "storage_size",
+          "level": 1,
+          "line": 14
+        },
+        {
+          "heading": "sampling_defaults",
+          "level": 1,
+          "line": 19
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 2
+      }
+    }
+  ]
+}

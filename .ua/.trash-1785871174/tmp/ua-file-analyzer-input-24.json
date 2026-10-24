@@ -1,0 +1,28 @@
+{
+ "projectRoot": "/Users/chris/Documents/GitHub/exo",
+ "batchFiles": [
+  {
+   "path": "resources/inference_model_cards/mlx-community--llama-3.3-70b-instruct-fp16.toml",
+   "language": "toml",
+   "sizeLines": 21,
+   "fileCategory": "config"
+  },
+  {
+   "path": "resources/inference_model_cards/moonshotai--Kimi-K2.6.toml",
+   "language": "toml",
+   "sizeLines": 33,
+   "fileCategory": "config"
+  },
+  {
+   "path": "resources/inference_model_cards/moonshotai--Kimi-K2.7-Code.toml",
+   "language": "toml",
+   "sizeLines": 36,
+   "fileCategory": "config"
+  }
+ ],
+ "batchImportData": {
+  "resources/inference_model_cards/mlx-community--llama-3.3-70b-instruct-fp16.toml": [],
+  "resources/inference_model_cards/moonshotai--Kimi-K2.6.toml": [],
+  "resources/inference_model_cards/moonshotai--Kimi-K2.7-Code.toml": []
+ }
+}

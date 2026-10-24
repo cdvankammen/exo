@@ -1,0 +1,21 @@
+{
+ "projectRoot": "/Users/chris/Documents/GitHub/exo",
+ "batchFiles": [
+  {
+   "path": ".github/workflows/build-app.yml",
+   "language": "yaml",
+   "sizeLines": 568,
+   "fileCategory": "infra"
+  },
+  {
+   "path": ".github/workflows/pipeline.yml",
+   "language": "yaml",
+   "sizeLines": 117,
+   "fileCategory": "infra"
+  }
+ ],
+ "batchImportData": {
+  ".github/workflows/build-app.yml": [],
+  ".github/workflows/pipeline.yml": []
+ }
+}

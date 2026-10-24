@@ -1,0 +1,952 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 25,
+  "filesSkipped": [],
+  "analysisOutcomes": {
+    "structure": {
+      "succeeded": 25,
+      "failed": 0
+    },
+    "callGraph": {
+      "succeeded": 25,
+      "failed": 0,
+      "skipped": 0
+    }
+  },
+  "results": [
+    {
+      "path": ".typings/mflux/models/common/resolution/lora_resolution.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 21,
+      "nonEmptyLines": 18,
+      "classes": [
+        {
+          "name": "LoraResolution",
+          "startLine": 9,
+          "endLine": 21,
+          "methods": [
+            "resolve",
+            "resolve_paths",
+            "resolve_scales",
+            "get_registry",
+            "discover_files"
+          ],
+          "properties": [
+            "_registry"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "LoraResolution",
+          "line": 9,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mflux/models/common/resolution/path_resolution.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 12,
+      "nonEmptyLines": 9,
+      "classes": [
+        {
+          "name": "PathResolution",
+          "startLine": 9,
+          "endLine": 12,
+          "methods": [
+            "resolve"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "PathResolution",
+          "line": 9,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mflux/models/common/resolution/quantization_resolution.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 12,
+      "nonEmptyLines": 10,
+      "classes": [
+        {
+          "name": "QuantizationResolution",
+          "startLine": 7,
+          "endLine": 12,
+          "methods": [
+            "resolve"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "QuantizationResolution",
+          "line": 7,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mflux/models/common/schedulers/__init__.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 26,
+      "nonEmptyLines": 21,
+      "functions": [
+        {
+          "name": "register_contrib",
+          "startLine": 21,
+          "endLine": 22,
+          "params": [
+            "scheduler_object",
+            "scheduler_name"
+          ]
+        },
+        {
+          "name": "try_import_external_scheduler",
+          "startLine": 23,
+          "endLine": 26,
+          "params": [
+            "scheduler_object_path"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "SchedulerModuleNotFound",
+          "startLine": 15,
+          "endLine": 15,
+          "methods": [],
+          "properties": []
+        },
+        {
+          "name": "SchedulerClassNotFound",
+          "startLine": 16,
+          "endLine": 16,
+          "methods": [],
+          "properties": []
+        },
+        {
+          "name": "InvalidSchedulerType",
+          "startLine": 17,
+          "endLine": 17,
+          "methods": [],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "SchedulerModuleNotFound",
+          "line": 15,
+          "isDefault": false
+        },
+        {
+          "name": "SchedulerClassNotFound",
+          "line": 16,
+          "isDefault": false
+        },
+        {
+          "name": "InvalidSchedulerType",
+          "line": 17,
+          "isDefault": false
+        },
+        {
+          "name": "register_contrib",
+          "line": 21,
+          "isDefault": false
+        },
+        {
+          "name": "try_import_external_scheduler",
+          "line": 23,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 5,
+        "functionCount": 2,
+        "classCount": 3
+      }
+    },
+    {
+      "path": ".typings/mflux/models/common/schedulers/base_scheduler.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 16,
+      "nonEmptyLines": 14,
+      "classes": [
+        {
+          "name": "BaseScheduler",
+          "startLine": 8,
+          "endLine": 16,
+          "methods": [
+            "sigmas",
+            "step",
+            "scale_model_input"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "BaseScheduler",
+          "line": 8,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mflux/models/common/schedulers/flow_match_euler_discrete_scheduler.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 26,
+      "nonEmptyLines": 23,
+      "classes": [
+        {
+          "name": "FlowMatchEulerDiscreteScheduler",
+          "startLine": 12,
+          "endLine": 26,
+          "methods": [
+            "__init__",
+            "sigmas",
+            "timesteps",
+            "set_image_seq_len",
+            "get_timesteps_and_sigmas",
+            "step",
+            "scale_model_input"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "FlowMatchEulerDiscreteScheduler",
+          "line": 12,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mflux/models/common/schedulers/linear_scheduler.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 20,
+      "nonEmptyLines": 17,
+      "classes": [
+        {
+          "name": "LinearScheduler",
+          "startLine": 12,
+          "endLine": 20,
+          "methods": [
+            "__init__",
+            "sigmas",
+            "timesteps",
+            "step"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "LinearScheduler",
+          "line": 12,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mflux/models/common/schedulers/seedvr2_euler_scheduler.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 20,
+      "nonEmptyLines": 17,
+      "classes": [
+        {
+          "name": "SeedVR2EulerScheduler",
+          "startLine": 12,
+          "endLine": 20,
+          "methods": [
+            "__init__",
+            "timesteps",
+            "sigmas",
+            "step"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "SeedVR2EulerScheduler",
+          "line": 12,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mflux/models/common/tokenizer/__init__.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 24,
+      "nonEmptyLines": 22,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": ".typings/mflux/models/common/tokenizer/tokenizer.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 74,
+      "nonEmptyLines": 68,
+      "classes": [
+        {
+          "name": "Tokenizer",
+          "startLine": 16,
+          "endLine": 24,
+          "methods": [
+            "tokenize"
+          ],
+          "properties": [
+            "tokenizer"
+          ]
+        },
+        {
+          "name": "BaseTokenizer",
+          "startLine": 26,
+          "endLine": 37,
+          "methods": [
+            "__init__",
+            "tokenize"
+          ],
+          "properties": []
+        },
+        {
+          "name": "LanguageTokenizer",
+          "startLine": 39,
+          "endLine": 57,
+          "methods": [
+            "__init__",
+            "tokenize"
+          ],
+          "properties": []
+        },
+        {
+          "name": "VisionLanguageTokenizer",
+          "startLine": 59,
+          "endLine": 74,
+          "methods": [
+            "__init__",
+            "tokenize"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "Tokenizer",
+          "line": 15,
+          "isDefault": false
+        },
+        {
+          "name": "BaseTokenizer",
+          "line": 26,
+          "isDefault": false
+        },
+        {
+          "name": "LanguageTokenizer",
+          "line": 39,
+          "isDefault": false
+        },
+        {
+          "name": "VisionLanguageTokenizer",
+          "line": 59,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 4,
+        "functionCount": 0,
+        "classCount": 4
+      }
+    },
+    {
+      "path": ".typings/mflux/models/common/tokenizer/tokenizer_loader.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 22,
+      "nonEmptyLines": 19,
+      "classes": [
+        {
+          "name": "TokenizerLoader",
+          "startLine": 14,
+          "endLine": 22,
+          "methods": [
+            "load",
+            "load_all"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "TokenizerLoader",
+          "line": 14,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mflux/models/common/tokenizer/tokenizer_output.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 17,
+      "nonEmptyLines": 14,
+      "classes": [
+        {
+          "name": "TokenizerOutput",
+          "startLine": 13,
+          "endLine": 17,
+          "methods": [],
+          "properties": [
+            "input_ids",
+            "attention_mask",
+            "pixel_values",
+            "image_grid_thw"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "TokenizerOutput",
+          "line": 12,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mflux/models/common/vae/__init__.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 8,
+      "nonEmptyLines": 6,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": ".typings/mflux/models/common/vae/tiling_config.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 13,
+      "nonEmptyLines": 11,
+      "classes": [
+        {
+          "name": "TilingConfig",
+          "startLine": 8,
+          "endLine": 13,
+          "methods": [],
+          "properties": [
+            "vae_decode_tiles_per_dim",
+            "vae_decode_overlap",
+            "vae_encode_tiled",
+            "vae_encode_tile_size",
+            "vae_encode_tile_overlap"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "TilingConfig",
+          "line": 7,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mflux/models/common/vae/vae_tiler.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 27,
+      "nonEmptyLines": 25,
+      "classes": [
+        {
+          "name": "VAETiler",
+          "startLine": 8,
+          "endLine": 27,
+          "methods": [
+            "encode_image_tiled",
+            "decode_image_tiled"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "VAETiler",
+          "line": 8,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mflux/models/common/vae/vae_util.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 17,
+      "nonEmptyLines": 15,
+      "classes": [
+        {
+          "name": "VAEUtil",
+          "startLine": 9,
+          "endLine": 17,
+          "methods": [
+            "encode",
+            "decode"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "VAEUtil",
+          "line": 9,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mflux/models/common/weights/__init__.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 18,
+      "nonEmptyLines": 16,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": ".typings/mflux/models/common/weights/loading/loaded_weights.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 18,
+      "nonEmptyLines": 15,
+      "classes": [
+        {
+          "name": "MetaData",
+          "startLine": 8,
+          "endLine": 10,
+          "methods": [],
+          "properties": [
+            "quantization_level",
+            "mflux_version"
+          ]
+        },
+        {
+          "name": "LoadedWeights",
+          "startLine": 13,
+          "endLine": 18,
+          "methods": [
+            "__getattr__",
+            "num_transformer_blocks",
+            "num_single_transformer_blocks"
+          ],
+          "properties": [
+            "components",
+            "meta_data"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "MetaData",
+          "line": 7,
+          "isDefault": false
+        },
+        {
+          "name": "LoadedWeights",
+          "line": 12,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 2,
+        "functionCount": 0,
+        "classCount": 2
+      }
+    },
+    {
+      "path": ".typings/mflux/models/common/weights/loading/weight_applier.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 30,
+      "nonEmptyLines": 27,
+      "classes": [
+        {
+          "name": "WeightApplier",
+          "startLine": 15,
+          "endLine": 30,
+          "methods": [
+            "apply_and_quantize_single",
+            "apply_and_quantize"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "WeightApplier",
+          "line": 15,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mflux/models/common/weights/loading/weight_definition.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 73,
+      "nonEmptyLines": 69,
+      "classes": [
+        {
+          "name": "ComponentDefinition",
+          "startLine": 41,
+          "endLine": 55,
+          "methods": [],
+          "properties": [
+            "name",
+            "hf_subdir",
+            "mapping_getter",
+            "model_attr",
+            "num_blocks",
+            "num_layers",
+            "loading_mode",
+            "precision",
+            "skip_quantization",
+            "bulk_transform",
+            "weight_subkey",
+            "download_url",
+            "weight_prefix_filters",
+            "weight_files"
+          ]
+        },
+        {
+          "name": "TokenizerDefinition",
+          "startLine": 58,
+          "endLine": 73,
+          "methods": [],
+          "properties": [
+            "name",
+            "hf_subdir",
+            "tokenizer_class",
+            "fallback_subdirs",
+            "download_patterns",
+            "encoder_class",
+            "max_length",
+            "padding",
+            "template",
+            "use_chat_template",
+            "chat_template_kwargs",
+            "add_special_tokens",
+            "processor_class",
+            "image_token",
+            "chat_template"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "ComponentDefinition",
+          "line": 40,
+          "isDefault": false
+        },
+        {
+          "name": "TokenizerDefinition",
+          "line": 57,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 2,
+        "functionCount": 0,
+        "classCount": 2
+      }
+    },
+    {
+      "path": ".typings/mflux/models/common/weights/loading/weight_loader.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 23,
+      "nonEmptyLines": 20,
+      "classes": [
+        {
+          "name": "WeightLoader",
+          "startLine": 15,
+          "endLine": 23,
+          "methods": [
+            "load_single",
+            "load"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "WeightLoader",
+          "line": 15,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mflux/models/common/weights/mapping/weight_mapper.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 16,
+      "nonEmptyLines": 14,
+      "classes": [
+        {
+          "name": "WeightMapper",
+          "startLine": 9,
+          "endLine": 16,
+          "methods": [
+            "apply_mapping"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "WeightMapper",
+          "line": 9,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mflux/models/common/weights/mapping/weight_mapping.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 23,
+      "nonEmptyLines": 19,
+      "classes": [
+        {
+          "name": "WeightTarget",
+          "startLine": 14,
+          "endLine": 19,
+          "methods": [],
+          "properties": [
+            "to_pattern",
+            "from_pattern",
+            "transform",
+            "required",
+            "max_blocks"
+          ]
+        },
+        {
+          "name": "WeightMapping",
+          "startLine": 21,
+          "endLine": 23,
+          "methods": [
+            "get_mapping"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "WeightTarget",
+          "line": 13,
+          "isDefault": false
+        },
+        {
+          "name": "WeightMapping",
+          "line": 21,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 2,
+        "functionCount": 0,
+        "classCount": 2
+      }
+    },
+    {
+      "path": ".typings/mflux/models/common/weights/mapping/weight_transforms.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 17,
+      "nonEmptyLines": 15,
+      "classes": [
+        {
+          "name": "WeightTransforms",
+          "startLine": 7,
+          "endLine": 17,
+          "methods": [
+            "reshape_gamma_to_1d",
+            "transpose_patch_embed",
+            "transpose_conv3d_weight",
+            "transpose_conv2d_weight",
+            "transpose_conv_transpose2d_weight"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "WeightTransforms",
+          "line": 7,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mflux/models/common/weights/saving/model_saver.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 14,
+      "nonEmptyLines": 11,
+      "classes": [
+        {
+          "name": "ModelSaver",
+          "startLine": 10,
+          "endLine": 14,
+          "methods": [
+            "save_model"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "ModelSaver",
+          "line": 10,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    }
+  ]
+}

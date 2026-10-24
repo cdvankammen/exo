@@ -1,0 +1,658 @@
+{
+ "nodes": [
+  {
+   "id": "file:dashboard/src/routes/traces/+page.svelte",
+   "type": "file",
+   "name": "+page.svelte",
+   "filePath": "dashboard/src/routes/traces/+page.svelte",
+   "summary": "+page.svelte \u2014 code file in the exo project.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "file:dashboard/src/routes/traces/[taskId]/+page.svelte",
+   "type": "file",
+   "name": "+page.svelte",
+   "filePath": "dashboard/src/routes/traces/[taskId]/+page.svelte",
+   "summary": "+page.svelte \u2014 code file in the exo project.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "file:dashboard/svelte.config.js",
+   "type": "file",
+   "name": "svelte.config.js",
+   "filePath": "dashboard/svelte.config.js",
+   "summary": "svelte.config.js \u2014 code file in the exo project.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "config:dashboard/tsconfig.json",
+   "type": "config",
+   "name": "tsconfig.json",
+   "filePath": "dashboard/tsconfig.json",
+   "summary": "Configuration file dashboard/tsconfig.json controlling project settings.",
+   "tags": [
+    "configuration"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:dashboard/vite.config.ts",
+   "type": "file",
+   "name": "vite.config.ts",
+   "filePath": "dashboard/vite.config.ts",
+   "summary": "vite.config.ts \u2014 code file in the exo project.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "document:docs/api.md",
+   "type": "document",
+   "name": "api.md",
+   "filePath": "docs/api.md",
+   "summary": "Documentation file docs/api.md.",
+   "tags": [
+    "documentation"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "file:flake.nix",
+   "type": "file",
+   "name": "flake.nix",
+   "filePath": "flake.nix",
+   "summary": "flake.nix \u2014 code file in the exo project.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:justfile",
+   "type": "file",
+   "name": "justfile",
+   "filePath": "justfile",
+   "summary": "justfile \u2014 code file in the exo project.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:nix/apple-sdk-overlay.nix",
+   "type": "file",
+   "name": "apple-sdk-overlay.nix",
+   "filePath": "nix/apple-sdk-overlay.nix",
+   "summary": "apple-sdk-overlay.nix \u2014 code file in the exo project.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "config:nix/apple-sdk/metadata/versions.json",
+   "type": "config",
+   "name": "versions.json",
+   "filePath": "nix/apple-sdk/metadata/versions.json",
+   "summary": "Configuration file nix/apple-sdk/metadata/versions.json controlling project settings.",
+   "tags": [
+    "configuration"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:nix/darwin-build-fixes.patch",
+   "type": "file",
+   "name": "darwin-build-fixes.patch",
+   "filePath": "nix/darwin-build-fixes.patch",
+   "summary": "darwin-build-fixes.patch \u2014 code file in the exo project.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:nix/metal-toolchain.nix",
+   "type": "file",
+   "name": "metal-toolchain.nix",
+   "filePath": "nix/metal-toolchain.nix",
+   "summary": "metal-toolchain.nix \u2014 code file in the exo project.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:packaging/dmg/create-dmg.sh",
+   "type": "file",
+   "name": "create-dmg.sh",
+   "filePath": "packaging/dmg/create-dmg.sh",
+   "summary": "Defines 1 function(s) and 0 class(es) for packaging/dmg/create-dmg.sh.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:packaging/dmg/generate-background.py",
+   "type": "file",
+   "name": "generate-background.py",
+   "filePath": "packaging/dmg/generate-background.py",
+   "summary": "Defines 2 function(s) and 0 class(es) for packaging/dmg/generate-background.py.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:packaging/pyinstaller/exo.spec",
+   "type": "file",
+   "name": "exo.spec",
+   "filePath": "packaging/pyinstaller/exo.spec",
+   "summary": "exo.spec \u2014 code file in the exo project.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "document:promptsANDplans/README.md",
+   "type": "document",
+   "name": "README.md",
+   "filePath": "promptsANDplans/README.md",
+   "summary": "Documentation file promptsANDplans/README.md.",
+   "tags": [
+    "documentation"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:python/parts.nix",
+   "type": "file",
+   "name": "parts.nix",
+   "filePath": "python/parts.nix",
+   "summary": "parts.nix \u2014 code file in the exo project.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "file:rust/exo_rs/exo_rs.pyi",
+   "type": "file",
+   "name": "exo_rs.pyi",
+   "filePath": "rust/exo_rs/exo_rs.pyi",
+   "summary": "Defines 0 function(s) and 4 class(es) for rust/exo_rs/exo_rs.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:rust/exo_rs/src/bin/stub_gen.rs",
+   "type": "file",
+   "name": "stub_gen.rs",
+   "filePath": "rust/exo_rs/src/bin/stub_gen.rs",
+   "summary": "Defines 1 function(s) and 0 class(es) for rust/exo_rs/src/bin/stub_gen.rs.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:rust/exo_rs/tests/dummy.rs",
+   "type": "file",
+   "name": "dummy.rs",
+   "filePath": "rust/exo_rs/tests/dummy.rs",
+   "summary": "dummy.rs \u2014 code file in the exo project.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:rust/exo_rs/tests/test_python.py",
+   "type": "file",
+   "name": "test_python.py",
+   "filePath": "rust/exo_rs/tests/test_python.py",
+   "summary": "Defines 4 function(s) and 0 class(es) for rust/exo_rs/tests/test_python.py.",
+   "tags": [
+    "test"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "config:rust/networking/Cargo.toml",
+   "type": "config",
+   "name": "Cargo.toml",
+   "filePath": "rust/networking/Cargo.toml",
+   "summary": "Configuration file rust/networking/Cargo.toml controlling project settings.",
+   "tags": [
+    "configuration"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:rust/networking/examples/do_nothing.rs",
+   "type": "file",
+   "name": "do_nothing.rs",
+   "filePath": "rust/networking/examples/do_nothing.rs",
+   "summary": "Defines 1 function(s) and 0 class(es) for rust/networking/examples/do_nothing.rs.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:rust/networking/examples/heartbeat.rs",
+   "type": "file",
+   "name": "heartbeat.rs",
+   "filePath": "rust/networking/examples/heartbeat.rs",
+   "summary": "Defines 1 function(s) and 0 class(es) for rust/networking/examples/heartbeat.rs.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:rust/networking/examples/put_string.rs",
+   "type": "file",
+   "name": "put_string.rs",
+   "filePath": "rust/networking/examples/put_string.rs",
+   "summary": "Defines 1 function(s) and 0 class(es) for rust/networking/examples/put_string.rs.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:packaging/dmg/generate-background.py:draw_arrow",
+   "type": "function",
+   "name": "draw_arrow",
+   "filePath": "packaging/dmg/generate-background.py",
+   "lineRange": [
+    39,
+    76
+   ],
+   "summary": "Function draw_arrow in packaging/dmg/generate-background.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:packaging/dmg/generate-background.py:generate_background",
+   "type": "function",
+   "name": "generate_background",
+   "filePath": "packaging/dmg/generate-background.py",
+   "lineRange": [
+    79,
+    84
+   ],
+   "summary": "Function generate_background in packaging/dmg/generate-background.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:rust/exo_rs/exo_rs.pyi:FromSwarm",
+   "type": "class",
+   "name": "FromSwarm",
+   "filePath": "rust/exo_rs/exo_rs.pyi",
+   "lineRange": [
+    15,
+    32
+   ],
+   "summary": "Class FromSwarm in rust/exo_rs/exo_rs.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:rust/exo_rs/exo_rs.pyi:NetworkingHandle",
+   "type": "class",
+   "name": "NetworkingHandle",
+   "filePath": "rust/exo_rs/exo_rs.pyi",
+   "lineRange": [
+    35,
+    56
+   ],
+   "summary": "Class NetworkingHandle in rust/exo_rs/exo_rs.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:rust/exo_rs/exo_rs.pyi:Pidfile",
+   "type": "class",
+   "name": "Pidfile",
+   "filePath": "rust/exo_rs/exo_rs.pyi",
+   "lineRange": [
+    59,
+    107
+   ],
+   "summary": "Class Pidfile in rust/exo_rs/exo_rs.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:rust/exo_rs/exo_rs.pyi:PidfileError",
+   "type": "class",
+   "name": "PidfileError",
+   "filePath": "rust/exo_rs/exo_rs.pyi",
+   "lineRange": [
+    110,
+    112
+   ],
+   "summary": "Class PidfileError in rust/exo_rs/exo_rs.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:rust/exo_rs/tests/test_python.py:test_sleep_on_multiple_items",
+   "type": "function",
+   "name": "test_sleep_on_multiple_items",
+   "filePath": "rust/exo_rs/tests/test_python.py",
+   "lineRange": [
+    14,
+    25
+   ],
+   "summary": "Function test_sleep_on_multiple_items in rust/exo_rs/tests/test_python.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:rust/exo_rs/tests/test_python.py:test_pidfile",
+   "type": "function",
+   "name": "test_pidfile",
+   "filePath": "rust/exo_rs/tests/test_python.py",
+   "lineRange": [
+    28,
+    32
+   ],
+   "summary": "Function test_pidfile in rust/exo_rs/tests/test_python.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:rust/exo_rs/tests/test_python.py:_await_recv",
+   "type": "function",
+   "name": "_await_recv",
+   "filePath": "rust/exo_rs/tests/test_python.py",
+   "lineRange": [
+    35,
+    42
+   ],
+   "summary": "Function _await_recv in rust/exo_rs/tests/test_python.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:rust/exo_rs/tests/test_python.py:scoped_lock_file",
+   "type": "function",
+   "name": "scoped_lock_file",
+   "filePath": "rust/exo_rs/tests/test_python.py",
+   "lineRange": [
+    45,
+    46
+   ],
+   "summary": "Function scoped_lock_file in rust/exo_rs/tests/test_python.py.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:rust/networking/examples/do_nothing.rs:main",
+   "type": "function",
+   "name": "main",
+   "filePath": "rust/networking/examples/do_nothing.rs",
+   "lineRange": [
+    6,
+    34
+   ],
+   "summary": "Function main in rust/networking/examples/do_nothing.rs.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:rust/networking/examples/heartbeat.rs:main",
+   "type": "function",
+   "name": "main",
+   "filePath": "rust/networking/examples/heartbeat.rs",
+   "lineRange": [
+    7,
+    32
+   ],
+   "summary": "Function main in rust/networking/examples/heartbeat.rs.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:rust/networking/examples/put_string.rs:main",
+   "type": "function",
+   "name": "main",
+   "filePath": "rust/networking/examples/put_string.rs",
+   "lineRange": [
+    9,
+    48
+   ],
+   "summary": "Function main in rust/networking/examples/put_string.rs.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  }
+ ],
+ "edges": [
+  {
+   "source": "file:packaging/dmg/generate-background.py",
+   "target": "function:packaging/dmg/generate-background.py:draw_arrow",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:packaging/dmg/generate-background.py",
+   "target": "function:packaging/dmg/generate-background.py:draw_arrow",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:packaging/dmg/generate-background.py",
+   "target": "function:packaging/dmg/generate-background.py:generate_background",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:packaging/dmg/generate-background.py",
+   "target": "function:packaging/dmg/generate-background.py:generate_background",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:rust/exo_rs/exo_rs.pyi",
+   "target": "class:rust/exo_rs/exo_rs.pyi:FromSwarm",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:rust/exo_rs/exo_rs.pyi",
+   "target": "class:rust/exo_rs/exo_rs.pyi:FromSwarm",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:rust/exo_rs/exo_rs.pyi",
+   "target": "class:rust/exo_rs/exo_rs.pyi:NetworkingHandle",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:rust/exo_rs/exo_rs.pyi",
+   "target": "class:rust/exo_rs/exo_rs.pyi:NetworkingHandle",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:rust/exo_rs/exo_rs.pyi",
+   "target": "class:rust/exo_rs/exo_rs.pyi:Pidfile",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:rust/exo_rs/exo_rs.pyi",
+   "target": "class:rust/exo_rs/exo_rs.pyi:Pidfile",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:rust/exo_rs/exo_rs.pyi",
+   "target": "class:rust/exo_rs/exo_rs.pyi:PidfileError",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:rust/exo_rs/exo_rs.pyi",
+   "target": "class:rust/exo_rs/exo_rs.pyi:PidfileError",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:rust/exo_rs/tests/test_python.py",
+   "target": "function:rust/exo_rs/tests/test_python.py:test_sleep_on_multiple_items",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:rust/exo_rs/tests/test_python.py",
+   "target": "function:rust/exo_rs/tests/test_python.py:test_sleep_on_multiple_items",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:rust/exo_rs/tests/test_python.py",
+   "target": "function:rust/exo_rs/tests/test_python.py:test_pidfile",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:rust/exo_rs/tests/test_python.py",
+   "target": "function:rust/exo_rs/tests/test_python.py:test_pidfile",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:rust/exo_rs/tests/test_python.py",
+   "target": "function:rust/exo_rs/tests/test_python.py:_await_recv",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:rust/exo_rs/tests/test_python.py",
+   "target": "function:rust/exo_rs/tests/test_python.py:_await_recv",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:rust/exo_rs/tests/test_python.py",
+   "target": "function:rust/exo_rs/tests/test_python.py:scoped_lock_file",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:rust/exo_rs/tests/test_python.py",
+   "target": "function:rust/exo_rs/tests/test_python.py:scoped_lock_file",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:rust/networking/examples/do_nothing.rs",
+   "target": "function:rust/networking/examples/do_nothing.rs:main",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:rust/networking/examples/heartbeat.rs",
+   "target": "function:rust/networking/examples/heartbeat.rs:main",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:rust/networking/examples/put_string.rs",
+   "target": "function:rust/networking/examples/put_string.rs:main",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "function:packaging/dmg/generate-background.py:generate_background",
+   "target": "function:packaging/dmg/generate-background.py:draw_arrow",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:rust/exo_rs/tests/test_python.py:test_sleep_on_multiple_items",
+   "target": "function:rust/exo_rs/tests/test_python.py:_await_recv",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:rust/exo_rs/tests/test_python.py:test_pidfile",
+   "target": "function:rust/exo_rs/tests/test_python.py:scoped_lock_file",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  }
+ ]
+}

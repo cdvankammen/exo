@@ -1,0 +1,100 @@
+# exo Docker Compose — single-node and cluster configurations
+#
+# Usage:
+#   docker compose up                    # single node
+#   docker compose --profile cluster up  # 3-node cluster
+#   docker compose --profile gpu up      # single node with GPU
+#   EXO_CLUSTER_SIZE=5 docker compose --profile cluster up  # 5-node cluster
+
+services:
+  # ─── Single node (default) ──────────────────────────────────────────────
+  exo:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+      args:
+        BASE_IMAGE: python:3.13-slim-bookworm
+        EXO_EXTRA: mlx
+    image: exo:latest
+    container_name: exo-node
+    ports:
+      - "${EXO_PORT:-52415}:52415"
+    volumes:
+      - exo-models:/root/.cache/huggingface
+      - exo-logs:/var/log/exo
+    environment:
+      - EXO_NODE_NAME=exo-docker
+      - EXO_LOG=/var/log/exo/exo.log
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:52415/v1/models"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+
+  # ─── GPU-enabled single node ────────────────────────────────────────────
+  exo-gpu:
+    extends:
+      service: exo
+    build:
+      args:
+        BASE_IMAGE: nvidia/cuda:12.8.0-runtime-ubuntu24.04
+        EXO_EXTRA: mlx-cuda12
+    image: exo:cuda
+    container_name: exo-node-gpu
+    profiles: ["gpu"]
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+
+  # ─── Cluster nodes (3 by default) ───────────────────────────────────────
+  exo-node-1:
+    extends:
+      service: exo
+    container_name: exo-node-1
+    profiles: ["cluster"]
+    ports:
+      - "${EXO_PORT:-52415}:52415"
+    environment:
+      - EXO_NODE_NAME=exo-node-1
+    networks:
+      - exo-cluster
+
+  exo-node-2:
+    extends:
+      service: exo
+    container_name: exo-node-2
+    profiles: ["cluster"]
+    ports:
+      - "${EXO_PORT_2:-52416}:52415"
+    environment:
+      - EXO_NODE_NAME=exo-node-2
+    networks:
+      - exo-cluster
+
+  exo-node-3:
+    extends:
+      service: exo
+    container_name: exo-node-3
+    profiles: ["cluster"]
+    ports:
+      - "${EXO_PORT_3:-52417}:52415"
+    environment:
+      - EXO_NODE_NAME=exo-node-3
+    networks:
+      - exo-cluster
+
+volumes:
+  exo-models:
+    driver: local
+  exo-logs:
+    driver: local
+
+networks:
+  exo-cluster:
+    driver: bridge

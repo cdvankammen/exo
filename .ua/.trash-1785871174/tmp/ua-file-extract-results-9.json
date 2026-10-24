@@ -1,0 +1,1112 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 6,
+  "filesSkipped": [],
+  "analysisOutcomes": {
+    "structure": {
+      "succeeded": 6,
+      "failed": 0
+    },
+    "callGraph": {
+      "succeeded": 6,
+      "failed": 0,
+      "skipped": 0
+    }
+  },
+  "results": [
+    {
+      "path": "tests/conftest.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 181,
+      "nonEmptyLines": 145,
+      "functions": [
+        {
+          "name": "pytest_addoption",
+          "startLine": 46,
+          "endLine": 52,
+          "params": [
+            "parser"
+          ]
+        },
+        {
+          "name": "pytest_configure",
+          "startLine": 55,
+          "endLine": 66,
+          "params": [
+            "config"
+          ]
+        },
+        {
+          "name": "pytest_report_header",
+          "startLine": 69,
+          "endLine": 75,
+          "params": [
+            "config"
+          ]
+        },
+        {
+          "name": "_host_pool",
+          "startLine": 79,
+          "endLine": 83,
+          "params": [
+            "request"
+          ]
+        },
+        {
+          "name": "session",
+          "startLine": 87,
+          "endLine": 152,
+          "params": [
+            "request",
+            "_host_pool"
+          ]
+        },
+        {
+          "name": "_teardown_clusters",
+          "startLine": 161,
+          "endLine": 166,
+          "params": []
+        },
+        {
+          "name": "pytest_runtest_makereport",
+          "startLine": 169,
+          "endLine": 181,
+          "params": [
+            "item",
+            "call"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "pytest_addoption",
+          "line": 46,
+          "isDefault": false
+        },
+        {
+          "name": "pytest_configure",
+          "line": 55,
+          "isDefault": false
+        },
+        {
+          "name": "pytest_report_header",
+          "line": 69,
+          "isDefault": false
+        },
+        {
+          "name": "_host_pool",
+          "line": 78,
+          "isDefault": false
+        },
+        {
+          "name": "session",
+          "line": 86,
+          "isDefault": false
+        },
+        {
+          "name": "_teardown_clusters",
+          "line": 160,
+          "isDefault": false
+        },
+        {
+          "name": "pytest_runtest_makereport",
+          "line": 169,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "pytest_addoption",
+          "callee": "parser.addoption",
+          "lineNumber": 47
+        },
+        {
+          "caller": "pytest_configure",
+          "callee": "config.addinivalue_line",
+          "lineNumber": 57
+        },
+        {
+          "caller": "pytest_configure",
+          "callee": "config.addinivalue_line",
+          "lineNumber": 62
+        },
+        {
+          "caller": "pytest_report_header",
+          "callee": "config.getoption",
+          "lineNumber": 71
+        },
+        {
+          "caller": "pytest_report_header",
+          "callee": "lines.append",
+          "lineNumber": 74
+        },
+        {
+          "caller": "_host_pool",
+          "callee": "request.config.getoption",
+          "lineNumber": 80
+        },
+        {
+          "caller": "_host_pool",
+          "callee": "h.strip",
+          "lineNumber": 82
+        },
+        {
+          "caller": "_host_pool",
+          "callee": "raw.split",
+          "lineNumber": 82
+        },
+        {
+          "caller": "_host_pool",
+          "callee": "h.strip",
+          "lineNumber": 82
+        },
+        {
+          "caller": "session",
+          "callee": "request.node.get_closest_marker",
+          "lineNumber": 96
+        },
+        {
+          "caller": "session",
+          "callee": "request.node.get_closest_marker",
+          "lineNumber": 97
+        },
+        {
+          "caller": "session",
+          "callee": "parse_cluster_marker",
+          "lineNumber": 99
+        },
+        {
+          "caller": "session",
+          "callee": "parse_instance_marker",
+          "lineNumber": 100
+        },
+        {
+          "caller": "session",
+          "callee": "_cluster_cache.get",
+          "lineNumber": 103
+        },
+        {
+          "caller": "session",
+          "callee": "eco.start_deploy",
+          "lineNumber": 106
+        },
+        {
+          "caller": "session",
+          "callee": "eco.start_deploy",
+          "lineNumber": 110
+        },
+        {
+          "caller": "session",
+          "callee": "cluster.make_client",
+          "lineNumber": 122
+        },
+        {
+          "caller": "session",
+          "callee": "place_instance",
+          "lineNumber": 123
+        },
+        {
+          "caller": "session",
+          "callee": "Session",
+          "lineNumber": 131
+        },
+        {
+          "caller": "session",
+          "callee": "_cluster_cache.pop",
+          "lineNumber": 145
+        },
+        {
+          "caller": "session",
+          "callee": "contextlib.suppress",
+          "lineNumber": 146
+        },
+        {
+          "caller": "session",
+          "callee": "eco.stop",
+          "lineNumber": 147
+        },
+        {
+          "caller": "session",
+          "callee": "contextlib.suppress",
+          "lineNumber": 151
+        },
+        {
+          "caller": "session",
+          "callee": "cleanup_all_instances",
+          "lineNumber": 152
+        },
+        {
+          "caller": "_teardown_clusters",
+          "callee": "_cluster_cache.values",
+          "lineNumber": 163
+        },
+        {
+          "caller": "_teardown_clusters",
+          "callee": "contextlib.suppress",
+          "lineNumber": 164
+        },
+        {
+          "caller": "_teardown_clusters",
+          "callee": "eco.stop",
+          "lineNumber": 165
+        },
+        {
+          "caller": "_teardown_clusters",
+          "callee": "_cluster_cache.clear",
+          "lineNumber": 166
+        },
+        {
+          "caller": "pytest_runtest_makereport",
+          "callee": "item.funcargs.get",
+          "lineNumber": 174
+        },
+        {
+          "caller": "pytest_runtest_makereport",
+          "callee": "eco.logs",
+          "lineNumber": 178
+        },
+        {
+          "caller": "pytest_runtest_makereport",
+          "callee": "item.add_report_section",
+          "lineNumber": 179
+        },
+        {
+          "caller": "pytest_runtest_makereport",
+          "callee": "json.dumps",
+          "lineNumber": 179
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 7,
+        "functionCount": 7,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "tests/framework.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 199,
+      "nonEmptyLines": 167,
+      "functions": [
+        {
+          "name": "_extract_content",
+          "startLine": 42,
+          "endLine": 52,
+          "params": [
+            "resp"
+          ]
+        },
+        {
+          "name": "parse_cluster_marker",
+          "startLine": 71,
+          "endLine": 79,
+          "params": [
+            "marker"
+          ]
+        },
+        {
+          "name": "parse_instance_marker",
+          "startLine": 82,
+          "endLine": 94,
+          "params": [
+            "marker"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "ClusterSpec",
+          "startLine": 56,
+          "endLine": 60,
+          "methods": [],
+          "properties": [
+            "count",
+            "thunderbolt",
+            "min_memory_gb",
+            "chip"
+          ]
+        },
+        {
+          "name": "InstanceSpec",
+          "startLine": 64,
+          "endLine": 68,
+          "methods": [],
+          "properties": [
+            "model_id",
+            "sharding",
+            "comm",
+            "min_nodes"
+          ]
+        },
+        {
+          "name": "Session",
+          "startLine": 98,
+          "endLine": 199,
+          "methods": [
+            "client",
+            "state",
+            "instances",
+            "chat",
+            "chat_raw",
+            "multi_turn",
+            "_post_chat",
+            "disconnect_node",
+            "reconnect_node",
+            "wait_ready"
+          ],
+          "properties": [
+            "cluster",
+            "eco",
+            "instance_spec",
+            "instance_id",
+            "_stopped_hosts"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "_extract_content",
+          "line": 42,
+          "isDefault": false
+        },
+        {
+          "name": "ClusterSpec",
+          "line": 55,
+          "isDefault": false
+        },
+        {
+          "name": "InstanceSpec",
+          "line": 63,
+          "isDefault": false
+        },
+        {
+          "name": "parse_cluster_marker",
+          "line": 71,
+          "isDefault": false
+        },
+        {
+          "name": "parse_instance_marker",
+          "line": 82,
+          "isDefault": false
+        },
+        {
+          "name": "Session",
+          "line": 97,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "_extract_content",
+          "callee": "isinstance",
+          "lineNumber": 45
+        },
+        {
+          "caller": "_extract_content",
+          "callee": "RuntimeError",
+          "lineNumber": 46
+        },
+        {
+          "caller": "_extract_content",
+          "callee": "type",
+          "lineNumber": 47
+        },
+        {
+          "caller": "_extract_content",
+          "callee": "isinstance",
+          "lineNumber": 50
+        },
+        {
+          "caller": "_extract_content",
+          "callee": "RuntimeError",
+          "lineNumber": 51
+        },
+        {
+          "caller": "_extract_content",
+          "callee": "type",
+          "lineNumber": 51
+        },
+        {
+          "caller": "parse_cluster_marker",
+          "callee": "ClusterSpec",
+          "lineNumber": 73
+        },
+        {
+          "caller": "parse_cluster_marker",
+          "callee": "ClusterSpec",
+          "lineNumber": 74
+        },
+        {
+          "caller": "parse_cluster_marker",
+          "callee": "marker.kwargs.get",
+          "lineNumber": 75
+        },
+        {
+          "caller": "parse_cluster_marker",
+          "callee": "marker.kwargs.get",
+          "lineNumber": 76
+        },
+        {
+          "caller": "parse_cluster_marker",
+          "callee": "marker.kwargs.get",
+          "lineNumber": 77
+        },
+        {
+          "caller": "parse_cluster_marker",
+          "callee": "marker.kwargs.get",
+          "lineNumber": 78
+        },
+        {
+          "caller": "parse_instance_marker",
+          "callee": "ValueError",
+          "lineNumber": 86
+        },
+        {
+          "caller": "parse_instance_marker",
+          "callee": "InstanceSpec",
+          "lineNumber": 89
+        },
+        {
+          "caller": "parse_instance_marker",
+          "callee": "marker.kwargs.get",
+          "lineNumber": 91
+        },
+        {
+          "caller": "parse_instance_marker",
+          "callee": "marker.kwargs.get",
+          "lineNumber": 92
+        },
+        {
+          "caller": "parse_instance_marker",
+          "callee": "marker.kwargs.get",
+          "lineNumber": 93
+        },
+        {
+          "caller": "client",
+          "callee": "make_client_from_url",
+          "lineNumber": 109
+        },
+        {
+          "caller": "client",
+          "callee": "self.cluster.make_client",
+          "lineNumber": 110
+        },
+        {
+          "caller": "state",
+          "callee": "self.client.request_json",
+          "lineNumber": 114
+        },
+        {
+          "caller": "instances",
+          "callee": "self.state.get",
+          "lineNumber": 118
+        },
+        {
+          "caller": "chat",
+          "callee": "self.chat_raw",
+          "lineNumber": 123
+        },
+        {
+          "caller": "chat",
+          "callee": "_extract_content",
+          "lineNumber": 124
+        },
+        {
+          "caller": "chat_raw",
+          "callee": "RuntimeError",
+          "lineNumber": 128
+        },
+        {
+          "caller": "chat_raw",
+          "callee": "kwargs.pop",
+          "lineNumber": 131
+        },
+        {
+          "caller": "chat_raw",
+          "callee": "ChatCompletionRequest.model_validate",
+          "lineNumber": 132
+        },
+        {
+          "caller": "chat_raw",
+          "callee": "self._post_chat",
+          "lineNumber": 140
+        },
+        {
+          "caller": "multi_turn",
+          "callee": "RuntimeError",
+          "lineNumber": 144
+        },
+        {
+          "caller": "multi_turn",
+          "callee": "ChatCompletionRequest.model_validate",
+          "lineNumber": 147
+        },
+        {
+          "caller": "multi_turn",
+          "callee": "_extract_content",
+          "lineNumber": 154
+        },
+        {
+          "caller": "multi_turn",
+          "callee": "self._post_chat",
+          "lineNumber": 154
+        },
+        {
+          "caller": "_post_chat",
+          "callee": "self.client.request_json",
+          "lineNumber": 157
+        },
+        {
+          "caller": "_post_chat",
+          "callee": "request.model_dump",
+          "lineNumber": 160
+        },
+        {
+          "caller": "_post_chat",
+          "callee": "ChatCompletionResponse.model_validate",
+          "lineNumber": 162
+        },
+        {
+          "caller": "disconnect_node",
+          "callee": "self.eco.stop",
+          "lineNumber": 167
+        },
+        {
+          "caller": "disconnect_node",
+          "callee": "self._stopped_hosts.add",
+          "lineNumber": 168
+        },
+        {
+          "caller": "reconnect_node",
+          "callee": "self.eco.start_hosts",
+          "lineNumber": 173
+        },
+        {
+          "caller": "reconnect_node",
+          "callee": "self._stopped_hosts.discard",
+          "lineNumber": 174
+        },
+        {
+          "caller": "wait_ready",
+          "callee": "len",
+          "lineNumber": 185
+        },
+        {
+          "caller": "wait_ready",
+          "callee": "len",
+          "lineNumber": 185
+        },
+        {
+          "caller": "wait_ready",
+          "callee": "time.time",
+          "lineNumber": 186
+        },
+        {
+          "caller": "wait_ready",
+          "callee": "time.time",
+          "lineNumber": 187
+        },
+        {
+          "caller": "wait_ready",
+          "callee": "len",
+          "lineNumber": 190
+        },
+        {
+          "caller": "wait_ready",
+          "callee": "state.get",
+          "lineNumber": 190
+        },
+        {
+          "caller": "wait_ready",
+          "callee": "len",
+          "lineNumber": 191
+        },
+        {
+          "caller": "wait_ready",
+          "callee": "state.get",
+          "lineNumber": 191
+        },
+        {
+          "caller": "wait_ready",
+          "callee": "time.sleep",
+          "lineNumber": 196
+        },
+        {
+          "caller": "wait_ready",
+          "callee": "TimeoutError",
+          "lineNumber": 197
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 6,
+        "functionCount": 3,
+        "classCount": 3
+      }
+    },
+    {
+      "path": "tests/test_1node.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 75,
+      "nonEmptyLines": 57,
+      "functions": [
+        {
+          "name": "test_place_instance_and_chat",
+          "startLine": 20,
+          "endLine": 22,
+          "params": [
+            "session"
+          ]
+        },
+        {
+          "name": "test_chat_multiple_turns",
+          "startLine": 27,
+          "endLine": 38,
+          "params": [
+            "session"
+          ]
+        },
+        {
+          "name": "test_delete_instance",
+          "startLine": 43,
+          "endLine": 50,
+          "params": [
+            "session"
+          ]
+        },
+        {
+          "name": "test_download_from_scratch",
+          "startLine": 54,
+          "endLine": 75,
+          "params": [
+            "session"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "test_place_instance_and_chat",
+          "line": 18,
+          "isDefault": false
+        },
+        {
+          "name": "test_chat_multiple_turns",
+          "line": 25,
+          "isDefault": false
+        },
+        {
+          "name": "test_delete_instance",
+          "line": 41,
+          "isDefault": false
+        },
+        {
+          "name": "test_download_from_scratch",
+          "line": 53,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "test_place_instance_and_chat",
+          "callee": "session.chat",
+          "lineNumber": 21
+        },
+        {
+          "caller": "test_place_instance_and_chat",
+          "callee": "len",
+          "lineNumber": 22
+        },
+        {
+          "caller": "test_chat_multiple_turns",
+          "callee": "session.chat",
+          "lineNumber": 28
+        },
+        {
+          "caller": "test_chat_multiple_turns",
+          "callee": "len",
+          "lineNumber": 29
+        },
+        {
+          "caller": "test_chat_multiple_turns",
+          "callee": "session.multi_turn",
+          "lineNumber": 31
+        },
+        {
+          "caller": "test_chat_multiple_turns",
+          "callee": "len",
+          "lineNumber": 38
+        },
+        {
+          "caller": "test_delete_instance",
+          "callee": "session.client.request_json",
+          "lineNumber": 46
+        },
+        {
+          "caller": "test_delete_instance",
+          "callee": "wait_for_instance_gone",
+          "lineNumber": 47
+        },
+        {
+          "caller": "test_delete_instance",
+          "callee": "len",
+          "lineNumber": 48
+        },
+        {
+          "caller": "test_delete_instance",
+          "callee": "len",
+          "lineNumber": 49
+        },
+        {
+          "caller": "test_download_from_scratch",
+          "callee": "next",
+          "lineNumber": 58
+        },
+        {
+          "caller": "test_download_from_scratch",
+          "callee": "iter",
+          "lineNumber": 58
+        },
+        {
+          "caller": "test_download_from_scratch",
+          "callee": "session.state.get",
+          "lineNumber": 58
+        },
+        {
+          "caller": "test_download_from_scratch",
+          "callee": "session.client.request_json",
+          "lineNumber": 61
+        },
+        {
+          "caller": "test_download_from_scratch",
+          "callee": "time.time",
+          "lineNumber": 64
+        },
+        {
+          "caller": "test_download_from_scratch",
+          "callee": "time.time",
+          "lineNumber": 65
+        },
+        {
+          "caller": "test_download_from_scratch",
+          "callee": "is_model_downloaded",
+          "lineNumber": 66
+        },
+        {
+          "caller": "test_download_from_scratch",
+          "callee": "time.sleep",
+          "lineNumber": 68
+        },
+        {
+          "caller": "test_download_from_scratch",
+          "callee": "AssertionError",
+          "lineNumber": 70
+        },
+        {
+          "caller": "test_download_from_scratch",
+          "callee": "place_instance",
+          "lineNumber": 72
+        },
+        {
+          "caller": "test_download_from_scratch",
+          "callee": "InstanceSpec",
+          "lineNumber": 73
+        },
+        {
+          "caller": "test_download_from_scratch",
+          "callee": "session.chat",
+          "lineNumber": 74
+        },
+        {
+          "caller": "test_download_from_scratch",
+          "callee": "len",
+          "lineNumber": 75
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 4,
+        "functionCount": 4,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "tests/test_2node.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 49,
+      "nonEmptyLines": 39,
+      "functions": [
+        {
+          "name": "test_2node_jaccl",
+          "startLine": 21,
+          "endLine": 23,
+          "params": [
+            "session"
+          ]
+        },
+        {
+          "name": "test_2node_ring",
+          "startLine": 30,
+          "endLine": 32,
+          "params": [
+            "session"
+          ]
+        },
+        {
+          "name": "test_2node_jaccl_multi_turn",
+          "startLine": 39,
+          "endLine": 49,
+          "params": [
+            "session"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "test_2node_jaccl",
+          "line": 17,
+          "isDefault": false
+        },
+        {
+          "name": "test_2node_ring",
+          "line": 26,
+          "isDefault": false
+        },
+        {
+          "name": "test_2node_jaccl_multi_turn",
+          "line": 35,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "test_2node_jaccl",
+          "callee": "session.chat",
+          "lineNumber": 22
+        },
+        {
+          "caller": "test_2node_jaccl",
+          "callee": "len",
+          "lineNumber": 23
+        },
+        {
+          "caller": "test_2node_ring",
+          "callee": "session.chat",
+          "lineNumber": 31
+        },
+        {
+          "caller": "test_2node_ring",
+          "callee": "len",
+          "lineNumber": 32
+        },
+        {
+          "caller": "test_2node_jaccl_multi_turn",
+          "callee": "session.chat",
+          "lineNumber": 40
+        },
+        {
+          "caller": "test_2node_jaccl_multi_turn",
+          "callee": "len",
+          "lineNumber": 41
+        },
+        {
+          "caller": "test_2node_jaccl_multi_turn",
+          "callee": "session.multi_turn",
+          "lineNumber": 42
+        },
+        {
+          "caller": "test_2node_jaccl_multi_turn",
+          "callee": "len",
+          "lineNumber": 49
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 3,
+        "functionCount": 3,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "tests/test_4node.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 32,
+      "nonEmptyLines": 24,
+      "functions": [
+        {
+          "name": "test_4node_pipeline_ring",
+          "startLine": 21,
+          "endLine": 23,
+          "params": [
+            "session"
+          ]
+        },
+        {
+          "name": "test_4node_tensor_jaccl",
+          "startLine": 30,
+          "endLine": 32,
+          "params": [
+            "session"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "test_4node_pipeline_ring",
+          "line": 17,
+          "isDefault": false
+        },
+        {
+          "name": "test_4node_tensor_jaccl",
+          "line": 26,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "test_4node_pipeline_ring",
+          "callee": "session.chat",
+          "lineNumber": 22
+        },
+        {
+          "caller": "test_4node_pipeline_ring",
+          "callee": "len",
+          "lineNumber": 23
+        },
+        {
+          "caller": "test_4node_tensor_jaccl",
+          "callee": "session.chat",
+          "lineNumber": 31
+        },
+        {
+          "caller": "test_4node_tensor_jaccl",
+          "callee": "len",
+          "lineNumber": 32
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 2,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "tests/test_resilience.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 56,
+      "nonEmptyLines": 44,
+      "functions": [
+        {
+          "name": "test_node_recovery",
+          "startLine": 21,
+          "endLine": 56,
+          "params": [
+            "session"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "test_node_recovery",
+          "line": 17,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "test_node_recovery",
+          "callee": "session.chat",
+          "lineNumber": 31
+        },
+        {
+          "caller": "test_node_recovery",
+          "callee": "len",
+          "lineNumber": 32
+        },
+        {
+          "caller": "test_node_recovery",
+          "callee": "session.disconnect_node",
+          "lineNumber": 35
+        },
+        {
+          "caller": "test_node_recovery",
+          "callee": "session.wait_ready",
+          "lineNumber": 36
+        },
+        {
+          "caller": "test_node_recovery",
+          "callee": "cleanup_all_instances",
+          "lineNumber": 39
+        },
+        {
+          "caller": "test_node_recovery",
+          "callee": "place_instance",
+          "lineNumber": 42
+        },
+        {
+          "caller": "test_node_recovery",
+          "callee": "InstanceSpec",
+          "lineNumber": 43
+        },
+        {
+          "caller": "test_node_recovery",
+          "callee": "session.chat",
+          "lineNumber": 44
+        },
+        {
+          "caller": "test_node_recovery",
+          "callee": "len",
+          "lineNumber": 45
+        },
+        {
+          "caller": "test_node_recovery",
+          "callee": "cleanup_all_instances",
+          "lineNumber": 48
+        },
+        {
+          "caller": "test_node_recovery",
+          "callee": "session.reconnect_node",
+          "lineNumber": 49
+        },
+        {
+          "caller": "test_node_recovery",
+          "callee": "session.wait_ready",
+          "lineNumber": 50
+        },
+        {
+          "caller": "test_node_recovery",
+          "callee": "place_instance",
+          "lineNumber": 53
+        },
+        {
+          "caller": "test_node_recovery",
+          "callee": "InstanceSpec",
+          "lineNumber": 54
+        },
+        {
+          "caller": "test_node_recovery",
+          "callee": "session.chat",
+          "lineNumber": 55
+        },
+        {
+          "caller": "test_node_recovery",
+          "callee": "len",
+          "lineNumber": 56
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    }
+  ]
+}

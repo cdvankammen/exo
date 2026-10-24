@@ -1,0 +1,421 @@
+{
+  "projectRoot": "/Users/chris/Documents/GitHub/exo",
+  "batchFiles": [
+    {
+      "path": "src/exo/api/tests/test_instance_deleted_stream_cleanup.py",
+      "language": "python",
+      "sizeLines": 97,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/shared/apply.py",
+      "language": "python",
+      "sizeLines": 502,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/shared/tests/test_apply/test_apply_instance_link.py",
+      "language": "python",
+      "sizeLines": 72,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/shared/tests/test_apply/test_apply_node_download.py",
+      "language": "python",
+      "sizeLines": 46,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/shared/tests/test_apply/test_apply_runner_deleted.py",
+      "language": "python",
+      "sizeLines": 26,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/shared/types/events.py",
+      "language": "python",
+      "sizeLines": 197,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/shared/types/instance_link.py",
+      "language": "python",
+      "sizeLines": 13,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/shared/types/state.py",
+      "language": "python",
+      "sizeLines": 94,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/shared/types/tasks.py",
+      "language": "python",
+      "sizeLines": 106,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/shared/types/worker/instances.py",
+      "language": "python",
+      "sizeLines": 67,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/shared/types/worker/runners.py",
+      "language": "python",
+      "sizeLines": 98,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/utils/fs.py",
+      "language": "python",
+      "sizeLines": 32,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/utils/keyed_backoff.py",
+      "language": "python",
+      "sizeLines": 35,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/main.py",
+      "language": "python",
+      "sizeLines": 432,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/plan.py",
+      "language": "python",
+      "sizeLines": 362,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/runner/diagnostics.py",
+      "language": "python",
+      "sizeLines": 144,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/runner/runner.py",
+      "language": "python",
+      "sizeLines": 394,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/runner/supervisor.py",
+      "language": "python",
+      "sizeLines": 440,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/tests/constants.py",
+      "language": "python",
+      "sizeLines": 34,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/tests/unittests/conftest.py",
+      "language": "python",
+      "sizeLines": 101,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/tests/unittests/test_plan/test_download_and_loading.py",
+      "language": "python",
+      "sizeLines": 239,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/tests/unittests/test_plan/test_runner_lifecycle.py",
+      "language": "python",
+      "sizeLines": 215,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/tests/unittests/test_plan/test_task_forwarding.py",
+      "language": "python",
+      "sizeLines": 303,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/tests/unittests/test_plan/test_warmup.py",
+      "language": "python",
+      "sizeLines": 366,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/tests/unittests/test_runner/test_event_ordering.py",
+      "language": "python",
+      "sizeLines": 370,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/exo/worker/tests/unittests/test_runner/test_runner_supervisor.py",
+      "language": "python",
+      "sizeLines": 97,
+      "fileCategory": "code"
+    }
+  ],
+  "batchImportData": {
+    "src/exo/api/tests/test_instance_deleted_stream_cleanup.py": [
+      "src/exo/api/main.py",
+      "src/exo/api/types/__init__.py",
+      "src/exo/shared/types/common.py",
+      "src/exo/shared/types/state.py",
+      "src/exo/shared/types/tasks.py",
+      "src/exo/shared/types/text_generation.py",
+      "src/exo/shared/types/worker/instances.py"
+    ],
+    "src/exo/shared/apply.py": [
+      "src/exo/shared/models/model_cards.py",
+      "src/exo/shared/types/common.py",
+      "src/exo/shared/types/events.py",
+      "src/exo/shared/types/instance_link.py",
+      "src/exo/shared/types/profiling.py",
+      "src/exo/shared/types/state.py",
+      "src/exo/shared/types/tasks.py",
+      "src/exo/shared/types/topology.py",
+      "src/exo/shared/types/worker/downloads.py",
+      "src/exo/shared/types/worker/instances.py",
+      "src/exo/shared/types/worker/runners.py",
+      "src/exo/utils/info_gatherer/info_gatherer.py"
+    ],
+    "src/exo/shared/tests/test_apply/test_apply_instance_link.py": [
+      "src/exo/shared/apply.py",
+      "src/exo/shared/types/events.py",
+      "src/exo/shared/types/instance_link.py",
+      "src/exo/shared/types/state.py",
+      "src/exo/shared/types/worker/instances.py"
+    ],
+    "src/exo/shared/tests/test_apply/test_apply_node_download.py": [
+      "src/exo/shared/apply.py",
+      "src/exo/shared/tests/conftest.py",
+      "src/exo/shared/types/common.py",
+      "src/exo/shared/types/events.py",
+      "src/exo/shared/types/memory.py",
+      "src/exo/shared/types/state.py",
+      "src/exo/shared/types/worker/downloads.py",
+      "src/exo/worker/tests/constants.py"
+    ],
+    "src/exo/shared/tests/test_apply/test_apply_runner_deleted.py": [
+      "src/exo/shared/apply.py",
+      "src/exo/shared/types/events.py",
+      "src/exo/shared/types/state.py",
+      "src/exo/shared/types/worker/runners.py"
+    ],
+    "src/exo/shared/types/events.py": [
+      "src/exo/shared/models/model_cards.py",
+      "src/exo/shared/topology.py",
+      "src/exo/shared/types/chunks.py",
+      "src/exo/shared/types/common.py",
+      "src/exo/shared/types/instance_link.py",
+      "src/exo/shared/types/tasks.py",
+      "src/exo/shared/types/worker/downloads.py",
+      "src/exo/shared/types/worker/instances.py",
+      "src/exo/shared/types/worker/runners.py",
+      "src/exo/utils/info_gatherer/info_gatherer.py",
+      "src/exo/utils/pydantic_ext.py"
+    ],
+    "src/exo/shared/types/instance_link.py": [
+      "src/exo/shared/types/common.py",
+      "src/exo/shared/types/worker/instances.py",
+      "src/exo/utils/pydantic_ext.py"
+    ],
+    "src/exo/shared/types/state.py": [
+      "src/exo/shared/models/model_cards.py",
+      "src/exo/shared/topology.py",
+      "src/exo/shared/types/backends.py",
+      "src/exo/shared/types/common.py",
+      "src/exo/shared/types/instance_link.py",
+      "src/exo/shared/types/profiling.py",
+      "src/exo/shared/types/tasks.py",
+      "src/exo/shared/types/worker/downloads.py",
+      "src/exo/shared/types/worker/instances.py",
+      "src/exo/shared/types/worker/runners.py",
+      "src/exo/utils/pydantic_ext.py"
+    ],
+    "src/exo/shared/types/tasks.py": [
+      "src/exo/api/types/__init__.py",
+      "src/exo/shared/types/common.py",
+      "src/exo/shared/types/text_generation.py",
+      "src/exo/shared/types/worker/instances.py",
+      "src/exo/shared/types/worker/runners.py",
+      "src/exo/shared/types/worker/shards.py",
+      "src/exo/utils/pydantic_ext.py"
+    ],
+    "src/exo/shared/types/worker/instances.py": [
+      "src/exo/shared/models/model_cards.py",
+      "src/exo/shared/types/common.py",
+      "src/exo/shared/types/worker/runners.py",
+      "src/exo/utils/pydantic_ext.py"
+    ],
+    "src/exo/shared/types/worker/runners.py": [
+      "src/exo/shared/models/model_cards.py",
+      "src/exo/shared/types/common.py",
+      "src/exo/shared/types/worker/shards.py",
+      "src/exo/utils/pydantic_ext.py",
+      "src/exo/worker/runner/diagnostics.py"
+    ],
+    "src/exo/utils/fs.py": [],
+    "src/exo/utils/keyed_backoff.py": [],
+    "src/exo/worker/main.py": [
+      "src/exo/api/types/__init__.py",
+      "src/exo/download/download_utils.py",
+      "src/exo/routing/event_router.py",
+      "src/exo/shared/apply.py",
+      "src/exo/shared/constants.py",
+      "src/exo/shared/models/model_cards.py",
+      "src/exo/shared/types/chunks.py",
+      "src/exo/shared/types/commands.py",
+      "src/exo/shared/types/common.py",
+      "src/exo/shared/types/events.py",
+      "src/exo/shared/types/multiaddr.py",
+      "src/exo/shared/types/state.py",
+      "src/exo/shared/types/tasks.py",
+      "src/exo/shared/types/text_generation.py",
+      "src/exo/shared/types/topology.py",
+      "src/exo/shared/types/worker/downloads.py",
+      "src/exo/shared/types/worker/instances.py",
+      "src/exo/shared/types/worker/runners.py",
+      "src/exo/utils/channels.py",
+      "src/exo/utils/info_gatherer/info_gatherer.py",
+      "src/exo/utils/info_gatherer/net_profile.py",
+      "src/exo/utils/keyed_backoff.py",
+      "src/exo/utils/task_group.py",
+      "src/exo/worker/plan.py",
+      "src/exo/worker/runner/supervisor.py"
+    ],
+    "src/exo/worker/plan.py": [
+      "src/exo/shared/types/chunks.py",
+      "src/exo/shared/types/common.py",
+      "src/exo/shared/types/tasks.py",
+      "src/exo/shared/types/text_generation.py",
+      "src/exo/shared/types/worker/downloads.py",
+      "src/exo/shared/types/worker/instances.py",
+      "src/exo/shared/types/worker/runners.py",
+      "src/exo/utils/keyed_backoff.py",
+      "src/exo/worker/runner/supervisor.py"
+    ],
+    "src/exo/worker/runner/diagnostics.py": [
+      "src/exo/utils/pydantic_ext.py"
+    ],
+    "src/exo/worker/runner/runner.py": [
+      "src/exo/shared/constants.py",
+      "src/exo/shared/types/chunks.py",
+      "src/exo/shared/types/common.py",
+      "src/exo/shared/types/events.py",
+      "src/exo/shared/types/tasks.py",
+      "src/exo/shared/types/worker/instances.py",
+      "src/exo/shared/types/worker/runner_response.py",
+      "src/exo/shared/types/worker/runners.py",
+      "src/exo/utils/channels.py",
+      "src/exo/utils/ports.py",
+      "src/exo/worker/disaggregated/server.py",
+      "src/exo/worker/engines/base.py",
+      "src/exo/worker/runner/bootstrap.py"
+    ],
+    "src/exo/worker/runner/supervisor.py": [
+      "src/exo/shared/constants.py",
+      "src/exo/shared/types/chunks.py",
+      "src/exo/shared/types/events.py",
+      "src/exo/shared/types/tasks.py",
+      "src/exo/shared/types/worker/instances.py",
+      "src/exo/shared/types/worker/runners.py",
+      "src/exo/shared/types/worker/shards.py",
+      "src/exo/utils/async_process.py",
+      "src/exo/utils/channels.py",
+      "src/exo/utils/fs.py",
+      "src/exo/utils/task_group.py",
+      "src/exo/worker/runner/bootstrap.py",
+      "src/exo/worker/runner/diagnostics.py"
+    ],
+    "src/exo/worker/tests/constants.py": [
+      "src/exo/shared/models/model_cards.py",
+      "src/exo/shared/types/common.py",
+      "src/exo/shared/types/tasks.py",
+      "src/exo/shared/types/worker/instances.py"
+    ],
+    "src/exo/worker/tests/unittests/conftest.py": [
+      "src/exo/shared/models/model_cards.py",
+      "src/exo/shared/types/backends.py",
+      "src/exo/shared/types/common.py",
+      "src/exo/shared/types/memory.py",
+      "src/exo/shared/types/tasks.py",
+      "src/exo/shared/types/worker/instances.py",
+      "src/exo/shared/types/worker/runners.py",
+      "src/exo/shared/types/worker/shards.py"
+    ],
+    "src/exo/worker/tests/unittests/test_plan/test_download_and_loading.py": [
+      "src/exo/shared/types/common.py",
+      "src/exo/shared/types/memory.py",
+      "src/exo/shared/types/tasks.py",
+      "src/exo/shared/types/worker/downloads.py",
+      "src/exo/shared/types/worker/instances.py",
+      "src/exo/shared/types/worker/runners.py",
+      "src/exo/utils/keyed_backoff.py",
+      "src/exo/worker/plan.py",
+      "src/exo/worker/tests/constants.py",
+      "src/exo/worker/tests/unittests/conftest.py"
+    ],
+    "src/exo/worker/tests/unittests/test_plan/test_runner_lifecycle.py": [
+      "src/exo/shared/types/tasks.py",
+      "src/exo/shared/types/worker/instances.py",
+      "src/exo/shared/types/worker/runners.py",
+      "src/exo/utils/keyed_backoff.py",
+      "src/exo/worker/plan.py",
+      "src/exo/worker/tests/constants.py",
+      "src/exo/worker/tests/unittests/conftest.py"
+    ],
+    "src/exo/worker/tests/unittests/test_plan/test_task_forwarding.py": [
+      "src/exo/shared/types/tasks.py",
+      "src/exo/shared/types/text_generation.py",
+      "src/exo/shared/types/worker/instances.py",
+      "src/exo/shared/types/worker/runners.py",
+      "src/exo/utils/keyed_backoff.py",
+      "src/exo/worker/plan.py",
+      "src/exo/worker/tests/constants.py",
+      "src/exo/worker/tests/unittests/conftest.py"
+    ],
+    "src/exo/worker/tests/unittests/test_plan/test_warmup.py": [
+      "src/exo/shared/types/tasks.py",
+      "src/exo/shared/types/worker/instances.py",
+      "src/exo/shared/types/worker/runners.py",
+      "src/exo/utils/keyed_backoff.py",
+      "src/exo/worker/plan.py",
+      "src/exo/worker/tests/constants.py",
+      "src/exo/worker/tests/unittests/conftest.py"
+    ],
+    "src/exo/worker/tests/unittests/test_runner/test_event_ordering.py": [
+      "src/exo/shared/types/chunks.py",
+      "src/exo/shared/types/events.py",
+      "src/exo/shared/types/tasks.py",
+      "src/exo/shared/types/text_generation.py",
+      "src/exo/shared/types/worker/runner_response.py",
+      "src/exo/shared/types/worker/runners.py",
+      "src/exo/utils/channels.py",
+      "src/exo/worker/engines/mlx/builder.py",
+      "src/exo/worker/runner/llm_inference/batch_generator.py",
+      "src/exo/worker/runner/llm_inference/model_output_parsers.py",
+      "src/exo/worker/runner/runner.py",
+      "src/exo/worker/tests/constants.py",
+      "src/exo/worker/tests/unittests/conftest.py"
+    ],
+    "src/exo/worker/tests/unittests/test_runner/test_runner_supervisor.py": [
+      "src/exo/shared/models/model_cards.py",
+      "src/exo/shared/types/chunks.py",
+      "src/exo/shared/types/common.py",
+      "src/exo/shared/types/events.py",
+      "src/exo/shared/types/tasks.py",
+      "src/exo/shared/types/text_generation.py",
+      "src/exo/shared/types/worker/instances.py",
+      "src/exo/shared/types/worker/runners.py",
+      "src/exo/utils/async_process.py",
+      "src/exo/utils/channels.py",
+      "src/exo/worker/runner/bootstrap.py",
+      "src/exo/worker/runner/supervisor.py",
+      "src/exo/worker/tests/unittests/conftest.py"
+    ]
+  }
+}

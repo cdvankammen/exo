@@ -1,0 +1,2116 @@
+{
+ "projectRoot": "/Users/chris/Documents/GitHub/exo",
+ "projectName": "exo",
+ "projectDescription": "exo connects all your devices into an AI cluster, enabling distributed inference of frontier LLMs (and image models) across multiple devices. It uses MLX as the inference backend with automatic device discovery, topology-aware tensor parallelism, RDMA-over-Thunderbolt support, and OpenAI/Claude/Ollama-compatible APIs.",
+ "languages": [
+  "Python",
+  "TypeScript",
+  "Svelte",
+  "Rust",
+  "Swift",
+  "Shell",
+  "Nix",
+  "Markdown",
+  "TOML",
+  "YAML",
+  "JSON"
+ ],
+ "skillDir": "/Users/chris/.understand-anything/repo/understand-anything-plugin/skills/understand",
+ "totalBatches": 46,
+ "batchIndex": 7,
+ "batchFiles": [
+  {
+   "path": "src/exo/worker/engines/mlx/generator/remote_prefill.py",
+   "language": "python",
+   "sizeLines": 72,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/worker/engines/mlx/tests/test_batch_generate.py",
+   "language": "python",
+   "sizeLines": 268,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/worker/engines/mlx/tests/test_extract_top_logprobs.py",
+   "language": "python",
+   "sizeLines": 69,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/worker/engines/mlx/types.py",
+   "language": "python",
+   "sizeLines": 37,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/worker/engines/mlx/utils_mlx.py",
+   "language": "python",
+   "sizeLines": 938,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/worker/engines/mlx/vision.py",
+   "language": "python",
+   "sizeLines": 844,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/worker/runner/bootstrap.py",
+   "language": "python",
+   "sizeLines": 105,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/worker/runner/llm_inference/batch_generator.py",
+   "language": "python",
+   "sizeLines": 572,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/worker/runner/llm_inference/model_output_parsers.py",
+   "language": "python",
+   "sizeLines": 492,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/worker/runner/llm_inference/tool_parsers.py",
+   "language": "python",
+   "sizeLines": 244,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/worker/tests/unittests/test_mlx/conftest.py",
+   "language": "python",
+   "sizeLines": 225,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/worker/tests/unittests/test_mlx/test_auto_parallel.py",
+   "language": "python",
+   "sizeLines": 146,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/worker/tests/unittests/test_mlx/test_distributed_fix.py",
+   "language": "python",
+   "sizeLines": 231,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/worker/tests/unittests/test_mlx/test_kv_prefix_cache.py",
+   "language": "python",
+   "sizeLines": 602,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/worker/tests/unittests/test_mlx/test_prefix_cache_architectures.py",
+   "language": "python",
+   "sizeLines": 339,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/worker/tests/unittests/test_runner/test_dsml_e2e.py",
+   "language": "python",
+   "sizeLines": 1182,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/worker/tests/unittests/test_runner/test_finish_reason_sse.py",
+   "language": "python",
+   "sizeLines": 674,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/worker/tests/unittests/test_runner/test_parse_gpt_oss.py",
+   "language": "python",
+   "sizeLines": 302,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/worker/tests/unittests/test_runner/test_parse_tool_calls.py",
+   "language": "python",
+   "sizeLines": 178,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/worker/tests/unittests/test_runner/test_serve_prefill.py",
+   "language": "python",
+   "sizeLines": 227,
+   "fileCategory": "code"
+  }
+ ],
+ "batchImportData": {
+  "src/exo/worker/engines/mlx/generator/remote_prefill.py": [
+   "src/exo/worker/disaggregated/protocol.py",
+   "src/exo/worker/disaggregated/server.py",
+   "src/exo/worker/engines/mlx/cache.py",
+   "src/exo/worker/engines/mlx/disaggregated/client.py",
+   "src/exo/worker/engines/mlx/types.py",
+   "src/exo/worker/runner/bootstrap.py"
+  ],
+  "src/exo/worker/engines/mlx/tests/test_batch_generate.py": [
+   "src/exo/worker/engines/mlx/cache.py",
+   "src/exo/worker/engines/mlx/generator/batch_generate.py",
+   "src/exo/worker/engines/mlx/generator/generate.py",
+   "src/exo/worker/engines/mlx/types.py"
+  ],
+  "src/exo/worker/engines/mlx/tests/test_extract_top_logprobs.py": [
+   "src/exo/worker/engines/mlx/generator/generate.py"
+  ],
+  "src/exo/worker/engines/mlx/types.py": [
+   "src/exo/worker/engines/mlx/__init__.py"
+  ],
+  "src/exo/worker/engines/mlx/utils_mlx.py": [
+   "src/exo/download/download_utils.py",
+   "src/exo/shared/models/model_cards.py",
+   "src/exo/shared/types/common.py",
+   "src/exo/shared/types/memory.py",
+   "src/exo/shared/types/tasks.py",
+   "src/exo/shared/types/text_generation.py",
+   "src/exo/shared/types/worker/instances.py",
+   "src/exo/shared/types/worker/runner_response.py",
+   "src/exo/shared/types/worker/shards.py",
+   "src/exo/worker/engines/mlx/auto_parallel.py",
+   "src/exo/worker/engines/mlx/constants.py",
+   "src/exo/worker/engines/mlx/types.py",
+   "src/exo/worker/runner/bootstrap.py"
+  ],
+  "src/exo/worker/engines/mlx/vision.py": [
+   "src/exo/download/download_utils.py",
+   "src/exo/shared/models/model_cards.py",
+   "src/exo/shared/types/common.py",
+   "src/exo/shared/types/text_generation.py",
+   "src/exo/worker/engines/mlx/cache.py",
+   "src/exo/worker/engines/mlx/types.py",
+   "src/exo/worker/engines/mlx/utils_mlx.py",
+   "src/exo/worker/runner/bootstrap.py"
+  ],
+  "src/exo/worker/runner/bootstrap.py": [
+   "src/exo/shared/types/events.py",
+   "src/exo/shared/types/tasks.py",
+   "src/exo/shared/types/worker/instances.py",
+   "src/exo/utils/channels.py",
+   "src/exo/worker/engines/base.py"
+  ],
+  "src/exo/worker/runner/llm_inference/batch_generator.py": [
+   "src/exo/shared/constants.py",
+   "src/exo/shared/types/chunks.py",
+   "src/exo/shared/types/common.py",
+   "src/exo/shared/types/events.py",
+   "src/exo/shared/types/tasks.py",
+   "src/exo/shared/types/text_generation.py",
+   "src/exo/shared/types/worker/runner_response.py",
+   "src/exo/utils/channels.py",
+   "src/exo/worker/disaggregated/server.py",
+   "src/exo/worker/engines/base.py",
+   "src/exo/worker/engines/mlx/cache.py",
+   "src/exo/worker/engines/mlx/disaggregated/adapter.py",
+   "src/exo/worker/engines/mlx/disaggregated/serve.py",
+   "src/exo/worker/engines/mlx/generator/batch_generate.py",
+   "src/exo/worker/engines/mlx/generator/generate.py",
+   "src/exo/worker/engines/mlx/types.py",
+   "src/exo/worker/engines/mlx/utils_mlx.py",
+   "src/exo/worker/engines/mlx/vision.py",
+   "src/exo/worker/runner/bootstrap.py",
+   "src/exo/worker/runner/llm_inference/model_output_parsers.py",
+   "src/exo/worker/runner/llm_inference/tool_parsers.py"
+  ],
+  "src/exo/worker/runner/llm_inference/model_output_parsers.py": [
+   "src/exo/api/types/__init__.py",
+   "src/exo/shared/types/chunks.py",
+   "src/exo/shared/types/common.py",
+   "src/exo/shared/types/worker/runner_response.py",
+   "src/exo/worker/engines/mlx/types.py",
+   "src/exo/worker/engines/mlx/utils_mlx.py",
+   "src/exo/worker/runner/bootstrap.py",
+   "src/exo/worker/runner/llm_inference/tool_parsers.py"
+  ],
+  "src/exo/worker/runner/llm_inference/tool_parsers.py": [
+   "src/exo/api/types/__init__.py"
+  ],
+  "src/exo/worker/tests/unittests/test_mlx/conftest.py": [
+   "src/exo/shared/constants.py",
+   "src/exo/shared/models/model_cards.py",
+   "src/exo/shared/types/backends.py",
+   "src/exo/shared/types/common.py",
+   "src/exo/shared/types/memory.py",
+   "src/exo/shared/types/text_generation.py",
+   "src/exo/shared/types/worker/shards.py",
+   "src/exo/worker/engines/mlx/generator/generate.py",
+   "src/exo/worker/engines/mlx/types.py",
+   "src/exo/worker/engines/mlx/utils_mlx.py"
+  ],
+  "src/exo/worker/tests/unittests/test_mlx/test_auto_parallel.py": [
+   "src/exo/worker/engines/mlx/auto_parallel.py",
+   "src/exo/worker/tests/unittests/test_mlx/conftest.py"
+  ],
+  "src/exo/worker/tests/unittests/test_mlx/test_distributed_fix.py": [
+   "src/exo/worker/tests/unittests/test_mlx/conftest.py"
+  ],
+  "src/exo/worker/tests/unittests/test_mlx/test_kv_prefix_cache.py": [
+   "src/exo/shared/types/common.py",
+   "src/exo/shared/types/text_generation.py",
+   "src/exo/worker/engines/mlx/cache.py",
+   "src/exo/worker/engines/mlx/generator/generate.py",
+   "src/exo/worker/engines/mlx/types.py",
+   "src/exo/worker/engines/mlx/utils_mlx.py",
+   "src/exo/worker/tests/unittests/test_mlx/conftest.py"
+  ],
+  "src/exo/worker/tests/unittests/test_mlx/test_prefix_cache_architectures.py": [
+   "src/exo/download/download_utils.py",
+   "src/exo/shared/constants.py",
+   "src/exo/shared/types/common.py",
+   "src/exo/shared/types/text_generation.py",
+   "src/exo/worker/engines/mlx/cache.py",
+   "src/exo/worker/engines/mlx/generator/generate.py",
+   "src/exo/worker/engines/mlx/types.py",
+   "src/exo/worker/engines/mlx/utils_mlx.py"
+  ],
+  "src/exo/worker/tests/unittests/test_runner/test_dsml_e2e.py": [
+   "src/exo/shared/types/common.py",
+   "src/exo/shared/types/worker/runner_response.py",
+   "src/exo/worker/runner/llm_inference/model_output_parsers.py"
+  ],
+  "src/exo/worker/tests/unittests/test_runner/test_finish_reason_sse.py": [
+   "src/exo/api/types/__init__.py",
+   "src/exo/shared/types/worker/runner_response.py",
+   "src/exo/worker/runner/llm_inference/model_output_parsers.py",
+   "src/exo/worker/runner/llm_inference/tool_parsers.py"
+  ],
+  "src/exo/worker/tests/unittests/test_runner/test_parse_gpt_oss.py": [
+   "src/exo/api/types/__init__.py",
+   "src/exo/shared/types/worker/runner_response.py",
+   "src/exo/worker/runner/llm_inference/model_output_parsers.py"
+  ],
+  "src/exo/worker/tests/unittests/test_runner/test_parse_tool_calls.py": [
+   "src/exo/shared/types/worker/runner_response.py",
+   "src/exo/worker/runner/llm_inference/model_output_parsers.py",
+   "src/exo/worker/runner/llm_inference/tool_parsers.py"
+  ],
+  "src/exo/worker/tests/unittests/test_runner/test_serve_prefill.py": [
+   "src/exo/worker/disaggregated/protocol.py",
+   "src/exo/worker/disaggregated/server.py",
+   "src/exo/worker/engines/mlx/cache.py",
+   "src/exo/worker/engines/mlx/disaggregated/adapter.py",
+   "src/exo/worker/engines/mlx/disaggregated/serve.py"
+  ]
+ },
+ "neighborMap": {
+  "src/exo/worker/engines/mlx/generator/remote_prefill.py": [
+   {
+    "path": "src/exo/worker/disaggregated/protocol.py",
+    "batchIndex": 6,
+    "symbols": [
+     "ProtocolError",
+     "Header",
+     "TensorBlob",
+     "KVChunk",
+     "ArraysState",
+     "Done",
+     "ErrorMessage",
+     "_read_exactly",
+     "write_frame",
+     "read_frame",
+     "write_header",
+     "read_header",
+     "write_message",
+     "read_message",
+     "write_kv_chunk",
+     "write_arrays_state",
+     "write_done",
+     "write_error"
+    ]
+   },
+   {
+    "path": "src/exo/worker/disaggregated/server.py",
+    "batchIndex": 6,
+    "symbols": [
+     "PrefillRequest",
+     "write_request",
+     "read_request",
+     "_send_error",
+     "_PrefillHandler",
+     "PrefillServer"
+    ]
+   },
+   {
+    "path": "src/exo/worker/engines/mlx/cache.py",
+    "batchIndex": 6,
+    "symbols": [
+     "_default_memory_threshold",
+     "CacheSnapshot",
+     "_detached_copy",
+     "copy_rotating_kv_cache",
+     "_copy_arrays_cache",
+     "_copy_cache_list",
+     "_detached_copy_or_none",
+     "_copy_compressor_branch",
+     "_copy_v4_cache",
+     "copy_snapshot_entry",
+     "snapshot_ssm_states",
+     "_find_nearest_snapshot",
+     "is_non_trimmable_cache_entry",
+     "has_non_kv_caches",
+     "KVPrefixCache",
+     "trim_cache",
+     "encode_prompt",
+     "_entry_length",
+     "cache_length",
+     "get_prefix_length",
+     "get_available_memory",
+     "get_memory_used_percentage",
+     "make_kv_cache"
+    ]
+   },
+   {
+    "path": "src/exo/worker/engines/mlx/disaggregated/client.py",
+    "batchIndex": 6,
+    "symbols": [
+     "PrefillResult",
+     "_parse_endpoint",
+     "remote_prefill_fetch",
+     "ingest_into_mlx_cache"
+    ]
+   },
+   {
+    "path": "src/exo/worker/engines/mlx/generator/batch_generate.py",
+    "batchIndex": 6,
+    "symbols": [
+     "_stop_sequences",
+     "_EngineTask",
+     "ExoBatchGenerator"
+    ]
+   },
+   {
+    "path": "src/exo/worker/engines/mlx/generator/generate.py",
+    "batchIndex": 6,
+    "symbols": [
+     "patch_embed_tokens",
+     "PrefillCancelled",
+     "_has_pipeline_communication_layer",
+     "pipeline_parallel_prefill",
+     "prefill",
+     "warmup_inference",
+     "ban_token_ids",
+     "eos_ids_from_tokenizer",
+     "extract_top_logprobs",
+     "mlx_generate"
+    ]
+   }
+  ],
+  "src/exo/worker/engines/mlx/tests/test_batch_generate.py": [
+   {
+    "path": "src/exo/worker/engines/mlx/cache.py",
+    "batchIndex": 6,
+    "symbols": [
+     "_default_memory_threshold",
+     "CacheSnapshot",
+     "_detached_copy",
+     "copy_rotating_kv_cache",
+     "_copy_arrays_cache",
+     "_copy_cache_list",
+     "_detached_copy_or_none",
+     "_copy_compressor_branch",
+     "_copy_v4_cache",
+     "copy_snapshot_entry",
+     "snapshot_ssm_states",
+     "_find_nearest_snapshot",
+     "is_non_trimmable_cache_entry",
+     "has_non_kv_caches",
+     "KVPrefixCache",
+     "trim_cache",
+     "encode_prompt",
+     "_entry_length",
+     "cache_length",
+     "get_prefix_length",
+     "get_available_memory",
+     "get_memory_used_percentage",
+     "make_kv_cache"
+    ]
+   },
+   {
+    "path": "src/exo/worker/engines/mlx/generator/batch_generate.py",
+    "batchIndex": 6,
+    "symbols": [
+     "_stop_sequences",
+     "_EngineTask",
+     "ExoBatchGenerator"
+    ]
+   },
+   {
+    "path": "src/exo/worker/engines/mlx/generator/generate.py",
+    "batchIndex": 6,
+    "symbols": [
+     "patch_embed_tokens",
+     "PrefillCancelled",
+     "_has_pipeline_communication_layer",
+     "pipeline_parallel_prefill",
+     "prefill",
+     "warmup_inference",
+     "ban_token_ids",
+     "eos_ids_from_tokenizer",
+     "extract_top_logprobs",
+     "mlx_generate"
+    ]
+   }
+  ],
+  "src/exo/worker/engines/mlx/tests/test_extract_top_logprobs.py": [
+   {
+    "path": "src/exo/worker/engines/mlx/generator/generate.py",
+    "batchIndex": 6,
+    "symbols": [
+     "patch_embed_tokens",
+     "PrefillCancelled",
+     "_has_pipeline_communication_layer",
+     "pipeline_parallel_prefill",
+     "prefill",
+     "warmup_inference",
+     "ban_token_ids",
+     "eos_ids_from_tokenizer",
+     "extract_top_logprobs",
+     "mlx_generate"
+    ]
+   }
+  ],
+  "src/exo/worker/engines/mlx/types.py": [
+   {
+    "path": "src/exo/worker/engines/mlx/__init__.py",
+    "batchIndex": 6,
+    "symbols": []
+   },
+   {
+    "path": "src/exo/worker/engines/mlx/builder.py",
+    "batchIndex": 6,
+    "symbols": [
+     "MlxBuilder"
+    ]
+   },
+   {
+    "path": "src/exo/worker/engines/mlx/cache.py",
+    "batchIndex": 6,
+    "symbols": [
+     "_default_memory_threshold",
+     "CacheSnapshot",
+     "_detached_copy",
+     "copy_rotating_kv_cache",
+     "_copy_arrays_cache",
+     "_copy_cache_list",
+     "_detached_copy_or_none",
+     "_copy_compressor_branch",
+     "_copy_v4_cache",
+     "copy_snapshot_entry",
+     "snapshot_ssm_states",
+     "_find_nearest_snapshot",
+     "is_non_trimmable_cache_entry",
+     "has_non_kv_caches",
+     "KVPrefixCache",
+     "trim_cache",
+     "encode_prompt",
+     "_entry_length",
+     "cache_length",
+     "get_prefix_length",
+     "get_available_memory",
+     "get_memory_used_percentage",
+     "make_kv_cache"
+    ]
+   },
+   {
+    "path": "src/exo/worker/engines/mlx/disaggregated/adapter.py",
+    "batchIndex": 6,
+    "symbols": [
+     "mx_dtype_to_str",
+     "wire_dtype_from_cache",
+     "str_to_mx_dtype",
+     "array_to_bytes",
+     "bytes_to_array",
+     "bhsd_to_nhd",
+     "nhd_to_bhsd",
+     "send_mlx_kv_cache",
+     "chunk_to_mlx_nhd",
+     "blob_to_mlx",
+     "inject_kv_chunk",
+     "inject_rotating_kv_chunk",
+     "inject_arrays_cache",
+     "write_cache_to_wire"
+    ]
+   },
+   {
+    "path": "src/exo/worker/engines/mlx/disaggregated/serve.py",
+    "batchIndex": 6,
+    "symbols": [
+     "run_prefill_for_request"
+    ]
+   },
+   {
+    "path": "src/exo/worker/engines/mlx/generator/batch_generate.py",
+    "batchIndex": 6,
+    "symbols": [
+     "_stop_sequences",
+     "_EngineTask",
+     "ExoBatchGenerator"
+    ]
+   },
+   {
+    "path": "src/exo/worker/engines/mlx/generator/generate.py",
+    "batchIndex": 6,
+    "symbols": [
+     "patch_embed_tokens",
+     "PrefillCancelled",
+     "_has_pipeline_communication_layer",
+     "pipeline_parallel_prefill",
+     "prefill",
+     "warmup_inference",
+     "ban_token_ids",
+     "eos_ids_from_tokenizer",
+     "extract_top_logprobs",
+     "mlx_generate"
+    ]
+   }
+  ],
+  "src/exo/worker/engines/mlx/utils_mlx.py": [
+   {
+    "path": "src/exo/download/download_utils.py",
+    "batchIndex": 4,
+    "symbols": [
+     "HuggingFaceAuthenticationError",
+     "HuggingFaceRateLimitError",
+     "_parse_retry_after",
+     "_build_auth_error_message",
+     "trim_etag",
+     "map_repo_file_download_progress_to_download_progress_data",
+     "map_repo_download_progress_to_download_progress_data",
+     "InsufficientDiskSpaceError",
+     "resolve_existing_model",
+     "is_read_only_model_dir",
+     "build_model_path",
+     "select_download_dir",
+     "select_download_dir_for_shard",
+     "resolve_model_dir",
+     "ensure_cache_dir",
+     "delete_model",
+     "seed_models",
+     "_scan_model_directory",
+     "is_model_directory_complete",
+     "_build_file_list_from_local_directory",
+     "fetch_file_list_with_cache",
+     "fetch_file_list_with_retry",
+     "_fetch_file_list",
+     "get_download_headers",
+     "create_http_session",
+     "calc_hash",
+     "file_meta",
+     "download_file_with_retry",
+     "_download_file",
+     "calculate_repo_progress",
+     "get_weight_map",
+     "resolve_allow_patterns",
+     "is_image_model",
+     "get_downloaded_size",
+     "download_shard"
+    ]
+   },
+   {
+    "path": "src/exo/shared/models/model_cards.py",
+    "batchIndex": 4,
+    "symbols": [
+     "_CardCache",
+     "detect_vision_from_config",
+     "_is_image_card",
+     "ModelTask",
+     "ComponentInfo",
+     "VisionCardConfig",
+     "SamplingValues",
+     "SamplingDefaults",
+     "ModelCard",
+     "ConfigData",
+     "fetch_config_data",
+     "fetch_safetensors_size"
+    ]
+   },
+   {
+    "path": "src/exo/shared/types/common.py",
+    "batchIndex": 3,
+    "symbols": [
+     "Id",
+     "NodeId",
+     "SystemId",
+     "ModelId",
+     "CommandId",
+     "TruncatingString",
+     "SessionId",
+     "Host"
+    ]
+   },
+   {
+    "path": "src/exo/shared/types/memory.py",
+    "batchIndex": 4,
+    "symbols": [
+     "Memory"
+    ]
+   },
+   {
+    "path": "src/exo/shared/types/tasks.py",
+    "batchIndex": 2,
+    "symbols": [
+     "TaskId",
+     "TaskStatus",
+     "BaseTask",
+     "CreateRunner",
+     "DownloadModel",
+     "LoadModel",
+     "ConnectToGroup",
+     "StartWarmup",
+     "TextGeneration",
+     "CancelTask",
+     "ImageGeneration",
+     "ImageEdits",
+     "Shutdown"
+    ]
+   },
+   {
+    "path": "src/exo/shared/types/text_generation.py",
+    "batchIndex": 6,
+    "symbols": [
+     "resolve_reasoning_params",
+     "InputMessageContent",
+     "InputMessage",
+     "Base64Image",
+     "Base64ImageHash",
+     "_wrap_chat_value",
+     "TextGenerationTaskParams"
+    ]
+   },
+   {
+    "path": "src/exo/shared/types/worker/instances.py",
+    "batchIndex": 2,
+    "symbols": [
+     "InstanceId",
+     "InstanceMeta",
+     "BaseInstance",
+     "MlxRingInstance",
+     "MlxJacclInstance",
+     "BoundInstance"
+    ]
+   },
+   {
+    "path": "src/exo/shared/types/worker/runner_response.py",
+    "batchIndex": 6,
+    "symbols": [
+     "BaseRunnerResponse",
+     "GenerationResponse",
+     "ImageGenerationResponse",
+     "PartialImageResponse",
+     "ToolCallResponse",
+     "FinishedResponse",
+     "ModelLoadingResponse",
+     "CancelledResponse",
+     "PrefillProgressResponse"
+    ]
+   },
+   {
+    "path": "src/exo/shared/types/worker/shards.py",
+    "batchIndex": 4,
+    "symbols": [
+     "Sharding",
+     "BaseShardMetadata",
+     "PipelineShardMetadata",
+     "CfgShardMetadata",
+     "TensorShardMetadata"
+    ]
+   },
+   {
+    "path": "src/exo/worker/engines/mlx/auto_parallel.py",
+    "batchIndex": 6,
+    "symbols": [
+     "flush_prefill_sends",
+     "clear_prefill_sends",
+     "_LayerCallable",
+     "CustomMlxLayer",
+     "PipelineFirstLayer",
+     "PipelineLastLayer",
+     "set_pipeline_prefill",
+     "set_pipeline_queue_sends",
+     "get_inner_model",
+     "get_layers",
+     "_patch_hybrid_cache",
+     "pipeline_auto_parallel",
+     "patch_pipeline_model",
+     "patch_tensor_model",
+     "tensor_auto_parallel",
+     "TensorParallelShardingStrategy",
+     "LlamaShardingStrategy",
+     "_set_layers",
+     "DeepSeekShardingStrategy",
+     "ShardedMoE",
+     "ShardedMoEV4",
+     "_shard_quantized_rows",
+     "_AllSumLinear",
+     "_shard_v4_attention_heads",
+     "DeepseekV4ShardingStrategy",
+     "GLM4MoeLiteShardingStrategy",
+     "WrappedMiniMaxAttention",
+     "MiniMaxShardingStrategy",
+     "QwenShardingStrategy",
+     "Glm4MoeShardingStrategy",
+     "GptOssShardingStrategy",
+     "Step35ShardingStrategy",
+     "NemotronHShardingStrategy",
+     "WrappedGemma4Experts",
+     "Gemma4ShardingStrategy"
+    ]
+   },
+   {
+    "path": "src/exo/worker/engines/mlx/constants.py",
+    "batchIndex": 6,
+    "symbols": []
+   },
+   {
+    "path": "src/exo/worker/engines/image/builder.py",
+    "batchIndex": 1,
+    "symbols": [
+     "_is_primary_output_node",
+     "_send_traces_if_enabled",
+     "MfluxBuilder",
+     "ImageEngine"
+    ]
+   },
+   {
+    "path": "src/exo/worker/engines/image/distributed_model.py",
+    "batchIndex": 1,
+    "symbols": [
+     "DistributedImageModel"
+    ]
+   },
+   {
+    "path": "src/exo/worker/engines/mlx/builder.py",
+    "batchIndex": 6,
+    "symbols": [
+     "MlxBuilder"
+    ]
+   },
+   {
+    "path": "src/exo/worker/engines/mlx/disaggregated/serve.py",
+    "batchIndex": 6,
+    "symbols": [
+     "run_prefill_for_request"
+    ]
+   },
+   {
+    "path": "src/exo/worker/engines/mlx/generator/batch_generate.py",
+    "batchIndex": 6,
+    "symbols": [
+     "_stop_sequences",
+     "_EngineTask",
+     "ExoBatchGenerator"
+    ]
+   },
+   {
+    "path": "src/exo/worker/engines/mlx/generator/generate.py",
+    "batchIndex": 6,
+    "symbols": [
+     "patch_embed_tokens",
+     "PrefillCancelled",
+     "_has_pipeline_communication_layer",
+     "pipeline_parallel_prefill",
+     "prefill",
+     "warmup_inference",
+     "ban_token_ids",
+     "eos_ids_from_tokenizer",
+     "extract_top_logprobs",
+     "mlx_generate"
+    ]
+   },
+   {
+    "path": "src/exo/worker/tests/unittests/test_mlx/test_tokenizers.py",
+    "batchIndex": 4,
+    "symbols": [
+     "is_tokenizer_file",
+     "download_tokenizer_files",
+     "get_test_models",
+     "event_loop",
+     "test_tokenizer_encode_decode",
+     "test_tokenizer_has_required_attributes",
+     "test_tokenizer_special_tokens",
+     "test_kimi_tokenizer_specifically",
+     "test_glm_tokenizer_specifically"
+    ]
+   }
+  ],
+  "src/exo/worker/engines/mlx/vision.py": [
+   {
+    "path": "src/exo/download/download_utils.py",
+    "batchIndex": 4,
+    "symbols": [
+     "HuggingFaceAuthenticationError",
+     "HuggingFaceRateLimitError",
+     "_parse_retry_after",
+     "_build_auth_error_message",
+     "trim_etag",
+     "map_repo_file_download_progress_to_download_progress_data",
+     "map_repo_download_progress_to_download_progress_data",
+     "InsufficientDiskSpaceError",
+     "resolve_existing_model",
+     "is_read_only_model_dir",
+     "build_model_path",
+     "select_download_dir",
+     "select_download_dir_for_shard",
+     "resolve_model_dir",
+     "ensure_cache_dir",
+     "delete_model",
+     "seed_models",
+     "_scan_model_directory",
+     "is_model_directory_complete",
+     "_build_file_list_from_local_directory",
+     "fetch_file_list_with_cache",
+     "fetch_file_list_with_retry",
+     "_fetch_file_list",
+     "get_download_headers",
+     "create_http_session",
+     "calc_hash",
+     "file_meta",
+     "download_file_with_retry",
+     "_download_file",
+     "calculate_repo_progress",
+     "get_weight_map",
+     "resolve_allow_patterns",
+     "is_image_model",
+     "get_downloaded_size",
+     "download_shard"
+    ]
+   },
+   {
+    "path": "src/exo/shared/models/model_cards.py",
+    "batchIndex": 4,
+    "symbols": [
+     "_CardCache",
+     "detect_vision_from_config",
+     "_is_image_card",
+     "ModelTask",
+     "ComponentInfo",
+     "VisionCardConfig",
+     "SamplingValues",
+     "SamplingDefaults",
+     "ModelCard",
+     "ConfigData",
+     "fetch_config_data",
+     "fetch_safetensors_size"
+    ]
+   },
+   {
+    "path": "src/exo/shared/types/common.py",
+    "batchIndex": 3,
+    "symbols": [
+     "Id",
+     "NodeId",
+     "SystemId",
+     "ModelId",
+     "CommandId",
+     "TruncatingString",
+     "SessionId",
+     "Host"
+    ]
+   },
+   {
+    "path": "src/exo/shared/types/text_generation.py",
+    "batchIndex": 6,
+    "symbols": [
+     "resolve_reasoning_params",
+     "InputMessageContent",
+     "InputMessage",
+     "Base64Image",
+     "Base64ImageHash",
+     "_wrap_chat_value",
+     "TextGenerationTaskParams"
+    ]
+   },
+   {
+    "path": "src/exo/worker/engines/mlx/cache.py",
+    "batchIndex": 6,
+    "symbols": [
+     "_default_memory_threshold",
+     "CacheSnapshot",
+     "_detached_copy",
+     "copy_rotating_kv_cache",
+     "_copy_arrays_cache",
+     "_copy_cache_list",
+     "_detached_copy_or_none",
+     "_copy_compressor_branch",
+     "_copy_v4_cache",
+     "copy_snapshot_entry",
+     "snapshot_ssm_states",
+     "_find_nearest_snapshot",
+     "is_non_trimmable_cache_entry",
+     "has_non_kv_caches",
+     "KVPrefixCache",
+     "trim_cache",
+     "encode_prompt",
+     "_entry_length",
+     "cache_length",
+     "get_prefix_length",
+     "get_available_memory",
+     "get_memory_used_percentage",
+     "make_kv_cache"
+    ]
+   },
+   {
+    "path": "src/exo/worker/engines/mlx/builder.py",
+    "batchIndex": 6,
+    "symbols": [
+     "MlxBuilder"
+    ]
+   },
+   {
+    "path": "src/exo/worker/engines/mlx/generator/batch_generate.py",
+    "batchIndex": 6,
+    "symbols": [
+     "_stop_sequences",
+     "_EngineTask",
+     "ExoBatchGenerator"
+    ]
+   },
+   {
+    "path": "src/exo/worker/engines/mlx/generator/generate.py",
+    "batchIndex": 6,
+    "symbols": [
+     "patch_embed_tokens",
+     "PrefillCancelled",
+     "_has_pipeline_communication_layer",
+     "pipeline_parallel_prefill",
+     "prefill",
+     "warmup_inference",
+     "ban_token_ids",
+     "eos_ids_from_tokenizer",
+     "extract_top_logprobs",
+     "mlx_generate"
+    ]
+   }
+  ],
+  "src/exo/worker/runner/bootstrap.py": [
+   {
+    "path": "src/exo/shared/types/events.py",
+    "batchIndex": 2,
+    "symbols": [
+     "EventId",
+     "BaseEvent",
+     "TestEvent",
+     "TaskCreated",
+     "TaskAcknowledged",
+     "TaskDeleted",
+     "TaskStatusUpdated",
+     "TaskFailed",
+     "InstanceCreated",
+     "InstanceDeleted",
+     "RunnerStatusUpdated",
+     "NodeTimedOut",
+     "NodeGatheredInfo",
+     "NodeDownloadProgress",
+     "ChunkGenerated",
+     "InputChunkReceived",
+     "TopologyEdgeCreated",
+     "TopologyEdgeDeleted",
+     "CustomModelCardAdded",
+     "CustomModelCardDeleted",
+     "TraceEventData",
+     "TracesCollected",
+     "TracesMerged",
+     "InstanceLinkCreated",
+     "InstanceLinkDeleted",
+     "IndexedEvent",
+     "GlobalForwarderEvent",
+     "LocalForwarderEvent"
+    ]
+   },
+   {
+    "path": "src/exo/shared/types/tasks.py",
+    "batchIndex": 2,
+    "symbols": [
+     "TaskId",
+     "TaskStatus",
+     "BaseTask",
+     "CreateRunner",
+     "DownloadModel",
+     "LoadModel",
+     "ConnectToGroup",
+     "StartWarmup",
+     "TextGeneration",
+     "CancelTask",
+     "ImageGeneration",
+     "ImageEdits",
+     "Shutdown"
+    ]
+   },
+   {
+    "path": "src/exo/shared/types/worker/instances.py",
+    "batchIndex": 2,
+    "symbols": [
+     "InstanceId",
+     "InstanceMeta",
+     "BaseInstance",
+     "MlxRingInstance",
+     "MlxJacclInstance",
+     "BoundInstance"
+    ]
+   },
+   {
+    "path": "src/exo/utils/channels.py",
+    "batchIndex": 5,
+    "symbols": [
+     "ErrorOverride",
+     "Sender",
+     "Receiver",
+     "_MpEndOfStream",
+     "MpState",
+     "MpSender",
+     "MpReceiver",
+     "channel",
+     "mp_channel"
+    ]
+   },
+   {
+    "path": "src/exo/worker/engines/base.py",
+    "batchIndex": 6,
+    "symbols": [
+     "Engine",
+     "Builder"
+    ]
+   },
+   {
+    "path": "src/exo/shared/tracing.py",
+    "batchIndex": 1,
+    "symbols": [
+     "TraceEvent",
+     "CategoryStats",
+     "TraceStats",
+     "_record_span",
+     "trace",
+     "get_trace_buffer",
+     "clear_trace_buffer",
+     "export_trace",
+     "load_trace_file",
+     "compute_stats"
+    ]
+   },
+   {
+    "path": "src/exo/worker/engines/image/distributed_model.py",
+    "batchIndex": 1,
+    "symbols": [
+     "DistributedImageModel"
+    ]
+   },
+   {
+    "path": "src/exo/worker/engines/mlx/auto_parallel.py",
+    "batchIndex": 6,
+    "symbols": [
+     "flush_prefill_sends",
+     "clear_prefill_sends",
+     "_LayerCallable",
+     "CustomMlxLayer",
+     "PipelineFirstLayer",
+     "PipelineLastLayer",
+     "set_pipeline_prefill",
+     "set_pipeline_queue_sends",
+     "get_inner_model",
+     "get_layers",
+     "_patch_hybrid_cache",
+     "pipeline_auto_parallel",
+     "patch_pipeline_model",
+     "patch_tensor_model",
+     "tensor_auto_parallel",
+     "TensorParallelShardingStrategy",
+     "LlamaShardingStrategy",
+     "_set_layers",
+     "DeepSeekShardingStrategy",
+     "ShardedMoE",
+     "ShardedMoEV4",
+     "_shard_quantized_rows",
+     "_AllSumLinear",
+     "_shard_v4_attention_heads",
+     "DeepseekV4ShardingStrategy",
+     "GLM4MoeLiteShardingStrategy",
+     "WrappedMiniMaxAttention",
+     "MiniMaxShardingStrategy",
+     "QwenShardingStrategy",
+     "Glm4MoeShardingStrategy",
+     "GptOssShardingStrategy",
+     "Step35ShardingStrategy",
+     "NemotronHShardingStrategy",
+     "WrappedGemma4Experts",
+     "Gemma4ShardingStrategy"
+    ]
+   },
+   {
+    "path": "src/exo/worker/engines/mlx/builder.py",
+    "batchIndex": 6,
+    "symbols": [
+     "MlxBuilder"
+    ]
+   },
+   {
+    "path": "src/exo/worker/engines/mlx/cache.py",
+    "batchIndex": 6,
+    "symbols": [
+     "_default_memory_threshold",
+     "CacheSnapshot",
+     "_detached_copy",
+     "copy_rotating_kv_cache",
+     "_copy_arrays_cache",
+     "_copy_cache_list",
+     "_detached_copy_or_none",
+     "_copy_compressor_branch",
+     "_copy_v4_cache",
+     "copy_snapshot_entry",
+     "snapshot_ssm_states",
+     "_find_nearest_snapshot",
+     "is_non_trimmable_cache_entry",
+     "has_non_kv_caches",
+     "KVPrefixCache",
+     "trim_cache",
+     "encode_prompt",
+     "_entry_length",
+     "cache_length",
+     "get_prefix_length",
+     "get_available_memory",
+     "get_memory_used_percentage",
+     "make_kv_cache"
+    ]
+   },
+   {
+    "path": "src/exo/worker/engines/mlx/disaggregated/adapter.py",
+    "batchIndex": 6,
+    "symbols": [
+     "mx_dtype_to_str",
+     "wire_dtype_from_cache",
+     "str_to_mx_dtype",
+     "array_to_bytes",
+     "bytes_to_array",
+     "bhsd_to_nhd",
+     "nhd_to_bhsd",
+     "send_mlx_kv_cache",
+     "chunk_to_mlx_nhd",
+     "blob_to_mlx",
+     "inject_kv_chunk",
+     "inject_rotating_kv_chunk",
+     "inject_arrays_cache",
+     "write_cache_to_wire"
+    ]
+   },
+   {
+    "path": "src/exo/worker/engines/mlx/disaggregated/serve.py",
+    "batchIndex": 6,
+    "symbols": [
+     "run_prefill_for_request"
+    ]
+   },
+   {
+    "path": "src/exo/worker/engines/mlx/generator/batch_generate.py",
+    "batchIndex": 6,
+    "symbols": [
+     "_stop_sequences",
+     "_EngineTask",
+     "ExoBatchGenerator"
+    ]
+   },
+   {
+    "path": "src/exo/worker/engines/mlx/generator/generate.py",
+    "batchIndex": 6,
+    "symbols": [
+     "patch_embed_tokens",
+     "PrefillCancelled",
+     "_has_pipeline_communication_layer",
+     "pipeline_parallel_prefill",
+     "prefill",
+     "warmup_inference",
+     "ban_token_ids",
+     "eos_ids_from_tokenizer",
+     "extract_top_logprobs",
+     "mlx_generate"
+    ]
+   },
+   {
+    "path": "src/exo/worker/runner/runner.py",
+    "batchIndex": 2,
+    "symbols": [
+     "PrefillTask",
+     "_TaskStreamClosed",
+     "ExitCode",
+     "Runner"
+    ]
+   },
+   {
+    "path": "src/exo/worker/runner/supervisor.py",
+    "batchIndex": 2,
+    "symbols": [
+     "RunnerStdioHandler",
+     "RunnerSupervisor"
+    ]
+   },
+   {
+    "path": "src/exo/worker/tests/unittests/test_runner/test_runner_supervisor.py",
+    "batchIndex": 2,
+    "symbols": [
+     "_DeadProcess",
+     "test_check_runner_emits_error_chunk_for_inflight_text_generation"
+    ]
+   }
+  ],
+  "src/exo/worker/runner/llm_inference/batch_generator.py": [
+   {
+    "path": "src/exo/shared/constants.py",
+    "batchIndex": 1,
+    "symbols": [
+     "_get_xdg_dir",
+     "_parse_colon_dirs"
+    ]
+   },
+   {
+    "path": "src/exo/shared/types/chunks.py",
+    "batchIndex": 3,
+    "symbols": [
+     "BaseChunk",
+     "TokenChunk",
+     "ErrorChunk",
+     "ToolCallChunk",
+     "ImageChunk",
+     "InputImageChunk",
+     "PrefillProgressChunk"
+    ]
+   },
+   {
+    "path": "src/exo/shared/types/common.py",
+    "batchIndex": 3,
+    "symbols": [
+     "Id",
+     "NodeId",
+     "SystemId",
+     "ModelId",
+     "CommandId",
+     "TruncatingString",
+     "SessionId",
+     "Host"
+    ]
+   },
+   {
+    "path": "src/exo/shared/types/events.py",
+    "batchIndex": 2,
+    "symbols": [
+     "EventId",
+     "BaseEvent",
+     "TestEvent",
+     "TaskCreated",
+     "TaskAcknowledged",
+     "TaskDeleted",
+     "TaskStatusUpdated",
+     "TaskFailed",
+     "InstanceCreated",
+     "InstanceDeleted",
+     "RunnerStatusUpdated",
+     "NodeTimedOut",
+     "NodeGatheredInfo",
+     "NodeDownloadProgress",
+     "ChunkGenerated",
+     "InputChunkReceived",
+     "TopologyEdgeCreated",
+     "TopologyEdgeDeleted",
+     "CustomModelCardAdded",
+     "CustomModelCardDeleted",
+     "TraceEventData",
+     "TracesCollected",
+     "TracesMerged",
+     "InstanceLinkCreated",
+     "InstanceLinkDeleted",
+     "IndexedEvent",
+     "GlobalForwarderEvent",
+     "LocalForwarderEvent"
+    ]
+   },
+   {
+    "path": "src/exo/shared/types/tasks.py",
+    "batchIndex": 2,
+    "symbols": [
+     "TaskId",
+     "TaskStatus",
+     "BaseTask",
+     "CreateRunner",
+     "DownloadModel",
+     "LoadModel",
+     "ConnectToGroup",
+     "StartWarmup",
+     "TextGeneration",
+     "CancelTask",
+     "ImageGeneration",
+     "ImageEdits",
+     "Shutdown"
+    ]
+   },
+   {
+    "path": "src/exo/shared/types/text_generation.py",
+    "batchIndex": 6,
+    "symbols": [
+     "resolve_reasoning_params",
+     "InputMessageContent",
+     "InputMessage",
+     "Base64Image",
+     "Base64ImageHash",
+     "_wrap_chat_value",
+     "TextGenerationTaskParams"
+    ]
+   },
+   {
+    "path": "src/exo/shared/types/worker/runner_response.py",
+    "batchIndex": 6,
+    "symbols": [
+     "BaseRunnerResponse",
+     "GenerationResponse",
+     "ImageGenerationResponse",
+     "PartialImageResponse",
+     "ToolCallResponse",
+     "FinishedResponse",
+     "ModelLoadingResponse",
+     "CancelledResponse",
+     "PrefillProgressResponse"
+    ]
+   },
+   {
+    "path": "src/exo/utils/channels.py",
+    "batchIndex": 5,
+    "symbols": [
+     "ErrorOverride",
+     "Sender",
+     "Receiver",
+     "_MpEndOfStream",
+     "MpState",
+     "MpSender",
+     "MpReceiver",
+     "channel",
+     "mp_channel"
+    ]
+   },
+   {
+    "path": "src/exo/worker/disaggregated/server.py",
+    "batchIndex": 6,
+    "symbols": [
+     "PrefillRequest",
+     "write_request",
+     "read_request",
+     "_send_error",
+     "_PrefillHandler",
+     "PrefillServer"
+    ]
+   },
+   {
+    "path": "src/exo/worker/engines/base.py",
+    "batchIndex": 6,
+    "symbols": [
+     "Engine",
+     "Builder"
+    ]
+   },
+   {
+    "path": "src/exo/worker/engines/mlx/cache.py",
+    "batchIndex": 6,
+    "symbols": [
+     "_default_memory_threshold",
+     "CacheSnapshot",
+     "_detached_copy",
+     "copy_rotating_kv_cache",
+     "_copy_arrays_cache",
+     "_copy_cache_list",
+     "_detached_copy_or_none",
+     "_copy_compressor_branch",
+     "_copy_v4_cache",
+     "copy_snapshot_entry",
+     "snapshot_ssm_states",
+     "_find_nearest_snapshot",
+     "is_non_trimmable_cache_entry",
+     "has_non_kv_caches",
+     "KVPrefixCache",
+     "trim_cache",
+     "encode_prompt",
+     "_entry_length",
+     "cache_length",
+     "get_prefix_length",
+     "get_available_memory",
+     "get_memory_used_percentage",
+     "make_kv_cache"
+    ]
+   },
+   {
+    "path": "src/exo/worker/engines/mlx/disaggregated/adapter.py",
+    "batchIndex": 6,
+    "symbols": [
+     "mx_dtype_to_str",
+     "wire_dtype_from_cache",
+     "str_to_mx_dtype",
+     "array_to_bytes",
+     "bytes_to_array",
+     "bhsd_to_nhd",
+     "nhd_to_bhsd",
+     "send_mlx_kv_cache",
+     "chunk_to_mlx_nhd",
+     "blob_to_mlx",
+     "inject_kv_chunk",
+     "inject_rotating_kv_chunk",
+     "inject_arrays_cache",
+     "write_cache_to_wire"
+    ]
+   },
+   {
+    "path": "src/exo/worker/engines/mlx/disaggregated/serve.py",
+    "batchIndex": 6,
+    "symbols": [
+     "run_prefill_for_request"
+    ]
+   },
+   {
+    "path": "src/exo/worker/engines/mlx/generator/batch_generate.py",
+    "batchIndex": 6,
+    "symbols": [
+     "_stop_sequences",
+     "_EngineTask",
+     "ExoBatchGenerator"
+    ]
+   },
+   {
+    "path": "src/exo/worker/engines/mlx/generator/generate.py",
+    "batchIndex": 6,
+    "symbols": [
+     "patch_embed_tokens",
+     "PrefillCancelled",
+     "_has_pipeline_communication_layer",
+     "pipeline_parallel_prefill",
+     "prefill",
+     "warmup_inference",
+     "ban_token_ids",
+     "eos_ids_from_tokenizer",
+     "extract_top_logprobs",
+     "mlx_generate"
+    ]
+   },
+   {
+    "path": "src/exo/worker/engines/mlx/builder.py",
+    "batchIndex": 6,
+    "symbols": [
+     "MlxBuilder"
+    ]
+   },
+   {
+    "path": "src/exo/worker/tests/unittests/test_runner/test_event_ordering.py",
+    "batchIndex": 2,
+    "symbols": [
+     "make_nothin",
+     "assert_events_equal",
+     "MockLoadOutput",
+     "patch_out_mlx",
+     "FakeExoBatchGenerator",
+     "EventCollector",
+     "MockTokenizer",
+     "MockGroup",
+     "_run",
+     "test_events_processed_in_correct_order"
+    ]
+   }
+  ],
+  "src/exo/worker/runner/llm_inference/model_output_parsers.py": [
+   {
+    "path": "src/exo/api/types/__init__.py",
+    "batchIndex": 3,
+    "symbols": []
+   },
+   {
+    "path": "src/exo/shared/types/chunks.py",
+    "batchIndex": 3,
+    "symbols": [
+     "BaseChunk",
+     "TokenChunk",
+     "ErrorChunk",
+     "ToolCallChunk",
+     "ImageChunk",
+     "InputImageChunk",
+     "PrefillProgressChunk"
+    ]
+   },
+   {
+    "path": "src/exo/shared/types/common.py",
+    "batchIndex": 3,
+    "symbols": [
+     "Id",
+     "NodeId",
+     "SystemId",
+     "ModelId",
+     "CommandId",
+     "TruncatingString",
+     "SessionId",
+     "Host"
+    ]
+   },
+   {
+    "path": "src/exo/shared/types/worker/runner_response.py",
+    "batchIndex": 6,
+    "symbols": [
+     "BaseRunnerResponse",
+     "GenerationResponse",
+     "ImageGenerationResponse",
+     "PartialImageResponse",
+     "ToolCallResponse",
+     "FinishedResponse",
+     "ModelLoadingResponse",
+     "CancelledResponse",
+     "PrefillProgressResponse"
+    ]
+   },
+   {
+    "path": "src/exo/worker/tests/unittests/test_runner/test_event_ordering.py",
+    "batchIndex": 2,
+    "symbols": [
+     "make_nothin",
+     "assert_events_equal",
+     "MockLoadOutput",
+     "patch_out_mlx",
+     "FakeExoBatchGenerator",
+     "EventCollector",
+     "MockTokenizer",
+     "MockGroup",
+     "_run",
+     "test_events_processed_in_correct_order"
+    ]
+   }
+  ],
+  "src/exo/worker/runner/llm_inference/tool_parsers.py": [
+   {
+    "path": "src/exo/api/types/__init__.py",
+    "batchIndex": 3,
+    "symbols": []
+   },
+   {
+    "path": "src/exo/worker/engines/mlx/builder.py",
+    "batchIndex": 6,
+    "symbols": [
+     "MlxBuilder"
+    ]
+   }
+  ],
+  "src/exo/worker/tests/unittests/test_mlx/conftest.py": [
+   {
+    "path": "src/exo/shared/constants.py",
+    "batchIndex": 1,
+    "symbols": [
+     "_get_xdg_dir",
+     "_parse_colon_dirs"
+    ]
+   },
+   {
+    "path": "src/exo/shared/models/model_cards.py",
+    "batchIndex": 4,
+    "symbols": [
+     "_CardCache",
+     "detect_vision_from_config",
+     "_is_image_card",
+     "ModelTask",
+     "ComponentInfo",
+     "VisionCardConfig",
+     "SamplingValues",
+     "SamplingDefaults",
+     "ModelCard",
+     "ConfigData",
+     "fetch_config_data",
+     "fetch_safetensors_size"
+    ]
+   },
+   {
+    "path": "src/exo/shared/types/backends.py",
+    "batchIndex": 4,
+    "symbols": [
+     "Backend"
+    ]
+   },
+   {
+    "path": "src/exo/shared/types/common.py",
+    "batchIndex": 3,
+    "symbols": [
+     "Id",
+     "NodeId",
+     "SystemId",
+     "ModelId",
+     "CommandId",
+     "TruncatingString",
+     "SessionId",
+     "Host"
+    ]
+   },
+   {
+    "path": "src/exo/shared/types/memory.py",
+    "batchIndex": 4,
+    "symbols": [
+     "Memory"
+    ]
+   },
+   {
+    "path": "src/exo/shared/types/text_generation.py",
+    "batchIndex": 6,
+    "symbols": [
+     "resolve_reasoning_params",
+     "InputMessageContent",
+     "InputMessage",
+     "Base64Image",
+     "Base64ImageHash",
+     "_wrap_chat_value",
+     "TextGenerationTaskParams"
+    ]
+   },
+   {
+    "path": "src/exo/shared/types/worker/shards.py",
+    "batchIndex": 4,
+    "symbols": [
+     "Sharding",
+     "BaseShardMetadata",
+     "PipelineShardMetadata",
+     "CfgShardMetadata",
+     "TensorShardMetadata"
+    ]
+   },
+   {
+    "path": "src/exo/worker/engines/mlx/generator/generate.py",
+    "batchIndex": 6,
+    "symbols": [
+     "patch_embed_tokens",
+     "PrefillCancelled",
+     "_has_pipeline_communication_layer",
+     "pipeline_parallel_prefill",
+     "prefill",
+     "warmup_inference",
+     "ban_token_ids",
+     "eos_ids_from_tokenizer",
+     "extract_top_logprobs",
+     "mlx_generate"
+    ]
+   }
+  ],
+  "src/exo/worker/tests/unittests/test_mlx/test_auto_parallel.py": [
+   {
+    "path": "src/exo/worker/engines/mlx/auto_parallel.py",
+    "batchIndex": 6,
+    "symbols": [
+     "flush_prefill_sends",
+     "clear_prefill_sends",
+     "_LayerCallable",
+     "CustomMlxLayer",
+     "PipelineFirstLayer",
+     "PipelineLastLayer",
+     "set_pipeline_prefill",
+     "set_pipeline_queue_sends",
+     "get_inner_model",
+     "get_layers",
+     "_patch_hybrid_cache",
+     "pipeline_auto_parallel",
+     "patch_pipeline_model",
+     "patch_tensor_model",
+     "tensor_auto_parallel",
+     "TensorParallelShardingStrategy",
+     "LlamaShardingStrategy",
+     "_set_layers",
+     "DeepSeekShardingStrategy",
+     "ShardedMoE",
+     "ShardedMoEV4",
+     "_shard_quantized_rows",
+     "_AllSumLinear",
+     "_shard_v4_attention_heads",
+     "DeepseekV4ShardingStrategy",
+     "GLM4MoeLiteShardingStrategy",
+     "WrappedMiniMaxAttention",
+     "MiniMaxShardingStrategy",
+     "QwenShardingStrategy",
+     "Glm4MoeShardingStrategy",
+     "GptOssShardingStrategy",
+     "Step35ShardingStrategy",
+     "NemotronHShardingStrategy",
+     "WrappedGemma4Experts",
+     "Gemma4ShardingStrategy"
+    ]
+   }
+  ],
+  "src/exo/worker/tests/unittests/test_mlx/test_kv_prefix_cache.py": [
+   {
+    "path": "src/exo/shared/types/common.py",
+    "batchIndex": 3,
+    "symbols": [
+     "Id",
+     "NodeId",
+     "SystemId",
+     "ModelId",
+     "CommandId",
+     "TruncatingString",
+     "SessionId",
+     "Host"
+    ]
+   },
+   {
+    "path": "src/exo/shared/types/text_generation.py",
+    "batchIndex": 6,
+    "symbols": [
+     "resolve_reasoning_params",
+     "InputMessageContent",
+     "InputMessage",
+     "Base64Image",
+     "Base64ImageHash",
+     "_wrap_chat_value",
+     "TextGenerationTaskParams"
+    ]
+   },
+   {
+    "path": "src/exo/worker/engines/mlx/cache.py",
+    "batchIndex": 6,
+    "symbols": [
+     "_default_memory_threshold",
+     "CacheSnapshot",
+     "_detached_copy",
+     "copy_rotating_kv_cache",
+     "_copy_arrays_cache",
+     "_copy_cache_list",
+     "_detached_copy_or_none",
+     "_copy_compressor_branch",
+     "_copy_v4_cache",
+     "copy_snapshot_entry",
+     "snapshot_ssm_states",
+     "_find_nearest_snapshot",
+     "is_non_trimmable_cache_entry",
+     "has_non_kv_caches",
+     "KVPrefixCache",
+     "trim_cache",
+     "encode_prompt",
+     "_entry_length",
+     "cache_length",
+     "get_prefix_length",
+     "get_available_memory",
+     "get_memory_used_percentage",
+     "make_kv_cache"
+    ]
+   },
+   {
+    "path": "src/exo/worker/engines/mlx/generator/generate.py",
+    "batchIndex": 6,
+    "symbols": [
+     "patch_embed_tokens",
+     "PrefillCancelled",
+     "_has_pipeline_communication_layer",
+     "pipeline_parallel_prefill",
+     "prefill",
+     "warmup_inference",
+     "ban_token_ids",
+     "eos_ids_from_tokenizer",
+     "extract_top_logprobs",
+     "mlx_generate"
+    ]
+   }
+  ],
+  "src/exo/worker/tests/unittests/test_mlx/test_prefix_cache_architectures.py": [
+   {
+    "path": "src/exo/download/download_utils.py",
+    "batchIndex": 4,
+    "symbols": [
+     "HuggingFaceAuthenticationError",
+     "HuggingFaceRateLimitError",
+     "_parse_retry_after",
+     "_build_auth_error_message",
+     "trim_etag",
+     "map_repo_file_download_progress_to_download_progress_data",
+     "map_repo_download_progress_to_download_progress_data",
+     "InsufficientDiskSpaceError",
+     "resolve_existing_model",
+     "is_read_only_model_dir",
+     "build_model_path",
+     "select_download_dir",
+     "select_download_dir_for_shard",
+     "resolve_model_dir",
+     "ensure_cache_dir",
+     "delete_model",
+     "seed_models",
+     "_scan_model_directory",
+     "is_model_directory_complete",
+     "_build_file_list_from_local_directory",
+     "fetch_file_list_with_cache",
+     "fetch_file_list_with_retry",
+     "_fetch_file_list",
+     "get_download_headers",
+     "create_http_session",
+     "calc_hash",
+     "file_meta",
+     "download_file_with_retry",
+     "_download_file",
+     "calculate_repo_progress",
+     "get_weight_map",
+     "resolve_allow_patterns",
+     "is_image_model",
+     "get_downloaded_size",
+     "download_shard"
+    ]
+   },
+   {
+    "path": "src/exo/shared/constants.py",
+    "batchIndex": 1,
+    "symbols": [
+     "_get_xdg_dir",
+     "_parse_colon_dirs"
+    ]
+   },
+   {
+    "path": "src/exo/shared/types/common.py",
+    "batchIndex": 3,
+    "symbols": [
+     "Id",
+     "NodeId",
+     "SystemId",
+     "ModelId",
+     "CommandId",
+     "TruncatingString",
+     "SessionId",
+     "Host"
+    ]
+   },
+   {
+    "path": "src/exo/shared/types/text_generation.py",
+    "batchIndex": 6,
+    "symbols": [
+     "resolve_reasoning_params",
+     "InputMessageContent",
+     "InputMessage",
+     "Base64Image",
+     "Base64ImageHash",
+     "_wrap_chat_value",
+     "TextGenerationTaskParams"
+    ]
+   },
+   {
+    "path": "src/exo/worker/engines/mlx/cache.py",
+    "batchIndex": 6,
+    "symbols": [
+     "_default_memory_threshold",
+     "CacheSnapshot",
+     "_detached_copy",
+     "copy_rotating_kv_cache",
+     "_copy_arrays_cache",
+     "_copy_cache_list",
+     "_detached_copy_or_none",
+     "_copy_compressor_branch",
+     "_copy_v4_cache",
+     "copy_snapshot_entry",
+     "snapshot_ssm_states",
+     "_find_nearest_snapshot",
+     "is_non_trimmable_cache_entry",
+     "has_non_kv_caches",
+     "KVPrefixCache",
+     "trim_cache",
+     "encode_prompt",
+     "_entry_length",
+     "cache_length",
+     "get_prefix_length",
+     "get_available_memory",
+     "get_memory_used_percentage",
+     "make_kv_cache"
+    ]
+   },
+   {
+    "path": "src/exo/worker/engines/mlx/generator/generate.py",
+    "batchIndex": 6,
+    "symbols": [
+     "patch_embed_tokens",
+     "PrefillCancelled",
+     "_has_pipeline_communication_layer",
+     "pipeline_parallel_prefill",
+     "prefill",
+     "warmup_inference",
+     "ban_token_ids",
+     "eos_ids_from_tokenizer",
+     "extract_top_logprobs",
+     "mlx_generate"
+    ]
+   }
+  ],
+  "src/exo/worker/tests/unittests/test_runner/test_dsml_e2e.py": [
+   {
+    "path": "src/exo/shared/types/common.py",
+    "batchIndex": 3,
+    "symbols": [
+     "Id",
+     "NodeId",
+     "SystemId",
+     "ModelId",
+     "CommandId",
+     "TruncatingString",
+     "SessionId",
+     "Host"
+    ]
+   },
+   {
+    "path": "src/exo/shared/types/worker/runner_response.py",
+    "batchIndex": 6,
+    "symbols": [
+     "BaseRunnerResponse",
+     "GenerationResponse",
+     "ImageGenerationResponse",
+     "PartialImageResponse",
+     "ToolCallResponse",
+     "FinishedResponse",
+     "ModelLoadingResponse",
+     "CancelledResponse",
+     "PrefillProgressResponse"
+    ]
+   }
+  ],
+  "src/exo/worker/tests/unittests/test_runner/test_finish_reason_sse.py": [
+   {
+    "path": "src/exo/api/types/__init__.py",
+    "batchIndex": 3,
+    "symbols": []
+   },
+   {
+    "path": "src/exo/shared/types/worker/runner_response.py",
+    "batchIndex": 6,
+    "symbols": [
+     "BaseRunnerResponse",
+     "GenerationResponse",
+     "ImageGenerationResponse",
+     "PartialImageResponse",
+     "ToolCallResponse",
+     "FinishedResponse",
+     "ModelLoadingResponse",
+     "CancelledResponse",
+     "PrefillProgressResponse"
+    ]
+   }
+  ],
+  "src/exo/worker/tests/unittests/test_runner/test_parse_gpt_oss.py": [
+   {
+    "path": "src/exo/api/types/__init__.py",
+    "batchIndex": 3,
+    "symbols": []
+   },
+   {
+    "path": "src/exo/shared/types/worker/runner_response.py",
+    "batchIndex": 6,
+    "symbols": [
+     "BaseRunnerResponse",
+     "GenerationResponse",
+     "ImageGenerationResponse",
+     "PartialImageResponse",
+     "ToolCallResponse",
+     "FinishedResponse",
+     "ModelLoadingResponse",
+     "CancelledResponse",
+     "PrefillProgressResponse"
+    ]
+   }
+  ],
+  "src/exo/worker/tests/unittests/test_runner/test_parse_tool_calls.py": [
+   {
+    "path": "src/exo/shared/types/worker/runner_response.py",
+    "batchIndex": 6,
+    "symbols": [
+     "BaseRunnerResponse",
+     "GenerationResponse",
+     "ImageGenerationResponse",
+     "PartialImageResponse",
+     "ToolCallResponse",
+     "FinishedResponse",
+     "ModelLoadingResponse",
+     "CancelledResponse",
+     "PrefillProgressResponse"
+    ]
+   }
+  ],
+  "src/exo/worker/tests/unittests/test_runner/test_serve_prefill.py": [
+   {
+    "path": "src/exo/worker/disaggregated/protocol.py",
+    "batchIndex": 6,
+    "symbols": [
+     "ProtocolError",
+     "Header",
+     "TensorBlob",
+     "KVChunk",
+     "ArraysState",
+     "Done",
+     "ErrorMessage",
+     "_read_exactly",
+     "write_frame",
+     "read_frame",
+     "write_header",
+     "read_header",
+     "write_message",
+     "read_message",
+     "write_kv_chunk",
+     "write_arrays_state",
+     "write_done",
+     "write_error"
+    ]
+   },
+   {
+    "path": "src/exo/worker/disaggregated/server.py",
+    "batchIndex": 6,
+    "symbols": [
+     "PrefillRequest",
+     "write_request",
+     "read_request",
+     "_send_error",
+     "_PrefillHandler",
+     "PrefillServer"
+    ]
+   },
+   {
+    "path": "src/exo/worker/engines/mlx/cache.py",
+    "batchIndex": 6,
+    "symbols": [
+     "_default_memory_threshold",
+     "CacheSnapshot",
+     "_detached_copy",
+     "copy_rotating_kv_cache",
+     "_copy_arrays_cache",
+     "_copy_cache_list",
+     "_detached_copy_or_none",
+     "_copy_compressor_branch",
+     "_copy_v4_cache",
+     "copy_snapshot_entry",
+     "snapshot_ssm_states",
+     "_find_nearest_snapshot",
+     "is_non_trimmable_cache_entry",
+     "has_non_kv_caches",
+     "KVPrefixCache",
+     "trim_cache",
+     "encode_prompt",
+     "_entry_length",
+     "cache_length",
+     "get_prefix_length",
+     "get_available_memory",
+     "get_memory_used_percentage",
+     "make_kv_cache"
+    ]
+   },
+   {
+    "path": "src/exo/worker/engines/mlx/disaggregated/adapter.py",
+    "batchIndex": 6,
+    "symbols": [
+     "mx_dtype_to_str",
+     "wire_dtype_from_cache",
+     "str_to_mx_dtype",
+     "array_to_bytes",
+     "bytes_to_array",
+     "bhsd_to_nhd",
+     "nhd_to_bhsd",
+     "send_mlx_kv_cache",
+     "chunk_to_mlx_nhd",
+     "blob_to_mlx",
+     "inject_kv_chunk",
+     "inject_rotating_kv_chunk",
+     "inject_arrays_cache",
+     "write_cache_to_wire"
+    ]
+   },
+   {
+    "path": "src/exo/worker/engines/mlx/disaggregated/serve.py",
+    "batchIndex": 6,
+    "symbols": [
+     "run_prefill_for_request"
+    ]
+   }
+  ]
+ }
+}

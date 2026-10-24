@@ -1,0 +1,182 @@
+{
+ "projectRoot": "/Users/chris/Documents/GitHub/exo",
+ "batchFiles": [
+  {
+   "path": "src/exo/worker/runner/__init__.py",
+   "language": "python",
+   "sizeLines": 0,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/worker/runner/image_models/__init__.py",
+   "language": "python",
+   "sizeLines": 0,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/worker/runner/llm_inference/__init__.py",
+   "language": "python",
+   "sizeLines": 0,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/worker/tests/TODO.tests",
+   "language": "tests",
+   "sizeLines": 57,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/worker/tests/__init__.py",
+   "language": "python",
+   "sizeLines": 0,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/worker/tests/unittests/__init__.py",
+   "language": "python",
+   "sizeLines": 0,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/worker/tests/unittests/test_download/__init__.py",
+   "language": "python",
+   "sizeLines": 0,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/worker/tests/unittests/test_image/__init__.py",
+   "language": "python",
+   "sizeLines": 0,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/worker/tests/unittests/test_mlx/__init__.py",
+   "language": "python",
+   "sizeLines": 0,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/worker/tests/unittests/test_mlx/test_tp_bit_exact.py",
+   "language": "python",
+   "sizeLines": 431,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/worker/tests/unittests/test_plan/__init__.py",
+   "language": "python",
+   "sizeLines": 0,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/worker/tests/unittests/test_runner/__init__.py",
+   "language": "python",
+   "sizeLines": 0,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/worker/tests/unittests/test_runner/test_glm_tool_parsing.py",
+   "language": "python",
+   "sizeLines": 110,
+   "fileCategory": "code"
+  },
+  {
+   "path": "tests/__init__.py",
+   "language": "python",
+   "sizeLines": 0,
+   "fileCategory": "code"
+  },
+  {
+   "path": "tests/test_dashboard.py",
+   "language": "python",
+   "sizeLines": 102,
+   "fileCategory": "code"
+  },
+  {
+   "path": "tmp/config_examples/claude_code.sh",
+   "language": "shell",
+   "sizeLines": 8,
+   "fileCategory": "script"
+  },
+  {
+   "path": "tmp/config_examples/opencode.json",
+   "language": "json",
+   "sizeLines": 18,
+   "fileCategory": "config"
+  },
+  {
+   "path": "tmp/gen_card.py",
+   "language": "python",
+   "sizeLines": 33,
+   "fileCategory": "code"
+  },
+  {
+   "path": "tmp/old_tests/auto_bench.sh",
+   "language": "shell",
+   "sizeLines": 55,
+   "fileCategory": "script"
+  },
+  {
+   "path": "tmp/old_tests/eval_tool_calls.sh",
+   "language": "shell",
+   "sizeLines": 55,
+   "fileCategory": "script"
+  },
+  {
+   "path": "tmp/old_tests/get_all_models_on_cluster.py",
+   "language": "python",
+   "sizeLines": 36,
+   "fileCategory": "code"
+  },
+  {
+   "path": "tmp/old_tests/test_vision_cache.py",
+   "language": "python",
+   "sizeLines": 63,
+   "fileCategory": "code"
+  },
+  {
+   "path": "tmp/quantize_and_upload.py",
+   "language": "python",
+   "sizeLines": 377,
+   "fileCategory": "code"
+  },
+  {
+   "path": "tmp/run_llm.py",
+   "language": "python",
+   "sizeLines": 86,
+   "fileCategory": "code"
+  },
+  {
+   "path": "tools/pyproject.toml",
+   "language": "toml",
+   "sizeLines": 10,
+   "fileCategory": "config"
+  }
+ ],
+ "batchImportData": {
+  "src/exo/worker/runner/__init__.py": [],
+  "src/exo/worker/runner/image_models/__init__.py": [],
+  "src/exo/worker/runner/llm_inference/__init__.py": [],
+  "src/exo/worker/tests/TODO.tests": [],
+  "src/exo/worker/tests/__init__.py": [],
+  "src/exo/worker/tests/unittests/__init__.py": [],
+  "src/exo/worker/tests/unittests/test_download/__init__.py": [],
+  "src/exo/worker/tests/unittests/test_image/__init__.py": [],
+  "src/exo/worker/tests/unittests/test_mlx/__init__.py": [],
+  "src/exo/worker/tests/unittests/test_mlx/test_tp_bit_exact.py": [],
+  "src/exo/worker/tests/unittests/test_plan/__init__.py": [],
+  "src/exo/worker/tests/unittests/test_runner/__init__.py": [],
+  "src/exo/worker/tests/unittests/test_runner/test_glm_tool_parsing.py": [],
+  "tests/__init__.py": [],
+  "tests/test_dashboard.py": [],
+  "tmp/config_examples/claude_code.sh": [],
+  "tmp/config_examples/opencode.json": [],
+  "tmp/gen_card.py": [],
+  "tmp/old_tests/auto_bench.sh": [],
+  "tmp/old_tests/eval_tool_calls.sh": [],
+  "tmp/old_tests/get_all_models_on_cluster.py": [],
+  "tmp/old_tests/test_vision_cache.py": [],
+  "tmp/quantize_and_upload.py": [],
+  "tmp/run_llm.py": [],
+  "tools/pyproject.toml": []
+ }
+}

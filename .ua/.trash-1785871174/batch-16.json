@@ -1,0 +1,71 @@
+{
+ "nodes": [
+  {
+   "id": "document:bench/METHODOLOGY.md",
+   "type": "document",
+   "name": "METHODOLOGY.md",
+   "filePath": "bench/METHODOLOGY.md",
+   "summary": "Documentation file bench/METHODOLOGY.md.",
+   "tags": [
+    "documentation"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "config:bench/bench.toml",
+   "type": "config",
+   "name": "bench.toml",
+   "filePath": "bench/bench.toml",
+   "summary": "Configuration file bench/bench.toml controlling project settings.",
+   "tags": [
+    "configuration"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "config:bench/prefill-decode.toml",
+   "type": "config",
+   "name": "prefill-decode.toml",
+   "filePath": "bench/prefill-decode.toml",
+   "summary": "Configuration file bench/prefill-decode.toml controlling project settings.",
+   "tags": [
+    "configuration"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "config:bench/pyproject.toml",
+   "type": "config",
+   "name": "pyproject.toml",
+   "filePath": "bench/pyproject.toml",
+   "summary": "Configuration file bench/pyproject.toml controlling project settings.",
+   "tags": [
+    "configuration"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "config:bench/scenarios.toml",
+   "type": "config",
+   "name": "scenarios.toml",
+   "filePath": "bench/scenarios.toml",
+   "summary": "Configuration file bench/scenarios.toml controlling project settings.",
+   "tags": [
+    "configuration"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "config:bench/single-m3-ultra.toml",
+   "type": "config",
+   "name": "single-m3-ultra.toml",
+   "filePath": "bench/single-m3-ultra.toml",
+   "summary": "Configuration file bench/single-m3-ultra.toml controlling project settings.",
+   "tags": [
+    "configuration"
+   ],
+   "complexity": "moderate"
+  }
+ ],
+ "edges": []
+}

@@ -1,0 +1,917 @@
+{
+ "nodes": [
+  {
+   "id": "file:src/exo/shared/tests/test_apply/test_apply_rdma_gating.py",
+   "type": "file",
+   "name": "test_apply_rdma_gating.py",
+   "filePath": "src/exo/shared/tests/test_apply/test_apply_rdma_gating.py",
+   "summary": "Tests that Thunderbolt topology connections are gated to RDMA edges only when both endpoints have rdma_ctl enabled, purging stale RDMA edges otherwise.",
+   "tags": [
+    "test",
+    "rdma",
+    "apply",
+    "topology",
+    "thunderbolt"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:src/exo/shared/tests/test_apply/test_apply_rdma_gating.py:_make_state_with_thunderbolt_idents",
+   "type": "function",
+   "name": "_make_state_with_thunderbolt_idents",
+   "filePath": "src/exo/shared/tests/test_apply/test_apply_rdma_gating.py",
+   "lineRange": [
+    24,
+    39
+   ],
+   "summary": "Builds a state with Thunderbolt identifiers for gating tests.",
+   "tags": [
+    "test",
+    "setup"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/shared/tests/test_apply/test_apply_rdma_gating.py:_has_rdma_edge",
+   "type": "function",
+   "name": "_has_rdma_edge",
+   "filePath": "src/exo/shared/tests/test_apply/test_apply_rdma_gating.py",
+   "lineRange": [
+    42,
+    46
+   ],
+   "summary": "Checks whether an RDMA edge exists between two nodes.",
+   "tags": [
+    "test",
+    "helper"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/shared/tests/test_apply/test_apply_rdma_gating.py:test_mac_thunderbolt_connections_emits_rdma_when_both_endpoints_enabled",
+   "type": "function",
+   "name": "test_mac_thunderbolt_connections_emits_rdma_when_both_endpoints_enabled",
+   "filePath": "src/exo/shared/tests/test_apply/test_apply_rdma_gating.py",
+   "lineRange": [
+    49,
+    71
+   ],
+   "summary": "Tests RDMA edges when both endpoints have rdma_ctl enabled.",
+   "tags": [
+    "test",
+    "rdma"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:src/exo/shared/tests/test_apply/test_apply_rdma_gating.py:test_mac_thunderbolt_connections_skips_rdma_when_source_rdma_ctl_disabled",
+   "type": "function",
+   "name": "test_mac_thunderbolt_connections_skips_rdma_when_source_rdma_ctl_disabled",
+   "filePath": "src/exo/shared/tests/test_apply/test_apply_rdma_gating.py",
+   "lineRange": [
+    74,
+    96
+   ],
+   "summary": "Tests RDMA skipped when the source has rdma_ctl disabled.",
+   "tags": [
+    "test",
+    "rdma"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:src/exo/shared/tests/test_apply/test_apply_rdma_gating.py:test_mac_thunderbolt_connections_skips_rdma_when_sink_rdma_ctl_disabled",
+   "type": "function",
+   "name": "test_mac_thunderbolt_connections_skips_rdma_when_sink_rdma_ctl_disabled",
+   "filePath": "src/exo/shared/tests/test_apply/test_apply_rdma_gating.py",
+   "lineRange": [
+    99,
+    121
+   ],
+   "summary": "Tests RDMA skipped when the sink has rdma_ctl disabled.",
+   "tags": [
+    "test",
+    "rdma"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:src/exo/shared/tests/test_apply/test_apply_rdma_gating.py:test_mac_thunderbolt_connections_skips_rdma_when_rdma_ctl_status_missing",
+   "type": "function",
+   "name": "test_mac_thunderbolt_connections_skips_rdma_when_rdma_ctl_status_missing",
+   "filePath": "src/exo/shared/tests/test_apply/test_apply_rdma_gating.py",
+   "lineRange": [
+    124,
+    147
+   ],
+   "summary": "Tests RDMA skipped when rdma_ctl status is missing.",
+   "tags": [
+    "test",
+    "rdma"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:src/exo/shared/tests/test_apply/test_apply_rdma_gating.py:test_rdma_ctl_status_disabled_purges_existing_rdma_edges",
+   "type": "function",
+   "name": "test_rdma_ctl_status_disabled_purges_existing_rdma_edges",
+   "filePath": "src/exo/shared/tests/test_apply/test_apply_rdma_gating.py",
+   "lineRange": [
+    150,
+    197
+   ],
+   "summary": "Tests that disabled rdma_ctl purges existing RDMA edges.",
+   "tags": [
+    "test",
+    "rdma"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:src/exo/shared/tests/test_apply/test_apply_rdma_gating.py:test_topology_remove_all_rdma_connections_touching_keeps_socket_edges",
+   "type": "function",
+   "name": "test_topology_remove_all_rdma_connections_touching_keeps_socket_edges",
+   "filePath": "src/exo/shared/tests/test_apply/test_apply_rdma_gating.py",
+   "lineRange": [
+    200,
+    231
+   ],
+   "summary": "Tests removing RDMA connections keeps socket edges intact.",
+   "tags": [
+    "test",
+    "rdma",
+    "topology"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:src/exo/shared/tests/test_state_serialization.py",
+   "type": "file",
+   "name": "test_state_serialization.py",
+   "filePath": "src/exo/shared/tests/test_state_serialization.py",
+   "summary": "Round-trip serialization test for the cluster State object.",
+   "tags": [
+    "test",
+    "serialization",
+    "state"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/shared/tests/test_state_serialization.py:test_state_serialization_roundtrip",
+   "type": "function",
+   "name": "test_state_serialization_roundtrip",
+   "filePath": "src/exo/shared/tests/test_state_serialization.py",
+   "lineRange": [
+    7,
+    35
+   ],
+   "summary": "Serializes and deserializes cluster state, verifying equality.",
+   "tags": [
+    "test",
+    "serialization"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:src/exo/shared/topology.py",
+   "type": "file",
+   "name": "topology.py",
+   "filePath": "src/exo/shared/topology.py",
+   "summary": "Directed graph of cluster node connectivity built on rustworkx, supporting node/edge CRUD, leaf detection, snapshot round-trips, and RDMA/socket connection queries used by master placement.",
+   "tags": [
+    "topology",
+    "graph",
+    "master",
+    "network",
+    "data-model"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "function:src/exo/shared/topology.py:_get_ips_with_interface_type",
+   "type": "function",
+   "name": "_get_ips_with_interface_type",
+   "filePath": "src/exo/shared/topology.py",
+   "lineRange": [
+    311,
+    323
+   ],
+   "summary": "Lists IPs with their interface types for a node's network info.",
+   "tags": [
+    "network",
+    "utility"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/shared/topology.py:TopologySnapshot",
+   "type": "class",
+   "name": "TopologySnapshot",
+   "filePath": "src/exo/shared/topology.py",
+   "lineRange": [
+    23,
+    29
+   ],
+   "summary": "Immutable serializable snapshot of topology nodes and connections.",
+   "tags": [
+    "topology",
+    "type-definition"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/shared/topology.py:Topology",
+   "type": "class",
+   "name": "Topology",
+   "filePath": "src/exo/shared/topology.py",
+   "lineRange": [
+    33,
+    308
+   ],
+   "summary": "Rustworkx-backed directed graph of node connections with node/edge CRUD, leaf detection, neighbor queries, and snapshot serialization.",
+   "tags": [
+    "topology",
+    "graph",
+    "data-model"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "file:src/exo/shared/types/multiaddr.py",
+   "type": "file",
+   "name": "multiaddr.py",
+   "filePath": "src/exo/shared/types/multiaddr.py",
+   "summary": "Pydantic model for multiaddr network addresses validating /ip4, /ip6, and /dns forms and exposing parsed address components.",
+   "tags": [
+    "type-definition",
+    "network",
+    "multiaddr",
+    "validation"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/shared/types/multiaddr.py:Multiaddr",
+   "type": "class",
+   "name": "Multiaddr",
+   "filePath": "src/exo/shared/types/multiaddr.py",
+   "lineRange": [
+    7,
+    69
+   ],
+   "summary": "Frozen Pydantic model validating multiaddr strings and exposing address type, IP, port, and host components.",
+   "tags": [
+    "type-definition",
+    "network",
+    "validation"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:src/exo/shared/types/profiling.py",
+   "type": "file",
+   "name": "profiling.py",
+   "filePath": "src/exo/shared/types/profiling.py",
+   "summary": "Frozen Pydantic models for node profiling data: memory and disk usage, system performance, network interfaces, node identity, and Thunderbolt/RDMA status.",
+   "tags": [
+    "type-definition",
+    "profiling",
+    "data-model",
+    "monitoring"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "class:src/exo/shared/types/profiling.py:MemoryUsage",
+   "type": "class",
+   "name": "MemoryUsage",
+   "filePath": "src/exo/shared/types/profiling.py",
+   "lineRange": [
+    13,
+    40
+   ],
+   "summary": "Frozen model of RAM/swap totals and availability with psutil and byte constructors.",
+   "tags": [
+    "profiling",
+    "memory",
+    "data-model"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "class:src/exo/shared/types/profiling.py:DiskUsage",
+   "type": "class",
+   "name": "DiskUsage",
+   "filePath": "src/exo/shared/types/profiling.py",
+   "lineRange": [
+    43,
+    56
+   ],
+   "summary": "Frozen model of disk total and available space for the models directory.",
+   "tags": [
+    "profiling",
+    "disk",
+    "data-model"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/shared/types/profiling.py:SystemPerformanceProfile",
+   "type": "class",
+   "name": "SystemPerformanceProfile",
+   "filePath": "src/exo/shared/types/profiling.py",
+   "lineRange": [
+    59,
+    66
+   ],
+   "summary": "Frozen model of GPU/CPU usage, temperature, and system power.",
+   "tags": [
+    "profiling",
+    "performance"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/shared/types/profiling.py:NetworkInterfaceInfo",
+   "type": "class",
+   "name": "NetworkInterfaceInfo",
+   "filePath": "src/exo/shared/types/profiling.py",
+   "lineRange": [
+    72,
+    75
+   ],
+   "summary": "Frozen model of a network interface with name, IPs, and interface type.",
+   "tags": [
+    "profiling",
+    "network"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/shared/types/profiling.py:NodeIdentity",
+   "type": "class",
+   "name": "NodeIdentity",
+   "filePath": "src/exo/shared/types/profiling.py",
+   "lineRange": [
+    78,
+    85
+   ],
+   "summary": "Frozen model identifying a node by ID, hostname, and platform info.",
+   "tags": [
+    "profiling",
+    "identity"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/shared/types/profiling.py:NodeNetworkInfo",
+   "type": "class",
+   "name": "NodeNetworkInfo",
+   "filePath": "src/exo/shared/types/profiling.py",
+   "lineRange": [
+    88,
+    91
+   ],
+   "summary": "Frozen model of node network details including interfaces and IPs.",
+   "tags": [
+    "profiling",
+    "network"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/shared/types/profiling.py:NodeThunderboltInfo",
+   "type": "class",
+   "name": "NodeThunderboltInfo",
+   "filePath": "src/exo/shared/types/profiling.py",
+   "lineRange": [
+    94,
+    97
+   ],
+   "summary": "Frozen model of node Thunderbolt interface details.",
+   "tags": [
+    "profiling",
+    "thunderbolt"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/shared/types/profiling.py:NodeRdmaCtlStatus",
+   "type": "class",
+   "name": "NodeRdmaCtlStatus",
+   "filePath": "src/exo/shared/types/profiling.py",
+   "lineRange": [
+    100,
+    103
+   ],
+   "summary": "Frozen model of rdma_ctl enablement status for a node.",
+   "tags": [
+    "profiling",
+    "rdma"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/shared/types/profiling.py:ThunderboltBridgeStatus",
+   "type": "class",
+   "name": "ThunderboltBridgeStatus",
+   "filePath": "src/exo/shared/types/profiling.py",
+   "lineRange": [
+    106,
+    111
+   ],
+   "summary": "Frozen model describing Thunderbolt bridge service status.",
+   "tags": [
+    "profiling",
+    "thunderbolt"
+   ],
+   "complexity": "simple"
+  }
+ ],
+ "edges": [
+  {
+   "source": "file:src/exo/shared/tests/test_apply/test_apply_rdma_gating.py",
+   "target": "function:src/exo/shared/tests/test_apply/test_apply_rdma_gating.py:_make_state_with_thunderbolt_idents",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/shared/tests/test_apply/test_apply_rdma_gating.py",
+   "target": "function:src/exo/shared/tests/test_apply/test_apply_rdma_gating.py:_make_state_with_thunderbolt_idents",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/shared/tests/test_apply/test_apply_rdma_gating.py",
+   "target": "function:src/exo/shared/tests/test_apply/test_apply_rdma_gating.py:_has_rdma_edge",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/shared/tests/test_apply/test_apply_rdma_gating.py",
+   "target": "function:src/exo/shared/tests/test_apply/test_apply_rdma_gating.py:_has_rdma_edge",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/shared/tests/test_apply/test_apply_rdma_gating.py",
+   "target": "function:src/exo/shared/tests/test_apply/test_apply_rdma_gating.py:test_mac_thunderbolt_connections_emits_rdma_when_both_endpoints_enabled",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/shared/tests/test_apply/test_apply_rdma_gating.py",
+   "target": "function:src/exo/shared/tests/test_apply/test_apply_rdma_gating.py:test_mac_thunderbolt_connections_emits_rdma_when_both_endpoints_enabled",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/shared/tests/test_apply/test_apply_rdma_gating.py",
+   "target": "function:src/exo/shared/tests/test_apply/test_apply_rdma_gating.py:test_mac_thunderbolt_connections_skips_rdma_when_source_rdma_ctl_disabled",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/shared/tests/test_apply/test_apply_rdma_gating.py",
+   "target": "function:src/exo/shared/tests/test_apply/test_apply_rdma_gating.py:test_mac_thunderbolt_connections_skips_rdma_when_source_rdma_ctl_disabled",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/shared/tests/test_apply/test_apply_rdma_gating.py",
+   "target": "function:src/exo/shared/tests/test_apply/test_apply_rdma_gating.py:test_mac_thunderbolt_connections_skips_rdma_when_sink_rdma_ctl_disabled",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/shared/tests/test_apply/test_apply_rdma_gating.py",
+   "target": "function:src/exo/shared/tests/test_apply/test_apply_rdma_gating.py:test_mac_thunderbolt_connections_skips_rdma_when_sink_rdma_ctl_disabled",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/shared/tests/test_apply/test_apply_rdma_gating.py",
+   "target": "function:src/exo/shared/tests/test_apply/test_apply_rdma_gating.py:test_mac_thunderbolt_connections_skips_rdma_when_rdma_ctl_status_missing",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/shared/tests/test_apply/test_apply_rdma_gating.py",
+   "target": "function:src/exo/shared/tests/test_apply/test_apply_rdma_gating.py:test_mac_thunderbolt_connections_skips_rdma_when_rdma_ctl_status_missing",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/shared/tests/test_apply/test_apply_rdma_gating.py",
+   "target": "function:src/exo/shared/tests/test_apply/test_apply_rdma_gating.py:test_rdma_ctl_status_disabled_purges_existing_rdma_edges",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/shared/tests/test_apply/test_apply_rdma_gating.py",
+   "target": "function:src/exo/shared/tests/test_apply/test_apply_rdma_gating.py:test_rdma_ctl_status_disabled_purges_existing_rdma_edges",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/shared/tests/test_apply/test_apply_rdma_gating.py",
+   "target": "function:src/exo/shared/tests/test_apply/test_apply_rdma_gating.py:test_topology_remove_all_rdma_connections_touching_keeps_socket_edges",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/shared/tests/test_apply/test_apply_rdma_gating.py",
+   "target": "function:src/exo/shared/tests/test_apply/test_apply_rdma_gating.py:test_topology_remove_all_rdma_connections_touching_keeps_socket_edges",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/shared/tests/test_apply/test_apply_rdma_gating.py",
+   "target": "file:src/exo/shared/apply.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/shared/tests/test_apply/test_apply_rdma_gating.py",
+   "target": "file:src/exo/shared/topology.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/shared/tests/test_apply/test_apply_rdma_gating.py",
+   "target": "file:src/exo/shared/types/common.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/shared/tests/test_apply/test_apply_rdma_gating.py",
+   "target": "file:src/exo/shared/types/events.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/shared/tests/test_apply/test_apply_rdma_gating.py",
+   "target": "file:src/exo/shared/types/profiling.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/shared/tests/test_apply/test_apply_rdma_gating.py",
+   "target": "file:src/exo/shared/types/state.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/shared/tests/test_apply/test_apply_rdma_gating.py",
+   "target": "file:src/exo/shared/types/thunderbolt.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/shared/tests/test_apply/test_apply_rdma_gating.py",
+   "target": "file:src/exo/shared/types/topology.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/shared/tests/test_apply/test_apply_rdma_gating.py",
+   "target": "file:src/exo/utils/info_gatherer/info_gatherer.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/shared/tests/test_state_serialization.py",
+   "target": "function:src/exo/shared/tests/test_state_serialization.py:test_state_serialization_roundtrip",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/shared/tests/test_state_serialization.py",
+   "target": "function:src/exo/shared/tests/test_state_serialization.py:test_state_serialization_roundtrip",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/shared/tests/test_state_serialization.py",
+   "target": "file:src/exo/shared/types/common.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/shared/tests/test_state_serialization.py",
+   "target": "file:src/exo/shared/types/multiaddr.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/shared/tests/test_state_serialization.py",
+   "target": "file:src/exo/shared/types/state.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/shared/tests/test_state_serialization.py",
+   "target": "file:src/exo/shared/types/topology.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/shared/topology.py",
+   "target": "function:src/exo/shared/topology.py:_get_ips_with_interface_type",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/shared/topology.py",
+   "target": "function:src/exo/shared/topology.py:_get_ips_with_interface_type",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/shared/topology.py",
+   "target": "class:src/exo/shared/topology.py:TopologySnapshot",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/shared/topology.py",
+   "target": "class:src/exo/shared/topology.py:TopologySnapshot",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/shared/topology.py",
+   "target": "class:src/exo/shared/topology.py:Topology",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/shared/topology.py",
+   "target": "class:src/exo/shared/topology.py:Topology",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/shared/topology.py",
+   "target": "file:src/exo/shared/types/common.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/shared/topology.py",
+   "target": "file:src/exo/shared/types/profiling.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/shared/topology.py",
+   "target": "file:src/exo/shared/types/topology.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/shared/topology.py",
+   "target": "file:src/exo/master/tests/test_topology.py",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  },
+  {
+   "source": "file:src/exo/shared/topology.py",
+   "target": "file:src/exo/master/tests/test_placement.py",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  },
+  {
+   "source": "file:src/exo/shared/types/multiaddr.py",
+   "target": "class:src/exo/shared/types/multiaddr.py:Multiaddr",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/shared/types/multiaddr.py",
+   "target": "class:src/exo/shared/types/multiaddr.py:Multiaddr",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/shared/types/profiling.py",
+   "target": "class:src/exo/shared/types/profiling.py:MemoryUsage",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/shared/types/profiling.py",
+   "target": "class:src/exo/shared/types/profiling.py:MemoryUsage",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/shared/types/profiling.py",
+   "target": "class:src/exo/shared/types/profiling.py:DiskUsage",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/shared/types/profiling.py",
+   "target": "class:src/exo/shared/types/profiling.py:DiskUsage",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/shared/types/profiling.py",
+   "target": "class:src/exo/shared/types/profiling.py:SystemPerformanceProfile",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/shared/types/profiling.py",
+   "target": "class:src/exo/shared/types/profiling.py:SystemPerformanceProfile",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/shared/types/profiling.py",
+   "target": "class:src/exo/shared/types/profiling.py:NetworkInterfaceInfo",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/shared/types/profiling.py",
+   "target": "class:src/exo/shared/types/profiling.py:NetworkInterfaceInfo",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/shared/types/profiling.py",
+   "target": "class:src/exo/shared/types/profiling.py:NodeIdentity",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/shared/types/profiling.py",
+   "target": "class:src/exo/shared/types/profiling.py:NodeIdentity",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/shared/types/profiling.py",
+   "target": "class:src/exo/shared/types/profiling.py:NodeNetworkInfo",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/shared/types/profiling.py",
+   "target": "class:src/exo/shared/types/profiling.py:NodeNetworkInfo",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/shared/types/profiling.py",
+   "target": "class:src/exo/shared/types/profiling.py:NodeThunderboltInfo",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/shared/types/profiling.py",
+   "target": "class:src/exo/shared/types/profiling.py:NodeThunderboltInfo",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/shared/types/profiling.py",
+   "target": "class:src/exo/shared/types/profiling.py:NodeRdmaCtlStatus",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/shared/types/profiling.py",
+   "target": "class:src/exo/shared/types/profiling.py:NodeRdmaCtlStatus",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/shared/types/profiling.py",
+   "target": "class:src/exo/shared/types/profiling.py:ThunderboltBridgeStatus",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/shared/types/profiling.py",
+   "target": "class:src/exo/shared/types/profiling.py:ThunderboltBridgeStatus",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/shared/types/profiling.py",
+   "target": "file:src/exo/shared/types/memory.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/shared/types/profiling.py",
+   "target": "file:src/exo/shared/types/thunderbolt.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/shared/types/profiling.py",
+   "target": "file:src/exo/utils/pydantic_ext.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "class:src/exo/shared/types/profiling.py:MemoryUsage",
+   "target": "class:src/exo/utils/pydantic_ext.py:FrozenModel",
+   "type": "inherits",
+   "direction": "forward",
+   "weight": 0.9
+  },
+  {
+   "source": "class:src/exo/shared/types/profiling.py:DiskUsage",
+   "target": "class:src/exo/utils/pydantic_ext.py:FrozenModel",
+   "type": "inherits",
+   "direction": "forward",
+   "weight": 0.9
+  },
+  {
+   "source": "class:src/exo/shared/types/profiling.py:SystemPerformanceProfile",
+   "target": "class:src/exo/utils/pydantic_ext.py:FrozenModel",
+   "type": "inherits",
+   "direction": "forward",
+   "weight": 0.9
+  },
+  {
+   "source": "class:src/exo/shared/types/profiling.py:NodeNetworkInfo",
+   "target": "class:src/exo/utils/pydantic_ext.py:FrozenModel",
+   "type": "inherits",
+   "direction": "forward",
+   "weight": 0.9
+  }
+ ]
+}

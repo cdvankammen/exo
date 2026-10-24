@@ -1,0 +1,31 @@
+{
+ "projectRoot": "/Users/chris/Documents/GitHub/exo",
+ "batchFiles": [
+  {
+   "path": "rust/networking/src/discovery.rs",
+   "language": "rust",
+   "sizeLines": 339,
+   "fileCategory": "code"
+  },
+  {
+   "path": "rust/networking/src/lib.rs",
+   "language": "rust",
+   "sizeLines": 116,
+   "fileCategory": "code"
+  },
+  {
+   "path": "rust/networking/src/swarm.rs",
+   "language": "rust",
+   "sizeLines": 208,
+   "fileCategory": "code"
+  }
+ ],
+ "batchImportData": {
+  "rust/networking/src/discovery.rs": [],
+  "rust/networking/src/lib.rs": [
+   "rust/networking/src/discovery.rs",
+   "rust/networking/src/swarm.rs"
+  ],
+  "rust/networking/src/swarm.rs": []
+ }
+}

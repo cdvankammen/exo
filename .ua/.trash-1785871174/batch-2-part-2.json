@@ -1,0 +1,1149 @@
+{
+ "nodes": [
+  {
+   "id": "file:src/exo/shared/types/instance_link.py",
+   "type": "file",
+   "name": "instance_link.py",
+   "filePath": "src/exo/shared/types/instance_link.py",
+   "summary": "Pydantic types for prefill/decode instance links (InstanceLinkId, InstanceLink).",
+   "tags": [
+    "data-model",
+    "type-definition",
+    "topology"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:src/exo/shared/types/state.py",
+   "type": "file",
+   "name": "state.py",
+   "filePath": "src/exo/shared/types/state.py",
+   "summary": "Immutable global cluster State model aggregating nodes, instances, runners, tasks, downloads, topology, and model cards.",
+   "tags": [
+    "data-model",
+    "state",
+    "event-sourcing"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:src/exo/shared/types/tasks.py",
+   "type": "file",
+   "name": "tasks.py",
+   "filePath": "src/exo/shared/types/tasks.py",
+   "summary": "Task vocabulary: tagged union of worker/master task types (create runner, download, load, warmup, generate, cancel, shutdown).",
+   "tags": [
+    "data-model",
+    "tasks",
+    "type-definition"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:src/exo/shared/types/worker/instances.py",
+   "type": "file",
+   "name": "instances.py",
+   "filePath": "src/exo/shared/types/worker/instances.py",
+   "summary": "Instance types: MLX ring/jaccl distributed instances and BoundInstance tying an instance to a runner and node.",
+   "tags": [
+    "data-model",
+    "instances",
+    "type-definition"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:src/exo/shared/types/worker/runners.py",
+   "type": "file",
+   "name": "runners.py",
+   "filePath": "src/exo/shared/types/worker/runners.py",
+   "summary": "Runner state-machine types (RunnerStatus tagged union) and ShardAssignments mapping runners to shards.",
+   "tags": [
+    "data-model",
+    "runners",
+    "type-definition"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:src/exo/utils/fs.py",
+   "type": "file",
+   "name": "fs.py",
+   "filePath": "src/exo/utils/fs.py",
+   "summary": "Small filesystem helpers (delete, ensure directories, temp paths) used across exo.",
+   "tags": [
+    "utility",
+    "filesystem"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/shared/types/instance_link.py:InstanceLinkId",
+   "type": "class",
+   "name": "InstanceLinkId",
+   "filePath": "src/exo/shared/types/instance_link.py",
+   "lineRange": [
+    6,
+    7
+   ],
+   "summary": "Newtype identifier for instance links.",
+   "tags": [
+    "data-model",
+    "type-definition"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/shared/types/instance_link.py:InstanceLink",
+   "type": "class",
+   "name": "InstanceLink",
+   "filePath": "src/exo/shared/types/instance_link.py",
+   "lineRange": [
+    10,
+    13
+   ],
+   "summary": "Links prefill and decode instance IDs for disaggregated serving.",
+   "tags": [
+    "data-model",
+    "topology"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/shared/types/state.py:State",
+   "type": "class",
+   "name": "State",
+   "filePath": "src/exo/shared/types/state.py",
+   "lineRange": [
+    30,
+    94
+   ],
+   "summary": "Immutable global system state aggregating nodes, instances, runners, tasks, downloads, topology, and model cards.",
+   "tags": [
+    "data-model",
+    "state"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "class:src/exo/shared/types/tasks.py:TaskStatus",
+   "type": "class",
+   "name": "TaskStatus",
+   "filePath": "src/exo/shared/types/tasks.py",
+   "lineRange": [
+    24,
+    30
+   ],
+   "summary": "Enum of task lifecycle states (Pending, Running, Complete, TimedOut, Failed, Cancelled).",
+   "tags": [
+    "data-model",
+    "tasks"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/shared/types/tasks.py:BaseTask",
+   "type": "class",
+   "name": "BaseTask",
+   "filePath": "src/exo/shared/types/tasks.py",
+   "lineRange": [
+    33,
+    36
+   ],
+   "summary": "Base tagged task with task_id, task_status, and instance_id.",
+   "tags": [
+    "data-model",
+    "tasks"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/shared/types/tasks.py:CreateRunner",
+   "type": "class",
+   "name": "CreateRunner",
+   "filePath": "src/exo/shared/types/tasks.py",
+   "lineRange": [
+    39,
+    40
+   ],
+   "summary": "Worker-emitted task requesting a runner be created for a bound instance.",
+   "tags": [
+    "data-model",
+    "tasks"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/shared/types/tasks.py:DownloadModel",
+   "type": "class",
+   "name": "DownloadModel",
+   "filePath": "src/exo/shared/types/tasks.py",
+   "lineRange": [
+    43,
+    44
+   ],
+   "summary": "Worker-emitted task requesting a model shard be downloaded.",
+   "tags": [
+    "data-model",
+    "tasks"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/shared/types/tasks.py:TextGeneration",
+   "type": "class",
+   "name": "TextGeneration",
+   "filePath": "src/exo/shared/types/tasks.py",
+   "lineRange": [
+    59,
+    64
+   ],
+   "summary": "Master-emitted text generation task with command ID and task params.",
+   "tags": [
+    "data-model",
+    "tasks"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/shared/types/tasks.py:CancelTask",
+   "type": "class",
+   "name": "CancelTask",
+   "filePath": "src/exo/shared/types/tasks.py",
+   "lineRange": [
+    67,
+    69
+   ],
+   "summary": "Task requesting cancellation of another task on a runner.",
+   "tags": [
+    "data-model",
+    "tasks"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/shared/types/tasks.py:ImageGeneration",
+   "type": "class",
+   "name": "ImageGeneration",
+   "filePath": "src/exo/shared/types/tasks.py",
+   "lineRange": [
+    72,
+    77
+   ],
+   "summary": "Master-emitted image generation task with command ID and task params.",
+   "tags": [
+    "data-model",
+    "tasks"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/shared/types/tasks.py:ImageEdits",
+   "type": "class",
+   "name": "ImageEdits",
+   "filePath": "src/exo/shared/types/tasks.py",
+   "lineRange": [
+    80,
+    85
+   ],
+   "summary": "Master-emitted image editing task with command ID and task params.",
+   "tags": [
+    "data-model",
+    "tasks"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/shared/types/tasks.py:Shutdown",
+   "type": "class",
+   "name": "Shutdown",
+   "filePath": "src/exo/shared/types/tasks.py",
+   "lineRange": [
+    88,
+    89
+   ],
+   "summary": "Worker-emitted task requesting a runner be shut down.",
+   "tags": [
+    "data-model",
+    "tasks"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/shared/types/worker/instances.py:InstanceMeta",
+   "type": "class",
+   "name": "InstanceMeta",
+   "filePath": "src/exo/shared/types/worker/instances.py",
+   "lineRange": [
+    15,
+    17
+   ],
+   "summary": "Enum of distributed instance types (MlxRing, MlxJaccl).",
+   "tags": [
+    "data-model",
+    "instances"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/shared/types/worker/instances.py:BaseInstance",
+   "type": "class",
+   "name": "BaseInstance",
+   "filePath": "src/exo/shared/types/worker/instances.py",
+   "lineRange": [
+    20,
+    25
+   ],
+   "summary": "Base tagged instance with instance_id and shard assignments.",
+   "tags": [
+    "data-model",
+    "instances"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/shared/types/worker/instances.py:MlxRingInstance",
+   "type": "class",
+   "name": "MlxRingInstance",
+   "filePath": "src/exo/shared/types/worker/instances.py",
+   "lineRange": [
+    28,
+    30
+   ],
+   "summary": "MLX ring distributed instance with host and port topology.",
+   "tags": [
+    "data-model",
+    "instances"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/shared/types/worker/instances.py:MlxJacclInstance",
+   "type": "class",
+   "name": "MlxJacclInstance",
+   "filePath": "src/exo/shared/types/worker/instances.py",
+   "lineRange": [
+    33,
+    35
+   ],
+   "summary": "MLX JACCL distributed instance with jaccl device matrix and coordinators.",
+   "tags": [
+    "data-model",
+    "instances"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/shared/types/worker/instances.py:BoundInstance",
+   "type": "class",
+   "name": "BoundInstance",
+   "filePath": "src/exo/shared/types/worker/instances.py",
+   "lineRange": [
+    42,
+    67
+   ],
+   "summary": "Binds an instance to a specific runner and node, exposing shard and image-model helpers.",
+   "tags": [
+    "data-model",
+    "instances"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/shared/types/worker/runners.py:BaseRunnerStatus",
+   "type": "class",
+   "name": "BaseRunnerStatus",
+   "filePath": "src/exo/shared/types/worker/runners.py",
+   "lineRange": [
+    20,
+    22
+   ],
+   "summary": "Base tagged runner status with an is_running helper.",
+   "tags": [
+    "data-model",
+    "runners"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/shared/types/worker/runners.py:RunnerLoading",
+   "type": "class",
+   "name": "RunnerLoading",
+   "filePath": "src/exo/shared/types/worker/runners.py",
+   "lineRange": [
+    37,
+    39
+   ],
+   "summary": "Runner status while loading layers, tracking progress.",
+   "tags": [
+    "data-model",
+    "runners"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/shared/types/worker/runners.py:RunnerReady",
+   "type": "class",
+   "name": "RunnerReady",
+   "filePath": "src/exo/shared/types/worker/runners.py",
+   "lineRange": [
+    50,
+    51
+   ],
+   "summary": "Runner status when ready, with optional prefill server port.",
+   "tags": [
+    "data-model",
+    "runners"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/shared/types/worker/runners.py:RunnerFailed",
+   "type": "class",
+   "name": "RunnerFailed",
+   "filePath": "src/exo/shared/types/worker/runners.py",
+   "lineRange": [
+    66,
+    68
+   ],
+   "summary": "Runner status on failure with error message and diagnostics.",
+   "tags": [
+    "data-model",
+    "runners"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/shared/types/worker/runners.py:ShardAssignments",
+   "type": "class",
+   "name": "ShardAssignments",
+   "filePath": "src/exo/shared/types/worker/runners.py",
+   "lineRange": [
+    86,
+    98
+   ],
+   "summary": "Maps runners to shards and nodes to runners for an instance, with consistency validation.",
+   "tags": [
+    "data-model",
+    "runners"
+   ],
+   "complexity": "simple"
+  }
+ ],
+ "edges": [
+  {
+   "source": "file:src/exo/shared/types/instance_link.py",
+   "target": "class:src/exo/shared/types/instance_link.py:InstanceLinkId",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/shared/types/instance_link.py",
+   "target": "class:src/exo/shared/types/instance_link.py:InstanceLinkId",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/shared/types/instance_link.py",
+   "target": "class:src/exo/shared/types/instance_link.py:InstanceLink",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/shared/types/instance_link.py",
+   "target": "class:src/exo/shared/types/instance_link.py:InstanceLink",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/shared/types/state.py",
+   "target": "class:src/exo/shared/types/state.py:State",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/shared/types/state.py",
+   "target": "class:src/exo/shared/types/state.py:State",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/shared/types/tasks.py",
+   "target": "class:src/exo/shared/types/tasks.py:TaskStatus",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/shared/types/tasks.py",
+   "target": "class:src/exo/shared/types/tasks.py:TaskStatus",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/shared/types/tasks.py",
+   "target": "class:src/exo/shared/types/tasks.py:BaseTask",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/shared/types/tasks.py",
+   "target": "class:src/exo/shared/types/tasks.py:BaseTask",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/shared/types/tasks.py",
+   "target": "class:src/exo/shared/types/tasks.py:CreateRunner",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/shared/types/tasks.py",
+   "target": "class:src/exo/shared/types/tasks.py:CreateRunner",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/shared/types/tasks.py",
+   "target": "class:src/exo/shared/types/tasks.py:DownloadModel",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/shared/types/tasks.py",
+   "target": "class:src/exo/shared/types/tasks.py:DownloadModel",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/shared/types/tasks.py",
+   "target": "class:src/exo/shared/types/tasks.py:TextGeneration",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/shared/types/tasks.py",
+   "target": "class:src/exo/shared/types/tasks.py:TextGeneration",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/shared/types/tasks.py",
+   "target": "class:src/exo/shared/types/tasks.py:CancelTask",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/shared/types/tasks.py",
+   "target": "class:src/exo/shared/types/tasks.py:CancelTask",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/shared/types/tasks.py",
+   "target": "class:src/exo/shared/types/tasks.py:ImageGeneration",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/shared/types/tasks.py",
+   "target": "class:src/exo/shared/types/tasks.py:ImageGeneration",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/shared/types/tasks.py",
+   "target": "class:src/exo/shared/types/tasks.py:ImageEdits",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/shared/types/tasks.py",
+   "target": "class:src/exo/shared/types/tasks.py:ImageEdits",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/shared/types/tasks.py",
+   "target": "class:src/exo/shared/types/tasks.py:Shutdown",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/shared/types/tasks.py",
+   "target": "class:src/exo/shared/types/tasks.py:Shutdown",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/shared/types/worker/instances.py",
+   "target": "class:src/exo/shared/types/worker/instances.py:InstanceMeta",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/shared/types/worker/instances.py",
+   "target": "class:src/exo/shared/types/worker/instances.py:InstanceMeta",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/shared/types/worker/instances.py",
+   "target": "class:src/exo/shared/types/worker/instances.py:BaseInstance",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/shared/types/worker/instances.py",
+   "target": "class:src/exo/shared/types/worker/instances.py:BaseInstance",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/shared/types/worker/instances.py",
+   "target": "class:src/exo/shared/types/worker/instances.py:MlxRingInstance",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/shared/types/worker/instances.py",
+   "target": "class:src/exo/shared/types/worker/instances.py:MlxRingInstance",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/shared/types/worker/instances.py",
+   "target": "class:src/exo/shared/types/worker/instances.py:MlxJacclInstance",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/shared/types/worker/instances.py",
+   "target": "class:src/exo/shared/types/worker/instances.py:MlxJacclInstance",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/shared/types/worker/instances.py",
+   "target": "class:src/exo/shared/types/worker/instances.py:BoundInstance",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/shared/types/worker/instances.py",
+   "target": "class:src/exo/shared/types/worker/instances.py:BoundInstance",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/shared/types/worker/runners.py",
+   "target": "class:src/exo/shared/types/worker/runners.py:BaseRunnerStatus",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/shared/types/worker/runners.py",
+   "target": "class:src/exo/shared/types/worker/runners.py:BaseRunnerStatus",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/shared/types/worker/runners.py",
+   "target": "class:src/exo/shared/types/worker/runners.py:RunnerLoading",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/shared/types/worker/runners.py",
+   "target": "class:src/exo/shared/types/worker/runners.py:RunnerLoading",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/shared/types/worker/runners.py",
+   "target": "class:src/exo/shared/types/worker/runners.py:RunnerReady",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/shared/types/worker/runners.py",
+   "target": "class:src/exo/shared/types/worker/runners.py:RunnerReady",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/shared/types/worker/runners.py",
+   "target": "class:src/exo/shared/types/worker/runners.py:RunnerFailed",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/shared/types/worker/runners.py",
+   "target": "class:src/exo/shared/types/worker/runners.py:RunnerFailed",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/shared/types/worker/runners.py",
+   "target": "class:src/exo/shared/types/worker/runners.py:ShardAssignments",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/shared/types/worker/runners.py",
+   "target": "class:src/exo/shared/types/worker/runners.py:ShardAssignments",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "class:src/exo/shared/types/tasks.py:BaseTask",
+   "target": "class:src/exo/utils/pydantic_ext.py:TaggedModel",
+   "type": "inherits",
+   "direction": "forward",
+   "weight": 0.9
+  },
+  {
+   "source": "class:src/exo/shared/types/tasks.py:CreateRunner",
+   "target": "class:src/exo/shared/types/tasks.py:BaseTask",
+   "type": "inherits",
+   "direction": "forward",
+   "weight": 0.9
+  },
+  {
+   "source": "class:src/exo/shared/types/tasks.py:DownloadModel",
+   "target": "class:src/exo/shared/types/tasks.py:BaseTask",
+   "type": "inherits",
+   "direction": "forward",
+   "weight": 0.9
+  },
+  {
+   "source": "class:src/exo/shared/types/tasks.py:TextGeneration",
+   "target": "class:src/exo/shared/types/tasks.py:BaseTask",
+   "type": "inherits",
+   "direction": "forward",
+   "weight": 0.9
+  },
+  {
+   "source": "class:src/exo/shared/types/tasks.py:CancelTask",
+   "target": "class:src/exo/shared/types/tasks.py:BaseTask",
+   "type": "inherits",
+   "direction": "forward",
+   "weight": 0.9
+  },
+  {
+   "source": "class:src/exo/shared/types/tasks.py:ImageGeneration",
+   "target": "class:src/exo/shared/types/tasks.py:BaseTask",
+   "type": "inherits",
+   "direction": "forward",
+   "weight": 0.9
+  },
+  {
+   "source": "class:src/exo/shared/types/tasks.py:ImageEdits",
+   "target": "class:src/exo/shared/types/tasks.py:BaseTask",
+   "type": "inherits",
+   "direction": "forward",
+   "weight": 0.9
+  },
+  {
+   "source": "class:src/exo/shared/types/tasks.py:Shutdown",
+   "target": "class:src/exo/shared/types/tasks.py:BaseTask",
+   "type": "inherits",
+   "direction": "forward",
+   "weight": 0.9
+  },
+  {
+   "source": "class:src/exo/shared/types/state.py:State",
+   "target": "class:src/exo/utils/pydantic_ext.py:FrozenModel",
+   "type": "inherits",
+   "direction": "forward",
+   "weight": 0.9
+  },
+  {
+   "source": "class:src/exo/shared/types/worker/instances.py:BaseInstance",
+   "target": "class:src/exo/utils/pydantic_ext.py:TaggedModel",
+   "type": "inherits",
+   "direction": "forward",
+   "weight": 0.9
+  },
+  {
+   "source": "class:src/exo/shared/types/worker/instances.py:MlxRingInstance",
+   "target": "class:src/exo/shared/types/worker/instances.py:BaseInstance",
+   "type": "inherits",
+   "direction": "forward",
+   "weight": 0.9
+  },
+  {
+   "source": "class:src/exo/shared/types/worker/instances.py:MlxJacclInstance",
+   "target": "class:src/exo/shared/types/worker/instances.py:BaseInstance",
+   "type": "inherits",
+   "direction": "forward",
+   "weight": 0.9
+  },
+  {
+   "source": "class:src/exo/shared/types/worker/instances.py:BoundInstance",
+   "target": "class:src/exo/utils/pydantic_ext.py:FrozenModel",
+   "type": "inherits",
+   "direction": "forward",
+   "weight": 0.9
+  },
+  {
+   "source": "class:src/exo/shared/types/worker/runners.py:BaseRunnerStatus",
+   "target": "class:src/exo/utils/pydantic_ext.py:TaggedModel",
+   "type": "inherits",
+   "direction": "forward",
+   "weight": 0.9
+  },
+  {
+   "source": "class:src/exo/shared/types/worker/runners.py:RunnerLoading",
+   "target": "class:src/exo/shared/types/worker/runners.py:BaseRunnerStatus",
+   "type": "inherits",
+   "direction": "forward",
+   "weight": 0.9
+  },
+  {
+   "source": "class:src/exo/shared/types/worker/runners.py:RunnerReady",
+   "target": "class:src/exo/shared/types/worker/runners.py:BaseRunnerStatus",
+   "type": "inherits",
+   "direction": "forward",
+   "weight": 0.9
+  },
+  {
+   "source": "class:src/exo/shared/types/worker/runners.py:RunnerFailed",
+   "target": "class:src/exo/shared/types/worker/runners.py:BaseRunnerStatus",
+   "type": "inherits",
+   "direction": "forward",
+   "weight": 0.9
+  },
+  {
+   "source": "class:src/exo/shared/types/worker/runners.py:ShardAssignments",
+   "target": "class:src/exo/utils/pydantic_ext.py:FrozenModel",
+   "type": "inherits",
+   "direction": "forward",
+   "weight": 0.9
+  },
+  {
+   "source": "class:src/exo/shared/types/instance_link.py:InstanceLink",
+   "target": "class:src/exo/utils/pydantic_ext.py:FrozenModel",
+   "type": "inherits",
+   "direction": "forward",
+   "weight": 0.9
+  },
+  {
+   "source": "file:src/exo/shared/types/state.py",
+   "target": "file:src/exo/shared/tests/test_apply/test_apply_instance_link.py",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  },
+  {
+   "source": "file:src/exo/shared/types/state.py",
+   "target": "file:src/exo/shared/tests/test_apply/test_apply_node_download.py",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  },
+  {
+   "source": "file:src/exo/shared/types/state.py",
+   "target": "file:src/exo/shared/tests/test_apply/test_apply_runner_deleted.py",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  },
+  {
+   "source": "file:src/exo/shared/types/instance_link.py",
+   "target": "file:src/exo/shared/tests/test_apply/test_apply_instance_link.py",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  },
+  {
+   "source": "file:src/exo/shared/types/worker/instances.py",
+   "target": "file:src/exo/shared/tests/test_apply/test_apply_instance_link.py",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  },
+  {
+   "source": "file:src/exo/shared/types/worker/instances.py",
+   "target": "file:src/exo/shared/tests/test_apply/test_apply_node_download.py",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  },
+  {
+   "source": "file:src/exo/shared/types/worker/runners.py",
+   "target": "file:src/exo/shared/tests/test_apply/test_apply_runner_deleted.py",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  },
+  {
+   "source": "file:src/exo/shared/types/tasks.py",
+   "target": "file:src/exo/worker/tests/unittests/test_runner/test_event_ordering.py",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  },
+  {
+   "source": "file:src/exo/shared/types/tasks.py",
+   "target": "file:src/exo/worker/tests/unittests/test_runner/test_runner_supervisor.py",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  },
+  {
+   "source": "file:src/exo/shared/types/instance_link.py",
+   "target": "file:src/exo/shared/types/common.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/shared/types/instance_link.py",
+   "target": "file:src/exo/shared/types/worker/instances.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/shared/types/instance_link.py",
+   "target": "file:src/exo/utils/pydantic_ext.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/shared/types/state.py",
+   "target": "file:src/exo/shared/models/model_cards.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/shared/types/state.py",
+   "target": "file:src/exo/shared/topology.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/shared/types/state.py",
+   "target": "file:src/exo/shared/types/backends.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/shared/types/state.py",
+   "target": "file:src/exo/shared/types/common.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/shared/types/state.py",
+   "target": "file:src/exo/shared/types/instance_link.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/shared/types/state.py",
+   "target": "file:src/exo/shared/types/profiling.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/shared/types/state.py",
+   "target": "file:src/exo/shared/types/tasks.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/shared/types/state.py",
+   "target": "file:src/exo/shared/types/worker/downloads.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/shared/types/state.py",
+   "target": "file:src/exo/shared/types/worker/instances.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/shared/types/state.py",
+   "target": "file:src/exo/shared/types/worker/runners.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/shared/types/state.py",
+   "target": "file:src/exo/utils/pydantic_ext.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/shared/types/tasks.py",
+   "target": "file:src/exo/api/types/__init__.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/shared/types/tasks.py",
+   "target": "file:src/exo/shared/types/common.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/shared/types/tasks.py",
+   "target": "file:src/exo/shared/types/text_generation.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/shared/types/tasks.py",
+   "target": "file:src/exo/shared/types/worker/instances.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/shared/types/tasks.py",
+   "target": "file:src/exo/shared/types/worker/runners.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/shared/types/tasks.py",
+   "target": "file:src/exo/shared/types/worker/shards.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/shared/types/tasks.py",
+   "target": "file:src/exo/utils/pydantic_ext.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/shared/types/worker/instances.py",
+   "target": "file:src/exo/shared/models/model_cards.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/shared/types/worker/instances.py",
+   "target": "file:src/exo/shared/types/common.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/shared/types/worker/instances.py",
+   "target": "file:src/exo/shared/types/worker/runners.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/shared/types/worker/instances.py",
+   "target": "file:src/exo/utils/pydantic_ext.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/shared/types/worker/runners.py",
+   "target": "file:src/exo/shared/models/model_cards.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/shared/types/worker/runners.py",
+   "target": "file:src/exo/shared/types/common.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/shared/types/worker/runners.py",
+   "target": "file:src/exo/shared/types/worker/shards.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/shared/types/worker/runners.py",
+   "target": "file:src/exo/utils/pydantic_ext.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/shared/types/worker/runners.py",
+   "target": "file:src/exo/worker/runner/diagnostics.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  }
+ ]
+}

@@ -1,0 +1,1006 @@
+{
+ "nodes": [
+  {
+   "id": "file:.typings/mflux/models/qwen/model/qwen_transformer/qwen_attention.pyi",
+   "type": "file",
+   "name": "qwen_attention.pyi",
+   "filePath": ".typings/mflux/models/qwen/model/qwen_transformer/qwen_attention.pyi",
+   "summary": "Defines 0 function(s) and 1 class(es) for .typings/mflux/models/qwen/model/qwen_transformer/qwen_attention.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.typings/mflux/models/qwen/model/qwen_transformer/qwen_feed_forward.pyi",
+   "type": "file",
+   "name": "qwen_feed_forward.pyi",
+   "filePath": ".typings/mflux/models/qwen/model/qwen_transformer/qwen_feed_forward.pyi",
+   "summary": "Defines 0 function(s) and 1 class(es) for .typings/mflux/models/qwen/model/qwen_transformer/qwen_feed_forward.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.typings/mflux/models/qwen/model/qwen_transformer/qwen_rope.pyi",
+   "type": "file",
+   "name": "qwen_rope.pyi",
+   "filePath": ".typings/mflux/models/qwen/model/qwen_transformer/qwen_rope.pyi",
+   "summary": "Defines 0 function(s) and 1 class(es) for .typings/mflux/models/qwen/model/qwen_transformer/qwen_rope.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.typings/mflux/models/qwen/model/qwen_transformer/qwen_time_text_embed.pyi",
+   "type": "file",
+   "name": "qwen_time_text_embed.pyi",
+   "filePath": ".typings/mflux/models/qwen/model/qwen_transformer/qwen_time_text_embed.pyi",
+   "summary": "Defines 0 function(s) and 1 class(es) for .typings/mflux/models/qwen/model/qwen_transformer/qwen_time_text_embed.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.typings/mflux/models/qwen/model/qwen_transformer/qwen_timestep_embedding.pyi",
+   "type": "file",
+   "name": "qwen_timestep_embedding.pyi",
+   "filePath": ".typings/mflux/models/qwen/model/qwen_transformer/qwen_timestep_embedding.pyi",
+   "summary": "Defines 0 function(s) and 1 class(es) for .typings/mflux/models/qwen/model/qwen_transformer/qwen_timestep_embedding.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.typings/mflux/models/qwen/model/qwen_transformer/qwen_timesteps.pyi",
+   "type": "file",
+   "name": "qwen_timesteps.pyi",
+   "filePath": ".typings/mflux/models/qwen/model/qwen_transformer/qwen_timesteps.pyi",
+   "summary": "Defines 0 function(s) and 1 class(es) for .typings/mflux/models/qwen/model/qwen_transformer/qwen_timesteps.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.typings/mflux/models/qwen/model/qwen_transformer/qwen_transformer.pyi",
+   "type": "file",
+   "name": "qwen_transformer.pyi",
+   "filePath": ".typings/mflux/models/qwen/model/qwen_transformer/qwen_transformer.pyi",
+   "summary": "Defines 0 function(s) and 1 class(es) for .typings/mflux/models/qwen/model/qwen_transformer/qwen_transformer.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.typings/mflux/models/qwen/model/qwen_transformer/qwen_transformer_block.pyi",
+   "type": "file",
+   "name": "qwen_transformer_block.pyi",
+   "filePath": ".typings/mflux/models/qwen/model/qwen_transformer/qwen_transformer_block.pyi",
+   "summary": "Defines 0 function(s) and 1 class(es) for .typings/mflux/models/qwen/model/qwen_transformer/qwen_transformer_block.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.typings/mflux/models/qwen/model/qwen_transformer/qwen_transformer_rms_norm.pyi",
+   "type": "file",
+   "name": "qwen_transformer_rms_norm.pyi",
+   "filePath": ".typings/mflux/models/qwen/model/qwen_transformer/qwen_transformer_rms_norm.pyi",
+   "summary": "Defines 0 function(s) and 1 class(es) for .typings/mflux/models/qwen/model/qwen_transformer/qwen_transformer_rms_norm.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.typings/mflux/models/qwen/model/qwen_vae/qwen_image_attention_block_3d.pyi",
+   "type": "file",
+   "name": "qwen_image_attention_block_3d.pyi",
+   "filePath": ".typings/mflux/models/qwen/model/qwen_vae/qwen_image_attention_block_3d.pyi",
+   "summary": "Defines 0 function(s) and 1 class(es) for .typings/mflux/models/qwen/model/qwen_vae/qwen_image_attention_block_3d.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.typings/mflux/models/qwen/model/qwen_vae/qwen_image_causal_conv_3d.pyi",
+   "type": "file",
+   "name": "qwen_image_causal_conv_3d.pyi",
+   "filePath": ".typings/mflux/models/qwen/model/qwen_vae/qwen_image_causal_conv_3d.pyi",
+   "summary": "Defines 0 function(s) and 1 class(es) for .typings/mflux/models/qwen/model/qwen_vae/qwen_image_causal_conv_3d.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.typings/mflux/models/qwen/model/qwen_vae/qwen_image_decoder_3d.pyi",
+   "type": "file",
+   "name": "qwen_image_decoder_3d.pyi",
+   "filePath": ".typings/mflux/models/qwen/model/qwen_vae/qwen_image_decoder_3d.pyi",
+   "summary": "Defines 0 function(s) and 1 class(es) for .typings/mflux/models/qwen/model/qwen_vae/qwen_image_decoder_3d.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.typings/mflux/models/qwen/model/qwen_vae/qwen_image_down_block_3d.pyi",
+   "type": "file",
+   "name": "qwen_image_down_block_3d.pyi",
+   "filePath": ".typings/mflux/models/qwen/model/qwen_vae/qwen_image_down_block_3d.pyi",
+   "summary": "Defines 0 function(s) and 1 class(es) for .typings/mflux/models/qwen/model/qwen_vae/qwen_image_down_block_3d.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.typings/mflux/models/qwen/model/qwen_vae/qwen_image_encoder_3d.pyi",
+   "type": "file",
+   "name": "qwen_image_encoder_3d.pyi",
+   "filePath": ".typings/mflux/models/qwen/model/qwen_vae/qwen_image_encoder_3d.pyi",
+   "summary": "Defines 0 function(s) and 1 class(es) for .typings/mflux/models/qwen/model/qwen_vae/qwen_image_encoder_3d.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.typings/mflux/models/qwen/model/qwen_vae/qwen_image_mid_block_3d.pyi",
+   "type": "file",
+   "name": "qwen_image_mid_block_3d.pyi",
+   "filePath": ".typings/mflux/models/qwen/model/qwen_vae/qwen_image_mid_block_3d.pyi",
+   "summary": "Defines 0 function(s) and 1 class(es) for .typings/mflux/models/qwen/model/qwen_vae/qwen_image_mid_block_3d.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.typings/mflux/models/qwen/model/qwen_vae/qwen_image_res_block_3d.pyi",
+   "type": "file",
+   "name": "qwen_image_res_block_3d.pyi",
+   "filePath": ".typings/mflux/models/qwen/model/qwen_vae/qwen_image_res_block_3d.pyi",
+   "summary": "Defines 0 function(s) and 1 class(es) for .typings/mflux/models/qwen/model/qwen_vae/qwen_image_res_block_3d.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.typings/mflux/models/qwen/model/qwen_vae/qwen_image_resample_3d.pyi",
+   "type": "file",
+   "name": "qwen_image_resample_3d.pyi",
+   "filePath": ".typings/mflux/models/qwen/model/qwen_vae/qwen_image_resample_3d.pyi",
+   "summary": "Defines 0 function(s) and 1 class(es) for .typings/mflux/models/qwen/model/qwen_vae/qwen_image_resample_3d.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.typings/mflux/models/qwen/model/qwen_vae/qwen_image_rms_norm.pyi",
+   "type": "file",
+   "name": "qwen_image_rms_norm.pyi",
+   "filePath": ".typings/mflux/models/qwen/model/qwen_vae/qwen_image_rms_norm.pyi",
+   "summary": "Defines 0 function(s) and 1 class(es) for .typings/mflux/models/qwen/model/qwen_vae/qwen_image_rms_norm.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.typings/mflux/models/qwen/model/qwen_vae/qwen_image_up_block_3d.pyi",
+   "type": "file",
+   "name": "qwen_image_up_block_3d.pyi",
+   "filePath": ".typings/mflux/models/qwen/model/qwen_vae/qwen_image_up_block_3d.pyi",
+   "summary": "Defines 0 function(s) and 1 class(es) for .typings/mflux/models/qwen/model/qwen_vae/qwen_image_up_block_3d.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.typings/mflux/models/qwen/model/qwen_vae/qwen_vae.pyi",
+   "type": "file",
+   "name": "qwen_vae.pyi",
+   "filePath": ".typings/mflux/models/qwen/model/qwen_vae/qwen_vae.pyi",
+   "summary": "Defines 0 function(s) and 1 class(es) for .typings/mflux/models/qwen/model/qwen_vae/qwen_vae.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.typings/mflux/models/qwen/qwen_initializer.pyi",
+   "type": "file",
+   "name": "qwen_initializer.pyi",
+   "filePath": ".typings/mflux/models/qwen/qwen_initializer.pyi",
+   "summary": "Defines 0 function(s) and 1 class(es) for .typings/mflux/models/qwen/qwen_initializer.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.typings/mflux/models/qwen/tokenizer/__init__.pyi",
+   "type": "file",
+   "name": "__init__.pyi",
+   "filePath": ".typings/mflux/models/qwen/tokenizer/__init__.pyi",
+   "summary": "__init__.pyi \u2014 code file in the exo project.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:.typings/mflux/models/qwen/tokenizer/qwen_image_processor.pyi",
+   "type": "file",
+   "name": "qwen_image_processor.pyi",
+   "filePath": ".typings/mflux/models/qwen/tokenizer/qwen_image_processor.pyi",
+   "summary": "Defines 1 function(s) and 1 class(es) for .typings/mflux/models/qwen/tokenizer/qwen_image_processor.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.typings/mflux/models/qwen/tokenizer/qwen_vision_language_processor.pyi",
+   "type": "file",
+   "name": "qwen_vision_language_processor.pyi",
+   "filePath": ".typings/mflux/models/qwen/tokenizer/qwen_vision_language_processor.pyi",
+   "summary": "Defines 0 function(s) and 1 class(es) for .typings/mflux/models/qwen/tokenizer/qwen_vision_language_processor.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.typings/mflux/models/qwen/tokenizer/qwen_vision_language_tokenizer.pyi",
+   "type": "file",
+   "name": "qwen_vision_language_tokenizer.pyi",
+   "filePath": ".typings/mflux/models/qwen/tokenizer/qwen_vision_language_tokenizer.pyi",
+   "summary": "Defines 0 function(s) and 1 class(es) for .typings/mflux/models/qwen/tokenizer/qwen_vision_language_tokenizer.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "class:.typings/mflux/models/qwen/model/qwen_transformer/qwen_attention.pyi:QwenAttention",
+   "type": "class",
+   "name": "QwenAttention",
+   "filePath": ".typings/mflux/models/qwen/model/qwen_transformer/qwen_attention.pyi",
+   "lineRange": [
+    9,
+    53
+   ],
+   "summary": "Class QwenAttention in .typings/mflux/models/qwen/model/qwen_transformer/qwen_attention.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mflux/models/qwen/model/qwen_transformer/qwen_feed_forward.pyi:QwenFeedForward",
+   "type": "class",
+   "name": "QwenFeedForward",
+   "filePath": ".typings/mflux/models/qwen/model/qwen_transformer/qwen_feed_forward.pyi",
+   "lineRange": [
+    8,
+    10
+   ],
+   "summary": "Class QwenFeedForward in .typings/mflux/models/qwen/model/qwen_transformer/qwen_feed_forward.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mflux/models/qwen/model/qwen_transformer/qwen_rope.pyi:QwenEmbedRopeMLX",
+   "type": "class",
+   "name": "QwenEmbedRopeMLX",
+   "filePath": ".typings/mflux/models/qwen/model/qwen_transformer/qwen_rope.pyi",
+   "lineRange": [
+    8,
+    16
+   ],
+   "summary": "Class QwenEmbedRopeMLX in .typings/mflux/models/qwen/model/qwen_transformer/qwen_rope.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mflux/models/qwen/model/qwen_transformer/qwen_time_text_embed.pyi:QwenTimeTextEmbed",
+   "type": "class",
+   "name": "QwenTimeTextEmbed",
+   "filePath": ".typings/mflux/models/qwen/model/qwen_transformer/qwen_time_text_embed.pyi",
+   "lineRange": [
+    8,
+    10
+   ],
+   "summary": "Class QwenTimeTextEmbed in .typings/mflux/models/qwen/model/qwen_transformer/qwen_time_text_embed.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mflux/models/qwen/model/qwen_transformer/qwen_timestep_embedding.pyi:QwenTimestepEmbedding",
+   "type": "class",
+   "name": "QwenTimestepEmbedding",
+   "filePath": ".typings/mflux/models/qwen/model/qwen_transformer/qwen_timestep_embedding.pyi",
+   "lineRange": [
+    8,
+    10
+   ],
+   "summary": "Class QwenTimestepEmbedding in .typings/mflux/models/qwen/model/qwen_transformer/qwen_timestep_embedding.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mflux/models/qwen/model/qwen_transformer/qwen_timesteps.pyi:QwenTimesteps",
+   "type": "class",
+   "name": "QwenTimesteps",
+   "filePath": ".typings/mflux/models/qwen/model/qwen_transformer/qwen_timesteps.pyi",
+   "lineRange": [
+    8,
+    10
+   ],
+   "summary": "Class QwenTimesteps in .typings/mflux/models/qwen/model/qwen_transformer/qwen_timesteps.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mflux/models/qwen/model/qwen_transformer/qwen_transformer.pyi:QwenTransformer",
+   "type": "class",
+   "name": "QwenTransformer",
+   "filePath": ".typings/mflux/models/qwen/model/qwen_transformer/qwen_transformer.pyi",
+   "lineRange": [
+    13,
+    52
+   ],
+   "summary": "Class QwenTransformer in .typings/mflux/models/qwen/model/qwen_transformer/qwen_transformer.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mflux/models/qwen/model/qwen_transformer/qwen_transformer_block.pyi:QwenTransformerBlock",
+   "type": "class",
+   "name": "QwenTransformerBlock",
+   "filePath": ".typings/mflux/models/qwen/model/qwen_transformer/qwen_transformer_block.pyi",
+   "lineRange": [
+    10,
+    36
+   ],
+   "summary": "Class QwenTransformerBlock in .typings/mflux/models/qwen/model/qwen_transformer/qwen_transformer_block.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mflux/models/qwen/model/qwen_transformer/qwen_transformer_rms_norm.pyi:QwenTransformerRMSNorm",
+   "type": "class",
+   "name": "QwenTransformerRMSNorm",
+   "filePath": ".typings/mflux/models/qwen/model/qwen_transformer/qwen_transformer_rms_norm.pyi",
+   "lineRange": [
+    8,
+    10
+   ],
+   "summary": "Class QwenTransformerRMSNorm in .typings/mflux/models/qwen/model/qwen_transformer/qwen_transformer_rms_norm.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mflux/models/qwen/model/qwen_vae/qwen_image_attention_block_3d.pyi:QwenImageAttentionBlock3D",
+   "type": "class",
+   "name": "QwenImageAttentionBlock3D",
+   "filePath": ".typings/mflux/models/qwen/model/qwen_vae/qwen_image_attention_block_3d.pyi",
+   "lineRange": [
+    8,
+    10
+   ],
+   "summary": "Class QwenImageAttentionBlock3D in .typings/mflux/models/qwen/model/qwen_vae/qwen_image_attention_block_3d.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mflux/models/qwen/model/qwen_vae/qwen_image_causal_conv_3d.pyi:QwenImageCausalConv3D",
+   "type": "class",
+   "name": "QwenImageCausalConv3D",
+   "filePath": ".typings/mflux/models/qwen/model/qwen_vae/qwen_image_causal_conv_3d.pyi",
+   "lineRange": [
+    8,
+    17
+   ],
+   "summary": "Class QwenImageCausalConv3D in .typings/mflux/models/qwen/model/qwen_vae/qwen_image_causal_conv_3d.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mflux/models/qwen/model/qwen_vae/qwen_image_decoder_3d.pyi:QwenImageDecoder3D",
+   "type": "class",
+   "name": "QwenImageDecoder3D",
+   "filePath": ".typings/mflux/models/qwen/model/qwen_vae/qwen_image_decoder_3d.pyi",
+   "lineRange": [
+    8,
+    10
+   ],
+   "summary": "Class QwenImageDecoder3D in .typings/mflux/models/qwen/model/qwen_vae/qwen_image_decoder_3d.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mflux/models/qwen/model/qwen_vae/qwen_image_down_block_3d.pyi:QwenImageDownBlock3D",
+   "type": "class",
+   "name": "QwenImageDownBlock3D",
+   "filePath": ".typings/mflux/models/qwen/model/qwen_vae/qwen_image_down_block_3d.pyi",
+   "lineRange": [
+    8,
+    16
+   ],
+   "summary": "Class QwenImageDownBlock3D in .typings/mflux/models/qwen/model/qwen_vae/qwen_image_down_block_3d.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mflux/models/qwen/model/qwen_vae/qwen_image_encoder_3d.pyi:QwenImageEncoder3D",
+   "type": "class",
+   "name": "QwenImageEncoder3D",
+   "filePath": ".typings/mflux/models/qwen/model/qwen_vae/qwen_image_encoder_3d.pyi",
+   "lineRange": [
+    8,
+    10
+   ],
+   "summary": "Class QwenImageEncoder3D in .typings/mflux/models/qwen/model/qwen_vae/qwen_image_encoder_3d.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mflux/models/qwen/model/qwen_vae/qwen_image_mid_block_3d.pyi:QwenImageMidBlock3D",
+   "type": "class",
+   "name": "QwenImageMidBlock3D",
+   "filePath": ".typings/mflux/models/qwen/model/qwen_vae/qwen_image_mid_block_3d.pyi",
+   "lineRange": [
+    8,
+    10
+   ],
+   "summary": "Class QwenImageMidBlock3D in .typings/mflux/models/qwen/model/qwen_vae/qwen_image_mid_block_3d.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mflux/models/qwen/model/qwen_vae/qwen_image_res_block_3d.pyi:QwenImageResBlock3D",
+   "type": "class",
+   "name": "QwenImageResBlock3D",
+   "filePath": ".typings/mflux/models/qwen/model/qwen_vae/qwen_image_res_block_3d.pyi",
+   "lineRange": [
+    8,
+    10
+   ],
+   "summary": "Class QwenImageResBlock3D in .typings/mflux/models/qwen/model/qwen_vae/qwen_image_res_block_3d.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mflux/models/qwen/model/qwen_vae/qwen_image_resample_3d.pyi:QwenImageResample3D",
+   "type": "class",
+   "name": "QwenImageResample3D",
+   "filePath": ".typings/mflux/models/qwen/model/qwen_vae/qwen_image_resample_3d.pyi",
+   "lineRange": [
+    8,
+    10
+   ],
+   "summary": "Class QwenImageResample3D in .typings/mflux/models/qwen/model/qwen_vae/qwen_image_resample_3d.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mflux/models/qwen/model/qwen_vae/qwen_image_rms_norm.pyi:QwenImageRMSNorm",
+   "type": "class",
+   "name": "QwenImageRMSNorm",
+   "filePath": ".typings/mflux/models/qwen/model/qwen_vae/qwen_image_rms_norm.pyi",
+   "lineRange": [
+    8,
+    12
+   ],
+   "summary": "Class QwenImageRMSNorm in .typings/mflux/models/qwen/model/qwen_vae/qwen_image_rms_norm.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mflux/models/qwen/model/qwen_vae/qwen_image_up_block_3d.pyi:QwenImageUpBlock3D",
+   "type": "class",
+   "name": "QwenImageUpBlock3D",
+   "filePath": ".typings/mflux/models/qwen/model/qwen_vae/qwen_image_up_block_3d.pyi",
+   "lineRange": [
+    8,
+    16
+   ],
+   "summary": "Class QwenImageUpBlock3D in .typings/mflux/models/qwen/model/qwen_vae/qwen_image_up_block_3d.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mflux/models/qwen/model/qwen_vae/qwen_vae.pyi:QwenVAE",
+   "type": "class",
+   "name": "QwenVAE",
+   "filePath": ".typings/mflux/models/qwen/model/qwen_vae/qwen_vae.pyi",
+   "lineRange": [
+    8,
+    15
+   ],
+   "summary": "Class QwenVAE in .typings/mflux/models/qwen/model/qwen_vae/qwen_vae.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mflux/models/qwen/qwen_initializer.pyi:QwenImageInitializer",
+   "type": "class",
+   "name": "QwenImageInitializer",
+   "filePath": ".typings/mflux/models/qwen/qwen_initializer.pyi",
+   "lineRange": [
+    7,
+    25
+   ],
+   "summary": "Class QwenImageInitializer in .typings/mflux/models/qwen/qwen_initializer.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:.typings/mflux/models/qwen/tokenizer/qwen_image_processor.pyi:smart_resize",
+   "type": "function",
+   "name": "smart_resize",
+   "filePath": ".typings/mflux/models/qwen/tokenizer/qwen_image_processor.pyi",
+   "lineRange": [
+    12,
+    18
+   ],
+   "summary": "Function smart_resize in .typings/mflux/models/qwen/tokenizer/qwen_image_processor.pyi.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mflux/models/qwen/tokenizer/qwen_image_processor.pyi:QwenImageProcessor",
+   "type": "class",
+   "name": "QwenImageProcessor",
+   "filePath": ".typings/mflux/models/qwen/tokenizer/qwen_image_processor.pyi",
+   "lineRange": [
+    20,
+    40
+   ],
+   "summary": "Class QwenImageProcessor in .typings/mflux/models/qwen/tokenizer/qwen_image_processor.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mflux/models/qwen/tokenizer/qwen_vision_language_processor.pyi:QwenVisionLanguageProcessor",
+   "type": "class",
+   "name": "QwenVisionLanguageProcessor",
+   "filePath": ".typings/mflux/models/qwen/tokenizer/qwen_vision_language_processor.pyi",
+   "lineRange": [
+    9,
+    23
+   ],
+   "summary": "Class QwenVisionLanguageProcessor in .typings/mflux/models/qwen/tokenizer/qwen_vision_language_processor.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mflux/models/qwen/tokenizer/qwen_vision_language_tokenizer.pyi:QwenVisionLanguageTokenizer",
+   "type": "class",
+   "name": "QwenVisionLanguageTokenizer",
+   "filePath": ".typings/mflux/models/qwen/tokenizer/qwen_vision_language_tokenizer.pyi",
+   "lineRange": [
+    13,
+    27
+   ],
+   "summary": "Class QwenVisionLanguageTokenizer in .typings/mflux/models/qwen/tokenizer/qwen_vision_language_tokenizer.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  }
+ ],
+ "edges": [
+  {
+   "source": "file:.typings/mflux/models/qwen/model/qwen_transformer/qwen_attention.pyi",
+   "target": "class:.typings/mflux/models/qwen/model/qwen_transformer/qwen_attention.pyi:QwenAttention",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mflux/models/qwen/model/qwen_transformer/qwen_attention.pyi",
+   "target": "class:.typings/mflux/models/qwen/model/qwen_transformer/qwen_attention.pyi:QwenAttention",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mflux/models/qwen/model/qwen_transformer/qwen_feed_forward.pyi",
+   "target": "class:.typings/mflux/models/qwen/model/qwen_transformer/qwen_feed_forward.pyi:QwenFeedForward",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mflux/models/qwen/model/qwen_transformer/qwen_feed_forward.pyi",
+   "target": "class:.typings/mflux/models/qwen/model/qwen_transformer/qwen_feed_forward.pyi:QwenFeedForward",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mflux/models/qwen/model/qwen_transformer/qwen_rope.pyi",
+   "target": "class:.typings/mflux/models/qwen/model/qwen_transformer/qwen_rope.pyi:QwenEmbedRopeMLX",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mflux/models/qwen/model/qwen_transformer/qwen_rope.pyi",
+   "target": "class:.typings/mflux/models/qwen/model/qwen_transformer/qwen_rope.pyi:QwenEmbedRopeMLX",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mflux/models/qwen/model/qwen_transformer/qwen_time_text_embed.pyi",
+   "target": "class:.typings/mflux/models/qwen/model/qwen_transformer/qwen_time_text_embed.pyi:QwenTimeTextEmbed",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mflux/models/qwen/model/qwen_transformer/qwen_time_text_embed.pyi",
+   "target": "class:.typings/mflux/models/qwen/model/qwen_transformer/qwen_time_text_embed.pyi:QwenTimeTextEmbed",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mflux/models/qwen/model/qwen_transformer/qwen_timestep_embedding.pyi",
+   "target": "class:.typings/mflux/models/qwen/model/qwen_transformer/qwen_timestep_embedding.pyi:QwenTimestepEmbedding",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mflux/models/qwen/model/qwen_transformer/qwen_timestep_embedding.pyi",
+   "target": "class:.typings/mflux/models/qwen/model/qwen_transformer/qwen_timestep_embedding.pyi:QwenTimestepEmbedding",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mflux/models/qwen/model/qwen_transformer/qwen_timesteps.pyi",
+   "target": "class:.typings/mflux/models/qwen/model/qwen_transformer/qwen_timesteps.pyi:QwenTimesteps",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mflux/models/qwen/model/qwen_transformer/qwen_timesteps.pyi",
+   "target": "class:.typings/mflux/models/qwen/model/qwen_transformer/qwen_timesteps.pyi:QwenTimesteps",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mflux/models/qwen/model/qwen_transformer/qwen_transformer.pyi",
+   "target": "class:.typings/mflux/models/qwen/model/qwen_transformer/qwen_transformer.pyi:QwenTransformer",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mflux/models/qwen/model/qwen_transformer/qwen_transformer.pyi",
+   "target": "class:.typings/mflux/models/qwen/model/qwen_transformer/qwen_transformer.pyi:QwenTransformer",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mflux/models/qwen/model/qwen_transformer/qwen_transformer_block.pyi",
+   "target": "class:.typings/mflux/models/qwen/model/qwen_transformer/qwen_transformer_block.pyi:QwenTransformerBlock",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mflux/models/qwen/model/qwen_transformer/qwen_transformer_block.pyi",
+   "target": "class:.typings/mflux/models/qwen/model/qwen_transformer/qwen_transformer_block.pyi:QwenTransformerBlock",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mflux/models/qwen/model/qwen_transformer/qwen_transformer_rms_norm.pyi",
+   "target": "class:.typings/mflux/models/qwen/model/qwen_transformer/qwen_transformer_rms_norm.pyi:QwenTransformerRMSNorm",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mflux/models/qwen/model/qwen_transformer/qwen_transformer_rms_norm.pyi",
+   "target": "class:.typings/mflux/models/qwen/model/qwen_transformer/qwen_transformer_rms_norm.pyi:QwenTransformerRMSNorm",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mflux/models/qwen/model/qwen_vae/qwen_image_attention_block_3d.pyi",
+   "target": "class:.typings/mflux/models/qwen/model/qwen_vae/qwen_image_attention_block_3d.pyi:QwenImageAttentionBlock3D",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mflux/models/qwen/model/qwen_vae/qwen_image_attention_block_3d.pyi",
+   "target": "class:.typings/mflux/models/qwen/model/qwen_vae/qwen_image_attention_block_3d.pyi:QwenImageAttentionBlock3D",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mflux/models/qwen/model/qwen_vae/qwen_image_causal_conv_3d.pyi",
+   "target": "class:.typings/mflux/models/qwen/model/qwen_vae/qwen_image_causal_conv_3d.pyi:QwenImageCausalConv3D",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mflux/models/qwen/model/qwen_vae/qwen_image_causal_conv_3d.pyi",
+   "target": "class:.typings/mflux/models/qwen/model/qwen_vae/qwen_image_causal_conv_3d.pyi:QwenImageCausalConv3D",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mflux/models/qwen/model/qwen_vae/qwen_image_decoder_3d.pyi",
+   "target": "class:.typings/mflux/models/qwen/model/qwen_vae/qwen_image_decoder_3d.pyi:QwenImageDecoder3D",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mflux/models/qwen/model/qwen_vae/qwen_image_decoder_3d.pyi",
+   "target": "class:.typings/mflux/models/qwen/model/qwen_vae/qwen_image_decoder_3d.pyi:QwenImageDecoder3D",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mflux/models/qwen/model/qwen_vae/qwen_image_down_block_3d.pyi",
+   "target": "class:.typings/mflux/models/qwen/model/qwen_vae/qwen_image_down_block_3d.pyi:QwenImageDownBlock3D",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mflux/models/qwen/model/qwen_vae/qwen_image_down_block_3d.pyi",
+   "target": "class:.typings/mflux/models/qwen/model/qwen_vae/qwen_image_down_block_3d.pyi:QwenImageDownBlock3D",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mflux/models/qwen/model/qwen_vae/qwen_image_encoder_3d.pyi",
+   "target": "class:.typings/mflux/models/qwen/model/qwen_vae/qwen_image_encoder_3d.pyi:QwenImageEncoder3D",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mflux/models/qwen/model/qwen_vae/qwen_image_encoder_3d.pyi",
+   "target": "class:.typings/mflux/models/qwen/model/qwen_vae/qwen_image_encoder_3d.pyi:QwenImageEncoder3D",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mflux/models/qwen/model/qwen_vae/qwen_image_mid_block_3d.pyi",
+   "target": "class:.typings/mflux/models/qwen/model/qwen_vae/qwen_image_mid_block_3d.pyi:QwenImageMidBlock3D",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mflux/models/qwen/model/qwen_vae/qwen_image_mid_block_3d.pyi",
+   "target": "class:.typings/mflux/models/qwen/model/qwen_vae/qwen_image_mid_block_3d.pyi:QwenImageMidBlock3D",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mflux/models/qwen/model/qwen_vae/qwen_image_res_block_3d.pyi",
+   "target": "class:.typings/mflux/models/qwen/model/qwen_vae/qwen_image_res_block_3d.pyi:QwenImageResBlock3D",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mflux/models/qwen/model/qwen_vae/qwen_image_res_block_3d.pyi",
+   "target": "class:.typings/mflux/models/qwen/model/qwen_vae/qwen_image_res_block_3d.pyi:QwenImageResBlock3D",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mflux/models/qwen/model/qwen_vae/qwen_image_resample_3d.pyi",
+   "target": "class:.typings/mflux/models/qwen/model/qwen_vae/qwen_image_resample_3d.pyi:QwenImageResample3D",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mflux/models/qwen/model/qwen_vae/qwen_image_resample_3d.pyi",
+   "target": "class:.typings/mflux/models/qwen/model/qwen_vae/qwen_image_resample_3d.pyi:QwenImageResample3D",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mflux/models/qwen/model/qwen_vae/qwen_image_rms_norm.pyi",
+   "target": "class:.typings/mflux/models/qwen/model/qwen_vae/qwen_image_rms_norm.pyi:QwenImageRMSNorm",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mflux/models/qwen/model/qwen_vae/qwen_image_rms_norm.pyi",
+   "target": "class:.typings/mflux/models/qwen/model/qwen_vae/qwen_image_rms_norm.pyi:QwenImageRMSNorm",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mflux/models/qwen/model/qwen_vae/qwen_image_up_block_3d.pyi",
+   "target": "class:.typings/mflux/models/qwen/model/qwen_vae/qwen_image_up_block_3d.pyi:QwenImageUpBlock3D",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mflux/models/qwen/model/qwen_vae/qwen_image_up_block_3d.pyi",
+   "target": "class:.typings/mflux/models/qwen/model/qwen_vae/qwen_image_up_block_3d.pyi:QwenImageUpBlock3D",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mflux/models/qwen/model/qwen_vae/qwen_vae.pyi",
+   "target": "class:.typings/mflux/models/qwen/model/qwen_vae/qwen_vae.pyi:QwenVAE",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mflux/models/qwen/model/qwen_vae/qwen_vae.pyi",
+   "target": "class:.typings/mflux/models/qwen/model/qwen_vae/qwen_vae.pyi:QwenVAE",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mflux/models/qwen/qwen_initializer.pyi",
+   "target": "class:.typings/mflux/models/qwen/qwen_initializer.pyi:QwenImageInitializer",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mflux/models/qwen/qwen_initializer.pyi",
+   "target": "class:.typings/mflux/models/qwen/qwen_initializer.pyi:QwenImageInitializer",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mflux/models/qwen/tokenizer/qwen_image_processor.pyi",
+   "target": "function:.typings/mflux/models/qwen/tokenizer/qwen_image_processor.pyi:smart_resize",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mflux/models/qwen/tokenizer/qwen_image_processor.pyi",
+   "target": "function:.typings/mflux/models/qwen/tokenizer/qwen_image_processor.pyi:smart_resize",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mflux/models/qwen/tokenizer/qwen_image_processor.pyi",
+   "target": "class:.typings/mflux/models/qwen/tokenizer/qwen_image_processor.pyi:QwenImageProcessor",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mflux/models/qwen/tokenizer/qwen_image_processor.pyi",
+   "target": "class:.typings/mflux/models/qwen/tokenizer/qwen_image_processor.pyi:QwenImageProcessor",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mflux/models/qwen/tokenizer/qwen_vision_language_processor.pyi",
+   "target": "class:.typings/mflux/models/qwen/tokenizer/qwen_vision_language_processor.pyi:QwenVisionLanguageProcessor",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mflux/models/qwen/tokenizer/qwen_vision_language_processor.pyi",
+   "target": "class:.typings/mflux/models/qwen/tokenizer/qwen_vision_language_processor.pyi:QwenVisionLanguageProcessor",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mflux/models/qwen/tokenizer/qwen_vision_language_tokenizer.pyi",
+   "target": "class:.typings/mflux/models/qwen/tokenizer/qwen_vision_language_tokenizer.pyi:QwenVisionLanguageTokenizer",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mflux/models/qwen/tokenizer/qwen_vision_language_tokenizer.pyi",
+   "target": "class:.typings/mflux/models/qwen/tokenizer/qwen_vision_language_tokenizer.pyi:QwenVisionLanguageTokenizer",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  }
+ ]
+}

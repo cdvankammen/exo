@@ -1,0 +1,93 @@
+{
+ "nodes": [
+  {
+   "id": "document:AGENTS.md",
+   "type": "document",
+   "name": "AGENTS.md",
+   "filePath": "AGENTS.md",
+   "summary": "Documentation file AGENTS.md.",
+   "tags": [
+    "documentation"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "document:CONTRIBUTING.md",
+   "type": "document",
+   "name": "CONTRIBUTING.md",
+   "filePath": "CONTRIBUTING.md",
+   "summary": "Documentation file CONTRIBUTING.md.",
+   "tags": [
+    "documentation"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "config:Cargo.toml",
+   "type": "config",
+   "name": "Cargo.toml",
+   "filePath": "Cargo.toml",
+   "summary": "Configuration file Cargo.toml controlling project settings.",
+   "tags": [
+    "configuration"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "document:PLATFORMS.md",
+   "type": "document",
+   "name": "PLATFORMS.md",
+   "filePath": "PLATFORMS.md",
+   "summary": "Documentation file PLATFORMS.md.",
+   "tags": [
+    "documentation"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "document:README.md",
+   "type": "document",
+   "name": "README.md",
+   "filePath": "README.md",
+   "summary": "Documentation file README.md.",
+   "tags": [
+    "documentation"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "document:RULES.md",
+   "type": "document",
+   "name": "RULES.md",
+   "filePath": "RULES.md",
+   "summary": "Documentation file RULES.md.",
+   "tags": [
+    "documentation"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "document:TODO.md",
+   "type": "document",
+   "name": "TODO.md",
+   "filePath": "TODO.md",
+   "summary": "Documentation file TODO.md.",
+   "tags": [
+    "documentation"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "config:pyproject.toml",
+   "type": "config",
+   "name": "pyproject.toml",
+   "filePath": "pyproject.toml",
+   "summary": "Configuration file pyproject.toml controlling project settings.",
+   "tags": [
+    "configuration"
+   ],
+   "complexity": "complex"
+  }
+ ],
+ "edges": []
+}

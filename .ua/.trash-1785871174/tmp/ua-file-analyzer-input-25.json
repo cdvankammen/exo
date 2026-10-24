@@ -1,0 +1,28 @@
+{
+ "projectRoot": "/Users/chris/Documents/GitHub/exo",
+ "batchFiles": [
+  {
+   "path": "rust/exo_rs/Cargo.toml",
+   "language": "toml",
+   "sizeLines": 53,
+   "fileCategory": "config"
+  },
+  {
+   "path": "rust/exo_rs/README.md",
+   "language": "markdown",
+   "sizeLines": 1,
+   "fileCategory": "docs"
+  },
+  {
+   "path": "rust/exo_rs/pyproject.toml",
+   "language": "toml",
+   "sizeLines": 33,
+   "fileCategory": "config"
+  }
+ ],
+ "batchImportData": {
+  "rust/exo_rs/Cargo.toml": [],
+  "rust/exo_rs/README.md": [],
+  "rust/exo_rs/pyproject.toml": []
+ }
+}

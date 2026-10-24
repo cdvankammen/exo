@@ -1,0 +1,360 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 3,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": "docs/api.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 787,
+      "nonEmptyLines": 543,
+      "sections": [
+        {
+          "heading": "EXO API – Technical Reference",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "1. General / Meta Endpoints",
+          "level": 2,
+          "line": 15
+        },
+        {
+          "heading": "Get Master Node ID",
+          "level": 3,
+          "line": 17
+        },
+        {
+          "heading": "Get Cluster State",
+          "level": 3,
+          "line": 31
+        },
+        {
+          "heading": "Get Events",
+          "level": 3,
+          "line": 40
+        },
+        {
+          "heading": "2. Model Instance Management",
+          "level": 2,
+          "line": 49
+        },
+        {
+          "heading": "Create Instance",
+          "level": 3,
+          "line": 51
+        },
+        {
+          "heading": "Delete Instance",
+          "level": 3,
+          "line": 82
+        },
+        {
+          "heading": "Get Instance",
+          "level": 3,
+          "line": 95
+        },
+        {
+          "heading": "Await Instance",
+          "level": 3,
+          "line": 108
+        },
+        {
+          "heading": "Preview Placements",
+          "level": 3,
+          "line": 133
+        },
+        {
+          "heading": "Compute Placement",
+          "level": 3,
+          "line": 149
+        },
+        {
+          "heading": "Place Instance",
+          "level": 3,
+          "line": 168
+        },
+        {
+          "heading": "3. Models",
+          "level": 2,
+          "line": 191
+        },
+        {
+          "heading": "List Models",
+          "level": 3,
+          "line": 193
+        },
+        {
+          "heading": "Add Custom Model",
+          "level": 3,
+          "line": 207
+        },
+        {
+          "heading": "Delete Custom Model",
+          "level": 3,
+          "line": 227
+        },
+        {
+          "heading": "Search Models",
+          "level": 3,
+          "line": 240
+        },
+        {
+          "heading": "4. Inference / Chat Completions",
+          "level": 2,
+          "line": 254
+        },
+        {
+          "heading": "OpenAI-Compatible Chat Completions",
+          "level": 3,
+          "line": 256
+        },
+        {
+          "heading": "Claude Messages API",
+          "level": 3,
+          "line": 330
+        },
+        {
+          "heading": "OpenAI Responses API",
+          "level": 3,
+          "line": 362
+        },
+        {
+          "heading": "Benchmarked Chat Completions",
+          "level": 3,
+          "line": 392
+        },
+        {
+          "heading": "Cancel Command",
+          "level": 3,
+          "line": 410
+        },
+        {
+          "heading": "5. Ollama API Compatibility",
+          "level": 2,
+          "line": 431
+        },
+        {
+          "heading": "Ollama Chat",
+          "level": 3,
+          "line": 435
+        },
+        {
+          "heading": "Ollama Generate",
+          "level": 3,
+          "line": 458
+        },
+        {
+          "heading": "Ollama Tags",
+          "level": 3,
+          "line": 477
+        },
+        {
+          "heading": "Ollama Show",
+          "level": 3,
+          "line": 488
+        },
+        {
+          "heading": "Ollama PS",
+          "level": 3,
+          "line": 505
+        },
+        {
+          "heading": "Ollama Version",
+          "level": 3,
+          "line": 514
+        },
+        {
+          "heading": "6. Image Generation & Editing",
+          "level": 2,
+          "line": 530
+        },
+        {
+          "heading": "Image Generation",
+          "level": 3,
+          "line": 532
+        },
+        {
+          "heading": "Image Editing",
+          "level": 3,
+          "line": 607
+        },
+        {
+          "heading": "Benchmarked Image Generation",
+          "level": 3,
+          "line": 631
+        },
+        {
+          "heading": "Benchmarked Image Editing",
+          "level": 3,
+          "line": 651
+        },
+        {
+          "heading": "List Images",
+          "level": 3,
+          "line": 663
+        },
+        {
+          "heading": "Get Image",
+          "level": 3,
+          "line": 672
+        },
+        {
+          "heading": "7. Complete Endpoint Summary",
+          "level": 2,
+          "line": 685
+        },
+        {
+          "heading": "8. Notes",
+          "level": 2,
+          "line": 745
+        },
+        {
+          "heading": "API Compatibility",
+          "level": 3,
+          "line": 747
+        },
+        {
+          "heading": "Custom Models",
+          "level": 3,
+          "line": 758
+        },
+        {
+          "heading": "Usage Statistics",
+          "level": 3,
+          "line": 764
+        },
+        {
+          "heading": "Request Cancellation",
+          "level": 3,
+          "line": 772
+        },
+        {
+          "heading": "Instance Placement",
+          "level": 3,
+          "line": 781
+        },
+        {
+          "heading": "Observability",
+          "level": 3,
+          "line": 785
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 46
+      }
+    },
+    {
+      "path": "docs/architecture.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 59,
+      "nonEmptyLines": 44,
+      "sections": [
+        {
+          "heading": "Architecture",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "Components",
+          "level": 2,
+          "line": 11
+        },
+        {
+          "heading": "The event-sourcing model",
+          "level": 2,
+          "line": 30
+        },
+        {
+          "heading": "Tasks",
+          "level": 3,
+          "line": 44
+        },
+        {
+          "heading": "Where to look next",
+          "level": 2,
+          "line": 50
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 5
+      }
+    },
+    {
+      "path": "docs/turboquant-mlx-pdd-plan.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 173,
+      "nonEmptyLines": 142,
+      "sections": [
+        {
+          "heading": "Plan: TurboQuant-style KV cache compression for MLX and PDD",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "Summary",
+          "level": 2,
+          "line": 3
+        },
+        {
+          "heading": "Current state",
+          "level": 2,
+          "line": 19
+        },
+        {
+          "heading": "Implementation approach",
+          "level": 2,
+          "line": 37
+        },
+        {
+          "heading": "Phase 1: benchmark existing MLX cache quantization",
+          "level": 3,
+          "line": 39
+        },
+        {
+          "heading": "Phase 2: introduce a TurboQuant cache adapter",
+          "level": 3,
+          "line": 64
+        },
+        {
+          "heading": "Phase 3: Apple Silicon fast path",
+          "level": 3,
+          "line": 96
+        },
+        {
+          "heading": "Phase 4: PDD cache handoff prototype",
+          "level": 3,
+          "line": 118
+        },
+        {
+          "heading": "Test plan",
+          "level": 2,
+          "line": 141
+        },
+        {
+          "heading": "Risks and defaults",
+          "level": 2,
+          "line": 161
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 10
+      }
+    }
+  ]
+}

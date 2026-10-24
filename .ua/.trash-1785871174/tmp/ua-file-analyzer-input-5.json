@@ -1,0 +1,262 @@
+{
+ "projectRoot": "/Users/chris/Documents/GitHub/exo",
+ "batchFiles": [
+  {
+   "path": "src/exo/__init__.py",
+   "language": "python",
+   "sizeLines": 3,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/__main__.py",
+   "language": "python",
+   "sizeLines": 39,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/main.py",
+   "language": "python",
+   "sizeLines": 504,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/master/main.py",
+   "language": "python",
+   "sizeLines": 560,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/routing/connection_message.py",
+   "language": "python",
+   "sizeLines": 13,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/routing/event_router.py",
+   "language": "python",
+   "sizeLines": 181,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/routing/router.py",
+   "language": "python",
+   "sizeLines": 264,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/routing/tests/test_event_buffer.py",
+   "language": "python",
+   "sizeLines": 143,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/routing/topics.py",
+   "language": "python",
+   "sizeLines": 51,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/shared/election.py",
+   "language": "python",
+   "sizeLines": 265,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/shared/tests/test_election.py",
+   "language": "python",
+   "sizeLines": 404,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/utils/__init__.py",
+   "language": "python",
+   "sizeLines": 21,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/utils/async_process.py",
+   "language": "python",
+   "sizeLines": 289,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/utils/channels.py",
+   "language": "python",
+   "sizeLines": 456,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/utils/disk_event_log.py",
+   "language": "python",
+   "sizeLines": 187,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/utils/event_buffer.py",
+   "language": "python",
+   "sizeLines": 70,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/utils/phantom.py",
+   "language": "python",
+   "sizeLines": 11,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/utils/pydantic_ext.py",
+   "language": "python",
+   "sizeLines": 36,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/utils/task_group.py",
+   "language": "python",
+   "sizeLines": 65,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/utils/tests/test_async_process.py",
+   "language": "python",
+   "sizeLines": 417,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/utils/tests/test_channels.py",
+   "language": "python",
+   "sizeLines": 121,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/utils/tests/test_event_log.py",
+   "language": "python",
+   "sizeLines": 155,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/utils/tests/test_tagged.py",
+   "language": "python",
+   "sizeLines": 250,
+   "fileCategory": "code"
+  }
+ ],
+ "batchImportData": {
+  "src/exo/__init__.py": [],
+  "src/exo/__main__.py": [
+   "src/exo/main.py"
+  ],
+  "src/exo/main.py": [
+   "src/exo/__init__.py",
+   "src/exo/api/main.py",
+   "src/exo/download/coordinator.py",
+   "src/exo/download/impl_shard_downloader.py",
+   "src/exo/master/main.py",
+   "src/exo/routing/event_router.py",
+   "src/exo/routing/router.py",
+   "src/exo/routing/topics.py",
+   "src/exo/shared/constants.py",
+   "src/exo/shared/election.py",
+   "src/exo/shared/logging.py",
+   "src/exo/shared/types/common.py",
+   "src/exo/utils/__init__.py",
+   "src/exo/utils/channels.py",
+   "src/exo/utils/pydantic_ext.py",
+   "src/exo/utils/task_group.py",
+   "src/exo/worker/main.py"
+  ],
+  "src/exo/master/main.py": [
+   "src/exo/master/placement.py",
+   "src/exo/master/placement_utils.py",
+   "src/exo/routing/event_router.py",
+   "src/exo/shared/apply.py",
+   "src/exo/shared/constants.py",
+   "src/exo/shared/types/commands.py",
+   "src/exo/shared/types/common.py",
+   "src/exo/shared/types/events.py",
+   "src/exo/shared/types/instance_link.py",
+   "src/exo/shared/types/state.py",
+   "src/exo/shared/types/tasks.py",
+   "src/exo/shared/types/worker/instances.py",
+   "src/exo/utils/channels.py",
+   "src/exo/utils/disk_event_log.py",
+   "src/exo/utils/event_buffer.py",
+   "src/exo/utils/task_group.py"
+  ],
+  "src/exo/routing/connection_message.py": [
+   "src/exo/utils/pydantic_ext.py"
+  ],
+  "src/exo/routing/event_router.py": [
+   "src/exo/shared/types/commands.py",
+   "src/exo/shared/types/common.py",
+   "src/exo/shared/types/events.py",
+   "src/exo/utils/__init__.py",
+   "src/exo/utils/channels.py",
+   "src/exo/utils/event_buffer.py",
+   "src/exo/utils/task_group.py"
+  ],
+  "src/exo/routing/router.py": [
+   "src/exo/routing/connection_message.py",
+   "src/exo/routing/topics.py",
+   "src/exo/shared/constants.py",
+   "src/exo/shared/types/common.py",
+   "src/exo/utils/channels.py",
+   "src/exo/utils/pydantic_ext.py",
+   "src/exo/utils/task_group.py"
+  ],
+  "src/exo/routing/tests/test_event_buffer.py": [
+   "src/exo/shared/types/events.py",
+   "src/exo/utils/event_buffer.py"
+  ],
+  "src/exo/routing/topics.py": [
+   "src/exo/routing/connection_message.py",
+   "src/exo/shared/election.py",
+   "src/exo/shared/types/commands.py",
+   "src/exo/shared/types/events.py",
+   "src/exo/utils/pydantic_ext.py"
+  ],
+  "src/exo/shared/election.py": [
+   "src/exo/routing/connection_message.py",
+   "src/exo/shared/types/commands.py",
+   "src/exo/shared/types/common.py",
+   "src/exo/utils/channels.py",
+   "src/exo/utils/pydantic_ext.py",
+   "src/exo/utils/task_group.py"
+  ],
+  "src/exo/shared/tests/test_election.py": [
+   "src/exo/routing/connection_message.py",
+   "src/exo/shared/election.py",
+   "src/exo/shared/types/commands.py",
+   "src/exo/shared/types/common.py",
+   "src/exo/utils/channels.py"
+  ],
+  "src/exo/utils/__init__.py": [
+   "src/exo/utils/phantom.py"
+  ],
+  "src/exo/utils/async_process.py": [
+   "src/exo/utils/__init__.py",
+   "src/exo/utils/channels.py"
+  ],
+  "src/exo/utils/channels.py": [],
+  "src/exo/utils/disk_event_log.py": [
+   "src/exo/shared/types/events.py"
+  ],
+  "src/exo/utils/event_buffer.py": [],
+  "src/exo/utils/phantom.py": [],
+  "src/exo/utils/pydantic_ext.py": [],
+  "src/exo/utils/task_group.py": [],
+  "src/exo/utils/tests/test_async_process.py": [
+   "src/exo/utils/async_process.py",
+   "src/exo/utils/channels.py"
+  ],
+  "src/exo/utils/tests/test_channels.py": [
+   "src/exo/utils/channels.py"
+  ],
+  "src/exo/utils/tests/test_event_log.py": [
+   "src/exo/shared/types/events.py",
+   "src/exo/utils/disk_event_log.py"
+  ],
+  "src/exo/utils/tests/test_tagged.py": [
+   "src/exo/utils/pydantic_ext.py"
+  ]
+ }
+}

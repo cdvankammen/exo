@@ -1,0 +1,765 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 25,
+  "filesSkipped": [],
+  "analysisOutcomes": {
+    "structure": {
+      "succeeded": 25,
+      "failed": 0
+    },
+    "callGraph": {
+      "succeeded": 25,
+      "failed": 0,
+      "skipped": 0
+    }
+  },
+  "results": [
+    {
+      "path": ".typings/mflux/models/flux/weights/__init__.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 8,
+      "nonEmptyLines": 6,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": ".typings/mflux/models/flux/weights/flux_lora_mapping.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 9,
+      "nonEmptyLines": 7,
+      "classes": [
+        {
+          "name": "FluxLoRAMapping",
+          "startLine": 7,
+          "endLine": 9,
+          "methods": [
+            "get_mapping"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "FluxLoRAMapping",
+          "line": 7,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mflux/models/flux/weights/flux_weight_definition.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 45,
+      "nonEmptyLines": 40,
+      "classes": [
+        {
+          "name": "FluxWeightDefinition",
+          "startLine": 15,
+          "endLine": 23,
+          "methods": [
+            "get_components",
+            "get_tokenizers",
+            "get_download_patterns",
+            "quantization_predicate"
+          ],
+          "properties": []
+        },
+        {
+          "name": "FluxControlnetWeightDefinition",
+          "startLine": 25,
+          "endLine": 35,
+          "methods": [
+            "get_controlnet_component",
+            "get_components",
+            "get_tokenizers",
+            "get_download_patterns",
+            "quantization_predicate"
+          ],
+          "properties": []
+        },
+        {
+          "name": "FluxReduxWeightDefinition",
+          "startLine": 37,
+          "endLine": 45,
+          "methods": [
+            "get_components",
+            "get_tokenizers",
+            "get_download_patterns",
+            "quantization_predicate"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "FluxWeightDefinition",
+          "line": 15,
+          "isDefault": false
+        },
+        {
+          "name": "FluxControlnetWeightDefinition",
+          "line": 25,
+          "isDefault": false
+        },
+        {
+          "name": "FluxReduxWeightDefinition",
+          "line": 37,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 3,
+        "functionCount": 0,
+        "classCount": 3
+      }
+    },
+    {
+      "path": ".typings/mflux/models/flux/weights/flux_weight_mapping.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 21,
+      "nonEmptyLines": 19,
+      "classes": [
+        {
+          "name": "FluxWeightMapping",
+          "startLine": 11,
+          "endLine": 21,
+          "methods": [
+            "get_transformer_mapping",
+            "get_controlnet_transformer_mapping",
+            "get_vae_mapping",
+            "get_t5_encoder_mapping",
+            "get_clip_encoder_mapping"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "FluxWeightMapping",
+          "line": 11,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mflux/models/qwen/__init__.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 3,
+      "nonEmptyLines": 3,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": ".typings/mflux/models/qwen/cli/__init__.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 3,
+      "nonEmptyLines": 3,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": ".typings/mflux/models/qwen/latent_creator/__init__.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 7,
+      "nonEmptyLines": 6,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": ".typings/mflux/models/qwen/latent_creator/qwen_latent_creator.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 19,
+      "nonEmptyLines": 16,
+      "classes": [
+        {
+          "name": "QwenLatentCreator",
+          "startLine": 11,
+          "endLine": 19,
+          "methods": [
+            "create_noise",
+            "pack_latents",
+            "unpack_latents"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "QwenLatentCreator",
+          "line": 11,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mflux/models/qwen/model/__init__.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 7,
+      "nonEmptyLines": 6,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": ".typings/mflux/models/qwen/model/qwen_text_encoder/qwen_attention.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 23,
+      "nonEmptyLines": 21,
+      "classes": [
+        {
+          "name": "QwenAttention",
+          "startLine": 8,
+          "endLine": 23,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "QwenAttention",
+          "line": 8,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mflux/models/qwen/model/qwen_text_encoder/qwen_encoder.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 26,
+      "nonEmptyLines": 24,
+      "classes": [
+        {
+          "name": "QwenEncoder",
+          "startLine": 8,
+          "endLine": 26,
+          "methods": [
+            "__init__",
+            "get_image_features",
+            "__call__"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "QwenEncoder",
+          "line": 8,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mflux/models/qwen/model/qwen_text_encoder/qwen_encoder_layer.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 24,
+      "nonEmptyLines": 22,
+      "classes": [
+        {
+          "name": "QwenEncoderLayer",
+          "startLine": 8,
+          "endLine": 24,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "QwenEncoderLayer",
+          "line": 8,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mflux/models/qwen/model/qwen_text_encoder/qwen_mlp.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 10,
+      "nonEmptyLines": 8,
+      "classes": [
+        {
+          "name": "QwenMLP",
+          "startLine": 8,
+          "endLine": 10,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "QwenMLP",
+          "line": 8,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mflux/models/qwen/model/qwen_text_encoder/qwen_patch_merger.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 12,
+      "nonEmptyLines": 10,
+      "classes": [
+        {
+          "name": "PatchMerger",
+          "startLine": 8,
+          "endLine": 12,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "PatchMerger",
+          "line": 8,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mflux/models/qwen/model/qwen_text_encoder/qwen_prompt_encoder.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 21,
+      "nonEmptyLines": 18,
+      "classes": [
+        {
+          "name": "QwenPromptEncoder",
+          "startLine": 13,
+          "endLine": 21,
+          "methods": [
+            "encode_prompt"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "QwenPromptEncoder",
+          "line": 13,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mflux/models/qwen/model/qwen_text_encoder/qwen_rms_norm.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 10,
+      "nonEmptyLines": 8,
+      "classes": [
+        {
+          "name": "QwenRMSNorm",
+          "startLine": 8,
+          "endLine": 10,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "QwenRMSNorm",
+          "line": 8,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mflux/models/qwen/model/qwen_text_encoder/qwen_rope.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 21,
+      "nonEmptyLines": 19,
+      "classes": [
+        {
+          "name": "QwenRotaryEmbedding",
+          "startLine": 8,
+          "endLine": 21,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "QwenRotaryEmbedding",
+          "line": 8,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mflux/models/qwen/model/qwen_text_encoder/qwen_text_encoder.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 16,
+      "nonEmptyLines": 13,
+      "classes": [
+        {
+          "name": "QwenTextEncoder",
+          "startLine": 12,
+          "endLine": 16,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "QwenTextEncoder",
+          "line": 12,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mflux/models/qwen/model/qwen_text_encoder/qwen_vision_attention.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 12,
+      "nonEmptyLines": 10,
+      "classes": [
+        {
+          "name": "VisionAttention",
+          "startLine": 8,
+          "endLine": 12,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "VisionAttention",
+          "line": 8,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mflux/models/qwen/model/qwen_text_encoder/qwen_vision_block.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 14,
+      "nonEmptyLines": 12,
+      "classes": [
+        {
+          "name": "VisionBlock",
+          "startLine": 8,
+          "endLine": 14,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "VisionBlock",
+          "line": 8,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mflux/models/qwen/model/qwen_text_encoder/qwen_vision_language_encoder.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 16,
+      "nonEmptyLines": 14,
+      "classes": [
+        {
+          "name": "QwenVisionLanguageEncoder",
+          "startLine": 8,
+          "endLine": 16,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "QwenVisionLanguageEncoder",
+          "line": 8,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mflux/models/qwen/model/qwen_text_encoder/qwen_vision_mlp.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 10,
+      "nonEmptyLines": 8,
+      "classes": [
+        {
+          "name": "VisionMLP",
+          "startLine": 8,
+          "endLine": 10,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "VisionMLP",
+          "line": 8,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mflux/models/qwen/model/qwen_text_encoder/qwen_vision_patch_embed.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 16,
+      "nonEmptyLines": 14,
+      "classes": [
+        {
+          "name": "VisionPatchEmbed",
+          "startLine": 8,
+          "endLine": 16,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "VisionPatchEmbed",
+          "line": 8,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mflux/models/qwen/model/qwen_text_encoder/qwen_vision_rotary_embedding.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 10,
+      "nonEmptyLines": 8,
+      "classes": [
+        {
+          "name": "VisionRotaryEmbedding",
+          "startLine": 8,
+          "endLine": 10,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "VisionRotaryEmbedding",
+          "line": 8,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mflux/models/qwen/model/qwen_text_encoder/qwen_vision_transformer.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 26,
+      "nonEmptyLines": 24,
+      "classes": [
+        {
+          "name": "VisionTransformer",
+          "startLine": 8,
+          "endLine": 26,
+          "methods": [
+            "__init__",
+            "get_window_index",
+            "rot_pos_emb",
+            "__call__"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "VisionTransformer",
+          "line": 8,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    }
+  ]
+}

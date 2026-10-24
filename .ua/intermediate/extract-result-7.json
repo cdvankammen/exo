@@ -1,0 +1,1045 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 18,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": "resources/image_model_cards/exolabs--FLUX.1-Kontext-dev-4bit.toml",
+      "language": "toml",
+      "fileCategory": "config",
+      "totalLines": 50,
+      "nonEmptyLines": 41,
+      "sections": [
+        {
+          "heading": "storage_size",
+          "level": 1,
+          "line": 12
+        },
+        {
+          "heading": "[[components]]",
+          "level": 1,
+          "line": 15
+        },
+        {
+          "heading": "components.storage_size",
+          "level": 2,
+          "line": 21
+        },
+        {
+          "heading": "[[components]]",
+          "level": 1,
+          "line": 24
+        },
+        {
+          "heading": "components.storage_size",
+          "level": 2,
+          "line": 31
+        },
+        {
+          "heading": "[[components]]",
+          "level": 1,
+          "line": 34
+        },
+        {
+          "heading": "components.storage_size",
+          "level": 2,
+          "line": 41
+        },
+        {
+          "heading": "[[components]]",
+          "level": 1,
+          "line": 44
+        },
+        {
+          "heading": "components.storage_size",
+          "level": 2,
+          "line": 49
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 9
+      }
+    },
+    {
+      "path": "resources/image_model_cards/exolabs--FLUX.1-Kontext-dev-8bit.toml",
+      "language": "toml",
+      "fileCategory": "config",
+      "totalLines": 50,
+      "nonEmptyLines": 41,
+      "sections": [
+        {
+          "heading": "storage_size",
+          "level": 1,
+          "line": 12
+        },
+        {
+          "heading": "[[components]]",
+          "level": 1,
+          "line": 15
+        },
+        {
+          "heading": "components.storage_size",
+          "level": 2,
+          "line": 21
+        },
+        {
+          "heading": "[[components]]",
+          "level": 1,
+          "line": 24
+        },
+        {
+          "heading": "components.storage_size",
+          "level": 2,
+          "line": 31
+        },
+        {
+          "heading": "[[components]]",
+          "level": 1,
+          "line": 34
+        },
+        {
+          "heading": "components.storage_size",
+          "level": 2,
+          "line": 41
+        },
+        {
+          "heading": "[[components]]",
+          "level": 1,
+          "line": 44
+        },
+        {
+          "heading": "components.storage_size",
+          "level": 2,
+          "line": 49
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 9
+      }
+    },
+    {
+      "path": "resources/image_model_cards/exolabs--FLUX.1-Kontext-dev.toml",
+      "language": "toml",
+      "fileCategory": "config",
+      "totalLines": 50,
+      "nonEmptyLines": 41,
+      "sections": [
+        {
+          "heading": "storage_size",
+          "level": 1,
+          "line": 12
+        },
+        {
+          "heading": "[[components]]",
+          "level": 1,
+          "line": 15
+        },
+        {
+          "heading": "components.storage_size",
+          "level": 2,
+          "line": 21
+        },
+        {
+          "heading": "[[components]]",
+          "level": 1,
+          "line": 24
+        },
+        {
+          "heading": "components.storage_size",
+          "level": 2,
+          "line": 31
+        },
+        {
+          "heading": "[[components]]",
+          "level": 1,
+          "line": 34
+        },
+        {
+          "heading": "components.storage_size",
+          "level": 2,
+          "line": 41
+        },
+        {
+          "heading": "[[components]]",
+          "level": 1,
+          "line": 44
+        },
+        {
+          "heading": "components.storage_size",
+          "level": 2,
+          "line": 49
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 9
+      }
+    },
+    {
+      "path": "resources/image_model_cards/exolabs--FLUX.1-Krea-dev-4bit.toml",
+      "language": "toml",
+      "fileCategory": "config",
+      "totalLines": 50,
+      "nonEmptyLines": 41,
+      "sections": [
+        {
+          "heading": "storage_size",
+          "level": 1,
+          "line": 12
+        },
+        {
+          "heading": "[[components]]",
+          "level": 1,
+          "line": 15
+        },
+        {
+          "heading": "components.storage_size",
+          "level": 2,
+          "line": 21
+        },
+        {
+          "heading": "[[components]]",
+          "level": 1,
+          "line": 24
+        },
+        {
+          "heading": "components.storage_size",
+          "level": 2,
+          "line": 31
+        },
+        {
+          "heading": "[[components]]",
+          "level": 1,
+          "line": 34
+        },
+        {
+          "heading": "components.storage_size",
+          "level": 2,
+          "line": 41
+        },
+        {
+          "heading": "[[components]]",
+          "level": 1,
+          "line": 44
+        },
+        {
+          "heading": "components.storage_size",
+          "level": 2,
+          "line": 49
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 9
+      }
+    },
+    {
+      "path": "resources/image_model_cards/exolabs--FLUX.1-Krea-dev-8bit.toml",
+      "language": "toml",
+      "fileCategory": "config",
+      "totalLines": 50,
+      "nonEmptyLines": 41,
+      "sections": [
+        {
+          "heading": "storage_size",
+          "level": 1,
+          "line": 12
+        },
+        {
+          "heading": "[[components]]",
+          "level": 1,
+          "line": 15
+        },
+        {
+          "heading": "components.storage_size",
+          "level": 2,
+          "line": 21
+        },
+        {
+          "heading": "[[components]]",
+          "level": 1,
+          "line": 24
+        },
+        {
+          "heading": "components.storage_size",
+          "level": 2,
+          "line": 31
+        },
+        {
+          "heading": "[[components]]",
+          "level": 1,
+          "line": 34
+        },
+        {
+          "heading": "components.storage_size",
+          "level": 2,
+          "line": 41
+        },
+        {
+          "heading": "[[components]]",
+          "level": 1,
+          "line": 44
+        },
+        {
+          "heading": "components.storage_size",
+          "level": 2,
+          "line": 49
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 9
+      }
+    },
+    {
+      "path": "resources/image_model_cards/exolabs--FLUX.1-Krea-dev.toml",
+      "language": "toml",
+      "fileCategory": "config",
+      "totalLines": 50,
+      "nonEmptyLines": 41,
+      "sections": [
+        {
+          "heading": "storage_size",
+          "level": 1,
+          "line": 12
+        },
+        {
+          "heading": "[[components]]",
+          "level": 1,
+          "line": 15
+        },
+        {
+          "heading": "components.storage_size",
+          "level": 2,
+          "line": 21
+        },
+        {
+          "heading": "[[components]]",
+          "level": 1,
+          "line": 24
+        },
+        {
+          "heading": "components.storage_size",
+          "level": 2,
+          "line": 31
+        },
+        {
+          "heading": "[[components]]",
+          "level": 1,
+          "line": 34
+        },
+        {
+          "heading": "components.storage_size",
+          "level": 2,
+          "line": 41
+        },
+        {
+          "heading": "[[components]]",
+          "level": 1,
+          "line": 44
+        },
+        {
+          "heading": "components.storage_size",
+          "level": 2,
+          "line": 49
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 9
+      }
+    },
+    {
+      "path": "resources/image_model_cards/exolabs--FLUX.1-dev-4bit.toml",
+      "language": "toml",
+      "fileCategory": "config",
+      "totalLines": 50,
+      "nonEmptyLines": 41,
+      "sections": [
+        {
+          "heading": "storage_size",
+          "level": 1,
+          "line": 12
+        },
+        {
+          "heading": "[[components]]",
+          "level": 1,
+          "line": 15
+        },
+        {
+          "heading": "components.storage_size",
+          "level": 2,
+          "line": 21
+        },
+        {
+          "heading": "[[components]]",
+          "level": 1,
+          "line": 24
+        },
+        {
+          "heading": "components.storage_size",
+          "level": 2,
+          "line": 31
+        },
+        {
+          "heading": "[[components]]",
+          "level": 1,
+          "line": 34
+        },
+        {
+          "heading": "components.storage_size",
+          "level": 2,
+          "line": 41
+        },
+        {
+          "heading": "[[components]]",
+          "level": 1,
+          "line": 44
+        },
+        {
+          "heading": "components.storage_size",
+          "level": 2,
+          "line": 49
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 9
+      }
+    },
+    {
+      "path": "resources/image_model_cards/exolabs--FLUX.1-dev-8bit.toml",
+      "language": "toml",
+      "fileCategory": "config",
+      "totalLines": 50,
+      "nonEmptyLines": 41,
+      "sections": [
+        {
+          "heading": "storage_size",
+          "level": 1,
+          "line": 12
+        },
+        {
+          "heading": "[[components]]",
+          "level": 1,
+          "line": 15
+        },
+        {
+          "heading": "components.storage_size",
+          "level": 2,
+          "line": 21
+        },
+        {
+          "heading": "[[components]]",
+          "level": 1,
+          "line": 24
+        },
+        {
+          "heading": "components.storage_size",
+          "level": 2,
+          "line": 31
+        },
+        {
+          "heading": "[[components]]",
+          "level": 1,
+          "line": 34
+        },
+        {
+          "heading": "components.storage_size",
+          "level": 2,
+          "line": 41
+        },
+        {
+          "heading": "[[components]]",
+          "level": 1,
+          "line": 44
+        },
+        {
+          "heading": "components.storage_size",
+          "level": 2,
+          "line": 49
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 9
+      }
+    },
+    {
+      "path": "resources/image_model_cards/exolabs--FLUX.1-dev.toml",
+      "language": "toml",
+      "fileCategory": "config",
+      "totalLines": 50,
+      "nonEmptyLines": 41,
+      "sections": [
+        {
+          "heading": "storage_size",
+          "level": 1,
+          "line": 12
+        },
+        {
+          "heading": "[[components]]",
+          "level": 1,
+          "line": 15
+        },
+        {
+          "heading": "components.storage_size",
+          "level": 2,
+          "line": 21
+        },
+        {
+          "heading": "[[components]]",
+          "level": 1,
+          "line": 24
+        },
+        {
+          "heading": "components.storage_size",
+          "level": 2,
+          "line": 31
+        },
+        {
+          "heading": "[[components]]",
+          "level": 1,
+          "line": 34
+        },
+        {
+          "heading": "components.storage_size",
+          "level": 2,
+          "line": 41
+        },
+        {
+          "heading": "[[components]]",
+          "level": 1,
+          "line": 44
+        },
+        {
+          "heading": "components.storage_size",
+          "level": 2,
+          "line": 49
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 9
+      }
+    },
+    {
+      "path": "resources/image_model_cards/exolabs--FLUX.1-schnell-4bit.toml",
+      "language": "toml",
+      "fileCategory": "config",
+      "totalLines": 50,
+      "nonEmptyLines": 41,
+      "sections": [
+        {
+          "heading": "storage_size",
+          "level": 1,
+          "line": 12
+        },
+        {
+          "heading": "[[components]]",
+          "level": 1,
+          "line": 15
+        },
+        {
+          "heading": "components.storage_size",
+          "level": 2,
+          "line": 21
+        },
+        {
+          "heading": "[[components]]",
+          "level": 1,
+          "line": 24
+        },
+        {
+          "heading": "components.storage_size",
+          "level": 2,
+          "line": 31
+        },
+        {
+          "heading": "[[components]]",
+          "level": 1,
+          "line": 34
+        },
+        {
+          "heading": "components.storage_size",
+          "level": 2,
+          "line": 41
+        },
+        {
+          "heading": "[[components]]",
+          "level": 1,
+          "line": 44
+        },
+        {
+          "heading": "components.storage_size",
+          "level": 2,
+          "line": 49
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 9
+      }
+    },
+    {
+      "path": "resources/image_model_cards/exolabs--FLUX.1-schnell-8bit.toml",
+      "language": "toml",
+      "fileCategory": "config",
+      "totalLines": 50,
+      "nonEmptyLines": 41,
+      "sections": [
+        {
+          "heading": "storage_size",
+          "level": 1,
+          "line": 12
+        },
+        {
+          "heading": "[[components]]",
+          "level": 1,
+          "line": 15
+        },
+        {
+          "heading": "components.storage_size",
+          "level": 2,
+          "line": 21
+        },
+        {
+          "heading": "[[components]]",
+          "level": 1,
+          "line": 24
+        },
+        {
+          "heading": "components.storage_size",
+          "level": 2,
+          "line": 31
+        },
+        {
+          "heading": "[[components]]",
+          "level": 1,
+          "line": 34
+        },
+        {
+          "heading": "components.storage_size",
+          "level": 2,
+          "line": 41
+        },
+        {
+          "heading": "[[components]]",
+          "level": 1,
+          "line": 44
+        },
+        {
+          "heading": "components.storage_size",
+          "level": 2,
+          "line": 49
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 9
+      }
+    },
+    {
+      "path": "resources/image_model_cards/exolabs--FLUX.1-schnell.toml",
+      "language": "toml",
+      "fileCategory": "config",
+      "totalLines": 50,
+      "nonEmptyLines": 41,
+      "sections": [
+        {
+          "heading": "storage_size",
+          "level": 1,
+          "line": 12
+        },
+        {
+          "heading": "[[components]]",
+          "level": 1,
+          "line": 15
+        },
+        {
+          "heading": "components.storage_size",
+          "level": 2,
+          "line": 21
+        },
+        {
+          "heading": "[[components]]",
+          "level": 1,
+          "line": 24
+        },
+        {
+          "heading": "components.storage_size",
+          "level": 2,
+          "line": 31
+        },
+        {
+          "heading": "[[components]]",
+          "level": 1,
+          "line": 34
+        },
+        {
+          "heading": "components.storage_size",
+          "level": 2,
+          "line": 41
+        },
+        {
+          "heading": "[[components]]",
+          "level": 1,
+          "line": 44
+        },
+        {
+          "heading": "components.storage_size",
+          "level": 2,
+          "line": 49
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 9
+      }
+    },
+    {
+      "path": "resources/image_model_cards/exolabs--Qwen-Image-4bit.toml",
+      "language": "toml",
+      "fileCategory": "config",
+      "totalLines": 41,
+      "nonEmptyLines": 34,
+      "sections": [
+        {
+          "heading": "storage_size",
+          "level": 1,
+          "line": 13
+        },
+        {
+          "heading": "[[components]]",
+          "level": 1,
+          "line": 16
+        },
+        {
+          "heading": "components.storage_size",
+          "level": 2,
+          "line": 22
+        },
+        {
+          "heading": "[[components]]",
+          "level": 1,
+          "line": 25
+        },
+        {
+          "heading": "components.storage_size",
+          "level": 2,
+          "line": 32
+        },
+        {
+          "heading": "[[components]]",
+          "level": 1,
+          "line": 35
+        },
+        {
+          "heading": "components.storage_size",
+          "level": 2,
+          "line": 40
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 7
+      }
+    },
+    {
+      "path": "resources/image_model_cards/exolabs--Qwen-Image-8bit.toml",
+      "language": "toml",
+      "fileCategory": "config",
+      "totalLines": 41,
+      "nonEmptyLines": 34,
+      "sections": [
+        {
+          "heading": "storage_size",
+          "level": 1,
+          "line": 13
+        },
+        {
+          "heading": "[[components]]",
+          "level": 1,
+          "line": 16
+        },
+        {
+          "heading": "components.storage_size",
+          "level": 2,
+          "line": 22
+        },
+        {
+          "heading": "[[components]]",
+          "level": 1,
+          "line": 25
+        },
+        {
+          "heading": "components.storage_size",
+          "level": 2,
+          "line": 32
+        },
+        {
+          "heading": "[[components]]",
+          "level": 1,
+          "line": 35
+        },
+        {
+          "heading": "components.storage_size",
+          "level": 2,
+          "line": 40
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 7
+      }
+    },
+    {
+      "path": "resources/image_model_cards/exolabs--Qwen-Image-Edit-2509-4bit.toml",
+      "language": "toml",
+      "fileCategory": "config",
+      "totalLines": 41,
+      "nonEmptyLines": 34,
+      "sections": [
+        {
+          "heading": "storage_size",
+          "level": 1,
+          "line": 13
+        },
+        {
+          "heading": "[[components]]",
+          "level": 1,
+          "line": 16
+        },
+        {
+          "heading": "components.storage_size",
+          "level": 2,
+          "line": 22
+        },
+        {
+          "heading": "[[components]]",
+          "level": 1,
+          "line": 25
+        },
+        {
+          "heading": "components.storage_size",
+          "level": 2,
+          "line": 32
+        },
+        {
+          "heading": "[[components]]",
+          "level": 1,
+          "line": 35
+        },
+        {
+          "heading": "components.storage_size",
+          "level": 2,
+          "line": 40
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 7
+      }
+    },
+    {
+      "path": "resources/image_model_cards/exolabs--Qwen-Image-Edit-2509-8bit.toml",
+      "language": "toml",
+      "fileCategory": "config",
+      "totalLines": 41,
+      "nonEmptyLines": 34,
+      "sections": [
+        {
+          "heading": "storage_size",
+          "level": 1,
+          "line": 13
+        },
+        {
+          "heading": "[[components]]",
+          "level": 1,
+          "line": 16
+        },
+        {
+          "heading": "components.storage_size",
+          "level": 2,
+          "line": 22
+        },
+        {
+          "heading": "[[components]]",
+          "level": 1,
+          "line": 25
+        },
+        {
+          "heading": "components.storage_size",
+          "level": 2,
+          "line": 32
+        },
+        {
+          "heading": "[[components]]",
+          "level": 1,
+          "line": 35
+        },
+        {
+          "heading": "components.storage_size",
+          "level": 2,
+          "line": 40
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 7
+      }
+    },
+    {
+      "path": "resources/image_model_cards/exolabs--Qwen-Image-Edit-2509.toml",
+      "language": "toml",
+      "fileCategory": "config",
+      "totalLines": 41,
+      "nonEmptyLines": 34,
+      "sections": [
+        {
+          "heading": "storage_size",
+          "level": 1,
+          "line": 13
+        },
+        {
+          "heading": "[[components]]",
+          "level": 1,
+          "line": 16
+        },
+        {
+          "heading": "components.storage_size",
+          "level": 2,
+          "line": 22
+        },
+        {
+          "heading": "[[components]]",
+          "level": 1,
+          "line": 25
+        },
+        {
+          "heading": "components.storage_size",
+          "level": 2,
+          "line": 32
+        },
+        {
+          "heading": "[[components]]",
+          "level": 1,
+          "line": 35
+        },
+        {
+          "heading": "components.storage_size",
+          "level": 2,
+          "line": 40
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 7
+      }
+    },
+    {
+      "path": "resources/image_model_cards/exolabs--Qwen-Image.toml",
+      "language": "toml",
+      "fileCategory": "config",
+      "totalLines": 41,
+      "nonEmptyLines": 34,
+      "sections": [
+        {
+          "heading": "storage_size",
+          "level": 1,
+          "line": 13
+        },
+        {
+          "heading": "[[components]]",
+          "level": 1,
+          "line": 16
+        },
+        {
+          "heading": "components.storage_size",
+          "level": 2,
+          "line": 22
+        },
+        {
+          "heading": "[[components]]",
+          "level": 1,
+          "line": 25
+        },
+        {
+          "heading": "components.storage_size",
+          "level": 2,
+          "line": 32
+        },
+        {
+          "heading": "[[components]]",
+          "level": 1,
+          "line": 35
+        },
+        {
+          "heading": "components.storage_size",
+          "level": 2,
+          "line": 40
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 7
+      }
+    }
+  ]
+}

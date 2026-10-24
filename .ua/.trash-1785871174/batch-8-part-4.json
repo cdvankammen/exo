@@ -1,0 +1,264 @@
+{
+ "nodes": [
+  {
+   "id": "file:src/exo/utils/info_gatherer/system_info.py",
+   "type": "file",
+   "name": "system_info.py",
+   "filePath": "src/exo/utils/info_gatherer/system_info.py",
+   "summary": "macOS system info helpers: OS version/build, friendly device name, network interface types from networksetup, and model/chip identification.",
+   "tags": [
+    "system",
+    "macos",
+    "network",
+    "utility"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:src/exo/utils/info_gatherer/system_info.py:get_os_version",
+   "type": "function",
+   "name": "get_os_version",
+   "filePath": "src/exo/utils/info_gatherer/system_info.py",
+   "lineRange": [
+    12,
+    21
+   ],
+   "summary": "Returns the macOS version string.",
+   "tags": [
+    "system",
+    "macos"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/utils/info_gatherer/system_info.py:get_os_build_version",
+   "type": "function",
+   "name": "get_os_build_version",
+   "filePath": "src/exo/utils/info_gatherer/system_info.py",
+   "lineRange": [
+    24,
+    37
+   ],
+   "summary": "Returns the macOS build version string.",
+   "tags": [
+    "system",
+    "macos"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/utils/info_gatherer/system_info.py:get_friendly_name",
+   "type": "function",
+   "name": "get_friendly_name",
+   "filePath": "src/exo/utils/info_gatherer/system_info.py",
+   "lineRange": [
+    40,
+    56
+   ],
+   "summary": "Builds a friendly device name from model, chip, and OS info.",
+   "tags": [
+    "system",
+    "naming"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/utils/info_gatherer/system_info.py:_get_interface_types_from_networksetup",
+   "type": "function",
+   "name": "_get_interface_types_from_networksetup",
+   "filePath": "src/exo/utils/info_gatherer/system_info.py",
+   "lineRange": [
+    59,
+    90
+   ],
+   "summary": "Maps network interface names to types using networksetup.",
+   "tags": [
+    "network",
+    "macos"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:src/exo/utils/info_gatherer/system_info.py:get_network_interfaces",
+   "type": "function",
+   "name": "get_network_interfaces",
+   "filePath": "src/exo/utils/info_gatherer/system_info.py",
+   "lineRange": [
+    93,
+    117
+   ],
+   "summary": "Enumerates network interfaces with IPs and interface types.",
+   "tags": [
+    "network",
+    "discovery"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:src/exo/utils/info_gatherer/system_info.py:get_model_and_chip",
+   "type": "function",
+   "name": "get_model_and_chip",
+   "filePath": "src/exo/utils/info_gatherer/system_info.py",
+   "lineRange": [
+    120,
+    150
+   ],
+   "summary": "Returns the Mac model identifier and chip name.",
+   "tags": [
+    "system",
+    "hardware"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:src/exo/utils/info_gatherer/tests/test_tb_parsing.py",
+   "type": "file",
+   "name": "test_tb_parsing.py",
+   "filePath": "src/exo/utils/info_gatherer/tests/test_tb_parsing.py",
+   "summary": "Tests Thunderbolt identifier parsing used by the info gatherer.",
+   "tags": [
+    "test",
+    "thunderbolt",
+    "parsing"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/utils/info_gatherer/tests/test_tb_parsing.py:test_tb_parsing",
+   "type": "function",
+   "name": "test_tb_parsing",
+   "filePath": "src/exo/utils/info_gatherer/tests/test_tb_parsing.py",
+   "lineRange": [
+    17,
+    24
+   ],
+   "summary": "Parses raw Thunderbolt identifier lines and verifies the parsed model.",
+   "tags": [
+    "test",
+    "thunderbolt"
+   ],
+   "complexity": "simple"
+  }
+ ],
+ "edges": [
+  {
+   "source": "file:src/exo/utils/info_gatherer/system_info.py",
+   "target": "function:src/exo/utils/info_gatherer/system_info.py:get_os_version",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/utils/info_gatherer/system_info.py",
+   "target": "function:src/exo/utils/info_gatherer/system_info.py:get_os_version",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/utils/info_gatherer/system_info.py",
+   "target": "function:src/exo/utils/info_gatherer/system_info.py:get_os_build_version",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/utils/info_gatherer/system_info.py",
+   "target": "function:src/exo/utils/info_gatherer/system_info.py:get_os_build_version",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/utils/info_gatherer/system_info.py",
+   "target": "function:src/exo/utils/info_gatherer/system_info.py:get_friendly_name",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/utils/info_gatherer/system_info.py",
+   "target": "function:src/exo/utils/info_gatherer/system_info.py:get_friendly_name",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/utils/info_gatherer/system_info.py",
+   "target": "function:src/exo/utils/info_gatherer/system_info.py:_get_interface_types_from_networksetup",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/utils/info_gatherer/system_info.py",
+   "target": "function:src/exo/utils/info_gatherer/system_info.py:_get_interface_types_from_networksetup",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/utils/info_gatherer/system_info.py",
+   "target": "function:src/exo/utils/info_gatherer/system_info.py:get_network_interfaces",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/utils/info_gatherer/system_info.py",
+   "target": "function:src/exo/utils/info_gatherer/system_info.py:get_network_interfaces",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/utils/info_gatherer/system_info.py",
+   "target": "function:src/exo/utils/info_gatherer/system_info.py:get_model_and_chip",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/utils/info_gatherer/system_info.py",
+   "target": "function:src/exo/utils/info_gatherer/system_info.py:get_model_and_chip",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/utils/info_gatherer/system_info.py",
+   "target": "file:src/exo/shared/types/profiling.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/utils/info_gatherer/tests/test_tb_parsing.py",
+   "target": "function:src/exo/utils/info_gatherer/tests/test_tb_parsing.py:test_tb_parsing",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/utils/info_gatherer/tests/test_tb_parsing.py",
+   "target": "function:src/exo/utils/info_gatherer/tests/test_tb_parsing.py:test_tb_parsing",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/utils/info_gatherer/tests/test_tb_parsing.py",
+   "target": "file:src/exo/shared/types/thunderbolt.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/utils/info_gatherer/tests/test_tb_parsing.py",
+   "target": "file:src/exo/utils/info_gatherer/info_gatherer.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  }
+ ]
+}

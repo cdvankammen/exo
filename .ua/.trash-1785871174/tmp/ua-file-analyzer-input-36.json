@@ -1,0 +1,182 @@
+{
+ "projectRoot": "/Users/chris/Documents/GitHub/exo",
+ "batchFiles": [
+  {
+   "path": ".typings/mflux/models/qwen/variants/__init__.pyi",
+   "language": "python",
+   "sizeLines": 7,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".typings/mflux/models/qwen/variants/edit/qwen_edit_util.pyi",
+   "language": "python",
+   "sizeLines": 18,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".typings/mflux/models/qwen/variants/edit/qwen_image_edit.pyi",
+   "language": "python",
+   "sizeLines": 55,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".typings/mflux/models/qwen/variants/txt2img/qwen_image.pyi",
+   "language": "python",
+   "sizeLines": 50,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".typings/mflux/models/qwen/weights/__init__.pyi",
+   "language": "python",
+   "sizeLines": 8,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".typings/mflux/models/qwen/weights/qwen_lora_mapping.pyi",
+   "language": "python",
+   "sizeLines": 10,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".typings/mflux/models/qwen/weights/qwen_weight_definition.pyi",
+   "language": "python",
+   "sizeLines": 23,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".typings/mflux/models/qwen/weights/qwen_weight_mapping.pyi",
+   "language": "python",
+   "sizeLines": 19,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".typings/mflux/models/seedvr2/weights/seedvr2_weight_definition.pyi",
+   "language": "python",
+   "sizeLines": 23,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".typings/mflux/models/seedvr2/weights/seedvr2_weight_mapping.pyi",
+   "language": "python",
+   "sizeLines": 15,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".typings/mflux/models/z_image/latent_creator/z_image_latent_creator.pyi",
+   "language": "python",
+   "sizeLines": 13,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".typings/mflux/models/z_image/weights/z_image_weight_definition.pyi",
+   "language": "python",
+   "sizeLines": 23,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".typings/mflux/models/z_image/weights/z_image_weight_mapping.pyi",
+   "language": "python",
+   "sizeLines": 16,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".typings/mflux/release/__init__.pyi",
+   "language": "python",
+   "sizeLines": 3,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".typings/mflux/utils/__init__.pyi",
+   "language": "python",
+   "sizeLines": 7,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".typings/mflux/utils/box_values.pyi",
+   "language": "python",
+   "sizeLines": 25,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".typings/mflux/utils/exceptions.pyi",
+   "language": "python",
+   "sizeLines": 24,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".typings/mflux/utils/generated_image.pyi",
+   "language": "python",
+   "sizeLines": 53,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".typings/mflux/utils/image_util.pyi",
+   "language": "python",
+   "sizeLines": 104,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".typings/mflux/utils/metadata_builder.pyi",
+   "language": "python",
+   "sizeLines": 16,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".typings/mflux/utils/version_util.pyi",
+   "language": "python",
+   "sizeLines": 11,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".typings/mlx/core/__init__.pyi",
+   "language": "python",
+   "sizeLines": 5437,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".typings/mlx/core/cuda/__init__.pyi",
+   "language": "python",
+   "sizeLines": 2,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".typings/mlx/core/distributed/__init__.pyi",
+   "language": "python",
+   "sizeLines": 216,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".typings/mlx/core/metal/__init__.pyi",
+   "language": "python",
+   "sizeLines": 38,
+   "fileCategory": "code"
+  }
+ ],
+ "batchImportData": {
+  ".typings/mflux/models/qwen/variants/__init__.pyi": [],
+  ".typings/mflux/models/qwen/variants/edit/qwen_edit_util.pyi": [],
+  ".typings/mflux/models/qwen/variants/edit/qwen_image_edit.pyi": [],
+  ".typings/mflux/models/qwen/variants/txt2img/qwen_image.pyi": [],
+  ".typings/mflux/models/qwen/weights/__init__.pyi": [],
+  ".typings/mflux/models/qwen/weights/qwen_lora_mapping.pyi": [],
+  ".typings/mflux/models/qwen/weights/qwen_weight_definition.pyi": [],
+  ".typings/mflux/models/qwen/weights/qwen_weight_mapping.pyi": [],
+  ".typings/mflux/models/seedvr2/weights/seedvr2_weight_definition.pyi": [],
+  ".typings/mflux/models/seedvr2/weights/seedvr2_weight_mapping.pyi": [],
+  ".typings/mflux/models/z_image/latent_creator/z_image_latent_creator.pyi": [],
+  ".typings/mflux/models/z_image/weights/z_image_weight_definition.pyi": [],
+  ".typings/mflux/models/z_image/weights/z_image_weight_mapping.pyi": [],
+  ".typings/mflux/release/__init__.pyi": [],
+  ".typings/mflux/utils/__init__.pyi": [],
+  ".typings/mflux/utils/box_values.pyi": [],
+  ".typings/mflux/utils/exceptions.pyi": [],
+  ".typings/mflux/utils/generated_image.pyi": [],
+  ".typings/mflux/utils/image_util.pyi": [],
+  ".typings/mflux/utils/metadata_builder.pyi": [],
+  ".typings/mflux/utils/version_util.pyi": [],
+  ".typings/mlx/core/__init__.pyi": [],
+  ".typings/mlx/core/cuda/__init__.pyi": [],
+  ".typings/mlx/core/distributed/__init__.pyi": [],
+  ".typings/mlx/core/metal/__init__.pyi": []
+ }
+}

@@ -1,0 +1,1148 @@
+{
+ "nodes": [
+  {
+   "id": "file:src/exo/worker/tests/constants.py",
+   "type": "file",
+   "name": "constants.py",
+   "filePath": "src/exo/worker/tests/constants.py",
+   "summary": "Shared constants used by worker unit tests (model IDs, node IDs, etc.).",
+   "tags": [
+    "test",
+    "constants"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:src/exo/worker/tests/unittests/conftest.py",
+   "type": "file",
+   "name": "conftest.py",
+   "filePath": "src/exo/worker/tests/unittests/conftest.py",
+   "summary": "Pytest fixtures for worker unit tests: fake supervisor, pipeline shard metadata, and mlx ring instances.",
+   "tags": [
+    "test",
+    "fixtures",
+    "conftest"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:src/exo/worker/tests/unittests/test_plan/test_download_and_loading.py",
+   "type": "file",
+   "name": "test_download_and_loading.py",
+   "filePath": "src/exo/worker/tests/unittests/test_plan/test_download_and_loading.py",
+   "summary": "Tests that planning requests downloads and loads models only when all shards are available.",
+   "tags": [
+    "test",
+    "plan",
+    "downloads"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "file:src/exo/worker/tests/unittests/test_plan/test_runner_lifecycle.py",
+   "type": "file",
+   "name": "test_runner_lifecycle.py",
+   "filePath": "src/exo/worker/tests/unittests/test_plan/test_runner_lifecycle.py",
+   "summary": "Tests runner create/kill decisions in planning (missing instances, sibling failures, unassigned nodes).",
+   "tags": [
+    "test",
+    "plan",
+    "runner-lifecycle"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:src/exo/worker/tests/unittests/test_plan/test_task_forwarding.py",
+   "type": "file",
+   "name": "test_task_forwarding.py",
+   "filePath": "src/exo/worker/tests/unittests/test_plan/test_task_forwarding.py",
+   "summary": "Tests that planning forwards pending chat-completion tasks only when all relevant runners are ready.",
+   "tags": [
+    "test",
+    "plan",
+    "task-forwarding"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "file:src/exo/worker/tests/unittests/test_plan/test_warmup.py",
+   "type": "file",
+   "name": "test_warmup.py",
+   "filePath": "src/exo/worker/tests/unittests/test_plan/test_warmup.py",
+   "summary": "Tests warmup start conditions per rank in planning.",
+   "tags": [
+    "test",
+    "plan",
+    "warmup"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "function:src/exo/worker/tests/unittests/conftest.py:get_pipeline_shard_metadata",
+   "type": "function",
+   "name": "get_pipeline_shard_metadata",
+   "filePath": "src/exo/worker/tests/unittests/conftest.py",
+   "lineRange": [
+    34,
+    52
+   ],
+   "summary": "Fixture building pipeline shard metadata for tests.",
+   "tags": [
+    "test",
+    "fixture"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/worker/tests/unittests/conftest.py:get_shard_assignments",
+   "type": "function",
+   "name": "get_shard_assignments",
+   "filePath": "src/exo/worker/tests/unittests/conftest.py",
+   "lineRange": [
+    55,
+    64
+   ],
+   "summary": "Fixture building ShardAssignments for tests.",
+   "tags": [
+    "test",
+    "fixture"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/worker/tests/unittests/conftest.py:get_mlx_ring_instance",
+   "type": "function",
+   "name": "get_mlx_ring_instance",
+   "filePath": "src/exo/worker/tests/unittests/conftest.py",
+   "lineRange": [
+    67,
+    80
+   ],
+   "summary": "Fixture building an MLX ring instance for tests.",
+   "tags": [
+    "test",
+    "fixture"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/worker/tests/unittests/conftest.py:get_bound_mlx_ring_instance",
+   "type": "function",
+   "name": "get_bound_mlx_ring_instance",
+   "filePath": "src/exo/worker/tests/unittests/conftest.py",
+   "lineRange": [
+    83,
+    101
+   ],
+   "summary": "Fixture building a bound MLX ring instance for tests.",
+   "tags": [
+    "test",
+    "fixture"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/worker/tests/unittests/test_plan/test_download_and_loading.py:test_plan_requests_download_when_waiting_and_shard_not_downloaded",
+   "type": "function",
+   "name": "test_plan_requests_download_when_waiting_and_shard_not_downloaded",
+   "filePath": "src/exo/worker/tests/unittests/test_plan/test_download_and_loading.py",
+   "lineRange": [
+    27,
+    64
+   ],
+   "summary": "Asserts planning requests a download when the local shard is missing.",
+   "tags": [
+    "test",
+    "plan"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:src/exo/worker/tests/unittests/test_plan/test_download_and_loading.py:test_plan_loads_model_when_all_shards_downloaded_and_waiting",
+   "type": "function",
+   "name": "test_plan_loads_model_when_all_shards_downloaded_and_waiting",
+   "filePath": "src/exo/worker/tests/unittests/test_plan/test_download_and_loading.py",
+   "lineRange": [
+    67,
+    119
+   ],
+   "summary": "Asserts planning loads the model once all shards are downloaded.",
+   "tags": [
+    "test",
+    "plan"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:src/exo/worker/tests/unittests/test_plan/test_download_and_loading.py:test_plan_does_not_request_download_when_shard_already_downloaded",
+   "type": "function",
+   "name": "test_plan_does_not_request_download_when_shard_already_downloaded",
+   "filePath": "src/exo/worker/tests/unittests/test_plan/test_download_and_loading.py",
+   "lineRange": [
+    122,
+    164
+   ],
+   "summary": "Asserts no download is requested when the shard is already present.",
+   "tags": [
+    "test",
+    "plan"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:src/exo/worker/tests/unittests/test_plan/test_download_and_loading.py:test_plan_does_not_load_model_until_all_shards_downloaded_globally",
+   "type": "function",
+   "name": "test_plan_does_not_load_model_until_all_shards_downloaded_globally",
+   "filePath": "src/exo/worker/tests/unittests/test_plan/test_download_and_loading.py",
+   "lineRange": [
+    167,
+    239
+   ],
+   "summary": "Asserts model load waits until all shards are downloaded cluster-wide.",
+   "tags": [
+    "test",
+    "plan"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:src/exo/worker/tests/unittests/test_plan/test_runner_lifecycle.py:test_plan_kills_runner_when_instance_missing",
+   "type": "function",
+   "name": "test_plan_kills_runner_when_instance_missing",
+   "filePath": "src/exo/worker/tests/unittests/test_plan/test_runner_lifecycle.py",
+   "lineRange": [
+    28,
+    64
+   ],
+   "summary": "Asserts planning kills a runner whose instance is missing.",
+   "tags": [
+    "test",
+    "plan"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:src/exo/worker/tests/unittests/test_plan/test_runner_lifecycle.py:test_plan_kills_runner_when_sibling_failed",
+   "type": "function",
+   "name": "test_plan_kills_runner_when_sibling_failed",
+   "filePath": "src/exo/worker/tests/unittests/test_plan/test_runner_lifecycle.py",
+   "lineRange": [
+    67,
+    107
+   ],
+   "summary": "Asserts planning kills a runner when a sibling runner failed.",
+   "tags": [
+    "test",
+    "plan"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:src/exo/worker/tests/unittests/test_plan/test_runner_lifecycle.py:test_plan_creates_runner_when_missing_for_node",
+   "type": "function",
+   "name": "test_plan_creates_runner_when_missing_for_node",
+   "filePath": "src/exo/worker/tests/unittests/test_plan/test_runner_lifecycle.py",
+   "lineRange": [
+    110,
+    145
+   ],
+   "summary": "Asserts planning creates a runner when missing for the node.",
+   "tags": [
+    "test",
+    "plan"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:src/exo/worker/tests/unittests/test_plan/test_runner_lifecycle.py:test_plan_does_not_create_runner_when_supervisor_already_present",
+   "type": "function",
+   "name": "test_plan_does_not_create_runner_when_supervisor_already_present",
+   "filePath": "src/exo/worker/tests/unittests/test_plan/test_runner_lifecycle.py",
+   "lineRange": [
+    148,
+    182
+   ],
+   "summary": "Asserts no duplicate runner is created when a supervisor already exists.",
+   "tags": [
+    "test",
+    "plan"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:src/exo/worker/tests/unittests/test_plan/test_runner_lifecycle.py:test_plan_does_not_create_runner_for_unassigned_node",
+   "type": "function",
+   "name": "test_plan_does_not_create_runner_for_unassigned_node",
+   "filePath": "src/exo/worker/tests/unittests/test_plan/test_runner_lifecycle.py",
+   "lineRange": [
+    185,
+    215
+   ],
+   "summary": "Asserts no runner is created for an unassigned node.",
+   "tags": [
+    "test",
+    "plan"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:src/exo/worker/tests/unittests/test_plan/test_task_forwarding.py:test_plan_forwards_pending_chat_completion_when_runner_ready",
+   "type": "function",
+   "name": "test_plan_forwards_pending_chat_completion_when_runner_ready",
+   "filePath": "src/exo/worker/tests/unittests/test_plan/test_task_forwarding.py",
+   "lineRange": [
+    35,
+    86
+   ],
+   "summary": "Asserts planning forwards a pending chat completion when the runner is ready.",
+   "tags": [
+    "test",
+    "plan"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:src/exo/worker/tests/unittests/test_plan/test_task_forwarding.py:test_plan_does_not_forward_chat_completion_if_any_runner_not_ready",
+   "type": "function",
+   "name": "test_plan_does_not_forward_chat_completion_if_any_runner_not_ready",
+   "filePath": "src/exo/worker/tests/unittests/test_plan/test_task_forwarding.py",
+   "lineRange": [
+    89,
+    140
+   ],
+   "summary": "Asserts forwarding is withheld until all runners are ready.",
+   "tags": [
+    "test",
+    "plan"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:src/exo/worker/tests/unittests/test_plan/test_task_forwarding.py:test_plan_does_not_forward_tasks_for_other_instances",
+   "type": "function",
+   "name": "test_plan_does_not_forward_tasks_for_other_instances",
+   "filePath": "src/exo/worker/tests/unittests/test_plan/test_task_forwarding.py",
+   "lineRange": [
+    143,
+    191
+   ],
+   "summary": "Asserts tasks for other instances are not forwarded.",
+   "tags": [
+    "test",
+    "plan"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:src/exo/worker/tests/unittests/test_plan/test_task_forwarding.py:test_plan_ignores_non_pending_or_non_chat_tasks",
+   "type": "function",
+   "name": "test_plan_ignores_non_pending_or_non_chat_tasks",
+   "filePath": "src/exo/worker/tests/unittests/test_plan/test_task_forwarding.py",
+   "lineRange": [
+    194,
+    260
+   ],
+   "summary": "Asserts non-pending or non-chat tasks are ignored by forwarding.",
+   "tags": [
+    "test",
+    "plan"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:src/exo/worker/tests/unittests/test_plan/test_task_forwarding.py:test_plan_returns_none_when_nothing_to_do",
+   "type": "function",
+   "name": "test_plan_returns_none_when_nothing_to_do",
+   "filePath": "src/exo/worker/tests/unittests/test_plan/test_task_forwarding.py",
+   "lineRange": [
+    263,
+    303
+   ],
+   "summary": "Asserts planning returns no actions when there is nothing to do.",
+   "tags": [
+    "test",
+    "plan"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:src/exo/worker/tests/unittests/test_plan/test_warmup.py:test_plan_starts_warmup_for_accepting_rank_when_all_loaded_or_warming",
+   "type": "function",
+   "name": "test_plan_starts_warmup_for_accepting_rank_when_all_loaded_or_warming",
+   "filePath": "src/exo/worker/tests/unittests/test_plan/test_warmup.py",
+   "lineRange": [
+    28,
+    72
+   ],
+   "summary": "Asserts warmup starts for the accepting rank once all are loaded or warming.",
+   "tags": [
+    "test",
+    "plan",
+    "warmup"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:src/exo/worker/tests/unittests/test_plan/test_warmup.py:test_plan_starts_warmup_for_rank_zero_after_others_warming",
+   "type": "function",
+   "name": "test_plan_starts_warmup_for_rank_zero_after_others_warming",
+   "filePath": "src/exo/worker/tests/unittests/test_plan/test_warmup.py",
+   "lineRange": [
+    75,
+    117
+   ],
+   "summary": "Asserts rank zero starts warmup after other ranks are warming.",
+   "tags": [
+    "test",
+    "plan",
+    "warmup"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:src/exo/worker/tests/unittests/test_plan/test_warmup.py:test_plan_does_not_start_warmup_for_non_zero_rank_until_all_loaded_or_warming",
+   "type": "function",
+   "name": "test_plan_does_not_start_warmup_for_non_zero_rank_until_all_loaded_or_warming",
+   "filePath": "src/exo/worker/tests/unittests/test_plan/test_warmup.py",
+   "lineRange": [
+    120,
+    160
+   ],
+   "summary": "Asserts non-zero ranks wait for all ranks to be loaded or warming.",
+   "tags": [
+    "test",
+    "plan",
+    "warmup"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:src/exo/worker/tests/unittests/test_plan/test_warmup.py:test_plan_does_not_start_warmup_for_rank_zero_until_others_warming",
+   "type": "function",
+   "name": "test_plan_does_not_start_warmup_for_rank_zero_until_others_warming",
+   "filePath": "src/exo/worker/tests/unittests/test_plan/test_warmup.py",
+   "lineRange": [
+    163,
+    229
+   ],
+   "summary": "Asserts rank zero does not warm up before others are warming.",
+   "tags": [
+    "test",
+    "plan",
+    "warmup"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:src/exo/worker/tests/unittests/test_plan/test_warmup.py:test_plan_starts_warmup_for_connecting_rank_after_others_warming",
+   "type": "function",
+   "name": "test_plan_starts_warmup_for_connecting_rank_after_others_warming",
+   "filePath": "src/exo/worker/tests/unittests/test_plan/test_warmup.py",
+   "lineRange": [
+    232,
+    276
+   ],
+   "summary": "Asserts a connecting rank starts warmup after others are warming.",
+   "tags": [
+    "test",
+    "plan",
+    "warmup"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:src/exo/worker/tests/unittests/test_plan/test_warmup.py:test_plan_does_not_start_warmup_for_accepting_rank_until_all_loaded_or_warming",
+   "type": "function",
+   "name": "test_plan_does_not_start_warmup_for_accepting_rank_until_all_loaded_or_warming",
+   "filePath": "src/exo/worker/tests/unittests/test_plan/test_warmup.py",
+   "lineRange": [
+    279,
+    321
+   ],
+   "summary": "Asserts the accepting rank waits for all ranks to be loaded or warming.",
+   "tags": [
+    "test",
+    "plan",
+    "warmup"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:src/exo/worker/tests/unittests/test_plan/test_warmup.py:test_plan_does_not_start_warmup_for_connecting_rank_until_others_warming",
+   "type": "function",
+   "name": "test_plan_does_not_start_warmup_for_connecting_rank_until_others_warming",
+   "filePath": "src/exo/worker/tests/unittests/test_plan/test_warmup.py",
+   "lineRange": [
+    324,
+    366
+   ],
+   "summary": "Asserts a connecting rank waits for others to warm up first.",
+   "tags": [
+    "test",
+    "plan",
+    "warmup"
+   ],
+   "complexity": "moderate"
+  }
+ ],
+ "edges": [
+  {
+   "source": "file:src/exo/worker/tests/unittests/conftest.py",
+   "target": "function:src/exo/worker/tests/unittests/conftest.py:get_pipeline_shard_metadata",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/conftest.py",
+   "target": "function:src/exo/worker/tests/unittests/conftest.py:get_pipeline_shard_metadata",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/conftest.py",
+   "target": "function:src/exo/worker/tests/unittests/conftest.py:get_shard_assignments",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/conftest.py",
+   "target": "function:src/exo/worker/tests/unittests/conftest.py:get_shard_assignments",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/conftest.py",
+   "target": "function:src/exo/worker/tests/unittests/conftest.py:get_mlx_ring_instance",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/conftest.py",
+   "target": "function:src/exo/worker/tests/unittests/conftest.py:get_mlx_ring_instance",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/conftest.py",
+   "target": "function:src/exo/worker/tests/unittests/conftest.py:get_bound_mlx_ring_instance",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/conftest.py",
+   "target": "function:src/exo/worker/tests/unittests/conftest.py:get_bound_mlx_ring_instance",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_plan/test_download_and_loading.py",
+   "target": "function:src/exo/worker/tests/unittests/test_plan/test_download_and_loading.py:test_plan_requests_download_when_waiting_and_shard_not_downloaded",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_plan/test_download_and_loading.py",
+   "target": "function:src/exo/worker/tests/unittests/test_plan/test_download_and_loading.py:test_plan_requests_download_when_waiting_and_shard_not_downloaded",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_plan/test_download_and_loading.py",
+   "target": "function:src/exo/worker/tests/unittests/test_plan/test_download_and_loading.py:test_plan_loads_model_when_all_shards_downloaded_and_waiting",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_plan/test_download_and_loading.py",
+   "target": "function:src/exo/worker/tests/unittests/test_plan/test_download_and_loading.py:test_plan_loads_model_when_all_shards_downloaded_and_waiting",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_plan/test_download_and_loading.py",
+   "target": "function:src/exo/worker/tests/unittests/test_plan/test_download_and_loading.py:test_plan_does_not_request_download_when_shard_already_downloaded",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_plan/test_download_and_loading.py",
+   "target": "function:src/exo/worker/tests/unittests/test_plan/test_download_and_loading.py:test_plan_does_not_request_download_when_shard_already_downloaded",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_plan/test_download_and_loading.py",
+   "target": "function:src/exo/worker/tests/unittests/test_plan/test_download_and_loading.py:test_plan_does_not_load_model_until_all_shards_downloaded_globally",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_plan/test_download_and_loading.py",
+   "target": "function:src/exo/worker/tests/unittests/test_plan/test_download_and_loading.py:test_plan_does_not_load_model_until_all_shards_downloaded_globally",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_plan/test_runner_lifecycle.py",
+   "target": "function:src/exo/worker/tests/unittests/test_plan/test_runner_lifecycle.py:test_plan_kills_runner_when_instance_missing",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_plan/test_runner_lifecycle.py",
+   "target": "function:src/exo/worker/tests/unittests/test_plan/test_runner_lifecycle.py:test_plan_kills_runner_when_instance_missing",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_plan/test_runner_lifecycle.py",
+   "target": "function:src/exo/worker/tests/unittests/test_plan/test_runner_lifecycle.py:test_plan_kills_runner_when_sibling_failed",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_plan/test_runner_lifecycle.py",
+   "target": "function:src/exo/worker/tests/unittests/test_plan/test_runner_lifecycle.py:test_plan_kills_runner_when_sibling_failed",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_plan/test_runner_lifecycle.py",
+   "target": "function:src/exo/worker/tests/unittests/test_plan/test_runner_lifecycle.py:test_plan_creates_runner_when_missing_for_node",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_plan/test_runner_lifecycle.py",
+   "target": "function:src/exo/worker/tests/unittests/test_plan/test_runner_lifecycle.py:test_plan_creates_runner_when_missing_for_node",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_plan/test_runner_lifecycle.py",
+   "target": "function:src/exo/worker/tests/unittests/test_plan/test_runner_lifecycle.py:test_plan_does_not_create_runner_when_supervisor_already_present",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_plan/test_runner_lifecycle.py",
+   "target": "function:src/exo/worker/tests/unittests/test_plan/test_runner_lifecycle.py:test_plan_does_not_create_runner_when_supervisor_already_present",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_plan/test_runner_lifecycle.py",
+   "target": "function:src/exo/worker/tests/unittests/test_plan/test_runner_lifecycle.py:test_plan_does_not_create_runner_for_unassigned_node",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_plan/test_runner_lifecycle.py",
+   "target": "function:src/exo/worker/tests/unittests/test_plan/test_runner_lifecycle.py:test_plan_does_not_create_runner_for_unassigned_node",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_plan/test_task_forwarding.py",
+   "target": "function:src/exo/worker/tests/unittests/test_plan/test_task_forwarding.py:test_plan_forwards_pending_chat_completion_when_runner_ready",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_plan/test_task_forwarding.py",
+   "target": "function:src/exo/worker/tests/unittests/test_plan/test_task_forwarding.py:test_plan_forwards_pending_chat_completion_when_runner_ready",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_plan/test_task_forwarding.py",
+   "target": "function:src/exo/worker/tests/unittests/test_plan/test_task_forwarding.py:test_plan_does_not_forward_chat_completion_if_any_runner_not_ready",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_plan/test_task_forwarding.py",
+   "target": "function:src/exo/worker/tests/unittests/test_plan/test_task_forwarding.py:test_plan_does_not_forward_chat_completion_if_any_runner_not_ready",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_plan/test_task_forwarding.py",
+   "target": "function:src/exo/worker/tests/unittests/test_plan/test_task_forwarding.py:test_plan_does_not_forward_tasks_for_other_instances",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_plan/test_task_forwarding.py",
+   "target": "function:src/exo/worker/tests/unittests/test_plan/test_task_forwarding.py:test_plan_does_not_forward_tasks_for_other_instances",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_plan/test_task_forwarding.py",
+   "target": "function:src/exo/worker/tests/unittests/test_plan/test_task_forwarding.py:test_plan_ignores_non_pending_or_non_chat_tasks",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_plan/test_task_forwarding.py",
+   "target": "function:src/exo/worker/tests/unittests/test_plan/test_task_forwarding.py:test_plan_ignores_non_pending_or_non_chat_tasks",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_plan/test_task_forwarding.py",
+   "target": "function:src/exo/worker/tests/unittests/test_plan/test_task_forwarding.py:test_plan_returns_none_when_nothing_to_do",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_plan/test_task_forwarding.py",
+   "target": "function:src/exo/worker/tests/unittests/test_plan/test_task_forwarding.py:test_plan_returns_none_when_nothing_to_do",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_plan/test_warmup.py",
+   "target": "function:src/exo/worker/tests/unittests/test_plan/test_warmup.py:test_plan_starts_warmup_for_accepting_rank_when_all_loaded_or_warming",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_plan/test_warmup.py",
+   "target": "function:src/exo/worker/tests/unittests/test_plan/test_warmup.py:test_plan_starts_warmup_for_accepting_rank_when_all_loaded_or_warming",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_plan/test_warmup.py",
+   "target": "function:src/exo/worker/tests/unittests/test_plan/test_warmup.py:test_plan_starts_warmup_for_rank_zero_after_others_warming",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_plan/test_warmup.py",
+   "target": "function:src/exo/worker/tests/unittests/test_plan/test_warmup.py:test_plan_starts_warmup_for_rank_zero_after_others_warming",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_plan/test_warmup.py",
+   "target": "function:src/exo/worker/tests/unittests/test_plan/test_warmup.py:test_plan_does_not_start_warmup_for_non_zero_rank_until_all_loaded_or_warming",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_plan/test_warmup.py",
+   "target": "function:src/exo/worker/tests/unittests/test_plan/test_warmup.py:test_plan_does_not_start_warmup_for_non_zero_rank_until_all_loaded_or_warming",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_plan/test_warmup.py",
+   "target": "function:src/exo/worker/tests/unittests/test_plan/test_warmup.py:test_plan_does_not_start_warmup_for_rank_zero_until_others_warming",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_plan/test_warmup.py",
+   "target": "function:src/exo/worker/tests/unittests/test_plan/test_warmup.py:test_plan_does_not_start_warmup_for_rank_zero_until_others_warming",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_plan/test_warmup.py",
+   "target": "function:src/exo/worker/tests/unittests/test_plan/test_warmup.py:test_plan_starts_warmup_for_connecting_rank_after_others_warming",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_plan/test_warmup.py",
+   "target": "function:src/exo/worker/tests/unittests/test_plan/test_warmup.py:test_plan_starts_warmup_for_connecting_rank_after_others_warming",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_plan/test_warmup.py",
+   "target": "function:src/exo/worker/tests/unittests/test_plan/test_warmup.py:test_plan_does_not_start_warmup_for_accepting_rank_until_all_loaded_or_warming",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_plan/test_warmup.py",
+   "target": "function:src/exo/worker/tests/unittests/test_plan/test_warmup.py:test_plan_does_not_start_warmup_for_accepting_rank_until_all_loaded_or_warming",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_plan/test_warmup.py",
+   "target": "function:src/exo/worker/tests/unittests/test_plan/test_warmup.py:test_plan_does_not_start_warmup_for_connecting_rank_until_others_warming",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_plan/test_warmup.py",
+   "target": "function:src/exo/worker/tests/unittests/test_plan/test_warmup.py:test_plan_does_not_start_warmup_for_connecting_rank_until_others_warming",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/tests/constants.py",
+   "target": "file:src/exo/shared/models/model_cards.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/tests/constants.py",
+   "target": "file:src/exo/shared/types/common.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/tests/constants.py",
+   "target": "file:src/exo/shared/types/tasks.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/tests/constants.py",
+   "target": "file:src/exo/shared/types/worker/instances.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/conftest.py",
+   "target": "file:src/exo/shared/models/model_cards.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/conftest.py",
+   "target": "file:src/exo/shared/types/backends.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/conftest.py",
+   "target": "file:src/exo/shared/types/common.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/conftest.py",
+   "target": "file:src/exo/shared/types/memory.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/conftest.py",
+   "target": "file:src/exo/shared/types/tasks.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/conftest.py",
+   "target": "file:src/exo/shared/types/worker/instances.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/conftest.py",
+   "target": "file:src/exo/shared/types/worker/runners.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/conftest.py",
+   "target": "file:src/exo/shared/types/worker/shards.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_plan/test_download_and_loading.py",
+   "target": "file:src/exo/shared/types/common.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_plan/test_download_and_loading.py",
+   "target": "file:src/exo/shared/types/memory.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_plan/test_download_and_loading.py",
+   "target": "file:src/exo/shared/types/tasks.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_plan/test_download_and_loading.py",
+   "target": "file:src/exo/shared/types/worker/downloads.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_plan/test_download_and_loading.py",
+   "target": "file:src/exo/shared/types/worker/instances.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_plan/test_download_and_loading.py",
+   "target": "file:src/exo/shared/types/worker/runners.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_plan/test_download_and_loading.py",
+   "target": "file:src/exo/utils/keyed_backoff.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_plan/test_download_and_loading.py",
+   "target": "file:src/exo/worker/plan.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_plan/test_download_and_loading.py",
+   "target": "file:src/exo/worker/tests/constants.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_plan/test_download_and_loading.py",
+   "target": "file:src/exo/worker/tests/unittests/conftest.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_plan/test_runner_lifecycle.py",
+   "target": "file:src/exo/shared/types/tasks.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_plan/test_runner_lifecycle.py",
+   "target": "file:src/exo/shared/types/worker/instances.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_plan/test_runner_lifecycle.py",
+   "target": "file:src/exo/shared/types/worker/runners.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_plan/test_runner_lifecycle.py",
+   "target": "file:src/exo/utils/keyed_backoff.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_plan/test_runner_lifecycle.py",
+   "target": "file:src/exo/worker/plan.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_plan/test_runner_lifecycle.py",
+   "target": "file:src/exo/worker/tests/constants.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_plan/test_runner_lifecycle.py",
+   "target": "file:src/exo/worker/tests/unittests/conftest.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_plan/test_task_forwarding.py",
+   "target": "file:src/exo/shared/types/tasks.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_plan/test_task_forwarding.py",
+   "target": "file:src/exo/shared/types/text_generation.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_plan/test_task_forwarding.py",
+   "target": "file:src/exo/shared/types/worker/instances.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_plan/test_task_forwarding.py",
+   "target": "file:src/exo/shared/types/worker/runners.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_plan/test_task_forwarding.py",
+   "target": "file:src/exo/utils/keyed_backoff.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_plan/test_task_forwarding.py",
+   "target": "file:src/exo/worker/plan.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_plan/test_task_forwarding.py",
+   "target": "file:src/exo/worker/tests/constants.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_plan/test_task_forwarding.py",
+   "target": "file:src/exo/worker/tests/unittests/conftest.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_plan/test_warmup.py",
+   "target": "file:src/exo/shared/types/tasks.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_plan/test_warmup.py",
+   "target": "file:src/exo/shared/types/worker/instances.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_plan/test_warmup.py",
+   "target": "file:src/exo/shared/types/worker/runners.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_plan/test_warmup.py",
+   "target": "file:src/exo/utils/keyed_backoff.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_plan/test_warmup.py",
+   "target": "file:src/exo/worker/plan.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_plan/test_warmup.py",
+   "target": "file:src/exo/worker/tests/constants.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_plan/test_warmup.py",
+   "target": "file:src/exo/worker/tests/unittests/conftest.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  }
+ ]
+}

@@ -1,0 +1,362 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 10,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": "planANDprompt/README.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 18,
+      "nonEmptyLines": 15,
+      "sections": [
+        {
+          "heading": "planANDprompt/ — Topology Zero-Edges Fix",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "Maintenance Rules",
+          "level": 2,
+          "line": 5
+        },
+        {
+          "heading": "Folder Guide",
+          "level": 2,
+          "line": 11
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 3
+      }
+    },
+    {
+      "path": "planANDprompt/cleaned-prompts.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 26,
+      "nonEmptyLines": 21,
+      "sections": [
+        {
+          "heading": "Cleaned Prompts — Grammar/Structure Improved",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "P-001: Investigate topology.py",
+          "level": 2,
+          "line": 3
+        },
+        {
+          "heading": "P-002: Plan topology fix",
+          "level": 2,
+          "line": 8
+        },
+        {
+          "heading": "P-003: Implement topology fix",
+          "level": 2,
+          "line": 13
+        },
+        {
+          "heading": "P-004: Review topology fix",
+          "level": 2,
+          "line": 18
+        },
+        {
+          "heading": "P-005: Verify topology fix",
+          "level": 2,
+          "line": 23
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 6
+      }
+    },
+    {
+      "path": "planANDprompt/executed-prompts.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 33,
+      "nonEmptyLines": 28,
+      "sections": [
+        {
+          "heading": "Executed Prompts",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "P-001: kiro-investigate → DONE",
+          "level": 2,
+          "line": 3
+        },
+        {
+          "heading": "P-002: kiro-plan → DONE",
+          "level": 2,
+          "line": 8
+        },
+        {
+          "heading": "P-003: kiro-implement → DONE",
+          "level": 2,
+          "line": 13
+        },
+        {
+          "heading": "P-004: kiro-review → DONE",
+          "level": 2,
+          "line": 20
+        },
+        {
+          "heading": "P-005: kiro-verify → DONE",
+          "level": 2,
+          "line": 28
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 6
+      }
+    },
+    {
+      "path": "planANDprompt/improved-prompts.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 20,
+      "nonEmptyLines": 15,
+      "sections": [
+        {
+          "heading": "Improved Prompts — Refinements During Execution",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "Key Improvements Applied",
+          "level": 2,
+          "line": 3
+        },
+        {
+          "heading": "Investigate → Plan",
+          "level": 3,
+          "line": 5
+        },
+        {
+          "heading": "Plan → Implement",
+          "level": 3,
+          "line": 10
+        },
+        {
+          "heading": "Review → Re-implement",
+          "level": 3,
+          "line": 14
+        },
+        {
+          "heading": "Verify → Finalize",
+          "level": 3,
+          "line": 19
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 6
+      }
+    },
+    {
+      "path": "planANDprompt/original-prompts.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 31,
+      "nonEmptyLines": 25,
+      "sections": [
+        {
+          "heading": "Original Prompts — Verbatim",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "P-001: kiro-investigate",
+          "level": 2,
+          "line": 3
+        },
+        {
+          "heading": "P-002: kiro-plan",
+          "level": 2,
+          "line": 8
+        },
+        {
+          "heading": "P-003: kiro-implement",
+          "level": 2,
+          "line": 13
+        },
+        {
+          "heading": "P-004: kiro-review",
+          "level": 2,
+          "line": 18
+        },
+        {
+          "heading": "P-005: kiro-verify",
+          "level": 2,
+          "line": 23
+        },
+        {
+          "heading": "P-006: kiro-mnemo-persistent",
+          "level": 2,
+          "line": 28
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 7
+      }
+    },
+    {
+      "path": "planANDprompt/planned-prompts.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 12,
+      "nonEmptyLines": 10,
+      "sections": [
+        {
+          "heading": "Planned Prompts — Not Yet Executed",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "P-007: Dashboard isolated-node visual distinction",
+          "level": 2,
+          "line": 3
+        },
+        {
+          "heading": "P-008: Ship PR to upstream",
+          "level": 2,
+          "line": 9
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 3
+      }
+    },
+    {
+      "path": "planANDprompt/prompt-history.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 18,
+      "nonEmptyLines": 14,
+      "sections": [
+        {
+          "heading": "Prompt History — Evolution",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "P-003 (kiro-implement) — v1 → v1",
+          "level": 2,
+          "line": 3
+        },
+        {
+          "heading": "P-004 (kiro-review) — v1 → self-corrected",
+          "level": 2,
+          "line": 6
+        },
+        {
+          "heading": "P-005 (kiro-verify) — v1 → v1",
+          "level": 2,
+          "line": 12
+        },
+        {
+          "heading": "Architecture Decision: investigate → plan → implement → review → verify",
+          "level": 2,
+          "line": 15
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 5
+      }
+    },
+    {
+      "path": "planANDprompt/prompt-index.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 12,
+      "nonEmptyLines": 11,
+      "sections": [
+        {
+          "heading": "Prompt Quick Reference",
+          "level": 1,
+          "line": 1
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 1
+      }
+    },
+    {
+      "path": "planANDprompt/prompt-ledger.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 10,
+      "nonEmptyLines": 9,
+      "sections": [
+        {
+          "heading": "Prompt Ledger — Topology Zero-Edges Fix",
+          "level": 1,
+          "line": 1
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 1
+      }
+    },
+    {
+      "path": "planANDprompt/prompt-to-output-map.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 11,
+      "nonEmptyLines": 10,
+      "sections": [
+        {
+          "heading": "Prompt-to-Output Map",
+          "level": 1,
+          "line": 1
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 1
+      }
+    }
+  ]
+}

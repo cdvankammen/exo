@@ -1,0 +1,721 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 6,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": "bench/METHODOLOGY.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 161,
+      "nonEmptyLines": 101,
+      "sections": [
+        {
+          "heading": "Exo-Bench — Methodology",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "Prompt Construction",
+          "level": 2,
+          "line": 11
+        },
+        {
+          "heading": "Bench Endpoint",
+          "level": 2,
+          "line": 27
+        },
+        {
+          "heading": "Timing",
+          "level": 2,
+          "line": 37
+        },
+        {
+          "heading": "Prefill TPS",
+          "level": 3,
+          "line": 39
+        },
+        {
+          "heading": "Generation TPS",
+          "level": 3,
+          "line": 47
+        },
+        {
+          "heading": "Concurrency",
+          "level": 2,
+          "line": 67
+        },
+        {
+          "heading": "Single Request",
+          "level": 3,
+          "line": 69
+        },
+        {
+          "heading": "Concurrent Requests",
+          "level": 3,
+          "line": 73
+        },
+        {
+          "heading": "Aggregate TPS",
+          "level": 3,
+          "line": 86
+        },
+        {
+          "heading": "Prefix Cache Mode",
+          "level": 2,
+          "line": 97
+        },
+        {
+          "heading": "Warmup",
+          "level": 2,
+          "line": 113
+        },
+        {
+          "heading": "System Metrics",
+          "level": 2,
+          "line": 119
+        },
+        {
+          "heading": "Output Format",
+          "level": 2,
+          "line": 132
+        },
+        {
+          "heading": "Reproducing Results",
+          "level": 2,
+          "line": 148
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 15
+      }
+    },
+    {
+      "path": "bench/bench.toml",
+      "language": "toml",
+      "fileCategory": "config",
+      "totalLines": 5,
+      "nonEmptyLines": 5,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 0
+      }
+    },
+    {
+      "path": "bench/prefill-decode.toml",
+      "language": "toml",
+      "fileCategory": "config",
+      "totalLines": 36,
+      "nonEmptyLines": 31,
+      "sections": [
+        {
+          "heading": "prefill",
+          "level": 1,
+          "line": 22
+        },
+        {
+          "heading": "decode",
+          "level": 1,
+          "line": 30
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 2
+      }
+    },
+    {
+      "path": "bench/pyproject.toml",
+      "language": "toml",
+      "fileCategory": "config",
+      "totalLines": 23,
+      "nonEmptyLines": 22,
+      "sections": [
+        {
+          "heading": "project",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "build-system",
+          "level": 1,
+          "line": 21
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 2
+      }
+    },
+    {
+      "path": "bench/scenarios.toml",
+      "language": "toml",
+      "fileCategory": "config",
+      "totalLines": 306,
+      "nonEmptyLines": 240,
+      "sections": [
+        {
+          "heading": "tools.get_current_weather",
+          "level": 2,
+          "line": 4
+        },
+        {
+          "heading": "tools.get_current_weather.properties.location",
+          "level": 4,
+          "line": 8
+        },
+        {
+          "heading": "tools.get_current_weather.properties.unit",
+          "level": 4,
+          "line": 12
+        },
+        {
+          "heading": "tools.calculate",
+          "level": 2,
+          "line": 17
+        },
+        {
+          "heading": "tools.calculate.properties.expression",
+          "level": 4,
+          "line": 21
+        },
+        {
+          "heading": "tools.search_products",
+          "level": 2,
+          "line": 25
+        },
+        {
+          "heading": "tools.search_products.properties.query",
+          "level": 4,
+          "line": 29
+        },
+        {
+          "heading": "tools.search_products.properties.category",
+          "level": 4,
+          "line": 33
+        },
+        {
+          "heading": "tools.search_products.properties.max_price",
+          "level": 4,
+          "line": 38
+        },
+        {
+          "heading": "tools.create_todos",
+          "level": 2,
+          "line": 42
+        },
+        {
+          "heading": "tools.create_todos.properties.todos",
+          "level": 4,
+          "line": 46
+        },
+        {
+          "heading": "tools.create_todos.properties.todos.items",
+          "level": 5,
+          "line": 50
+        },
+        {
+          "heading": "tools.create_todos.properties.todos.items.properties.content",
+          "level": 7,
+          "line": 54
+        },
+        {
+          "heading": "tools.create_todos.properties.todos.items.properties.status",
+          "level": 7,
+          "line": 58
+        },
+        {
+          "heading": "tools.create_todos.properties.todos.items.properties.priority",
+          "level": 7,
+          "line": 62
+        },
+        {
+          "heading": "[[scenarios]]",
+          "level": 1,
+          "line": 68
+        },
+        {
+          "heading": "[[scenarios.messages]]",
+          "level": 2,
+          "line": 75
+        },
+        {
+          "heading": "[[scenarios]]",
+          "level": 1,
+          "line": 79
+        },
+        {
+          "heading": "[[scenarios.messages]]",
+          "level": 2,
+          "line": 86
+        },
+        {
+          "heading": "[[scenarios]]",
+          "level": 1,
+          "line": 90
+        },
+        {
+          "heading": "[[scenarios.messages]]",
+          "level": 2,
+          "line": 97
+        },
+        {
+          "heading": "[[scenarios]]",
+          "level": 1,
+          "line": 103
+        },
+        {
+          "heading": "scenarios.tool_result",
+          "level": 2,
+          "line": 110
+        },
+        {
+          "heading": "[[scenarios.messages]]",
+          "level": 2,
+          "line": 116
+        },
+        {
+          "heading": "[[scenarios]]",
+          "level": 1,
+          "line": 120
+        },
+        {
+          "heading": "scenarios.tool_result",
+          "level": 2,
+          "line": 127
+        },
+        {
+          "heading": "[[scenarios.messages]]",
+          "level": 2,
+          "line": 130
+        },
+        {
+          "heading": "[[scenarios]]",
+          "level": 1,
+          "line": 134
+        },
+        {
+          "heading": "[[scenarios.tool_result.results]]",
+          "level": 3,
+          "line": 141
+        },
+        {
+          "heading": "[[scenarios.tool_result.results]]",
+          "level": 3,
+          "line": 146
+        },
+        {
+          "heading": "[[scenarios.messages]]",
+          "level": 2,
+          "line": 151
+        },
+        {
+          "heading": "[[scenarios]]",
+          "level": 1,
+          "line": 157
+        },
+        {
+          "heading": "[[scenarios.messages]]",
+          "level": 2,
+          "line": 164
+        },
+        {
+          "heading": "[[scenarios.messages]]",
+          "level": 2,
+          "line": 168
+        },
+        {
+          "heading": "[[scenarios.messages.tool_calls]]",
+          "level": 3,
+          "line": 172
+        },
+        {
+          "heading": "[[scenarios.messages]]",
+          "level": 2,
+          "line": 177
+        },
+        {
+          "heading": "[[scenarios]]",
+          "level": 1,
+          "line": 182
+        },
+        {
+          "heading": "[[scenarios.messages]]",
+          "level": 2,
+          "line": 189
+        },
+        {
+          "heading": "[[scenarios.messages]]",
+          "level": 2,
+          "line": 193
+        },
+        {
+          "heading": "[[scenarios.messages.tool_calls]]",
+          "level": 3,
+          "line": 197
+        },
+        {
+          "heading": "[[scenarios.messages]]",
+          "level": 2,
+          "line": 202
+        },
+        {
+          "heading": "[[scenarios]]",
+          "level": 1,
+          "line": 207
+        },
+        {
+          "heading": "[[scenarios.messages]]",
+          "level": 2,
+          "line": 214
+        },
+        {
+          "heading": "[[scenarios.messages]]",
+          "level": 2,
+          "line": 218
+        },
+        {
+          "heading": "[[scenarios.messages.tool_calls]]",
+          "level": 3,
+          "line": 222
+        },
+        {
+          "heading": "[[scenarios.messages]]",
+          "level": 2,
+          "line": 227
+        },
+        {
+          "heading": "[[scenarios.messages]]",
+          "level": 2,
+          "line": 232
+        },
+        {
+          "heading": "[[scenarios.messages.tool_calls]]",
+          "level": 3,
+          "line": 236
+        },
+        {
+          "heading": "[[scenarios.messages]]",
+          "level": 2,
+          "line": 241
+        },
+        {
+          "heading": "[[scenarios]]",
+          "level": 1,
+          "line": 248
+        },
+        {
+          "heading": "[[scenarios.messages]]",
+          "level": 2,
+          "line": 258
+        },
+        {
+          "heading": "tools.glob",
+          "level": 2,
+          "line": 264
+        },
+        {
+          "heading": "tools.glob.properties.pattern",
+          "level": 4,
+          "line": 268
+        },
+        {
+          "heading": "tools.glob.properties.path",
+          "level": 4,
+          "line": 272
+        },
+        {
+          "heading": "[[scenarios]]",
+          "level": 1,
+          "line": 276
+        },
+        {
+          "heading": "[[scenarios.messages]]",
+          "level": 2,
+          "line": 284
+        },
+        {
+          "heading": "[[scenarios]]",
+          "level": 1,
+          "line": 290
+        },
+        {
+          "heading": "[[scenarios.messages]]",
+          "level": 2,
+          "line": 295
+        },
+        {
+          "heading": "[[scenarios]]",
+          "level": 1,
+          "line": 299
+        },
+        {
+          "heading": "[[scenarios.messages]]",
+          "level": 2,
+          "line": 304
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 60
+      }
+    },
+    {
+      "path": "bench/single-m3-ultra.toml",
+      "language": "toml",
+      "fileCategory": "config",
+      "totalLines": 189,
+      "nonEmptyLines": 144,
+      "sections": [
+        {
+          "heading": "topology",
+          "level": 1,
+          "line": 11
+        },
+        {
+          "heading": "defaults",
+          "level": 1,
+          "line": 15
+        },
+        {
+          "heading": "[[benchmark]]",
+          "level": 1,
+          "line": 19
+        },
+        {
+          "heading": "[[benchmark]]",
+          "level": 1,
+          "line": 23
+        },
+        {
+          "heading": "[[benchmark]]",
+          "level": 1,
+          "line": 27
+        },
+        {
+          "heading": "[[benchmark]]",
+          "level": 1,
+          "line": 31
+        },
+        {
+          "heading": "[[benchmark]]",
+          "level": 1,
+          "line": 35
+        },
+        {
+          "heading": "[[benchmark]]",
+          "level": 1,
+          "line": 39
+        },
+        {
+          "heading": "[[benchmark]]",
+          "level": 1,
+          "line": 43
+        },
+        {
+          "heading": "[[benchmark]]",
+          "level": 1,
+          "line": 47
+        },
+        {
+          "heading": "[[benchmark]]",
+          "level": 1,
+          "line": 51
+        },
+        {
+          "heading": "[[benchmark]]",
+          "level": 1,
+          "line": 55
+        },
+        {
+          "heading": "[[benchmark]]",
+          "level": 1,
+          "line": 59
+        },
+        {
+          "heading": "[[benchmark]]",
+          "level": 1,
+          "line": 63
+        },
+        {
+          "heading": "[[benchmark]]",
+          "level": 1,
+          "line": 67
+        },
+        {
+          "heading": "[[benchmark]]",
+          "level": 1,
+          "line": 71
+        },
+        {
+          "heading": "[[benchmark]]",
+          "level": 1,
+          "line": 75
+        },
+        {
+          "heading": "[[benchmark]]",
+          "level": 1,
+          "line": 79
+        },
+        {
+          "heading": "[[benchmark]]",
+          "level": 1,
+          "line": 83
+        },
+        {
+          "heading": "[[benchmark]]",
+          "level": 1,
+          "line": 87
+        },
+        {
+          "heading": "[[benchmark]]",
+          "level": 1,
+          "line": 91
+        },
+        {
+          "heading": "[[benchmark]]",
+          "level": 1,
+          "line": 95
+        },
+        {
+          "heading": "[[benchmark]]",
+          "level": 1,
+          "line": 99
+        },
+        {
+          "heading": "[[benchmark]]",
+          "level": 1,
+          "line": 103
+        },
+        {
+          "heading": "[[benchmark]]",
+          "level": 1,
+          "line": 107
+        },
+        {
+          "heading": "[[benchmark]]",
+          "level": 1,
+          "line": 111
+        },
+        {
+          "heading": "[[benchmark]]",
+          "level": 1,
+          "line": 115
+        },
+        {
+          "heading": "[[benchmark]]",
+          "level": 1,
+          "line": 119
+        },
+        {
+          "heading": "[[benchmark]]",
+          "level": 1,
+          "line": 123
+        },
+        {
+          "heading": "[[benchmark]]",
+          "level": 1,
+          "line": 127
+        },
+        {
+          "heading": "[[benchmark]]",
+          "level": 1,
+          "line": 131
+        },
+        {
+          "heading": "[[benchmark]]",
+          "level": 1,
+          "line": 135
+        },
+        {
+          "heading": "[[benchmark]]",
+          "level": 1,
+          "line": 139
+        },
+        {
+          "heading": "[[benchmark]]",
+          "level": 1,
+          "line": 143
+        },
+        {
+          "heading": "[[benchmark]]",
+          "level": 1,
+          "line": 147
+        },
+        {
+          "heading": "[[benchmark]]",
+          "level": 1,
+          "line": 151
+        },
+        {
+          "heading": "[[benchmark]]",
+          "level": 1,
+          "line": 155
+        },
+        {
+          "heading": "[[benchmark]]",
+          "level": 1,
+          "line": 159
+        },
+        {
+          "heading": "[[benchmark]]",
+          "level": 1,
+          "line": 163
+        },
+        {
+          "heading": "[[benchmark]]",
+          "level": 1,
+          "line": 167
+        },
+        {
+          "heading": "[[benchmark]]",
+          "level": 1,
+          "line": 171
+        },
+        {
+          "heading": "[[benchmark]]",
+          "level": 1,
+          "line": 175
+        },
+        {
+          "heading": "[[benchmark]]",
+          "level": 1,
+          "line": 179
+        },
+        {
+          "heading": "[[benchmark]]",
+          "level": 1,
+          "line": 183
+        },
+        {
+          "heading": "[[benchmark]]",
+          "level": 1,
+          "line": 187
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 45
+      }
+    }
+  ]
+}

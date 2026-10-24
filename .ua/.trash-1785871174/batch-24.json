@@ -1,0 +1,38 @@
+{
+ "nodes": [
+  {
+   "id": "config:resources/inference_model_cards/mlx-community--llama-3.3-70b-instruct-fp16.toml",
+   "type": "config",
+   "name": "mlx-community--llama-3.3-70b-instruct-fp16.toml",
+   "filePath": "resources/inference_model_cards/mlx-community--llama-3.3-70b-instruct-fp16.toml",
+   "summary": "Configuration file resources/inference_model_cards/mlx-community--llama-3.3-70b-instruct-fp16.toml controlling project settings.",
+   "tags": [
+    "configuration"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "config:resources/inference_model_cards/moonshotai--Kimi-K2.6.toml",
+   "type": "config",
+   "name": "moonshotai--Kimi-K2.6.toml",
+   "filePath": "resources/inference_model_cards/moonshotai--Kimi-K2.6.toml",
+   "summary": "Configuration file resources/inference_model_cards/moonshotai--Kimi-K2.6.toml controlling project settings.",
+   "tags": [
+    "configuration"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "config:resources/inference_model_cards/moonshotai--Kimi-K2.7-Code.toml",
+   "type": "config",
+   "name": "moonshotai--Kimi-K2.7-Code.toml",
+   "filePath": "resources/inference_model_cards/moonshotai--Kimi-K2.7-Code.toml",
+   "summary": "Configuration file resources/inference_model_cards/moonshotai--Kimi-K2.7-Code.toml controlling project settings.",
+   "tags": [
+    "configuration"
+   ],
+   "complexity": "simple"
+  }
+ ],
+ "edges": []
+}

@@ -1,0 +1,557 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 20,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": "resources/inference_model_cards/mlx-community--Qwen3-0.6B-4bit.toml",
+      "language": "toml",
+      "fileCategory": "config",
+      "totalLines": 29,
+      "nonEmptyLines": 26,
+      "sections": [
+        {
+          "heading": "storage_size",
+          "level": 1,
+          "line": 14
+        },
+        {
+          "heading": "sampling_defaults",
+          "level": 1,
+          "line": 18
+        },
+        {
+          "heading": "sampling_defaults.non_thinking",
+          "level": 2,
+          "line": 25
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 3
+      }
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--Qwen3-0.6B-8bit.toml",
+      "language": "toml",
+      "fileCategory": "config",
+      "totalLines": 29,
+      "nonEmptyLines": 26,
+      "sections": [
+        {
+          "heading": "storage_size",
+          "level": 1,
+          "line": 14
+        },
+        {
+          "heading": "sampling_defaults",
+          "level": 1,
+          "line": 18
+        },
+        {
+          "heading": "sampling_defaults.non_thinking",
+          "level": 2,
+          "line": 25
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 3
+      }
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--Qwen3-235B-A22B-Instruct-2507-4bit.toml",
+      "language": "toml",
+      "fileCategory": "config",
+      "totalLines": 22,
+      "nonEmptyLines": 20,
+      "sections": [
+        {
+          "heading": "storage_size",
+          "level": 1,
+          "line": 14
+        },
+        {
+          "heading": "sampling_defaults",
+          "level": 1,
+          "line": 18
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 2
+      }
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--Qwen3-235B-A22B-Instruct-2507-8bit.toml",
+      "language": "toml",
+      "fileCategory": "config",
+      "totalLines": 22,
+      "nonEmptyLines": 20,
+      "sections": [
+        {
+          "heading": "storage_size",
+          "level": 1,
+          "line": 14
+        },
+        {
+          "heading": "sampling_defaults",
+          "level": 1,
+          "line": 18
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 2
+      }
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--Qwen3-30B-A3B-4bit.toml",
+      "language": "toml",
+      "fileCategory": "config",
+      "totalLines": 29,
+      "nonEmptyLines": 26,
+      "sections": [
+        {
+          "heading": "storage_size",
+          "level": 1,
+          "line": 14
+        },
+        {
+          "heading": "sampling_defaults",
+          "level": 1,
+          "line": 18
+        },
+        {
+          "heading": "sampling_defaults.non_thinking",
+          "level": 2,
+          "line": 25
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 3
+      }
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--Qwen3-30B-A3B-8bit.toml",
+      "language": "toml",
+      "fileCategory": "config",
+      "totalLines": 29,
+      "nonEmptyLines": 26,
+      "sections": [
+        {
+          "heading": "storage_size",
+          "level": 1,
+          "line": 14
+        },
+        {
+          "heading": "sampling_defaults",
+          "level": 1,
+          "line": 18
+        },
+        {
+          "heading": "sampling_defaults.non_thinking",
+          "level": 2,
+          "line": 25
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 3
+      }
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--Qwen3-Coder-480B-A35B-Instruct-4bit.toml",
+      "language": "toml",
+      "fileCategory": "config",
+      "totalLines": 23,
+      "nonEmptyLines": 21,
+      "sections": [
+        {
+          "heading": "storage_size",
+          "level": 1,
+          "line": 14
+        },
+        {
+          "heading": "sampling_defaults",
+          "level": 1,
+          "line": 19
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 2
+      }
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--Qwen3-Coder-480B-A35B-Instruct-8bit.toml",
+      "language": "toml",
+      "fileCategory": "config",
+      "totalLines": 23,
+      "nonEmptyLines": 21,
+      "sections": [
+        {
+          "heading": "storage_size",
+          "level": 1,
+          "line": 14
+        },
+        {
+          "heading": "sampling_defaults",
+          "level": 1,
+          "line": 19
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 2
+      }
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--Qwen3-Coder-Next-4bit.toml",
+      "language": "toml",
+      "fileCategory": "config",
+      "totalLines": 22,
+      "nonEmptyLines": 20,
+      "sections": [
+        {
+          "heading": "storage_size",
+          "level": 1,
+          "line": 14
+        },
+        {
+          "heading": "sampling_defaults",
+          "level": 1,
+          "line": 19
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 2
+      }
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--Qwen3-Coder-Next-5bit.toml",
+      "language": "toml",
+      "fileCategory": "config",
+      "totalLines": 22,
+      "nonEmptyLines": 20,
+      "sections": [
+        {
+          "heading": "storage_size",
+          "level": 1,
+          "line": 14
+        },
+        {
+          "heading": "sampling_defaults",
+          "level": 1,
+          "line": 19
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 2
+      }
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--Qwen3-Coder-Next-6bit.toml",
+      "language": "toml",
+      "fileCategory": "config",
+      "totalLines": 22,
+      "nonEmptyLines": 20,
+      "sections": [
+        {
+          "heading": "storage_size",
+          "level": 1,
+          "line": 14
+        },
+        {
+          "heading": "sampling_defaults",
+          "level": 1,
+          "line": 19
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 2
+      }
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--Qwen3-Coder-Next-8bit.toml",
+      "language": "toml",
+      "fileCategory": "config",
+      "totalLines": 22,
+      "nonEmptyLines": 20,
+      "sections": [
+        {
+          "heading": "storage_size",
+          "level": 1,
+          "line": 14
+        },
+        {
+          "heading": "sampling_defaults",
+          "level": 1,
+          "line": 19
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 2
+      }
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--Qwen3-Coder-Next-bf16.toml",
+      "language": "toml",
+      "fileCategory": "config",
+      "totalLines": 22,
+      "nonEmptyLines": 20,
+      "sections": [
+        {
+          "heading": "storage_size",
+          "level": 1,
+          "line": 14
+        },
+        {
+          "heading": "sampling_defaults",
+          "level": 1,
+          "line": 19
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 2
+      }
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--Qwen3-Next-80B-A3B-Instruct-4bit.toml",
+      "language": "toml",
+      "fileCategory": "config",
+      "totalLines": 22,
+      "nonEmptyLines": 20,
+      "sections": [
+        {
+          "heading": "storage_size",
+          "level": 1,
+          "line": 14
+        },
+        {
+          "heading": "sampling_defaults",
+          "level": 1,
+          "line": 18
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 2
+      }
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--Qwen3-Next-80B-A3B-Instruct-8bit.toml",
+      "language": "toml",
+      "fileCategory": "config",
+      "totalLines": 22,
+      "nonEmptyLines": 20,
+      "sections": [
+        {
+          "heading": "storage_size",
+          "level": 1,
+          "line": 14
+        },
+        {
+          "heading": "sampling_defaults",
+          "level": 1,
+          "line": 18
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 2
+      }
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--Qwen3-Next-80B-A3B-Thinking-4bit.toml",
+      "language": "toml",
+      "fileCategory": "config",
+      "totalLines": 22,
+      "nonEmptyLines": 21,
+      "sections": [
+        {
+          "heading": "storage_size",
+          "level": 1,
+          "line": 14
+        },
+        {
+          "heading": "sampling_defaults",
+          "level": 1,
+          "line": 18
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 2
+      }
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--Qwen3-Next-80B-A3B-Thinking-8bit.toml",
+      "language": "toml",
+      "fileCategory": "config",
+      "totalLines": 22,
+      "nonEmptyLines": 21,
+      "sections": [
+        {
+          "heading": "storage_size",
+          "level": 1,
+          "line": 14
+        },
+        {
+          "heading": "sampling_defaults",
+          "level": 1,
+          "line": 18
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 2
+      }
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--Qwen3-VL-4B-Instruct-4bit.toml",
+      "language": "toml",
+      "fileCategory": "config",
+      "totalLines": 23,
+      "nonEmptyLines": 21,
+      "sections": [
+        {
+          "heading": "storage_size",
+          "level": 1,
+          "line": 13
+        },
+        {
+          "heading": "sampling_defaults",
+          "level": 1,
+          "line": 18
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 2
+      }
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--Qwen3.5-122B-A10B-4bit.toml",
+      "language": "toml",
+      "fileCategory": "config",
+      "totalLines": 35,
+      "nonEmptyLines": 33,
+      "sections": [
+        {
+          "heading": "storage_size",
+          "level": 1,
+          "line": 14
+        },
+        {
+          "heading": "sampling_defaults",
+          "level": 1,
+          "line": 19
+        },
+        {
+          "heading": "sampling_defaults.non_thinking",
+          "level": 2,
+          "line": 29
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 3
+      }
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--Qwen3.5-122B-A10B-6bit.toml",
+      "language": "toml",
+      "fileCategory": "config",
+      "totalLines": 35,
+      "nonEmptyLines": 33,
+      "sections": [
+        {
+          "heading": "storage_size",
+          "level": 1,
+          "line": 14
+        },
+        {
+          "heading": "sampling_defaults",
+          "level": 1,
+          "line": 19
+        },
+        {
+          "heading": "sampling_defaults.non_thinking",
+          "level": 2,
+          "line": 29
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 3
+      }
+    }
+  ]
+}

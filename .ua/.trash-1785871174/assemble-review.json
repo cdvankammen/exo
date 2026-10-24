@@ -1,0 +1,33 @@
+{
+  "status": "passed",
+  "summary": "Assembled graph validated deterministically (LLM assemble-reviewer unavailable due to upstream provider outage).",
+  "checks": {
+    "fileCoverage": "842/842 scan files have corresponding nodes (100%)",
+    "danglingEdges": 0,
+    "missingRequiredFields": 0,
+    "duplicateNodeIds": 0,
+    "nodesWithUnknownFilePaths": 0
+  },
+  "nodeTypeCounts": {
+    "file": 652,
+    "function": 1803,
+    "class": 1223,
+    "pipeline": 2,
+    "document": 14,
+    "config": 174
+  },
+  "edgeTypeCounts": {
+    "contains": 3026,
+    "exports": 3005,
+    "inherits": 72,
+    "calls": 424,
+    "tested_by": 173,
+    "imports": 924
+  },
+  "notes": [
+    "Batches 3-6, 9-46 generated deterministically from extract-structure.mjs results (LLM dispatch unavailable); summaries are generic but structure is complete.",
+    "Batches 1, 2, 7, 8 authored by LLM file-analyzer subagents.",
+    "57 production nodes tagged 'tested' by tested_by linker.",
+    "0 imports edges recovered by importMap recovery pass (all imports already emitted)."
+  ]
+}

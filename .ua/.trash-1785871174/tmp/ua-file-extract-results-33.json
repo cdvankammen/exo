@@ -1,0 +1,865 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 25,
+  "filesSkipped": [],
+  "analysisOutcomes": {
+    "structure": {
+      "succeeded": 25,
+      "failed": 0
+    },
+    "callGraph": {
+      "succeeded": 25,
+      "failed": 0,
+      "skipped": 0
+    }
+  },
+  "results": [
+    {
+      "path": ".typings/mflux/models/flux/model/flux_vae/encoder/down_block_1.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 10,
+      "nonEmptyLines": 8,
+      "classes": [
+        {
+          "name": "DownBlock1",
+          "startLine": 8,
+          "endLine": 10,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "DownBlock1",
+          "line": 8,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mflux/models/flux/model/flux_vae/encoder/down_block_2.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 10,
+      "nonEmptyLines": 8,
+      "classes": [
+        {
+          "name": "DownBlock2",
+          "startLine": 8,
+          "endLine": 10,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "DownBlock2",
+          "line": 8,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mflux/models/flux/model/flux_vae/encoder/down_block_3.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 10,
+      "nonEmptyLines": 8,
+      "classes": [
+        {
+          "name": "DownBlock3",
+          "startLine": 8,
+          "endLine": 10,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "DownBlock3",
+          "line": 8,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mflux/models/flux/model/flux_vae/encoder/down_block_4.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 10,
+      "nonEmptyLines": 8,
+      "classes": [
+        {
+          "name": "DownBlock4",
+          "startLine": 8,
+          "endLine": 10,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "DownBlock4",
+          "line": 8,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mflux/models/flux/model/flux_vae/encoder/down_sampler.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 10,
+      "nonEmptyLines": 8,
+      "classes": [
+        {
+          "name": "DownSampler",
+          "startLine": 8,
+          "endLine": 10,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "DownSampler",
+          "line": 8,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mflux/models/flux/model/flux_vae/encoder/encoder.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 10,
+      "nonEmptyLines": 8,
+      "classes": [
+        {
+          "name": "Encoder",
+          "startLine": 8,
+          "endLine": 10,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "Encoder",
+          "line": 8,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mflux/models/flux/model/flux_vae/vae.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 15,
+      "nonEmptyLines": 13,
+      "classes": [
+        {
+          "name": "VAE",
+          "startLine": 8,
+          "endLine": 15,
+          "methods": [
+            "__init__",
+            "decode",
+            "encode"
+          ],
+          "properties": [
+            "scaling_factor",
+            "shift_factor"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "VAE",
+          "line": 8,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mflux/models/flux/model/redux_encoder/redux_encoder.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 10,
+      "nonEmptyLines": 8,
+      "classes": [
+        {
+          "name": "ReduxEncoder",
+          "startLine": 8,
+          "endLine": 10,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "ReduxEncoder",
+          "line": 8,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mflux/models/flux/model/siglip_vision_transformer/siglip_encoder.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 10,
+      "nonEmptyLines": 8,
+      "classes": [
+        {
+          "name": "SiglipEncoder",
+          "startLine": 8,
+          "endLine": 10,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "SiglipEncoder",
+          "line": 8,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mflux/models/flux/model/siglip_vision_transformer/siglip_encoder_layer.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 10,
+      "nonEmptyLines": 8,
+      "classes": [
+        {
+          "name": "SiglipEncoderLayer",
+          "startLine": 8,
+          "endLine": 10,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "SiglipEncoderLayer",
+          "line": 8,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mflux/models/flux/model/siglip_vision_transformer/siglip_mlp.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 10,
+      "nonEmptyLines": 8,
+      "classes": [
+        {
+          "name": "SiglipMLP",
+          "startLine": 8,
+          "endLine": 10,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "SiglipMLP",
+          "line": 8,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mflux/models/flux/model/siglip_vision_transformer/siglip_multi_head_attention_pooling_head.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 10,
+      "nonEmptyLines": 8,
+      "classes": [
+        {
+          "name": "SiglipMultiHeadAttentionPoolingHead",
+          "startLine": 8,
+          "endLine": 10,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "SiglipMultiHeadAttentionPoolingHead",
+          "line": 8,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mflux/models/flux/model/siglip_vision_transformer/siglip_sdpa_attention.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 16,
+      "nonEmptyLines": 14,
+      "classes": [
+        {
+          "name": "SiglipSdpaAttention",
+          "startLine": 8,
+          "endLine": 16,
+          "methods": [
+            "__init__",
+            "__call__",
+            "reshape_and_transpose"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "SiglipSdpaAttention",
+          "line": 8,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mflux/models/flux/model/siglip_vision_transformer/siglip_vision_embeddings.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 13,
+      "nonEmptyLines": 11,
+      "classes": [
+        {
+          "name": "SiglipVisionEmbeddings",
+          "startLine": 8,
+          "endLine": 13,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "SiglipVisionEmbeddings",
+          "line": 8,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mflux/models/flux/model/siglip_vision_transformer/siglip_vision_transformer.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 10,
+      "nonEmptyLines": 8,
+      "classes": [
+        {
+          "name": "SiglipVisionTransformer",
+          "startLine": 8,
+          "endLine": 10,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "SiglipVisionTransformer",
+          "line": 8,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mflux/models/flux/variants/__init__.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 7,
+      "nonEmptyLines": 6,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": ".typings/mflux/models/flux/variants/concept_attention/attention_data.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 39,
+      "nonEmptyLines": 35,
+      "classes": [
+        {
+          "name": "TimestepAttentionData",
+          "startLine": 15,
+          "endLine": 19,
+          "methods": [
+            "stack_img_attentions",
+            "stack_concept_attentions"
+          ],
+          "properties": [
+            "t",
+            "attention_information"
+          ]
+        },
+        {
+          "name": "GenerationAttentionData",
+          "startLine": 21,
+          "endLine": 26,
+          "methods": [
+            "__init__",
+            "append",
+            "stack_all_img_attentions",
+            "stack_all_concept_attentions"
+          ],
+          "properties": []
+        },
+        {
+          "name": "ConceptHeatmap",
+          "startLine": 29,
+          "endLine": 39,
+          "methods": [
+            "save",
+            "get_metadata"
+          ],
+          "properties": [
+            "concept",
+            "image",
+            "layer_indices",
+            "timesteps",
+            "height",
+            "width"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "TimestepAttentionData",
+          "line": 14,
+          "isDefault": false
+        },
+        {
+          "name": "GenerationAttentionData",
+          "line": 21,
+          "isDefault": false
+        },
+        {
+          "name": "ConceptHeatmap",
+          "line": 28,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 3,
+        "functionCount": 0,
+        "classCount": 3
+      }
+    },
+    {
+      "path": ".typings/mflux/models/flux/variants/concept_attention/joint_attention_concept.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 17,
+      "nonEmptyLines": 15,
+      "classes": [
+        {
+          "name": "JointAttentionConcept",
+          "startLine": 8,
+          "endLine": 17,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "JointAttentionConcept",
+          "line": 8,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mflux/models/flux/variants/concept_attention/joint_transformer_block_concept.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 28,
+      "nonEmptyLines": 25,
+      "classes": [
+        {
+          "name": "LayerAttentionData",
+          "startLine": 10,
+          "endLine": 14,
+          "methods": [],
+          "properties": [
+            "layer",
+            "img_attention",
+            "concept_attention"
+          ]
+        },
+        {
+          "name": "JointTransformerBlockConcept",
+          "startLine": 16,
+          "endLine": 28,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "LayerAttentionData",
+          "line": 9,
+          "isDefault": false
+        },
+        {
+          "name": "JointTransformerBlockConcept",
+          "line": 16,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 2,
+        "functionCount": 0,
+        "classCount": 2
+      }
+    },
+    {
+      "path": ".typings/mflux/models/flux/variants/concept_attention/transformer_concept.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 29,
+      "nonEmptyLines": 27,
+      "classes": [
+        {
+          "name": "TransformerConcept",
+          "startLine": 13,
+          "endLine": 29,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "TransformerConcept",
+          "line": 13,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mflux/models/flux/variants/controlnet/transformer_controlnet.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 25,
+      "nonEmptyLines": 23,
+      "classes": [
+        {
+          "name": "TransformerControlnet",
+          "startLine": 10,
+          "endLine": 25,
+          "methods": [
+            "__init__",
+            "__call__"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "TransformerControlnet",
+          "line": 10,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mflux/models/flux/variants/kontext/__init__.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 7,
+      "nonEmptyLines": 5,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": ".typings/mflux/models/flux/variants/kontext/flux_kontext.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 49,
+      "nonEmptyLines": 44,
+      "classes": [
+        {
+          "name": "Flux1Kontext",
+          "startLine": 19,
+          "endLine": 49,
+          "methods": [
+            "__init__",
+            "generate_image"
+          ],
+          "properties": [
+            "vae",
+            "transformer",
+            "t5_text_encoder",
+            "clip_text_encoder",
+            "bits",
+            "lora_paths",
+            "lora_scales",
+            "prompt_cache",
+            "tokenizers"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "Flux1Kontext",
+          "line": 19,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mflux/models/flux/variants/kontext/kontext_util.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 16,
+      "nonEmptyLines": 13,
+      "classes": [
+        {
+          "name": "KontextUtil",
+          "startLine": 9,
+          "endLine": 16,
+          "methods": [
+            "create_image_conditioning_latents"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "KontextUtil",
+          "line": 9,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": ".typings/mflux/models/flux/variants/txt2img/flux.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 53,
+      "nonEmptyLines": 50,
+      "classes": [
+        {
+          "name": "Flux1",
+          "startLine": 17,
+          "endLine": 53,
+          "methods": [
+            "__init__",
+            "generate_image",
+            "from_name",
+            "save_model",
+            "freeze"
+          ],
+          "properties": [
+            "vae",
+            "transformer",
+            "t5_text_encoder",
+            "clip_text_encoder",
+            "bits",
+            "lora_paths",
+            "lora_scales",
+            "prompt_cache",
+            "tokenizers"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "Flux1",
+          "line": 17,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    }
+  ]
+}

@@ -1,0 +1,147 @@
+{
+ "projectRoot": "/Users/chris/Documents/GitHub/exo",
+ "batchFiles": [
+  {
+   "path": "resources/inference_model_cards/mlx-community--DeepSeek-V3.1-4bit.toml",
+   "language": "toml",
+   "sizeLines": 22,
+   "fileCategory": "config"
+  },
+  {
+   "path": "resources/inference_model_cards/mlx-community--DeepSeek-V3.1-8bit.toml",
+   "language": "toml",
+   "sizeLines": 22,
+   "fileCategory": "config"
+  },
+  {
+   "path": "resources/inference_model_cards/mlx-community--DeepSeek-V3.2-4bit.toml",
+   "language": "toml",
+   "sizeLines": 22,
+   "fileCategory": "config"
+  },
+  {
+   "path": "resources/inference_model_cards/mlx-community--DeepSeek-V3.2-8bit.toml",
+   "language": "toml",
+   "sizeLines": 22,
+   "fileCategory": "config"
+  },
+  {
+   "path": "resources/inference_model_cards/mlx-community--DeepSeek-V4-Flash.toml",
+   "language": "toml",
+   "sizeLines": 21,
+   "fileCategory": "config"
+  },
+  {
+   "path": "resources/inference_model_cards/mlx-community--DeepSeek-V4-Pro.toml",
+   "language": "toml",
+   "sizeLines": 21,
+   "fileCategory": "config"
+  },
+  {
+   "path": "resources/inference_model_cards/mlx-community--GLM-4.5-Air-8bit.toml",
+   "language": "toml",
+   "sizeLines": 20,
+   "fileCategory": "config"
+  },
+  {
+   "path": "resources/inference_model_cards/mlx-community--GLM-4.5-Air-bf16.toml",
+   "language": "toml",
+   "sizeLines": 20,
+   "fileCategory": "config"
+  },
+  {
+   "path": "resources/inference_model_cards/mlx-community--GLM-4.7-4bit.toml",
+   "language": "toml",
+   "sizeLines": 22,
+   "fileCategory": "config"
+  },
+  {
+   "path": "resources/inference_model_cards/mlx-community--GLM-4.7-6bit.toml",
+   "language": "toml",
+   "sizeLines": 22,
+   "fileCategory": "config"
+  },
+  {
+   "path": "resources/inference_model_cards/mlx-community--GLM-4.7-8bit-gs32.toml",
+   "language": "toml",
+   "sizeLines": 22,
+   "fileCategory": "config"
+  },
+  {
+   "path": "resources/inference_model_cards/mlx-community--GLM-4.7-Flash-4bit.toml",
+   "language": "toml",
+   "sizeLines": 22,
+   "fileCategory": "config"
+  },
+  {
+   "path": "resources/inference_model_cards/mlx-community--GLM-4.7-Flash-5bit.toml",
+   "language": "toml",
+   "sizeLines": 22,
+   "fileCategory": "config"
+  },
+  {
+   "path": "resources/inference_model_cards/mlx-community--GLM-4.7-Flash-6bit.toml",
+   "language": "toml",
+   "sizeLines": 22,
+   "fileCategory": "config"
+  },
+  {
+   "path": "resources/inference_model_cards/mlx-community--GLM-4.7-Flash-8bit.toml",
+   "language": "toml",
+   "sizeLines": 22,
+   "fileCategory": "config"
+  },
+  {
+   "path": "resources/inference_model_cards/mlx-community--GLM-5-8bit.toml",
+   "language": "toml",
+   "sizeLines": 21,
+   "fileCategory": "config"
+  },
+  {
+   "path": "resources/inference_model_cards/mlx-community--GLM-5-MXFP4-Q8.toml",
+   "language": "toml",
+   "sizeLines": 21,
+   "fileCategory": "config"
+  },
+  {
+   "path": "resources/inference_model_cards/mlx-community--GLM-5-bf16.toml",
+   "language": "toml",
+   "sizeLines": 21,
+   "fileCategory": "config"
+  },
+  {
+   "path": "resources/inference_model_cards/mlx-community--GLM-5.1-DQ4plus-q8.toml",
+   "language": "toml",
+   "sizeLines": 21,
+   "fileCategory": "config"
+  },
+  {
+   "path": "resources/inference_model_cards/mlx-community--GLM-5.1-MXFP4-Q8.toml",
+   "language": "toml",
+   "sizeLines": 21,
+   "fileCategory": "config"
+  }
+ ],
+ "batchImportData": {
+  "resources/inference_model_cards/mlx-community--DeepSeek-V3.1-4bit.toml": [],
+  "resources/inference_model_cards/mlx-community--DeepSeek-V3.1-8bit.toml": [],
+  "resources/inference_model_cards/mlx-community--DeepSeek-V3.2-4bit.toml": [],
+  "resources/inference_model_cards/mlx-community--DeepSeek-V3.2-8bit.toml": [],
+  "resources/inference_model_cards/mlx-community--DeepSeek-V4-Flash.toml": [],
+  "resources/inference_model_cards/mlx-community--DeepSeek-V4-Pro.toml": [],
+  "resources/inference_model_cards/mlx-community--GLM-4.5-Air-8bit.toml": [],
+  "resources/inference_model_cards/mlx-community--GLM-4.5-Air-bf16.toml": [],
+  "resources/inference_model_cards/mlx-community--GLM-4.7-4bit.toml": [],
+  "resources/inference_model_cards/mlx-community--GLM-4.7-6bit.toml": [],
+  "resources/inference_model_cards/mlx-community--GLM-4.7-8bit-gs32.toml": [],
+  "resources/inference_model_cards/mlx-community--GLM-4.7-Flash-4bit.toml": [],
+  "resources/inference_model_cards/mlx-community--GLM-4.7-Flash-5bit.toml": [],
+  "resources/inference_model_cards/mlx-community--GLM-4.7-Flash-6bit.toml": [],
+  "resources/inference_model_cards/mlx-community--GLM-4.7-Flash-8bit.toml": [],
+  "resources/inference_model_cards/mlx-community--GLM-5-8bit.toml": [],
+  "resources/inference_model_cards/mlx-community--GLM-5-MXFP4-Q8.toml": [],
+  "resources/inference_model_cards/mlx-community--GLM-5-bf16.toml": [],
+  "resources/inference_model_cards/mlx-community--GLM-5.1-DQ4plus-q8.toml": [],
+  "resources/inference_model_cards/mlx-community--GLM-5.1-MXFP4-Q8.toml": []
+ }
+}

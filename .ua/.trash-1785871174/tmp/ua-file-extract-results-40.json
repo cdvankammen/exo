@@ -1,0 +1,544 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 25,
+  "filesSkipped": [],
+  "analysisOutcomes": {
+    "structure": {
+      "succeeded": 25,
+      "failed": 0
+    },
+    "callGraph": {
+      "succeeded": 22,
+      "failed": 0,
+      "skipped": 3
+    }
+  },
+  "results": [
+    {
+      "path": "app/EXO/EXO/Models/ClusterState.swift",
+      "language": "swift",
+      "fileCategory": "code",
+      "totalLines": 476,
+      "nonEmptyLines": 417,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/EXO/EXO/Preview Content/Preview Assets.xcassets/Contents.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 6,
+      "nonEmptyLines": 6,
+      "sections": [
+        {
+          "heading": "info",
+          "level": 1,
+          "line": 2
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 1
+      }
+    },
+    {
+      "path": "app/EXO/EXO/Services/BugReportService.swift",
+      "language": "swift",
+      "fileCategory": "code",
+      "totalLines": 570,
+      "nonEmptyLines": 500,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/EXO/EXO/Services/ClusterStateService.swift",
+      "language": "swift",
+      "fileCategory": "code",
+      "totalLines": 192,
+      "nonEmptyLines": 177,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/EXO/EXO/Services/LocalNetworkChecker.swift",
+      "language": "swift",
+      "fileCategory": "code",
+      "totalLines": 183,
+      "nonEmptyLines": 158,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/EXO/EXO/Services/NetworkSetupHelper.swift",
+      "language": "swift",
+      "fileCategory": "code",
+      "totalLines": 382,
+      "nonEmptyLines": 330,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/EXO/EXO/Services/NetworkStatusService.swift",
+      "language": "swift",
+      "fileCategory": "code",
+      "totalLines": 229,
+      "nonEmptyLines": 201,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/EXO/EXO/Services/ThunderboltBridgeDetector.swift",
+      "language": "swift",
+      "fileCategory": "code",
+      "totalLines": 194,
+      "nonEmptyLines": 168,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/EXO/EXO/Services/ThunderboltBridgeService.swift",
+      "language": "swift",
+      "fileCategory": "code",
+      "totalLines": 261,
+      "nonEmptyLines": 226,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/EXO/EXO/ViewModels/InstanceViewModel.swift",
+      "language": "swift",
+      "fileCategory": "code",
+      "totalLines": 248,
+      "nonEmptyLines": 223,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/EXO/EXO/ViewModels/NodeViewModel.swift",
+      "language": "swift",
+      "fileCategory": "code",
+      "totalLines": 131,
+      "nonEmptyLines": 115,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/EXO/EXO/Views/BugReportWindowController.swift",
+      "language": "swift",
+      "fileCategory": "code",
+      "totalLines": 242,
+      "nonEmptyLines": 218,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/EXO/EXO/Views/FirstLaunchPopout.swift",
+      "language": "swift",
+      "fileCategory": "code",
+      "totalLines": 200,
+      "nonEmptyLines": 179,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/EXO/EXO/Views/InstanceRowView.swift",
+      "language": "swift",
+      "fileCategory": "code",
+      "totalLines": 337,
+      "nonEmptyLines": 318,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/EXO/EXO/Views/NodeDetailView.swift",
+      "language": "swift",
+      "fileCategory": "code",
+      "totalLines": 34,
+      "nonEmptyLines": 31,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/EXO/EXO/Views/NodeRowView.swift",
+      "language": "swift",
+      "fileCategory": "code",
+      "totalLines": 30,
+      "nonEmptyLines": 28,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/EXO/EXO/Views/SettingsView.swift",
+      "language": "swift",
+      "fileCategory": "code",
+      "totalLines": 718,
+      "nonEmptyLines": 643,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/EXO/EXO/Views/SettingsWindowController.swift",
+      "language": "swift",
+      "fileCategory": "code",
+      "totalLines": 47,
+      "nonEmptyLines": 41,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/EXO/EXO/Views/TopologyMiniView.swift",
+      "language": "swift",
+      "fileCategory": "code",
+      "totalLines": 173,
+      "nonEmptyLines": 162,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/EXO/EXO/main.swift",
+      "language": "swift",
+      "fileCategory": "code",
+      "totalLines": 85,
+      "nonEmptyLines": 72,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/EXO/EXOTests/EXOTests.swift",
+      "language": "swift",
+      "fileCategory": "code",
+      "totalLines": 18,
+      "nonEmptyLines": 13,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/EXO/EXOUITests/EXOUITests.swift",
+      "language": "swift",
+      "fileCategory": "code",
+      "totalLines": 43,
+      "nonEmptyLines": 34,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/EXO/EXOUITests/EXOUITestsLaunchTests.swift",
+      "language": "swift",
+      "fileCategory": "code",
+      "totalLines": 33,
+      "nonEmptyLines": 26,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "app/EXO/uninstall-exo.sh",
+      "language": "shell",
+      "fileCategory": "script",
+      "totalLines": 209,
+      "nonEmptyLines": 187,
+      "functions": [
+        {
+          "name": "echo_info",
+          "startLine": 61,
+          "endLine": 63,
+          "params": []
+        },
+        {
+          "name": "echo_warn",
+          "startLine": 65,
+          "endLine": 67,
+          "params": []
+        },
+        {
+          "name": "echo_error",
+          "startLine": 69,
+          "endLine": 71,
+          "params": []
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 3,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "bench/eval_configs/models.toml",
+      "language": "toml",
+      "fileCategory": "config",
+      "totalLines": 347,
+      "nonEmptyLines": 303,
+      "sections": [
+        {
+          "heading": "[[model]]",
+          "level": 1,
+          "line": 25
+        },
+        {
+          "heading": "[[model]]",
+          "level": 1,
+          "line": 34
+        },
+        {
+          "heading": "[[model]]",
+          "level": 1,
+          "line": 43
+        },
+        {
+          "heading": "[[model]]",
+          "level": 1,
+          "line": 52
+        },
+        {
+          "heading": "[[model]]",
+          "level": 1,
+          "line": 61
+        },
+        {
+          "heading": "[[model]]",
+          "level": 1,
+          "line": 70
+        },
+        {
+          "heading": "[[model]]",
+          "level": 1,
+          "line": 86
+        },
+        {
+          "heading": "[[model]]",
+          "level": 1,
+          "line": 95
+        },
+        {
+          "heading": "[[model]]",
+          "level": 1,
+          "line": 104
+        },
+        {
+          "heading": "[[model]]",
+          "level": 1,
+          "line": 113
+        },
+        {
+          "heading": "[[model]]",
+          "level": 1,
+          "line": 122
+        },
+        {
+          "heading": "[[model]]",
+          "level": 1,
+          "line": 130
+        },
+        {
+          "heading": "[[model]]",
+          "level": 1,
+          "line": 138
+        },
+        {
+          "heading": "[[model]]",
+          "level": 1,
+          "line": 151
+        },
+        {
+          "heading": "[[model]]",
+          "level": 1,
+          "line": 158
+        },
+        {
+          "heading": "[[model]]",
+          "level": 1,
+          "line": 172
+        },
+        {
+          "heading": "[[model]]",
+          "level": 1,
+          "line": 178
+        },
+        {
+          "heading": "[[model]]",
+          "level": 1,
+          "line": 190
+        },
+        {
+          "heading": "[[model]]",
+          "level": 1,
+          "line": 198
+        },
+        {
+          "heading": "[[model]]",
+          "level": 1,
+          "line": 211
+        },
+        {
+          "heading": "[[model]]",
+          "level": 1,
+          "line": 220
+        },
+        {
+          "heading": "[[model]]",
+          "level": 1,
+          "line": 227
+        },
+        {
+          "heading": "[[model]]",
+          "level": 1,
+          "line": 243
+        },
+        {
+          "heading": "[[model]]",
+          "level": 1,
+          "line": 250
+        },
+        {
+          "heading": "[[model]]",
+          "level": 1,
+          "line": 259
+        },
+        {
+          "heading": "[[model]]",
+          "level": 1,
+          "line": 270
+        },
+        {
+          "heading": "[[model]]",
+          "level": 1,
+          "line": 279
+        },
+        {
+          "heading": "[[model]]",
+          "level": 1,
+          "line": 288
+        },
+        {
+          "heading": "[[model]]",
+          "level": 1,
+          "line": 301
+        },
+        {
+          "heading": "[[model]]",
+          "level": 1,
+          "line": 314
+        },
+        {
+          "heading": "[[model]]",
+          "level": 1,
+          "line": 321
+        },
+        {
+          "heading": "[[model]]",
+          "level": 1,
+          "line": 328
+        },
+        {
+          "heading": "[[model]]",
+          "level": 1,
+          "line": 335
+        },
+        {
+          "heading": "[[model]]",
+          "level": 1,
+          "line": 342
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 34
+      }
+    }
+  ]
+}

@@ -1,0 +1,225 @@
+{
+ "nodes": [
+  {
+   "id": "config:resources/inference_model_cards/mlx-community--DeepSeek-V3.1-4bit.toml",
+   "type": "config",
+   "name": "mlx-community--DeepSeek-V3.1-4bit.toml",
+   "filePath": "resources/inference_model_cards/mlx-community--DeepSeek-V3.1-4bit.toml",
+   "summary": "Configuration file resources/inference_model_cards/mlx-community--DeepSeek-V3.1-4bit.toml controlling project settings.",
+   "tags": [
+    "configuration"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "config:resources/inference_model_cards/mlx-community--DeepSeek-V3.1-8bit.toml",
+   "type": "config",
+   "name": "mlx-community--DeepSeek-V3.1-8bit.toml",
+   "filePath": "resources/inference_model_cards/mlx-community--DeepSeek-V3.1-8bit.toml",
+   "summary": "Configuration file resources/inference_model_cards/mlx-community--DeepSeek-V3.1-8bit.toml controlling project settings.",
+   "tags": [
+    "configuration"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "config:resources/inference_model_cards/mlx-community--DeepSeek-V3.2-4bit.toml",
+   "type": "config",
+   "name": "mlx-community--DeepSeek-V3.2-4bit.toml",
+   "filePath": "resources/inference_model_cards/mlx-community--DeepSeek-V3.2-4bit.toml",
+   "summary": "Configuration file resources/inference_model_cards/mlx-community--DeepSeek-V3.2-4bit.toml controlling project settings.",
+   "tags": [
+    "configuration"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "config:resources/inference_model_cards/mlx-community--DeepSeek-V3.2-8bit.toml",
+   "type": "config",
+   "name": "mlx-community--DeepSeek-V3.2-8bit.toml",
+   "filePath": "resources/inference_model_cards/mlx-community--DeepSeek-V3.2-8bit.toml",
+   "summary": "Configuration file resources/inference_model_cards/mlx-community--DeepSeek-V3.2-8bit.toml controlling project settings.",
+   "tags": [
+    "configuration"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "config:resources/inference_model_cards/mlx-community--DeepSeek-V4-Flash.toml",
+   "type": "config",
+   "name": "mlx-community--DeepSeek-V4-Flash.toml",
+   "filePath": "resources/inference_model_cards/mlx-community--DeepSeek-V4-Flash.toml",
+   "summary": "Configuration file resources/inference_model_cards/mlx-community--DeepSeek-V4-Flash.toml controlling project settings.",
+   "tags": [
+    "configuration"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "config:resources/inference_model_cards/mlx-community--DeepSeek-V4-Pro.toml",
+   "type": "config",
+   "name": "mlx-community--DeepSeek-V4-Pro.toml",
+   "filePath": "resources/inference_model_cards/mlx-community--DeepSeek-V4-Pro.toml",
+   "summary": "Configuration file resources/inference_model_cards/mlx-community--DeepSeek-V4-Pro.toml controlling project settings.",
+   "tags": [
+    "configuration"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "config:resources/inference_model_cards/mlx-community--GLM-4.5-Air-8bit.toml",
+   "type": "config",
+   "name": "mlx-community--GLM-4.5-Air-8bit.toml",
+   "filePath": "resources/inference_model_cards/mlx-community--GLM-4.5-Air-8bit.toml",
+   "summary": "Configuration file resources/inference_model_cards/mlx-community--GLM-4.5-Air-8bit.toml controlling project settings.",
+   "tags": [
+    "configuration"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "config:resources/inference_model_cards/mlx-community--GLM-4.5-Air-bf16.toml",
+   "type": "config",
+   "name": "mlx-community--GLM-4.5-Air-bf16.toml",
+   "filePath": "resources/inference_model_cards/mlx-community--GLM-4.5-Air-bf16.toml",
+   "summary": "Configuration file resources/inference_model_cards/mlx-community--GLM-4.5-Air-bf16.toml controlling project settings.",
+   "tags": [
+    "configuration"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "config:resources/inference_model_cards/mlx-community--GLM-4.7-4bit.toml",
+   "type": "config",
+   "name": "mlx-community--GLM-4.7-4bit.toml",
+   "filePath": "resources/inference_model_cards/mlx-community--GLM-4.7-4bit.toml",
+   "summary": "Configuration file resources/inference_model_cards/mlx-community--GLM-4.7-4bit.toml controlling project settings.",
+   "tags": [
+    "configuration"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "config:resources/inference_model_cards/mlx-community--GLM-4.7-6bit.toml",
+   "type": "config",
+   "name": "mlx-community--GLM-4.7-6bit.toml",
+   "filePath": "resources/inference_model_cards/mlx-community--GLM-4.7-6bit.toml",
+   "summary": "Configuration file resources/inference_model_cards/mlx-community--GLM-4.7-6bit.toml controlling project settings.",
+   "tags": [
+    "configuration"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "config:resources/inference_model_cards/mlx-community--GLM-4.7-8bit-gs32.toml",
+   "type": "config",
+   "name": "mlx-community--GLM-4.7-8bit-gs32.toml",
+   "filePath": "resources/inference_model_cards/mlx-community--GLM-4.7-8bit-gs32.toml",
+   "summary": "Configuration file resources/inference_model_cards/mlx-community--GLM-4.7-8bit-gs32.toml controlling project settings.",
+   "tags": [
+    "configuration"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "config:resources/inference_model_cards/mlx-community--GLM-4.7-Flash-4bit.toml",
+   "type": "config",
+   "name": "mlx-community--GLM-4.7-Flash-4bit.toml",
+   "filePath": "resources/inference_model_cards/mlx-community--GLM-4.7-Flash-4bit.toml",
+   "summary": "Configuration file resources/inference_model_cards/mlx-community--GLM-4.7-Flash-4bit.toml controlling project settings.",
+   "tags": [
+    "configuration"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "config:resources/inference_model_cards/mlx-community--GLM-4.7-Flash-5bit.toml",
+   "type": "config",
+   "name": "mlx-community--GLM-4.7-Flash-5bit.toml",
+   "filePath": "resources/inference_model_cards/mlx-community--GLM-4.7-Flash-5bit.toml",
+   "summary": "Configuration file resources/inference_model_cards/mlx-community--GLM-4.7-Flash-5bit.toml controlling project settings.",
+   "tags": [
+    "configuration"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "config:resources/inference_model_cards/mlx-community--GLM-4.7-Flash-6bit.toml",
+   "type": "config",
+   "name": "mlx-community--GLM-4.7-Flash-6bit.toml",
+   "filePath": "resources/inference_model_cards/mlx-community--GLM-4.7-Flash-6bit.toml",
+   "summary": "Configuration file resources/inference_model_cards/mlx-community--GLM-4.7-Flash-6bit.toml controlling project settings.",
+   "tags": [
+    "configuration"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "config:resources/inference_model_cards/mlx-community--GLM-4.7-Flash-8bit.toml",
+   "type": "config",
+   "name": "mlx-community--GLM-4.7-Flash-8bit.toml",
+   "filePath": "resources/inference_model_cards/mlx-community--GLM-4.7-Flash-8bit.toml",
+   "summary": "Configuration file resources/inference_model_cards/mlx-community--GLM-4.7-Flash-8bit.toml controlling project settings.",
+   "tags": [
+    "configuration"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "config:resources/inference_model_cards/mlx-community--GLM-5-8bit.toml",
+   "type": "config",
+   "name": "mlx-community--GLM-5-8bit.toml",
+   "filePath": "resources/inference_model_cards/mlx-community--GLM-5-8bit.toml",
+   "summary": "Configuration file resources/inference_model_cards/mlx-community--GLM-5-8bit.toml controlling project settings.",
+   "tags": [
+    "configuration"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "config:resources/inference_model_cards/mlx-community--GLM-5-MXFP4-Q8.toml",
+   "type": "config",
+   "name": "mlx-community--GLM-5-MXFP4-Q8.toml",
+   "filePath": "resources/inference_model_cards/mlx-community--GLM-5-MXFP4-Q8.toml",
+   "summary": "Configuration file resources/inference_model_cards/mlx-community--GLM-5-MXFP4-Q8.toml controlling project settings.",
+   "tags": [
+    "configuration"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "config:resources/inference_model_cards/mlx-community--GLM-5-bf16.toml",
+   "type": "config",
+   "name": "mlx-community--GLM-5-bf16.toml",
+   "filePath": "resources/inference_model_cards/mlx-community--GLM-5-bf16.toml",
+   "summary": "Configuration file resources/inference_model_cards/mlx-community--GLM-5-bf16.toml controlling project settings.",
+   "tags": [
+    "configuration"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "config:resources/inference_model_cards/mlx-community--GLM-5.1-DQ4plus-q8.toml",
+   "type": "config",
+   "name": "mlx-community--GLM-5.1-DQ4plus-q8.toml",
+   "filePath": "resources/inference_model_cards/mlx-community--GLM-5.1-DQ4plus-q8.toml",
+   "summary": "Configuration file resources/inference_model_cards/mlx-community--GLM-5.1-DQ4plus-q8.toml controlling project settings.",
+   "tags": [
+    "configuration"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "config:resources/inference_model_cards/mlx-community--GLM-5.1-MXFP4-Q8.toml",
+   "type": "config",
+   "name": "mlx-community--GLM-5.1-MXFP4-Q8.toml",
+   "filePath": "resources/inference_model_cards/mlx-community--GLM-5.1-MXFP4-Q8.toml",
+   "summary": "Configuration file resources/inference_model_cards/mlx-community--GLM-5.1-MXFP4-Q8.toml controlling project settings.",
+   "tags": [
+    "configuration"
+   ],
+   "complexity": "simple"
+  }
+ ],
+ "edges": []
+}

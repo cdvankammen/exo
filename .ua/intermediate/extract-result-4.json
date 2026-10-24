@@ -1,0 +1,517 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 15,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": "continuity/README.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 15,
+      "nonEmptyLines": 12,
+      "sections": [
+        {
+          "heading": "continuity/ — Topology Zero-Edges Fix Project Layer",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "6-File Minimum Update Rule",
+          "level": 2,
+          "line": 5
+        },
+        {
+          "heading": "Core Promise",
+          "level": 2,
+          "line": 14
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 3
+      }
+    },
+    {
+      "path": "continuity/action-ledger.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 26,
+      "nonEmptyLines": 25,
+      "sections": [
+        {
+          "heading": "Action Ledger",
+          "level": 1,
+          "line": 1
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 1
+      }
+    },
+    {
+      "path": "continuity/artifact-ledger.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 11,
+      "nonEmptyLines": 10,
+      "sections": [
+        {
+          "heading": "Artifact Ledger",
+          "level": 1,
+          "line": 1
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 1
+      }
+    },
+    {
+      "path": "continuity/critique-ledger.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 11,
+      "nonEmptyLines": 9,
+      "sections": [
+        {
+          "heading": "Critique Ledger",
+          "level": 1,
+          "line": 1
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 1
+      }
+    },
+    {
+      "path": "continuity/current-state.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 50,
+      "nonEmptyLines": 44,
+      "sections": [
+        {
+          "heading": "Current State — Topology Zero-Edges Fix",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "What Works (verified)",
+          "level": 2,
+          "line": 5
+        },
+        {
+          "heading": "What Doesn't Work Yet",
+          "level": 2,
+          "line": 15
+        },
+        {
+          "heading": "Current Branch State",
+          "level": 2,
+          "line": 21
+        },
+        {
+          "heading": "How to Run Tests",
+          "level": 2,
+          "line": 29
+        },
+        {
+          "heading": "Key Contacts (Kanban Tasks)",
+          "level": 2,
+          "line": 42
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 6
+      }
+    },
+    {
+      "path": "continuity/decision-ledger.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 31,
+      "nonEmptyLines": 26,
+      "sections": [
+        {
+          "heading": "Decision Ledger",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "D-001: node_is_leaf == 1, not <= 1",
+          "level": 2,
+          "line": 3
+        },
+        {
+          "heading": "D-002: Separate node_is_isolated() method",
+          "level": 2,
+          "line": 9
+        },
+        {
+          "heading": "D-003: Backward-compatible get_cycles(include_singletons=True)",
+          "level": 2,
+          "line": 15
+        },
+        {
+          "heading": "D-004: SocketConnection.__hash__ includes port tuple",
+          "level": 2,
+          "line": 21
+        },
+        {
+          "heading": "D-005: Per-peer api_port in check_reachable",
+          "level": 2,
+          "line": 27
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 6
+      }
+    },
+    {
+      "path": "continuity/full-history-index.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 10,
+      "nonEmptyLines": 9,
+      "sections": [
+        {
+          "heading": "Full History Index",
+          "level": 1,
+          "line": 1
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 1
+      }
+    },
+    {
+      "path": "continuity/handoff-ledger.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 10,
+      "nonEmptyLines": 9,
+      "sections": [
+        {
+          "heading": "Handoff Ledger",
+          "level": 1,
+          "line": 1
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 1
+      }
+    },
+    {
+      "path": "continuity/implementation-ledger.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 12,
+      "nonEmptyLines": 11,
+      "sections": [
+        {
+          "heading": "Implementation Ledger",
+          "level": 1,
+          "line": 1
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 1
+      }
+    },
+    {
+      "path": "continuity/lessons-learned.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 34,
+      "nonEmptyLines": 24,
+      "sections": [
+        {
+          "heading": "Lessons Learned",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "L-001: Hash/eq contract violations are latent bugs",
+          "level": 2,
+          "line": 3
+        },
+        {
+          "heading": "L-002: Unconditional singleton cycles mask real topology issues",
+          "level": 2,
+          "line": 6
+        },
+        {
+          "heading": "L-003: Dashboard parse bugs can masquerade as backend bugs",
+          "level": 2,
+          "line": 9
+        },
+        {
+          "heading": "L-004: Concurrent workers on same file need coordination",
+          "level": 2,
+          "line": 12
+        },
+        {
+          "heading": "L-005: Review self-correction is valuable",
+          "level": 2,
+          "line": 15
+        },
+        {
+          "heading": "L-006: kiro-investigate before kiro-implement prevents rework",
+          "level": 2,
+          "line": 21
+        },
+        {
+          "heading": "L-007: Per-peer api_port is essential for heterogeneous clusters",
+          "level": 2,
+          "line": 24
+        },
+        {
+          "heading": "L-008: Three-layer observation is unreliable",
+          "level": 2,
+          "line": 27
+        },
+        {
+          "heading": "L-009: Probe timing creates false negatives",
+          "level": 2,
+          "line": 30
+        },
+        {
+          "heading": "L-010: Arctic winter of review scores is honest",
+          "level": 2,
+          "line": 33
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 11
+      }
+    },
+    {
+      "path": "continuity/missing-history.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 13,
+      "nonEmptyLines": 9,
+      "sections": [
+        {
+          "heading": "Missing History",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "M-001: Pre-investigation chat context",
+          "level": 2,
+          "line": 3
+        },
+        {
+          "heading": "M-002: Concurrent topology.py worker identity",
+          "level": 2,
+          "line": 6
+        },
+        {
+          "heading": "M-003: Live cluster verification",
+          "level": 2,
+          "line": 9
+        },
+        {
+          "heading": "M-004: Review nice-to-have details",
+          "level": 2,
+          "line": 12
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 5
+      }
+    },
+    {
+      "path": "continuity/next-actions.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 24,
+      "nonEmptyLines": 19,
+      "sections": [
+        {
+          "heading": "Next Actions",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "NA-001: Resolve topology.py concurrent changes [HIGH]",
+          "level": 2,
+          "line": 3
+        },
+        {
+          "heading": "NA-002: Git commit the continuity archive [HIGH]",
+          "level": 2,
+          "line": 7
+        },
+        {
+          "heading": "NA-003: Decide on dashboard visualization scope [MEDIUM]",
+          "level": 2,
+          "line": 14
+        },
+        {
+          "heading": "NA-004: Live cluster verification [MEDIUM]",
+          "level": 2,
+          "line": 18
+        },
+        {
+          "heading": "NA-005: Open PR to upstream [LOW]",
+          "level": 2,
+          "line": 22
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 6
+      }
+    },
+    {
+      "path": "continuity/open-questions.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 13,
+      "nonEmptyLines": 9,
+      "sections": [
+        {
+          "heading": "Open Questions",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "Q-001: Should get_cycles default flip to include_singletons=False?",
+          "level": 2,
+          "line": 3
+        },
+        {
+          "heading": "Q-002: Dashboard isolated-node visualization priority",
+          "level": 2,
+          "line": 6
+        },
+        {
+          "heading": "Q-003: rx.simple_cycles performance at scale",
+          "level": 2,
+          "line": 9
+        },
+        {
+          "heading": "Q-004: apply.py deepcopy on every event",
+          "level": 2,
+          "line": 12
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 5
+      }
+    },
+    {
+      "path": "continuity/project-origin.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 7,
+      "nonEmptyLines": 6,
+      "sections": [
+        {
+          "heading": "Project Origin",
+          "level": 1,
+          "line": 1
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 1
+      }
+    },
+    {
+      "path": "continuity/test-ledger.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 41,
+      "nonEmptyLines": 37,
+      "sections": [
+        {
+          "heading": "Test Ledger",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "Summary",
+          "level": 2,
+          "line": 3
+        },
+        {
+          "heading": "New Tests Added (A-014, commit 3841e8c)",
+          "level": 2,
+          "line": 11
+        },
+        {
+          "heading": "Pre-existing Failures (not caused by fix)",
+          "level": 2,
+          "line": 29
+        },
+        {
+          "heading": "Edge Cases Tested (A-020)",
+          "level": 2,
+          "line": 33
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 5
+      }
+    }
+  ]
+}

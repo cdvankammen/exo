@@ -1,0 +1,1035 @@
+{
+ "nodes": [
+  {
+   "id": "file:.typings/mflux/models/depth_pro/depth_pro_initializer.pyi",
+   "type": "file",
+   "name": "depth_pro_initializer.pyi",
+   "filePath": ".typings/mflux/models/depth_pro/depth_pro_initializer.pyi",
+   "summary": "Defines 0 function(s) and 1 class(es) for .typings/mflux/models/depth_pro/depth_pro_initializer.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.typings/mflux/models/depth_pro/model/decoder/feature_fusion_block_2d.pyi",
+   "type": "file",
+   "name": "feature_fusion_block_2d.pyi",
+   "filePath": ".typings/mflux/models/depth_pro/model/decoder/feature_fusion_block_2d.pyi",
+   "summary": "Defines 0 function(s) and 1 class(es) for .typings/mflux/models/depth_pro/model/decoder/feature_fusion_block_2d.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.typings/mflux/models/depth_pro/model/decoder/multires_conv_decoder.pyi",
+   "type": "file",
+   "name": "multires_conv_decoder.pyi",
+   "filePath": ".typings/mflux/models/depth_pro/model/decoder/multires_conv_decoder.pyi",
+   "summary": "Defines 0 function(s) and 1 class(es) for .typings/mflux/models/depth_pro/model/decoder/multires_conv_decoder.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.typings/mflux/models/depth_pro/model/decoder/residual_block.pyi",
+   "type": "file",
+   "name": "residual_block.pyi",
+   "filePath": ".typings/mflux/models/depth_pro/model/decoder/residual_block.pyi",
+   "summary": "Defines 0 function(s) and 1 class(es) for .typings/mflux/models/depth_pro/model/decoder/residual_block.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.typings/mflux/models/depth_pro/model/depth_pro.pyi",
+   "type": "file",
+   "name": "depth_pro.pyi",
+   "filePath": ".typings/mflux/models/depth_pro/model/depth_pro.pyi",
+   "summary": "Defines 0 function(s) and 2 class(es) for .typings/mflux/models/depth_pro/model/depth_pro.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.typings/mflux/models/depth_pro/model/depth_pro_model.pyi",
+   "type": "file",
+   "name": "depth_pro_model.pyi",
+   "filePath": ".typings/mflux/models/depth_pro/model/depth_pro_model.pyi",
+   "summary": "Defines 0 function(s) and 1 class(es) for .typings/mflux/models/depth_pro/model/depth_pro_model.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.typings/mflux/models/depth_pro/model/depth_pro_util.pyi",
+   "type": "file",
+   "name": "depth_pro_util.pyi",
+   "filePath": ".typings/mflux/models/depth_pro/model/depth_pro_util.pyi",
+   "summary": "Defines 0 function(s) and 1 class(es) for .typings/mflux/models/depth_pro/model/depth_pro_util.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.typings/mflux/models/depth_pro/model/dino_v2/attention.pyi",
+   "type": "file",
+   "name": "attention.pyi",
+   "filePath": ".typings/mflux/models/depth_pro/model/dino_v2/attention.pyi",
+   "summary": "Defines 0 function(s) and 1 class(es) for .typings/mflux/models/depth_pro/model/dino_v2/attention.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.typings/mflux/models/depth_pro/model/dino_v2/dino_vision_transformer.pyi",
+   "type": "file",
+   "name": "dino_vision_transformer.pyi",
+   "filePath": ".typings/mflux/models/depth_pro/model/dino_v2/dino_vision_transformer.pyi",
+   "summary": "Defines 0 function(s) and 1 class(es) for .typings/mflux/models/depth_pro/model/dino_v2/dino_vision_transformer.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.typings/mflux/models/depth_pro/model/dino_v2/layer_scale.pyi",
+   "type": "file",
+   "name": "layer_scale.pyi",
+   "filePath": ".typings/mflux/models/depth_pro/model/dino_v2/layer_scale.pyi",
+   "summary": "Defines 0 function(s) and 1 class(es) for .typings/mflux/models/depth_pro/model/dino_v2/layer_scale.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.typings/mflux/models/depth_pro/model/dino_v2/mlp.pyi",
+   "type": "file",
+   "name": "mlp.pyi",
+   "filePath": ".typings/mflux/models/depth_pro/model/dino_v2/mlp.pyi",
+   "summary": "Defines 0 function(s) and 1 class(es) for .typings/mflux/models/depth_pro/model/dino_v2/mlp.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.typings/mflux/models/depth_pro/model/dino_v2/patch_embed.pyi",
+   "type": "file",
+   "name": "patch_embed.pyi",
+   "filePath": ".typings/mflux/models/depth_pro/model/dino_v2/patch_embed.pyi",
+   "summary": "Defines 0 function(s) and 1 class(es) for .typings/mflux/models/depth_pro/model/dino_v2/patch_embed.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.typings/mflux/models/depth_pro/model/dino_v2/transformer_block.pyi",
+   "type": "file",
+   "name": "transformer_block.pyi",
+   "filePath": ".typings/mflux/models/depth_pro/model/dino_v2/transformer_block.pyi",
+   "summary": "Defines 0 function(s) and 1 class(es) for .typings/mflux/models/depth_pro/model/dino_v2/transformer_block.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.typings/mflux/models/depth_pro/model/encoder/depth_pro_encoder.pyi",
+   "type": "file",
+   "name": "depth_pro_encoder.pyi",
+   "filePath": ".typings/mflux/models/depth_pro/model/encoder/depth_pro_encoder.pyi",
+   "summary": "Defines 0 function(s) and 1 class(es) for .typings/mflux/models/depth_pro/model/encoder/depth_pro_encoder.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.typings/mflux/models/depth_pro/model/encoder/upsample_block.pyi",
+   "type": "file",
+   "name": "upsample_block.pyi",
+   "filePath": ".typings/mflux/models/depth_pro/model/encoder/upsample_block.pyi",
+   "summary": "Defines 0 function(s) and 1 class(es) for .typings/mflux/models/depth_pro/model/encoder/upsample_block.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.typings/mflux/models/depth_pro/model/head/fov_head.pyi",
+   "type": "file",
+   "name": "fov_head.pyi",
+   "filePath": ".typings/mflux/models/depth_pro/model/head/fov_head.pyi",
+   "summary": "Defines 0 function(s) and 1 class(es) for .typings/mflux/models/depth_pro/model/head/fov_head.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.typings/mflux/models/depth_pro/weights/depth_pro_weight_definition.pyi",
+   "type": "file",
+   "name": "depth_pro_weight_definition.pyi",
+   "filePath": ".typings/mflux/models/depth_pro/weights/depth_pro_weight_definition.pyi",
+   "summary": "Defines 0 function(s) and 1 class(es) for .typings/mflux/models/depth_pro/weights/depth_pro_weight_definition.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.typings/mflux/models/depth_pro/weights/depth_pro_weight_mapping.pyi",
+   "type": "file",
+   "name": "depth_pro_weight_mapping.pyi",
+   "filePath": ".typings/mflux/models/depth_pro/weights/depth_pro_weight_mapping.pyi",
+   "summary": "Defines 0 function(s) and 1 class(es) for .typings/mflux/models/depth_pro/weights/depth_pro_weight_mapping.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.typings/mflux/models/fibo/latent_creator/fibo_latent_creator.pyi",
+   "type": "file",
+   "name": "fibo_latent_creator.pyi",
+   "filePath": ".typings/mflux/models/fibo/latent_creator/fibo_latent_creator.pyi",
+   "summary": "Defines 0 function(s) and 1 class(es) for .typings/mflux/models/fibo/latent_creator/fibo_latent_creator.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.typings/mflux/models/fibo/weights/fibo_weight_definition.pyi",
+   "type": "file",
+   "name": "fibo_weight_definition.pyi",
+   "filePath": ".typings/mflux/models/fibo/weights/fibo_weight_definition.pyi",
+   "summary": "Defines 0 function(s) and 1 class(es) for .typings/mflux/models/fibo/weights/fibo_weight_definition.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.typings/mflux/models/fibo/weights/fibo_weight_mapping.pyi",
+   "type": "file",
+   "name": "fibo_weight_mapping.pyi",
+   "filePath": ".typings/mflux/models/fibo/weights/fibo_weight_mapping.pyi",
+   "summary": "Defines 0 function(s) and 1 class(es) for .typings/mflux/models/fibo/weights/fibo_weight_mapping.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.typings/mflux/models/fibo_vlm/tokenizer/qwen2vl_image_processor.pyi",
+   "type": "file",
+   "name": "qwen2vl_image_processor.pyi",
+   "filePath": ".typings/mflux/models/fibo_vlm/tokenizer/qwen2vl_image_processor.pyi",
+   "summary": "Defines 0 function(s) and 1 class(es) for .typings/mflux/models/fibo_vlm/tokenizer/qwen2vl_image_processor.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.typings/mflux/models/fibo_vlm/tokenizer/qwen2vl_processor.pyi",
+   "type": "file",
+   "name": "qwen2vl_processor.pyi",
+   "filePath": ".typings/mflux/models/fibo_vlm/tokenizer/qwen2vl_processor.pyi",
+   "summary": "Defines 0 function(s) and 1 class(es) for .typings/mflux/models/fibo_vlm/tokenizer/qwen2vl_processor.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.typings/mflux/models/fibo_vlm/weights/fibo_vlm_weight_definition.pyi",
+   "type": "file",
+   "name": "fibo_vlm_weight_definition.pyi",
+   "filePath": ".typings/mflux/models/fibo_vlm/weights/fibo_vlm_weight_definition.pyi",
+   "summary": "Defines 0 function(s) and 1 class(es) for .typings/mflux/models/fibo_vlm/weights/fibo_vlm_weight_definition.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.typings/mflux/models/fibo_vlm/weights/fibo_vlm_weight_mapping.pyi",
+   "type": "file",
+   "name": "fibo_vlm_weight_mapping.pyi",
+   "filePath": ".typings/mflux/models/fibo_vlm/weights/fibo_vlm_weight_mapping.pyi",
+   "summary": "Defines 0 function(s) and 1 class(es) for .typings/mflux/models/fibo_vlm/weights/fibo_vlm_weight_mapping.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "class:.typings/mflux/models/depth_pro/depth_pro_initializer.pyi:DepthProInitializer",
+   "type": "class",
+   "name": "DepthProInitializer",
+   "filePath": ".typings/mflux/models/depth_pro/depth_pro_initializer.pyi",
+   "lineRange": [
+    7,
+    9
+   ],
+   "summary": "Class DepthProInitializer in .typings/mflux/models/depth_pro/depth_pro_initializer.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mflux/models/depth_pro/model/decoder/feature_fusion_block_2d.pyi:FeatureFusionBlock2d",
+   "type": "class",
+   "name": "FeatureFusionBlock2d",
+   "filePath": ".typings/mflux/models/depth_pro/model/decoder/feature_fusion_block_2d.pyi",
+   "lineRange": [
+    8,
+    10
+   ],
+   "summary": "Class FeatureFusionBlock2d in .typings/mflux/models/depth_pro/model/decoder/feature_fusion_block_2d.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mflux/models/depth_pro/model/decoder/multires_conv_decoder.pyi:MultiresConvDecoder",
+   "type": "class",
+   "name": "MultiresConvDecoder",
+   "filePath": ".typings/mflux/models/depth_pro/model/decoder/multires_conv_decoder.pyi",
+   "lineRange": [
+    8,
+    17
+   ],
+   "summary": "Class MultiresConvDecoder in .typings/mflux/models/depth_pro/model/decoder/multires_conv_decoder.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mflux/models/depth_pro/model/decoder/residual_block.pyi:ResidualBlock",
+   "type": "class",
+   "name": "ResidualBlock",
+   "filePath": ".typings/mflux/models/depth_pro/model/decoder/residual_block.pyi",
+   "lineRange": [
+    8,
+    10
+   ],
+   "summary": "Class ResidualBlock in .typings/mflux/models/depth_pro/model/decoder/residual_block.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mflux/models/depth_pro/model/depth_pro.pyi:DepthResult",
+   "type": "class",
+   "name": "DepthResult",
+   "filePath": ".typings/mflux/models/depth_pro/model/depth_pro.pyi",
+   "lineRange": [
+    11,
+    16
+   ],
+   "summary": "Class DepthResult in .typings/mflux/models/depth_pro/model/depth_pro.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mflux/models/depth_pro/model/depth_pro.pyi:DepthPro",
+   "type": "class",
+   "name": "DepthPro",
+   "filePath": ".typings/mflux/models/depth_pro/model/depth_pro.pyi",
+   "lineRange": [
+    18,
+    20
+   ],
+   "summary": "Class DepthPro in .typings/mflux/models/depth_pro/model/depth_pro.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mflux/models/depth_pro/model/depth_pro_model.pyi:DepthProModel",
+   "type": "class",
+   "name": "DepthProModel",
+   "filePath": ".typings/mflux/models/depth_pro/model/depth_pro_model.pyi",
+   "lineRange": [
+    8,
+    12
+   ],
+   "summary": "Class DepthProModel in .typings/mflux/models/depth_pro/model/depth_pro_model.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mflux/models/depth_pro/model/depth_pro_util.pyi:DepthProUtil",
+   "type": "class",
+   "name": "DepthProUtil",
+   "filePath": ".typings/mflux/models/depth_pro/model/depth_pro_util.pyi",
+   "lineRange": [
+    8,
+    15
+   ],
+   "summary": "Class DepthProUtil in .typings/mflux/models/depth_pro/model/depth_pro_util.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mflux/models/depth_pro/model/dino_v2/attention.pyi:Attention",
+   "type": "class",
+   "name": "Attention",
+   "filePath": ".typings/mflux/models/depth_pro/model/dino_v2/attention.pyi",
+   "lineRange": [
+    8,
+    12
+   ],
+   "summary": "Class Attention in .typings/mflux/models/depth_pro/model/dino_v2/attention.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mflux/models/depth_pro/model/dino_v2/dino_vision_transformer.pyi:DinoVisionTransformer",
+   "type": "class",
+   "name": "DinoVisionTransformer",
+   "filePath": ".typings/mflux/models/depth_pro/model/dino_v2/dino_vision_transformer.pyi",
+   "lineRange": [
+    8,
+    10
+   ],
+   "summary": "Class DinoVisionTransformer in .typings/mflux/models/depth_pro/model/dino_v2/dino_vision_transformer.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mflux/models/depth_pro/model/dino_v2/layer_scale.pyi:LayerScale",
+   "type": "class",
+   "name": "LayerScale",
+   "filePath": ".typings/mflux/models/depth_pro/model/dino_v2/layer_scale.pyi",
+   "lineRange": [
+    8,
+    10
+   ],
+   "summary": "Class LayerScale in .typings/mflux/models/depth_pro/model/dino_v2/layer_scale.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mflux/models/depth_pro/model/dino_v2/mlp.pyi:MLP",
+   "type": "class",
+   "name": "MLP",
+   "filePath": ".typings/mflux/models/depth_pro/model/dino_v2/mlp.pyi",
+   "lineRange": [
+    8,
+    10
+   ],
+   "summary": "Class MLP in .typings/mflux/models/depth_pro/model/dino_v2/mlp.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mflux/models/depth_pro/model/dino_v2/patch_embed.pyi:PatchEmbed",
+   "type": "class",
+   "name": "PatchEmbed",
+   "filePath": ".typings/mflux/models/depth_pro/model/dino_v2/patch_embed.pyi",
+   "lineRange": [
+    8,
+    10
+   ],
+   "summary": "Class PatchEmbed in .typings/mflux/models/depth_pro/model/dino_v2/patch_embed.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mflux/models/depth_pro/model/dino_v2/transformer_block.pyi:TransformerBlock",
+   "type": "class",
+   "name": "TransformerBlock",
+   "filePath": ".typings/mflux/models/depth_pro/model/dino_v2/transformer_block.pyi",
+   "lineRange": [
+    8,
+    10
+   ],
+   "summary": "Class TransformerBlock in .typings/mflux/models/depth_pro/model/dino_v2/transformer_block.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mflux/models/depth_pro/model/encoder/depth_pro_encoder.pyi:DepthProEncoder",
+   "type": "class",
+   "name": "DepthProEncoder",
+   "filePath": ".typings/mflux/models/depth_pro/model/encoder/depth_pro_encoder.pyi",
+   "lineRange": [
+    8,
+    12
+   ],
+   "summary": "Class DepthProEncoder in .typings/mflux/models/depth_pro/model/encoder/depth_pro_encoder.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mflux/models/depth_pro/model/encoder/upsample_block.pyi:UpSampleBlock",
+   "type": "class",
+   "name": "UpSampleBlock",
+   "filePath": ".typings/mflux/models/depth_pro/model/encoder/upsample_block.pyi",
+   "lineRange": [
+    8,
+    16
+   ],
+   "summary": "Class UpSampleBlock in .typings/mflux/models/depth_pro/model/encoder/upsample_block.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mflux/models/depth_pro/model/head/fov_head.pyi:FOVHead",
+   "type": "class",
+   "name": "FOVHead",
+   "filePath": ".typings/mflux/models/depth_pro/model/head/fov_head.pyi",
+   "lineRange": [
+    8,
+    10
+   ],
+   "summary": "Class FOVHead in .typings/mflux/models/depth_pro/model/head/fov_head.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mflux/models/depth_pro/weights/depth_pro_weight_definition.pyi:DepthProWeightDefinition",
+   "type": "class",
+   "name": "DepthProWeightDefinition",
+   "filePath": ".typings/mflux/models/depth_pro/weights/depth_pro_weight_definition.pyi",
+   "lineRange": [
+    15,
+    23
+   ],
+   "summary": "Class DepthProWeightDefinition in .typings/mflux/models/depth_pro/weights/depth_pro_weight_definition.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mflux/models/depth_pro/weights/depth_pro_weight_mapping.pyi:DepthProWeightMapping",
+   "type": "class",
+   "name": "DepthProWeightMapping",
+   "filePath": ".typings/mflux/models/depth_pro/weights/depth_pro_weight_mapping.pyi",
+   "lineRange": [
+    11,
+    13
+   ],
+   "summary": "Class DepthProWeightMapping in .typings/mflux/models/depth_pro/weights/depth_pro_weight_mapping.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mflux/models/fibo/latent_creator/fibo_latent_creator.pyi:FiboLatentCreator",
+   "type": "class",
+   "name": "FiboLatentCreator",
+   "filePath": ".typings/mflux/models/fibo/latent_creator/fibo_latent_creator.pyi",
+   "lineRange": [
+    7,
+    13
+   ],
+   "summary": "Class FiboLatentCreator in .typings/mflux/models/fibo/latent_creator/fibo_latent_creator.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mflux/models/fibo/weights/fibo_weight_definition.pyi:FIBOWeightDefinition",
+   "type": "class",
+   "name": "FIBOWeightDefinition",
+   "filePath": ".typings/mflux/models/fibo/weights/fibo_weight_definition.pyi",
+   "lineRange": [
+    15,
+    23
+   ],
+   "summary": "Class FIBOWeightDefinition in .typings/mflux/models/fibo/weights/fibo_weight_definition.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mflux/models/fibo/weights/fibo_weight_mapping.pyi:FIBOWeightMapping",
+   "type": "class",
+   "name": "FIBOWeightMapping",
+   "filePath": ".typings/mflux/models/fibo/weights/fibo_weight_mapping.pyi",
+   "lineRange": [
+    11,
+    17
+   ],
+   "summary": "Class FIBOWeightMapping in .typings/mflux/models/fibo/weights/fibo_weight_mapping.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mflux/models/fibo_vlm/tokenizer/qwen2vl_image_processor.pyi:Qwen2VLImageProcessor",
+   "type": "class",
+   "name": "Qwen2VLImageProcessor",
+   "filePath": ".typings/mflux/models/fibo_vlm/tokenizer/qwen2vl_image_processor.pyi",
+   "lineRange": [
+    7,
+    8
+   ],
+   "summary": "Class Qwen2VLImageProcessor in .typings/mflux/models/fibo_vlm/tokenizer/qwen2vl_image_processor.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mflux/models/fibo_vlm/tokenizer/qwen2vl_processor.pyi:Qwen2VLProcessor",
+   "type": "class",
+   "name": "Qwen2VLProcessor",
+   "filePath": ".typings/mflux/models/fibo_vlm/tokenizer/qwen2vl_processor.pyi",
+   "lineRange": [
+    8,
+    28
+   ],
+   "summary": "Class Qwen2VLProcessor in .typings/mflux/models/fibo_vlm/tokenizer/qwen2vl_processor.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mflux/models/fibo_vlm/weights/fibo_vlm_weight_definition.pyi:FIBOVLMWeightDefinition",
+   "type": "class",
+   "name": "FIBOVLMWeightDefinition",
+   "filePath": ".typings/mflux/models/fibo_vlm/weights/fibo_vlm_weight_definition.pyi",
+   "lineRange": [
+    16,
+    24
+   ],
+   "summary": "Class FIBOVLMWeightDefinition in .typings/mflux/models/fibo_vlm/weights/fibo_vlm_weight_definition.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mflux/models/fibo_vlm/weights/fibo_vlm_weight_mapping.pyi:FIBOVLMWeightMapping",
+   "type": "class",
+   "name": "FIBOVLMWeightMapping",
+   "filePath": ".typings/mflux/models/fibo_vlm/weights/fibo_vlm_weight_mapping.pyi",
+   "lineRange": [
+    11,
+    15
+   ],
+   "summary": "Class FIBOVLMWeightMapping in .typings/mflux/models/fibo_vlm/weights/fibo_vlm_weight_mapping.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  }
+ ],
+ "edges": [
+  {
+   "source": "file:.typings/mflux/models/depth_pro/depth_pro_initializer.pyi",
+   "target": "class:.typings/mflux/models/depth_pro/depth_pro_initializer.pyi:DepthProInitializer",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mflux/models/depth_pro/depth_pro_initializer.pyi",
+   "target": "class:.typings/mflux/models/depth_pro/depth_pro_initializer.pyi:DepthProInitializer",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mflux/models/depth_pro/model/decoder/feature_fusion_block_2d.pyi",
+   "target": "class:.typings/mflux/models/depth_pro/model/decoder/feature_fusion_block_2d.pyi:FeatureFusionBlock2d",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mflux/models/depth_pro/model/decoder/feature_fusion_block_2d.pyi",
+   "target": "class:.typings/mflux/models/depth_pro/model/decoder/feature_fusion_block_2d.pyi:FeatureFusionBlock2d",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mflux/models/depth_pro/model/decoder/multires_conv_decoder.pyi",
+   "target": "class:.typings/mflux/models/depth_pro/model/decoder/multires_conv_decoder.pyi:MultiresConvDecoder",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mflux/models/depth_pro/model/decoder/multires_conv_decoder.pyi",
+   "target": "class:.typings/mflux/models/depth_pro/model/decoder/multires_conv_decoder.pyi:MultiresConvDecoder",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mflux/models/depth_pro/model/decoder/residual_block.pyi",
+   "target": "class:.typings/mflux/models/depth_pro/model/decoder/residual_block.pyi:ResidualBlock",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mflux/models/depth_pro/model/decoder/residual_block.pyi",
+   "target": "class:.typings/mflux/models/depth_pro/model/decoder/residual_block.pyi:ResidualBlock",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mflux/models/depth_pro/model/depth_pro.pyi",
+   "target": "class:.typings/mflux/models/depth_pro/model/depth_pro.pyi:DepthResult",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mflux/models/depth_pro/model/depth_pro.pyi",
+   "target": "class:.typings/mflux/models/depth_pro/model/depth_pro.pyi:DepthResult",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mflux/models/depth_pro/model/depth_pro.pyi",
+   "target": "class:.typings/mflux/models/depth_pro/model/depth_pro.pyi:DepthPro",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mflux/models/depth_pro/model/depth_pro.pyi",
+   "target": "class:.typings/mflux/models/depth_pro/model/depth_pro.pyi:DepthPro",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mflux/models/depth_pro/model/depth_pro_model.pyi",
+   "target": "class:.typings/mflux/models/depth_pro/model/depth_pro_model.pyi:DepthProModel",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mflux/models/depth_pro/model/depth_pro_model.pyi",
+   "target": "class:.typings/mflux/models/depth_pro/model/depth_pro_model.pyi:DepthProModel",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mflux/models/depth_pro/model/depth_pro_util.pyi",
+   "target": "class:.typings/mflux/models/depth_pro/model/depth_pro_util.pyi:DepthProUtil",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mflux/models/depth_pro/model/depth_pro_util.pyi",
+   "target": "class:.typings/mflux/models/depth_pro/model/depth_pro_util.pyi:DepthProUtil",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mflux/models/depth_pro/model/dino_v2/attention.pyi",
+   "target": "class:.typings/mflux/models/depth_pro/model/dino_v2/attention.pyi:Attention",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mflux/models/depth_pro/model/dino_v2/attention.pyi",
+   "target": "class:.typings/mflux/models/depth_pro/model/dino_v2/attention.pyi:Attention",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mflux/models/depth_pro/model/dino_v2/dino_vision_transformer.pyi",
+   "target": "class:.typings/mflux/models/depth_pro/model/dino_v2/dino_vision_transformer.pyi:DinoVisionTransformer",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mflux/models/depth_pro/model/dino_v2/dino_vision_transformer.pyi",
+   "target": "class:.typings/mflux/models/depth_pro/model/dino_v2/dino_vision_transformer.pyi:DinoVisionTransformer",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mflux/models/depth_pro/model/dino_v2/layer_scale.pyi",
+   "target": "class:.typings/mflux/models/depth_pro/model/dino_v2/layer_scale.pyi:LayerScale",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mflux/models/depth_pro/model/dino_v2/layer_scale.pyi",
+   "target": "class:.typings/mflux/models/depth_pro/model/dino_v2/layer_scale.pyi:LayerScale",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mflux/models/depth_pro/model/dino_v2/mlp.pyi",
+   "target": "class:.typings/mflux/models/depth_pro/model/dino_v2/mlp.pyi:MLP",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mflux/models/depth_pro/model/dino_v2/mlp.pyi",
+   "target": "class:.typings/mflux/models/depth_pro/model/dino_v2/mlp.pyi:MLP",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mflux/models/depth_pro/model/dino_v2/patch_embed.pyi",
+   "target": "class:.typings/mflux/models/depth_pro/model/dino_v2/patch_embed.pyi:PatchEmbed",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mflux/models/depth_pro/model/dino_v2/patch_embed.pyi",
+   "target": "class:.typings/mflux/models/depth_pro/model/dino_v2/patch_embed.pyi:PatchEmbed",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mflux/models/depth_pro/model/dino_v2/transformer_block.pyi",
+   "target": "class:.typings/mflux/models/depth_pro/model/dino_v2/transformer_block.pyi:TransformerBlock",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mflux/models/depth_pro/model/dino_v2/transformer_block.pyi",
+   "target": "class:.typings/mflux/models/depth_pro/model/dino_v2/transformer_block.pyi:TransformerBlock",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mflux/models/depth_pro/model/encoder/depth_pro_encoder.pyi",
+   "target": "class:.typings/mflux/models/depth_pro/model/encoder/depth_pro_encoder.pyi:DepthProEncoder",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mflux/models/depth_pro/model/encoder/depth_pro_encoder.pyi",
+   "target": "class:.typings/mflux/models/depth_pro/model/encoder/depth_pro_encoder.pyi:DepthProEncoder",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mflux/models/depth_pro/model/encoder/upsample_block.pyi",
+   "target": "class:.typings/mflux/models/depth_pro/model/encoder/upsample_block.pyi:UpSampleBlock",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mflux/models/depth_pro/model/encoder/upsample_block.pyi",
+   "target": "class:.typings/mflux/models/depth_pro/model/encoder/upsample_block.pyi:UpSampleBlock",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mflux/models/depth_pro/model/head/fov_head.pyi",
+   "target": "class:.typings/mflux/models/depth_pro/model/head/fov_head.pyi:FOVHead",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mflux/models/depth_pro/model/head/fov_head.pyi",
+   "target": "class:.typings/mflux/models/depth_pro/model/head/fov_head.pyi:FOVHead",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mflux/models/depth_pro/weights/depth_pro_weight_definition.pyi",
+   "target": "class:.typings/mflux/models/depth_pro/weights/depth_pro_weight_definition.pyi:DepthProWeightDefinition",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mflux/models/depth_pro/weights/depth_pro_weight_definition.pyi",
+   "target": "class:.typings/mflux/models/depth_pro/weights/depth_pro_weight_definition.pyi:DepthProWeightDefinition",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mflux/models/depth_pro/weights/depth_pro_weight_mapping.pyi",
+   "target": "class:.typings/mflux/models/depth_pro/weights/depth_pro_weight_mapping.pyi:DepthProWeightMapping",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mflux/models/depth_pro/weights/depth_pro_weight_mapping.pyi",
+   "target": "class:.typings/mflux/models/depth_pro/weights/depth_pro_weight_mapping.pyi:DepthProWeightMapping",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mflux/models/fibo/latent_creator/fibo_latent_creator.pyi",
+   "target": "class:.typings/mflux/models/fibo/latent_creator/fibo_latent_creator.pyi:FiboLatentCreator",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mflux/models/fibo/latent_creator/fibo_latent_creator.pyi",
+   "target": "class:.typings/mflux/models/fibo/latent_creator/fibo_latent_creator.pyi:FiboLatentCreator",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mflux/models/fibo/weights/fibo_weight_definition.pyi",
+   "target": "class:.typings/mflux/models/fibo/weights/fibo_weight_definition.pyi:FIBOWeightDefinition",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mflux/models/fibo/weights/fibo_weight_definition.pyi",
+   "target": "class:.typings/mflux/models/fibo/weights/fibo_weight_definition.pyi:FIBOWeightDefinition",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mflux/models/fibo/weights/fibo_weight_mapping.pyi",
+   "target": "class:.typings/mflux/models/fibo/weights/fibo_weight_mapping.pyi:FIBOWeightMapping",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mflux/models/fibo/weights/fibo_weight_mapping.pyi",
+   "target": "class:.typings/mflux/models/fibo/weights/fibo_weight_mapping.pyi:FIBOWeightMapping",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mflux/models/fibo_vlm/tokenizer/qwen2vl_image_processor.pyi",
+   "target": "class:.typings/mflux/models/fibo_vlm/tokenizer/qwen2vl_image_processor.pyi:Qwen2VLImageProcessor",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mflux/models/fibo_vlm/tokenizer/qwen2vl_image_processor.pyi",
+   "target": "class:.typings/mflux/models/fibo_vlm/tokenizer/qwen2vl_image_processor.pyi:Qwen2VLImageProcessor",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mflux/models/fibo_vlm/tokenizer/qwen2vl_processor.pyi",
+   "target": "class:.typings/mflux/models/fibo_vlm/tokenizer/qwen2vl_processor.pyi:Qwen2VLProcessor",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mflux/models/fibo_vlm/tokenizer/qwen2vl_processor.pyi",
+   "target": "class:.typings/mflux/models/fibo_vlm/tokenizer/qwen2vl_processor.pyi:Qwen2VLProcessor",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mflux/models/fibo_vlm/weights/fibo_vlm_weight_definition.pyi",
+   "target": "class:.typings/mflux/models/fibo_vlm/weights/fibo_vlm_weight_definition.pyi:FIBOVLMWeightDefinition",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mflux/models/fibo_vlm/weights/fibo_vlm_weight_definition.pyi",
+   "target": "class:.typings/mflux/models/fibo_vlm/weights/fibo_vlm_weight_definition.pyi:FIBOVLMWeightDefinition",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mflux/models/fibo_vlm/weights/fibo_vlm_weight_mapping.pyi",
+   "target": "class:.typings/mflux/models/fibo_vlm/weights/fibo_vlm_weight_mapping.pyi:FIBOVLMWeightMapping",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mflux/models/fibo_vlm/weights/fibo_vlm_weight_mapping.pyi",
+   "target": "class:.typings/mflux/models/fibo_vlm/weights/fibo_vlm_weight_mapping.pyi:FIBOVLMWeightMapping",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  }
+ ]
+}

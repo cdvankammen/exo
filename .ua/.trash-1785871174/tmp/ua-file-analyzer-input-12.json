@@ -1,0 +1,31 @@
+{
+ "projectRoot": "/Users/chris/Documents/GitHub/exo",
+ "batchFiles": [
+  {
+   "path": "src/exo/worker/engines/mlx/patches/__init__.py",
+   "language": "python",
+   "sizeLines": 13,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/worker/engines/mlx/patches/opt_batch_gen.py",
+   "language": "python",
+   "sizeLines": 136,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/worker/engines/mlx/patches/standard_yarn_rope.py",
+   "language": "python",
+   "sizeLines": 118,
+   "fileCategory": "code"
+  }
+ ],
+ "batchImportData": {
+  "src/exo/worker/engines/mlx/patches/__init__.py": [
+   "src/exo/worker/engines/mlx/patches/opt_batch_gen.py",
+   "src/exo/worker/engines/mlx/patches/standard_yarn_rope.py"
+  ],
+  "src/exo/worker/engines/mlx/patches/opt_batch_gen.py": [],
+  "src/exo/worker/engines/mlx/patches/standard_yarn_rope.py": []
+ }
+}

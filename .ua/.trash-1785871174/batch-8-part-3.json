@@ -1,0 +1,1291 @@
+{
+ "nodes": [
+  {
+   "id": "file:src/exo/shared/types/thunderbolt.py",
+   "type": "file",
+   "name": "thunderbolt.py",
+   "filePath": "src/exo/shared/types/thunderbolt.py",
+   "summary": "Pydantic models describing Thunderbolt connections and connectivity data used to gate RDMA topology edges.",
+   "tags": [
+    "type-definition",
+    "thunderbolt",
+    "rdma",
+    "network"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "class:src/exo/shared/types/thunderbolt.py:ThunderboltConnection",
+   "type": "class",
+   "name": "ThunderboltConnection",
+   "filePath": "src/exo/shared/types/thunderbolt.py",
+   "lineRange": [
+    7,
+    9
+   ],
+   "summary": "Model of a Thunderbolt connection between two nodes.",
+   "tags": [
+    "thunderbolt",
+    "type-definition"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/shared/types/thunderbolt.py:ThunderboltIdentifier",
+   "type": "class",
+   "name": "ThunderboltIdentifier",
+   "filePath": "src/exo/shared/types/thunderbolt.py",
+   "lineRange": [
+    12,
+    15
+   ],
+   "summary": "Model identifying a Thunderbolt interface by device and service names.",
+   "tags": [
+    "thunderbolt",
+    "type-definition"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/shared/types/thunderbolt.py:_ReceptacleTag",
+   "type": "class",
+   "name": "_ReceptacleTag",
+   "filePath": "src/exo/shared/types/thunderbolt.py",
+   "lineRange": [
+    21,
+    23
+   ],
+   "summary": "Internal model tagging Thunderbolt receptacle entries.",
+   "tags": [
+    "thunderbolt",
+    "type-definition"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/shared/types/thunderbolt.py:_ConnectivityItem",
+   "type": "class",
+   "name": "_ConnectivityItem",
+   "filePath": "src/exo/shared/types/thunderbolt.py",
+   "lineRange": [
+    26,
+    27
+   ],
+   "summary": "Internal model for a single connectivity entry in the topology scan.",
+   "tags": [
+    "thunderbolt",
+    "type-definition"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/shared/types/thunderbolt.py:ThunderboltConnectivityData",
+   "type": "class",
+   "name": "ThunderboltConnectivityData",
+   "filePath": "src/exo/shared/types/thunderbolt.py",
+   "lineRange": [
+    30,
+    69
+   ],
+   "summary": "Frozen model of Thunderbolt connectivity data with connections and validation.",
+   "tags": [
+    "thunderbolt",
+    "connectivity"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "class:src/exo/shared/types/thunderbolt.py:ThunderboltConnectivity",
+   "type": "class",
+   "name": "ThunderboltConnectivity",
+   "filePath": "src/exo/shared/types/thunderbolt.py",
+   "lineRange": [
+    72,
+    85
+   ],
+   "summary": "Container model for per-node Thunderbolt connectivity results.",
+   "tags": [
+    "thunderbolt",
+    "connectivity"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:src/exo/shared/types/topology.py",
+   "type": "file",
+   "name": "topology.py",
+   "filePath": "src/exo/shared/types/topology.py",
+   "summary": "Pydantic/dataclass models for topology elements: Cycle of node IDs, RDMAConnection, SocketConnection, and the discriminated Connection wrapper.",
+   "tags": [
+    "type-definition",
+    "topology",
+    "data-model",
+    "network"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/shared/types/topology.py:Cycle",
+   "type": "class",
+   "name": "Cycle",
+   "filePath": "src/exo/shared/types/topology.py",
+   "lineRange": [
+    10,
+    17
+   ],
+   "summary": "Frozen dataclass of node IDs forming a connectivity cycle with len and iteration support.",
+   "tags": [
+    "topology",
+    "type-definition"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/shared/types/topology.py:RDMAConnection",
+   "type": "class",
+   "name": "RDMAConnection",
+   "filePath": "src/exo/shared/types/topology.py",
+   "lineRange": [
+    20,
+    22
+   ],
+   "summary": "Frozen model of an RDMA connection with source and sink interface names.",
+   "tags": [
+    "rdma",
+    "type-definition"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/shared/types/topology.py:SocketConnection",
+   "type": "class",
+   "name": "SocketConnection",
+   "filePath": "src/exo/shared/types/topology.py",
+   "lineRange": [
+    25,
+    29
+   ],
+   "summary": "Frozen model of a socket connection with a sink multiaddr.",
+   "tags": [
+    "network",
+    "type-definition"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/shared/types/topology.py:Connection",
+   "type": "class",
+   "name": "Connection",
+   "filePath": "src/exo/shared/types/topology.py",
+   "lineRange": [
+    32,
+    35
+   ],
+   "summary": "Frozen model wrapping source/sink node IDs and an RDMA or socket edge.",
+   "tags": [
+    "topology",
+    "type-definition"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:src/exo/utils/info_gatherer/info_gatherer.py",
+   "type": "file",
+   "name": "info_gatherer.py",
+   "filePath": "src/exo/utils/info_gatherer/info_gatherer.py",
+   "summary": "Gathers per-node static and dynamic system information (Thunderbolt devices, bridges, network interfaces, disk, backends, macmon metrics) asynchronously for cluster state.",
+   "tags": [
+    "info-gathering",
+    "system",
+    "thunderbolt",
+    "monitoring",
+    "network"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "function:src/exo/utils/info_gatherer/info_gatherer.py:_get_thunderbolt_devices",
+   "type": "function",
+   "name": "_get_thunderbolt_devices",
+   "filePath": "src/exo/utils/info_gatherer/info_gatherer.py",
+   "lineRange": [
+    46,
+    76
+   ],
+   "summary": "Lists Thunderbolt interface device names from networksetup hardware ports.",
+   "tags": [
+    "thunderbolt",
+    "discovery"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:src/exo/utils/info_gatherer/info_gatherer.py:_get_bridge_services",
+   "type": "function",
+   "name": "_get_bridge_services",
+   "filePath": "src/exo/utils/info_gatherer/info_gatherer.py",
+   "lineRange": [
+    79,
+    123
+   ],
+   "summary": "Maps bridge devices to network service names from the system network order.",
+   "tags": [
+    "network",
+    "discovery"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:src/exo/utils/info_gatherer/info_gatherer.py:_get_bridge_members",
+   "type": "function",
+   "name": "_get_bridge_members",
+   "filePath": "src/exo/utils/info_gatherer/info_gatherer.py",
+   "lineRange": [
+    126,
+    145
+   ],
+   "summary": "Lists member interfaces of a Thunderbolt bridge device.",
+   "tags": [
+    "thunderbolt",
+    "discovery"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:src/exo/utils/info_gatherer/info_gatherer.py:_find_thunderbolt_bridge",
+   "type": "function",
+   "name": "_find_thunderbolt_bridge",
+   "filePath": "src/exo/utils/info_gatherer/info_gatherer.py",
+   "lineRange": [
+    148,
+    159
+   ],
+   "summary": "Locates the bridge device for a Thunderbolt identifier.",
+   "tags": [
+    "thunderbolt",
+    "discovery"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/utils/info_gatherer/info_gatherer.py:_is_service_enabled",
+   "type": "function",
+   "name": "_is_service_enabled",
+   "filePath": "src/exo/utils/info_gatherer/info_gatherer.py",
+   "lineRange": [
+    162,
+    179
+   ],
+   "summary": "Checks whether a system service is enabled.",
+   "tags": [
+    "system",
+    "utility"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/utils/info_gatherer/info_gatherer.py:_gather_iface_map",
+   "type": "function",
+   "name": "_gather_iface_map",
+   "filePath": "src/exo/utils/info_gatherer/info_gatherer.py",
+   "lineRange": [
+    337,
+    354
+   ],
+   "summary": "Collects the node's network interface map with IPs and interface types.",
+   "tags": [
+    "network",
+    "discovery"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:src/exo/utils/info_gatherer/info_gatherer.py:_has_nvml_cuda",
+   "type": "function",
+   "name": "_has_nvml_cuda",
+   "filePath": "src/exo/utils/info_gatherer/info_gatherer.py",
+   "lineRange": [
+    357,
+    369
+   ],
+   "summary": "Detects whether NVML/CUDA is present on the node.",
+   "tags": [
+    "cuda",
+    "detection"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/utils/info_gatherer/info_gatherer.py:StaticNodeInformation",
+   "type": "class",
+   "name": "StaticNodeInformation",
+   "filePath": "src/exo/utils/info_gatherer/info_gatherer.py",
+   "lineRange": [
+    182,
+    198
+   ],
+   "summary": "Frozen dataclass of static node info: identity, network, disk, backends.",
+   "tags": [
+    "info-gathering",
+    "type-definition"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/utils/info_gatherer/info_gatherer.py:NodeNetworkInterfaces",
+   "type": "class",
+   "name": "NodeNetworkInterfaces",
+   "filePath": "src/exo/utils/info_gatherer/info_gatherer.py",
+   "lineRange": [
+    201,
+    202
+   ],
+   "summary": "Tagged model of network interface data for a node.",
+   "tags": [
+    "info-gathering",
+    "network"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/utils/info_gatherer/info_gatherer.py:MacThunderboltIdentifiers",
+   "type": "class",
+   "name": "MacThunderboltIdentifiers",
+   "filePath": "src/exo/utils/info_gatherer/info_gatherer.py",
+   "lineRange": [
+    205,
+    206
+   ],
+   "summary": "Tagged model of macOS Thunderbolt identifiers.",
+   "tags": [
+    "info-gathering",
+    "thunderbolt"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/utils/info_gatherer/info_gatherer.py:MacThunderboltConnections",
+   "type": "class",
+   "name": "MacThunderboltConnections",
+   "filePath": "src/exo/utils/info_gatherer/info_gatherer.py",
+   "lineRange": [
+    209,
+    210
+   ],
+   "summary": "Tagged model of macOS Thunderbolt connections.",
+   "tags": [
+    "info-gathering",
+    "thunderbolt"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/utils/info_gatherer/info_gatherer.py:RdmaCtlStatus",
+   "type": "class",
+   "name": "RdmaCtlStatus",
+   "filePath": "src/exo/utils/info_gatherer/info_gatherer.py",
+   "lineRange": [
+    213,
+    232
+   ],
+   "summary": "Model of rdma_ctl status derived from gathered data.",
+   "tags": [
+    "info-gathering",
+    "rdma"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/utils/info_gatherer/info_gatherer.py:ThunderboltBridgeInfo",
+   "type": "class",
+   "name": "ThunderboltBridgeInfo",
+   "filePath": "src/exo/utils/info_gatherer/info_gatherer.py",
+   "lineRange": [
+    235,
+    292
+   ],
+   "summary": "Model of Thunderbolt bridge members and services for a node.",
+   "tags": [
+    "info-gathering",
+    "thunderbolt"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "class:src/exo/utils/info_gatherer/info_gatherer.py:NodeConfig",
+   "type": "class",
+   "name": "NodeConfig",
+   "filePath": "src/exo/utils/info_gatherer/info_gatherer.py",
+   "lineRange": [
+    295,
+    310
+   ],
+   "summary": "Parses the EXO config file into node configuration data.",
+   "tags": [
+    "info-gathering",
+    "config"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/utils/info_gatherer/info_gatherer.py:MiscData",
+   "type": "class",
+   "name": "MiscData",
+   "filePath": "src/exo/utils/info_gatherer/info_gatherer.py",
+   "lineRange": [
+    313,
+    320
+   ],
+   "summary": "Miscellaneous gathered node data container.",
+   "tags": [
+    "info-gathering",
+    "type-definition"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/utils/info_gatherer/info_gatherer.py:NodeDiskUsage",
+   "type": "class",
+   "name": "NodeDiskUsage",
+   "filePath": "src/exo/utils/info_gatherer/info_gatherer.py",
+   "lineRange": [
+    323,
+    334
+   ],
+   "summary": "Gathered disk usage for the models directory.",
+   "tags": [
+    "info-gathering",
+    "disk"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/utils/info_gatherer/info_gatherer.py:NodeBackends",
+   "type": "class",
+   "name": "NodeBackends",
+   "filePath": "src/exo/utils/info_gatherer/info_gatherer.py",
+   "lineRange": [
+    372,
+    383
+   ],
+   "summary": "Detected backend availability (MLX, CUDA, etc.) for the node.",
+   "tags": [
+    "info-gathering",
+    "backends"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/utils/info_gatherer/info_gatherer.py:InfoGatherer",
+   "type": "class",
+   "name": "InfoGatherer",
+   "filePath": "src/exo/utils/info_gatherer/info_gatherer.py",
+   "lineRange": [
+    403,
+    644
+   ],
+   "summary": "Asynchronously gathers static and dynamic node information including Thunderbolt connectivity and macmon metrics.",
+   "tags": [
+    "info-gathering",
+    "orchestration",
+    "async"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "file:src/exo/utils/info_gatherer/macmon.py",
+   "type": "file",
+   "name": "macmon.py",
+   "filePath": "src/exo/utils/info_gatherer/macmon.py",
+   "summary": "Pydantic models parsing macmon system-monitor output into temperature, memory, CPU/GPU usage, and power metrics.",
+   "tags": [
+    "type-definition",
+    "macmon",
+    "monitoring",
+    "system"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/utils/info_gatherer/macmon.py:RawMacmonMetrics",
+   "type": "class",
+   "name": "RawMacmonMetrics",
+   "filePath": "src/exo/utils/info_gatherer/macmon.py",
+   "lineRange": [
+    25,
+    43
+   ],
+   "summary": "Raw macmon output model with temperature, memory, CPU/GPU usage, and power fields.",
+   "tags": [
+    "macmon",
+    "monitoring",
+    "type-definition"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "class:src/exo/utils/info_gatherer/macmon.py:MacmonMetrics",
+   "type": "class",
+   "name": "MacmonMetrics",
+   "filePath": "src/exo/utils/info_gatherer/macmon.py",
+   "lineRange": [
+    46,
+    70
+   ],
+   "summary": "Processed macmon metrics exposing normalized MemoryUsage and SystemPerformanceProfile.",
+   "tags": [
+    "macmon",
+    "monitoring"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:src/exo/utils/info_gatherer/net_profile.py",
+   "type": "file",
+   "name": "net_profile.py",
+   "filePath": "src/exo/utils/info_gatherer/net_profile.py",
+   "summary": "Async network reachability probing: verifies a node is reachable at an IP and confirms its node ID over the API, with multi-attempt retries.",
+   "tags": [
+    "network",
+    "reachability",
+    "probing",
+    "async"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:src/exo/utils/info_gatherer/net_profile.py:check_reachability",
+   "type": "function",
+   "name": "check_reachability",
+   "filePath": "src/exo/utils/info_gatherer/net_profile.py",
+   "lineRange": [
+    17,
+    79
+   ],
+   "summary": "Probes a target IP for node reachability and identity over the API with retries, recording results.",
+   "tags": [
+    "network",
+    "reachability"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "function:src/exo/utils/info_gatherer/net_profile.py:check_reachable",
+   "type": "function",
+   "name": "check_reachable",
+   "filePath": "src/exo/utils/info_gatherer/net_profile.py",
+   "lineRange": [
+    82,
+    127
+   ],
+   "summary": "Runs reachability checks across candidate IPs for all nodes using a task group.",
+   "tags": [
+    "network",
+    "reachability"
+   ],
+   "complexity": "moderate"
+  }
+ ],
+ "edges": [
+  {
+   "source": "file:src/exo/shared/types/thunderbolt.py",
+   "target": "class:src/exo/shared/types/thunderbolt.py:ThunderboltConnection",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/shared/types/thunderbolt.py",
+   "target": "class:src/exo/shared/types/thunderbolt.py:ThunderboltConnection",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/shared/types/thunderbolt.py",
+   "target": "class:src/exo/shared/types/thunderbolt.py:ThunderboltIdentifier",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/shared/types/thunderbolt.py",
+   "target": "class:src/exo/shared/types/thunderbolt.py:ThunderboltIdentifier",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/shared/types/thunderbolt.py",
+   "target": "class:src/exo/shared/types/thunderbolt.py:_ReceptacleTag",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/shared/types/thunderbolt.py",
+   "target": "class:src/exo/shared/types/thunderbolt.py:_ReceptacleTag",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/shared/types/thunderbolt.py",
+   "target": "class:src/exo/shared/types/thunderbolt.py:_ConnectivityItem",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/shared/types/thunderbolt.py",
+   "target": "class:src/exo/shared/types/thunderbolt.py:_ConnectivityItem",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/shared/types/thunderbolt.py",
+   "target": "class:src/exo/shared/types/thunderbolt.py:ThunderboltConnectivityData",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/shared/types/thunderbolt.py",
+   "target": "class:src/exo/shared/types/thunderbolt.py:ThunderboltConnectivityData",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/shared/types/thunderbolt.py",
+   "target": "class:src/exo/shared/types/thunderbolt.py:ThunderboltConnectivity",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/shared/types/thunderbolt.py",
+   "target": "class:src/exo/shared/types/thunderbolt.py:ThunderboltConnectivity",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/shared/types/thunderbolt.py",
+   "target": "file:src/exo/utils/pydantic_ext.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "class:src/exo/shared/types/thunderbolt.py:ThunderboltConnectivityData",
+   "target": "class:src/exo/utils/pydantic_ext.py:FrozenModel",
+   "type": "inherits",
+   "direction": "forward",
+   "weight": 0.9
+  },
+  {
+   "source": "class:src/exo/shared/types/thunderbolt.py:ThunderboltConnectivity",
+   "target": "class:src/exo/utils/pydantic_ext.py:FrozenModel",
+   "type": "inherits",
+   "direction": "forward",
+   "weight": 0.9
+  },
+  {
+   "source": "file:src/exo/shared/types/thunderbolt.py",
+   "target": "file:src/exo/utils/info_gatherer/tests/test_tb_parsing.py",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  },
+  {
+   "source": "file:src/exo/shared/types/topology.py",
+   "target": "class:src/exo/shared/types/topology.py:Cycle",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/shared/types/topology.py",
+   "target": "class:src/exo/shared/types/topology.py:Cycle",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/shared/types/topology.py",
+   "target": "class:src/exo/shared/types/topology.py:RDMAConnection",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/shared/types/topology.py",
+   "target": "class:src/exo/shared/types/topology.py:RDMAConnection",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/shared/types/topology.py",
+   "target": "class:src/exo/shared/types/topology.py:SocketConnection",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/shared/types/topology.py",
+   "target": "class:src/exo/shared/types/topology.py:SocketConnection",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/shared/types/topology.py",
+   "target": "class:src/exo/shared/types/topology.py:Connection",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/shared/types/topology.py",
+   "target": "class:src/exo/shared/types/topology.py:Connection",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/shared/types/topology.py",
+   "target": "file:src/exo/shared/types/common.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/shared/types/topology.py",
+   "target": "file:src/exo/shared/types/multiaddr.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/shared/types/topology.py",
+   "target": "file:src/exo/utils/pydantic_ext.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "class:src/exo/shared/types/topology.py:RDMAConnection",
+   "target": "class:src/exo/utils/pydantic_ext.py:FrozenModel",
+   "type": "inherits",
+   "direction": "forward",
+   "weight": 0.9
+  },
+  {
+   "source": "class:src/exo/shared/types/topology.py:SocketConnection",
+   "target": "class:src/exo/utils/pydantic_ext.py:FrozenModel",
+   "type": "inherits",
+   "direction": "forward",
+   "weight": 0.9
+  },
+  {
+   "source": "class:src/exo/shared/types/topology.py:Connection",
+   "target": "class:src/exo/utils/pydantic_ext.py:FrozenModel",
+   "type": "inherits",
+   "direction": "forward",
+   "weight": 0.9
+  },
+  {
+   "source": "file:src/exo/utils/info_gatherer/info_gatherer.py",
+   "target": "function:src/exo/utils/info_gatherer/info_gatherer.py:_get_thunderbolt_devices",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/utils/info_gatherer/info_gatherer.py",
+   "target": "function:src/exo/utils/info_gatherer/info_gatherer.py:_get_thunderbolt_devices",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/utils/info_gatherer/info_gatherer.py",
+   "target": "function:src/exo/utils/info_gatherer/info_gatherer.py:_get_bridge_services",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/utils/info_gatherer/info_gatherer.py",
+   "target": "function:src/exo/utils/info_gatherer/info_gatherer.py:_get_bridge_services",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/utils/info_gatherer/info_gatherer.py",
+   "target": "function:src/exo/utils/info_gatherer/info_gatherer.py:_get_bridge_members",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/utils/info_gatherer/info_gatherer.py",
+   "target": "function:src/exo/utils/info_gatherer/info_gatherer.py:_get_bridge_members",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/utils/info_gatherer/info_gatherer.py",
+   "target": "function:src/exo/utils/info_gatherer/info_gatherer.py:_find_thunderbolt_bridge",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/utils/info_gatherer/info_gatherer.py",
+   "target": "function:src/exo/utils/info_gatherer/info_gatherer.py:_find_thunderbolt_bridge",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/utils/info_gatherer/info_gatherer.py",
+   "target": "function:src/exo/utils/info_gatherer/info_gatherer.py:_is_service_enabled",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/utils/info_gatherer/info_gatherer.py",
+   "target": "function:src/exo/utils/info_gatherer/info_gatherer.py:_is_service_enabled",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/utils/info_gatherer/info_gatherer.py",
+   "target": "function:src/exo/utils/info_gatherer/info_gatherer.py:_gather_iface_map",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/utils/info_gatherer/info_gatherer.py",
+   "target": "function:src/exo/utils/info_gatherer/info_gatherer.py:_gather_iface_map",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/utils/info_gatherer/info_gatherer.py",
+   "target": "function:src/exo/utils/info_gatherer/info_gatherer.py:_has_nvml_cuda",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/utils/info_gatherer/info_gatherer.py",
+   "target": "function:src/exo/utils/info_gatherer/info_gatherer.py:_has_nvml_cuda",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/utils/info_gatherer/info_gatherer.py",
+   "target": "class:src/exo/utils/info_gatherer/info_gatherer.py:StaticNodeInformation",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/utils/info_gatherer/info_gatherer.py",
+   "target": "class:src/exo/utils/info_gatherer/info_gatherer.py:StaticNodeInformation",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/utils/info_gatherer/info_gatherer.py",
+   "target": "class:src/exo/utils/info_gatherer/info_gatherer.py:NodeNetworkInterfaces",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/utils/info_gatherer/info_gatherer.py",
+   "target": "class:src/exo/utils/info_gatherer/info_gatherer.py:NodeNetworkInterfaces",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/utils/info_gatherer/info_gatherer.py",
+   "target": "class:src/exo/utils/info_gatherer/info_gatherer.py:MacThunderboltIdentifiers",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/utils/info_gatherer/info_gatherer.py",
+   "target": "class:src/exo/utils/info_gatherer/info_gatherer.py:MacThunderboltIdentifiers",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/utils/info_gatherer/info_gatherer.py",
+   "target": "class:src/exo/utils/info_gatherer/info_gatherer.py:MacThunderboltConnections",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/utils/info_gatherer/info_gatherer.py",
+   "target": "class:src/exo/utils/info_gatherer/info_gatherer.py:MacThunderboltConnections",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/utils/info_gatherer/info_gatherer.py",
+   "target": "class:src/exo/utils/info_gatherer/info_gatherer.py:RdmaCtlStatus",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/utils/info_gatherer/info_gatherer.py",
+   "target": "class:src/exo/utils/info_gatherer/info_gatherer.py:RdmaCtlStatus",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/utils/info_gatherer/info_gatherer.py",
+   "target": "class:src/exo/utils/info_gatherer/info_gatherer.py:ThunderboltBridgeInfo",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/utils/info_gatherer/info_gatherer.py",
+   "target": "class:src/exo/utils/info_gatherer/info_gatherer.py:ThunderboltBridgeInfo",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/utils/info_gatherer/info_gatherer.py",
+   "target": "class:src/exo/utils/info_gatherer/info_gatherer.py:NodeConfig",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/utils/info_gatherer/info_gatherer.py",
+   "target": "class:src/exo/utils/info_gatherer/info_gatherer.py:NodeConfig",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/utils/info_gatherer/info_gatherer.py",
+   "target": "class:src/exo/utils/info_gatherer/info_gatherer.py:MiscData",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/utils/info_gatherer/info_gatherer.py",
+   "target": "class:src/exo/utils/info_gatherer/info_gatherer.py:MiscData",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/utils/info_gatherer/info_gatherer.py",
+   "target": "class:src/exo/utils/info_gatherer/info_gatherer.py:NodeDiskUsage",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/utils/info_gatherer/info_gatherer.py",
+   "target": "class:src/exo/utils/info_gatherer/info_gatherer.py:NodeDiskUsage",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/utils/info_gatherer/info_gatherer.py",
+   "target": "class:src/exo/utils/info_gatherer/info_gatherer.py:NodeBackends",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/utils/info_gatherer/info_gatherer.py",
+   "target": "class:src/exo/utils/info_gatherer/info_gatherer.py:NodeBackends",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/utils/info_gatherer/info_gatherer.py",
+   "target": "class:src/exo/utils/info_gatherer/info_gatherer.py:InfoGatherer",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/utils/info_gatherer/info_gatherer.py",
+   "target": "class:src/exo/utils/info_gatherer/info_gatherer.py:InfoGatherer",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/utils/info_gatherer/info_gatherer.py",
+   "target": "file:src/exo/shared/constants.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/utils/info_gatherer/info_gatherer.py",
+   "target": "file:src/exo/shared/types/backends.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/utils/info_gatherer/info_gatherer.py",
+   "target": "file:src/exo/shared/types/memory.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/utils/info_gatherer/info_gatherer.py",
+   "target": "file:src/exo/shared/types/profiling.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/utils/info_gatherer/info_gatherer.py",
+   "target": "file:src/exo/shared/types/thunderbolt.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/utils/info_gatherer/info_gatherer.py",
+   "target": "file:src/exo/utils/channels.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/utils/info_gatherer/info_gatherer.py",
+   "target": "file:src/exo/utils/info_gatherer/macmon.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/utils/info_gatherer/info_gatherer.py",
+   "target": "file:src/exo/utils/info_gatherer/system_info.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/utils/info_gatherer/info_gatherer.py",
+   "target": "file:src/exo/utils/pydantic_ext.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/utils/info_gatherer/info_gatherer.py",
+   "target": "file:src/exo/utils/task_group.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "class:src/exo/utils/info_gatherer/info_gatherer.py:InfoGatherer",
+   "target": "function:src/exo/utils/info_gatherer/system_info.py:get_os_version",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "class:src/exo/utils/info_gatherer/info_gatherer.py:InfoGatherer",
+   "target": "function:src/exo/utils/info_gatherer/system_info.py:get_network_interfaces",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "class:src/exo/utils/info_gatherer/info_gatherer.py:InfoGatherer",
+   "target": "function:src/exo/utils/info_gatherer/system_info.py:get_model_and_chip",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "class:src/exo/utils/info_gatherer/info_gatherer.py:InfoGatherer",
+   "target": "class:src/exo/utils/info_gatherer/macmon.py:MacmonMetrics",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "class:src/exo/utils/info_gatherer/info_gatherer.py:InfoGatherer",
+   "target": "function:src/exo/utils/info_gatherer/net_profile.py:check_reachability",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "class:src/exo/utils/info_gatherer/info_gatherer.py:InfoGatherer",
+   "target": "function:src/exo/utils/info_gatherer/net_profile.py:check_reachable",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/utils/info_gatherer/info_gatherer.py",
+   "target": "file:src/exo/shared/tests/test_apply/test_apply_rdma_gating.py",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  },
+  {
+   "source": "file:src/exo/utils/info_gatherer/info_gatherer.py",
+   "target": "file:src/exo/utils/info_gatherer/tests/test_tb_parsing.py",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  },
+  {
+   "source": "file:src/exo/utils/info_gatherer/macmon.py",
+   "target": "class:src/exo/utils/info_gatherer/macmon.py:RawMacmonMetrics",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/utils/info_gatherer/macmon.py",
+   "target": "class:src/exo/utils/info_gatherer/macmon.py:RawMacmonMetrics",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/utils/info_gatherer/macmon.py",
+   "target": "class:src/exo/utils/info_gatherer/macmon.py:MacmonMetrics",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/utils/info_gatherer/macmon.py",
+   "target": "class:src/exo/utils/info_gatherer/macmon.py:MacmonMetrics",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/utils/info_gatherer/macmon.py",
+   "target": "file:src/exo/shared/types/profiling.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/utils/info_gatherer/macmon.py",
+   "target": "file:src/exo/utils/pydantic_ext.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "class:src/exo/utils/info_gatherer/macmon.py:RawMacmonMetrics",
+   "target": "class:src/exo/utils/pydantic_ext.py:TaggedModel",
+   "type": "inherits",
+   "direction": "forward",
+   "weight": 0.9
+  },
+  {
+   "source": "class:src/exo/utils/info_gatherer/macmon.py:MacmonMetrics",
+   "target": "class:src/exo/utils/pydantic_ext.py:TaggedModel",
+   "type": "inherits",
+   "direction": "forward",
+   "weight": 0.9
+  },
+  {
+   "source": "file:src/exo/utils/info_gatherer/net_profile.py",
+   "target": "function:src/exo/utils/info_gatherer/net_profile.py:check_reachability",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/utils/info_gatherer/net_profile.py",
+   "target": "function:src/exo/utils/info_gatherer/net_profile.py:check_reachability",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/utils/info_gatherer/net_profile.py",
+   "target": "function:src/exo/utils/info_gatherer/net_profile.py:check_reachable",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/utils/info_gatherer/net_profile.py",
+   "target": "function:src/exo/utils/info_gatherer/net_profile.py:check_reachable",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/utils/info_gatherer/net_profile.py",
+   "target": "file:src/exo/shared/topology.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/utils/info_gatherer/net_profile.py",
+   "target": "file:src/exo/shared/types/common.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/utils/info_gatherer/net_profile.py",
+   "target": "file:src/exo/shared/types/profiling.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/utils/info_gatherer/net_profile.py",
+   "target": "file:src/exo/utils/channels.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  }
+ ]
+}

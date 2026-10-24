@@ -1,0 +1,29 @@
+{
+ "nodes": [
+  {
+   "id": "pipeline:.github/workflows/build-app.yml",
+   "type": "pipeline",
+   "name": "build-app.yml",
+   "filePath": ".github/workflows/build-app.yml",
+   "summary": "CI/CD pipeline definition .github/workflows/build-app.yml.",
+   "tags": [
+    "ci-cd",
+    "deployment"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "pipeline:.github/workflows/pipeline.yml",
+   "type": "pipeline",
+   "name": "pipeline.yml",
+   "filePath": ".github/workflows/pipeline.yml",
+   "summary": "CI/CD pipeline definition .github/workflows/pipeline.yml.",
+   "tags": [
+    "ci-cd",
+    "deployment"
+   ],
+   "complexity": "moderate"
+  }
+ ],
+ "edges": []
+}

@@ -1,0 +1,227 @@
+{
+ "projectRoot": "/Users/chris/Documents/GitHub/exo",
+ "batchFiles": [
+  {
+   "path": "src/exo/master/placement_utils.py",
+   "language": "python",
+   "sizeLines": 461,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/master/tests/conftest.py",
+   "language": "python",
+   "sizeLines": 37,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/master/tests/test_placement.py",
+   "language": "python",
+   "sizeLines": 1058,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/master/tests/test_placement_utils.py",
+   "language": "python",
+   "sizeLines": 691,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/master/tests/test_topology.py",
+   "language": "python",
+   "sizeLines": 108,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/shared/tests/test_apply/test_apply_rdma_gating.py",
+   "language": "python",
+   "sizeLines": 231,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/shared/tests/test_state_serialization.py",
+   "language": "python",
+   "sizeLines": 35,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/shared/topology.py",
+   "language": "python",
+   "sizeLines": 323,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/shared/types/multiaddr.py",
+   "language": "python",
+   "sizeLines": 69,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/shared/types/profiling.py",
+   "language": "python",
+   "sizeLines": 111,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/shared/types/thunderbolt.py",
+   "language": "python",
+   "sizeLines": 85,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/shared/types/topology.py",
+   "language": "python",
+   "sizeLines": 35,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/utils/info_gatherer/info_gatherer.py",
+   "language": "python",
+   "sizeLines": 644,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/utils/info_gatherer/macmon.py",
+   "language": "python",
+   "sizeLines": 70,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/utils/info_gatherer/net_profile.py",
+   "language": "python",
+   "sizeLines": 127,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/utils/info_gatherer/system_info.py",
+   "language": "python",
+   "sizeLines": 150,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/utils/info_gatherer/tests/test_tb_parsing.py",
+   "language": "python",
+   "sizeLines": 24,
+   "fileCategory": "code"
+  }
+ ],
+ "batchImportData": {
+  "src/exo/master/placement_utils.py": [
+   "src/exo/shared/models/model_cards.py",
+   "src/exo/shared/topology.py",
+   "src/exo/shared/types/common.py",
+   "src/exo/shared/types/memory.py",
+   "src/exo/shared/types/profiling.py",
+   "src/exo/shared/types/topology.py",
+   "src/exo/shared/types/worker/runners.py",
+   "src/exo/shared/types/worker/shards.py"
+  ],
+  "src/exo/master/tests/conftest.py": [
+   "src/exo/shared/types/multiaddr.py",
+   "src/exo/shared/types/profiling.py",
+   "src/exo/shared/types/topology.py"
+  ],
+  "src/exo/master/tests/test_placement.py": [
+   "src/exo/master/placement.py",
+   "src/exo/master/tests/conftest.py",
+   "src/exo/shared/models/model_cards.py",
+   "src/exo/shared/topology.py",
+   "src/exo/shared/types/backends.py",
+   "src/exo/shared/types/commands.py",
+   "src/exo/shared/types/common.py",
+   "src/exo/shared/types/events.py",
+   "src/exo/shared/types/memory.py",
+   "src/exo/shared/types/multiaddr.py",
+   "src/exo/shared/types/profiling.py",
+   "src/exo/shared/types/tasks.py",
+   "src/exo/shared/types/text_generation.py",
+   "src/exo/shared/types/topology.py",
+   "src/exo/shared/types/worker/downloads.py",
+   "src/exo/shared/types/worker/instances.py",
+   "src/exo/shared/types/worker/runners.py",
+   "src/exo/shared/types/worker/shards.py"
+  ],
+  "src/exo/master/tests/test_placement_utils.py": [
+   "src/exo/master/placement_utils.py",
+   "src/exo/master/tests/conftest.py",
+   "src/exo/shared/models/model_cards.py",
+   "src/exo/shared/topology.py",
+   "src/exo/shared/types/backends.py",
+   "src/exo/shared/types/common.py",
+   "src/exo/shared/types/memory.py",
+   "src/exo/shared/types/profiling.py",
+   "src/exo/shared/types/topology.py",
+   "src/exo/shared/types/worker/shards.py"
+  ],
+  "src/exo/master/tests/test_topology.py": [
+   "src/exo/shared/topology.py",
+   "src/exo/shared/types/common.py",
+   "src/exo/shared/types/multiaddr.py",
+   "src/exo/shared/types/topology.py"
+  ],
+  "src/exo/shared/tests/test_apply/test_apply_rdma_gating.py": [
+   "src/exo/shared/apply.py",
+   "src/exo/shared/topology.py",
+   "src/exo/shared/types/common.py",
+   "src/exo/shared/types/events.py",
+   "src/exo/shared/types/profiling.py",
+   "src/exo/shared/types/state.py",
+   "src/exo/shared/types/thunderbolt.py",
+   "src/exo/shared/types/topology.py",
+   "src/exo/utils/info_gatherer/info_gatherer.py"
+  ],
+  "src/exo/shared/tests/test_state_serialization.py": [
+   "src/exo/shared/types/common.py",
+   "src/exo/shared/types/multiaddr.py",
+   "src/exo/shared/types/state.py",
+   "src/exo/shared/types/topology.py"
+  ],
+  "src/exo/shared/topology.py": [
+   "src/exo/shared/types/common.py",
+   "src/exo/shared/types/profiling.py",
+   "src/exo/shared/types/topology.py"
+  ],
+  "src/exo/shared/types/multiaddr.py": [],
+  "src/exo/shared/types/profiling.py": [
+   "src/exo/shared/types/memory.py",
+   "src/exo/shared/types/thunderbolt.py",
+   "src/exo/utils/pydantic_ext.py"
+  ],
+  "src/exo/shared/types/thunderbolt.py": [
+   "src/exo/utils/pydantic_ext.py"
+  ],
+  "src/exo/shared/types/topology.py": [
+   "src/exo/shared/types/common.py",
+   "src/exo/shared/types/multiaddr.py",
+   "src/exo/utils/pydantic_ext.py"
+  ],
+  "src/exo/utils/info_gatherer/info_gatherer.py": [
+   "src/exo/shared/constants.py",
+   "src/exo/shared/types/backends.py",
+   "src/exo/shared/types/memory.py",
+   "src/exo/shared/types/profiling.py",
+   "src/exo/shared/types/thunderbolt.py",
+   "src/exo/utils/channels.py",
+   "src/exo/utils/info_gatherer/macmon.py",
+   "src/exo/utils/info_gatherer/system_info.py",
+   "src/exo/utils/pydantic_ext.py",
+   "src/exo/utils/task_group.py"
+  ],
+  "src/exo/utils/info_gatherer/macmon.py": [
+   "src/exo/shared/types/profiling.py",
+   "src/exo/utils/pydantic_ext.py"
+  ],
+  "src/exo/utils/info_gatherer/net_profile.py": [
+   "src/exo/shared/topology.py",
+   "src/exo/shared/types/common.py",
+   "src/exo/shared/types/profiling.py",
+   "src/exo/utils/channels.py"
+  ],
+  "src/exo/utils/info_gatherer/system_info.py": [
+   "src/exo/shared/types/profiling.py"
+  ],
+  "src/exo/utils/info_gatherer/tests/test_tb_parsing.py": [
+   "src/exo/shared/types/thunderbolt.py",
+   "src/exo/utils/info_gatherer/info_gatherer.py"
+  ]
+ }
+}

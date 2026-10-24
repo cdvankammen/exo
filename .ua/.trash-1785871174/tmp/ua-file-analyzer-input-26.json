@@ -1,0 +1,42 @@
+{
+ "projectRoot": "/Users/chris/Documents/GitHub/exo",
+ "batchFiles": [
+  {
+   "path": "tmp/prompt.txt",
+   "language": "txt",
+   "sizeLines": 46,
+   "fileCategory": "docs"
+  },
+  {
+   "path": "tmp/run_exo_on.sh",
+   "language": "shell",
+   "sizeLines": 53,
+   "fileCategory": "script"
+  },
+  {
+   "path": "tmp/run_llm.sh",
+   "language": "shell",
+   "sizeLines": 24,
+   "fileCategory": "script"
+  },
+  {
+   "path": "tmp/set_rdma_network_config.sh",
+   "language": "shell",
+   "sizeLines": 47,
+   "fileCategory": "script"
+  },
+  {
+   "path": "tmp/test_trust_remote_code_attack.sh",
+   "language": "shell",
+   "sizeLines": 149,
+   "fileCategory": "script"
+  }
+ ],
+ "batchImportData": {
+  "tmp/prompt.txt": [],
+  "tmp/run_exo_on.sh": [],
+  "tmp/run_llm.sh": [],
+  "tmp/set_rdma_network_config.sh": [],
+  "tmp/test_trust_remote_code_attack.sh": []
+ }
+}

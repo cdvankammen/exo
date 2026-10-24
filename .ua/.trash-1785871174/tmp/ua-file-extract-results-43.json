@@ -1,0 +1,1323 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 16,
+  "filesSkipped": [
+    "dashboard/src/routes/traces/+page.svelte",
+    "dashboard/src/routes/traces/[taskId]/+page.svelte",
+    "flake.nix",
+    "justfile",
+    "nix/apple-sdk-overlay.nix",
+    "nix/darwin-build-fixes.patch",
+    "nix/metal-toolchain.nix",
+    "packaging/pyinstaller/exo.spec",
+    "python/parts.nix"
+  ],
+  "analysisOutcomes": {
+    "structure": {
+      "succeeded": 16,
+      "failed": 0
+    },
+    "callGraph": {
+      "succeeded": 10,
+      "failed": 0,
+      "skipped": 6
+    }
+  },
+  "results": [
+    {
+      "path": "dashboard/svelte.config.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 28,
+      "nonEmptyLines": 24,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "dashboard/tsconfig.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 15,
+      "nonEmptyLines": 14,
+      "sections": [
+        {
+          "heading": "extends",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "compilerOptions",
+          "level": 1,
+          "line": 3
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 2
+      }
+    },
+    {
+      "path": "dashboard/vite.config.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 15,
+      "nonEmptyLines": 14,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "docs/api.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 762,
+      "nonEmptyLines": 522,
+      "sections": [
+        {
+          "heading": "EXO API – Technical Reference",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "1. General / Meta Endpoints",
+          "level": 2,
+          "line": 15
+        },
+        {
+          "heading": "Get Master Node ID",
+          "level": 3,
+          "line": 17
+        },
+        {
+          "heading": "Get Cluster State",
+          "level": 3,
+          "line": 31
+        },
+        {
+          "heading": "Get Events",
+          "level": 3,
+          "line": 40
+        },
+        {
+          "heading": "2. Model Instance Management",
+          "level": 2,
+          "line": 49
+        },
+        {
+          "heading": "Create Instance",
+          "level": 3,
+          "line": 51
+        },
+        {
+          "heading": "Delete Instance",
+          "level": 3,
+          "line": 73
+        },
+        {
+          "heading": "Get Instance",
+          "level": 3,
+          "line": 86
+        },
+        {
+          "heading": "Await Instance",
+          "level": 3,
+          "line": 99
+        },
+        {
+          "heading": "Preview Placements",
+          "level": 3,
+          "line": 124
+        },
+        {
+          "heading": "Compute Placement",
+          "level": 3,
+          "line": 137
+        },
+        {
+          "heading": "Place Instance",
+          "level": 3,
+          "line": 153
+        },
+        {
+          "heading": "3. Models",
+          "level": 2,
+          "line": 166
+        },
+        {
+          "heading": "List Models",
+          "level": 3,
+          "line": 168
+        },
+        {
+          "heading": "Add Custom Model",
+          "level": 3,
+          "line": 182
+        },
+        {
+          "heading": "Delete Custom Model",
+          "level": 3,
+          "line": 202
+        },
+        {
+          "heading": "Search Models",
+          "level": 3,
+          "line": 215
+        },
+        {
+          "heading": "4. Inference / Chat Completions",
+          "level": 2,
+          "line": 229
+        },
+        {
+          "heading": "OpenAI-Compatible Chat Completions",
+          "level": 3,
+          "line": 231
+        },
+        {
+          "heading": "Claude Messages API",
+          "level": 3,
+          "line": 305
+        },
+        {
+          "heading": "OpenAI Responses API",
+          "level": 3,
+          "line": 337
+        },
+        {
+          "heading": "Benchmarked Chat Completions",
+          "level": 3,
+          "line": 367
+        },
+        {
+          "heading": "Cancel Command",
+          "level": 3,
+          "line": 385
+        },
+        {
+          "heading": "5. Ollama API Compatibility",
+          "level": 2,
+          "line": 406
+        },
+        {
+          "heading": "Ollama Chat",
+          "level": 3,
+          "line": 410
+        },
+        {
+          "heading": "Ollama Generate",
+          "level": 3,
+          "line": 433
+        },
+        {
+          "heading": "Ollama Tags",
+          "level": 3,
+          "line": 452
+        },
+        {
+          "heading": "Ollama Show",
+          "level": 3,
+          "line": 463
+        },
+        {
+          "heading": "Ollama PS",
+          "level": 3,
+          "line": 480
+        },
+        {
+          "heading": "Ollama Version",
+          "level": 3,
+          "line": 489
+        },
+        {
+          "heading": "6. Image Generation & Editing",
+          "level": 2,
+          "line": 505
+        },
+        {
+          "heading": "Image Generation",
+          "level": 3,
+          "line": 507
+        },
+        {
+          "heading": "Image Editing",
+          "level": 3,
+          "line": 582
+        },
+        {
+          "heading": "Benchmarked Image Generation",
+          "level": 3,
+          "line": 606
+        },
+        {
+          "heading": "Benchmarked Image Editing",
+          "level": 3,
+          "line": 626
+        },
+        {
+          "heading": "List Images",
+          "level": 3,
+          "line": 638
+        },
+        {
+          "heading": "Get Image",
+          "level": 3,
+          "line": 647
+        },
+        {
+          "heading": "7. Complete Endpoint Summary",
+          "level": 2,
+          "line": 660
+        },
+        {
+          "heading": "8. Notes",
+          "level": 2,
+          "line": 720
+        },
+        {
+          "heading": "API Compatibility",
+          "level": 3,
+          "line": 722
+        },
+        {
+          "heading": "Custom Models",
+          "level": 3,
+          "line": 733
+        },
+        {
+          "heading": "Usage Statistics",
+          "level": 3,
+          "line": 739
+        },
+        {
+          "heading": "Request Cancellation",
+          "level": 3,
+          "line": 747
+        },
+        {
+          "heading": "Instance Placement",
+          "level": 3,
+          "line": 756
+        },
+        {
+          "heading": "Observability",
+          "level": 3,
+          "line": 760
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 46
+      }
+    },
+    {
+      "path": "nix/apple-sdk/metadata/versions.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 26,
+      "nonEmptyLines": 26,
+      "sections": [
+        {
+          "heading": "14",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "15",
+          "level": 1,
+          "line": 10
+        },
+        {
+          "heading": "26",
+          "level": 1,
+          "line": 18
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 3
+      }
+    },
+    {
+      "path": "packaging/dmg/create-dmg.sh",
+      "language": "shell",
+      "fileCategory": "script",
+      "totalLines": 112,
+      "nonEmptyLines": 95,
+      "functions": [
+        {
+          "name": "cleanup",
+          "startLine": 27,
+          "endLine": 27,
+          "params": []
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "packaging/dmg/generate-background.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 91,
+      "nonEmptyLines": 71,
+      "functions": [
+        {
+          "name": "draw_arrow",
+          "startLine": 39,
+          "endLine": 76,
+          "params": [
+            "draw"
+          ]
+        },
+        {
+          "name": "generate_background",
+          "startLine": 79,
+          "endLine": 84,
+          "params": [
+            "output_path"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "draw_arrow",
+          "line": 39,
+          "isDefault": false
+        },
+        {
+          "name": "generate_background",
+          "line": 79,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "draw_arrow",
+          "callee": "range",
+          "lineNumber": 47
+        },
+        {
+          "caller": "draw_arrow",
+          "callee": "points.append",
+          "lineNumber": 54
+        },
+        {
+          "caller": "draw_arrow",
+          "callee": "range",
+          "lineNumber": 57
+        },
+        {
+          "caller": "draw_arrow",
+          "callee": "len",
+          "lineNumber": 57
+        },
+        {
+          "caller": "draw_arrow",
+          "callee": "draw.line",
+          "lineNumber": 58
+        },
+        {
+          "caller": "draw_arrow",
+          "callee": "math.atan2",
+          "lineNumber": 64
+        },
+        {
+          "caller": "draw_arrow",
+          "callee": "math.radians",
+          "lineNumber": 66
+        },
+        {
+          "caller": "draw_arrow",
+          "callee": "math.cos",
+          "lineNumber": 68
+        },
+        {
+          "caller": "draw_arrow",
+          "callee": "math.sin",
+          "lineNumber": 69
+        },
+        {
+          "caller": "draw_arrow",
+          "callee": "math.cos",
+          "lineNumber": 70
+        },
+        {
+          "caller": "draw_arrow",
+          "callee": "math.sin",
+          "lineNumber": 71
+        },
+        {
+          "caller": "draw_arrow",
+          "callee": "draw.polygon",
+          "lineNumber": 73
+        },
+        {
+          "caller": "generate_background",
+          "callee": "Image.new",
+          "lineNumber": 81
+        },
+        {
+          "caller": "generate_background",
+          "callee": "ImageDraw.Draw",
+          "lineNumber": 82
+        },
+        {
+          "caller": "generate_background",
+          "callee": "draw_arrow",
+          "lineNumber": 83
+        },
+        {
+          "caller": "generate_background",
+          "callee": "img.save",
+          "lineNumber": 84
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 2,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "promptsANDplans/README.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 34,
+      "nonEmptyLines": 24,
+      "sections": [
+        {
+          "heading": "promptsANDplans",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "What belongs here",
+          "level": 2,
+          "line": 5
+        },
+        {
+          "heading": "Rules of thumb",
+          "level": 2,
+          "line": 13
+        },
+        {
+          "heading": "Project Documentation Index",
+          "level": 2,
+          "line": 21
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 4
+      }
+    },
+    {
+      "path": "rust/exo_rs/exo_rs.pyi",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 113,
+      "nonEmptyLines": 95,
+      "classes": [
+        {
+          "name": "FromSwarm",
+          "startLine": 15,
+          "endLine": 32,
+          "methods": [],
+          "properties": []
+        },
+        {
+          "name": "NetworkingHandle",
+          "startLine": 35,
+          "endLine": 56,
+          "methods": [
+            "new",
+            "recv",
+            "gossipsub_subscribe",
+            "gossipsub_unsubscribe",
+            "gossipsub_publish"
+          ],
+          "properties": []
+        },
+        {
+          "name": "Pidfile",
+          "startLine": 59,
+          "endLine": 107,
+          "methods": [
+            "__new__",
+            "write",
+            "as_raw_fd",
+            "close"
+          ],
+          "properties": []
+        },
+        {
+          "name": "PidfileError",
+          "startLine": 110,
+          "endLine": 112,
+          "methods": [
+            "__repr__",
+            "__str__"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "FromSwarm",
+          "line": 15,
+          "isDefault": false
+        },
+        {
+          "name": "NetworkingHandle",
+          "line": 34,
+          "isDefault": false
+        },
+        {
+          "name": "Pidfile",
+          "line": 58,
+          "isDefault": false
+        },
+        {
+          "name": "PidfileError",
+          "line": 109,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 4,
+        "functionCount": 0,
+        "classCount": 4
+      }
+    },
+    {
+      "path": "rust/exo_rs/src/bin/stub_gen.rs",
+      "language": "rust",
+      "fileCategory": "code",
+      "totalLines": 8,
+      "nonEmptyLines": 7,
+      "functions": [
+        {
+          "name": "main",
+          "startLine": 3,
+          "endLine": 8,
+          "params": []
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "main",
+          "callee": "env_logger::Builder::from_env(env_logger::Env::default().filter_or(\"RUST_LOG\", \"info\")).init",
+          "lineNumber": 4
+        },
+        {
+          "caller": "main",
+          "callee": "env_logger::Builder::from_env",
+          "lineNumber": 4
+        },
+        {
+          "caller": "main",
+          "callee": "env_logger::Env::default().filter_or",
+          "lineNumber": 4
+        },
+        {
+          "caller": "main",
+          "callee": "env_logger::Env::default",
+          "lineNumber": 4
+        },
+        {
+          "caller": "main",
+          "callee": "exo_rs::stub_info",
+          "lineNumber": 5
+        },
+        {
+          "caller": "main",
+          "callee": "stub.generate",
+          "lineNumber": 6
+        },
+        {
+          "caller": "main",
+          "callee": "Ok",
+          "lineNumber": 7
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "rust/exo_rs/tests/dummy.rs",
+      "language": "rust",
+      "fileCategory": "code",
+      "totalLines": 54,
+      "nonEmptyLines": 43,
+      "callGraph": [
+        {
+          "caller": "test_drop_channel",
+          "callee": "mpsc::channel::<Ping>",
+          "lineNumber": 13
+        },
+        {
+          "caller": "test_drop_channel",
+          "callee": "tokio::spawn",
+          "lineNumber": 15
+        },
+        {
+          "caller": "test_drop_channel",
+          "callee": "tx.clone",
+          "lineNumber": 40
+        },
+        {
+          "caller": "test_drop_channel",
+          "callee": "tokio::time::sleep",
+          "lineNumber": 42
+        },
+        {
+          "caller": "test_drop_channel",
+          "callee": "Duration::from_secs_f32",
+          "lineNumber": 42
+        },
+        {
+          "caller": "test_drop_channel",
+          "callee": "tx.send(Ping).await.expect",
+          "lineNumber": 44
+        },
+        {
+          "caller": "test_drop_channel",
+          "callee": "tx.send",
+          "lineNumber": 44
+        },
+        {
+          "caller": "test_drop_channel",
+          "callee": "drop",
+          "lineNumber": 45
+        },
+        {
+          "caller": "test_drop_channel",
+          "callee": "tokio::time::sleep",
+          "lineNumber": 47
+        },
+        {
+          "caller": "test_drop_channel",
+          "callee": "Duration::from_secs_f32",
+          "lineNumber": 47
+        },
+        {
+          "caller": "test_drop_channel",
+          "callee": "tx2.send(Ping).await.expect",
+          "lineNumber": 49
+        },
+        {
+          "caller": "test_drop_channel",
+          "callee": "tx2.send",
+          "lineNumber": 49
+        },
+        {
+          "caller": "test_drop_channel",
+          "callee": "drop",
+          "lineNumber": 50
+        },
+        {
+          "caller": "test_drop_channel",
+          "callee": "tokio::time::sleep",
+          "lineNumber": 52
+        },
+        {
+          "caller": "test_drop_channel",
+          "callee": "Duration::from_secs_f32",
+          "lineNumber": 52
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "rust/exo_rs/tests/test_python.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 50,
+      "nonEmptyLines": 36,
+      "functions": [
+        {
+          "name": "test_sleep_on_multiple_items",
+          "startLine": 14,
+          "endLine": 25,
+          "params": []
+        },
+        {
+          "name": "test_pidfile",
+          "startLine": 28,
+          "endLine": 32,
+          "params": [
+            "capsys"
+          ]
+        },
+        {
+          "name": "_await_recv",
+          "startLine": 35,
+          "endLine": 42,
+          "params": [
+            "h"
+          ]
+        },
+        {
+          "name": "scoped_lock_file",
+          "startLine": 45,
+          "endLine": 46,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "test_sleep_on_multiple_items",
+          "line": 13,
+          "isDefault": false
+        },
+        {
+          "name": "test_pidfile",
+          "line": 28,
+          "isDefault": false
+        },
+        {
+          "name": "_await_recv",
+          "line": 35,
+          "isDefault": false
+        },
+        {
+          "name": "scoped_lock_file",
+          "line": 45,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "test_sleep_on_multiple_items",
+          "callee": "print",
+          "lineNumber": 15
+        },
+        {
+          "caller": "test_sleep_on_multiple_items",
+          "callee": "NetworkingHandle.new",
+          "lineNumber": 16
+        },
+        {
+          "caller": "test_sleep_on_multiple_items",
+          "callee": "os.urandom(16).hex().lstrip",
+          "lineNumber": 16
+        },
+        {
+          "caller": "test_sleep_on_multiple_items",
+          "callee": "os.urandom(16).hex",
+          "lineNumber": 16
+        },
+        {
+          "caller": "test_sleep_on_multiple_items",
+          "callee": "os.urandom",
+          "lineNumber": 16
+        },
+        {
+          "caller": "test_sleep_on_multiple_items",
+          "callee": "print",
+          "lineNumber": 17
+        },
+        {
+          "caller": "test_sleep_on_multiple_items",
+          "callee": "asyncio.create_task",
+          "lineNumber": 19
+        },
+        {
+          "caller": "test_sleep_on_multiple_items",
+          "callee": "_await_recv",
+          "lineNumber": 19
+        },
+        {
+          "caller": "test_sleep_on_multiple_items",
+          "callee": "range",
+          "lineNumber": 22
+        },
+        {
+          "caller": "test_sleep_on_multiple_items",
+          "callee": "asyncio.sleep",
+          "lineNumber": 23
+        },
+        {
+          "caller": "test_sleep_on_multiple_items",
+          "callee": "h.gossipsub_publish",
+          "lineNumber": 25
+        },
+        {
+          "caller": "test_pidfile",
+          "callee": "capsys.disabled",
+          "lineNumber": 29
+        },
+        {
+          "caller": "test_pidfile",
+          "callee": "print",
+          "lineNumber": 30
+        },
+        {
+          "caller": "test_pidfile",
+          "callee": "scoped_lock_file",
+          "lineNumber": 31
+        },
+        {
+          "caller": "test_pidfile",
+          "callee": "print",
+          "lineNumber": 32
+        },
+        {
+          "caller": "_await_recv",
+          "callee": "h.recv",
+          "lineNumber": 37
+        },
+        {
+          "caller": "_await_recv",
+          "callee": "print",
+          "lineNumber": 40
+        },
+        {
+          "caller": "_await_recv",
+          "callee": "print",
+          "lineNumber": 42
+        },
+        {
+          "caller": "scoped_lock_file",
+          "callee": "Pidfile",
+          "lineNumber": 46
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 4,
+        "functionCount": 4,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "rust/networking/Cargo.toml",
+      "language": "toml",
+      "fileCategory": "config",
+      "totalLines": 27,
+      "nonEmptyLines": 24,
+      "sections": [
+        {
+          "heading": "package",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "dependencies",
+          "level": 1,
+          "line": 6
+        },
+        {
+          "heading": "lints",
+          "level": 1,
+          "line": 21
+        },
+        {
+          "heading": "dev-dependencies",
+          "level": 1,
+          "line": 24
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 4
+      }
+    },
+    {
+      "path": "rust/networking/examples/do_nothing.rs",
+      "language": "rust",
+      "fileCategory": "code",
+      "totalLines": 34,
+      "nonEmptyLines": 33,
+      "functions": [
+        {
+          "name": "main",
+          "startLine": 6,
+          "endLine": 34,
+          "params": []
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "main",
+          "callee": "zenoh::init_log_from_env_or",
+          "lineNumber": 7
+        },
+        {
+          "caller": "main",
+          "callee": "networking::cfg",
+          "lineNumber": 9
+        },
+        {
+          "caller": "main",
+          "callee": "networking::open",
+          "lineNumber": 10
+        },
+        {
+          "caller": "main",
+          "callee": "session\n        .z\n        .liveliness()\n        .declare_token(format!(\"nodes/{}/live\", session.z.zid())).wait",
+          "lineNumber": 11
+        },
+        {
+          "caller": "main",
+          "callee": "session\n        .z\n        .liveliness().declare_token",
+          "lineNumber": 11
+        },
+        {
+          "caller": "main",
+          "callee": "session\n        .z.liveliness",
+          "lineNumber": 11
+        },
+        {
+          "caller": "main",
+          "callee": "session\n        .z\n        .liveliness()\n        .declare_subscriber(\"**\")\n        .history(true).wait",
+          "lineNumber": 16
+        },
+        {
+          "caller": "main",
+          "callee": "session\n        .z\n        .liveliness()\n        .declare_subscriber(\"**\").history",
+          "lineNumber": 16
+        },
+        {
+          "caller": "main",
+          "callee": "session\n        .z\n        .liveliness().declare_subscriber",
+          "lineNumber": 16
+        },
+        {
+          "caller": "main",
+          "callee": "session\n        .z.liveliness",
+          "lineNumber": 16
+        },
+        {
+          "caller": "main",
+          "callee": "Ok",
+          "lineNumber": 33
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "rust/networking/examples/heartbeat.rs",
+      "language": "rust",
+      "fileCategory": "code",
+      "totalLines": 32,
+      "nonEmptyLines": 31,
+      "functions": [
+        {
+          "name": "main",
+          "startLine": 7,
+          "endLine": 32,
+          "params": []
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "main",
+          "callee": "env_logger::try_init_from_env(Env::new().default_filter_or(\"info\")).expect",
+          "lineNumber": 8
+        },
+        {
+          "caller": "main",
+          "callee": "env_logger::try_init_from_env",
+          "lineNumber": 8
+        },
+        {
+          "caller": "main",
+          "callee": "Env::new().default_filter_or",
+          "lineNumber": 8
+        },
+        {
+          "caller": "main",
+          "callee": "Env::new",
+          "lineNumber": 8
+        },
+        {
+          "caller": "main",
+          "callee": "networking::cfg",
+          "lineNumber": 10
+        },
+        {
+          "caller": "main",
+          "callee": "networking::open",
+          "lineNumber": 11
+        },
+        {
+          "caller": "main",
+          "callee": "session\n        .z\n        .liveliness()\n        .declare_token(format!(\"nodes/{}/live\", session.z.zid())).wait",
+          "lineNumber": 12
+        },
+        {
+          "caller": "main",
+          "callee": "session\n        .z\n        .liveliness().declare_token",
+          "lineNumber": 12
+        },
+        {
+          "caller": "main",
+          "callee": "session\n        .z.liveliness",
+          "lineNumber": 12
+        },
+        {
+          "caller": "main",
+          "callee": "session\n        .z\n        .liveliness()\n        .declare_subscriber(\"**\")\n        .history(true)\n        .callback(|tok| info!(\"{}: {}\", tok.kind(), tok.key_expr().to_string()))\n        .background().wait",
+          "lineNumber": 17
+        },
+        {
+          "caller": "main",
+          "callee": "session\n        .z\n        .liveliness()\n        .declare_subscriber(\"**\")\n        .history(true)\n        .callback(|tok| info!(\"{}: {}\", tok.kind(), tok.key_expr().to_string())).background",
+          "lineNumber": 17
+        },
+        {
+          "caller": "main",
+          "callee": "session\n        .z\n        .liveliness()\n        .declare_subscriber(\"**\")\n        .history(true).callback",
+          "lineNumber": 17
+        },
+        {
+          "caller": "main",
+          "callee": "session\n        .z\n        .liveliness()\n        .declare_subscriber(\"**\").history",
+          "lineNumber": 17
+        },
+        {
+          "caller": "main",
+          "callee": "session\n        .z\n        .liveliness().declare_subscriber",
+          "lineNumber": 17
+        },
+        {
+          "caller": "main",
+          "callee": "session\n        .z.liveliness",
+          "lineNumber": 17
+        },
+        {
+          "caller": "main",
+          "callee": "Ok",
+          "lineNumber": 31
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "rust/networking/examples/put_string.rs",
+      "language": "rust",
+      "fileCategory": "code",
+      "totalLines": 48,
+      "nonEmptyLines": 44,
+      "functions": [
+        {
+          "name": "main",
+          "startLine": 9,
+          "endLine": 48,
+          "params": []
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "main",
+          "callee": "env_logger::try_init_from_env(Env::new().default_filter_or(\"info\")).expect",
+          "lineNumber": 10
+        },
+        {
+          "caller": "main",
+          "callee": "env_logger::try_init_from_env",
+          "lineNumber": 10
+        },
+        {
+          "caller": "main",
+          "callee": "Env::new().default_filter_or",
+          "lineNumber": 10
+        },
+        {
+          "caller": "main",
+          "callee": "Env::new",
+          "lineNumber": 10
+        },
+        {
+          "caller": "main",
+          "callee": "env::args()\n        .nth(1)\n        .and_then(|it| it.parse::<usize>().ok()).expect",
+          "lineNumber": 11
+        },
+        {
+          "caller": "main",
+          "callee": "env::args()\n        .nth(1).and_then",
+          "lineNumber": 11
+        },
+        {
+          "caller": "main",
+          "callee": "env::args().nth",
+          "lineNumber": 11
+        },
+        {
+          "caller": "main",
+          "callee": "env::args",
+          "lineNumber": 11
+        },
+        {
+          "caller": "main",
+          "callee": "it.parse::<usize>().ok",
+          "lineNumber": 13
+        },
+        {
+          "caller": "main",
+          "callee": "it.parse::<usize>",
+          "lineNumber": 13
+        },
+        {
+          "caller": "main",
+          "callee": "networking::cfg",
+          "lineNumber": 16
+        },
+        {
+          "caller": "main",
+          "callee": "networking::open",
+          "lineNumber": 17
+        },
+        {
+          "caller": "main",
+          "callee": "session\n        .z\n        .liveliness().declare_token",
+          "lineNumber": 18
+        },
+        {
+          "caller": "main",
+          "callee": "session\n        .z.liveliness",
+          "lineNumber": 18
+        },
+        {
+          "caller": "main",
+          "callee": "\"n\".repeat",
+          "lineNumber": 24
+        },
+        {
+          "caller": "main",
+          "callee": "session\n        .z\n        .declare_publisher(key_expr).congestion_control",
+          "lineNumber": 26
+        },
+        {
+          "caller": "main",
+          "callee": "session\n        .z.declare_publisher",
+          "lineNumber": 26
+        },
+        {
+          "caller": "main",
+          "callee": "pubs.matching_listener",
+          "lineNumber": 31
+        },
+        {
+          "caller": "main",
+          "callee": "pubs.matching_status().await?.matching",
+          "lineNumber": 32
+        },
+        {
+          "caller": "main",
+          "callee": "pubs.matching_status",
+          "lineNumber": 32
+        },
+        {
+          "caller": "main",
+          "callee": "pubs_l.recv_async().await?.matching",
+          "lineNumber": 33
+        },
+        {
+          "caller": "main",
+          "callee": "pubs_l.recv_async",
+          "lineNumber": 33
+        },
+        {
+          "caller": "main",
+          "callee": "tokio::time::sleep",
+          "lineNumber": 36
+        },
+        {
+          "caller": "main",
+          "callee": "Duration::from_secs",
+          "lineNumber": 36
+        },
+        {
+          "caller": "main",
+          "callee": "tokio::time::Instant::now",
+          "lineNumber": 39
+        },
+        {
+          "caller": "main",
+          "callee": "pubs.put",
+          "lineNumber": 41
+        },
+        {
+          "caller": "main",
+          "callee": "payload.clone",
+          "lineNumber": 41
+        },
+        {
+          "caller": "main",
+          "callee": "tokio::time::sleep",
+          "lineNumber": 44
+        },
+        {
+          "caller": "main",
+          "callee": "Duration::from_secs",
+          "lineNumber": 44
+        },
+        {
+          "caller": "main",
+          "callee": "tokio::signal::ctrl_c",
+          "lineNumber": 46
+        },
+        {
+          "caller": "main",
+          "callee": "Ok",
+          "lineNumber": 47
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    }
+  ]
+}

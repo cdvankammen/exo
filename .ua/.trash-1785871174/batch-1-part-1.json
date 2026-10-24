@@ -1,0 +1,1618 @@
+{
+ "nodes": [
+  {
+   "id": "file:src/exo/shared/constants.py",
+   "type": "file",
+   "name": "constants.py",
+   "filePath": "src/exo/shared/constants.py",
+   "summary": "Resolves XDG-compatible directory paths (EXO_HOME, cache, data, config) used across the exo cluster for local storage.",
+   "tags": [
+    "utility",
+    "filesystem",
+    "configuration"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:src/exo/shared/tests/test_node_id_persistence.py",
+   "type": "file",
+   "name": "test_node_id_persistence.py",
+   "filePath": "src/exo/shared/tests/test_node_id_persistence.py",
+   "summary": "Tests that a stable node ID keypair is generated, persisted, and shared across concurrent processes via the router.",
+   "tags": [
+    "test",
+    "node-identity",
+    "persistence"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:src/exo/shared/tracing.py",
+   "type": "file",
+   "name": "tracing.py",
+   "filePath": "src/exo/shared/tracing.py",
+   "summary": "Provides trace recording, buffering, export, and statistics for distributed inference spans (TraceEvent), used to profile cluster execution.",
+   "tags": [
+    "tracing",
+    "telemetry",
+    "performance"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:src/exo/utils/banner.py",
+   "type": "file",
+   "name": "banner.py",
+   "filePath": "src/exo/utils/banner.py",
+   "summary": "Prints an ASCII startup banner on first run of exo, gated by a marker file.",
+   "tags": [
+    "utility",
+    "cli",
+    "startup"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:src/exo/utils/dashboard_path.py",
+   "type": "file",
+   "name": "dashboard_path.py",
+   "filePath": "src/exo/utils/dashboard_path.py",
+   "summary": "Locates the compiled dashboard build directory either inside the source repo or within the packaged app bundle.",
+   "tags": [
+    "utility",
+    "dashboard",
+    "packaging"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:src/exo/worker/engines/image/__init__.py",
+   "type": "file",
+   "name": "__init__.py",
+   "filePath": "src/exo/worker/engines/image/__init__.py",
+   "summary": "Package entry point re-exporting the image engine public API (MfluxBuilder, ImageEngine, DistributedImageModel, generate_image).",
+   "tags": [
+    "entry-point",
+    "barrel",
+    "exports"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:src/exo/worker/engines/image/builder.py",
+   "type": "file",
+   "name": "builder.py",
+   "filePath": "src/exo/worker/engines/image/builder.py",
+   "summary": "Defines MfluxBuilder and ImageEngine that build and run image-generation models (Mflux) inside the worker, emitting trace events.",
+   "tags": [
+    "builder",
+    "engine",
+    "image-generation"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:src/exo/worker/engines/image/config.py",
+   "type": "file",
+   "name": "config.py",
+   "filePath": "src/exo/worker/engines/image/config.py",
+   "summary": "Pydantic configuration models describing image model families, transformer block layouts, and sampling defaults for the diffusion engines.",
+   "tags": [
+    "data-model",
+    "configuration",
+    "image-generation"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:src/exo/worker/engines/image/distributed_model.py",
+   "type": "file",
+   "name": "distributed_model.py",
+   "filePath": "src/exo/worker/engines/image/distributed_model.py",
+   "summary": "DistributedImageModel wraps a downloaded image model, resolving its config and adapter, and exposes generate() for distributed image inference.",
+   "tags": [
+    "data-model",
+    "engine",
+    "image-generation",
+    "distributed"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:src/exo/worker/engines/image/generate.py",
+   "type": "file",
+   "name": "generate.py",
+   "filePath": "src/exo/worker/engines/image/generate.py",
+   "summary": "Implements image generation orchestration: parsing sizes, warming up generators, and streaming ImageChunks from DistributedImageModel.generate().",
+   "tags": [
+    "image-generation",
+    "generator",
+    "api-handler"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "file:src/exo/worker/engines/image/models/__init__.py",
+   "type": "file",
+   "name": "__init__.py",
+   "filePath": "src/exo/worker/engines/image/models/__init__.py",
+   "summary": "Registry and factory functions mapping model IDs to ImageModelConfigs and model families to concrete ModelAdapter classes.",
+   "tags": [
+    "factory",
+    "registry",
+    "image-generation"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:src/exo/worker/engines/image/models/base.py",
+   "type": "file",
+   "name": "base.py",
+   "filePath": "src/exo/worker/engines/image/models/base.py",
+   "summary": "Defines the abstract PromptData and ModelAdapter base classes that all image model adapters (Flux/Qwen) implement.",
+   "tags": [
+    "data-model",
+    "abstraction",
+    "image-generation"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "file:src/exo/worker/engines/image/models/flux/__init__.py",
+   "type": "file",
+   "name": "__init__.py",
+   "filePath": "src/exo/worker/engines/image/models/flux/__init__.py",
+   "summary": "Package entry point re-exporting Flux model config presets and adapter classes.",
+   "tags": [
+    "entry-point",
+    "barrel",
+    "exports"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:src/exo/worker/engines/image/models/flux/adapter.py",
+   "type": "file",
+   "name": "adapter.py",
+   "filePath": "src/exo/worker/engines/image/models/flux/adapter.py",
+   "summary": "Flux-specific PromptData and ModelAdapter implementations translating prompt and parameter data into Mflux model inputs.",
+   "tags": [
+    "adapter",
+    "image-generation",
+    "data-model"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:src/exo/shared/constants.py:_get_xdg_dir",
+   "type": "function",
+   "name": "_get_xdg_dir",
+   "filePath": "src/exo/shared/constants.py",
+   "lineRange": [
+    10,
+    22
+   ],
+   "summary": "Resolves the XDG directory for a given kind, prioritising EXO_HOME and falling back to ~/.exo on non-Linux platforms.",
+   "tags": [
+    "utility",
+    "filesystem"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/shared/constants.py:_parse_colon_dirs",
+   "type": "function",
+   "name": "_parse_colon_dirs",
+   "filePath": "src/exo/shared/constants.py",
+   "lineRange": [
+    38,
+    42
+   ],
+   "summary": "Splits a colon-separated directory list into an ordered tuple of paths.",
+   "tags": [
+    "utility",
+    "filesystem"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/shared/tests/test_node_id_persistence.py:_get_keypair_concurrent",
+   "type": "function",
+   "name": "_get_keypair_concurrent",
+   "filePath": "src/exo/shared/tests/test_node_id_persistence.py",
+   "lineRange": [
+    29,
+    69
+   ],
+   "summary": "Spawns multiple concurrent subprocesses that each fetch the node ID keypair and asserts all return the same stable identity.",
+   "tags": [
+    "test",
+    "node-identity"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:src/exo/shared/tests/test_node_id_persistence.py:test_node_id_fetching",
+   "type": "function",
+   "name": "test_node_id_fetching",
+   "filePath": "src/exo/shared/tests/test_node_id_persistence.py",
+   "lineRange": [
+    78,
+    93
+   ],
+   "summary": "End-to-end test verifying the router returns a persistent node ID across calls.",
+   "tags": [
+    "test",
+    "node-identity"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/shared/tracing.py:_record_span",
+   "type": "function",
+   "name": "_record_span",
+   "filePath": "src/exo/shared/tracing.py",
+   "lineRange": [
+    65,
+    76
+   ],
+   "summary": "Records a trace span into the in-memory buffer with timing, rank, and category.",
+   "tags": [
+    "tracing",
+    "telemetry"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/shared/tracing.py:trace",
+   "type": "function",
+   "name": "trace",
+   "filePath": "src/exo/shared/tracing.py",
+   "lineRange": [
+    80,
+    119
+   ],
+   "summary": "Decorator that records function-call spans (optionally only when enabled) for distributed profiling.",
+   "tags": [
+    "tracing",
+    "decorator",
+    "telemetry"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:src/exo/shared/tracing.py:export_trace",
+   "type": "function",
+   "name": "export_trace",
+   "filePath": "src/exo/shared/tracing.py",
+   "lineRange": [
+    130,
+    166
+   ],
+   "summary": "Serialises and exports the accumulated trace buffer, e.g. for upload or persistence.",
+   "tags": [
+    "tracing",
+    "serialization"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:src/exo/shared/tracing.py:load_trace_file",
+   "type": "function",
+   "name": "load_trace_file",
+   "filePath": "src/exo/shared/tracing.py",
+   "lineRange": [
+    169,
+    208
+   ],
+   "summary": "Loads a previously exported trace file back into trace events.",
+   "tags": [
+    "tracing",
+    "serialization"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:src/exo/shared/tracing.py:compute_stats",
+   "type": "function",
+   "name": "compute_stats",
+   "filePath": "src/exo/shared/tracing.py",
+   "lineRange": [
+    211,
+    238
+   ],
+   "summary": "Computes per-category statistics (counts, durations) from collected TraceEvents.",
+   "tags": [
+    "tracing",
+    "statistics"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "class:src/exo/shared/tracing.py:CategoryStats",
+   "type": "class",
+   "name": "CategoryStats",
+   "filePath": "src/exo/shared/tracing.py",
+   "lineRange": [
+    32,
+    50
+   ],
+   "summary": "Aggregates counts and duration stats for a trace category.",
+   "tags": [
+    "data-model",
+    "tracing"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/utils/banner.py:print_startup_banner",
+   "type": "function",
+   "name": "print_startup_banner",
+   "filePath": "src/exo/utils/banner.py",
+   "lineRange": [
+    22,
+    62
+   ],
+   "summary": "Prints the exo ASCII banner plus a first-run hint, marking the first-run state afterwards.",
+   "tags": [
+    "utility",
+    "cli",
+    "startup"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:src/exo/utils/dashboard_path.py:find_resources",
+   "type": "function",
+   "name": "find_resources",
+   "filePath": "src/exo/utils/dashboard_path.py",
+   "lineRange": [
+    6,
+    12
+   ],
+   "summary": "Locates the bundled resources directory for the app.",
+   "tags": [
+    "utility",
+    "dashboard"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/utils/dashboard_path.py:_find_resources_in_repo",
+   "type": "function",
+   "name": "_find_resources_in_repo",
+   "filePath": "src/exo/utils/dashboard_path.py",
+   "lineRange": [
+    15,
+    21
+   ],
+   "summary": "Resolves the resources directory when running from the source repository.",
+   "tags": [
+    "utility",
+    "dashboard"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/utils/dashboard_path.py:_find_resources_in_bundle",
+   "type": "function",
+   "name": "_find_resources_in_bundle",
+   "filePath": "src/exo/utils/dashboard_path.py",
+   "lineRange": [
+    24,
+    31
+   ],
+   "summary": "Resolves the resources directory inside a packaged app bundle.",
+   "tags": [
+    "utility",
+    "packaging"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/utils/dashboard_path.py:find_dashboard",
+   "type": "function",
+   "name": "find_dashboard",
+   "filePath": "src/exo/utils/dashboard_path.py",
+   "lineRange": [
+    34,
+    40
+   ],
+   "summary": "Returns the path to the compiled dashboard build directory.",
+   "tags": [
+    "utility",
+    "dashboard"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/utils/dashboard_path.py:_find_dashboard_in_repo",
+   "type": "function",
+   "name": "_find_dashboard_in_repo",
+   "filePath": "src/exo/utils/dashboard_path.py",
+   "lineRange": [
+    43,
+    49
+   ],
+   "summary": "Finds dashboard/build inside the source repository layout.",
+   "tags": [
+    "utility",
+    "dashboard"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/utils/dashboard_path.py:_find_dashboard_in_bundle",
+   "type": "function",
+   "name": "_find_dashboard_in_bundle",
+   "filePath": "src/exo/utils/dashboard_path.py",
+   "lineRange": [
+    52,
+    59
+   ],
+   "summary": "Finds the dashboard build inside the packaged bundle resources.",
+   "tags": [
+    "utility",
+    "packaging"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/worker/engines/image/builder.py:_is_primary_output_node",
+   "type": "function",
+   "name": "_is_primary_output_node",
+   "filePath": "src/exo/worker/engines/image/builder.py",
+   "lineRange": [
+    52,
+    65
+   ],
+   "summary": "Determines whether the current node is the primary output node for an image task.",
+   "tags": [
+    "image-generation",
+    "distributed"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/worker/engines/image/builder.py:_send_traces_if_enabled",
+   "type": "function",
+   "name": "_send_traces_if_enabled",
+   "filePath": "src/exo/worker/engines/image/builder.py",
+   "lineRange": [
+    68,
+    95
+   ],
+   "summary": "Sends collected trace spans to the master when tracing is enabled for the task.",
+   "tags": [
+    "tracing",
+    "telemetry"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "class:src/exo/worker/engines/image/builder.py:MfluxBuilder",
+   "type": "class",
+   "name": "MfluxBuilder",
+   "filePath": "src/exo/worker/engines/image/builder.py",
+   "lineRange": [
+    99,
+    133
+   ],
+   "summary": "Builder that constructs Mflux-based image model instances for a given model ID.",
+   "tags": [
+    "builder",
+    "image-generation"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "class:src/exo/worker/engines/image/builder.py:ImageEngine",
+   "type": "class",
+   "name": "ImageEngine",
+   "filePath": "src/exo/worker/engines/image/builder.py",
+   "lineRange": [
+    137,
+    224
+   ],
+   "summary": "Engine that builds and runs image generation tasks on the worker, wiring the distributed model and trace emission.",
+   "tags": [
+    "engine",
+    "image-generation",
+    "service"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "class:src/exo/worker/engines/image/config.py:ImageModelConfig",
+   "type": "class",
+   "name": "ImageModelConfig",
+   "filePath": "src/exo/worker/engines/image/config.py",
+   "lineRange": [
+    19,
+    46
+   ],
+   "summary": "Configuration for an image model family: block layout, default sampling steps, sync steps, and guidance scale.",
+   "tags": [
+    "data-model",
+    "configuration"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/worker/engines/image/distributed_model.py:DistributedImageModel",
+   "type": "class",
+   "name": "DistributedImageModel",
+   "filePath": "src/exo/worker/engines/image/distributed_model.py",
+   "lineRange": [
+    28,
+    170
+   ],
+   "summary": "Wraps a downloaded image model with its resolved config and adapter, exposing the generate() entry point for distributed image inference.",
+   "tags": [
+    "data-model",
+    "engine",
+    "distributed"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:src/exo/worker/engines/image/generate.py:parse_size",
+   "type": "function",
+   "name": "parse_size",
+   "filePath": "src/exo/worker/engines/image/generate.py",
+   "lineRange": [
+    27,
+    43
+   ],
+   "summary": "Parses an image size string into (width, height) dimensions.",
+   "tags": [
+    "utility",
+    "image-generation"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/worker/engines/image/generate.py:warmup_image_generator",
+   "type": "function",
+   "name": "warmup_image_generator",
+   "filePath": "src/exo/worker/engines/image/generate.py",
+   "lineRange": [
+    46,
+    66
+   ],
+   "summary": "Runs a low-quality dummy generation to warm up the image engine.",
+   "tags": [
+    "image-generation",
+    "warmup"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/worker/engines/image/generate.py:generate_image",
+   "type": "function",
+   "name": "generate_image",
+   "filePath": "src/exo/worker/engines/image/generate.py",
+   "lineRange": [
+    69,
+    193
+   ],
+   "summary": "Orchestrates image generation: parses size, seeds, handles edits, and streams ImageChunks from the DistributedImageModel.",
+   "tags": [
+    "image-generation",
+    "generator",
+    "api-handler"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "function:src/exo/worker/engines/image/generate.py:_process_image_response",
+   "type": "function",
+   "name": "_process_image_response",
+   "filePath": "src/exo/worker/engines/image/generate.py",
+   "lineRange": [
+    196,
+    235
+   ],
+   "summary": "Converts a raw image result into the ImageChunk stream sent back to the API.",
+   "tags": [
+    "image-generation",
+    "serialization"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:src/exo/worker/engines/image/models/__init__.py:get_config_for_model",
+   "type": "function",
+   "name": "get_config_for_model",
+   "filePath": "src/exo/worker/engines/image/models/__init__.py",
+   "lineRange": [
+    48,
+    66
+   ],
+   "summary": "Looks up the ImageModelConfig for a model ID via pattern matching over the config registry.",
+   "tags": [
+    "factory",
+    "registry"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/worker/engines/image/models/__init__.py:create_adapter_for_model",
+   "type": "function",
+   "name": "create_adapter_for_model",
+   "filePath": "src/exo/worker/engines/image/models/__init__.py",
+   "lineRange": [
+    69,
+    92
+   ],
+   "summary": "Creates the concrete ModelAdapter for a model family via the adapter registry.",
+   "tags": [
+    "factory",
+    "registry"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/worker/engines/image/models/base.py:PromptData",
+   "type": "class",
+   "name": "PromptData",
+   "filePath": "src/exo/worker/engines/image/models/base.py",
+   "lineRange": [
+    25,
+    121
+   ],
+   "summary": "Abstract base class for image model prompt/parameter data, implemented per model family (Flux, Qwen).",
+   "tags": [
+    "data-model",
+    "abstraction"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "class:src/exo/worker/engines/image/models/base.py:ModelAdapter",
+   "type": "class",
+   "name": "ModelAdapter",
+   "filePath": "src/exo/worker/engines/image/models/base.py",
+   "lineRange": [
+    124,
+    329
+   ],
+   "summary": "Abstract base class (ABC, Generic) defining the adapter contract between image models and the distributed diffusion engine.",
+   "tags": [
+    "adapter",
+    "abstraction"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "class:src/exo/worker/engines/image/models/flux/adapter.py:FluxPromptData",
+   "type": "class",
+   "name": "FluxPromptData",
+   "filePath": "src/exo/worker/engines/image/models/flux/adapter.py",
+   "lineRange": [
+    28,
+    75
+   ],
+   "summary": "Flux-specific prompt data with text, image, and parameter handling for Mflux models.",
+   "tags": [
+    "data-model",
+    "adapter"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "class:src/exo/worker/engines/image/models/flux/adapter.py:FluxModelAdapter",
+   "type": "class",
+   "name": "FluxModelAdapter",
+   "filePath": "src/exo/worker/engines/image/models/flux/adapter.py",
+   "lineRange": [
+    78,
+    225
+   ],
+   "summary": "ModelAdapter implementation that translates Flux prompts and parameters into Mflux model inputs.",
+   "tags": [
+    "adapter",
+    "image-generation"
+   ],
+   "complexity": "complex"
+  }
+ ],
+ "edges": [
+  {
+   "source": "file:src/exo/shared/constants.py",
+   "target": "function:src/exo/shared/constants.py:_get_xdg_dir",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/shared/constants.py",
+   "target": "function:src/exo/shared/constants.py:_get_xdg_dir",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/shared/constants.py",
+   "target": "function:src/exo/shared/constants.py:_parse_colon_dirs",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/shared/constants.py",
+   "target": "function:src/exo/shared/constants.py:_parse_colon_dirs",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/shared/tests/test_node_id_persistence.py",
+   "target": "function:src/exo/shared/tests/test_node_id_persistence.py:_get_keypair_concurrent",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/shared/tests/test_node_id_persistence.py",
+   "target": "function:src/exo/shared/tests/test_node_id_persistence.py:_get_keypair_concurrent",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/shared/tests/test_node_id_persistence.py",
+   "target": "function:src/exo/shared/tests/test_node_id_persistence.py:test_node_id_fetching",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/shared/tests/test_node_id_persistence.py",
+   "target": "function:src/exo/shared/tests/test_node_id_persistence.py:test_node_id_fetching",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/shared/tracing.py",
+   "target": "function:src/exo/shared/tracing.py:_record_span",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/shared/tracing.py",
+   "target": "function:src/exo/shared/tracing.py:_record_span",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/shared/tracing.py",
+   "target": "function:src/exo/shared/tracing.py:trace",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/shared/tracing.py",
+   "target": "function:src/exo/shared/tracing.py:trace",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/shared/tracing.py",
+   "target": "function:src/exo/shared/tracing.py:export_trace",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/shared/tracing.py",
+   "target": "function:src/exo/shared/tracing.py:export_trace",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/shared/tracing.py",
+   "target": "function:src/exo/shared/tracing.py:load_trace_file",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/shared/tracing.py",
+   "target": "function:src/exo/shared/tracing.py:load_trace_file",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/shared/tracing.py",
+   "target": "function:src/exo/shared/tracing.py:compute_stats",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/shared/tracing.py",
+   "target": "function:src/exo/shared/tracing.py:compute_stats",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/shared/tracing.py",
+   "target": "class:src/exo/shared/tracing.py:CategoryStats",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/shared/tracing.py",
+   "target": "class:src/exo/shared/tracing.py:CategoryStats",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/utils/banner.py",
+   "target": "function:src/exo/utils/banner.py:print_startup_banner",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/utils/banner.py",
+   "target": "function:src/exo/utils/banner.py:print_startup_banner",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/utils/dashboard_path.py",
+   "target": "function:src/exo/utils/dashboard_path.py:find_resources",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/utils/dashboard_path.py",
+   "target": "function:src/exo/utils/dashboard_path.py:find_resources",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/utils/dashboard_path.py",
+   "target": "function:src/exo/utils/dashboard_path.py:_find_resources_in_repo",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/utils/dashboard_path.py",
+   "target": "function:src/exo/utils/dashboard_path.py:_find_resources_in_repo",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/utils/dashboard_path.py",
+   "target": "function:src/exo/utils/dashboard_path.py:_find_resources_in_bundle",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/utils/dashboard_path.py",
+   "target": "function:src/exo/utils/dashboard_path.py:_find_resources_in_bundle",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/utils/dashboard_path.py",
+   "target": "function:src/exo/utils/dashboard_path.py:find_dashboard",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/utils/dashboard_path.py",
+   "target": "function:src/exo/utils/dashboard_path.py:find_dashboard",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/utils/dashboard_path.py",
+   "target": "function:src/exo/utils/dashboard_path.py:_find_dashboard_in_repo",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/utils/dashboard_path.py",
+   "target": "function:src/exo/utils/dashboard_path.py:_find_dashboard_in_repo",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/utils/dashboard_path.py",
+   "target": "function:src/exo/utils/dashboard_path.py:_find_dashboard_in_bundle",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/utils/dashboard_path.py",
+   "target": "function:src/exo/utils/dashboard_path.py:_find_dashboard_in_bundle",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/engines/image/builder.py",
+   "target": "function:src/exo/worker/engines/image/builder.py:_is_primary_output_node",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/engines/image/builder.py",
+   "target": "function:src/exo/worker/engines/image/builder.py:_is_primary_output_node",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/engines/image/builder.py",
+   "target": "function:src/exo/worker/engines/image/builder.py:_send_traces_if_enabled",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/engines/image/builder.py",
+   "target": "function:src/exo/worker/engines/image/builder.py:_send_traces_if_enabled",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/engines/image/builder.py",
+   "target": "class:src/exo/worker/engines/image/builder.py:MfluxBuilder",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/engines/image/builder.py",
+   "target": "class:src/exo/worker/engines/image/builder.py:MfluxBuilder",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/engines/image/builder.py",
+   "target": "class:src/exo/worker/engines/image/builder.py:ImageEngine",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/engines/image/builder.py",
+   "target": "class:src/exo/worker/engines/image/builder.py:ImageEngine",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/engines/image/config.py",
+   "target": "class:src/exo/worker/engines/image/config.py:ImageModelConfig",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/engines/image/config.py",
+   "target": "class:src/exo/worker/engines/image/config.py:ImageModelConfig",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/engines/image/distributed_model.py",
+   "target": "class:src/exo/worker/engines/image/distributed_model.py:DistributedImageModel",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/engines/image/distributed_model.py",
+   "target": "class:src/exo/worker/engines/image/distributed_model.py:DistributedImageModel",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/engines/image/generate.py",
+   "target": "function:src/exo/worker/engines/image/generate.py:parse_size",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/engines/image/generate.py",
+   "target": "function:src/exo/worker/engines/image/generate.py:parse_size",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/engines/image/generate.py",
+   "target": "function:src/exo/worker/engines/image/generate.py:warmup_image_generator",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/engines/image/generate.py",
+   "target": "function:src/exo/worker/engines/image/generate.py:warmup_image_generator",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/engines/image/generate.py",
+   "target": "function:src/exo/worker/engines/image/generate.py:generate_image",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/engines/image/generate.py",
+   "target": "function:src/exo/worker/engines/image/generate.py:generate_image",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/engines/image/generate.py",
+   "target": "function:src/exo/worker/engines/image/generate.py:_process_image_response",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/engines/image/generate.py",
+   "target": "function:src/exo/worker/engines/image/generate.py:_process_image_response",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/engines/image/models/__init__.py",
+   "target": "function:src/exo/worker/engines/image/models/__init__.py:get_config_for_model",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/engines/image/models/__init__.py",
+   "target": "function:src/exo/worker/engines/image/models/__init__.py:get_config_for_model",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/engines/image/models/__init__.py",
+   "target": "function:src/exo/worker/engines/image/models/__init__.py:create_adapter_for_model",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/engines/image/models/__init__.py",
+   "target": "function:src/exo/worker/engines/image/models/__init__.py:create_adapter_for_model",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/engines/image/models/base.py",
+   "target": "class:src/exo/worker/engines/image/models/base.py:PromptData",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/engines/image/models/base.py",
+   "target": "class:src/exo/worker/engines/image/models/base.py:PromptData",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/engines/image/models/base.py",
+   "target": "class:src/exo/worker/engines/image/models/base.py:ModelAdapter",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/engines/image/models/base.py",
+   "target": "class:src/exo/worker/engines/image/models/base.py:ModelAdapter",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/engines/image/models/flux/adapter.py",
+   "target": "class:src/exo/worker/engines/image/models/flux/adapter.py:FluxPromptData",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/engines/image/models/flux/adapter.py",
+   "target": "class:src/exo/worker/engines/image/models/flux/adapter.py:FluxPromptData",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/engines/image/models/flux/adapter.py",
+   "target": "class:src/exo/worker/engines/image/models/flux/adapter.py:FluxModelAdapter",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/engines/image/models/flux/adapter.py",
+   "target": "class:src/exo/worker/engines/image/models/flux/adapter.py:FluxModelAdapter",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "class:src/exo/worker/engines/image/models/flux/adapter.py:FluxPromptData",
+   "target": "class:src/exo/worker/engines/image/models/base.py:PromptData",
+   "type": "inherits",
+   "direction": "forward",
+   "weight": 0.9
+  },
+  {
+   "source": "class:src/exo/worker/engines/image/models/flux/adapter.py:FluxModelAdapter",
+   "target": "class:src/exo/worker/engines/image/models/base.py:ModelAdapter",
+   "type": "inherits",
+   "direction": "forward",
+   "weight": 0.9
+  },
+  {
+   "source": "class:src/exo/worker/engines/image/builder.py:MfluxBuilder",
+   "target": "class:src/exo/worker/engines/base.py:Builder",
+   "type": "inherits",
+   "direction": "forward",
+   "weight": 0.9
+  },
+  {
+   "source": "class:src/exo/worker/engines/image/builder.py:ImageEngine",
+   "target": "class:src/exo/worker/engines/base.py:Engine",
+   "type": "inherits",
+   "direction": "forward",
+   "weight": 0.9
+  },
+  {
+   "source": "function:src/exo/worker/engines/image/generate.py:generate_image",
+   "target": "class:src/exo/worker/engines/image/distributed_model.py:DistributedImageModel",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:src/exo/worker/engines/image/models/__init__.py:create_adapter_for_model",
+   "target": "class:src/exo/worker/engines/image/models/flux/adapter.py:FluxModelAdapter",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:src/exo/worker/engines/image/models/__init__.py:create_adapter_for_model",
+   "target": "class:src/exo/worker/engines/image/models/flux/kontext_adapter.py:FluxKontextModelAdapter",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:src/exo/worker/engines/image/models/__init__.py:create_adapter_for_model",
+   "target": "class:src/exo/worker/engines/image/models/qwen/adapter.py:QwenModelAdapter",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "function:src/exo/worker/engines/image/models/__init__.py:create_adapter_for_model",
+   "target": "class:src/exo/worker/engines/image/models/qwen/edit_adapter.py:QwenEditModelAdapter",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/shared/constants.py",
+   "target": "file:src/exo/shared/tests/test_node_id_persistence.py",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  },
+  {
+   "source": "file:src/exo/shared/constants.py",
+   "target": "file:src/exo/utils/dashboard_path.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/shared/tests/test_node_id_persistence.py",
+   "target": "file:src/exo/routing/router.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/shared/tests/test_node_id_persistence.py",
+   "target": "file:src/exo/shared/constants.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/shared/tracing.py",
+   "target": "file:src/exo/shared/constants.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/shared/tracing.py",
+   "target": "file:src/exo/worker/runner/bootstrap.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/utils/banner.py",
+   "target": "file:src/exo/shared/constants.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/engines/image/__init__.py",
+   "target": "file:src/exo/worker/engines/image/builder.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/engines/image/__init__.py",
+   "target": "file:src/exo/worker/engines/image/distributed_model.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/engines/image/__init__.py",
+   "target": "file:src/exo/worker/engines/image/generate.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/engines/image/builder.py",
+   "target": "file:src/exo/api/types/__init__.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/engines/image/builder.py",
+   "target": "file:src/exo/shared/constants.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/engines/image/builder.py",
+   "target": "file:src/exo/shared/tracing.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/engines/image/builder.py",
+   "target": "file:src/exo/shared/types/chunks.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/engines/image/builder.py",
+   "target": "file:src/exo/shared/types/events.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/engines/image/builder.py",
+   "target": "file:src/exo/shared/types/tasks.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/engines/image/builder.py",
+   "target": "file:src/exo/shared/types/worker/instances.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/engines/image/builder.py",
+   "target": "file:src/exo/shared/types/worker/runner_response.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/engines/image/builder.py",
+   "target": "file:src/exo/shared/types/worker/shards.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/engines/image/builder.py",
+   "target": "file:src/exo/utils/channels.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/engines/image/builder.py",
+   "target": "file:src/exo/worker/disaggregated/server.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/engines/image/builder.py",
+   "target": "file:src/exo/worker/engines/base.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/engines/image/builder.py",
+   "target": "file:src/exo/worker/engines/image/distributed_model.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/engines/image/builder.py",
+   "target": "file:src/exo/worker/engines/image/generate.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/engines/image/builder.py",
+   "target": "file:src/exo/worker/engines/mlx/utils_mlx.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/engines/image/distributed_model.py",
+   "target": "file:src/exo/api/types/__init__.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/engines/image/distributed_model.py",
+   "target": "file:src/exo/download/download_utils.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/engines/image/distributed_model.py",
+   "target": "file:src/exo/shared/types/common.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/engines/image/distributed_model.py",
+   "target": "file:src/exo/shared/types/worker/shards.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/engines/image/distributed_model.py",
+   "target": "file:src/exo/worker/engines/image/config.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/engines/image/distributed_model.py",
+   "target": "file:src/exo/worker/engines/image/models/__init__.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/engines/image/distributed_model.py",
+   "target": "file:src/exo/worker/engines/image/models/base.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/engines/image/distributed_model.py",
+   "target": "file:src/exo/worker/engines/image/pipeline/__init__.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/engines/image/distributed_model.py",
+   "target": "file:src/exo/worker/engines/mlx/utils_mlx.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/engines/image/distributed_model.py",
+   "target": "file:src/exo/worker/runner/bootstrap.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/engines/image/generate.py",
+   "target": "file:src/exo/api/types/__init__.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/engines/image/generate.py",
+   "target": "file:src/exo/shared/constants.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/engines/image/generate.py",
+   "target": "file:src/exo/shared/types/chunks.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/engines/image/generate.py",
+   "target": "file:src/exo/shared/types/common.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/engines/image/generate.py",
+   "target": "file:src/exo/shared/types/memory.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/engines/image/generate.py",
+   "target": "file:src/exo/worker/engines/image/distributed_model.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/engines/image/models/__init__.py",
+   "target": "file:src/exo/worker/engines/image/config.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/engines/image/models/__init__.py",
+   "target": "file:src/exo/worker/engines/image/models/base.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/engines/image/models/__init__.py",
+   "target": "file:src/exo/worker/engines/image/models/flux/__init__.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/engines/image/models/__init__.py",
+   "target": "file:src/exo/worker/engines/image/models/qwen/__init__.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/engines/image/models/base.py",
+   "target": "file:src/exo/worker/engines/image/config.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/engines/image/models/flux/__init__.py",
+   "target": "file:src/exo/worker/engines/image/models/flux/adapter.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/engines/image/models/flux/__init__.py",
+   "target": "file:src/exo/worker/engines/image/models/flux/config.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/engines/image/models/flux/__init__.py",
+   "target": "file:src/exo/worker/engines/image/models/flux/kontext_adapter.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/engines/image/models/flux/adapter.py",
+   "target": "file:src/exo/worker/engines/image/config.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/engines/image/models/flux/adapter.py",
+   "target": "file:src/exo/worker/engines/image/models/base.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/engines/image/models/flux/adapter.py",
+   "target": "file:src/exo/worker/engines/image/models/flux/wrappers.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/engines/image/models/flux/adapter.py",
+   "target": "file:src/exo/worker/engines/image/pipeline/block_wrapper.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  }
+ ]
+}

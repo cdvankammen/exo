@@ -1,0 +1,5269 @@
+{
+ "nodes": [
+  {
+   "id": "file:.typings/mlx_lm/convert.pyi",
+   "type": "file",
+   "name": "convert.pyi",
+   "filePath": ".typings/mlx_lm/convert.pyi",
+   "summary": "Defines 4 function(s) and 0 class(es) for .typings/mlx_lm/convert.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.typings/mlx_lm/generate.pyi",
+   "type": "file",
+   "name": "generate.pyi",
+   "filePath": ".typings/mlx_lm/generate.pyi",
+   "summary": "Defines 11 function(s) and 7 class(es) for .typings/mlx_lm/generate.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "file:.typings/mlx_lm/models/__init__.pyi",
+   "type": "file",
+   "name": "__init__.pyi",
+   "filePath": ".typings/mlx_lm/models/__init__.pyi",
+   "summary": "__init__.pyi \u2014 code file in the exo project.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:.typings/mlx_lm/models/activations.pyi",
+   "type": "file",
+   "name": "activations.pyi",
+   "filePath": ".typings/mlx_lm/models/activations.pyi",
+   "summary": "Defines 2 function(s) and 1 class(es) for .typings/mlx_lm/models/activations.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.typings/mlx_lm/models/base.pyi",
+   "type": "file",
+   "name": "base.pyi",
+   "filePath": ".typings/mlx_lm/models/base.pyi",
+   "summary": "Defines 5 function(s) and 1 class(es) for .typings/mlx_lm/models/base.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.typings/mlx_lm/models/bitlinear_layers.pyi",
+   "type": "file",
+   "name": "bitlinear_layers.pyi",
+   "filePath": ".typings/mlx_lm/models/bitlinear_layers.pyi",
+   "summary": "Defines 2 function(s) and 1 class(es) for .typings/mlx_lm/models/bitlinear_layers.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.typings/mlx_lm/models/cache.pyi",
+   "type": "file",
+   "name": "cache.pyi",
+   "filePath": ".typings/mlx_lm/models/cache.pyi",
+   "summary": "Defines 6 function(s) and 12 class(es) for .typings/mlx_lm/models/cache.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "file:.typings/mlx_lm/models/deepseek_v3.pyi",
+   "type": "file",
+   "name": "deepseek_v3.pyi",
+   "filePath": ".typings/mlx_lm/models/deepseek_v3.pyi",
+   "summary": "Defines 0 function(s) and 8 class(es) for .typings/mlx_lm/models/deepseek_v3.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.typings/mlx_lm/models/deepseek_v4.pyi",
+   "type": "file",
+   "name": "deepseek_v4.pyi",
+   "filePath": ".typings/mlx_lm/models/deepseek_v4.pyi",
+   "summary": "Defines 0 function(s) and 15 class(es) for .typings/mlx_lm/models/deepseek_v4.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "file:.typings/mlx_lm/models/gated_delta.pyi",
+   "type": "file",
+   "name": "gated_delta.pyi",
+   "filePath": ".typings/mlx_lm/models/gated_delta.pyi",
+   "summary": "Defines 4 function(s) and 0 class(es) for .typings/mlx_lm/models/gated_delta.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.typings/mlx_lm/models/gemma4.pyi",
+   "type": "file",
+   "name": "gemma4.pyi",
+   "filePath": ".typings/mlx_lm/models/gemma4.pyi",
+   "summary": "Defines 0 function(s) and 2 class(es) for .typings/mlx_lm/models/gemma4.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.typings/mlx_lm/models/gemma4_text.pyi",
+   "type": "file",
+   "name": "gemma4_text.pyi",
+   "filePath": ".typings/mlx_lm/models/gemma4_text.pyi",
+   "summary": "Defines 0 function(s) and 8 class(es) for .typings/mlx_lm/models/gemma4_text.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.typings/mlx_lm/models/glm4_moe.pyi",
+   "type": "file",
+   "name": "glm4_moe.pyi",
+   "filePath": ".typings/mlx_lm/models/glm4_moe.pyi",
+   "summary": "Defines 0 function(s) and 8 class(es) for .typings/mlx_lm/models/glm4_moe.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.typings/mlx_lm/models/glm_moe_dsa.pyi",
+   "type": "file",
+   "name": "glm_moe_dsa.pyi",
+   "filePath": ".typings/mlx_lm/models/glm_moe_dsa.pyi",
+   "summary": "Defines 0 function(s) and 2 class(es) for .typings/mlx_lm/models/glm_moe_dsa.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.typings/mlx_lm/models/gpt_oss.pyi",
+   "type": "file",
+   "name": "gpt_oss.pyi",
+   "filePath": ".typings/mlx_lm/models/gpt_oss.pyi",
+   "summary": "Defines 1 function(s) and 6 class(es) for .typings/mlx_lm/models/gpt_oss.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.typings/mlx_lm/models/minimax.pyi",
+   "type": "file",
+   "name": "minimax.pyi",
+   "filePath": ".typings/mlx_lm/models/minimax.pyi",
+   "summary": "Defines 0 function(s) and 6 class(es) for .typings/mlx_lm/models/minimax.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.typings/mlx_lm/models/nemotron_h.pyi",
+   "type": "file",
+   "name": "nemotron_h.pyi",
+   "filePath": ".typings/mlx_lm/models/nemotron_h.pyi",
+   "summary": "Defines 0 function(s) and 9 class(es) for .typings/mlx_lm/models/nemotron_h.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.typings/mlx_lm/models/qwen3_5.pyi",
+   "type": "file",
+   "name": "qwen3_5.pyi",
+   "filePath": ".typings/mlx_lm/models/qwen3_5.pyi",
+   "summary": "Defines 0 function(s) and 7 class(es) for .typings/mlx_lm/models/qwen3_5.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.typings/mlx_lm/models/qwen3_5_moe.pyi",
+   "type": "file",
+   "name": "qwen3_5_moe.pyi",
+   "filePath": ".typings/mlx_lm/models/qwen3_5_moe.pyi",
+   "summary": "Defines 0 function(s) and 2 class(es) for .typings/mlx_lm/models/qwen3_5_moe.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.typings/mlx_lm/models/qwen3_next.pyi",
+   "type": "file",
+   "name": "qwen3_next.pyi",
+   "filePath": ".typings/mlx_lm/models/qwen3_next.pyi",
+   "summary": "Defines 0 function(s) and 8 class(es) for .typings/mlx_lm/models/qwen3_next.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.typings/mlx_lm/models/rope_utils.pyi",
+   "type": "file",
+   "name": "rope_utils.pyi",
+   "filePath": ".typings/mlx_lm/models/rope_utils.pyi",
+   "summary": "Defines 1 function(s) and 3 class(es) for .typings/mlx_lm/models/rope_utils.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.typings/mlx_lm/models/step3p5.pyi",
+   "type": "file",
+   "name": "step3p5.pyi",
+   "filePath": ".typings/mlx_lm/models/step3p5.pyi",
+   "summary": "Defines 0 function(s) and 8 class(es) for .typings/mlx_lm/models/step3p5.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.typings/mlx_lm/models/switch_layers.pyi",
+   "type": "file",
+   "name": "switch_layers.pyi",
+   "filePath": ".typings/mlx_lm/models/switch_layers.pyi",
+   "summary": "Defines 1 function(s) and 5 class(es) for .typings/mlx_lm/models/switch_layers.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.typings/mlx_lm/sample_utils.pyi",
+   "type": "file",
+   "name": "sample_utils.pyi",
+   "filePath": ".typings/mlx_lm/sample_utils.pyi",
+   "summary": "Defines 8 function(s) and 0 class(es) for .typings/mlx_lm/sample_utils.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.typings/mlx_lm/tokenizer_utils.pyi",
+   "type": "file",
+   "name": "tokenizer_utils.pyi",
+   "filePath": ".typings/mlx_lm/tokenizer_utils.pyi",
+   "summary": "Defines 2 function(s) and 6 class(es) for .typings/mlx_lm/tokenizer_utils.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:.typings/mlx_lm/convert.pyi:mixed_quant_predicate_builder",
+   "type": "function",
+   "name": "mixed_quant_predicate_builder",
+   "filePath": ".typings/mlx_lm/convert.pyi",
+   "lineRange": [
+    10,
+    12
+   ],
+   "summary": "Function mixed_quant_predicate_builder in .typings/mlx_lm/convert.pyi.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:.typings/mlx_lm/convert.pyi:convert",
+   "type": "function",
+   "name": "convert",
+   "filePath": ".typings/mlx_lm/convert.pyi",
+   "lineRange": [
+    17,
+    33
+   ],
+   "summary": "Function convert in .typings/mlx_lm/convert.pyi.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:.typings/mlx_lm/convert.pyi:configure_parser",
+   "type": "function",
+   "name": "configure_parser",
+   "filePath": ".typings/mlx_lm/convert.pyi",
+   "lineRange": [
+    34,
+    40
+   ],
+   "summary": "Function configure_parser in .typings/mlx_lm/convert.pyi.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:.typings/mlx_lm/convert.pyi:main",
+   "type": "function",
+   "name": "main",
+   "filePath": ".typings/mlx_lm/convert.pyi",
+   "lineRange": [
+    42,
+    43
+   ],
+   "summary": "Function main in .typings/mlx_lm/convert.pyi.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:.typings/mlx_lm/generate.pyi:str2bool",
+   "type": "function",
+   "name": "str2bool",
+   "filePath": ".typings/mlx_lm/generate.pyi",
+   "lineRange": [
+    27,
+    28
+   ],
+   "summary": "Function str2bool in .typings/mlx_lm/generate.pyi.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:.typings/mlx_lm/generate.pyi:setup_arg_parser",
+   "type": "function",
+   "name": "setup_arg_parser",
+   "filePath": ".typings/mlx_lm/generate.pyi",
+   "lineRange": [
+    29,
+    31
+   ],
+   "summary": "Function setup_arg_parser in .typings/mlx_lm/generate.pyi.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:.typings/mlx_lm/generate.pyi:wired_limit",
+   "type": "function",
+   "name": "wired_limit",
+   "filePath": ".typings/mlx_lm/generate.pyi",
+   "lineRange": [
+    36,
+    46
+   ],
+   "summary": "Function wired_limit in .typings/mlx_lm/generate.pyi.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:.typings/mlx_lm/generate.pyi:maybe_quantize_kv_cache",
+   "type": "function",
+   "name": "maybe_quantize_kv_cache",
+   "filePath": ".typings/mlx_lm/generate.pyi",
+   "lineRange": [
+    76,
+    81
+   ],
+   "summary": "Function maybe_quantize_kv_cache in .typings/mlx_lm/generate.pyi.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:.typings/mlx_lm/generate.pyi:generate_step",
+   "type": "function",
+   "name": "generate_step",
+   "filePath": ".typings/mlx_lm/generate.pyi",
+   "lineRange": [
+    82,
+    129
+   ],
+   "summary": "Function generate_step in .typings/mlx_lm/generate.pyi.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:.typings/mlx_lm/generate.pyi:speculative_generate_step",
+   "type": "function",
+   "name": "speculative_generate_step",
+   "filePath": ".typings/mlx_lm/generate.pyi",
+   "lineRange": [
+    131,
+    175
+   ],
+   "summary": "Function speculative_generate_step in .typings/mlx_lm/generate.pyi.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:.typings/mlx_lm/generate.pyi:stream_generate",
+   "type": "function",
+   "name": "stream_generate",
+   "filePath": ".typings/mlx_lm/generate.pyi",
+   "lineRange": [
+    177,
+    205
+   ],
+   "summary": "Function stream_generate in .typings/mlx_lm/generate.pyi.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:.typings/mlx_lm/generate.pyi:generate",
+   "type": "function",
+   "name": "generate",
+   "filePath": ".typings/mlx_lm/generate.pyi",
+   "lineRange": [
+    207,
+    226
+   ],
+   "summary": "Function generate in .typings/mlx_lm/generate.pyi.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:.typings/mlx_lm/generate.pyi:_merge_caches",
+   "type": "function",
+   "name": "_merge_caches",
+   "filePath": ".typings/mlx_lm/generate.pyi",
+   "lineRange": [
+    228,
+    228
+   ],
+   "summary": "Function _merge_caches in .typings/mlx_lm/generate.pyi.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:.typings/mlx_lm/generate.pyi:batch_generate",
+   "type": "function",
+   "name": "batch_generate",
+   "filePath": ".typings/mlx_lm/generate.pyi",
+   "lineRange": [
+    520,
+    552
+   ],
+   "summary": "Function batch_generate in .typings/mlx_lm/generate.pyi.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:.typings/mlx_lm/generate.pyi:main",
+   "type": "function",
+   "name": "main",
+   "filePath": ".typings/mlx_lm/generate.pyi",
+   "lineRange": [
+    554,
+    555
+   ],
+   "summary": "Function main in .typings/mlx_lm/generate.pyi.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx_lm/generate.pyi:GenerationResponse",
+   "type": "class",
+   "name": "GenerationResponse",
+   "filePath": ".typings/mlx_lm/generate.pyi",
+   "lineRange": [
+    48,
+    74
+   ],
+   "summary": "Class GenerationResponse in .typings/mlx_lm/generate.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx_lm/generate.pyi:BatchStats",
+   "type": "class",
+   "name": "BatchStats",
+   "filePath": ".typings/mlx_lm/generate.pyi",
+   "lineRange": [
+    230,
+    250
+   ],
+   "summary": "Class BatchStats in .typings/mlx_lm/generate.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx_lm/generate.pyi:SequenceStateMachine",
+   "type": "class",
+   "name": "SequenceStateMachine",
+   "filePath": ".typings/mlx_lm/generate.pyi",
+   "lineRange": [
+    252,
+    286
+   ],
+   "summary": "Class SequenceStateMachine in .typings/mlx_lm/generate.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx_lm/generate.pyi:PromptProcessingBatch",
+   "type": "class",
+   "name": "PromptProcessingBatch",
+   "filePath": ".typings/mlx_lm/generate.pyi",
+   "lineRange": [
+    288,
+    355
+   ],
+   "summary": "Class PromptProcessingBatch in .typings/mlx_lm/generate.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "class:.typings/mlx_lm/generate.pyi:GenerationBatch",
+   "type": "class",
+   "name": "GenerationBatch",
+   "filePath": ".typings/mlx_lm/generate.pyi",
+   "lineRange": [
+    357,
+    426
+   ],
+   "summary": "Class GenerationBatch in .typings/mlx_lm/generate.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "class:.typings/mlx_lm/generate.pyi:BatchGenerator",
+   "type": "class",
+   "name": "BatchGenerator",
+   "filePath": ".typings/mlx_lm/generate.pyi",
+   "lineRange": [
+    428,
+    503
+   ],
+   "summary": "Class BatchGenerator in .typings/mlx_lm/generate.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "class:.typings/mlx_lm/generate.pyi:BatchResponse",
+   "type": "class",
+   "name": "BatchResponse",
+   "filePath": ".typings/mlx_lm/generate.pyi",
+   "lineRange": [
+    506,
+    518
+   ],
+   "summary": "Class BatchResponse in .typings/mlx_lm/generate.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:.typings/mlx_lm/models/activations.pyi:swiglu",
+   "type": "function",
+   "name": "swiglu",
+   "filePath": ".typings/mlx_lm/models/activations.pyi",
+   "lineRange": [
+    10,
+    10
+   ],
+   "summary": "Function swiglu in .typings/mlx_lm/models/activations.pyi.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:.typings/mlx_lm/models/activations.pyi:xielu",
+   "type": "function",
+   "name": "xielu",
+   "filePath": ".typings/mlx_lm/models/activations.pyi",
+   "lineRange": [
+    12,
+    13
+   ],
+   "summary": "Function xielu in .typings/mlx_lm/models/activations.pyi.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx_lm/models/activations.pyi:XieLU",
+   "type": "class",
+   "name": "XieLU",
+   "filePath": ".typings/mlx_lm/models/activations.pyi",
+   "lineRange": [
+    15,
+    19
+   ],
+   "summary": "Class XieLU in .typings/mlx_lm/models/activations.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:.typings/mlx_lm/models/base.pyi:create_causal_mask",
+   "type": "function",
+   "name": "create_causal_mask",
+   "filePath": ".typings/mlx_lm/models/base.pyi",
+   "lineRange": [
+    16,
+    23
+   ],
+   "summary": "Function create_causal_mask in .typings/mlx_lm/models/base.pyi.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:.typings/mlx_lm/models/base.pyi:create_attention_mask",
+   "type": "function",
+   "name": "create_attention_mask",
+   "filePath": ".typings/mlx_lm/models/base.pyi",
+   "lineRange": [
+    24,
+    27
+   ],
+   "summary": "Function create_attention_mask in .typings/mlx_lm/models/base.pyi.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:.typings/mlx_lm/models/base.pyi:create_ssm_mask",
+   "type": "function",
+   "name": "create_ssm_mask",
+   "filePath": ".typings/mlx_lm/models/base.pyi",
+   "lineRange": [
+    28,
+    29
+   ],
+   "summary": "Function create_ssm_mask in .typings/mlx_lm/models/base.pyi.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:.typings/mlx_lm/models/base.pyi:quantized_scaled_dot_product_attention",
+   "type": "function",
+   "name": "quantized_scaled_dot_product_attention",
+   "filePath": ".typings/mlx_lm/models/base.pyi",
+   "lineRange": [
+    30,
+    38
+   ],
+   "summary": "Function quantized_scaled_dot_product_attention in .typings/mlx_lm/models/base.pyi.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:.typings/mlx_lm/models/base.pyi:scaled_dot_product_attention",
+   "type": "function",
+   "name": "scaled_dot_product_attention",
+   "filePath": ".typings/mlx_lm/models/base.pyi",
+   "lineRange": [
+    39,
+    47
+   ],
+   "summary": "Function scaled_dot_product_attention in .typings/mlx_lm/models/base.pyi.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx_lm/models/base.pyi:BaseModelArgs",
+   "type": "class",
+   "name": "BaseModelArgs",
+   "filePath": ".typings/mlx_lm/models/base.pyi",
+   "lineRange": [
+    11,
+    14
+   ],
+   "summary": "Class BaseModelArgs in .typings/mlx_lm/models/base.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:.typings/mlx_lm/models/bitlinear_layers.pyi:bitnet_quantize",
+   "type": "function",
+   "name": "bitnet_quantize",
+   "filePath": ".typings/mlx_lm/models/bitlinear_layers.pyi",
+   "lineRange": [
+    7,
+    7
+   ],
+   "summary": "Function bitnet_quantize in .typings/mlx_lm/models/bitlinear_layers.pyi.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:.typings/mlx_lm/models/bitlinear_layers.pyi:make_bitlinear_kernel",
+   "type": "function",
+   "name": "make_bitlinear_kernel",
+   "filePath": ".typings/mlx_lm/models/bitlinear_layers.pyi",
+   "lineRange": [
+    8,
+    13
+   ],
+   "summary": "Function make_bitlinear_kernel in .typings/mlx_lm/models/bitlinear_layers.pyi.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx_lm/models/bitlinear_layers.pyi:BitLinear",
+   "type": "class",
+   "name": "BitLinear",
+   "filePath": ".typings/mlx_lm/models/bitlinear_layers.pyi",
+   "lineRange": [
+    17,
+    26
+   ],
+   "summary": "Class BitLinear in .typings/mlx_lm/models/bitlinear_layers.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:.typings/mlx_lm/models/cache.pyi:make_prompt_cache",
+   "type": "function",
+   "name": "make_prompt_cache",
+   "filePath": ".typings/mlx_lm/models/cache.pyi",
+   "lineRange": [
+    23,
+    37
+   ],
+   "summary": "Function make_prompt_cache in .typings/mlx_lm/models/cache.pyi.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:.typings/mlx_lm/models/cache.pyi:save_prompt_cache",
+   "type": "function",
+   "name": "save_prompt_cache",
+   "filePath": ".typings/mlx_lm/models/cache.pyi",
+   "lineRange": [
+    39,
+    50
+   ],
+   "summary": "Function save_prompt_cache in .typings/mlx_lm/models/cache.pyi.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:.typings/mlx_lm/models/cache.pyi:load_prompt_cache",
+   "type": "function",
+   "name": "load_prompt_cache",
+   "filePath": ".typings/mlx_lm/models/cache.pyi",
+   "lineRange": [
+    52,
+    64
+   ],
+   "summary": "Function load_prompt_cache in .typings/mlx_lm/models/cache.pyi.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:.typings/mlx_lm/models/cache.pyi:can_trim_prompt_cache",
+   "type": "function",
+   "name": "can_trim_prompt_cache",
+   "filePath": ".typings/mlx_lm/models/cache.pyi",
+   "lineRange": [
+    66,
+    69
+   ],
+   "summary": "Function can_trim_prompt_cache in .typings/mlx_lm/models/cache.pyi.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:.typings/mlx_lm/models/cache.pyi:trim_prompt_cache",
+   "type": "function",
+   "name": "trim_prompt_cache",
+   "filePath": ".typings/mlx_lm/models/cache.pyi",
+   "lineRange": [
+    71,
+    84
+   ],
+   "summary": "Function trim_prompt_cache in .typings/mlx_lm/models/cache.pyi.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:.typings/mlx_lm/models/cache.pyi:create_attention_mask",
+   "type": "function",
+   "name": "create_attention_mask",
+   "filePath": ".typings/mlx_lm/models/cache.pyi",
+   "lineRange": [
+    86,
+    88
+   ],
+   "summary": "Function create_attention_mask in .typings/mlx_lm/models/cache.pyi.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx_lm/models/cache.pyi:Cache",
+   "type": "class",
+   "name": "Cache",
+   "filePath": ".typings/mlx_lm/models/cache.pyi",
+   "lineRange": [
+    11,
+    21
+   ],
+   "summary": "Class Cache in .typings/mlx_lm/models/cache.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx_lm/models/cache.pyi:_BaseCache",
+   "type": "class",
+   "name": "_BaseCache",
+   "filePath": ".typings/mlx_lm/models/cache.pyi",
+   "lineRange": [
+    90,
+    105
+   ],
+   "summary": "Class _BaseCache in .typings/mlx_lm/models/cache.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx_lm/models/cache.pyi:ConcatenateKVCache",
+   "type": "class",
+   "name": "ConcatenateKVCache",
+   "filePath": ".typings/mlx_lm/models/cache.pyi",
+   "lineRange": [
+    107,
+    126
+   ],
+   "summary": "Class ConcatenateKVCache in .typings/mlx_lm/models/cache.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx_lm/models/cache.pyi:QuantizedKVCache",
+   "type": "class",
+   "name": "QuantizedKVCache",
+   "filePath": ".typings/mlx_lm/models/cache.pyi",
+   "lineRange": [
+    128,
+    148
+   ],
+   "summary": "Class QuantizedKVCache in .typings/mlx_lm/models/cache.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx_lm/models/cache.pyi:KVCache",
+   "type": "class",
+   "name": "KVCache",
+   "filePath": ".typings/mlx_lm/models/cache.pyi",
+   "lineRange": [
+    150,
+    169
+   ],
+   "summary": "Class KVCache in .typings/mlx_lm/models/cache.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx_lm/models/cache.pyi:RotatingKVCache",
+   "type": "class",
+   "name": "RotatingKVCache",
+   "filePath": ".typings/mlx_lm/models/cache.pyi",
+   "lineRange": [
+    171,
+    208
+   ],
+   "summary": "Class RotatingKVCache in .typings/mlx_lm/models/cache.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx_lm/models/cache.pyi:ArraysCache",
+   "type": "class",
+   "name": "ArraysCache",
+   "filePath": ".typings/mlx_lm/models/cache.pyi",
+   "lineRange": [
+    210,
+    230
+   ],
+   "summary": "Class ArraysCache in .typings/mlx_lm/models/cache.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx_lm/models/cache.pyi:MambaCache",
+   "type": "class",
+   "name": "MambaCache",
+   "filePath": ".typings/mlx_lm/models/cache.pyi",
+   "lineRange": [
+    232,
+    233
+   ],
+   "summary": "Class MambaCache in .typings/mlx_lm/models/cache.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx_lm/models/cache.pyi:ChunkedKVCache",
+   "type": "class",
+   "name": "ChunkedKVCache",
+   "filePath": ".typings/mlx_lm/models/cache.pyi",
+   "lineRange": [
+    235,
+    247
+   ],
+   "summary": "Class ChunkedKVCache in .typings/mlx_lm/models/cache.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx_lm/models/cache.pyi:CacheList",
+   "type": "class",
+   "name": "CacheList",
+   "filePath": ".typings/mlx_lm/models/cache.pyi",
+   "lineRange": [
+    249,
+    268
+   ],
+   "summary": "Class CacheList in .typings/mlx_lm/models/cache.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx_lm/models/cache.pyi:BatchKVCache",
+   "type": "class",
+   "name": "BatchKVCache",
+   "filePath": ".typings/mlx_lm/models/cache.pyi",
+   "lineRange": [
+    270,
+    301
+   ],
+   "summary": "Class BatchKVCache in .typings/mlx_lm/models/cache.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx_lm/models/cache.pyi:BatchRotatingKVCache",
+   "type": "class",
+   "name": "BatchRotatingKVCache",
+   "filePath": ".typings/mlx_lm/models/cache.pyi",
+   "lineRange": [
+    303,
+    352
+   ],
+   "summary": "Class BatchRotatingKVCache in .typings/mlx_lm/models/cache.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "class:.typings/mlx_lm/models/deepseek_v3.pyi:ModelArgs",
+   "type": "class",
+   "name": "ModelArgs",
+   "filePath": ".typings/mlx_lm/models/deepseek_v3.pyi",
+   "lineRange": [
+    14,
+    43
+   ],
+   "summary": "Class ModelArgs in .typings/mlx_lm/models/deepseek_v3.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx_lm/models/deepseek_v3.pyi:DeepseekV3Attention",
+   "type": "class",
+   "name": "DeepseekV3Attention",
+   "filePath": ".typings/mlx_lm/models/deepseek_v3.pyi",
+   "lineRange": [
+    45,
+    77
+   ],
+   "summary": "Class DeepseekV3Attention in .typings/mlx_lm/models/deepseek_v3.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx_lm/models/deepseek_v3.pyi:DeepseekV3MLP",
+   "type": "class",
+   "name": "DeepseekV3MLP",
+   "filePath": ".typings/mlx_lm/models/deepseek_v3.pyi",
+   "lineRange": [
+    79,
+    93
+   ],
+   "summary": "Class DeepseekV3MLP in .typings/mlx_lm/models/deepseek_v3.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx_lm/models/deepseek_v3.pyi:MoEGate",
+   "type": "class",
+   "name": "MoEGate",
+   "filePath": ".typings/mlx_lm/models/deepseek_v3.pyi",
+   "lineRange": [
+    95,
+    107
+   ],
+   "summary": "Class MoEGate in .typings/mlx_lm/models/deepseek_v3.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx_lm/models/deepseek_v3.pyi:DeepseekV3MoE",
+   "type": "class",
+   "name": "DeepseekV3MoE",
+   "filePath": ".typings/mlx_lm/models/deepseek_v3.pyi",
+   "lineRange": [
+    109,
+    118
+   ],
+   "summary": "Class DeepseekV3MoE in .typings/mlx_lm/models/deepseek_v3.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx_lm/models/deepseek_v3.pyi:DeepseekV3DecoderLayer",
+   "type": "class",
+   "name": "DeepseekV3DecoderLayer",
+   "filePath": ".typings/mlx_lm/models/deepseek_v3.pyi",
+   "lineRange": [
+    120,
+    132
+   ],
+   "summary": "Class DeepseekV3DecoderLayer in .typings/mlx_lm/models/deepseek_v3.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx_lm/models/deepseek_v3.pyi:DeepseekV3Model",
+   "type": "class",
+   "name": "DeepseekV3Model",
+   "filePath": ".typings/mlx_lm/models/deepseek_v3.pyi",
+   "lineRange": [
+    134,
+    145
+   ],
+   "summary": "Class DeepseekV3Model in .typings/mlx_lm/models/deepseek_v3.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx_lm/models/deepseek_v3.pyi:Model",
+   "type": "class",
+   "name": "Model",
+   "filePath": ".typings/mlx_lm/models/deepseek_v3.pyi",
+   "lineRange": [
+    147,
+    160
+   ],
+   "summary": "Class Model in .typings/mlx_lm/models/deepseek_v3.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx_lm/models/deepseek_v4.pyi:ModelArgs",
+   "type": "class",
+   "name": "ModelArgs",
+   "filePath": ".typings/mlx_lm/models/deepseek_v4.pyi",
+   "lineRange": [
+    14,
+    42
+   ],
+   "summary": "Class ModelArgs in .typings/mlx_lm/models/deepseek_v4.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx_lm/models/deepseek_v4.pyi:DeepseekV4RoPE",
+   "type": "class",
+   "name": "DeepseekV4RoPE",
+   "filePath": ".typings/mlx_lm/models/deepseek_v4.pyi",
+   "lineRange": [
+    44,
+    59
+   ],
+   "summary": "Class DeepseekV4RoPE in .typings/mlx_lm/models/deepseek_v4.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx_lm/models/deepseek_v4.pyi:HyperConnection",
+   "type": "class",
+   "name": "HyperConnection",
+   "filePath": ".typings/mlx_lm/models/deepseek_v4.pyi",
+   "lineRange": [
+    61,
+    73
+   ],
+   "summary": "Class HyperConnection in .typings/mlx_lm/models/deepseek_v4.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx_lm/models/deepseek_v4.pyi:HyperHead",
+   "type": "class",
+   "name": "HyperHead",
+   "filePath": ".typings/mlx_lm/models/deepseek_v4.pyi",
+   "lineRange": [
+    75,
+    86
+   ],
+   "summary": "Class HyperHead in .typings/mlx_lm/models/deepseek_v4.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx_lm/models/deepseek_v4.pyi:Compressor",
+   "type": "class",
+   "name": "Compressor",
+   "filePath": ".typings/mlx_lm/models/deepseek_v4.pyi",
+   "lineRange": [
+    88,
+    114
+   ],
+   "summary": "Class Compressor in .typings/mlx_lm/models/deepseek_v4.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx_lm/models/deepseek_v4.pyi:Indexer",
+   "type": "class",
+   "name": "Indexer",
+   "filePath": ".typings/mlx_lm/models/deepseek_v4.pyi",
+   "lineRange": [
+    116,
+    122
+   ],
+   "summary": "Class Indexer in .typings/mlx_lm/models/deepseek_v4.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx_lm/models/deepseek_v4.pyi:_CompressorBranch",
+   "type": "class",
+   "name": "_CompressorBranch",
+   "filePath": ".typings/mlx_lm/models/deepseek_v4.pyi",
+   "lineRange": [
+    124,
+    135
+   ],
+   "summary": "Class _CompressorBranch in .typings/mlx_lm/models/deepseek_v4.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx_lm/models/deepseek_v4.pyi:DeepseekV4Cache",
+   "type": "class",
+   "name": "DeepseekV4Cache",
+   "filePath": ".typings/mlx_lm/models/deepseek_v4.pyi",
+   "lineRange": [
+    137,
+    168
+   ],
+   "summary": "Class DeepseekV4Cache in .typings/mlx_lm/models/deepseek_v4.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx_lm/models/deepseek_v4.pyi:V4Attention",
+   "type": "class",
+   "name": "V4Attention",
+   "filePath": ".typings/mlx_lm/models/deepseek_v4.pyi",
+   "lineRange": [
+    170,
+    202
+   ],
+   "summary": "Class V4Attention in .typings/mlx_lm/models/deepseek_v4.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx_lm/models/deepseek_v4.pyi:DeepseekV4MLP",
+   "type": "class",
+   "name": "DeepseekV4MLP",
+   "filePath": ".typings/mlx_lm/models/deepseek_v4.pyi",
+   "lineRange": [
+    204,
+    215
+   ],
+   "summary": "Class DeepseekV4MLP in .typings/mlx_lm/models/deepseek_v4.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx_lm/models/deepseek_v4.pyi:MoEGate",
+   "type": "class",
+   "name": "MoEGate",
+   "filePath": ".typings/mlx_lm/models/deepseek_v4.pyi",
+   "lineRange": [
+    217,
+    223
+   ],
+   "summary": "Class MoEGate in .typings/mlx_lm/models/deepseek_v4.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx_lm/models/deepseek_v4.pyi:DeepseekV4MoE",
+   "type": "class",
+   "name": "DeepseekV4MoE",
+   "filePath": ".typings/mlx_lm/models/deepseek_v4.pyi",
+   "lineRange": [
+    225,
+    232
+   ],
+   "summary": "Class DeepseekV4MoE in .typings/mlx_lm/models/deepseek_v4.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx_lm/models/deepseek_v4.pyi:DeepseekV4Block",
+   "type": "class",
+   "name": "DeepseekV4Block",
+   "filePath": ".typings/mlx_lm/models/deepseek_v4.pyi",
+   "lineRange": [
+    234,
+    248
+   ],
+   "summary": "Class DeepseekV4Block in .typings/mlx_lm/models/deepseek_v4.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx_lm/models/deepseek_v4.pyi:DeepseekV4Model",
+   "type": "class",
+   "name": "DeepseekV4Model",
+   "filePath": ".typings/mlx_lm/models/deepseek_v4.pyi",
+   "lineRange": [
+    250,
+    263
+   ],
+   "summary": "Class DeepseekV4Model in .typings/mlx_lm/models/deepseek_v4.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx_lm/models/deepseek_v4.pyi:Model",
+   "type": "class",
+   "name": "Model",
+   "filePath": ".typings/mlx_lm/models/deepseek_v4.pyi",
+   "lineRange": [
+    265,
+    280
+   ],
+   "summary": "Class Model in .typings/mlx_lm/models/deepseek_v4.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:.typings/mlx_lm/models/gated_delta.pyi:compute_g",
+   "type": "function",
+   "name": "compute_g",
+   "filePath": ".typings/mlx_lm/models/gated_delta.pyi",
+   "lineRange": [
+    5,
+    5
+   ],
+   "summary": "Function compute_g in .typings/mlx_lm/models/gated_delta.pyi.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:.typings/mlx_lm/models/gated_delta.pyi:gated_delta_update",
+   "type": "function",
+   "name": "gated_delta_update",
+   "filePath": ".typings/mlx_lm/models/gated_delta.pyi",
+   "lineRange": [
+    6,
+    17
+   ],
+   "summary": "Function gated_delta_update in .typings/mlx_lm/models/gated_delta.pyi.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:.typings/mlx_lm/models/gated_delta.pyi:gated_delta_ops",
+   "type": "function",
+   "name": "gated_delta_ops",
+   "filePath": ".typings/mlx_lm/models/gated_delta.pyi",
+   "lineRange": [
+    18,
+    26
+   ],
+   "summary": "Function gated_delta_ops in .typings/mlx_lm/models/gated_delta.pyi.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:.typings/mlx_lm/models/gated_delta.pyi:gated_delta_kernel",
+   "type": "function",
+   "name": "gated_delta_kernel",
+   "filePath": ".typings/mlx_lm/models/gated_delta.pyi",
+   "lineRange": [
+    27,
+    35
+   ],
+   "summary": "Function gated_delta_kernel in .typings/mlx_lm/models/gated_delta.pyi.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx_lm/models/gemma4.pyi:ModelArgs",
+   "type": "class",
+   "name": "ModelArgs",
+   "filePath": ".typings/mlx_lm/models/gemma4.pyi",
+   "lineRange": [
+    12,
+    17
+   ],
+   "summary": "Class ModelArgs in .typings/mlx_lm/models/gemma4.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx_lm/models/gemma4.pyi:Model",
+   "type": "class",
+   "name": "Model",
+   "filePath": ".typings/mlx_lm/models/gemma4.pyi",
+   "lineRange": [
+    19,
+    31
+   ],
+   "summary": "Class Model in .typings/mlx_lm/models/gemma4.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx_lm/models/gemma4_text.pyi:ModelArgs",
+   "type": "class",
+   "name": "ModelArgs",
+   "filePath": ".typings/mlx_lm/models/gemma4_text.pyi",
+   "lineRange": [
+    12,
+    45
+   ],
+   "summary": "Class ModelArgs in .typings/mlx_lm/models/gemma4_text.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx_lm/models/gemma4_text.pyi:MLP",
+   "type": "class",
+   "name": "MLP",
+   "filePath": ".typings/mlx_lm/models/gemma4_text.pyi",
+   "lineRange": [
+    47,
+    53
+   ],
+   "summary": "Class MLP in .typings/mlx_lm/models/gemma4_text.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx_lm/models/gemma4_text.pyi:Router",
+   "type": "class",
+   "name": "Router",
+   "filePath": ".typings/mlx_lm/models/gemma4_text.pyi",
+   "lineRange": [
+    55,
+    61
+   ],
+   "summary": "Class Router in .typings/mlx_lm/models/gemma4_text.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx_lm/models/gemma4_text.pyi:Experts",
+   "type": "class",
+   "name": "Experts",
+   "filePath": ".typings/mlx_lm/models/gemma4_text.pyi",
+   "lineRange": [
+    63,
+    69
+   ],
+   "summary": "Class Experts in .typings/mlx_lm/models/gemma4_text.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx_lm/models/gemma4_text.pyi:Attention",
+   "type": "class",
+   "name": "Attention",
+   "filePath": ".typings/mlx_lm/models/gemma4_text.pyi",
+   "lineRange": [
+    71,
+    90
+   ],
+   "summary": "Class Attention in .typings/mlx_lm/models/gemma4_text.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx_lm/models/gemma4_text.pyi:DecoderLayer",
+   "type": "class",
+   "name": "DecoderLayer",
+   "filePath": ".typings/mlx_lm/models/gemma4_text.pyi",
+   "lineRange": [
+    92,
+    122
+   ],
+   "summary": "Class DecoderLayer in .typings/mlx_lm/models/gemma4_text.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx_lm/models/gemma4_text.pyi:Gemma4TextModel",
+   "type": "class",
+   "name": "Gemma4TextModel",
+   "filePath": ".typings/mlx_lm/models/gemma4_text.pyi",
+   "lineRange": [
+    124,
+    158
+   ],
+   "summary": "Class Gemma4TextModel in .typings/mlx_lm/models/gemma4_text.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx_lm/models/gemma4_text.pyi:Model",
+   "type": "class",
+   "name": "Model",
+   "filePath": ".typings/mlx_lm/models/gemma4_text.pyi",
+   "lineRange": [
+    160,
+    179
+   ],
+   "summary": "Class Model in .typings/mlx_lm/models/gemma4_text.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx_lm/models/glm4_moe.pyi:ModelArgs",
+   "type": "class",
+   "name": "ModelArgs",
+   "filePath": ".typings/mlx_lm/models/glm4_moe.pyi",
+   "lineRange": [
+    11,
+    38
+   ],
+   "summary": "Class ModelArgs in .typings/mlx_lm/models/glm4_moe.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx_lm/models/glm4_moe.pyi:Attention",
+   "type": "class",
+   "name": "Attention",
+   "filePath": ".typings/mlx_lm/models/glm4_moe.pyi",
+   "lineRange": [
+    40,
+    59
+   ],
+   "summary": "Class Attention in .typings/mlx_lm/models/glm4_moe.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx_lm/models/glm4_moe.pyi:MLP",
+   "type": "class",
+   "name": "MLP",
+   "filePath": ".typings/mlx_lm/models/glm4_moe.pyi",
+   "lineRange": [
+    61,
+    75
+   ],
+   "summary": "Class MLP in .typings/mlx_lm/models/glm4_moe.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx_lm/models/glm4_moe.pyi:MoEGate",
+   "type": "class",
+   "name": "MoEGate",
+   "filePath": ".typings/mlx_lm/models/glm4_moe.pyi",
+   "lineRange": [
+    77,
+    89
+   ],
+   "summary": "Class MoEGate in .typings/mlx_lm/models/glm4_moe.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx_lm/models/glm4_moe.pyi:MoE",
+   "type": "class",
+   "name": "MoE",
+   "filePath": ".typings/mlx_lm/models/glm4_moe.pyi",
+   "lineRange": [
+    91,
+    100
+   ],
+   "summary": "Class MoE in .typings/mlx_lm/models/glm4_moe.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx_lm/models/glm4_moe.pyi:DecoderLayer",
+   "type": "class",
+   "name": "DecoderLayer",
+   "filePath": ".typings/mlx_lm/models/glm4_moe.pyi",
+   "lineRange": [
+    102,
+    114
+   ],
+   "summary": "Class DecoderLayer in .typings/mlx_lm/models/glm4_moe.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx_lm/models/glm4_moe.pyi:LanguageModel",
+   "type": "class",
+   "name": "LanguageModel",
+   "filePath": ".typings/mlx_lm/models/glm4_moe.pyi",
+   "lineRange": [
+    116,
+    134
+   ],
+   "summary": "Class LanguageModel in .typings/mlx_lm/models/glm4_moe.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx_lm/models/glm4_moe.pyi:Model",
+   "type": "class",
+   "name": "Model",
+   "filePath": ".typings/mlx_lm/models/glm4_moe.pyi",
+   "lineRange": [
+    136,
+    153
+   ],
+   "summary": "Class Model in .typings/mlx_lm/models/glm4_moe.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx_lm/models/glm_moe_dsa.pyi:ModelArgs",
+   "type": "class",
+   "name": "ModelArgs",
+   "filePath": ".typings/mlx_lm/models/glm_moe_dsa.pyi",
+   "lineRange": [
+    10,
+    43
+   ],
+   "summary": "Class ModelArgs in .typings/mlx_lm/models/glm_moe_dsa.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx_lm/models/glm_moe_dsa.pyi:Model",
+   "type": "class",
+   "name": "Model",
+   "filePath": ".typings/mlx_lm/models/glm_moe_dsa.pyi",
+   "lineRange": [
+    45,
+    46
+   ],
+   "summary": "Class Model in .typings/mlx_lm/models/glm_moe_dsa.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:.typings/mlx_lm/models/gpt_oss.pyi:mlx_topk",
+   "type": "function",
+   "name": "mlx_topk",
+   "filePath": ".typings/mlx_lm/models/gpt_oss.pyi",
+   "lineRange": [
+    28,
+    28
+   ],
+   "summary": "Function mlx_topk in .typings/mlx_lm/models/gpt_oss.pyi.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx_lm/models/gpt_oss.pyi:ModelArgs",
+   "type": "class",
+   "name": "ModelArgs",
+   "filePath": ".typings/mlx_lm/models/gpt_oss.pyi",
+   "lineRange": [
+    14,
+    26
+   ],
+   "summary": "Class ModelArgs in .typings/mlx_lm/models/gpt_oss.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx_lm/models/gpt_oss.pyi:AttentionBlock",
+   "type": "class",
+   "name": "AttentionBlock",
+   "filePath": ".typings/mlx_lm/models/gpt_oss.pyi",
+   "lineRange": [
+    30,
+    49
+   ],
+   "summary": "Class AttentionBlock in .typings/mlx_lm/models/gpt_oss.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx_lm/models/gpt_oss.pyi:TransformerBlock",
+   "type": "class",
+   "name": "TransformerBlock",
+   "filePath": ".typings/mlx_lm/models/gpt_oss.pyi",
+   "lineRange": [
+    51,
+    61
+   ],
+   "summary": "Class TransformerBlock in .typings/mlx_lm/models/gpt_oss.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx_lm/models/gpt_oss.pyi:MLPBlock",
+   "type": "class",
+   "name": "MLPBlock",
+   "filePath": ".typings/mlx_lm/models/gpt_oss.pyi",
+   "lineRange": [
+    63,
+    72
+   ],
+   "summary": "Class MLPBlock in .typings/mlx_lm/models/gpt_oss.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx_lm/models/gpt_oss.pyi:GptOssMoeModel",
+   "type": "class",
+   "name": "GptOssMoeModel",
+   "filePath": ".typings/mlx_lm/models/gpt_oss.pyi",
+   "lineRange": [
+    74,
+    88
+   ],
+   "summary": "Class GptOssMoeModel in .typings/mlx_lm/models/gpt_oss.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx_lm/models/gpt_oss.pyi:Model",
+   "type": "class",
+   "name": "Model",
+   "filePath": ".typings/mlx_lm/models/gpt_oss.pyi",
+   "lineRange": [
+    90,
+    103
+   ],
+   "summary": "Class Model in .typings/mlx_lm/models/gpt_oss.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx_lm/models/minimax.pyi:ModelArgs",
+   "type": "class",
+   "name": "ModelArgs",
+   "filePath": ".typings/mlx_lm/models/minimax.pyi",
+   "lineRange": [
+    13,
+    22
+   ],
+   "summary": "Class ModelArgs in .typings/mlx_lm/models/minimax.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx_lm/models/minimax.pyi:MiniMaxAttention",
+   "type": "class",
+   "name": "MiniMaxAttention",
+   "filePath": ".typings/mlx_lm/models/minimax.pyi",
+   "lineRange": [
+    24,
+    44
+   ],
+   "summary": "Class MiniMaxAttention in .typings/mlx_lm/models/minimax.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx_lm/models/minimax.pyi:MiniMaxSparseMoeBlock",
+   "type": "class",
+   "name": "MiniMaxSparseMoeBlock",
+   "filePath": ".typings/mlx_lm/models/minimax.pyi",
+   "lineRange": [
+    46,
+    54
+   ],
+   "summary": "Class MiniMaxSparseMoeBlock in .typings/mlx_lm/models/minimax.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx_lm/models/minimax.pyi:MiniMaxDecoderLayer",
+   "type": "class",
+   "name": "MiniMaxDecoderLayer",
+   "filePath": ".typings/mlx_lm/models/minimax.pyi",
+   "lineRange": [
+    56,
+    68
+   ],
+   "summary": "Class MiniMaxDecoderLayer in .typings/mlx_lm/models/minimax.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx_lm/models/minimax.pyi:MiniMaxModel",
+   "type": "class",
+   "name": "MiniMaxModel",
+   "filePath": ".typings/mlx_lm/models/minimax.pyi",
+   "lineRange": [
+    70,
+    80
+   ],
+   "summary": "Class MiniMaxModel in .typings/mlx_lm/models/minimax.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx_lm/models/minimax.pyi:Model",
+   "type": "class",
+   "name": "Model",
+   "filePath": ".typings/mlx_lm/models/minimax.pyi",
+   "lineRange": [
+    82,
+    94
+   ],
+   "summary": "Class Model in .typings/mlx_lm/models/minimax.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx_lm/models/nemotron_h.pyi:ModelArgs",
+   "type": "class",
+   "name": "ModelArgs",
+   "filePath": ".typings/mlx_lm/models/nemotron_h.pyi",
+   "lineRange": [
+    11,
+    48
+   ],
+   "summary": "Class ModelArgs in .typings/mlx_lm/models/nemotron_h.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx_lm/models/nemotron_h.pyi:NemotronHMamba2Mixer",
+   "type": "class",
+   "name": "NemotronHMamba2Mixer",
+   "filePath": ".typings/mlx_lm/models/nemotron_h.pyi",
+   "lineRange": [
+    50,
+    74
+   ],
+   "summary": "Class NemotronHMamba2Mixer in .typings/mlx_lm/models/nemotron_h.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx_lm/models/nemotron_h.pyi:NemotronHAttention",
+   "type": "class",
+   "name": "NemotronHAttention",
+   "filePath": ".typings/mlx_lm/models/nemotron_h.pyi",
+   "lineRange": [
+    76,
+    93
+   ],
+   "summary": "Class NemotronHAttention in .typings/mlx_lm/models/nemotron_h.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx_lm/models/nemotron_h.pyi:MoEGate",
+   "type": "class",
+   "name": "MoEGate",
+   "filePath": ".typings/mlx_lm/models/nemotron_h.pyi",
+   "lineRange": [
+    95,
+    102
+   ],
+   "summary": "Class MoEGate in .typings/mlx_lm/models/nemotron_h.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx_lm/models/nemotron_h.pyi:NemotronHMLP",
+   "type": "class",
+   "name": "NemotronHMLP",
+   "filePath": ".typings/mlx_lm/models/nemotron_h.pyi",
+   "lineRange": [
+    104,
+    111
+   ],
+   "summary": "Class NemotronHMLP in .typings/mlx_lm/models/nemotron_h.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx_lm/models/nemotron_h.pyi:NemotronHMoE",
+   "type": "class",
+   "name": "NemotronHMoE",
+   "filePath": ".typings/mlx_lm/models/nemotron_h.pyi",
+   "lineRange": [
+    113,
+    124
+   ],
+   "summary": "Class NemotronHMoE in .typings/mlx_lm/models/nemotron_h.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx_lm/models/nemotron_h.pyi:NemotronHBlock",
+   "type": "class",
+   "name": "NemotronHBlock",
+   "filePath": ".typings/mlx_lm/models/nemotron_h.pyi",
+   "lineRange": [
+    126,
+    137
+   ],
+   "summary": "Class NemotronHBlock in .typings/mlx_lm/models/nemotron_h.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx_lm/models/nemotron_h.pyi:NemotronHModel",
+   "type": "class",
+   "name": "NemotronHModel",
+   "filePath": ".typings/mlx_lm/models/nemotron_h.pyi",
+   "lineRange": [
+    139,
+    151
+   ],
+   "summary": "Class NemotronHModel in .typings/mlx_lm/models/nemotron_h.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx_lm/models/nemotron_h.pyi:Model",
+   "type": "class",
+   "name": "Model",
+   "filePath": ".typings/mlx_lm/models/nemotron_h.pyi",
+   "lineRange": [
+    153,
+    168
+   ],
+   "summary": "Class Model in .typings/mlx_lm/models/nemotron_h.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx_lm/models/qwen3_5.pyi:TextModelArgs",
+   "type": "class",
+   "name": "TextModelArgs",
+   "filePath": ".typings/mlx_lm/models/qwen3_5.pyi",
+   "lineRange": [
+    19,
+    51
+   ],
+   "summary": "Class TextModelArgs in .typings/mlx_lm/models/qwen3_5.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx_lm/models/qwen3_5.pyi:GatedDeltaNet",
+   "type": "class",
+   "name": "GatedDeltaNet",
+   "filePath": ".typings/mlx_lm/models/qwen3_5.pyi",
+   "lineRange": [
+    53,
+    79
+   ],
+   "summary": "Class GatedDeltaNet in .typings/mlx_lm/models/qwen3_5.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx_lm/models/qwen3_5.pyi:DecoderLayer",
+   "type": "class",
+   "name": "DecoderLayer",
+   "filePath": ".typings/mlx_lm/models/qwen3_5.pyi",
+   "lineRange": [
+    81,
+    95
+   ],
+   "summary": "Class DecoderLayer in .typings/mlx_lm/models/qwen3_5.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx_lm/models/qwen3_5.pyi:Qwen3_5TextModel",
+   "type": "class",
+   "name": "Qwen3_5TextModel",
+   "filePath": ".typings/mlx_lm/models/qwen3_5.pyi",
+   "lineRange": [
+    97,
+    110
+   ],
+   "summary": "Class Qwen3_5TextModel in .typings/mlx_lm/models/qwen3_5.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx_lm/models/qwen3_5.pyi:TextModel",
+   "type": "class",
+   "name": "TextModel",
+   "filePath": ".typings/mlx_lm/models/qwen3_5.pyi",
+   "lineRange": [
+    112,
+    128
+   ],
+   "summary": "Class TextModel in .typings/mlx_lm/models/qwen3_5.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx_lm/models/qwen3_5.pyi:ModelArgs",
+   "type": "class",
+   "name": "ModelArgs",
+   "filePath": ".typings/mlx_lm/models/qwen3_5.pyi",
+   "lineRange": [
+    131,
+    136
+   ],
+   "summary": "Class ModelArgs in .typings/mlx_lm/models/qwen3_5.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx_lm/models/qwen3_5.pyi:Model",
+   "type": "class",
+   "name": "Model",
+   "filePath": ".typings/mlx_lm/models/qwen3_5.pyi",
+   "lineRange": [
+    138,
+    153
+   ],
+   "summary": "Class Model in .typings/mlx_lm/models/qwen3_5.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx_lm/models/qwen3_5_moe.pyi:ModelArgs",
+   "type": "class",
+   "name": "ModelArgs",
+   "filePath": ".typings/mlx_lm/models/qwen3_5_moe.pyi",
+   "lineRange": [
+    11,
+    16
+   ],
+   "summary": "Class ModelArgs in .typings/mlx_lm/models/qwen3_5_moe.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx_lm/models/qwen3_5_moe.pyi:Model",
+   "type": "class",
+   "name": "Model",
+   "filePath": ".typings/mlx_lm/models/qwen3_5_moe.pyi",
+   "lineRange": [
+    18,
+    19
+   ],
+   "summary": "Class Model in .typings/mlx_lm/models/qwen3_5_moe.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx_lm/models/qwen3_next.pyi:Qwen3NextRMSNormGated",
+   "type": "class",
+   "name": "Qwen3NextRMSNormGated",
+   "filePath": ".typings/mlx_lm/models/qwen3_next.pyi",
+   "lineRange": [
+    11,
+    18
+   ],
+   "summary": "Class Qwen3NextRMSNormGated in .typings/mlx_lm/models/qwen3_next.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx_lm/models/qwen3_next.pyi:Qwen3NextMLP",
+   "type": "class",
+   "name": "Qwen3NextMLP",
+   "filePath": ".typings/mlx_lm/models/qwen3_next.pyi",
+   "lineRange": [
+    20,
+    26
+   ],
+   "summary": "Class Qwen3NextMLP in .typings/mlx_lm/models/qwen3_next.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx_lm/models/qwen3_next.pyi:Qwen3NextGatedDeltaNet",
+   "type": "class",
+   "name": "Qwen3NextGatedDeltaNet",
+   "filePath": ".typings/mlx_lm/models/qwen3_next.pyi",
+   "lineRange": [
+    28,
+    51
+   ],
+   "summary": "Class Qwen3NextGatedDeltaNet in .typings/mlx_lm/models/qwen3_next.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx_lm/models/qwen3_next.pyi:Qwen3NextAttention",
+   "type": "class",
+   "name": "Qwen3NextAttention",
+   "filePath": ".typings/mlx_lm/models/qwen3_next.pyi",
+   "lineRange": [
+    53,
+    69
+   ],
+   "summary": "Class Qwen3NextAttention in .typings/mlx_lm/models/qwen3_next.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx_lm/models/qwen3_next.pyi:Qwen3NextSparseMoeBlock",
+   "type": "class",
+   "name": "Qwen3NextSparseMoeBlock",
+   "filePath": ".typings/mlx_lm/models/qwen3_next.pyi",
+   "lineRange": [
+    71,
+    82
+   ],
+   "summary": "Class Qwen3NextSparseMoeBlock in .typings/mlx_lm/models/qwen3_next.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx_lm/models/qwen3_next.pyi:Qwen3NextDecoderLayer",
+   "type": "class",
+   "name": "Qwen3NextDecoderLayer",
+   "filePath": ".typings/mlx_lm/models/qwen3_next.pyi",
+   "lineRange": [
+    84,
+    98
+   ],
+   "summary": "Class Qwen3NextDecoderLayer in .typings/mlx_lm/models/qwen3_next.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx_lm/models/qwen3_next.pyi:Qwen3NextModel",
+   "type": "class",
+   "name": "Qwen3NextModel",
+   "filePath": ".typings/mlx_lm/models/qwen3_next.pyi",
+   "lineRange": [
+    100,
+    112
+   ],
+   "summary": "Class Qwen3NextModel in .typings/mlx_lm/models/qwen3_next.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx_lm/models/qwen3_next.pyi:Model",
+   "type": "class",
+   "name": "Model",
+   "filePath": ".typings/mlx_lm/models/qwen3_next.pyi",
+   "lineRange": [
+    114,
+    128
+   ],
+   "summary": "Class Model in .typings/mlx_lm/models/qwen3_next.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:.typings/mlx_lm/models/rope_utils.pyi:initialize_rope",
+   "type": "function",
+   "name": "initialize_rope",
+   "filePath": ".typings/mlx_lm/models/rope_utils.pyi",
+   "lineRange": [
+    45,
+    51
+   ],
+   "summary": "Function initialize_rope in .typings/mlx_lm/models/rope_utils.pyi.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx_lm/models/rope_utils.pyi:YarnRoPE",
+   "type": "class",
+   "name": "YarnRoPE",
+   "filePath": ".typings/mlx_lm/models/rope_utils.pyi",
+   "lineRange": [
+    5,
+    18
+   ],
+   "summary": "Class YarnRoPE in .typings/mlx_lm/models/rope_utils.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx_lm/models/rope_utils.pyi:Llama3RoPE",
+   "type": "class",
+   "name": "Llama3RoPE",
+   "filePath": ".typings/mlx_lm/models/rope_utils.pyi",
+   "lineRange": [
+    20,
+    31
+   ],
+   "summary": "Class Llama3RoPE in .typings/mlx_lm/models/rope_utils.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx_lm/models/rope_utils.pyi:SuScaledRoPE",
+   "type": "class",
+   "name": "SuScaledRoPE",
+   "filePath": ".typings/mlx_lm/models/rope_utils.pyi",
+   "lineRange": [
+    33,
+    43
+   ],
+   "summary": "Class SuScaledRoPE in .typings/mlx_lm/models/rope_utils.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx_lm/models/step3p5.pyi:ModelArgs",
+   "type": "class",
+   "name": "ModelArgs",
+   "filePath": ".typings/mlx_lm/models/step3p5.pyi",
+   "lineRange": [
+    11,
+    39
+   ],
+   "summary": "Class ModelArgs in .typings/mlx_lm/models/step3p5.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx_lm/models/step3p5.pyi:Step3p5MLP",
+   "type": "class",
+   "name": "Step3p5MLP",
+   "filePath": ".typings/mlx_lm/models/step3p5.pyi",
+   "lineRange": [
+    41,
+    52
+   ],
+   "summary": "Class Step3p5MLP in .typings/mlx_lm/models/step3p5.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx_lm/models/step3p5.pyi:Step3p5MoEGate",
+   "type": "class",
+   "name": "Step3p5MoEGate",
+   "filePath": ".typings/mlx_lm/models/step3p5.pyi",
+   "lineRange": [
+    54,
+    63
+   ],
+   "summary": "Class Step3p5MoEGate in .typings/mlx_lm/models/step3p5.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx_lm/models/step3p5.pyi:Step3p5MoE",
+   "type": "class",
+   "name": "Step3p5MoE",
+   "filePath": ".typings/mlx_lm/models/step3p5.pyi",
+   "lineRange": [
+    65,
+    72
+   ],
+   "summary": "Class Step3p5MoE in .typings/mlx_lm/models/step3p5.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx_lm/models/step3p5.pyi:Step3p5Attention",
+   "type": "class",
+   "name": "Step3p5Attention",
+   "filePath": ".typings/mlx_lm/models/step3p5.pyi",
+   "lineRange": [
+    74,
+    96
+   ],
+   "summary": "Class Step3p5Attention in .typings/mlx_lm/models/step3p5.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx_lm/models/step3p5.pyi:Step3p5DecoderLayer",
+   "type": "class",
+   "name": "Step3p5DecoderLayer",
+   "filePath": ".typings/mlx_lm/models/step3p5.pyi",
+   "lineRange": [
+    98,
+    112
+   ],
+   "summary": "Class Step3p5DecoderLayer in .typings/mlx_lm/models/step3p5.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx_lm/models/step3p5.pyi:Step3p5Model",
+   "type": "class",
+   "name": "Step3p5Model",
+   "filePath": ".typings/mlx_lm/models/step3p5.pyi",
+   "lineRange": [
+    114,
+    129
+   ],
+   "summary": "Class Step3p5Model in .typings/mlx_lm/models/step3p5.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx_lm/models/step3p5.pyi:Model",
+   "type": "class",
+   "name": "Model",
+   "filePath": ".typings/mlx_lm/models/step3p5.pyi",
+   "lineRange": [
+    131,
+    151
+   ],
+   "summary": "Class Model in .typings/mlx_lm/models/step3p5.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:.typings/mlx_lm/models/switch_layers.pyi:swiglu",
+   "type": "function",
+   "name": "swiglu",
+   "filePath": ".typings/mlx_lm/models/switch_layers.pyi",
+   "lineRange": [
+    53,
+    53
+   ],
+   "summary": "Function swiglu in .typings/mlx_lm/models/switch_layers.pyi.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx_lm/models/switch_layers.pyi:QuantizedSwitchLinear",
+   "type": "class",
+   "name": "QuantizedSwitchLinear",
+   "filePath": ".typings/mlx_lm/models/switch_layers.pyi",
+   "lineRange": [
+    10,
+    31
+   ],
+   "summary": "Class QuantizedSwitchLinear in .typings/mlx_lm/models/switch_layers.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx_lm/models/switch_layers.pyi:SwitchLinear",
+   "type": "class",
+   "name": "SwitchLinear",
+   "filePath": ".typings/mlx_lm/models/switch_layers.pyi",
+   "lineRange": [
+    33,
+    50
+   ],
+   "summary": "Class SwitchLinear in .typings/mlx_lm/models/switch_layers.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx_lm/models/switch_layers.pyi:SwiGLU",
+   "type": "class",
+   "name": "SwiGLU",
+   "filePath": ".typings/mlx_lm/models/switch_layers.pyi",
+   "lineRange": [
+    55,
+    57
+   ],
+   "summary": "Class SwiGLU in .typings/mlx_lm/models/switch_layers.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx_lm/models/switch_layers.pyi:SwitchGLU",
+   "type": "class",
+   "name": "SwitchGLU",
+   "filePath": ".typings/mlx_lm/models/switch_layers.pyi",
+   "lineRange": [
+    59,
+    73
+   ],
+   "summary": "Class SwitchGLU in .typings/mlx_lm/models/switch_layers.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx_lm/models/switch_layers.pyi:SwitchMLP",
+   "type": "class",
+   "name": "SwitchMLP",
+   "filePath": ".typings/mlx_lm/models/switch_layers.pyi",
+   "lineRange": [
+    75,
+    87
+   ],
+   "summary": "Class SwitchMLP in .typings/mlx_lm/models/switch_layers.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:.typings/mlx_lm/sample_utils.pyi:make_sampler",
+   "type": "function",
+   "name": "make_sampler",
+   "filePath": ".typings/mlx_lm/sample_utils.pyi",
+   "lineRange": [
+    10,
+    45
+   ],
+   "summary": "Function make_sampler in .typings/mlx_lm/sample_utils.pyi.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:.typings/mlx_lm/sample_utils.pyi:make_logits_processors",
+   "type": "function",
+   "name": "make_logits_processors",
+   "filePath": ".typings/mlx_lm/sample_utils.pyi",
+   "lineRange": [
+    47,
+    71
+   ],
+   "summary": "Function make_logits_processors in .typings/mlx_lm/sample_utils.pyi.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:.typings/mlx_lm/sample_utils.pyi:apply_top_k",
+   "type": "function",
+   "name": "apply_top_k",
+   "filePath": ".typings/mlx_lm/sample_utils.pyi",
+   "lineRange": [
+    74,
+    81
+   ],
+   "summary": "Function apply_top_k in .typings/mlx_lm/sample_utils.pyi.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:.typings/mlx_lm/sample_utils.pyi:apply_min_p",
+   "type": "function",
+   "name": "apply_min_p",
+   "filePath": ".typings/mlx_lm/sample_utils.pyi",
+   "lineRange": [
+    84,
+    102
+   ],
+   "summary": "Function apply_min_p in .typings/mlx_lm/sample_utils.pyi.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:.typings/mlx_lm/sample_utils.pyi:apply_top_p",
+   "type": "function",
+   "name": "apply_top_p",
+   "filePath": ".typings/mlx_lm/sample_utils.pyi",
+   "lineRange": [
+    105,
+    114
+   ],
+   "summary": "Function apply_top_p in .typings/mlx_lm/sample_utils.pyi.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:.typings/mlx_lm/sample_utils.pyi:apply_xtc",
+   "type": "function",
+   "name": "apply_xtc",
+   "filePath": ".typings/mlx_lm/sample_utils.pyi",
+   "lineRange": [
+    117,
+    131
+   ],
+   "summary": "Function apply_xtc in .typings/mlx_lm/sample_utils.pyi.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:.typings/mlx_lm/sample_utils.pyi:categorical_sampling",
+   "type": "function",
+   "name": "categorical_sampling",
+   "filePath": ".typings/mlx_lm/sample_utils.pyi",
+   "lineRange": [
+    134,
+    135
+   ],
+   "summary": "Function categorical_sampling in .typings/mlx_lm/sample_utils.pyi.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:.typings/mlx_lm/sample_utils.pyi:make_repetition_penalty",
+   "type": "function",
+   "name": "make_repetition_penalty",
+   "filePath": ".typings/mlx_lm/sample_utils.pyi",
+   "lineRange": [
+    136,
+    152
+   ],
+   "summary": "Function make_repetition_penalty in .typings/mlx_lm/sample_utils.pyi.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:.typings/mlx_lm/tokenizer_utils.pyi:load",
+   "type": "function",
+   "name": "load",
+   "filePath": ".typings/mlx_lm/tokenizer_utils.pyi",
+   "lineRange": [
+    175,
+    185
+   ],
+   "summary": "Function load in .typings/mlx_lm/tokenizer_utils.pyi.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:.typings/mlx_lm/tokenizer_utils.pyi:no_bos_or_eos",
+   "type": "function",
+   "name": "no_bos_or_eos",
+   "filePath": ".typings/mlx_lm/tokenizer_utils.pyi",
+   "lineRange": [
+    190,
+    190
+   ],
+   "summary": "Function no_bos_or_eos in .typings/mlx_lm/tokenizer_utils.pyi.",
+   "tags": [
+    "function"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx_lm/tokenizer_utils.pyi:StreamingDetokenizer",
+   "type": "class",
+   "name": "StreamingDetokenizer",
+   "filePath": ".typings/mlx_lm/tokenizer_utils.pyi",
+   "lineRange": [
+    11,
+    47
+   ],
+   "summary": "Class StreamingDetokenizer in .typings/mlx_lm/tokenizer_utils.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx_lm/tokenizer_utils.pyi:NaiveStreamingDetokenizer",
+   "type": "class",
+   "name": "NaiveStreamingDetokenizer",
+   "filePath": ".typings/mlx_lm/tokenizer_utils.pyi",
+   "lineRange": [
+    49,
+    65
+   ],
+   "summary": "Class NaiveStreamingDetokenizer in .typings/mlx_lm/tokenizer_utils.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx_lm/tokenizer_utils.pyi:SPMStreamingDetokenizer",
+   "type": "class",
+   "name": "SPMStreamingDetokenizer",
+   "filePath": ".typings/mlx_lm/tokenizer_utils.pyi",
+   "lineRange": [
+    67,
+    79
+   ],
+   "summary": "Class SPMStreamingDetokenizer in .typings/mlx_lm/tokenizer_utils.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx_lm/tokenizer_utils.pyi:BPEStreamingDetokenizer",
+   "type": "class",
+   "name": "BPEStreamingDetokenizer",
+   "filePath": ".typings/mlx_lm/tokenizer_utils.pyi",
+   "lineRange": [
+    81,
+    99
+   ],
+   "summary": "Class BPEStreamingDetokenizer in .typings/mlx_lm/tokenizer_utils.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mlx_lm/tokenizer_utils.pyi:TokenizerWrapper",
+   "type": "class",
+   "name": "TokenizerWrapper",
+   "filePath": ".typings/mlx_lm/tokenizer_utils.pyi",
+   "lineRange": [
+    101,
+    162
+   ],
+   "summary": "Class TokenizerWrapper in .typings/mlx_lm/tokenizer_utils.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "class:.typings/mlx_lm/tokenizer_utils.pyi:NewlineTokenizer",
+   "type": "class",
+   "name": "NewlineTokenizer",
+   "filePath": ".typings/mlx_lm/tokenizer_utils.pyi",
+   "lineRange": [
+    164,
+    173
+   ],
+   "summary": "Class NewlineTokenizer in .typings/mlx_lm/tokenizer_utils.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  }
+ ],
+ "edges": [
+  {
+   "source": "file:.typings/mlx_lm/convert.pyi",
+   "target": "function:.typings/mlx_lm/convert.pyi:mixed_quant_predicate_builder",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/convert.pyi",
+   "target": "function:.typings/mlx_lm/convert.pyi:mixed_quant_predicate_builder",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/convert.pyi",
+   "target": "function:.typings/mlx_lm/convert.pyi:convert",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/convert.pyi",
+   "target": "function:.typings/mlx_lm/convert.pyi:convert",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/convert.pyi",
+   "target": "function:.typings/mlx_lm/convert.pyi:configure_parser",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/convert.pyi",
+   "target": "function:.typings/mlx_lm/convert.pyi:configure_parser",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/convert.pyi",
+   "target": "function:.typings/mlx_lm/convert.pyi:main",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/convert.pyi",
+   "target": "function:.typings/mlx_lm/convert.pyi:main",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/generate.pyi",
+   "target": "function:.typings/mlx_lm/generate.pyi:str2bool",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/generate.pyi",
+   "target": "function:.typings/mlx_lm/generate.pyi:str2bool",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/generate.pyi",
+   "target": "function:.typings/mlx_lm/generate.pyi:setup_arg_parser",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/generate.pyi",
+   "target": "function:.typings/mlx_lm/generate.pyi:setup_arg_parser",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/generate.pyi",
+   "target": "function:.typings/mlx_lm/generate.pyi:wired_limit",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/generate.pyi",
+   "target": "function:.typings/mlx_lm/generate.pyi:wired_limit",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/generate.pyi",
+   "target": "function:.typings/mlx_lm/generate.pyi:maybe_quantize_kv_cache",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/generate.pyi",
+   "target": "function:.typings/mlx_lm/generate.pyi:maybe_quantize_kv_cache",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/generate.pyi",
+   "target": "function:.typings/mlx_lm/generate.pyi:generate_step",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/generate.pyi",
+   "target": "function:.typings/mlx_lm/generate.pyi:generate_step",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/generate.pyi",
+   "target": "function:.typings/mlx_lm/generate.pyi:speculative_generate_step",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/generate.pyi",
+   "target": "function:.typings/mlx_lm/generate.pyi:speculative_generate_step",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/generate.pyi",
+   "target": "function:.typings/mlx_lm/generate.pyi:stream_generate",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/generate.pyi",
+   "target": "function:.typings/mlx_lm/generate.pyi:stream_generate",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/generate.pyi",
+   "target": "function:.typings/mlx_lm/generate.pyi:generate",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/generate.pyi",
+   "target": "function:.typings/mlx_lm/generate.pyi:generate",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/generate.pyi",
+   "target": "function:.typings/mlx_lm/generate.pyi:_merge_caches",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/generate.pyi",
+   "target": "function:.typings/mlx_lm/generate.pyi:_merge_caches",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/generate.pyi",
+   "target": "function:.typings/mlx_lm/generate.pyi:batch_generate",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/generate.pyi",
+   "target": "function:.typings/mlx_lm/generate.pyi:batch_generate",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/generate.pyi",
+   "target": "function:.typings/mlx_lm/generate.pyi:main",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/generate.pyi",
+   "target": "function:.typings/mlx_lm/generate.pyi:main",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/generate.pyi",
+   "target": "class:.typings/mlx_lm/generate.pyi:GenerationResponse",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/generate.pyi",
+   "target": "class:.typings/mlx_lm/generate.pyi:GenerationResponse",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/generate.pyi",
+   "target": "class:.typings/mlx_lm/generate.pyi:BatchStats",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/generate.pyi",
+   "target": "class:.typings/mlx_lm/generate.pyi:BatchStats",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/generate.pyi",
+   "target": "class:.typings/mlx_lm/generate.pyi:SequenceStateMachine",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/generate.pyi",
+   "target": "class:.typings/mlx_lm/generate.pyi:SequenceStateMachine",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/generate.pyi",
+   "target": "class:.typings/mlx_lm/generate.pyi:PromptProcessingBatch",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/generate.pyi",
+   "target": "class:.typings/mlx_lm/generate.pyi:PromptProcessingBatch",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/generate.pyi",
+   "target": "class:.typings/mlx_lm/generate.pyi:GenerationBatch",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/generate.pyi",
+   "target": "class:.typings/mlx_lm/generate.pyi:GenerationBatch",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/generate.pyi",
+   "target": "class:.typings/mlx_lm/generate.pyi:BatchGenerator",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/generate.pyi",
+   "target": "class:.typings/mlx_lm/generate.pyi:BatchGenerator",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/generate.pyi",
+   "target": "class:.typings/mlx_lm/generate.pyi:BatchResponse",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/generate.pyi",
+   "target": "class:.typings/mlx_lm/generate.pyi:BatchResponse",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/activations.pyi",
+   "target": "function:.typings/mlx_lm/models/activations.pyi:swiglu",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/activations.pyi",
+   "target": "function:.typings/mlx_lm/models/activations.pyi:swiglu",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/activations.pyi",
+   "target": "function:.typings/mlx_lm/models/activations.pyi:xielu",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/activations.pyi",
+   "target": "function:.typings/mlx_lm/models/activations.pyi:xielu",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/activations.pyi",
+   "target": "class:.typings/mlx_lm/models/activations.pyi:XieLU",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/activations.pyi",
+   "target": "class:.typings/mlx_lm/models/activations.pyi:XieLU",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/base.pyi",
+   "target": "function:.typings/mlx_lm/models/base.pyi:create_causal_mask",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/base.pyi",
+   "target": "function:.typings/mlx_lm/models/base.pyi:create_causal_mask",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/base.pyi",
+   "target": "function:.typings/mlx_lm/models/base.pyi:create_attention_mask",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/base.pyi",
+   "target": "function:.typings/mlx_lm/models/base.pyi:create_attention_mask",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/base.pyi",
+   "target": "function:.typings/mlx_lm/models/base.pyi:create_ssm_mask",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/base.pyi",
+   "target": "function:.typings/mlx_lm/models/base.pyi:create_ssm_mask",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/base.pyi",
+   "target": "function:.typings/mlx_lm/models/base.pyi:quantized_scaled_dot_product_attention",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/base.pyi",
+   "target": "function:.typings/mlx_lm/models/base.pyi:quantized_scaled_dot_product_attention",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/base.pyi",
+   "target": "function:.typings/mlx_lm/models/base.pyi:scaled_dot_product_attention",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/base.pyi",
+   "target": "function:.typings/mlx_lm/models/base.pyi:scaled_dot_product_attention",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/base.pyi",
+   "target": "class:.typings/mlx_lm/models/base.pyi:BaseModelArgs",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/base.pyi",
+   "target": "class:.typings/mlx_lm/models/base.pyi:BaseModelArgs",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/bitlinear_layers.pyi",
+   "target": "function:.typings/mlx_lm/models/bitlinear_layers.pyi:bitnet_quantize",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/bitlinear_layers.pyi",
+   "target": "function:.typings/mlx_lm/models/bitlinear_layers.pyi:bitnet_quantize",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/bitlinear_layers.pyi",
+   "target": "function:.typings/mlx_lm/models/bitlinear_layers.pyi:make_bitlinear_kernel",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/bitlinear_layers.pyi",
+   "target": "function:.typings/mlx_lm/models/bitlinear_layers.pyi:make_bitlinear_kernel",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/bitlinear_layers.pyi",
+   "target": "class:.typings/mlx_lm/models/bitlinear_layers.pyi:BitLinear",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/bitlinear_layers.pyi",
+   "target": "class:.typings/mlx_lm/models/bitlinear_layers.pyi:BitLinear",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/cache.pyi",
+   "target": "function:.typings/mlx_lm/models/cache.pyi:make_prompt_cache",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/cache.pyi",
+   "target": "function:.typings/mlx_lm/models/cache.pyi:make_prompt_cache",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/cache.pyi",
+   "target": "function:.typings/mlx_lm/models/cache.pyi:save_prompt_cache",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/cache.pyi",
+   "target": "function:.typings/mlx_lm/models/cache.pyi:save_prompt_cache",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/cache.pyi",
+   "target": "function:.typings/mlx_lm/models/cache.pyi:load_prompt_cache",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/cache.pyi",
+   "target": "function:.typings/mlx_lm/models/cache.pyi:load_prompt_cache",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/cache.pyi",
+   "target": "function:.typings/mlx_lm/models/cache.pyi:can_trim_prompt_cache",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/cache.pyi",
+   "target": "function:.typings/mlx_lm/models/cache.pyi:can_trim_prompt_cache",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/cache.pyi",
+   "target": "function:.typings/mlx_lm/models/cache.pyi:trim_prompt_cache",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/cache.pyi",
+   "target": "function:.typings/mlx_lm/models/cache.pyi:trim_prompt_cache",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/cache.pyi",
+   "target": "function:.typings/mlx_lm/models/cache.pyi:create_attention_mask",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/cache.pyi",
+   "target": "function:.typings/mlx_lm/models/cache.pyi:create_attention_mask",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/cache.pyi",
+   "target": "class:.typings/mlx_lm/models/cache.pyi:Cache",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/cache.pyi",
+   "target": "class:.typings/mlx_lm/models/cache.pyi:Cache",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/cache.pyi",
+   "target": "class:.typings/mlx_lm/models/cache.pyi:_BaseCache",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/cache.pyi",
+   "target": "class:.typings/mlx_lm/models/cache.pyi:_BaseCache",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/cache.pyi",
+   "target": "class:.typings/mlx_lm/models/cache.pyi:ConcatenateKVCache",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/cache.pyi",
+   "target": "class:.typings/mlx_lm/models/cache.pyi:ConcatenateKVCache",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/cache.pyi",
+   "target": "class:.typings/mlx_lm/models/cache.pyi:QuantizedKVCache",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/cache.pyi",
+   "target": "class:.typings/mlx_lm/models/cache.pyi:QuantizedKVCache",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/cache.pyi",
+   "target": "class:.typings/mlx_lm/models/cache.pyi:KVCache",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/cache.pyi",
+   "target": "class:.typings/mlx_lm/models/cache.pyi:KVCache",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/cache.pyi",
+   "target": "class:.typings/mlx_lm/models/cache.pyi:RotatingKVCache",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/cache.pyi",
+   "target": "class:.typings/mlx_lm/models/cache.pyi:RotatingKVCache",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/cache.pyi",
+   "target": "class:.typings/mlx_lm/models/cache.pyi:ArraysCache",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/cache.pyi",
+   "target": "class:.typings/mlx_lm/models/cache.pyi:ArraysCache",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/cache.pyi",
+   "target": "class:.typings/mlx_lm/models/cache.pyi:MambaCache",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/cache.pyi",
+   "target": "class:.typings/mlx_lm/models/cache.pyi:MambaCache",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/cache.pyi",
+   "target": "class:.typings/mlx_lm/models/cache.pyi:ChunkedKVCache",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/cache.pyi",
+   "target": "class:.typings/mlx_lm/models/cache.pyi:ChunkedKVCache",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/cache.pyi",
+   "target": "class:.typings/mlx_lm/models/cache.pyi:CacheList",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/cache.pyi",
+   "target": "class:.typings/mlx_lm/models/cache.pyi:CacheList",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/cache.pyi",
+   "target": "class:.typings/mlx_lm/models/cache.pyi:BatchKVCache",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/cache.pyi",
+   "target": "class:.typings/mlx_lm/models/cache.pyi:BatchKVCache",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/cache.pyi",
+   "target": "class:.typings/mlx_lm/models/cache.pyi:BatchRotatingKVCache",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/cache.pyi",
+   "target": "class:.typings/mlx_lm/models/cache.pyi:BatchRotatingKVCache",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/deepseek_v3.pyi",
+   "target": "class:.typings/mlx_lm/models/deepseek_v3.pyi:ModelArgs",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/deepseek_v3.pyi",
+   "target": "class:.typings/mlx_lm/models/deepseek_v3.pyi:ModelArgs",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/deepseek_v3.pyi",
+   "target": "class:.typings/mlx_lm/models/deepseek_v3.pyi:DeepseekV3Attention",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/deepseek_v3.pyi",
+   "target": "class:.typings/mlx_lm/models/deepseek_v3.pyi:DeepseekV3Attention",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/deepseek_v3.pyi",
+   "target": "class:.typings/mlx_lm/models/deepseek_v3.pyi:DeepseekV3MLP",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/deepseek_v3.pyi",
+   "target": "class:.typings/mlx_lm/models/deepseek_v3.pyi:DeepseekV3MLP",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/deepseek_v3.pyi",
+   "target": "class:.typings/mlx_lm/models/deepseek_v3.pyi:MoEGate",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/deepseek_v3.pyi",
+   "target": "class:.typings/mlx_lm/models/deepseek_v3.pyi:MoEGate",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/deepseek_v3.pyi",
+   "target": "class:.typings/mlx_lm/models/deepseek_v3.pyi:DeepseekV3MoE",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/deepseek_v3.pyi",
+   "target": "class:.typings/mlx_lm/models/deepseek_v3.pyi:DeepseekV3MoE",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/deepseek_v3.pyi",
+   "target": "class:.typings/mlx_lm/models/deepseek_v3.pyi:DeepseekV3DecoderLayer",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/deepseek_v3.pyi",
+   "target": "class:.typings/mlx_lm/models/deepseek_v3.pyi:DeepseekV3DecoderLayer",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/deepseek_v3.pyi",
+   "target": "class:.typings/mlx_lm/models/deepseek_v3.pyi:DeepseekV3Model",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/deepseek_v3.pyi",
+   "target": "class:.typings/mlx_lm/models/deepseek_v3.pyi:DeepseekV3Model",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/deepseek_v3.pyi",
+   "target": "class:.typings/mlx_lm/models/deepseek_v3.pyi:Model",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/deepseek_v3.pyi",
+   "target": "class:.typings/mlx_lm/models/deepseek_v3.pyi:Model",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/deepseek_v4.pyi",
+   "target": "class:.typings/mlx_lm/models/deepseek_v4.pyi:ModelArgs",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/deepseek_v4.pyi",
+   "target": "class:.typings/mlx_lm/models/deepseek_v4.pyi:ModelArgs",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/deepseek_v4.pyi",
+   "target": "class:.typings/mlx_lm/models/deepseek_v4.pyi:DeepseekV4RoPE",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/deepseek_v4.pyi",
+   "target": "class:.typings/mlx_lm/models/deepseek_v4.pyi:DeepseekV4RoPE",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/deepseek_v4.pyi",
+   "target": "class:.typings/mlx_lm/models/deepseek_v4.pyi:HyperConnection",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/deepseek_v4.pyi",
+   "target": "class:.typings/mlx_lm/models/deepseek_v4.pyi:HyperConnection",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/deepseek_v4.pyi",
+   "target": "class:.typings/mlx_lm/models/deepseek_v4.pyi:HyperHead",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/deepseek_v4.pyi",
+   "target": "class:.typings/mlx_lm/models/deepseek_v4.pyi:HyperHead",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/deepseek_v4.pyi",
+   "target": "class:.typings/mlx_lm/models/deepseek_v4.pyi:Compressor",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/deepseek_v4.pyi",
+   "target": "class:.typings/mlx_lm/models/deepseek_v4.pyi:Compressor",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/deepseek_v4.pyi",
+   "target": "class:.typings/mlx_lm/models/deepseek_v4.pyi:Indexer",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/deepseek_v4.pyi",
+   "target": "class:.typings/mlx_lm/models/deepseek_v4.pyi:Indexer",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/deepseek_v4.pyi",
+   "target": "class:.typings/mlx_lm/models/deepseek_v4.pyi:_CompressorBranch",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/deepseek_v4.pyi",
+   "target": "class:.typings/mlx_lm/models/deepseek_v4.pyi:_CompressorBranch",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/deepseek_v4.pyi",
+   "target": "class:.typings/mlx_lm/models/deepseek_v4.pyi:DeepseekV4Cache",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/deepseek_v4.pyi",
+   "target": "class:.typings/mlx_lm/models/deepseek_v4.pyi:DeepseekV4Cache",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/deepseek_v4.pyi",
+   "target": "class:.typings/mlx_lm/models/deepseek_v4.pyi:V4Attention",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/deepseek_v4.pyi",
+   "target": "class:.typings/mlx_lm/models/deepseek_v4.pyi:V4Attention",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/deepseek_v4.pyi",
+   "target": "class:.typings/mlx_lm/models/deepseek_v4.pyi:DeepseekV4MLP",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/deepseek_v4.pyi",
+   "target": "class:.typings/mlx_lm/models/deepseek_v4.pyi:DeepseekV4MLP",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/deepseek_v4.pyi",
+   "target": "class:.typings/mlx_lm/models/deepseek_v4.pyi:MoEGate",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/deepseek_v4.pyi",
+   "target": "class:.typings/mlx_lm/models/deepseek_v4.pyi:MoEGate",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/deepseek_v4.pyi",
+   "target": "class:.typings/mlx_lm/models/deepseek_v4.pyi:DeepseekV4MoE",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/deepseek_v4.pyi",
+   "target": "class:.typings/mlx_lm/models/deepseek_v4.pyi:DeepseekV4MoE",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/deepseek_v4.pyi",
+   "target": "class:.typings/mlx_lm/models/deepseek_v4.pyi:DeepseekV4Block",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/deepseek_v4.pyi",
+   "target": "class:.typings/mlx_lm/models/deepseek_v4.pyi:DeepseekV4Block",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/deepseek_v4.pyi",
+   "target": "class:.typings/mlx_lm/models/deepseek_v4.pyi:DeepseekV4Model",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/deepseek_v4.pyi",
+   "target": "class:.typings/mlx_lm/models/deepseek_v4.pyi:DeepseekV4Model",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/deepseek_v4.pyi",
+   "target": "class:.typings/mlx_lm/models/deepseek_v4.pyi:Model",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/deepseek_v4.pyi",
+   "target": "class:.typings/mlx_lm/models/deepseek_v4.pyi:Model",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/gated_delta.pyi",
+   "target": "function:.typings/mlx_lm/models/gated_delta.pyi:compute_g",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/gated_delta.pyi",
+   "target": "function:.typings/mlx_lm/models/gated_delta.pyi:compute_g",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/gated_delta.pyi",
+   "target": "function:.typings/mlx_lm/models/gated_delta.pyi:gated_delta_update",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/gated_delta.pyi",
+   "target": "function:.typings/mlx_lm/models/gated_delta.pyi:gated_delta_update",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/gated_delta.pyi",
+   "target": "function:.typings/mlx_lm/models/gated_delta.pyi:gated_delta_ops",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/gated_delta.pyi",
+   "target": "function:.typings/mlx_lm/models/gated_delta.pyi:gated_delta_ops",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/gated_delta.pyi",
+   "target": "function:.typings/mlx_lm/models/gated_delta.pyi:gated_delta_kernel",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/gated_delta.pyi",
+   "target": "function:.typings/mlx_lm/models/gated_delta.pyi:gated_delta_kernel",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/gemma4.pyi",
+   "target": "class:.typings/mlx_lm/models/gemma4.pyi:ModelArgs",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/gemma4.pyi",
+   "target": "class:.typings/mlx_lm/models/gemma4.pyi:ModelArgs",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/gemma4.pyi",
+   "target": "class:.typings/mlx_lm/models/gemma4.pyi:Model",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/gemma4.pyi",
+   "target": "class:.typings/mlx_lm/models/gemma4.pyi:Model",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/gemma4_text.pyi",
+   "target": "class:.typings/mlx_lm/models/gemma4_text.pyi:ModelArgs",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/gemma4_text.pyi",
+   "target": "class:.typings/mlx_lm/models/gemma4_text.pyi:ModelArgs",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/gemma4_text.pyi",
+   "target": "class:.typings/mlx_lm/models/gemma4_text.pyi:MLP",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/gemma4_text.pyi",
+   "target": "class:.typings/mlx_lm/models/gemma4_text.pyi:MLP",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/gemma4_text.pyi",
+   "target": "class:.typings/mlx_lm/models/gemma4_text.pyi:Router",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/gemma4_text.pyi",
+   "target": "class:.typings/mlx_lm/models/gemma4_text.pyi:Router",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/gemma4_text.pyi",
+   "target": "class:.typings/mlx_lm/models/gemma4_text.pyi:Experts",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/gemma4_text.pyi",
+   "target": "class:.typings/mlx_lm/models/gemma4_text.pyi:Experts",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/gemma4_text.pyi",
+   "target": "class:.typings/mlx_lm/models/gemma4_text.pyi:Attention",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/gemma4_text.pyi",
+   "target": "class:.typings/mlx_lm/models/gemma4_text.pyi:Attention",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/gemma4_text.pyi",
+   "target": "class:.typings/mlx_lm/models/gemma4_text.pyi:DecoderLayer",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/gemma4_text.pyi",
+   "target": "class:.typings/mlx_lm/models/gemma4_text.pyi:DecoderLayer",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/gemma4_text.pyi",
+   "target": "class:.typings/mlx_lm/models/gemma4_text.pyi:Gemma4TextModel",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/gemma4_text.pyi",
+   "target": "class:.typings/mlx_lm/models/gemma4_text.pyi:Gemma4TextModel",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/gemma4_text.pyi",
+   "target": "class:.typings/mlx_lm/models/gemma4_text.pyi:Model",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/gemma4_text.pyi",
+   "target": "class:.typings/mlx_lm/models/gemma4_text.pyi:Model",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/glm4_moe.pyi",
+   "target": "class:.typings/mlx_lm/models/glm4_moe.pyi:ModelArgs",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/glm4_moe.pyi",
+   "target": "class:.typings/mlx_lm/models/glm4_moe.pyi:ModelArgs",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/glm4_moe.pyi",
+   "target": "class:.typings/mlx_lm/models/glm4_moe.pyi:Attention",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/glm4_moe.pyi",
+   "target": "class:.typings/mlx_lm/models/glm4_moe.pyi:Attention",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/glm4_moe.pyi",
+   "target": "class:.typings/mlx_lm/models/glm4_moe.pyi:MLP",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/glm4_moe.pyi",
+   "target": "class:.typings/mlx_lm/models/glm4_moe.pyi:MLP",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/glm4_moe.pyi",
+   "target": "class:.typings/mlx_lm/models/glm4_moe.pyi:MoEGate",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/glm4_moe.pyi",
+   "target": "class:.typings/mlx_lm/models/glm4_moe.pyi:MoEGate",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/glm4_moe.pyi",
+   "target": "class:.typings/mlx_lm/models/glm4_moe.pyi:MoE",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/glm4_moe.pyi",
+   "target": "class:.typings/mlx_lm/models/glm4_moe.pyi:MoE",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/glm4_moe.pyi",
+   "target": "class:.typings/mlx_lm/models/glm4_moe.pyi:DecoderLayer",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/glm4_moe.pyi",
+   "target": "class:.typings/mlx_lm/models/glm4_moe.pyi:DecoderLayer",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/glm4_moe.pyi",
+   "target": "class:.typings/mlx_lm/models/glm4_moe.pyi:LanguageModel",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/glm4_moe.pyi",
+   "target": "class:.typings/mlx_lm/models/glm4_moe.pyi:LanguageModel",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/glm4_moe.pyi",
+   "target": "class:.typings/mlx_lm/models/glm4_moe.pyi:Model",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/glm4_moe.pyi",
+   "target": "class:.typings/mlx_lm/models/glm4_moe.pyi:Model",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/glm_moe_dsa.pyi",
+   "target": "class:.typings/mlx_lm/models/glm_moe_dsa.pyi:ModelArgs",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/glm_moe_dsa.pyi",
+   "target": "class:.typings/mlx_lm/models/glm_moe_dsa.pyi:ModelArgs",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/glm_moe_dsa.pyi",
+   "target": "class:.typings/mlx_lm/models/glm_moe_dsa.pyi:Model",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/glm_moe_dsa.pyi",
+   "target": "class:.typings/mlx_lm/models/glm_moe_dsa.pyi:Model",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/gpt_oss.pyi",
+   "target": "function:.typings/mlx_lm/models/gpt_oss.pyi:mlx_topk",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/gpt_oss.pyi",
+   "target": "function:.typings/mlx_lm/models/gpt_oss.pyi:mlx_topk",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/gpt_oss.pyi",
+   "target": "class:.typings/mlx_lm/models/gpt_oss.pyi:ModelArgs",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/gpt_oss.pyi",
+   "target": "class:.typings/mlx_lm/models/gpt_oss.pyi:ModelArgs",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/gpt_oss.pyi",
+   "target": "class:.typings/mlx_lm/models/gpt_oss.pyi:AttentionBlock",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/gpt_oss.pyi",
+   "target": "class:.typings/mlx_lm/models/gpt_oss.pyi:AttentionBlock",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/gpt_oss.pyi",
+   "target": "class:.typings/mlx_lm/models/gpt_oss.pyi:TransformerBlock",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/gpt_oss.pyi",
+   "target": "class:.typings/mlx_lm/models/gpt_oss.pyi:TransformerBlock",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/gpt_oss.pyi",
+   "target": "class:.typings/mlx_lm/models/gpt_oss.pyi:MLPBlock",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/gpt_oss.pyi",
+   "target": "class:.typings/mlx_lm/models/gpt_oss.pyi:MLPBlock",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/gpt_oss.pyi",
+   "target": "class:.typings/mlx_lm/models/gpt_oss.pyi:GptOssMoeModel",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/gpt_oss.pyi",
+   "target": "class:.typings/mlx_lm/models/gpt_oss.pyi:GptOssMoeModel",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/gpt_oss.pyi",
+   "target": "class:.typings/mlx_lm/models/gpt_oss.pyi:Model",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/gpt_oss.pyi",
+   "target": "class:.typings/mlx_lm/models/gpt_oss.pyi:Model",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/minimax.pyi",
+   "target": "class:.typings/mlx_lm/models/minimax.pyi:ModelArgs",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/minimax.pyi",
+   "target": "class:.typings/mlx_lm/models/minimax.pyi:ModelArgs",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/minimax.pyi",
+   "target": "class:.typings/mlx_lm/models/minimax.pyi:MiniMaxAttention",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/minimax.pyi",
+   "target": "class:.typings/mlx_lm/models/minimax.pyi:MiniMaxAttention",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/minimax.pyi",
+   "target": "class:.typings/mlx_lm/models/minimax.pyi:MiniMaxSparseMoeBlock",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/minimax.pyi",
+   "target": "class:.typings/mlx_lm/models/minimax.pyi:MiniMaxSparseMoeBlock",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/minimax.pyi",
+   "target": "class:.typings/mlx_lm/models/minimax.pyi:MiniMaxDecoderLayer",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/minimax.pyi",
+   "target": "class:.typings/mlx_lm/models/minimax.pyi:MiniMaxDecoderLayer",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/minimax.pyi",
+   "target": "class:.typings/mlx_lm/models/minimax.pyi:MiniMaxModel",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/minimax.pyi",
+   "target": "class:.typings/mlx_lm/models/minimax.pyi:MiniMaxModel",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/minimax.pyi",
+   "target": "class:.typings/mlx_lm/models/minimax.pyi:Model",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/minimax.pyi",
+   "target": "class:.typings/mlx_lm/models/minimax.pyi:Model",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/nemotron_h.pyi",
+   "target": "class:.typings/mlx_lm/models/nemotron_h.pyi:ModelArgs",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/nemotron_h.pyi",
+   "target": "class:.typings/mlx_lm/models/nemotron_h.pyi:ModelArgs",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/nemotron_h.pyi",
+   "target": "class:.typings/mlx_lm/models/nemotron_h.pyi:NemotronHMamba2Mixer",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/nemotron_h.pyi",
+   "target": "class:.typings/mlx_lm/models/nemotron_h.pyi:NemotronHMamba2Mixer",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/nemotron_h.pyi",
+   "target": "class:.typings/mlx_lm/models/nemotron_h.pyi:NemotronHAttention",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/nemotron_h.pyi",
+   "target": "class:.typings/mlx_lm/models/nemotron_h.pyi:NemotronHAttention",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/nemotron_h.pyi",
+   "target": "class:.typings/mlx_lm/models/nemotron_h.pyi:MoEGate",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/nemotron_h.pyi",
+   "target": "class:.typings/mlx_lm/models/nemotron_h.pyi:MoEGate",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/nemotron_h.pyi",
+   "target": "class:.typings/mlx_lm/models/nemotron_h.pyi:NemotronHMLP",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/nemotron_h.pyi",
+   "target": "class:.typings/mlx_lm/models/nemotron_h.pyi:NemotronHMLP",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/nemotron_h.pyi",
+   "target": "class:.typings/mlx_lm/models/nemotron_h.pyi:NemotronHMoE",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/nemotron_h.pyi",
+   "target": "class:.typings/mlx_lm/models/nemotron_h.pyi:NemotronHMoE",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/nemotron_h.pyi",
+   "target": "class:.typings/mlx_lm/models/nemotron_h.pyi:NemotronHBlock",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/nemotron_h.pyi",
+   "target": "class:.typings/mlx_lm/models/nemotron_h.pyi:NemotronHBlock",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/nemotron_h.pyi",
+   "target": "class:.typings/mlx_lm/models/nemotron_h.pyi:NemotronHModel",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/nemotron_h.pyi",
+   "target": "class:.typings/mlx_lm/models/nemotron_h.pyi:NemotronHModel",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/nemotron_h.pyi",
+   "target": "class:.typings/mlx_lm/models/nemotron_h.pyi:Model",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/nemotron_h.pyi",
+   "target": "class:.typings/mlx_lm/models/nemotron_h.pyi:Model",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/qwen3_5.pyi",
+   "target": "class:.typings/mlx_lm/models/qwen3_5.pyi:TextModelArgs",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/qwen3_5.pyi",
+   "target": "class:.typings/mlx_lm/models/qwen3_5.pyi:TextModelArgs",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/qwen3_5.pyi",
+   "target": "class:.typings/mlx_lm/models/qwen3_5.pyi:GatedDeltaNet",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/qwen3_5.pyi",
+   "target": "class:.typings/mlx_lm/models/qwen3_5.pyi:GatedDeltaNet",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/qwen3_5.pyi",
+   "target": "class:.typings/mlx_lm/models/qwen3_5.pyi:DecoderLayer",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/qwen3_5.pyi",
+   "target": "class:.typings/mlx_lm/models/qwen3_5.pyi:DecoderLayer",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/qwen3_5.pyi",
+   "target": "class:.typings/mlx_lm/models/qwen3_5.pyi:Qwen3_5TextModel",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/qwen3_5.pyi",
+   "target": "class:.typings/mlx_lm/models/qwen3_5.pyi:Qwen3_5TextModel",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/qwen3_5.pyi",
+   "target": "class:.typings/mlx_lm/models/qwen3_5.pyi:TextModel",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/qwen3_5.pyi",
+   "target": "class:.typings/mlx_lm/models/qwen3_5.pyi:TextModel",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/qwen3_5.pyi",
+   "target": "class:.typings/mlx_lm/models/qwen3_5.pyi:ModelArgs",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/qwen3_5.pyi",
+   "target": "class:.typings/mlx_lm/models/qwen3_5.pyi:ModelArgs",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/qwen3_5.pyi",
+   "target": "class:.typings/mlx_lm/models/qwen3_5.pyi:Model",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/qwen3_5.pyi",
+   "target": "class:.typings/mlx_lm/models/qwen3_5.pyi:Model",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/qwen3_5_moe.pyi",
+   "target": "class:.typings/mlx_lm/models/qwen3_5_moe.pyi:ModelArgs",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/qwen3_5_moe.pyi",
+   "target": "class:.typings/mlx_lm/models/qwen3_5_moe.pyi:ModelArgs",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/qwen3_5_moe.pyi",
+   "target": "class:.typings/mlx_lm/models/qwen3_5_moe.pyi:Model",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/qwen3_5_moe.pyi",
+   "target": "class:.typings/mlx_lm/models/qwen3_5_moe.pyi:Model",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/qwen3_next.pyi",
+   "target": "class:.typings/mlx_lm/models/qwen3_next.pyi:Qwen3NextRMSNormGated",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/qwen3_next.pyi",
+   "target": "class:.typings/mlx_lm/models/qwen3_next.pyi:Qwen3NextRMSNormGated",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/qwen3_next.pyi",
+   "target": "class:.typings/mlx_lm/models/qwen3_next.pyi:Qwen3NextMLP",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/qwen3_next.pyi",
+   "target": "class:.typings/mlx_lm/models/qwen3_next.pyi:Qwen3NextMLP",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/qwen3_next.pyi",
+   "target": "class:.typings/mlx_lm/models/qwen3_next.pyi:Qwen3NextGatedDeltaNet",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/qwen3_next.pyi",
+   "target": "class:.typings/mlx_lm/models/qwen3_next.pyi:Qwen3NextGatedDeltaNet",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/qwen3_next.pyi",
+   "target": "class:.typings/mlx_lm/models/qwen3_next.pyi:Qwen3NextAttention",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/qwen3_next.pyi",
+   "target": "class:.typings/mlx_lm/models/qwen3_next.pyi:Qwen3NextAttention",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/qwen3_next.pyi",
+   "target": "class:.typings/mlx_lm/models/qwen3_next.pyi:Qwen3NextSparseMoeBlock",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/qwen3_next.pyi",
+   "target": "class:.typings/mlx_lm/models/qwen3_next.pyi:Qwen3NextSparseMoeBlock",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/qwen3_next.pyi",
+   "target": "class:.typings/mlx_lm/models/qwen3_next.pyi:Qwen3NextDecoderLayer",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/qwen3_next.pyi",
+   "target": "class:.typings/mlx_lm/models/qwen3_next.pyi:Qwen3NextDecoderLayer",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/qwen3_next.pyi",
+   "target": "class:.typings/mlx_lm/models/qwen3_next.pyi:Qwen3NextModel",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/qwen3_next.pyi",
+   "target": "class:.typings/mlx_lm/models/qwen3_next.pyi:Qwen3NextModel",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/qwen3_next.pyi",
+   "target": "class:.typings/mlx_lm/models/qwen3_next.pyi:Model",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/qwen3_next.pyi",
+   "target": "class:.typings/mlx_lm/models/qwen3_next.pyi:Model",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/rope_utils.pyi",
+   "target": "function:.typings/mlx_lm/models/rope_utils.pyi:initialize_rope",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/rope_utils.pyi",
+   "target": "function:.typings/mlx_lm/models/rope_utils.pyi:initialize_rope",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/rope_utils.pyi",
+   "target": "class:.typings/mlx_lm/models/rope_utils.pyi:YarnRoPE",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/rope_utils.pyi",
+   "target": "class:.typings/mlx_lm/models/rope_utils.pyi:YarnRoPE",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/rope_utils.pyi",
+   "target": "class:.typings/mlx_lm/models/rope_utils.pyi:Llama3RoPE",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/rope_utils.pyi",
+   "target": "class:.typings/mlx_lm/models/rope_utils.pyi:Llama3RoPE",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/rope_utils.pyi",
+   "target": "class:.typings/mlx_lm/models/rope_utils.pyi:SuScaledRoPE",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/rope_utils.pyi",
+   "target": "class:.typings/mlx_lm/models/rope_utils.pyi:SuScaledRoPE",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/step3p5.pyi",
+   "target": "class:.typings/mlx_lm/models/step3p5.pyi:ModelArgs",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/step3p5.pyi",
+   "target": "class:.typings/mlx_lm/models/step3p5.pyi:ModelArgs",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/step3p5.pyi",
+   "target": "class:.typings/mlx_lm/models/step3p5.pyi:Step3p5MLP",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/step3p5.pyi",
+   "target": "class:.typings/mlx_lm/models/step3p5.pyi:Step3p5MLP",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/step3p5.pyi",
+   "target": "class:.typings/mlx_lm/models/step3p5.pyi:Step3p5MoEGate",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/step3p5.pyi",
+   "target": "class:.typings/mlx_lm/models/step3p5.pyi:Step3p5MoEGate",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/step3p5.pyi",
+   "target": "class:.typings/mlx_lm/models/step3p5.pyi:Step3p5MoE",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/step3p5.pyi",
+   "target": "class:.typings/mlx_lm/models/step3p5.pyi:Step3p5MoE",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/step3p5.pyi",
+   "target": "class:.typings/mlx_lm/models/step3p5.pyi:Step3p5Attention",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/step3p5.pyi",
+   "target": "class:.typings/mlx_lm/models/step3p5.pyi:Step3p5Attention",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/step3p5.pyi",
+   "target": "class:.typings/mlx_lm/models/step3p5.pyi:Step3p5DecoderLayer",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/step3p5.pyi",
+   "target": "class:.typings/mlx_lm/models/step3p5.pyi:Step3p5DecoderLayer",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/step3p5.pyi",
+   "target": "class:.typings/mlx_lm/models/step3p5.pyi:Step3p5Model",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/step3p5.pyi",
+   "target": "class:.typings/mlx_lm/models/step3p5.pyi:Step3p5Model",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/step3p5.pyi",
+   "target": "class:.typings/mlx_lm/models/step3p5.pyi:Model",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/step3p5.pyi",
+   "target": "class:.typings/mlx_lm/models/step3p5.pyi:Model",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/switch_layers.pyi",
+   "target": "function:.typings/mlx_lm/models/switch_layers.pyi:swiglu",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/switch_layers.pyi",
+   "target": "function:.typings/mlx_lm/models/switch_layers.pyi:swiglu",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/switch_layers.pyi",
+   "target": "class:.typings/mlx_lm/models/switch_layers.pyi:QuantizedSwitchLinear",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/switch_layers.pyi",
+   "target": "class:.typings/mlx_lm/models/switch_layers.pyi:QuantizedSwitchLinear",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/switch_layers.pyi",
+   "target": "class:.typings/mlx_lm/models/switch_layers.pyi:SwitchLinear",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/switch_layers.pyi",
+   "target": "class:.typings/mlx_lm/models/switch_layers.pyi:SwitchLinear",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/switch_layers.pyi",
+   "target": "class:.typings/mlx_lm/models/switch_layers.pyi:SwiGLU",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/switch_layers.pyi",
+   "target": "class:.typings/mlx_lm/models/switch_layers.pyi:SwiGLU",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/switch_layers.pyi",
+   "target": "class:.typings/mlx_lm/models/switch_layers.pyi:SwitchGLU",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/switch_layers.pyi",
+   "target": "class:.typings/mlx_lm/models/switch_layers.pyi:SwitchGLU",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/switch_layers.pyi",
+   "target": "class:.typings/mlx_lm/models/switch_layers.pyi:SwitchMLP",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/models/switch_layers.pyi",
+   "target": "class:.typings/mlx_lm/models/switch_layers.pyi:SwitchMLP",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/sample_utils.pyi",
+   "target": "function:.typings/mlx_lm/sample_utils.pyi:make_sampler",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/sample_utils.pyi",
+   "target": "function:.typings/mlx_lm/sample_utils.pyi:make_sampler",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/sample_utils.pyi",
+   "target": "function:.typings/mlx_lm/sample_utils.pyi:make_logits_processors",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/sample_utils.pyi",
+   "target": "function:.typings/mlx_lm/sample_utils.pyi:make_logits_processors",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/sample_utils.pyi",
+   "target": "function:.typings/mlx_lm/sample_utils.pyi:apply_top_k",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/sample_utils.pyi",
+   "target": "function:.typings/mlx_lm/sample_utils.pyi:apply_top_k",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/sample_utils.pyi",
+   "target": "function:.typings/mlx_lm/sample_utils.pyi:apply_min_p",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/sample_utils.pyi",
+   "target": "function:.typings/mlx_lm/sample_utils.pyi:apply_min_p",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/sample_utils.pyi",
+   "target": "function:.typings/mlx_lm/sample_utils.pyi:apply_top_p",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/sample_utils.pyi",
+   "target": "function:.typings/mlx_lm/sample_utils.pyi:apply_top_p",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/sample_utils.pyi",
+   "target": "function:.typings/mlx_lm/sample_utils.pyi:apply_xtc",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/sample_utils.pyi",
+   "target": "function:.typings/mlx_lm/sample_utils.pyi:apply_xtc",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/sample_utils.pyi",
+   "target": "function:.typings/mlx_lm/sample_utils.pyi:categorical_sampling",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/sample_utils.pyi",
+   "target": "function:.typings/mlx_lm/sample_utils.pyi:categorical_sampling",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/sample_utils.pyi",
+   "target": "function:.typings/mlx_lm/sample_utils.pyi:make_repetition_penalty",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/sample_utils.pyi",
+   "target": "function:.typings/mlx_lm/sample_utils.pyi:make_repetition_penalty",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/tokenizer_utils.pyi",
+   "target": "function:.typings/mlx_lm/tokenizer_utils.pyi:load",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/tokenizer_utils.pyi",
+   "target": "function:.typings/mlx_lm/tokenizer_utils.pyi:load",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/tokenizer_utils.pyi",
+   "target": "function:.typings/mlx_lm/tokenizer_utils.pyi:no_bos_or_eos",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/tokenizer_utils.pyi",
+   "target": "function:.typings/mlx_lm/tokenizer_utils.pyi:no_bos_or_eos",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/tokenizer_utils.pyi",
+   "target": "class:.typings/mlx_lm/tokenizer_utils.pyi:StreamingDetokenizer",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/tokenizer_utils.pyi",
+   "target": "class:.typings/mlx_lm/tokenizer_utils.pyi:StreamingDetokenizer",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/tokenizer_utils.pyi",
+   "target": "class:.typings/mlx_lm/tokenizer_utils.pyi:NaiveStreamingDetokenizer",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/tokenizer_utils.pyi",
+   "target": "class:.typings/mlx_lm/tokenizer_utils.pyi:NaiveStreamingDetokenizer",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/tokenizer_utils.pyi",
+   "target": "class:.typings/mlx_lm/tokenizer_utils.pyi:SPMStreamingDetokenizer",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/tokenizer_utils.pyi",
+   "target": "class:.typings/mlx_lm/tokenizer_utils.pyi:SPMStreamingDetokenizer",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/tokenizer_utils.pyi",
+   "target": "class:.typings/mlx_lm/tokenizer_utils.pyi:BPEStreamingDetokenizer",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/tokenizer_utils.pyi",
+   "target": "class:.typings/mlx_lm/tokenizer_utils.pyi:BPEStreamingDetokenizer",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/tokenizer_utils.pyi",
+   "target": "class:.typings/mlx_lm/tokenizer_utils.pyi:TokenizerWrapper",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/tokenizer_utils.pyi",
+   "target": "class:.typings/mlx_lm/tokenizer_utils.pyi:TokenizerWrapper",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mlx_lm/tokenizer_utils.pyi",
+   "target": "class:.typings/mlx_lm/tokenizer_utils.pyi:NewlineTokenizer",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mlx_lm/tokenizer_utils.pyi",
+   "target": "class:.typings/mlx_lm/tokenizer_utils.pyi:NewlineTokenizer",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  }
+ ]
+}

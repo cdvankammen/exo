@@ -1,0 +1,280 @@
+{
+ "nodes": [
+  {
+   "id": "file:app/EXO/EXO/Models/ClusterState.swift",
+   "type": "file",
+   "name": "ClusterState.swift",
+   "filePath": "app/EXO/EXO/Models/ClusterState.swift",
+   "summary": "ClusterState.swift \u2014 code file in the exo project.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "config:app/EXO/EXO/Preview Content/Preview Assets.xcassets/Contents.json",
+   "type": "config",
+   "name": "Contents.json",
+   "filePath": "app/EXO/EXO/Preview Content/Preview Assets.xcassets/Contents.json",
+   "summary": "Configuration file app/EXO/EXO/Preview Content/Preview Assets.xcassets/Contents.json controlling project settings.",
+   "tags": [
+    "configuration"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:app/EXO/EXO/Services/BugReportService.swift",
+   "type": "file",
+   "name": "BugReportService.swift",
+   "filePath": "app/EXO/EXO/Services/BugReportService.swift",
+   "summary": "BugReportService.swift \u2014 code file in the exo project.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "file:app/EXO/EXO/Services/ClusterStateService.swift",
+   "type": "file",
+   "name": "ClusterStateService.swift",
+   "filePath": "app/EXO/EXO/Services/ClusterStateService.swift",
+   "summary": "ClusterStateService.swift \u2014 code file in the exo project.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:app/EXO/EXO/Services/LocalNetworkChecker.swift",
+   "type": "file",
+   "name": "LocalNetworkChecker.swift",
+   "filePath": "app/EXO/EXO/Services/LocalNetworkChecker.swift",
+   "summary": "LocalNetworkChecker.swift \u2014 code file in the exo project.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:app/EXO/EXO/Services/NetworkSetupHelper.swift",
+   "type": "file",
+   "name": "NetworkSetupHelper.swift",
+   "filePath": "app/EXO/EXO/Services/NetworkSetupHelper.swift",
+   "summary": "NetworkSetupHelper.swift \u2014 code file in the exo project.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "file:app/EXO/EXO/Services/NetworkStatusService.swift",
+   "type": "file",
+   "name": "NetworkStatusService.swift",
+   "filePath": "app/EXO/EXO/Services/NetworkStatusService.swift",
+   "summary": "NetworkStatusService.swift \u2014 code file in the exo project.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "file:app/EXO/EXO/Services/ThunderboltBridgeDetector.swift",
+   "type": "file",
+   "name": "ThunderboltBridgeDetector.swift",
+   "filePath": "app/EXO/EXO/Services/ThunderboltBridgeDetector.swift",
+   "summary": "ThunderboltBridgeDetector.swift \u2014 code file in the exo project.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:app/EXO/EXO/Services/ThunderboltBridgeService.swift",
+   "type": "file",
+   "name": "ThunderboltBridgeService.swift",
+   "filePath": "app/EXO/EXO/Services/ThunderboltBridgeService.swift",
+   "summary": "ThunderboltBridgeService.swift \u2014 code file in the exo project.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "file:app/EXO/EXO/ViewModels/InstanceViewModel.swift",
+   "type": "file",
+   "name": "InstanceViewModel.swift",
+   "filePath": "app/EXO/EXO/ViewModels/InstanceViewModel.swift",
+   "summary": "InstanceViewModel.swift \u2014 code file in the exo project.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "file:app/EXO/EXO/ViewModels/NodeViewModel.swift",
+   "type": "file",
+   "name": "NodeViewModel.swift",
+   "filePath": "app/EXO/EXO/ViewModels/NodeViewModel.swift",
+   "summary": "NodeViewModel.swift \u2014 code file in the exo project.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:app/EXO/EXO/Views/BugReportWindowController.swift",
+   "type": "file",
+   "name": "BugReportWindowController.swift",
+   "filePath": "app/EXO/EXO/Views/BugReportWindowController.swift",
+   "summary": "BugReportWindowController.swift \u2014 code file in the exo project.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "file:app/EXO/EXO/Views/FirstLaunchPopout.swift",
+   "type": "file",
+   "name": "FirstLaunchPopout.swift",
+   "filePath": "app/EXO/EXO/Views/FirstLaunchPopout.swift",
+   "summary": "FirstLaunchPopout.swift \u2014 code file in the exo project.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:app/EXO/EXO/Views/InstanceRowView.swift",
+   "type": "file",
+   "name": "InstanceRowView.swift",
+   "filePath": "app/EXO/EXO/Views/InstanceRowView.swift",
+   "summary": "InstanceRowView.swift \u2014 code file in the exo project.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "file:app/EXO/EXO/Views/NodeDetailView.swift",
+   "type": "file",
+   "name": "NodeDetailView.swift",
+   "filePath": "app/EXO/EXO/Views/NodeDetailView.swift",
+   "summary": "NodeDetailView.swift \u2014 code file in the exo project.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:app/EXO/EXO/Views/NodeRowView.swift",
+   "type": "file",
+   "name": "NodeRowView.swift",
+   "filePath": "app/EXO/EXO/Views/NodeRowView.swift",
+   "summary": "NodeRowView.swift \u2014 code file in the exo project.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:app/EXO/EXO/Views/SettingsView.swift",
+   "type": "file",
+   "name": "SettingsView.swift",
+   "filePath": "app/EXO/EXO/Views/SettingsView.swift",
+   "summary": "SettingsView.swift \u2014 code file in the exo project.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "file:app/EXO/EXO/Views/SettingsWindowController.swift",
+   "type": "file",
+   "name": "SettingsWindowController.swift",
+   "filePath": "app/EXO/EXO/Views/SettingsWindowController.swift",
+   "summary": "SettingsWindowController.swift \u2014 code file in the exo project.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:app/EXO/EXO/Views/TopologyMiniView.swift",
+   "type": "file",
+   "name": "TopologyMiniView.swift",
+   "filePath": "app/EXO/EXO/Views/TopologyMiniView.swift",
+   "summary": "TopologyMiniView.swift \u2014 code file in the exo project.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:app/EXO/EXO/main.swift",
+   "type": "file",
+   "name": "main.swift",
+   "filePath": "app/EXO/EXO/main.swift",
+   "summary": "main.swift \u2014 code file in the exo project.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:app/EXO/EXOTests/EXOTests.swift",
+   "type": "file",
+   "name": "EXOTests.swift",
+   "filePath": "app/EXO/EXOTests/EXOTests.swift",
+   "summary": "EXOTests.swift \u2014 code file in the exo project.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:app/EXO/EXOUITests/EXOUITests.swift",
+   "type": "file",
+   "name": "EXOUITests.swift",
+   "filePath": "app/EXO/EXOUITests/EXOUITests.swift",
+   "summary": "EXOUITests.swift \u2014 code file in the exo project.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:app/EXO/EXOUITests/EXOUITestsLaunchTests.swift",
+   "type": "file",
+   "name": "EXOUITestsLaunchTests.swift",
+   "filePath": "app/EXO/EXOUITests/EXOUITestsLaunchTests.swift",
+   "summary": "EXOUITestsLaunchTests.swift \u2014 code file in the exo project.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:app/EXO/uninstall-exo.sh",
+   "type": "file",
+   "name": "uninstall-exo.sh",
+   "filePath": "app/EXO/uninstall-exo.sh",
+   "summary": "Defines 3 function(s) and 0 class(es) for app/EXO/uninstall-exo.sh.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "config:bench/eval_configs/models.toml",
+   "type": "config",
+   "name": "models.toml",
+   "filePath": "bench/eval_configs/models.toml",
+   "summary": "Configuration file bench/eval_configs/models.toml controlling project settings.",
+   "tags": [
+    "configuration"
+   ],
+   "complexity": "complex"
+  }
+ ],
+ "edges": []
+}

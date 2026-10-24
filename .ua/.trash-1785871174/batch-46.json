@@ -1,0 +1,15 @@
+{
+  "nodes": [
+    {
+      "id": "file:tools/src/exo_tools/__init__.py",
+      "type": "file",
+      "name": "__init__.py",
+      "filePath": "tools/src/exo_tools/__init__.py",
+      "summary": "Package initialization marker for the exo_tools CLI library. Currently empty (no re-exports or imports); the package's actual functionality lives in sibling modules client.py, cluster.py, and harness.py.",
+      "tags": ["barrel", "entry-point", "package-init", "python"],
+      "complexity": "simple",
+      "languageNotes": "Empty Python package __init__.py acting as a namespace marker; sibling modules (client, cluster, harness) hold the real implementation."
+    }
+  ],
+  "edges": []
+}

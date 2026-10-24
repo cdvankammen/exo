@@ -1,0 +1,280 @@
+{
+ "nodes": [
+  {
+   "id": "file:.clauderules",
+   "type": "file",
+   "name": ".clauderules",
+   "filePath": ".clauderules",
+   "summary": ".clauderules \u2014 code file in the exo project.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.cursorrules",
+   "type": "file",
+   "name": ".cursorrules",
+   "filePath": ".cursorrules",
+   "summary": ".cursorrules \u2014 code file in the exo project.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.envrc",
+   "type": "file",
+   "name": ".envrc",
+   "filePath": ".envrc",
+   "summary": ".envrc \u2014 code file in the exo project.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:.feeder/tasks.db",
+   "type": "file",
+   "name": "tasks.db",
+   "filePath": ".feeder/tasks.db",
+   "summary": "tasks.db \u2014 code file in the exo project.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.githooks/post-checkout",
+   "type": "file",
+   "name": "post-checkout",
+   "filePath": ".githooks/post-checkout",
+   "summary": "post-checkout \u2014 code file in the exo project.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:.githooks/post-commit",
+   "type": "file",
+   "name": "post-commit",
+   "filePath": ".githooks/post-commit",
+   "summary": "post-commit \u2014 code file in the exo project.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:.githooks/post-merge",
+   "type": "file",
+   "name": "post-merge",
+   "filePath": ".githooks/post-merge",
+   "summary": "post-merge \u2014 code file in the exo project.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:.githooks/pre-push",
+   "type": "file",
+   "name": "pre-push",
+   "filePath": ".githooks/pre-push",
+   "summary": "pre-push \u2014 code file in the exo project.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:.github/CODEOWNERS",
+   "type": "file",
+   "name": "CODEOWNERS",
+   "filePath": ".github/CODEOWNERS",
+   "summary": "CODEOWNERS \u2014 code file in the exo project.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "document:.github/ISSUE_TEMPLATE/bug_report.md",
+   "type": "document",
+   "name": "bug_report.md",
+   "filePath": ".github/ISSUE_TEMPLATE/bug_report.md",
+   "summary": "Documentation file .github/ISSUE_TEMPLATE/bug_report.md.",
+   "tags": [
+    "documentation"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "document:.github/ISSUE_TEMPLATE/feature_request.md",
+   "type": "document",
+   "name": "feature_request.md",
+   "filePath": ".github/ISSUE_TEMPLATE/feature_request.md",
+   "summary": "Documentation file .github/ISSUE_TEMPLATE/feature_request.md.",
+   "tags": [
+    "documentation"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "config:.github/actions/conditional-commit/action.yml",
+   "type": "config",
+   "name": "action.yml",
+   "filePath": ".github/actions/conditional-commit/action.yml",
+   "summary": "Configuration file .github/actions/conditional-commit/action.yml controlling project settings.",
+   "tags": [
+    "configuration"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "config:.github/actions/format/action.yml",
+   "type": "config",
+   "name": "action.yml",
+   "filePath": ".github/actions/format/action.yml",
+   "summary": "Configuration file .github/actions/format/action.yml controlling project settings.",
+   "tags": [
+    "configuration"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "config:.github/actions/lint-check/action.yml",
+   "type": "config",
+   "name": "action.yml",
+   "filePath": ".github/actions/lint-check/action.yml",
+   "summary": "Configuration file .github/actions/lint-check/action.yml controlling project settings.",
+   "tags": [
+    "configuration"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "config:.github/actions/lint/action.yml",
+   "type": "config",
+   "name": "action.yml",
+   "filePath": ".github/actions/lint/action.yml",
+   "summary": "Configuration file .github/actions/lint/action.yml controlling project settings.",
+   "tags": [
+    "configuration"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "config:.github/actions/regenerate-protobufs/action.yml",
+   "type": "config",
+   "name": "action.yml",
+   "filePath": ".github/actions/regenerate-protobufs/action.yml",
+   "summary": "Configuration file .github/actions/regenerate-protobufs/action.yml controlling project settings.",
+   "tags": [
+    "configuration"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "config:.github/actions/setup-python-uv/action.yml",
+   "type": "config",
+   "name": "action.yml",
+   "filePath": ".github/actions/setup-python-uv/action.yml",
+   "summary": "Configuration file .github/actions/setup-python-uv/action.yml controlling project settings.",
+   "tags": [
+    "configuration"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "config:.github/actions/unit-test/action.yml",
+   "type": "config",
+   "name": "action.yml",
+   "filePath": ".github/actions/unit-test/action.yml",
+   "summary": "Configuration file .github/actions/unit-test/action.yml controlling project settings.",
+   "tags": [
+    "configuration"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "config:.github/actions/verify-clean/action.yml",
+   "type": "config",
+   "name": "action.yml",
+   "filePath": ".github/actions/verify-clean/action.yml",
+   "summary": "Configuration file .github/actions/verify-clean/action.yml controlling project settings.",
+   "tags": [
+    "configuration"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "document:.github/pull_request_template.md",
+   "type": "document",
+   "name": "pull_request_template.md",
+   "filePath": ".github/pull_request_template.md",
+   "summary": "Documentation file .github/pull_request_template.md.",
+   "tags": [
+    "documentation"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:.mnemo/graph.lbug",
+   "type": "file",
+   "name": "graph.lbug",
+   "filePath": ".mnemo/graph.lbug",
+   "summary": "graph.lbug \u2014 code file in the exo project.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "config:.mnemo/parse-cache.json",
+   "type": "config",
+   "name": "parse-cache.json",
+   "filePath": ".mnemo/parse-cache.json",
+   "summary": "Configuration file .mnemo/parse-cache.json controlling project settings.",
+   "tags": [
+    "configuration"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:.python-version",
+   "type": "file",
+   "name": ".python-version",
+   "filePath": ".python-version",
+   "summary": ".python-version \u2014 code file in the exo project.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:.swift-format",
+   "type": "file",
+   "name": ".swift-format",
+   "filePath": ".swift-format",
+   "summary": ".swift-format \u2014 code file in the exo project.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:.typings/.gitkeep",
+   "type": "file",
+   "name": ".gitkeep",
+   "filePath": ".typings/.gitkeep",
+   "summary": ".gitkeep \u2014 code file in the exo project.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "simple"
+  }
+ ],
+ "edges": []
+}

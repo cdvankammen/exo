@@ -1,0 +1,919 @@
+{
+ "nodes": [
+  {
+   "id": "file:.typings/mflux/models/flux/weights/__init__.pyi",
+   "type": "file",
+   "name": "__init__.pyi",
+   "filePath": ".typings/mflux/models/flux/weights/__init__.pyi",
+   "summary": "__init__.pyi \u2014 code file in the exo project.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:.typings/mflux/models/flux/weights/flux_lora_mapping.pyi",
+   "type": "file",
+   "name": "flux_lora_mapping.pyi",
+   "filePath": ".typings/mflux/models/flux/weights/flux_lora_mapping.pyi",
+   "summary": "Defines 0 function(s) and 1 class(es) for .typings/mflux/models/flux/weights/flux_lora_mapping.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.typings/mflux/models/flux/weights/flux_weight_definition.pyi",
+   "type": "file",
+   "name": "flux_weight_definition.pyi",
+   "filePath": ".typings/mflux/models/flux/weights/flux_weight_definition.pyi",
+   "summary": "Defines 0 function(s) and 3 class(es) for .typings/mflux/models/flux/weights/flux_weight_definition.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.typings/mflux/models/flux/weights/flux_weight_mapping.pyi",
+   "type": "file",
+   "name": "flux_weight_mapping.pyi",
+   "filePath": ".typings/mflux/models/flux/weights/flux_weight_mapping.pyi",
+   "summary": "Defines 0 function(s) and 1 class(es) for .typings/mflux/models/flux/weights/flux_weight_mapping.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.typings/mflux/models/qwen/__init__.pyi",
+   "type": "file",
+   "name": "__init__.pyi",
+   "filePath": ".typings/mflux/models/qwen/__init__.pyi",
+   "summary": "__init__.pyi \u2014 code file in the exo project.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:.typings/mflux/models/qwen/cli/__init__.pyi",
+   "type": "file",
+   "name": "__init__.pyi",
+   "filePath": ".typings/mflux/models/qwen/cli/__init__.pyi",
+   "summary": "__init__.pyi \u2014 code file in the exo project.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:.typings/mflux/models/qwen/latent_creator/__init__.pyi",
+   "type": "file",
+   "name": "__init__.pyi",
+   "filePath": ".typings/mflux/models/qwen/latent_creator/__init__.pyi",
+   "summary": "__init__.pyi \u2014 code file in the exo project.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:.typings/mflux/models/qwen/latent_creator/qwen_latent_creator.pyi",
+   "type": "file",
+   "name": "qwen_latent_creator.pyi",
+   "filePath": ".typings/mflux/models/qwen/latent_creator/qwen_latent_creator.pyi",
+   "summary": "Defines 0 function(s) and 1 class(es) for .typings/mflux/models/qwen/latent_creator/qwen_latent_creator.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.typings/mflux/models/qwen/model/__init__.pyi",
+   "type": "file",
+   "name": "__init__.pyi",
+   "filePath": ".typings/mflux/models/qwen/model/__init__.pyi",
+   "summary": "__init__.pyi \u2014 code file in the exo project.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:.typings/mflux/models/qwen/model/qwen_text_encoder/qwen_attention.pyi",
+   "type": "file",
+   "name": "qwen_attention.pyi",
+   "filePath": ".typings/mflux/models/qwen/model/qwen_text_encoder/qwen_attention.pyi",
+   "summary": "Defines 0 function(s) and 1 class(es) for .typings/mflux/models/qwen/model/qwen_text_encoder/qwen_attention.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.typings/mflux/models/qwen/model/qwen_text_encoder/qwen_encoder.pyi",
+   "type": "file",
+   "name": "qwen_encoder.pyi",
+   "filePath": ".typings/mflux/models/qwen/model/qwen_text_encoder/qwen_encoder.pyi",
+   "summary": "Defines 0 function(s) and 1 class(es) for .typings/mflux/models/qwen/model/qwen_text_encoder/qwen_encoder.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.typings/mflux/models/qwen/model/qwen_text_encoder/qwen_encoder_layer.pyi",
+   "type": "file",
+   "name": "qwen_encoder_layer.pyi",
+   "filePath": ".typings/mflux/models/qwen/model/qwen_text_encoder/qwen_encoder_layer.pyi",
+   "summary": "Defines 0 function(s) and 1 class(es) for .typings/mflux/models/qwen/model/qwen_text_encoder/qwen_encoder_layer.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.typings/mflux/models/qwen/model/qwen_text_encoder/qwen_mlp.pyi",
+   "type": "file",
+   "name": "qwen_mlp.pyi",
+   "filePath": ".typings/mflux/models/qwen/model/qwen_text_encoder/qwen_mlp.pyi",
+   "summary": "Defines 0 function(s) and 1 class(es) for .typings/mflux/models/qwen/model/qwen_text_encoder/qwen_mlp.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.typings/mflux/models/qwen/model/qwen_text_encoder/qwen_patch_merger.pyi",
+   "type": "file",
+   "name": "qwen_patch_merger.pyi",
+   "filePath": ".typings/mflux/models/qwen/model/qwen_text_encoder/qwen_patch_merger.pyi",
+   "summary": "Defines 0 function(s) and 1 class(es) for .typings/mflux/models/qwen/model/qwen_text_encoder/qwen_patch_merger.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.typings/mflux/models/qwen/model/qwen_text_encoder/qwen_prompt_encoder.pyi",
+   "type": "file",
+   "name": "qwen_prompt_encoder.pyi",
+   "filePath": ".typings/mflux/models/qwen/model/qwen_text_encoder/qwen_prompt_encoder.pyi",
+   "summary": "Defines 0 function(s) and 1 class(es) for .typings/mflux/models/qwen/model/qwen_text_encoder/qwen_prompt_encoder.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.typings/mflux/models/qwen/model/qwen_text_encoder/qwen_rms_norm.pyi",
+   "type": "file",
+   "name": "qwen_rms_norm.pyi",
+   "filePath": ".typings/mflux/models/qwen/model/qwen_text_encoder/qwen_rms_norm.pyi",
+   "summary": "Defines 0 function(s) and 1 class(es) for .typings/mflux/models/qwen/model/qwen_text_encoder/qwen_rms_norm.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.typings/mflux/models/qwen/model/qwen_text_encoder/qwen_rope.pyi",
+   "type": "file",
+   "name": "qwen_rope.pyi",
+   "filePath": ".typings/mflux/models/qwen/model/qwen_text_encoder/qwen_rope.pyi",
+   "summary": "Defines 0 function(s) and 1 class(es) for .typings/mflux/models/qwen/model/qwen_text_encoder/qwen_rope.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.typings/mflux/models/qwen/model/qwen_text_encoder/qwen_text_encoder.pyi",
+   "type": "file",
+   "name": "qwen_text_encoder.pyi",
+   "filePath": ".typings/mflux/models/qwen/model/qwen_text_encoder/qwen_text_encoder.pyi",
+   "summary": "Defines 0 function(s) and 1 class(es) for .typings/mflux/models/qwen/model/qwen_text_encoder/qwen_text_encoder.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.typings/mflux/models/qwen/model/qwen_text_encoder/qwen_vision_attention.pyi",
+   "type": "file",
+   "name": "qwen_vision_attention.pyi",
+   "filePath": ".typings/mflux/models/qwen/model/qwen_text_encoder/qwen_vision_attention.pyi",
+   "summary": "Defines 0 function(s) and 1 class(es) for .typings/mflux/models/qwen/model/qwen_text_encoder/qwen_vision_attention.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.typings/mflux/models/qwen/model/qwen_text_encoder/qwen_vision_block.pyi",
+   "type": "file",
+   "name": "qwen_vision_block.pyi",
+   "filePath": ".typings/mflux/models/qwen/model/qwen_text_encoder/qwen_vision_block.pyi",
+   "summary": "Defines 0 function(s) and 1 class(es) for .typings/mflux/models/qwen/model/qwen_text_encoder/qwen_vision_block.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.typings/mflux/models/qwen/model/qwen_text_encoder/qwen_vision_language_encoder.pyi",
+   "type": "file",
+   "name": "qwen_vision_language_encoder.pyi",
+   "filePath": ".typings/mflux/models/qwen/model/qwen_text_encoder/qwen_vision_language_encoder.pyi",
+   "summary": "Defines 0 function(s) and 1 class(es) for .typings/mflux/models/qwen/model/qwen_text_encoder/qwen_vision_language_encoder.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.typings/mflux/models/qwen/model/qwen_text_encoder/qwen_vision_mlp.pyi",
+   "type": "file",
+   "name": "qwen_vision_mlp.pyi",
+   "filePath": ".typings/mflux/models/qwen/model/qwen_text_encoder/qwen_vision_mlp.pyi",
+   "summary": "Defines 0 function(s) and 1 class(es) for .typings/mflux/models/qwen/model/qwen_text_encoder/qwen_vision_mlp.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.typings/mflux/models/qwen/model/qwen_text_encoder/qwen_vision_patch_embed.pyi",
+   "type": "file",
+   "name": "qwen_vision_patch_embed.pyi",
+   "filePath": ".typings/mflux/models/qwen/model/qwen_text_encoder/qwen_vision_patch_embed.pyi",
+   "summary": "Defines 0 function(s) and 1 class(es) for .typings/mflux/models/qwen/model/qwen_text_encoder/qwen_vision_patch_embed.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.typings/mflux/models/qwen/model/qwen_text_encoder/qwen_vision_rotary_embedding.pyi",
+   "type": "file",
+   "name": "qwen_vision_rotary_embedding.pyi",
+   "filePath": ".typings/mflux/models/qwen/model/qwen_text_encoder/qwen_vision_rotary_embedding.pyi",
+   "summary": "Defines 0 function(s) and 1 class(es) for .typings/mflux/models/qwen/model/qwen_text_encoder/qwen_vision_rotary_embedding.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.typings/mflux/models/qwen/model/qwen_text_encoder/qwen_vision_transformer.pyi",
+   "type": "file",
+   "name": "qwen_vision_transformer.pyi",
+   "filePath": ".typings/mflux/models/qwen/model/qwen_text_encoder/qwen_vision_transformer.pyi",
+   "summary": "Defines 0 function(s) and 1 class(es) for .typings/mflux/models/qwen/model/qwen_text_encoder/qwen_vision_transformer.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "class:.typings/mflux/models/flux/weights/flux_lora_mapping.pyi:FluxLoRAMapping",
+   "type": "class",
+   "name": "FluxLoRAMapping",
+   "filePath": ".typings/mflux/models/flux/weights/flux_lora_mapping.pyi",
+   "lineRange": [
+    7,
+    9
+   ],
+   "summary": "Class FluxLoRAMapping in .typings/mflux/models/flux/weights/flux_lora_mapping.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mflux/models/flux/weights/flux_weight_definition.pyi:FluxWeightDefinition",
+   "type": "class",
+   "name": "FluxWeightDefinition",
+   "filePath": ".typings/mflux/models/flux/weights/flux_weight_definition.pyi",
+   "lineRange": [
+    15,
+    23
+   ],
+   "summary": "Class FluxWeightDefinition in .typings/mflux/models/flux/weights/flux_weight_definition.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mflux/models/flux/weights/flux_weight_definition.pyi:FluxControlnetWeightDefinition",
+   "type": "class",
+   "name": "FluxControlnetWeightDefinition",
+   "filePath": ".typings/mflux/models/flux/weights/flux_weight_definition.pyi",
+   "lineRange": [
+    25,
+    35
+   ],
+   "summary": "Class FluxControlnetWeightDefinition in .typings/mflux/models/flux/weights/flux_weight_definition.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mflux/models/flux/weights/flux_weight_definition.pyi:FluxReduxWeightDefinition",
+   "type": "class",
+   "name": "FluxReduxWeightDefinition",
+   "filePath": ".typings/mflux/models/flux/weights/flux_weight_definition.pyi",
+   "lineRange": [
+    37,
+    45
+   ],
+   "summary": "Class FluxReduxWeightDefinition in .typings/mflux/models/flux/weights/flux_weight_definition.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mflux/models/flux/weights/flux_weight_mapping.pyi:FluxWeightMapping",
+   "type": "class",
+   "name": "FluxWeightMapping",
+   "filePath": ".typings/mflux/models/flux/weights/flux_weight_mapping.pyi",
+   "lineRange": [
+    11,
+    21
+   ],
+   "summary": "Class FluxWeightMapping in .typings/mflux/models/flux/weights/flux_weight_mapping.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mflux/models/qwen/latent_creator/qwen_latent_creator.pyi:QwenLatentCreator",
+   "type": "class",
+   "name": "QwenLatentCreator",
+   "filePath": ".typings/mflux/models/qwen/latent_creator/qwen_latent_creator.pyi",
+   "lineRange": [
+    11,
+    19
+   ],
+   "summary": "Class QwenLatentCreator in .typings/mflux/models/qwen/latent_creator/qwen_latent_creator.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mflux/models/qwen/model/qwen_text_encoder/qwen_attention.pyi:QwenAttention",
+   "type": "class",
+   "name": "QwenAttention",
+   "filePath": ".typings/mflux/models/qwen/model/qwen_text_encoder/qwen_attention.pyi",
+   "lineRange": [
+    8,
+    23
+   ],
+   "summary": "Class QwenAttention in .typings/mflux/models/qwen/model/qwen_text_encoder/qwen_attention.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mflux/models/qwen/model/qwen_text_encoder/qwen_encoder.pyi:QwenEncoder",
+   "type": "class",
+   "name": "QwenEncoder",
+   "filePath": ".typings/mflux/models/qwen/model/qwen_text_encoder/qwen_encoder.pyi",
+   "lineRange": [
+    8,
+    26
+   ],
+   "summary": "Class QwenEncoder in .typings/mflux/models/qwen/model/qwen_text_encoder/qwen_encoder.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mflux/models/qwen/model/qwen_text_encoder/qwen_encoder_layer.pyi:QwenEncoderLayer",
+   "type": "class",
+   "name": "QwenEncoderLayer",
+   "filePath": ".typings/mflux/models/qwen/model/qwen_text_encoder/qwen_encoder_layer.pyi",
+   "lineRange": [
+    8,
+    24
+   ],
+   "summary": "Class QwenEncoderLayer in .typings/mflux/models/qwen/model/qwen_text_encoder/qwen_encoder_layer.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mflux/models/qwen/model/qwen_text_encoder/qwen_mlp.pyi:QwenMLP",
+   "type": "class",
+   "name": "QwenMLP",
+   "filePath": ".typings/mflux/models/qwen/model/qwen_text_encoder/qwen_mlp.pyi",
+   "lineRange": [
+    8,
+    10
+   ],
+   "summary": "Class QwenMLP in .typings/mflux/models/qwen/model/qwen_text_encoder/qwen_mlp.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mflux/models/qwen/model/qwen_text_encoder/qwen_patch_merger.pyi:PatchMerger",
+   "type": "class",
+   "name": "PatchMerger",
+   "filePath": ".typings/mflux/models/qwen/model/qwen_text_encoder/qwen_patch_merger.pyi",
+   "lineRange": [
+    8,
+    12
+   ],
+   "summary": "Class PatchMerger in .typings/mflux/models/qwen/model/qwen_text_encoder/qwen_patch_merger.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mflux/models/qwen/model/qwen_text_encoder/qwen_prompt_encoder.pyi:QwenPromptEncoder",
+   "type": "class",
+   "name": "QwenPromptEncoder",
+   "filePath": ".typings/mflux/models/qwen/model/qwen_text_encoder/qwen_prompt_encoder.pyi",
+   "lineRange": [
+    13,
+    21
+   ],
+   "summary": "Class QwenPromptEncoder in .typings/mflux/models/qwen/model/qwen_text_encoder/qwen_prompt_encoder.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mflux/models/qwen/model/qwen_text_encoder/qwen_rms_norm.pyi:QwenRMSNorm",
+   "type": "class",
+   "name": "QwenRMSNorm",
+   "filePath": ".typings/mflux/models/qwen/model/qwen_text_encoder/qwen_rms_norm.pyi",
+   "lineRange": [
+    8,
+    10
+   ],
+   "summary": "Class QwenRMSNorm in .typings/mflux/models/qwen/model/qwen_text_encoder/qwen_rms_norm.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mflux/models/qwen/model/qwen_text_encoder/qwen_rope.pyi:QwenRotaryEmbedding",
+   "type": "class",
+   "name": "QwenRotaryEmbedding",
+   "filePath": ".typings/mflux/models/qwen/model/qwen_text_encoder/qwen_rope.pyi",
+   "lineRange": [
+    8,
+    21
+   ],
+   "summary": "Class QwenRotaryEmbedding in .typings/mflux/models/qwen/model/qwen_text_encoder/qwen_rope.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mflux/models/qwen/model/qwen_text_encoder/qwen_text_encoder.pyi:QwenTextEncoder",
+   "type": "class",
+   "name": "QwenTextEncoder",
+   "filePath": ".typings/mflux/models/qwen/model/qwen_text_encoder/qwen_text_encoder.pyi",
+   "lineRange": [
+    12,
+    16
+   ],
+   "summary": "Class QwenTextEncoder in .typings/mflux/models/qwen/model/qwen_text_encoder/qwen_text_encoder.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mflux/models/qwen/model/qwen_text_encoder/qwen_vision_attention.pyi:VisionAttention",
+   "type": "class",
+   "name": "VisionAttention",
+   "filePath": ".typings/mflux/models/qwen/model/qwen_text_encoder/qwen_vision_attention.pyi",
+   "lineRange": [
+    8,
+    12
+   ],
+   "summary": "Class VisionAttention in .typings/mflux/models/qwen/model/qwen_text_encoder/qwen_vision_attention.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mflux/models/qwen/model/qwen_text_encoder/qwen_vision_block.pyi:VisionBlock",
+   "type": "class",
+   "name": "VisionBlock",
+   "filePath": ".typings/mflux/models/qwen/model/qwen_text_encoder/qwen_vision_block.pyi",
+   "lineRange": [
+    8,
+    14
+   ],
+   "summary": "Class VisionBlock in .typings/mflux/models/qwen/model/qwen_text_encoder/qwen_vision_block.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mflux/models/qwen/model/qwen_text_encoder/qwen_vision_language_encoder.pyi:QwenVisionLanguageEncoder",
+   "type": "class",
+   "name": "QwenVisionLanguageEncoder",
+   "filePath": ".typings/mflux/models/qwen/model/qwen_text_encoder/qwen_vision_language_encoder.pyi",
+   "lineRange": [
+    8,
+    16
+   ],
+   "summary": "Class QwenVisionLanguageEncoder in .typings/mflux/models/qwen/model/qwen_text_encoder/qwen_vision_language_encoder.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mflux/models/qwen/model/qwen_text_encoder/qwen_vision_mlp.pyi:VisionMLP",
+   "type": "class",
+   "name": "VisionMLP",
+   "filePath": ".typings/mflux/models/qwen/model/qwen_text_encoder/qwen_vision_mlp.pyi",
+   "lineRange": [
+    8,
+    10
+   ],
+   "summary": "Class VisionMLP in .typings/mflux/models/qwen/model/qwen_text_encoder/qwen_vision_mlp.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mflux/models/qwen/model/qwen_text_encoder/qwen_vision_patch_embed.pyi:VisionPatchEmbed",
+   "type": "class",
+   "name": "VisionPatchEmbed",
+   "filePath": ".typings/mflux/models/qwen/model/qwen_text_encoder/qwen_vision_patch_embed.pyi",
+   "lineRange": [
+    8,
+    16
+   ],
+   "summary": "Class VisionPatchEmbed in .typings/mflux/models/qwen/model/qwen_text_encoder/qwen_vision_patch_embed.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mflux/models/qwen/model/qwen_text_encoder/qwen_vision_rotary_embedding.pyi:VisionRotaryEmbedding",
+   "type": "class",
+   "name": "VisionRotaryEmbedding",
+   "filePath": ".typings/mflux/models/qwen/model/qwen_text_encoder/qwen_vision_rotary_embedding.pyi",
+   "lineRange": [
+    8,
+    10
+   ],
+   "summary": "Class VisionRotaryEmbedding in .typings/mflux/models/qwen/model/qwen_text_encoder/qwen_vision_rotary_embedding.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mflux/models/qwen/model/qwen_text_encoder/qwen_vision_transformer.pyi:VisionTransformer",
+   "type": "class",
+   "name": "VisionTransformer",
+   "filePath": ".typings/mflux/models/qwen/model/qwen_text_encoder/qwen_vision_transformer.pyi",
+   "lineRange": [
+    8,
+    26
+   ],
+   "summary": "Class VisionTransformer in .typings/mflux/models/qwen/model/qwen_text_encoder/qwen_vision_transformer.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  }
+ ],
+ "edges": [
+  {
+   "source": "file:.typings/mflux/models/flux/weights/flux_lora_mapping.pyi",
+   "target": "class:.typings/mflux/models/flux/weights/flux_lora_mapping.pyi:FluxLoRAMapping",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mflux/models/flux/weights/flux_lora_mapping.pyi",
+   "target": "class:.typings/mflux/models/flux/weights/flux_lora_mapping.pyi:FluxLoRAMapping",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mflux/models/flux/weights/flux_weight_definition.pyi",
+   "target": "class:.typings/mflux/models/flux/weights/flux_weight_definition.pyi:FluxWeightDefinition",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mflux/models/flux/weights/flux_weight_definition.pyi",
+   "target": "class:.typings/mflux/models/flux/weights/flux_weight_definition.pyi:FluxWeightDefinition",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mflux/models/flux/weights/flux_weight_definition.pyi",
+   "target": "class:.typings/mflux/models/flux/weights/flux_weight_definition.pyi:FluxControlnetWeightDefinition",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mflux/models/flux/weights/flux_weight_definition.pyi",
+   "target": "class:.typings/mflux/models/flux/weights/flux_weight_definition.pyi:FluxControlnetWeightDefinition",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mflux/models/flux/weights/flux_weight_definition.pyi",
+   "target": "class:.typings/mflux/models/flux/weights/flux_weight_definition.pyi:FluxReduxWeightDefinition",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mflux/models/flux/weights/flux_weight_definition.pyi",
+   "target": "class:.typings/mflux/models/flux/weights/flux_weight_definition.pyi:FluxReduxWeightDefinition",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mflux/models/flux/weights/flux_weight_mapping.pyi",
+   "target": "class:.typings/mflux/models/flux/weights/flux_weight_mapping.pyi:FluxWeightMapping",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mflux/models/flux/weights/flux_weight_mapping.pyi",
+   "target": "class:.typings/mflux/models/flux/weights/flux_weight_mapping.pyi:FluxWeightMapping",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mflux/models/qwen/latent_creator/qwen_latent_creator.pyi",
+   "target": "class:.typings/mflux/models/qwen/latent_creator/qwen_latent_creator.pyi:QwenLatentCreator",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mflux/models/qwen/latent_creator/qwen_latent_creator.pyi",
+   "target": "class:.typings/mflux/models/qwen/latent_creator/qwen_latent_creator.pyi:QwenLatentCreator",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mflux/models/qwen/model/qwen_text_encoder/qwen_attention.pyi",
+   "target": "class:.typings/mflux/models/qwen/model/qwen_text_encoder/qwen_attention.pyi:QwenAttention",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mflux/models/qwen/model/qwen_text_encoder/qwen_attention.pyi",
+   "target": "class:.typings/mflux/models/qwen/model/qwen_text_encoder/qwen_attention.pyi:QwenAttention",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mflux/models/qwen/model/qwen_text_encoder/qwen_encoder.pyi",
+   "target": "class:.typings/mflux/models/qwen/model/qwen_text_encoder/qwen_encoder.pyi:QwenEncoder",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mflux/models/qwen/model/qwen_text_encoder/qwen_encoder.pyi",
+   "target": "class:.typings/mflux/models/qwen/model/qwen_text_encoder/qwen_encoder.pyi:QwenEncoder",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mflux/models/qwen/model/qwen_text_encoder/qwen_encoder_layer.pyi",
+   "target": "class:.typings/mflux/models/qwen/model/qwen_text_encoder/qwen_encoder_layer.pyi:QwenEncoderLayer",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mflux/models/qwen/model/qwen_text_encoder/qwen_encoder_layer.pyi",
+   "target": "class:.typings/mflux/models/qwen/model/qwen_text_encoder/qwen_encoder_layer.pyi:QwenEncoderLayer",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mflux/models/qwen/model/qwen_text_encoder/qwen_mlp.pyi",
+   "target": "class:.typings/mflux/models/qwen/model/qwen_text_encoder/qwen_mlp.pyi:QwenMLP",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mflux/models/qwen/model/qwen_text_encoder/qwen_mlp.pyi",
+   "target": "class:.typings/mflux/models/qwen/model/qwen_text_encoder/qwen_mlp.pyi:QwenMLP",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mflux/models/qwen/model/qwen_text_encoder/qwen_patch_merger.pyi",
+   "target": "class:.typings/mflux/models/qwen/model/qwen_text_encoder/qwen_patch_merger.pyi:PatchMerger",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mflux/models/qwen/model/qwen_text_encoder/qwen_patch_merger.pyi",
+   "target": "class:.typings/mflux/models/qwen/model/qwen_text_encoder/qwen_patch_merger.pyi:PatchMerger",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mflux/models/qwen/model/qwen_text_encoder/qwen_prompt_encoder.pyi",
+   "target": "class:.typings/mflux/models/qwen/model/qwen_text_encoder/qwen_prompt_encoder.pyi:QwenPromptEncoder",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mflux/models/qwen/model/qwen_text_encoder/qwen_prompt_encoder.pyi",
+   "target": "class:.typings/mflux/models/qwen/model/qwen_text_encoder/qwen_prompt_encoder.pyi:QwenPromptEncoder",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mflux/models/qwen/model/qwen_text_encoder/qwen_rms_norm.pyi",
+   "target": "class:.typings/mflux/models/qwen/model/qwen_text_encoder/qwen_rms_norm.pyi:QwenRMSNorm",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mflux/models/qwen/model/qwen_text_encoder/qwen_rms_norm.pyi",
+   "target": "class:.typings/mflux/models/qwen/model/qwen_text_encoder/qwen_rms_norm.pyi:QwenRMSNorm",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mflux/models/qwen/model/qwen_text_encoder/qwen_rope.pyi",
+   "target": "class:.typings/mflux/models/qwen/model/qwen_text_encoder/qwen_rope.pyi:QwenRotaryEmbedding",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mflux/models/qwen/model/qwen_text_encoder/qwen_rope.pyi",
+   "target": "class:.typings/mflux/models/qwen/model/qwen_text_encoder/qwen_rope.pyi:QwenRotaryEmbedding",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mflux/models/qwen/model/qwen_text_encoder/qwen_text_encoder.pyi",
+   "target": "class:.typings/mflux/models/qwen/model/qwen_text_encoder/qwen_text_encoder.pyi:QwenTextEncoder",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mflux/models/qwen/model/qwen_text_encoder/qwen_text_encoder.pyi",
+   "target": "class:.typings/mflux/models/qwen/model/qwen_text_encoder/qwen_text_encoder.pyi:QwenTextEncoder",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mflux/models/qwen/model/qwen_text_encoder/qwen_vision_attention.pyi",
+   "target": "class:.typings/mflux/models/qwen/model/qwen_text_encoder/qwen_vision_attention.pyi:VisionAttention",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mflux/models/qwen/model/qwen_text_encoder/qwen_vision_attention.pyi",
+   "target": "class:.typings/mflux/models/qwen/model/qwen_text_encoder/qwen_vision_attention.pyi:VisionAttention",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mflux/models/qwen/model/qwen_text_encoder/qwen_vision_block.pyi",
+   "target": "class:.typings/mflux/models/qwen/model/qwen_text_encoder/qwen_vision_block.pyi:VisionBlock",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mflux/models/qwen/model/qwen_text_encoder/qwen_vision_block.pyi",
+   "target": "class:.typings/mflux/models/qwen/model/qwen_text_encoder/qwen_vision_block.pyi:VisionBlock",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mflux/models/qwen/model/qwen_text_encoder/qwen_vision_language_encoder.pyi",
+   "target": "class:.typings/mflux/models/qwen/model/qwen_text_encoder/qwen_vision_language_encoder.pyi:QwenVisionLanguageEncoder",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mflux/models/qwen/model/qwen_text_encoder/qwen_vision_language_encoder.pyi",
+   "target": "class:.typings/mflux/models/qwen/model/qwen_text_encoder/qwen_vision_language_encoder.pyi:QwenVisionLanguageEncoder",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mflux/models/qwen/model/qwen_text_encoder/qwen_vision_mlp.pyi",
+   "target": "class:.typings/mflux/models/qwen/model/qwen_text_encoder/qwen_vision_mlp.pyi:VisionMLP",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mflux/models/qwen/model/qwen_text_encoder/qwen_vision_mlp.pyi",
+   "target": "class:.typings/mflux/models/qwen/model/qwen_text_encoder/qwen_vision_mlp.pyi:VisionMLP",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mflux/models/qwen/model/qwen_text_encoder/qwen_vision_patch_embed.pyi",
+   "target": "class:.typings/mflux/models/qwen/model/qwen_text_encoder/qwen_vision_patch_embed.pyi:VisionPatchEmbed",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mflux/models/qwen/model/qwen_text_encoder/qwen_vision_patch_embed.pyi",
+   "target": "class:.typings/mflux/models/qwen/model/qwen_text_encoder/qwen_vision_patch_embed.pyi:VisionPatchEmbed",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mflux/models/qwen/model/qwen_text_encoder/qwen_vision_rotary_embedding.pyi",
+   "target": "class:.typings/mflux/models/qwen/model/qwen_text_encoder/qwen_vision_rotary_embedding.pyi:VisionRotaryEmbedding",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mflux/models/qwen/model/qwen_text_encoder/qwen_vision_rotary_embedding.pyi",
+   "target": "class:.typings/mflux/models/qwen/model/qwen_text_encoder/qwen_vision_rotary_embedding.pyi:VisionRotaryEmbedding",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mflux/models/qwen/model/qwen_text_encoder/qwen_vision_transformer.pyi",
+   "target": "class:.typings/mflux/models/qwen/model/qwen_text_encoder/qwen_vision_transformer.pyi:VisionTransformer",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mflux/models/qwen/model/qwen_text_encoder/qwen_vision_transformer.pyi",
+   "target": "class:.typings/mflux/models/qwen/model/qwen_text_encoder/qwen_vision_transformer.pyi:VisionTransformer",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  }
+ ]
+}

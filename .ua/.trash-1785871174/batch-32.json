@@ -1,0 +1,1006 @@
+{
+ "nodes": [
+  {
+   "id": "file:.typings/mflux/models/flux/model/flux_transformer/embed_nd.pyi",
+   "type": "file",
+   "name": "embed_nd.pyi",
+   "filePath": ".typings/mflux/models/flux/model/flux_transformer/embed_nd.pyi",
+   "summary": "Defines 0 function(s) and 1 class(es) for .typings/mflux/models/flux/model/flux_transformer/embed_nd.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.typings/mflux/models/flux/model/flux_transformer/feed_forward.pyi",
+   "type": "file",
+   "name": "feed_forward.pyi",
+   "filePath": ".typings/mflux/models/flux/model/flux_transformer/feed_forward.pyi",
+   "summary": "Defines 0 function(s) and 1 class(es) for .typings/mflux/models/flux/model/flux_transformer/feed_forward.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.typings/mflux/models/flux/model/flux_transformer/guidance_embedder.pyi",
+   "type": "file",
+   "name": "guidance_embedder.pyi",
+   "filePath": ".typings/mflux/models/flux/model/flux_transformer/guidance_embedder.pyi",
+   "summary": "Defines 0 function(s) and 1 class(es) for .typings/mflux/models/flux/model/flux_transformer/guidance_embedder.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.typings/mflux/models/flux/model/flux_transformer/joint_attention.pyi",
+   "type": "file",
+   "name": "joint_attention.pyi",
+   "filePath": ".typings/mflux/models/flux/model/flux_transformer/joint_attention.pyi",
+   "summary": "Defines 0 function(s) and 1 class(es) for .typings/mflux/models/flux/model/flux_transformer/joint_attention.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.typings/mflux/models/flux/model/flux_transformer/joint_transformer_block.pyi",
+   "type": "file",
+   "name": "joint_transformer_block.pyi",
+   "filePath": ".typings/mflux/models/flux/model/flux_transformer/joint_transformer_block.pyi",
+   "summary": "Defines 0 function(s) and 1 class(es) for .typings/mflux/models/flux/model/flux_transformer/joint_transformer_block.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.typings/mflux/models/flux/model/flux_transformer/single_block_attention.pyi",
+   "type": "file",
+   "name": "single_block_attention.pyi",
+   "filePath": ".typings/mflux/models/flux/model/flux_transformer/single_block_attention.pyi",
+   "summary": "Defines 0 function(s) and 1 class(es) for .typings/mflux/models/flux/model/flux_transformer/single_block_attention.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.typings/mflux/models/flux/model/flux_transformer/single_transformer_block.pyi",
+   "type": "file",
+   "name": "single_transformer_block.pyi",
+   "filePath": ".typings/mflux/models/flux/model/flux_transformer/single_transformer_block.pyi",
+   "summary": "Defines 0 function(s) and 1 class(es) for .typings/mflux/models/flux/model/flux_transformer/single_transformer_block.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.typings/mflux/models/flux/model/flux_transformer/text_embedder.pyi",
+   "type": "file",
+   "name": "text_embedder.pyi",
+   "filePath": ".typings/mflux/models/flux/model/flux_transformer/text_embedder.pyi",
+   "summary": "Defines 0 function(s) and 1 class(es) for .typings/mflux/models/flux/model/flux_transformer/text_embedder.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.typings/mflux/models/flux/model/flux_transformer/time_text_embed.pyi",
+   "type": "file",
+   "name": "time_text_embed.pyi",
+   "filePath": ".typings/mflux/models/flux/model/flux_transformer/time_text_embed.pyi",
+   "summary": "Defines 0 function(s) and 1 class(es) for .typings/mflux/models/flux/model/flux_transformer/time_text_embed.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.typings/mflux/models/flux/model/flux_transformer/timestep_embedder.pyi",
+   "type": "file",
+   "name": "timestep_embedder.pyi",
+   "filePath": ".typings/mflux/models/flux/model/flux_transformer/timestep_embedder.pyi",
+   "summary": "Defines 0 function(s) and 1 class(es) for .typings/mflux/models/flux/model/flux_transformer/timestep_embedder.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.typings/mflux/models/flux/model/flux_transformer/transformer.pyi",
+   "type": "file",
+   "name": "transformer.pyi",
+   "filePath": ".typings/mflux/models/flux/model/flux_transformer/transformer.pyi",
+   "summary": "Defines 0 function(s) and 1 class(es) for .typings/mflux/models/flux/model/flux_transformer/transformer.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.typings/mflux/models/flux/model/flux_vae/common/attention.pyi",
+   "type": "file",
+   "name": "attention.pyi",
+   "filePath": ".typings/mflux/models/flux/model/flux_vae/common/attention.pyi",
+   "summary": "Defines 0 function(s) and 1 class(es) for .typings/mflux/models/flux/model/flux_vae/common/attention.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.typings/mflux/models/flux/model/flux_vae/common/resnet_block_2d.pyi",
+   "type": "file",
+   "name": "resnet_block_2d.pyi",
+   "filePath": ".typings/mflux/models/flux/model/flux_vae/common/resnet_block_2d.pyi",
+   "summary": "Defines 0 function(s) and 1 class(es) for .typings/mflux/models/flux/model/flux_vae/common/resnet_block_2d.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.typings/mflux/models/flux/model/flux_vae/common/unet_mid_block.pyi",
+   "type": "file",
+   "name": "unet_mid_block.pyi",
+   "filePath": ".typings/mflux/models/flux/model/flux_vae/common/unet_mid_block.pyi",
+   "summary": "Defines 0 function(s) and 1 class(es) for .typings/mflux/models/flux/model/flux_vae/common/unet_mid_block.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.typings/mflux/models/flux/model/flux_vae/decoder/conv_in.pyi",
+   "type": "file",
+   "name": "conv_in.pyi",
+   "filePath": ".typings/mflux/models/flux/model/flux_vae/decoder/conv_in.pyi",
+   "summary": "Defines 0 function(s) and 1 class(es) for .typings/mflux/models/flux/model/flux_vae/decoder/conv_in.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.typings/mflux/models/flux/model/flux_vae/decoder/conv_norm_out.pyi",
+   "type": "file",
+   "name": "conv_norm_out.pyi",
+   "filePath": ".typings/mflux/models/flux/model/flux_vae/decoder/conv_norm_out.pyi",
+   "summary": "Defines 0 function(s) and 1 class(es) for .typings/mflux/models/flux/model/flux_vae/decoder/conv_norm_out.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.typings/mflux/models/flux/model/flux_vae/decoder/conv_out.pyi",
+   "type": "file",
+   "name": "conv_out.pyi",
+   "filePath": ".typings/mflux/models/flux/model/flux_vae/decoder/conv_out.pyi",
+   "summary": "Defines 0 function(s) and 1 class(es) for .typings/mflux/models/flux/model/flux_vae/decoder/conv_out.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.typings/mflux/models/flux/model/flux_vae/decoder/decoder.pyi",
+   "type": "file",
+   "name": "decoder.pyi",
+   "filePath": ".typings/mflux/models/flux/model/flux_vae/decoder/decoder.pyi",
+   "summary": "Defines 0 function(s) and 1 class(es) for .typings/mflux/models/flux/model/flux_vae/decoder/decoder.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.typings/mflux/models/flux/model/flux_vae/decoder/up_block_1_or_2.pyi",
+   "type": "file",
+   "name": "up_block_1_or_2.pyi",
+   "filePath": ".typings/mflux/models/flux/model/flux_vae/decoder/up_block_1_or_2.pyi",
+   "summary": "Defines 0 function(s) and 1 class(es) for .typings/mflux/models/flux/model/flux_vae/decoder/up_block_1_or_2.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.typings/mflux/models/flux/model/flux_vae/decoder/up_block_3.pyi",
+   "type": "file",
+   "name": "up_block_3.pyi",
+   "filePath": ".typings/mflux/models/flux/model/flux_vae/decoder/up_block_3.pyi",
+   "summary": "Defines 0 function(s) and 1 class(es) for .typings/mflux/models/flux/model/flux_vae/decoder/up_block_3.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.typings/mflux/models/flux/model/flux_vae/decoder/up_block_4.pyi",
+   "type": "file",
+   "name": "up_block_4.pyi",
+   "filePath": ".typings/mflux/models/flux/model/flux_vae/decoder/up_block_4.pyi",
+   "summary": "Defines 0 function(s) and 1 class(es) for .typings/mflux/models/flux/model/flux_vae/decoder/up_block_4.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.typings/mflux/models/flux/model/flux_vae/decoder/up_sampler.pyi",
+   "type": "file",
+   "name": "up_sampler.pyi",
+   "filePath": ".typings/mflux/models/flux/model/flux_vae/decoder/up_sampler.pyi",
+   "summary": "Defines 0 function(s) and 1 class(es) for .typings/mflux/models/flux/model/flux_vae/decoder/up_sampler.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.typings/mflux/models/flux/model/flux_vae/encoder/conv_in.pyi",
+   "type": "file",
+   "name": "conv_in.pyi",
+   "filePath": ".typings/mflux/models/flux/model/flux_vae/encoder/conv_in.pyi",
+   "summary": "Defines 0 function(s) and 1 class(es) for .typings/mflux/models/flux/model/flux_vae/encoder/conv_in.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.typings/mflux/models/flux/model/flux_vae/encoder/conv_norm_out.pyi",
+   "type": "file",
+   "name": "conv_norm_out.pyi",
+   "filePath": ".typings/mflux/models/flux/model/flux_vae/encoder/conv_norm_out.pyi",
+   "summary": "Defines 0 function(s) and 1 class(es) for .typings/mflux/models/flux/model/flux_vae/encoder/conv_norm_out.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.typings/mflux/models/flux/model/flux_vae/encoder/conv_out.pyi",
+   "type": "file",
+   "name": "conv_out.pyi",
+   "filePath": ".typings/mflux/models/flux/model/flux_vae/encoder/conv_out.pyi",
+   "summary": "Defines 0 function(s) and 1 class(es) for .typings/mflux/models/flux/model/flux_vae/encoder/conv_out.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "class:.typings/mflux/models/flux/model/flux_transformer/embed_nd.pyi:EmbedND",
+   "type": "class",
+   "name": "EmbedND",
+   "filePath": ".typings/mflux/models/flux/model/flux_transformer/embed_nd.pyi",
+   "lineRange": [
+    8,
+    12
+   ],
+   "summary": "Class EmbedND in .typings/mflux/models/flux/model/flux_transformer/embed_nd.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mflux/models/flux/model/flux_transformer/feed_forward.pyi:FeedForward",
+   "type": "class",
+   "name": "FeedForward",
+   "filePath": ".typings/mflux/models/flux/model/flux_transformer/feed_forward.pyi",
+   "lineRange": [
+    8,
+    10
+   ],
+   "summary": "Class FeedForward in .typings/mflux/models/flux/model/flux_transformer/feed_forward.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mflux/models/flux/model/flux_transformer/guidance_embedder.pyi:GuidanceEmbedder",
+   "type": "class",
+   "name": "GuidanceEmbedder",
+   "filePath": ".typings/mflux/models/flux/model/flux_transformer/guidance_embedder.pyi",
+   "lineRange": [
+    8,
+    10
+   ],
+   "summary": "Class GuidanceEmbedder in .typings/mflux/models/flux/model/flux_transformer/guidance_embedder.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mflux/models/flux/model/flux_transformer/joint_attention.pyi:JointAttention",
+   "type": "class",
+   "name": "JointAttention",
+   "filePath": ".typings/mflux/models/flux/model/flux_transformer/joint_attention.pyi",
+   "lineRange": [
+    9,
+    31
+   ],
+   "summary": "Class JointAttention in .typings/mflux/models/flux/model/flux_transformer/joint_attention.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mflux/models/flux/model/flux_transformer/joint_transformer_block.pyi:JointTransformerBlock",
+   "type": "class",
+   "name": "JointTransformerBlock",
+   "filePath": ".typings/mflux/models/flux/model/flux_transformer/joint_transformer_block.pyi",
+   "lineRange": [
+    13,
+    40
+   ],
+   "summary": "Class JointTransformerBlock in .typings/mflux/models/flux/model/flux_transformer/joint_transformer_block.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mflux/models/flux/model/flux_transformer/single_block_attention.pyi:SingleBlockAttention",
+   "type": "class",
+   "name": "SingleBlockAttention",
+   "filePath": ".typings/mflux/models/flux/model/flux_transformer/single_block_attention.pyi",
+   "lineRange": [
+    8,
+    20
+   ],
+   "summary": "Class SingleBlockAttention in .typings/mflux/models/flux/model/flux_transformer/single_block_attention.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mflux/models/flux/model/flux_transformer/single_transformer_block.pyi:SingleTransformerBlock",
+   "type": "class",
+   "name": "SingleTransformerBlock",
+   "filePath": ".typings/mflux/models/flux/model/flux_transformer/single_transformer_block.pyi",
+   "lineRange": [
+    15,
+    28
+   ],
+   "summary": "Class SingleTransformerBlock in .typings/mflux/models/flux/model/flux_transformer/single_transformer_block.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mflux/models/flux/model/flux_transformer/text_embedder.pyi:TextEmbedder",
+   "type": "class",
+   "name": "TextEmbedder",
+   "filePath": ".typings/mflux/models/flux/model/flux_transformer/text_embedder.pyi",
+   "lineRange": [
+    8,
+    10
+   ],
+   "summary": "Class TextEmbedder in .typings/mflux/models/flux/model/flux_transformer/text_embedder.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mflux/models/flux/model/flux_transformer/time_text_embed.pyi:TimeTextEmbed",
+   "type": "class",
+   "name": "TimeTextEmbed",
+   "filePath": ".typings/mflux/models/flux/model/flux_transformer/time_text_embed.pyi",
+   "lineRange": [
+    9,
+    13
+   ],
+   "summary": "Class TimeTextEmbed in .typings/mflux/models/flux/model/flux_transformer/time_text_embed.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mflux/models/flux/model/flux_transformer/timestep_embedder.pyi:TimestepEmbedder",
+   "type": "class",
+   "name": "TimestepEmbedder",
+   "filePath": ".typings/mflux/models/flux/model/flux_transformer/timestep_embedder.pyi",
+   "lineRange": [
+    8,
+    10
+   ],
+   "summary": "Class TimestepEmbedder in .typings/mflux/models/flux/model/flux_transformer/timestep_embedder.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mflux/models/flux/model/flux_transformer/transformer.pyi:Transformer",
+   "type": "class",
+   "name": "Transformer",
+   "filePath": ".typings/mflux/models/flux/model/flux_transformer/transformer.pyi",
+   "lineRange": [
+    18,
+    58
+   ],
+   "summary": "Class Transformer in .typings/mflux/models/flux/model/flux_transformer/transformer.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mflux/models/flux/model/flux_vae/common/attention.pyi:Attention",
+   "type": "class",
+   "name": "Attention",
+   "filePath": ".typings/mflux/models/flux/model/flux_vae/common/attention.pyi",
+   "lineRange": [
+    8,
+    10
+   ],
+   "summary": "Class Attention in .typings/mflux/models/flux/model/flux_vae/common/attention.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mflux/models/flux/model/flux_vae/common/resnet_block_2d.pyi:ResnetBlock2D",
+   "type": "class",
+   "name": "ResnetBlock2D",
+   "filePath": ".typings/mflux/models/flux/model/flux_vae/common/resnet_block_2d.pyi",
+   "lineRange": [
+    8,
+    21
+   ],
+   "summary": "Class ResnetBlock2D in .typings/mflux/models/flux/model/flux_vae/common/resnet_block_2d.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mflux/models/flux/model/flux_vae/common/unet_mid_block.pyi:UnetMidBlock",
+   "type": "class",
+   "name": "UnetMidBlock",
+   "filePath": ".typings/mflux/models/flux/model/flux_vae/common/unet_mid_block.pyi",
+   "lineRange": [
+    8,
+    10
+   ],
+   "summary": "Class UnetMidBlock in .typings/mflux/models/flux/model/flux_vae/common/unet_mid_block.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mflux/models/flux/model/flux_vae/decoder/conv_in.pyi:ConvIn",
+   "type": "class",
+   "name": "ConvIn",
+   "filePath": ".typings/mflux/models/flux/model/flux_vae/decoder/conv_in.pyi",
+   "lineRange": [
+    8,
+    10
+   ],
+   "summary": "Class ConvIn in .typings/mflux/models/flux/model/flux_vae/decoder/conv_in.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mflux/models/flux/model/flux_vae/decoder/conv_norm_out.pyi:ConvNormOut",
+   "type": "class",
+   "name": "ConvNormOut",
+   "filePath": ".typings/mflux/models/flux/model/flux_vae/decoder/conv_norm_out.pyi",
+   "lineRange": [
+    8,
+    10
+   ],
+   "summary": "Class ConvNormOut in .typings/mflux/models/flux/model/flux_vae/decoder/conv_norm_out.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mflux/models/flux/model/flux_vae/decoder/conv_out.pyi:ConvOut",
+   "type": "class",
+   "name": "ConvOut",
+   "filePath": ".typings/mflux/models/flux/model/flux_vae/decoder/conv_out.pyi",
+   "lineRange": [
+    8,
+    10
+   ],
+   "summary": "Class ConvOut in .typings/mflux/models/flux/model/flux_vae/decoder/conv_out.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mflux/models/flux/model/flux_vae/decoder/decoder.pyi:Decoder",
+   "type": "class",
+   "name": "Decoder",
+   "filePath": ".typings/mflux/models/flux/model/flux_vae/decoder/decoder.pyi",
+   "lineRange": [
+    8,
+    12
+   ],
+   "summary": "Class Decoder in .typings/mflux/models/flux/model/flux_vae/decoder/decoder.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mflux/models/flux/model/flux_vae/decoder/up_block_1_or_2.pyi:UpBlock1Or2",
+   "type": "class",
+   "name": "UpBlock1Or2",
+   "filePath": ".typings/mflux/models/flux/model/flux_vae/decoder/up_block_1_or_2.pyi",
+   "lineRange": [
+    8,
+    10
+   ],
+   "summary": "Class UpBlock1Or2 in .typings/mflux/models/flux/model/flux_vae/decoder/up_block_1_or_2.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mflux/models/flux/model/flux_vae/decoder/up_block_3.pyi:UpBlock3",
+   "type": "class",
+   "name": "UpBlock3",
+   "filePath": ".typings/mflux/models/flux/model/flux_vae/decoder/up_block_3.pyi",
+   "lineRange": [
+    8,
+    10
+   ],
+   "summary": "Class UpBlock3 in .typings/mflux/models/flux/model/flux_vae/decoder/up_block_3.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mflux/models/flux/model/flux_vae/decoder/up_block_4.pyi:UpBlock4",
+   "type": "class",
+   "name": "UpBlock4",
+   "filePath": ".typings/mflux/models/flux/model/flux_vae/decoder/up_block_4.pyi",
+   "lineRange": [
+    8,
+    10
+   ],
+   "summary": "Class UpBlock4 in .typings/mflux/models/flux/model/flux_vae/decoder/up_block_4.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mflux/models/flux/model/flux_vae/decoder/up_sampler.pyi:UpSampler",
+   "type": "class",
+   "name": "UpSampler",
+   "filePath": ".typings/mflux/models/flux/model/flux_vae/decoder/up_sampler.pyi",
+   "lineRange": [
+    8,
+    13
+   ],
+   "summary": "Class UpSampler in .typings/mflux/models/flux/model/flux_vae/decoder/up_sampler.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mflux/models/flux/model/flux_vae/encoder/conv_in.pyi:ConvIn",
+   "type": "class",
+   "name": "ConvIn",
+   "filePath": ".typings/mflux/models/flux/model/flux_vae/encoder/conv_in.pyi",
+   "lineRange": [
+    8,
+    10
+   ],
+   "summary": "Class ConvIn in .typings/mflux/models/flux/model/flux_vae/encoder/conv_in.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mflux/models/flux/model/flux_vae/encoder/conv_norm_out.pyi:ConvNormOut",
+   "type": "class",
+   "name": "ConvNormOut",
+   "filePath": ".typings/mflux/models/flux/model/flux_vae/encoder/conv_norm_out.pyi",
+   "lineRange": [
+    8,
+    10
+   ],
+   "summary": "Class ConvNormOut in .typings/mflux/models/flux/model/flux_vae/encoder/conv_norm_out.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mflux/models/flux/model/flux_vae/encoder/conv_out.pyi:ConvOut",
+   "type": "class",
+   "name": "ConvOut",
+   "filePath": ".typings/mflux/models/flux/model/flux_vae/encoder/conv_out.pyi",
+   "lineRange": [
+    8,
+    10
+   ],
+   "summary": "Class ConvOut in .typings/mflux/models/flux/model/flux_vae/encoder/conv_out.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  }
+ ],
+ "edges": [
+  {
+   "source": "file:.typings/mflux/models/flux/model/flux_transformer/embed_nd.pyi",
+   "target": "class:.typings/mflux/models/flux/model/flux_transformer/embed_nd.pyi:EmbedND",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mflux/models/flux/model/flux_transformer/embed_nd.pyi",
+   "target": "class:.typings/mflux/models/flux/model/flux_transformer/embed_nd.pyi:EmbedND",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mflux/models/flux/model/flux_transformer/feed_forward.pyi",
+   "target": "class:.typings/mflux/models/flux/model/flux_transformer/feed_forward.pyi:FeedForward",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mflux/models/flux/model/flux_transformer/feed_forward.pyi",
+   "target": "class:.typings/mflux/models/flux/model/flux_transformer/feed_forward.pyi:FeedForward",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mflux/models/flux/model/flux_transformer/guidance_embedder.pyi",
+   "target": "class:.typings/mflux/models/flux/model/flux_transformer/guidance_embedder.pyi:GuidanceEmbedder",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mflux/models/flux/model/flux_transformer/guidance_embedder.pyi",
+   "target": "class:.typings/mflux/models/flux/model/flux_transformer/guidance_embedder.pyi:GuidanceEmbedder",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mflux/models/flux/model/flux_transformer/joint_attention.pyi",
+   "target": "class:.typings/mflux/models/flux/model/flux_transformer/joint_attention.pyi:JointAttention",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mflux/models/flux/model/flux_transformer/joint_attention.pyi",
+   "target": "class:.typings/mflux/models/flux/model/flux_transformer/joint_attention.pyi:JointAttention",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mflux/models/flux/model/flux_transformer/joint_transformer_block.pyi",
+   "target": "class:.typings/mflux/models/flux/model/flux_transformer/joint_transformer_block.pyi:JointTransformerBlock",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mflux/models/flux/model/flux_transformer/joint_transformer_block.pyi",
+   "target": "class:.typings/mflux/models/flux/model/flux_transformer/joint_transformer_block.pyi:JointTransformerBlock",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mflux/models/flux/model/flux_transformer/single_block_attention.pyi",
+   "target": "class:.typings/mflux/models/flux/model/flux_transformer/single_block_attention.pyi:SingleBlockAttention",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mflux/models/flux/model/flux_transformer/single_block_attention.pyi",
+   "target": "class:.typings/mflux/models/flux/model/flux_transformer/single_block_attention.pyi:SingleBlockAttention",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mflux/models/flux/model/flux_transformer/single_transformer_block.pyi",
+   "target": "class:.typings/mflux/models/flux/model/flux_transformer/single_transformer_block.pyi:SingleTransformerBlock",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mflux/models/flux/model/flux_transformer/single_transformer_block.pyi",
+   "target": "class:.typings/mflux/models/flux/model/flux_transformer/single_transformer_block.pyi:SingleTransformerBlock",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mflux/models/flux/model/flux_transformer/text_embedder.pyi",
+   "target": "class:.typings/mflux/models/flux/model/flux_transformer/text_embedder.pyi:TextEmbedder",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mflux/models/flux/model/flux_transformer/text_embedder.pyi",
+   "target": "class:.typings/mflux/models/flux/model/flux_transformer/text_embedder.pyi:TextEmbedder",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mflux/models/flux/model/flux_transformer/time_text_embed.pyi",
+   "target": "class:.typings/mflux/models/flux/model/flux_transformer/time_text_embed.pyi:TimeTextEmbed",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mflux/models/flux/model/flux_transformer/time_text_embed.pyi",
+   "target": "class:.typings/mflux/models/flux/model/flux_transformer/time_text_embed.pyi:TimeTextEmbed",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mflux/models/flux/model/flux_transformer/timestep_embedder.pyi",
+   "target": "class:.typings/mflux/models/flux/model/flux_transformer/timestep_embedder.pyi:TimestepEmbedder",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mflux/models/flux/model/flux_transformer/timestep_embedder.pyi",
+   "target": "class:.typings/mflux/models/flux/model/flux_transformer/timestep_embedder.pyi:TimestepEmbedder",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mflux/models/flux/model/flux_transformer/transformer.pyi",
+   "target": "class:.typings/mflux/models/flux/model/flux_transformer/transformer.pyi:Transformer",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mflux/models/flux/model/flux_transformer/transformer.pyi",
+   "target": "class:.typings/mflux/models/flux/model/flux_transformer/transformer.pyi:Transformer",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mflux/models/flux/model/flux_vae/common/attention.pyi",
+   "target": "class:.typings/mflux/models/flux/model/flux_vae/common/attention.pyi:Attention",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mflux/models/flux/model/flux_vae/common/attention.pyi",
+   "target": "class:.typings/mflux/models/flux/model/flux_vae/common/attention.pyi:Attention",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mflux/models/flux/model/flux_vae/common/resnet_block_2d.pyi",
+   "target": "class:.typings/mflux/models/flux/model/flux_vae/common/resnet_block_2d.pyi:ResnetBlock2D",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mflux/models/flux/model/flux_vae/common/resnet_block_2d.pyi",
+   "target": "class:.typings/mflux/models/flux/model/flux_vae/common/resnet_block_2d.pyi:ResnetBlock2D",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mflux/models/flux/model/flux_vae/common/unet_mid_block.pyi",
+   "target": "class:.typings/mflux/models/flux/model/flux_vae/common/unet_mid_block.pyi:UnetMidBlock",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mflux/models/flux/model/flux_vae/common/unet_mid_block.pyi",
+   "target": "class:.typings/mflux/models/flux/model/flux_vae/common/unet_mid_block.pyi:UnetMidBlock",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mflux/models/flux/model/flux_vae/decoder/conv_in.pyi",
+   "target": "class:.typings/mflux/models/flux/model/flux_vae/decoder/conv_in.pyi:ConvIn",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mflux/models/flux/model/flux_vae/decoder/conv_in.pyi",
+   "target": "class:.typings/mflux/models/flux/model/flux_vae/decoder/conv_in.pyi:ConvIn",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mflux/models/flux/model/flux_vae/decoder/conv_norm_out.pyi",
+   "target": "class:.typings/mflux/models/flux/model/flux_vae/decoder/conv_norm_out.pyi:ConvNormOut",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mflux/models/flux/model/flux_vae/decoder/conv_norm_out.pyi",
+   "target": "class:.typings/mflux/models/flux/model/flux_vae/decoder/conv_norm_out.pyi:ConvNormOut",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mflux/models/flux/model/flux_vae/decoder/conv_out.pyi",
+   "target": "class:.typings/mflux/models/flux/model/flux_vae/decoder/conv_out.pyi:ConvOut",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mflux/models/flux/model/flux_vae/decoder/conv_out.pyi",
+   "target": "class:.typings/mflux/models/flux/model/flux_vae/decoder/conv_out.pyi:ConvOut",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mflux/models/flux/model/flux_vae/decoder/decoder.pyi",
+   "target": "class:.typings/mflux/models/flux/model/flux_vae/decoder/decoder.pyi:Decoder",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mflux/models/flux/model/flux_vae/decoder/decoder.pyi",
+   "target": "class:.typings/mflux/models/flux/model/flux_vae/decoder/decoder.pyi:Decoder",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mflux/models/flux/model/flux_vae/decoder/up_block_1_or_2.pyi",
+   "target": "class:.typings/mflux/models/flux/model/flux_vae/decoder/up_block_1_or_2.pyi:UpBlock1Or2",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mflux/models/flux/model/flux_vae/decoder/up_block_1_or_2.pyi",
+   "target": "class:.typings/mflux/models/flux/model/flux_vae/decoder/up_block_1_or_2.pyi:UpBlock1Or2",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mflux/models/flux/model/flux_vae/decoder/up_block_3.pyi",
+   "target": "class:.typings/mflux/models/flux/model/flux_vae/decoder/up_block_3.pyi:UpBlock3",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mflux/models/flux/model/flux_vae/decoder/up_block_3.pyi",
+   "target": "class:.typings/mflux/models/flux/model/flux_vae/decoder/up_block_3.pyi:UpBlock3",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mflux/models/flux/model/flux_vae/decoder/up_block_4.pyi",
+   "target": "class:.typings/mflux/models/flux/model/flux_vae/decoder/up_block_4.pyi:UpBlock4",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mflux/models/flux/model/flux_vae/decoder/up_block_4.pyi",
+   "target": "class:.typings/mflux/models/flux/model/flux_vae/decoder/up_block_4.pyi:UpBlock4",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mflux/models/flux/model/flux_vae/decoder/up_sampler.pyi",
+   "target": "class:.typings/mflux/models/flux/model/flux_vae/decoder/up_sampler.pyi:UpSampler",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mflux/models/flux/model/flux_vae/decoder/up_sampler.pyi",
+   "target": "class:.typings/mflux/models/flux/model/flux_vae/decoder/up_sampler.pyi:UpSampler",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mflux/models/flux/model/flux_vae/encoder/conv_in.pyi",
+   "target": "class:.typings/mflux/models/flux/model/flux_vae/encoder/conv_in.pyi:ConvIn",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mflux/models/flux/model/flux_vae/encoder/conv_in.pyi",
+   "target": "class:.typings/mflux/models/flux/model/flux_vae/encoder/conv_in.pyi:ConvIn",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mflux/models/flux/model/flux_vae/encoder/conv_norm_out.pyi",
+   "target": "class:.typings/mflux/models/flux/model/flux_vae/encoder/conv_norm_out.pyi:ConvNormOut",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mflux/models/flux/model/flux_vae/encoder/conv_norm_out.pyi",
+   "target": "class:.typings/mflux/models/flux/model/flux_vae/encoder/conv_norm_out.pyi:ConvNormOut",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mflux/models/flux/model/flux_vae/encoder/conv_out.pyi",
+   "target": "class:.typings/mflux/models/flux/model/flux_vae/encoder/conv_out.pyi:ConvOut",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mflux/models/flux/model/flux_vae/encoder/conv_out.pyi",
+   "target": "class:.typings/mflux/models/flux/model/flux_vae/encoder/conv_out.pyi:ConvOut",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  }
+ ]
+}

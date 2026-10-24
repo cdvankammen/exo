@@ -1,0 +1,152 @@
+{
+ "projectRoot": "/Users/chris/Documents/GitHub/exo",
+ "projectName": "exo",
+ "projectDescription": "exo connects all your devices into an AI cluster, enabling distributed inference of frontier LLMs (and image models) across multiple devices. It uses MLX as the inference backend with automatic device discovery, topology-aware tensor parallelism, RDMA-over-Thunderbolt support, and OpenAI/Claude/Ollama-compatible APIs.",
+ "languages": [
+  "Python",
+  "TypeScript",
+  "Svelte",
+  "Rust",
+  "Swift",
+  "Shell",
+  "Nix",
+  "Markdown",
+  "TOML",
+  "YAML",
+  "JSON"
+ ],
+ "skillDir": "/Users/chris/.understand-anything/repo/understand-anything-plugin/skills/understand",
+ "totalBatches": 46,
+ "batchIndex": 17,
+ "batchFiles": [
+  {
+   "path": "resources/image_model_cards/exolabs--FLUX.1-Kontext-dev-4bit.toml",
+   "language": "toml",
+   "sizeLines": 50,
+   "fileCategory": "config"
+  },
+  {
+   "path": "resources/image_model_cards/exolabs--FLUX.1-Kontext-dev-8bit.toml",
+   "language": "toml",
+   "sizeLines": 50,
+   "fileCategory": "config"
+  },
+  {
+   "path": "resources/image_model_cards/exolabs--FLUX.1-Kontext-dev.toml",
+   "language": "toml",
+   "sizeLines": 50,
+   "fileCategory": "config"
+  },
+  {
+   "path": "resources/image_model_cards/exolabs--FLUX.1-Krea-dev-4bit.toml",
+   "language": "toml",
+   "sizeLines": 50,
+   "fileCategory": "config"
+  },
+  {
+   "path": "resources/image_model_cards/exolabs--FLUX.1-Krea-dev-8bit.toml",
+   "language": "toml",
+   "sizeLines": 50,
+   "fileCategory": "config"
+  },
+  {
+   "path": "resources/image_model_cards/exolabs--FLUX.1-Krea-dev.toml",
+   "language": "toml",
+   "sizeLines": 50,
+   "fileCategory": "config"
+  },
+  {
+   "path": "resources/image_model_cards/exolabs--FLUX.1-dev-4bit.toml",
+   "language": "toml",
+   "sizeLines": 50,
+   "fileCategory": "config"
+  },
+  {
+   "path": "resources/image_model_cards/exolabs--FLUX.1-dev-8bit.toml",
+   "language": "toml",
+   "sizeLines": 50,
+   "fileCategory": "config"
+  },
+  {
+   "path": "resources/image_model_cards/exolabs--FLUX.1-dev.toml",
+   "language": "toml",
+   "sizeLines": 50,
+   "fileCategory": "config"
+  },
+  {
+   "path": "resources/image_model_cards/exolabs--FLUX.1-schnell-4bit.toml",
+   "language": "toml",
+   "sizeLines": 50,
+   "fileCategory": "config"
+  },
+  {
+   "path": "resources/image_model_cards/exolabs--FLUX.1-schnell-8bit.toml",
+   "language": "toml",
+   "sizeLines": 50,
+   "fileCategory": "config"
+  },
+  {
+   "path": "resources/image_model_cards/exolabs--FLUX.1-schnell.toml",
+   "language": "toml",
+   "sizeLines": 50,
+   "fileCategory": "config"
+  },
+  {
+   "path": "resources/image_model_cards/exolabs--Qwen-Image-4bit.toml",
+   "language": "toml",
+   "sizeLines": 41,
+   "fileCategory": "config"
+  },
+  {
+   "path": "resources/image_model_cards/exolabs--Qwen-Image-8bit.toml",
+   "language": "toml",
+   "sizeLines": 41,
+   "fileCategory": "config"
+  },
+  {
+   "path": "resources/image_model_cards/exolabs--Qwen-Image-Edit-2509-4bit.toml",
+   "language": "toml",
+   "sizeLines": 41,
+   "fileCategory": "config"
+  },
+  {
+   "path": "resources/image_model_cards/exolabs--Qwen-Image-Edit-2509-8bit.toml",
+   "language": "toml",
+   "sizeLines": 41,
+   "fileCategory": "config"
+  },
+  {
+   "path": "resources/image_model_cards/exolabs--Qwen-Image-Edit-2509.toml",
+   "language": "toml",
+   "sizeLines": 41,
+   "fileCategory": "config"
+  },
+  {
+   "path": "resources/image_model_cards/exolabs--Qwen-Image.toml",
+   "language": "toml",
+   "sizeLines": 41,
+   "fileCategory": "config"
+  }
+ ],
+ "batchImportData": {
+  "resources/image_model_cards/exolabs--FLUX.1-Kontext-dev-4bit.toml": [],
+  "resources/image_model_cards/exolabs--FLUX.1-Kontext-dev-8bit.toml": [],
+  "resources/image_model_cards/exolabs--FLUX.1-Kontext-dev.toml": [],
+  "resources/image_model_cards/exolabs--FLUX.1-Krea-dev-4bit.toml": [],
+  "resources/image_model_cards/exolabs--FLUX.1-Krea-dev-8bit.toml": [],
+  "resources/image_model_cards/exolabs--FLUX.1-Krea-dev.toml": [],
+  "resources/image_model_cards/exolabs--FLUX.1-dev-4bit.toml": [],
+  "resources/image_model_cards/exolabs--FLUX.1-dev-8bit.toml": [],
+  "resources/image_model_cards/exolabs--FLUX.1-dev.toml": [],
+  "resources/image_model_cards/exolabs--FLUX.1-schnell-4bit.toml": [],
+  "resources/image_model_cards/exolabs--FLUX.1-schnell-8bit.toml": [],
+  "resources/image_model_cards/exolabs--FLUX.1-schnell.toml": [],
+  "resources/image_model_cards/exolabs--Qwen-Image-4bit.toml": [],
+  "resources/image_model_cards/exolabs--Qwen-Image-8bit.toml": [],
+  "resources/image_model_cards/exolabs--Qwen-Image-Edit-2509-4bit.toml": [],
+  "resources/image_model_cards/exolabs--Qwen-Image-Edit-2509-8bit.toml": [],
+  "resources/image_model_cards/exolabs--Qwen-Image-Edit-2509.toml": [],
+  "resources/image_model_cards/exolabs--Qwen-Image.toml": []
+ },
+ "neighborMap": {}
+}

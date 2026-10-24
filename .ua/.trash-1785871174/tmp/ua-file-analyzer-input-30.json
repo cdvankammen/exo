@@ -1,0 +1,182 @@
+{
+ "projectRoot": "/Users/chris/Documents/GitHub/exo",
+ "batchFiles": [
+  {
+   "path": ".typings/mflux/models/depth_pro/depth_pro_initializer.pyi",
+   "language": "python",
+   "sizeLines": 9,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".typings/mflux/models/depth_pro/model/decoder/feature_fusion_block_2d.pyi",
+   "language": "python",
+   "sizeLines": 10,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".typings/mflux/models/depth_pro/model/decoder/multires_conv_decoder.pyi",
+   "language": "python",
+   "sizeLines": 17,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".typings/mflux/models/depth_pro/model/decoder/residual_block.pyi",
+   "language": "python",
+   "sizeLines": 10,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".typings/mflux/models/depth_pro/model/depth_pro.pyi",
+   "language": "python",
+   "sizeLines": 20,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".typings/mflux/models/depth_pro/model/depth_pro_model.pyi",
+   "language": "python",
+   "sizeLines": 12,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".typings/mflux/models/depth_pro/model/depth_pro_util.pyi",
+   "language": "python",
+   "sizeLines": 15,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".typings/mflux/models/depth_pro/model/dino_v2/attention.pyi",
+   "language": "python",
+   "sizeLines": 12,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".typings/mflux/models/depth_pro/model/dino_v2/dino_vision_transformer.pyi",
+   "language": "python",
+   "sizeLines": 10,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".typings/mflux/models/depth_pro/model/dino_v2/layer_scale.pyi",
+   "language": "python",
+   "sizeLines": 10,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".typings/mflux/models/depth_pro/model/dino_v2/mlp.pyi",
+   "language": "python",
+   "sizeLines": 10,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".typings/mflux/models/depth_pro/model/dino_v2/patch_embed.pyi",
+   "language": "python",
+   "sizeLines": 10,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".typings/mflux/models/depth_pro/model/dino_v2/transformer_block.pyi",
+   "language": "python",
+   "sizeLines": 10,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".typings/mflux/models/depth_pro/model/encoder/depth_pro_encoder.pyi",
+   "language": "python",
+   "sizeLines": 12,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".typings/mflux/models/depth_pro/model/encoder/upsample_block.pyi",
+   "language": "python",
+   "sizeLines": 16,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".typings/mflux/models/depth_pro/model/head/fov_head.pyi",
+   "language": "python",
+   "sizeLines": 10,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".typings/mflux/models/depth_pro/weights/depth_pro_weight_definition.pyi",
+   "language": "python",
+   "sizeLines": 23,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".typings/mflux/models/depth_pro/weights/depth_pro_weight_mapping.pyi",
+   "language": "python",
+   "sizeLines": 13,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".typings/mflux/models/fibo/latent_creator/fibo_latent_creator.pyi",
+   "language": "python",
+   "sizeLines": 13,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".typings/mflux/models/fibo/weights/fibo_weight_definition.pyi",
+   "language": "python",
+   "sizeLines": 23,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".typings/mflux/models/fibo/weights/fibo_weight_mapping.pyi",
+   "language": "python",
+   "sizeLines": 17,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".typings/mflux/models/fibo_vlm/tokenizer/qwen2vl_image_processor.pyi",
+   "language": "python",
+   "sizeLines": 8,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".typings/mflux/models/fibo_vlm/tokenizer/qwen2vl_processor.pyi",
+   "language": "python",
+   "sizeLines": 28,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".typings/mflux/models/fibo_vlm/weights/fibo_vlm_weight_definition.pyi",
+   "language": "python",
+   "sizeLines": 24,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".typings/mflux/models/fibo_vlm/weights/fibo_vlm_weight_mapping.pyi",
+   "language": "python",
+   "sizeLines": 15,
+   "fileCategory": "code"
+  }
+ ],
+ "batchImportData": {
+  ".typings/mflux/models/depth_pro/depth_pro_initializer.pyi": [],
+  ".typings/mflux/models/depth_pro/model/decoder/feature_fusion_block_2d.pyi": [],
+  ".typings/mflux/models/depth_pro/model/decoder/multires_conv_decoder.pyi": [],
+  ".typings/mflux/models/depth_pro/model/decoder/residual_block.pyi": [],
+  ".typings/mflux/models/depth_pro/model/depth_pro.pyi": [],
+  ".typings/mflux/models/depth_pro/model/depth_pro_model.pyi": [],
+  ".typings/mflux/models/depth_pro/model/depth_pro_util.pyi": [],
+  ".typings/mflux/models/depth_pro/model/dino_v2/attention.pyi": [],
+  ".typings/mflux/models/depth_pro/model/dino_v2/dino_vision_transformer.pyi": [],
+  ".typings/mflux/models/depth_pro/model/dino_v2/layer_scale.pyi": [],
+  ".typings/mflux/models/depth_pro/model/dino_v2/mlp.pyi": [],
+  ".typings/mflux/models/depth_pro/model/dino_v2/patch_embed.pyi": [],
+  ".typings/mflux/models/depth_pro/model/dino_v2/transformer_block.pyi": [],
+  ".typings/mflux/models/depth_pro/model/encoder/depth_pro_encoder.pyi": [],
+  ".typings/mflux/models/depth_pro/model/encoder/upsample_block.pyi": [],
+  ".typings/mflux/models/depth_pro/model/head/fov_head.pyi": [],
+  ".typings/mflux/models/depth_pro/weights/depth_pro_weight_definition.pyi": [],
+  ".typings/mflux/models/depth_pro/weights/depth_pro_weight_mapping.pyi": [],
+  ".typings/mflux/models/fibo/latent_creator/fibo_latent_creator.pyi": [],
+  ".typings/mflux/models/fibo/weights/fibo_weight_definition.pyi": [],
+  ".typings/mflux/models/fibo/weights/fibo_weight_mapping.pyi": [],
+  ".typings/mflux/models/fibo_vlm/tokenizer/qwen2vl_image_processor.pyi": [],
+  ".typings/mflux/models/fibo_vlm/tokenizer/qwen2vl_processor.pyi": [],
+  ".typings/mflux/models/fibo_vlm/weights/fibo_vlm_weight_definition.pyi": [],
+  ".typings/mflux/models/fibo_vlm/weights/fibo_vlm_weight_mapping.pyi": []
+ }
+}

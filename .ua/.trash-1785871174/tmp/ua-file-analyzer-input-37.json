@@ -1,0 +1,182 @@
+{
+ "projectRoot": "/Users/chris/Documents/GitHub/exo",
+ "batchFiles": [
+  {
+   "path": ".typings/mlx/core/random/__init__.pyi",
+   "language": "python",
+   "sizeLines": 301,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".typings/mlx/nn/__init__.pyi",
+   "language": "python",
+   "sizeLines": 5,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".typings/mlx/nn/init.pyi",
+   "language": "python",
+   "sizeLines": 284,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".typings/mlx/nn/layers/__init__.pyi",
+   "language": "python",
+   "sizeLines": 16,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".typings/mlx/nn/layers/activations.pyi",
+   "language": "python",
+   "sizeLines": 523,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".typings/mlx/nn/layers/base.pyi",
+   "language": "python",
+   "sizeLines": 397,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".typings/mlx/nn/layers/containers.pyi",
+   "language": "python",
+   "sizeLines": 21,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".typings/mlx/nn/layers/convolution.pyi",
+   "language": "python",
+   "sizeLines": 120,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".typings/mlx/nn/layers/convolution_transpose.pyi",
+   "language": "python",
+   "sizeLines": 119,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".typings/mlx/nn/layers/distributed.pyi",
+   "language": "python",
+   "sizeLines": 227,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".typings/mlx/nn/layers/dropout.pyi",
+   "language": "python",
+   "sizeLines": 65,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".typings/mlx/nn/layers/embedding.pyi",
+   "language": "python",
+   "sizeLines": 34,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".typings/mlx/nn/layers/linear.pyi",
+   "language": "python",
+   "sizeLines": 80,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".typings/mlx/nn/layers/normalization.pyi",
+   "language": "python",
+   "sizeLines": 197,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".typings/mlx/nn/layers/pooling.pyi",
+   "language": "python",
+   "sizeLines": 242,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".typings/mlx/nn/layers/positional_encoding.pyi",
+   "language": "python",
+   "sizeLines": 80,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".typings/mlx/nn/layers/quantized.pyi",
+   "language": "python",
+   "sizeLines": 127,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".typings/mlx/nn/layers/recurrent.pyi",
+   "language": "python",
+   "sizeLines": 113,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".typings/mlx/nn/layers/transformer.pyi",
+   "language": "python",
+   "sizeLines": 168,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".typings/mlx/nn/layers/upsample.pyi",
+   "language": "python",
+   "sizeLines": 87,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".typings/mlx/nn/losses.pyi",
+   "language": "python",
+   "sizeLines": 419,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".typings/mlx/nn/utils.pyi",
+   "language": "python",
+   "sizeLines": 73,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".typings/mlx/utils.pyi",
+   "language": "python",
+   "sizeLines": 192,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".typings/mlx_lm/__init__.pyi",
+   "language": "python",
+   "sizeLines": 3,
+   "fileCategory": "code"
+  },
+  {
+   "path": ".typings/mlx_lm/_version.pyi",
+   "language": "python",
+   "sizeLines": 5,
+   "fileCategory": "code"
+  }
+ ],
+ "batchImportData": {
+  ".typings/mlx/core/random/__init__.pyi": [],
+  ".typings/mlx/nn/__init__.pyi": [],
+  ".typings/mlx/nn/init.pyi": [],
+  ".typings/mlx/nn/layers/__init__.pyi": [],
+  ".typings/mlx/nn/layers/activations.pyi": [],
+  ".typings/mlx/nn/layers/base.pyi": [],
+  ".typings/mlx/nn/layers/containers.pyi": [],
+  ".typings/mlx/nn/layers/convolution.pyi": [],
+  ".typings/mlx/nn/layers/convolution_transpose.pyi": [],
+  ".typings/mlx/nn/layers/distributed.pyi": [],
+  ".typings/mlx/nn/layers/dropout.pyi": [],
+  ".typings/mlx/nn/layers/embedding.pyi": [],
+  ".typings/mlx/nn/layers/linear.pyi": [],
+  ".typings/mlx/nn/layers/normalization.pyi": [],
+  ".typings/mlx/nn/layers/pooling.pyi": [],
+  ".typings/mlx/nn/layers/positional_encoding.pyi": [],
+  ".typings/mlx/nn/layers/quantized.pyi": [],
+  ".typings/mlx/nn/layers/recurrent.pyi": [],
+  ".typings/mlx/nn/layers/transformer.pyi": [],
+  ".typings/mlx/nn/layers/upsample.pyi": [],
+  ".typings/mlx/nn/losses.pyi": [],
+  ".typings/mlx/nn/utils.pyi": [],
+  ".typings/mlx/utils.pyi": [],
+  ".typings/mlx_lm/__init__.pyi": [],
+  ".typings/mlx_lm/_version.pyi": []
+ }
+}

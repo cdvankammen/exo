@@ -1,0 +1,1220 @@
+{
+ "nodes": [
+  {
+   "id": "file:src/exo/worker/engines/image/models/flux/config.py",
+   "type": "file",
+   "name": "config.py",
+   "filePath": "src/exo/worker/engines/image/models/flux/config.py",
+   "summary": "Defines ImageModelConfig presets for FLUX.1-schnell, FLUX.1-dev, and FLUX.1-Kontext (block counts, sampling steps, sync steps).",
+   "tags": [
+    "configuration",
+    "image-generation",
+    "model-config"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:src/exo/worker/engines/image/models/flux/kontext_adapter.py",
+   "type": "file",
+   "name": "kontext_adapter.py",
+   "filePath": "src/exo/worker/engines/image/models/flux/kontext_adapter.py",
+   "summary": "Kontext variant of the Flux adapter, adding image-editing and context conditioning (FluxKontextPromptData, FluxKontextModelAdapter).",
+   "tags": [
+    "adapter",
+    "image-generation",
+    "data-model"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "file:src/exo/worker/engines/image/models/flux/wrappers.py",
+   "type": "file",
+   "name": "wrappers.py",
+   "filePath": "src/exo/worker/engines/image/models/flux/wrappers.py",
+   "summary": "Pydantic modulation and norm-gate params plus block wrappers that patch Flux transformer blocks for distributed execution.",
+   "tags": [
+    "wrapper",
+    "distributed",
+    "image-generation"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "file:src/exo/worker/engines/image/models/qwen/__init__.py",
+   "type": "file",
+   "name": "__init__.py",
+   "filePath": "src/exo/worker/engines/image/models/qwen/__init__.py",
+   "summary": "Package entry point re-exporting Qwen image model configs and adapters.",
+   "tags": [
+    "entry-point",
+    "barrel",
+    "exports"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:src/exo/worker/engines/image/models/qwen/adapter.py",
+   "type": "file",
+   "name": "adapter.py",
+   "filePath": "src/exo/worker/engines/image/models/qwen/adapter.py",
+   "summary": "Qwen image model PromptData and ModelAdapter implementations for text-to-image generation.",
+   "tags": [
+    "adapter",
+    "image-generation",
+    "data-model"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "file:src/exo/worker/engines/image/models/qwen/config.py",
+   "type": "file",
+   "name": "config.py",
+   "filePath": "src/exo/worker/engines/image/models/qwen/config.py",
+   "summary": "Defines ImageModelConfig presets for Qwen-Image and Qwen-Image-Edit.",
+   "tags": [
+    "configuration",
+    "image-generation",
+    "model-config"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:src/exo/worker/engines/image/models/qwen/edit_adapter.py",
+   "type": "file",
+   "name": "edit_adapter.py",
+   "filePath": "src/exo/worker/engines/image/models/qwen/edit_adapter.py",
+   "summary": "Qwen image-editing adapter: encodes edit prompts and input images (QwenEditPromptData, QwenEditModelAdapter).",
+   "tags": [
+    "adapter",
+    "image-editing",
+    "data-model"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "file:src/exo/worker/engines/image/models/qwen/wrappers.py",
+   "type": "file",
+   "name": "wrappers.py",
+   "filePath": "src/exo/worker/engines/image/models/qwen/wrappers.py",
+   "summary": "Qwen transformer block wrapper enabling distributed patched execution of the Qwen image model.",
+   "tags": [
+    "wrapper",
+    "distributed",
+    "image-generation"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:src/exo/worker/engines/image/pipeline/__init__.py",
+   "type": "file",
+   "name": "__init__.py",
+   "filePath": "src/exo/worker/engines/image/pipeline/__init__.py",
+   "summary": "Package entry point re-exporting the image diffusion pipeline components (block wrappers, KV cache, runner).",
+   "tags": [
+    "entry-point",
+    "barrel",
+    "exports"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:src/exo/worker/engines/image/pipeline/block_wrapper.py",
+   "type": "file",
+   "name": "block_wrapper.py",
+   "filePath": "src/exo/worker/engines/image/pipeline/block_wrapper.py",
+   "summary": "BlockWrapperMixin plus Joint/Single block wrappers that splice distributed tensor communication into diffusion transformer blocks.",
+   "tags": [
+    "wrapper",
+    "distributed",
+    "pipeline"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "file:src/exo/worker/engines/image/pipeline/kv_cache.py",
+   "type": "file",
+   "name": "kv_cache.py",
+   "filePath": "src/exo/worker/engines/image/pipeline/kv_cache.py",
+   "summary": "Patch-level KV cache storing only image K/V during multi-patch diffusion generation.",
+   "tags": [
+    "cache",
+    "pipeline",
+    "image-generation"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:src/exo/worker/engines/image/pipeline/runner.py",
+   "type": "file",
+   "name": "runner.py",
+   "filePath": "src/exo/worker/engines/image/pipeline/runner.py",
+   "summary": "DiffusionRunner executes the distributed image-diffusion pipeline: per-node sync/async passes, CFG branches, patched block execution, and trace recording.",
+   "tags": [
+    "runner",
+    "pipeline",
+    "distributed",
+    "image-generation"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "file:src/exo/worker/tests/unittests/test_image/test_cancellation.py",
+   "type": "file",
+   "name": "test_cancellation.py",
+   "filePath": "src/exo/worker/tests/unittests/test_image/test_cancellation.py",
+   "summary": "Unit tests for image engine cancellation: NaN sentinels, cancellation checks, and drain conditions in the DiffusionRunner pipeline.",
+   "tags": [
+    "test",
+    "image-generation",
+    "cancellation"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "class:src/exo/worker/engines/image/models/flux/kontext_adapter.py:FluxKontextPromptData",
+   "type": "class",
+   "name": "FluxKontextPromptData",
+   "filePath": "src/exo/worker/engines/image/models/flux/kontext_adapter.py",
+   "lineRange": [
+    31,
+    100
+   ],
+   "summary": "Prompt data for the FLUX.1-Kontext variant, adding context-image conditioning.",
+   "tags": [
+    "data-model",
+    "adapter"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "class:src/exo/worker/engines/image/models/flux/kontext_adapter.py:FluxKontextModelAdapter",
+   "type": "class",
+   "name": "FluxKontextModelAdapter",
+   "filePath": "src/exo/worker/engines/image/models/flux/kontext_adapter.py",
+   "lineRange": [
+    104,
+    348
+   ],
+   "summary": "ModelAdapter for FLUX.1-Kontext with context-image handling on top of the Flux adapter behaviour.",
+   "tags": [
+    "adapter",
+    "image-generation"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "class:src/exo/worker/engines/image/models/flux/wrappers.py:FluxJointBlockWrapper",
+   "type": "class",
+   "name": "FluxJointBlockWrapper",
+   "filePath": "src/exo/worker/engines/image/models/flux/wrappers.py",
+   "lineRange": [
+    40,
+    191
+   ],
+   "summary": "Wraps a Flux joint transformer block for distributed patched execution.",
+   "tags": [
+    "wrapper",
+    "distributed"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "class:src/exo/worker/engines/image/models/flux/wrappers.py:FluxSingleBlockWrapper",
+   "type": "class",
+   "name": "FluxSingleBlockWrapper",
+   "filePath": "src/exo/worker/engines/image/models/flux/wrappers.py",
+   "lineRange": [
+    194,
+    279
+   ],
+   "summary": "Wraps a Flux single transformer block for distributed patched execution.",
+   "tags": [
+    "wrapper",
+    "distributed"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "class:src/exo/worker/engines/image/models/qwen/adapter.py:QwenPromptData",
+   "type": "class",
+   "name": "QwenPromptData",
+   "filePath": "src/exo/worker/engines/image/models/qwen/adapter.py",
+   "lineRange": [
+    27,
+    156
+   ],
+   "summary": "Qwen image model prompt data with text, image, and quality handling.",
+   "tags": [
+    "data-model",
+    "adapter"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "class:src/exo/worker/engines/image/models/qwen/adapter.py:QwenModelAdapter",
+   "type": "class",
+   "name": "QwenModelAdapter",
+   "filePath": "src/exo/worker/engines/image/models/qwen/adapter.py",
+   "lineRange": [
+    159,
+    314
+   ],
+   "summary": "ModelAdapter implementation for Qwen-Image text-to-image generation.",
+   "tags": [
+    "adapter",
+    "image-generation"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "class:src/exo/worker/engines/image/models/qwen/edit_adapter.py:QwenEditPromptData",
+   "type": "class",
+   "name": "QwenEditPromptData",
+   "filePath": "src/exo/worker/engines/image/models/qwen/edit_adapter.py",
+   "lineRange": [
+    35,
+    176
+   ],
+   "summary": "Prompt data for Qwen image editing, including the input image and edit instructions.",
+   "tags": [
+    "data-model",
+    "adapter",
+    "image-editing"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "class:src/exo/worker/engines/image/models/qwen/edit_adapter.py:QwenEditModelAdapter",
+   "type": "class",
+   "name": "QwenEditModelAdapter",
+   "filePath": "src/exo/worker/engines/image/models/qwen/edit_adapter.py",
+   "lineRange": [
+    179,
+    456
+   ],
+   "summary": "ModelAdapter implementation for Qwen-Image-Edit, combining edit prompts with input images.",
+   "tags": [
+    "adapter",
+    "image-editing"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "class:src/exo/worker/engines/image/models/qwen/wrappers.py:QwenJointBlockWrapper",
+   "type": "class",
+   "name": "QwenJointBlockWrapper",
+   "filePath": "src/exo/worker/engines/image/models/qwen/wrappers.py",
+   "lineRange": [
+    23,
+    200
+   ],
+   "summary": "Wraps a Qwen joint transformer block for distributed patched execution.",
+   "tags": [
+    "wrapper",
+    "distributed"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "class:src/exo/worker/engines/image/pipeline/block_wrapper.py:BlockWrapperMixin",
+   "type": "class",
+   "name": "BlockWrapperMixin",
+   "filePath": "src/exo/worker/engines/image/pipeline/block_wrapper.py",
+   "lineRange": [
+    18,
+    96
+   ],
+   "summary": "Mixin providing sync/async pass machinery that patches transformer blocks with distributed tensor communication.",
+   "tags": [
+    "wrapper",
+    "distributed"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "class:src/exo/worker/engines/image/pipeline/block_wrapper.py:JointBlockWrapper",
+   "type": "class",
+   "name": "JointBlockWrapper",
+   "filePath": "src/exo/worker/engines/image/pipeline/block_wrapper.py",
+   "lineRange": [
+    99,
+    213
+   ],
+   "summary": "Abstract joint transformer block wrapper (ABC, Generic) used for distributed patched execution.",
+   "tags": [
+    "wrapper",
+    "distributed"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "class:src/exo/worker/engines/image/pipeline/block_wrapper.py:SingleBlockWrapper",
+   "type": "class",
+   "name": "SingleBlockWrapper",
+   "filePath": "src/exo/worker/engines/image/pipeline/block_wrapper.py",
+   "lineRange": [
+    216,
+    303
+   ],
+   "summary": "Abstract single transformer block wrapper (ABC, Generic) used for distributed patched execution.",
+   "tags": [
+    "wrapper",
+    "distributed"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "class:src/exo/worker/engines/image/pipeline/kv_cache.py:ImagePatchKVCache",
+   "type": "class",
+   "name": "ImagePatchKVCache",
+   "filePath": "src/exo/worker/engines/image/pipeline/kv_cache.py",
+   "lineRange": [
+    4,
+    72
+   ],
+   "summary": "KV cache that stores only image K/V with patch-level updates during diffusion generation.",
+   "tags": [
+    "cache",
+    "pipeline"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:src/exo/worker/engines/image/pipeline/runner.py:calculate_patch_heights",
+   "type": "function",
+   "name": "calculate_patch_heights",
+   "filePath": "src/exo/worker/engines/image/pipeline/runner.py",
+   "lineRange": [
+    40,
+    51
+   ],
+   "summary": "Computes per-patch height splits for diffusion across a sequence of patches.",
+   "tags": [
+    "pipeline",
+    "utility"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/worker/engines/image/pipeline/runner.py:calculate_token_indices",
+   "type": "function",
+   "name": "calculate_token_indices",
+   "filePath": "src/exo/worker/engines/image/pipeline/runner.py",
+   "lineRange": [
+    54,
+    69
+   ],
+   "summary": "Computes text/image token index ranges used when scheduling patch passes.",
+   "tags": [
+    "pipeline",
+    "utility"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/worker/engines/image/pipeline/runner.py:DiffusionRunner",
+   "type": "class",
+   "name": "DiffusionRunner",
+   "filePath": "src/exo/worker/engines/image/pipeline/runner.py",
+   "lineRange": [
+    72,
+    1285
+   ],
+   "summary": "Executes the distributed image-diffusion pipeline: sync/async passes over patched blocks, CFG branches, per-node communication, and trace recording.",
+   "tags": [
+    "runner",
+    "pipeline",
+    "distributed"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "function:src/exo/worker/tests/unittests/test_image/test_cancellation.py:_make_runner",
+   "type": "function",
+   "name": "_make_runner",
+   "filePath": "src/exo/worker/tests/unittests/test_image/test_cancellation.py",
+   "lineRange": [
+    21,
+    46
+   ],
+   "summary": "Constructs a fake runner harness used across the cancellation tests.",
+   "tags": [
+    "test",
+    "fixture"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/worker/tests/unittests/test_image/test_cancellation.py:FakeCancelReceiver",
+   "type": "class",
+   "name": "FakeCancelReceiver",
+   "filePath": "src/exo/worker/tests/unittests/test_image/test_cancellation.py",
+   "lineRange": [
+    49,
+    58
+   ],
+   "summary": "Fake cancellation-check receiver used to drive cancellation polling in tests.",
+   "tags": [
+    "test",
+    "mock"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/worker/tests/unittests/test_image/test_cancellation.py:FakeImageRunner",
+   "type": "class",
+   "name": "FakeImageRunner",
+   "filePath": "src/exo/worker/tests/unittests/test_image/test_cancellation.py",
+   "lineRange": [
+    61,
+    73
+   ],
+   "summary": "Fake image runner that records cancellation checks for assertions.",
+   "tags": [
+    "test",
+    "mock"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/worker/tests/unittests/test_image/test_cancellation.py:TestIsSentinel",
+   "type": "class",
+   "name": "TestIsSentinel",
+   "filePath": "src/exo/worker/tests/unittests/test_image/test_cancellation.py",
+   "lineRange": [
+    81,
+    119
+   ],
+   "summary": "Tests that all-NaN tensors are detected as cancellation sentinels while real data is not.",
+   "tags": [
+    "test",
+    "cancellation"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/worker/tests/unittests/test_image/test_cancellation.py:TestCheckCancellation",
+   "type": "class",
+   "name": "TestCheckCancellation",
+   "filePath": "src/exo/worker/tests/unittests/test_image/test_cancellation.py",
+   "lineRange": [
+    127,
+    171
+   ],
+   "summary": "Tests the first-stage cancellation polling behaviour.",
+   "tags": [
+    "test",
+    "cancellation"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/worker/tests/unittests/test_image/test_cancellation.py:TestSendWrapper",
+   "type": "class",
+   "name": "TestSendWrapper",
+   "filePath": "src/exo/worker/tests/unittests/test_image/test_cancellation.py",
+   "lineRange": [
+    179,
+    232
+   ],
+   "summary": "Tests that sends are replaced with NaN sentinels while cancelling.",
+   "tags": [
+    "test",
+    "cancellation"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/worker/tests/unittests/test_image/test_cancellation.py:TestImageRunnerCheckCancelled",
+   "type": "class",
+   "name": "TestImageRunnerCheckCancelled",
+   "filePath": "src/exo/worker/tests/unittests/test_image/test_cancellation.py",
+   "lineRange": [
+    240,
+    276
+   ],
+   "summary": "Tests per-task and cancel-all cancellation checks in the image runner.",
+   "tags": [
+    "test",
+    "cancellation"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/worker/tests/unittests/test_image/test_cancellation.py:TestDrainCondition",
+   "type": "class",
+   "name": "TestDrainCondition",
+   "filePath": "src/exo/worker/tests/unittests/test_image/test_cancellation.py",
+   "lineRange": [
+    284,
+    433
+   ],
+   "summary": "Tests the drain condition logic that decides when to drain during sync/async pipeline steps.",
+   "tags": [
+    "test",
+    "cancellation"
+   ],
+   "complexity": "moderate"
+  }
+ ],
+ "edges": [
+  {
+   "source": "file:src/exo/worker/engines/image/models/flux/kontext_adapter.py",
+   "target": "class:src/exo/worker/engines/image/models/flux/kontext_adapter.py:FluxKontextPromptData",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/engines/image/models/flux/kontext_adapter.py",
+   "target": "class:src/exo/worker/engines/image/models/flux/kontext_adapter.py:FluxKontextPromptData",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/engines/image/models/flux/kontext_adapter.py",
+   "target": "class:src/exo/worker/engines/image/models/flux/kontext_adapter.py:FluxKontextModelAdapter",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/engines/image/models/flux/kontext_adapter.py",
+   "target": "class:src/exo/worker/engines/image/models/flux/kontext_adapter.py:FluxKontextModelAdapter",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/engines/image/models/flux/wrappers.py",
+   "target": "class:src/exo/worker/engines/image/models/flux/wrappers.py:FluxJointBlockWrapper",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/engines/image/models/flux/wrappers.py",
+   "target": "class:src/exo/worker/engines/image/models/flux/wrappers.py:FluxJointBlockWrapper",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/engines/image/models/flux/wrappers.py",
+   "target": "class:src/exo/worker/engines/image/models/flux/wrappers.py:FluxSingleBlockWrapper",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/engines/image/models/flux/wrappers.py",
+   "target": "class:src/exo/worker/engines/image/models/flux/wrappers.py:FluxSingleBlockWrapper",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/engines/image/models/qwen/adapter.py",
+   "target": "class:src/exo/worker/engines/image/models/qwen/adapter.py:QwenPromptData",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/engines/image/models/qwen/adapter.py",
+   "target": "class:src/exo/worker/engines/image/models/qwen/adapter.py:QwenPromptData",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/engines/image/models/qwen/adapter.py",
+   "target": "class:src/exo/worker/engines/image/models/qwen/adapter.py:QwenModelAdapter",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/engines/image/models/qwen/adapter.py",
+   "target": "class:src/exo/worker/engines/image/models/qwen/adapter.py:QwenModelAdapter",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/engines/image/models/qwen/edit_adapter.py",
+   "target": "class:src/exo/worker/engines/image/models/qwen/edit_adapter.py:QwenEditPromptData",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/engines/image/models/qwen/edit_adapter.py",
+   "target": "class:src/exo/worker/engines/image/models/qwen/edit_adapter.py:QwenEditPromptData",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/engines/image/models/qwen/edit_adapter.py",
+   "target": "class:src/exo/worker/engines/image/models/qwen/edit_adapter.py:QwenEditModelAdapter",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/engines/image/models/qwen/edit_adapter.py",
+   "target": "class:src/exo/worker/engines/image/models/qwen/edit_adapter.py:QwenEditModelAdapter",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/engines/image/models/qwen/wrappers.py",
+   "target": "class:src/exo/worker/engines/image/models/qwen/wrappers.py:QwenJointBlockWrapper",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/engines/image/models/qwen/wrappers.py",
+   "target": "class:src/exo/worker/engines/image/models/qwen/wrappers.py:QwenJointBlockWrapper",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/engines/image/pipeline/block_wrapper.py",
+   "target": "class:src/exo/worker/engines/image/pipeline/block_wrapper.py:BlockWrapperMixin",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/engines/image/pipeline/block_wrapper.py",
+   "target": "class:src/exo/worker/engines/image/pipeline/block_wrapper.py:BlockWrapperMixin",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/engines/image/pipeline/block_wrapper.py",
+   "target": "class:src/exo/worker/engines/image/pipeline/block_wrapper.py:JointBlockWrapper",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/engines/image/pipeline/block_wrapper.py",
+   "target": "class:src/exo/worker/engines/image/pipeline/block_wrapper.py:JointBlockWrapper",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/engines/image/pipeline/block_wrapper.py",
+   "target": "class:src/exo/worker/engines/image/pipeline/block_wrapper.py:SingleBlockWrapper",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/engines/image/pipeline/block_wrapper.py",
+   "target": "class:src/exo/worker/engines/image/pipeline/block_wrapper.py:SingleBlockWrapper",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/engines/image/pipeline/kv_cache.py",
+   "target": "class:src/exo/worker/engines/image/pipeline/kv_cache.py:ImagePatchKVCache",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/engines/image/pipeline/kv_cache.py",
+   "target": "class:src/exo/worker/engines/image/pipeline/kv_cache.py:ImagePatchKVCache",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/engines/image/pipeline/runner.py",
+   "target": "function:src/exo/worker/engines/image/pipeline/runner.py:calculate_patch_heights",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/engines/image/pipeline/runner.py",
+   "target": "function:src/exo/worker/engines/image/pipeline/runner.py:calculate_patch_heights",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/engines/image/pipeline/runner.py",
+   "target": "function:src/exo/worker/engines/image/pipeline/runner.py:calculate_token_indices",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/engines/image/pipeline/runner.py",
+   "target": "function:src/exo/worker/engines/image/pipeline/runner.py:calculate_token_indices",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/engines/image/pipeline/runner.py",
+   "target": "class:src/exo/worker/engines/image/pipeline/runner.py:DiffusionRunner",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/engines/image/pipeline/runner.py",
+   "target": "class:src/exo/worker/engines/image/pipeline/runner.py:DiffusionRunner",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_image/test_cancellation.py",
+   "target": "function:src/exo/worker/tests/unittests/test_image/test_cancellation.py:_make_runner",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_image/test_cancellation.py",
+   "target": "function:src/exo/worker/tests/unittests/test_image/test_cancellation.py:_make_runner",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_image/test_cancellation.py",
+   "target": "class:src/exo/worker/tests/unittests/test_image/test_cancellation.py:FakeCancelReceiver",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_image/test_cancellation.py",
+   "target": "class:src/exo/worker/tests/unittests/test_image/test_cancellation.py:FakeCancelReceiver",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_image/test_cancellation.py",
+   "target": "class:src/exo/worker/tests/unittests/test_image/test_cancellation.py:FakeImageRunner",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_image/test_cancellation.py",
+   "target": "class:src/exo/worker/tests/unittests/test_image/test_cancellation.py:FakeImageRunner",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_image/test_cancellation.py",
+   "target": "class:src/exo/worker/tests/unittests/test_image/test_cancellation.py:TestIsSentinel",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_image/test_cancellation.py",
+   "target": "class:src/exo/worker/tests/unittests/test_image/test_cancellation.py:TestIsSentinel",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_image/test_cancellation.py",
+   "target": "class:src/exo/worker/tests/unittests/test_image/test_cancellation.py:TestCheckCancellation",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_image/test_cancellation.py",
+   "target": "class:src/exo/worker/tests/unittests/test_image/test_cancellation.py:TestCheckCancellation",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_image/test_cancellation.py",
+   "target": "class:src/exo/worker/tests/unittests/test_image/test_cancellation.py:TestSendWrapper",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_image/test_cancellation.py",
+   "target": "class:src/exo/worker/tests/unittests/test_image/test_cancellation.py:TestSendWrapper",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_image/test_cancellation.py",
+   "target": "class:src/exo/worker/tests/unittests/test_image/test_cancellation.py:TestImageRunnerCheckCancelled",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_image/test_cancellation.py",
+   "target": "class:src/exo/worker/tests/unittests/test_image/test_cancellation.py:TestImageRunnerCheckCancelled",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_image/test_cancellation.py",
+   "target": "class:src/exo/worker/tests/unittests/test_image/test_cancellation.py:TestDrainCondition",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_image/test_cancellation.py",
+   "target": "class:src/exo/worker/tests/unittests/test_image/test_cancellation.py:TestDrainCondition",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "class:src/exo/worker/engines/image/models/flux/kontext_adapter.py:FluxKontextPromptData",
+   "target": "class:src/exo/worker/engines/image/models/base.py:PromptData",
+   "type": "inherits",
+   "direction": "forward",
+   "weight": 0.9
+  },
+  {
+   "source": "class:src/exo/worker/engines/image/models/flux/kontext_adapter.py:FluxKontextModelAdapter",
+   "target": "class:src/exo/worker/engines/image/models/base.py:ModelAdapter",
+   "type": "inherits",
+   "direction": "forward",
+   "weight": 0.9
+  },
+  {
+   "source": "class:src/exo/worker/engines/image/models/flux/wrappers.py:FluxJointBlockWrapper",
+   "target": "class:src/exo/worker/engines/image/pipeline/block_wrapper.py:JointBlockWrapper",
+   "type": "inherits",
+   "direction": "forward",
+   "weight": 0.9
+  },
+  {
+   "source": "class:src/exo/worker/engines/image/models/flux/wrappers.py:FluxSingleBlockWrapper",
+   "target": "class:src/exo/worker/engines/image/pipeline/block_wrapper.py:SingleBlockWrapper",
+   "type": "inherits",
+   "direction": "forward",
+   "weight": 0.9
+  },
+  {
+   "source": "class:src/exo/worker/engines/image/models/qwen/adapter.py:QwenPromptData",
+   "target": "class:src/exo/worker/engines/image/models/base.py:PromptData",
+   "type": "inherits",
+   "direction": "forward",
+   "weight": 0.9
+  },
+  {
+   "source": "class:src/exo/worker/engines/image/models/qwen/adapter.py:QwenModelAdapter",
+   "target": "class:src/exo/worker/engines/image/models/base.py:ModelAdapter",
+   "type": "inherits",
+   "direction": "forward",
+   "weight": 0.9
+  },
+  {
+   "source": "class:src/exo/worker/engines/image/models/qwen/edit_adapter.py:QwenEditPromptData",
+   "target": "class:src/exo/worker/engines/image/models/base.py:PromptData",
+   "type": "inherits",
+   "direction": "forward",
+   "weight": 0.9
+  },
+  {
+   "source": "class:src/exo/worker/engines/image/models/qwen/edit_adapter.py:QwenEditModelAdapter",
+   "target": "class:src/exo/worker/engines/image/models/base.py:ModelAdapter",
+   "type": "inherits",
+   "direction": "forward",
+   "weight": 0.9
+  },
+  {
+   "source": "class:src/exo/worker/engines/image/models/qwen/wrappers.py:QwenJointBlockWrapper",
+   "target": "class:src/exo/worker/engines/image/pipeline/block_wrapper.py:JointBlockWrapper",
+   "type": "inherits",
+   "direction": "forward",
+   "weight": 0.9
+  },
+  {
+   "source": "class:src/exo/worker/engines/image/pipeline/block_wrapper.py:JointBlockWrapper",
+   "target": "class:src/exo/worker/engines/image/pipeline/block_wrapper.py:BlockWrapperMixin",
+   "type": "inherits",
+   "direction": "forward",
+   "weight": 0.9
+  },
+  {
+   "source": "class:src/exo/worker/engines/image/pipeline/block_wrapper.py:SingleBlockWrapper",
+   "target": "class:src/exo/worker/engines/image/pipeline/block_wrapper.py:BlockWrapperMixin",
+   "type": "inherits",
+   "direction": "forward",
+   "weight": 0.9
+  },
+  {
+   "source": "file:src/exo/worker/engines/image/pipeline/runner.py",
+   "target": "file:src/exo/worker/tests/unittests/test_image/test_cancellation.py",
+   "type": "tested_by",
+   "direction": "forward",
+   "weight": 0.5
+  },
+  {
+   "source": "file:src/exo/worker/engines/image/models/flux/config.py",
+   "target": "file:src/exo/worker/engines/image/config.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/engines/image/models/flux/kontext_adapter.py",
+   "target": "file:src/exo/worker/engines/image/config.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/engines/image/models/flux/kontext_adapter.py",
+   "target": "file:src/exo/worker/engines/image/models/base.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/engines/image/models/flux/kontext_adapter.py",
+   "target": "file:src/exo/worker/engines/image/models/flux/wrappers.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/engines/image/models/flux/kontext_adapter.py",
+   "target": "file:src/exo/worker/engines/image/pipeline/block_wrapper.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/engines/image/models/flux/wrappers.py",
+   "target": "file:src/exo/worker/engines/image/models/base.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/engines/image/models/flux/wrappers.py",
+   "target": "file:src/exo/worker/engines/image/pipeline/block_wrapper.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/engines/image/models/qwen/__init__.py",
+   "target": "file:src/exo/worker/engines/image/models/qwen/adapter.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/engines/image/models/qwen/__init__.py",
+   "target": "file:src/exo/worker/engines/image/models/qwen/config.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/engines/image/models/qwen/__init__.py",
+   "target": "file:src/exo/worker/engines/image/models/qwen/edit_adapter.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/engines/image/models/qwen/adapter.py",
+   "target": "file:src/exo/worker/engines/image/config.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/engines/image/models/qwen/adapter.py",
+   "target": "file:src/exo/worker/engines/image/models/base.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/engines/image/models/qwen/adapter.py",
+   "target": "file:src/exo/worker/engines/image/models/qwen/wrappers.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/engines/image/models/qwen/adapter.py",
+   "target": "file:src/exo/worker/engines/image/pipeline/block_wrapper.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/engines/image/models/qwen/config.py",
+   "target": "file:src/exo/worker/engines/image/config.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/engines/image/models/qwen/edit_adapter.py",
+   "target": "file:src/exo/worker/engines/image/config.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/engines/image/models/qwen/edit_adapter.py",
+   "target": "file:src/exo/worker/engines/image/models/base.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/engines/image/models/qwen/edit_adapter.py",
+   "target": "file:src/exo/worker/engines/image/models/qwen/wrappers.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/engines/image/models/qwen/edit_adapter.py",
+   "target": "file:src/exo/worker/engines/image/pipeline/block_wrapper.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/engines/image/models/qwen/wrappers.py",
+   "target": "file:src/exo/worker/engines/image/models/base.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/engines/image/models/qwen/wrappers.py",
+   "target": "file:src/exo/worker/engines/image/pipeline/block_wrapper.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/engines/image/pipeline/__init__.py",
+   "target": "file:src/exo/worker/engines/image/pipeline/block_wrapper.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/engines/image/pipeline/__init__.py",
+   "target": "file:src/exo/worker/engines/image/pipeline/kv_cache.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/engines/image/pipeline/__init__.py",
+   "target": "file:src/exo/worker/engines/image/pipeline/runner.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/engines/image/pipeline/block_wrapper.py",
+   "target": "file:src/exo/worker/engines/image/models/base.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/engines/image/pipeline/block_wrapper.py",
+   "target": "file:src/exo/worker/engines/image/pipeline/kv_cache.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/engines/image/pipeline/runner.py",
+   "target": "file:src/exo/shared/constants.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/engines/image/pipeline/runner.py",
+   "target": "file:src/exo/shared/tracing.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/engines/image/pipeline/runner.py",
+   "target": "file:src/exo/shared/types/worker/shards.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/engines/image/pipeline/runner.py",
+   "target": "file:src/exo/worker/engines/image/config.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/engines/image/pipeline/runner.py",
+   "target": "file:src/exo/worker/engines/image/models/base.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/engines/image/pipeline/runner.py",
+   "target": "file:src/exo/worker/engines/image/pipeline/block_wrapper.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_image/test_cancellation.py",
+   "target": "file:src/exo/shared/types/tasks.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_image/test_cancellation.py",
+   "target": "file:src/exo/worker/engines/image/pipeline/runner.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  }
+ ]
+}

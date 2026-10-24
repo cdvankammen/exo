@@ -1,0 +1,62 @@
+{
+ "projectRoot": "/Users/chris/Documents/GitHub/exo",
+ "projectName": "exo",
+ "projectDescription": "exo connects all your devices into an AI cluster, enabling distributed inference of frontier LLMs (and image models) across multiple devices. It uses MLX as the inference backend with automatic device discovery, topology-aware tensor parallelism, RDMA-over-Thunderbolt support, and OpenAI/Claude/Ollama-compatible APIs.",
+ "languages": [
+  "Python",
+  "TypeScript",
+  "Svelte",
+  "Rust",
+  "Swift",
+  "Shell",
+  "Nix",
+  "Markdown",
+  "TOML",
+  "YAML",
+  "JSON"
+ ],
+ "skillDir": "/Users/chris/.understand-anything/repo/understand-anything-plugin/skills/understand",
+ "totalBatches": 46,
+ "batchIndex": 12,
+ "batchFiles": [
+  {
+   "path": "src/exo/worker/engines/mlx/patches/__init__.py",
+   "language": "python",
+   "sizeLines": 13,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/worker/engines/mlx/patches/opt_batch_gen.py",
+   "language": "python",
+   "sizeLines": 136,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/worker/engines/mlx/patches/standard_yarn_rope.py",
+   "language": "python",
+   "sizeLines": 118,
+   "fileCategory": "code"
+  }
+ ],
+ "batchImportData": {
+  "src/exo/worker/engines/mlx/patches/__init__.py": [
+   "src/exo/worker/engines/mlx/patches/opt_batch_gen.py",
+   "src/exo/worker/engines/mlx/patches/standard_yarn_rope.py"
+  ],
+  "src/exo/worker/engines/mlx/patches/opt_batch_gen.py": [],
+  "src/exo/worker/engines/mlx/patches/standard_yarn_rope.py": []
+ },
+ "neighborMap": {
+  "src/exo/worker/engines/mlx/patches/opt_batch_gen.py": [
+   {
+    "path": "src/exo/worker/engines/mlx/generator/batch_generate.py",
+    "batchIndex": 6,
+    "symbols": [
+     "_stop_sequences",
+     "_EngineTask",
+     "ExoBatchGenerator"
+    ]
+   }
+  ]
+ }
+}

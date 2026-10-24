@@ -1,0 +1,63 @@
+{
+ "projectRoot": "/Users/chris/Documents/GitHub/exo",
+ "batchFiles": [
+  {
+   "path": "AGENTS.md",
+   "language": "markdown",
+   "sizeLines": 196,
+   "fileCategory": "docs"
+  },
+  {
+   "path": "CONTRIBUTING.md",
+   "language": "markdown",
+   "sizeLines": 187,
+   "fileCategory": "docs"
+  },
+  {
+   "path": "Cargo.toml",
+   "language": "toml",
+   "sizeLines": 174,
+   "fileCategory": "config"
+  },
+  {
+   "path": "PLATFORMS.md",
+   "language": "markdown",
+   "sizeLines": 38,
+   "fileCategory": "docs"
+  },
+  {
+   "path": "README.md",
+   "language": "markdown",
+   "sizeLines": 587,
+   "fileCategory": "docs"
+  },
+  {
+   "path": "RULES.md",
+   "language": "markdown",
+   "sizeLines": 83,
+   "fileCategory": "docs"
+  },
+  {
+   "path": "TODO.md",
+   "language": "markdown",
+   "sizeLines": 13,
+   "fileCategory": "docs"
+  },
+  {
+   "path": "pyproject.toml",
+   "language": "toml",
+   "sizeLines": 254,
+   "fileCategory": "config"
+  }
+ ],
+ "batchImportData": {
+  "AGENTS.md": [],
+  "CONTRIBUTING.md": [],
+  "Cargo.toml": [],
+  "PLATFORMS.md": [],
+  "README.md": [],
+  "RULES.md": [],
+  "TODO.md": [],
+  "pyproject.toml": []
+ }
+}

@@ -1,0 +1,548 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 20,
+  "filesSkipped": [],
+  "analysisOutcomes": {
+    "structure": {
+      "succeeded": 20,
+      "failed": 0
+    },
+    "callGraph": {
+      "succeeded": 0,
+      "failed": 0,
+      "skipped": 20
+    }
+  },
+  "results": [
+    {
+      "path": "resources/inference_model_cards/mlx-community--MiniMax-M2.1-3bit.toml",
+      "language": "toml",
+      "fileCategory": "config",
+      "totalLines": 22,
+      "nonEmptyLines": 21,
+      "sections": [
+        {
+          "heading": "storage_size",
+          "level": 1,
+          "line": 14
+        },
+        {
+          "heading": "sampling_defaults",
+          "level": 1,
+          "line": 19
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 2
+      }
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--MiniMax-M2.1-8bit.toml",
+      "language": "toml",
+      "fileCategory": "config",
+      "totalLines": 22,
+      "nonEmptyLines": 21,
+      "sections": [
+        {
+          "heading": "storage_size",
+          "level": 1,
+          "line": 14
+        },
+        {
+          "heading": "sampling_defaults",
+          "level": 1,
+          "line": 19
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 2
+      }
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--MiniMax-M2.5-4bit.toml",
+      "language": "toml",
+      "fileCategory": "config",
+      "totalLines": 22,
+      "nonEmptyLines": 21,
+      "sections": [
+        {
+          "heading": "storage_size",
+          "level": 1,
+          "line": 14
+        },
+        {
+          "heading": "sampling_defaults",
+          "level": 1,
+          "line": 19
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 2
+      }
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--MiniMax-M2.5-6bit.toml",
+      "language": "toml",
+      "fileCategory": "config",
+      "totalLines": 22,
+      "nonEmptyLines": 21,
+      "sections": [
+        {
+          "heading": "storage_size",
+          "level": 1,
+          "line": 14
+        },
+        {
+          "heading": "sampling_defaults",
+          "level": 1,
+          "line": 19
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 2
+      }
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--MiniMax-M2.5-8bit.toml",
+      "language": "toml",
+      "fileCategory": "config",
+      "totalLines": 22,
+      "nonEmptyLines": 21,
+      "sections": [
+        {
+          "heading": "storage_size",
+          "level": 1,
+          "line": 14
+        },
+        {
+          "heading": "sampling_defaults",
+          "level": 1,
+          "line": 19
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 2
+      }
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--MiniMax-M2.7-4bit-mxfp4.toml",
+      "language": "toml",
+      "fileCategory": "config",
+      "totalLines": 23,
+      "nonEmptyLines": 22,
+      "sections": [
+        {
+          "heading": "storage_size",
+          "level": 1,
+          "line": 14
+        },
+        {
+          "heading": "sampling_defaults",
+          "level": 1,
+          "line": 20
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 2
+      }
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--MiniMax-M2.7-4bit.toml",
+      "language": "toml",
+      "fileCategory": "config",
+      "totalLines": 23,
+      "nonEmptyLines": 22,
+      "sections": [
+        {
+          "heading": "storage_size",
+          "level": 1,
+          "line": 14
+        },
+        {
+          "heading": "sampling_defaults",
+          "level": 1,
+          "line": 20
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 2
+      }
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--MiniMax-M2.7-5bit.toml",
+      "language": "toml",
+      "fileCategory": "config",
+      "totalLines": 23,
+      "nonEmptyLines": 22,
+      "sections": [
+        {
+          "heading": "storage_size",
+          "level": 1,
+          "line": 14
+        },
+        {
+          "heading": "sampling_defaults",
+          "level": 1,
+          "line": 20
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 2
+      }
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--MiniMax-M2.7-6bit.toml",
+      "language": "toml",
+      "fileCategory": "config",
+      "totalLines": 23,
+      "nonEmptyLines": 22,
+      "sections": [
+        {
+          "heading": "storage_size",
+          "level": 1,
+          "line": 14
+        },
+        {
+          "heading": "sampling_defaults",
+          "level": 1,
+          "line": 20
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 2
+      }
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--MiniMax-M2.7-8bit.toml",
+      "language": "toml",
+      "fileCategory": "config",
+      "totalLines": 23,
+      "nonEmptyLines": 22,
+      "sections": [
+        {
+          "heading": "storage_size",
+          "level": 1,
+          "line": 14
+        },
+        {
+          "heading": "sampling_defaults",
+          "level": 1,
+          "line": 20
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 2
+      }
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--MiniMax-M2.7.toml",
+      "language": "toml",
+      "fileCategory": "config",
+      "totalLines": 23,
+      "nonEmptyLines": 22,
+      "sections": [
+        {
+          "heading": "storage_size",
+          "level": 1,
+          "line": 14
+        },
+        {
+          "heading": "sampling_defaults",
+          "level": 1,
+          "line": 20
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 2
+      }
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--NVIDIA-Nemotron-3-Nano-30B-A3B-MLX-4Bit.toml",
+      "language": "toml",
+      "fileCategory": "config",
+      "totalLines": 20,
+      "nonEmptyLines": 18,
+      "sections": [
+        {
+          "heading": "storage_size",
+          "level": 1,
+          "line": 13
+        },
+        {
+          "heading": "sampling_defaults",
+          "level": 1,
+          "line": 18
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 2
+      }
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--NVIDIA-Nemotron-3-Nano-30B-A3B-MLX-5Bit.toml",
+      "language": "toml",
+      "fileCategory": "config",
+      "totalLines": 20,
+      "nonEmptyLines": 18,
+      "sections": [
+        {
+          "heading": "storage_size",
+          "level": 1,
+          "line": 13
+        },
+        {
+          "heading": "sampling_defaults",
+          "level": 1,
+          "line": 18
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 2
+      }
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--NVIDIA-Nemotron-3-Nano-30B-A3B-MLX-6Bit.toml",
+      "language": "toml",
+      "fileCategory": "config",
+      "totalLines": 20,
+      "nonEmptyLines": 18,
+      "sections": [
+        {
+          "heading": "storage_size",
+          "level": 1,
+          "line": 13
+        },
+        {
+          "heading": "sampling_defaults",
+          "level": 1,
+          "line": 18
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 2
+      }
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--NVIDIA-Nemotron-3-Nano-30B-A3B-MLX-8Bit.toml",
+      "language": "toml",
+      "fileCategory": "config",
+      "totalLines": 20,
+      "nonEmptyLines": 18,
+      "sections": [
+        {
+          "heading": "storage_size",
+          "level": 1,
+          "line": 13
+        },
+        {
+          "heading": "sampling_defaults",
+          "level": 1,
+          "line": 18
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 2
+      }
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--NVIDIA-Nemotron-3-Nano-30B-A3B-MLX-BF16.toml",
+      "language": "toml",
+      "fileCategory": "config",
+      "totalLines": 20,
+      "nonEmptyLines": 18,
+      "sections": [
+        {
+          "heading": "storage_size",
+          "level": 1,
+          "line": 13
+        },
+        {
+          "heading": "sampling_defaults",
+          "level": 1,
+          "line": 18
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 2
+      }
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--NVIDIA-Nemotron-3-Nano-30B-A3B-MLX-MXFP4.toml",
+      "language": "toml",
+      "fileCategory": "config",
+      "totalLines": 20,
+      "nonEmptyLines": 18,
+      "sections": [
+        {
+          "heading": "storage_size",
+          "level": 1,
+          "line": 13
+        },
+        {
+          "heading": "sampling_defaults",
+          "level": 1,
+          "line": 18
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 2
+      }
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--NVIDIA-Nemotron-3-Nano-30B-A3B-NVFP4.toml",
+      "language": "toml",
+      "fileCategory": "config",
+      "totalLines": 20,
+      "nonEmptyLines": 18,
+      "sections": [
+        {
+          "heading": "storage_size",
+          "level": 1,
+          "line": 13
+        },
+        {
+          "heading": "sampling_defaults",
+          "level": 1,
+          "line": 18
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 2
+      }
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--NVIDIA-Nemotron-Nano-9B-v2-4bits.toml",
+      "language": "toml",
+      "fileCategory": "config",
+      "totalLines": 25,
+      "nonEmptyLines": 22,
+      "sections": [
+        {
+          "heading": "storage_size",
+          "level": 1,
+          "line": 13
+        },
+        {
+          "heading": "sampling_defaults",
+          "level": 1,
+          "line": 18
+        },
+        {
+          "heading": "sampling_defaults.non_thinking",
+          "level": 2,
+          "line": 24
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 3
+      }
+    },
+    {
+      "path": "resources/inference_model_cards/mlx-community--NVIDIA-Nemotron-Nano-9B-v2-6bit.toml",
+      "language": "toml",
+      "fileCategory": "config",
+      "totalLines": 25,
+      "nonEmptyLines": 22,
+      "sections": [
+        {
+          "heading": "storage_size",
+          "level": 1,
+          "line": 13
+        },
+        {
+          "heading": "sampling_defaults",
+          "level": 1,
+          "line": 18
+        },
+        {
+          "heading": "sampling_defaults.non_thinking",
+          "level": 2,
+          "line": 24
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 3
+      }
+    }
+  ]
+}

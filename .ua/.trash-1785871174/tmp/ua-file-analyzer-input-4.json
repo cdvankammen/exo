@@ -1,0 +1,354 @@
+{
+ "projectRoot": "/Users/chris/Documents/GitHub/exo",
+ "batchFiles": [
+  {
+   "path": "src/exo/api/types/api.py",
+   "language": "python",
+   "sizeLines": 528,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/download/coordinator.py",
+   "language": "python",
+   "sizeLines": 475,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/download/download_utils.py",
+   "language": "python",
+   "sizeLines": 1059,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/download/huggingface_utils.py",
+   "language": "python",
+   "sizeLines": 171,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/download/impl_shard_downloader.py",
+   "language": "python",
+   "sizeLines": 275,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/download/shard_downloader.py",
+   "language": "python",
+   "sizeLines": 113,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/download/tests/test_cancel_download.py",
+   "language": "python",
+   "sizeLines": 311,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/download/tests/test_download_status_not_lost.py",
+   "language": "python",
+   "sizeLines": 283,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/download/tests/test_download_verification.py",
+   "language": "python",
+   "sizeLines": 453,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/download/tests/test_offline_mode.py",
+   "language": "python",
+   "sizeLines": 296,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/download/tests/test_re_download.py",
+   "language": "python",
+   "sizeLines": 213,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/download/tests/test_safetensors_index.py",
+   "language": "python",
+   "sizeLines": 35,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/master/placement.py",
+   "language": "python",
+   "sizeLines": 388,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/master/tests/test_master.py",
+   "language": "python",
+   "sizeLines": 252,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/shared/models/model_cards.py",
+   "language": "python",
+   "sizeLines": 393,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/shared/tests/conftest.py",
+   "language": "python",
+   "sizeLines": 62,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/shared/tests/test_apply/test_apply_custom_model_cards.py",
+   "language": "python",
+   "sizeLines": 46,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/shared/types/backends.py",
+   "language": "python",
+   "sizeLines": 8,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/shared/types/commands.py",
+   "language": "python",
+   "sizeLines": 132,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/shared/types/memory.py",
+   "language": "python",
+   "sizeLines": 151,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/shared/types/worker/downloads.py",
+   "language": "python",
+   "sizeLines": 99,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/shared/types/worker/shards.py",
+   "language": "python",
+   "sizeLines": 84,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/worker/tests/unittests/test_mlx/test_pipeline_prefill_callbacks.py",
+   "language": "python",
+   "sizeLines": 517,
+   "fileCategory": "code"
+  },
+  {
+   "path": "src/exo/worker/tests/unittests/test_mlx/test_tokenizers.py",
+   "language": "python",
+   "sizeLines": 389,
+   "fileCategory": "code"
+  }
+ ],
+ "batchImportData": {
+  "src/exo/api/types/api.py": [
+   "src/exo/shared/models/model_cards.py",
+   "src/exo/shared/types/common.py",
+   "src/exo/shared/types/memory.py",
+   "src/exo/shared/types/text_generation.py",
+   "src/exo/shared/types/worker/instances.py",
+   "src/exo/shared/types/worker/shards.py",
+   "src/exo/utils/pydantic_ext.py"
+  ],
+  "src/exo/download/coordinator.py": [
+   "src/exo/download/download_utils.py",
+   "src/exo/download/shard_downloader.py",
+   "src/exo/routing/event_router.py",
+   "src/exo/shared/constants.py",
+   "src/exo/shared/models/model_cards.py",
+   "src/exo/shared/types/commands.py",
+   "src/exo/shared/types/common.py",
+   "src/exo/shared/types/events.py",
+   "src/exo/shared/types/memory.py",
+   "src/exo/shared/types/worker/downloads.py",
+   "src/exo/shared/types/worker/shards.py",
+   "src/exo/utils/channels.py",
+   "src/exo/utils/task_group.py"
+  ],
+  "src/exo/download/download_utils.py": [
+   "src/exo/download/huggingface_utils.py",
+   "src/exo/shared/constants.py",
+   "src/exo/shared/models/model_cards.py",
+   "src/exo/shared/types/common.py",
+   "src/exo/shared/types/memory.py",
+   "src/exo/shared/types/worker/downloads.py",
+   "src/exo/shared/types/worker/shards.py"
+  ],
+  "src/exo/download/huggingface_utils.py": [
+   "src/exo/shared/types/worker/shards.py"
+  ],
+  "src/exo/download/impl_shard_downloader.py": [
+   "src/exo/download/download_utils.py",
+   "src/exo/download/shard_downloader.py",
+   "src/exo/shared/models/model_cards.py",
+   "src/exo/shared/types/memory.py",
+   "src/exo/shared/types/worker/shards.py"
+  ],
+  "src/exo/download/shard_downloader.py": [
+   "src/exo/download/download_utils.py",
+   "src/exo/shared/models/model_cards.py",
+   "src/exo/shared/types/backends.py",
+   "src/exo/shared/types/memory.py",
+   "src/exo/shared/types/worker/shards.py"
+  ],
+  "src/exo/download/tests/test_cancel_download.py": [
+   "src/exo/download/coordinator.py",
+   "src/exo/download/download_utils.py",
+   "src/exo/download/impl_shard_downloader.py",
+   "src/exo/download/shard_downloader.py",
+   "src/exo/shared/models/model_cards.py",
+   "src/exo/shared/types/backends.py",
+   "src/exo/shared/types/commands.py",
+   "src/exo/shared/types/common.py",
+   "src/exo/shared/types/events.py",
+   "src/exo/shared/types/memory.py",
+   "src/exo/shared/types/worker/downloads.py",
+   "src/exo/shared/types/worker/shards.py",
+   "src/exo/utils/channels.py"
+  ],
+  "src/exo/download/tests/test_download_status_not_lost.py": [
+   "src/exo/download/coordinator.py",
+   "src/exo/download/download_utils.py",
+   "src/exo/download/impl_shard_downloader.py",
+   "src/exo/download/shard_downloader.py",
+   "src/exo/shared/models/model_cards.py",
+   "src/exo/shared/types/backends.py",
+   "src/exo/shared/types/commands.py",
+   "src/exo/shared/types/common.py",
+   "src/exo/shared/types/events.py",
+   "src/exo/shared/types/memory.py",
+   "src/exo/shared/types/worker/downloads.py",
+   "src/exo/shared/types/worker/shards.py",
+   "src/exo/utils/channels.py"
+  ],
+  "src/exo/download/tests/test_download_verification.py": [
+   "src/exo/download/download_utils.py",
+   "src/exo/shared/types/common.py",
+   "src/exo/shared/types/memory.py",
+   "src/exo/shared/types/worker/downloads.py"
+  ],
+  "src/exo/download/tests/test_offline_mode.py": [
+   "src/exo/download/download_utils.py",
+   "src/exo/shared/types/common.py",
+   "src/exo/shared/types/worker/downloads.py"
+  ],
+  "src/exo/download/tests/test_re_download.py": [
+   "src/exo/download/coordinator.py",
+   "src/exo/download/download_utils.py",
+   "src/exo/download/impl_shard_downloader.py",
+   "src/exo/download/shard_downloader.py",
+   "src/exo/shared/models/model_cards.py",
+   "src/exo/shared/types/backends.py",
+   "src/exo/shared/types/commands.py",
+   "src/exo/shared/types/common.py",
+   "src/exo/shared/types/events.py",
+   "src/exo/shared/types/memory.py",
+   "src/exo/shared/types/worker/downloads.py",
+   "src/exo/shared/types/worker/shards.py",
+   "src/exo/utils/channels.py"
+  ],
+  "src/exo/download/tests/test_safetensors_index.py": [
+   "src/exo/shared/types/worker/downloads.py"
+  ],
+  "src/exo/master/placement.py": [
+   "src/exo/master/placement_utils.py",
+   "src/exo/shared/models/model_cards.py",
+   "src/exo/shared/topology.py",
+   "src/exo/shared/types/backends.py",
+   "src/exo/shared/types/commands.py",
+   "src/exo/shared/types/common.py",
+   "src/exo/shared/types/events.py",
+   "src/exo/shared/types/memory.py",
+   "src/exo/shared/types/profiling.py",
+   "src/exo/shared/types/tasks.py",
+   "src/exo/shared/types/worker/downloads.py",
+   "src/exo/shared/types/worker/instances.py",
+   "src/exo/shared/types/worker/shards.py",
+   "src/exo/utils/ports.py"
+  ],
+  "src/exo/master/tests/test_master.py": [
+   "src/exo/master/main.py",
+   "src/exo/routing/router.py",
+   "src/exo/shared/models/model_cards.py",
+   "src/exo/shared/types/backends.py",
+   "src/exo/shared/types/commands.py",
+   "src/exo/shared/types/common.py",
+   "src/exo/shared/types/events.py",
+   "src/exo/shared/types/memory.py",
+   "src/exo/shared/types/profiling.py",
+   "src/exo/shared/types/tasks.py",
+   "src/exo/shared/types/text_generation.py",
+   "src/exo/shared/types/worker/instances.py",
+   "src/exo/shared/types/worker/shards.py",
+   "src/exo/utils/channels.py",
+   "src/exo/utils/info_gatherer/info_gatherer.py"
+  ],
+  "src/exo/shared/models/model_cards.py": [
+   "src/exo/shared/constants.py",
+   "src/exo/shared/types/backends.py",
+   "src/exo/shared/types/common.py",
+   "src/exo/shared/types/memory.py",
+   "src/exo/shared/types/text_generation.py",
+   "src/exo/utils/pydantic_ext.py"
+  ],
+  "src/exo/shared/tests/conftest.py": [
+   "src/exo/shared/models/model_cards.py",
+   "src/exo/shared/types/backends.py",
+   "src/exo/shared/types/memory.py",
+   "src/exo/shared/types/worker/shards.py"
+  ],
+  "src/exo/shared/tests/test_apply/test_apply_custom_model_cards.py": [
+   "src/exo/shared/apply.py",
+   "src/exo/shared/models/model_cards.py",
+   "src/exo/shared/types/backends.py",
+   "src/exo/shared/types/common.py",
+   "src/exo/shared/types/events.py",
+   "src/exo/shared/types/memory.py",
+   "src/exo/shared/types/state.py"
+  ],
+  "src/exo/shared/types/backends.py": [],
+  "src/exo/shared/types/commands.py": [
+   "src/exo/api/types/__init__.py",
+   "src/exo/shared/models/model_cards.py",
+   "src/exo/shared/types/chunks.py",
+   "src/exo/shared/types/common.py",
+   "src/exo/shared/types/instance_link.py",
+   "src/exo/shared/types/text_generation.py",
+   "src/exo/shared/types/worker/instances.py",
+   "src/exo/shared/types/worker/shards.py",
+   "src/exo/utils/pydantic_ext.py"
+  ],
+  "src/exo/shared/types/memory.py": [
+   "src/exo/utils/pydantic_ext.py"
+  ],
+  "src/exo/shared/types/worker/downloads.py": [
+   "src/exo/shared/types/common.py",
+   "src/exo/shared/types/memory.py",
+   "src/exo/shared/types/worker/shards.py",
+   "src/exo/utils/pydantic_ext.py"
+  ],
+  "src/exo/shared/types/worker/shards.py": [
+   "src/exo/shared/models/model_cards.py",
+   "src/exo/utils/pydantic_ext.py"
+  ],
+  "src/exo/worker/tests/unittests/test_mlx/test_pipeline_prefill_callbacks.py": [
+   "src/exo/shared/constants.py",
+   "src/exo/shared/models/model_cards.py",
+   "src/exo/shared/types/backends.py",
+   "src/exo/shared/types/common.py",
+   "src/exo/shared/types/memory.py",
+   "src/exo/shared/types/text_generation.py"
+  ],
+  "src/exo/worker/tests/unittests/test_mlx/test_tokenizers.py": [
+   "src/exo/download/download_utils.py",
+   "src/exo/shared/models/model_cards.py",
+   "src/exo/worker/engines/mlx/utils_mlx.py"
+  ]
+ }
+}

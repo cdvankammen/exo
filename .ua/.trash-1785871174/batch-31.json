@@ -1,0 +1,890 @@
+{
+ "nodes": [
+  {
+   "id": "file:.typings/mflux/models/flux/__init__.pyi",
+   "type": "file",
+   "name": "__init__.pyi",
+   "filePath": ".typings/mflux/models/flux/__init__.pyi",
+   "summary": "__init__.pyi \u2014 code file in the exo project.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:.typings/mflux/models/flux/cli/__init__.pyi",
+   "type": "file",
+   "name": "__init__.pyi",
+   "filePath": ".typings/mflux/models/flux/cli/__init__.pyi",
+   "summary": "__init__.pyi \u2014 code file in the exo project.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:.typings/mflux/models/flux/flux_initializer.pyi",
+   "type": "file",
+   "name": "flux_initializer.pyi",
+   "filePath": ".typings/mflux/models/flux/flux_initializer.pyi",
+   "summary": "Defines 0 function(s) and 1 class(es) for .typings/mflux/models/flux/flux_initializer.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.typings/mflux/models/flux/latent_creator/__init__.pyi",
+   "type": "file",
+   "name": "__init__.pyi",
+   "filePath": ".typings/mflux/models/flux/latent_creator/__init__.pyi",
+   "summary": "__init__.pyi \u2014 code file in the exo project.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:.typings/mflux/models/flux/latent_creator/flux_latent_creator.pyi",
+   "type": "file",
+   "name": "flux_latent_creator.pyi",
+   "filePath": ".typings/mflux/models/flux/latent_creator/flux_latent_creator.pyi",
+   "summary": "Defines 0 function(s) and 1 class(es) for .typings/mflux/models/flux/latent_creator/flux_latent_creator.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.typings/mflux/models/flux/model/__init__.pyi",
+   "type": "file",
+   "name": "__init__.pyi",
+   "filePath": ".typings/mflux/models/flux/model/__init__.pyi",
+   "summary": "__init__.pyi \u2014 code file in the exo project.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:.typings/mflux/models/flux/model/flux_text_encoder/clip_encoder/clip_embeddings.pyi",
+   "type": "file",
+   "name": "clip_embeddings.pyi",
+   "filePath": ".typings/mflux/models/flux/model/flux_text_encoder/clip_encoder/clip_embeddings.pyi",
+   "summary": "Defines 0 function(s) and 1 class(es) for .typings/mflux/models/flux/model/flux_text_encoder/clip_encoder/clip_embeddings.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.typings/mflux/models/flux/model/flux_text_encoder/clip_encoder/clip_encoder.pyi",
+   "type": "file",
+   "name": "clip_encoder.pyi",
+   "filePath": ".typings/mflux/models/flux/model/flux_text_encoder/clip_encoder/clip_encoder.pyi",
+   "summary": "Defines 0 function(s) and 1 class(es) for .typings/mflux/models/flux/model/flux_text_encoder/clip_encoder/clip_encoder.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.typings/mflux/models/flux/model/flux_text_encoder/clip_encoder/clip_encoder_layer.pyi",
+   "type": "file",
+   "name": "clip_encoder_layer.pyi",
+   "filePath": ".typings/mflux/models/flux/model/flux_text_encoder/clip_encoder/clip_encoder_layer.pyi",
+   "summary": "Defines 0 function(s) and 1 class(es) for .typings/mflux/models/flux/model/flux_text_encoder/clip_encoder/clip_encoder_layer.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.typings/mflux/models/flux/model/flux_text_encoder/clip_encoder/clip_mlp.pyi",
+   "type": "file",
+   "name": "clip_mlp.pyi",
+   "filePath": ".typings/mflux/models/flux/model/flux_text_encoder/clip_encoder/clip_mlp.pyi",
+   "summary": "Defines 0 function(s) and 1 class(es) for .typings/mflux/models/flux/model/flux_text_encoder/clip_encoder/clip_mlp.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.typings/mflux/models/flux/model/flux_text_encoder/clip_encoder/clip_sdpa_attention.pyi",
+   "type": "file",
+   "name": "clip_sdpa_attention.pyi",
+   "filePath": ".typings/mflux/models/flux/model/flux_text_encoder/clip_encoder/clip_sdpa_attention.pyi",
+   "summary": "Defines 0 function(s) and 1 class(es) for .typings/mflux/models/flux/model/flux_text_encoder/clip_encoder/clip_sdpa_attention.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.typings/mflux/models/flux/model/flux_text_encoder/clip_encoder/clip_text_model.pyi",
+   "type": "file",
+   "name": "clip_text_model.pyi",
+   "filePath": ".typings/mflux/models/flux/model/flux_text_encoder/clip_encoder/clip_text_model.pyi",
+   "summary": "Defines 0 function(s) and 1 class(es) for .typings/mflux/models/flux/model/flux_text_encoder/clip_encoder/clip_text_model.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.typings/mflux/models/flux/model/flux_text_encoder/clip_encoder/encoder_clip.pyi",
+   "type": "file",
+   "name": "encoder_clip.pyi",
+   "filePath": ".typings/mflux/models/flux/model/flux_text_encoder/clip_encoder/encoder_clip.pyi",
+   "summary": "Defines 0 function(s) and 1 class(es) for .typings/mflux/models/flux/model/flux_text_encoder/clip_encoder/encoder_clip.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.typings/mflux/models/flux/model/flux_text_encoder/prompt_encoder.pyi",
+   "type": "file",
+   "name": "prompt_encoder.pyi",
+   "filePath": ".typings/mflux/models/flux/model/flux_text_encoder/prompt_encoder.pyi",
+   "summary": "Defines 0 function(s) and 1 class(es) for .typings/mflux/models/flux/model/flux_text_encoder/prompt_encoder.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.typings/mflux/models/flux/model/flux_text_encoder/t5_encoder/t5_attention.pyi",
+   "type": "file",
+   "name": "t5_attention.pyi",
+   "filePath": ".typings/mflux/models/flux/model/flux_text_encoder/t5_encoder/t5_attention.pyi",
+   "summary": "Defines 0 function(s) and 1 class(es) for .typings/mflux/models/flux/model/flux_text_encoder/t5_encoder/t5_attention.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.typings/mflux/models/flux/model/flux_text_encoder/t5_encoder/t5_block.pyi",
+   "type": "file",
+   "name": "t5_block.pyi",
+   "filePath": ".typings/mflux/models/flux/model/flux_text_encoder/t5_encoder/t5_block.pyi",
+   "summary": "Defines 0 function(s) and 1 class(es) for .typings/mflux/models/flux/model/flux_text_encoder/t5_encoder/t5_block.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.typings/mflux/models/flux/model/flux_text_encoder/t5_encoder/t5_dense_relu_dense.pyi",
+   "type": "file",
+   "name": "t5_dense_relu_dense.pyi",
+   "filePath": ".typings/mflux/models/flux/model/flux_text_encoder/t5_encoder/t5_dense_relu_dense.pyi",
+   "summary": "Defines 0 function(s) and 1 class(es) for .typings/mflux/models/flux/model/flux_text_encoder/t5_encoder/t5_dense_relu_dense.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.typings/mflux/models/flux/model/flux_text_encoder/t5_encoder/t5_encoder.pyi",
+   "type": "file",
+   "name": "t5_encoder.pyi",
+   "filePath": ".typings/mflux/models/flux/model/flux_text_encoder/t5_encoder/t5_encoder.pyi",
+   "summary": "Defines 0 function(s) and 1 class(es) for .typings/mflux/models/flux/model/flux_text_encoder/t5_encoder/t5_encoder.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.typings/mflux/models/flux/model/flux_text_encoder/t5_encoder/t5_feed_forward.pyi",
+   "type": "file",
+   "name": "t5_feed_forward.pyi",
+   "filePath": ".typings/mflux/models/flux/model/flux_text_encoder/t5_encoder/t5_feed_forward.pyi",
+   "summary": "Defines 0 function(s) and 1 class(es) for .typings/mflux/models/flux/model/flux_text_encoder/t5_encoder/t5_feed_forward.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.typings/mflux/models/flux/model/flux_text_encoder/t5_encoder/t5_layer_norm.pyi",
+   "type": "file",
+   "name": "t5_layer_norm.pyi",
+   "filePath": ".typings/mflux/models/flux/model/flux_text_encoder/t5_encoder/t5_layer_norm.pyi",
+   "summary": "Defines 0 function(s) and 1 class(es) for .typings/mflux/models/flux/model/flux_text_encoder/t5_encoder/t5_layer_norm.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.typings/mflux/models/flux/model/flux_text_encoder/t5_encoder/t5_self_attention.pyi",
+   "type": "file",
+   "name": "t5_self_attention.pyi",
+   "filePath": ".typings/mflux/models/flux/model/flux_text_encoder/t5_encoder/t5_self_attention.pyi",
+   "summary": "Defines 0 function(s) and 1 class(es) for .typings/mflux/models/flux/model/flux_text_encoder/t5_encoder/t5_self_attention.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.typings/mflux/models/flux/model/flux_transformer/ada_layer_norm_continuous.pyi",
+   "type": "file",
+   "name": "ada_layer_norm_continuous.pyi",
+   "filePath": ".typings/mflux/models/flux/model/flux_transformer/ada_layer_norm_continuous.pyi",
+   "summary": "Defines 0 function(s) and 1 class(es) for .typings/mflux/models/flux/model/flux_transformer/ada_layer_norm_continuous.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.typings/mflux/models/flux/model/flux_transformer/ada_layer_norm_zero.pyi",
+   "type": "file",
+   "name": "ada_layer_norm_zero.pyi",
+   "filePath": ".typings/mflux/models/flux/model/flux_transformer/ada_layer_norm_zero.pyi",
+   "summary": "Defines 0 function(s) and 1 class(es) for .typings/mflux/models/flux/model/flux_transformer/ada_layer_norm_zero.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.typings/mflux/models/flux/model/flux_transformer/ada_layer_norm_zero_single.pyi",
+   "type": "file",
+   "name": "ada_layer_norm_zero_single.pyi",
+   "filePath": ".typings/mflux/models/flux/model/flux_transformer/ada_layer_norm_zero_single.pyi",
+   "summary": "Defines 0 function(s) and 1 class(es) for .typings/mflux/models/flux/model/flux_transformer/ada_layer_norm_zero_single.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:.typings/mflux/models/flux/model/flux_transformer/common/attention_utils.pyi",
+   "type": "file",
+   "name": "attention_utils.pyi",
+   "filePath": ".typings/mflux/models/flux/model/flux_transformer/common/attention_utils.pyi",
+   "summary": "Defines 0 function(s) and 1 class(es) for .typings/mflux/models/flux/model/flux_transformer/common/attention_utils.pyi.",
+   "tags": [
+    "module"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "class:.typings/mflux/models/flux/flux_initializer.pyi:FluxInitializer",
+   "type": "class",
+   "name": "FluxInitializer",
+   "filePath": ".typings/mflux/models/flux/flux_initializer.pyi",
+   "lineRange": [
+    7,
+    53
+   ],
+   "summary": "Class FluxInitializer in .typings/mflux/models/flux/flux_initializer.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mflux/models/flux/latent_creator/flux_latent_creator.pyi:FluxLatentCreator",
+   "type": "class",
+   "name": "FluxLatentCreator",
+   "filePath": ".typings/mflux/models/flux/latent_creator/flux_latent_creator.pyi",
+   "lineRange": [
+    11,
+    19
+   ],
+   "summary": "Class FluxLatentCreator in .typings/mflux/models/flux/latent_creator/flux_latent_creator.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mflux/models/flux/model/flux_text_encoder/clip_encoder/clip_embeddings.pyi:CLIPEmbeddings",
+   "type": "class",
+   "name": "CLIPEmbeddings",
+   "filePath": ".typings/mflux/models/flux/model/flux_text_encoder/clip_encoder/clip_embeddings.pyi",
+   "lineRange": [
+    8,
+    10
+   ],
+   "summary": "Class CLIPEmbeddings in .typings/mflux/models/flux/model/flux_text_encoder/clip_encoder/clip_embeddings.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mflux/models/flux/model/flux_text_encoder/clip_encoder/clip_encoder.pyi:CLIPEncoder",
+   "type": "class",
+   "name": "CLIPEncoder",
+   "filePath": ".typings/mflux/models/flux/model/flux_text_encoder/clip_encoder/clip_encoder.pyi",
+   "lineRange": [
+    12,
+    14
+   ],
+   "summary": "Class CLIPEncoder in .typings/mflux/models/flux/model/flux_text_encoder/clip_encoder/clip_encoder.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mflux/models/flux/model/flux_text_encoder/clip_encoder/clip_encoder_layer.pyi:CLIPEncoderLayer",
+   "type": "class",
+   "name": "CLIPEncoderLayer",
+   "filePath": ".typings/mflux/models/flux/model/flux_text_encoder/clip_encoder/clip_encoder_layer.pyi",
+   "lineRange": [
+    8,
+    12
+   ],
+   "summary": "Class CLIPEncoderLayer in .typings/mflux/models/flux/model/flux_text_encoder/clip_encoder/clip_encoder_layer.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mflux/models/flux/model/flux_text_encoder/clip_encoder/clip_mlp.pyi:CLIPMLP",
+   "type": "class",
+   "name": "CLIPMLP",
+   "filePath": ".typings/mflux/models/flux/model/flux_text_encoder/clip_encoder/clip_mlp.pyi",
+   "lineRange": [
+    8,
+    12
+   ],
+   "summary": "Class CLIPMLP in .typings/mflux/models/flux/model/flux_text_encoder/clip_encoder/clip_mlp.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mflux/models/flux/model/flux_text_encoder/clip_encoder/clip_sdpa_attention.pyi:CLIPSdpaAttention",
+   "type": "class",
+   "name": "CLIPSdpaAttention",
+   "filePath": ".typings/mflux/models/flux/model/flux_text_encoder/clip_encoder/clip_sdpa_attention.pyi",
+   "lineRange": [
+    8,
+    18
+   ],
+   "summary": "Class CLIPSdpaAttention in .typings/mflux/models/flux/model/flux_text_encoder/clip_encoder/clip_sdpa_attention.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mflux/models/flux/model/flux_text_encoder/clip_encoder/clip_text_model.pyi:CLIPTextModel",
+   "type": "class",
+   "name": "CLIPTextModel",
+   "filePath": ".typings/mflux/models/flux/model/flux_text_encoder/clip_encoder/clip_text_model.pyi",
+   "lineRange": [
+    8,
+    12
+   ],
+   "summary": "Class CLIPTextModel in .typings/mflux/models/flux/model/flux_text_encoder/clip_encoder/clip_text_model.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mflux/models/flux/model/flux_text_encoder/clip_encoder/encoder_clip.pyi:EncoderCLIP",
+   "type": "class",
+   "name": "EncoderCLIP",
+   "filePath": ".typings/mflux/models/flux/model/flux_text_encoder/clip_encoder/encoder_clip.pyi",
+   "lineRange": [
+    8,
+    12
+   ],
+   "summary": "Class EncoderCLIP in .typings/mflux/models/flux/model/flux_text_encoder/clip_encoder/encoder_clip.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mflux/models/flux/model/flux_text_encoder/prompt_encoder.pyi:PromptEncoder",
+   "type": "class",
+   "name": "PromptEncoder",
+   "filePath": ".typings/mflux/models/flux/model/flux_text_encoder/prompt_encoder.pyi",
+   "lineRange": [
+    16,
+    25
+   ],
+   "summary": "Class PromptEncoder in .typings/mflux/models/flux/model/flux_text_encoder/prompt_encoder.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mflux/models/flux/model/flux_text_encoder/t5_encoder/t5_attention.pyi:T5Attention",
+   "type": "class",
+   "name": "T5Attention",
+   "filePath": ".typings/mflux/models/flux/model/flux_text_encoder/t5_encoder/t5_attention.pyi",
+   "lineRange": [
+    8,
+    10
+   ],
+   "summary": "Class T5Attention in .typings/mflux/models/flux/model/flux_text_encoder/t5_encoder/t5_attention.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mflux/models/flux/model/flux_text_encoder/t5_encoder/t5_block.pyi:T5Block",
+   "type": "class",
+   "name": "T5Block",
+   "filePath": ".typings/mflux/models/flux/model/flux_text_encoder/t5_encoder/t5_block.pyi",
+   "lineRange": [
+    8,
+    10
+   ],
+   "summary": "Class T5Block in .typings/mflux/models/flux/model/flux_text_encoder/t5_encoder/t5_block.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mflux/models/flux/model/flux_text_encoder/t5_encoder/t5_dense_relu_dense.pyi:T5DenseReluDense",
+   "type": "class",
+   "name": "T5DenseReluDense",
+   "filePath": ".typings/mflux/models/flux/model/flux_text_encoder/t5_encoder/t5_dense_relu_dense.pyi",
+   "lineRange": [
+    8,
+    12
+   ],
+   "summary": "Class T5DenseReluDense in .typings/mflux/models/flux/model/flux_text_encoder/t5_encoder/t5_dense_relu_dense.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mflux/models/flux/model/flux_text_encoder/t5_encoder/t5_encoder.pyi:T5Encoder",
+   "type": "class",
+   "name": "T5Encoder",
+   "filePath": ".typings/mflux/models/flux/model/flux_text_encoder/t5_encoder/t5_encoder.pyi",
+   "lineRange": [
+    12,
+    14
+   ],
+   "summary": "Class T5Encoder in .typings/mflux/models/flux/model/flux_text_encoder/t5_encoder/t5_encoder.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mflux/models/flux/model/flux_text_encoder/t5_encoder/t5_feed_forward.pyi:T5FeedForward",
+   "type": "class",
+   "name": "T5FeedForward",
+   "filePath": ".typings/mflux/models/flux/model/flux_text_encoder/t5_encoder/t5_feed_forward.pyi",
+   "lineRange": [
+    8,
+    10
+   ],
+   "summary": "Class T5FeedForward in .typings/mflux/models/flux/model/flux_text_encoder/t5_encoder/t5_feed_forward.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mflux/models/flux/model/flux_text_encoder/t5_encoder/t5_layer_norm.pyi:T5LayerNorm",
+   "type": "class",
+   "name": "T5LayerNorm",
+   "filePath": ".typings/mflux/models/flux/model/flux_text_encoder/t5_encoder/t5_layer_norm.pyi",
+   "lineRange": [
+    8,
+    10
+   ],
+   "summary": "Class T5LayerNorm in .typings/mflux/models/flux/model/flux_text_encoder/t5_encoder/t5_layer_norm.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mflux/models/flux/model/flux_text_encoder/t5_encoder/t5_self_attention.pyi:T5SelfAttention",
+   "type": "class",
+   "name": "T5SelfAttention",
+   "filePath": ".typings/mflux/models/flux/model/flux_text_encoder/t5_encoder/t5_self_attention.pyi",
+   "lineRange": [
+    8,
+    16
+   ],
+   "summary": "Class T5SelfAttention in .typings/mflux/models/flux/model/flux_text_encoder/t5_encoder/t5_self_attention.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mflux/models/flux/model/flux_transformer/ada_layer_norm_continuous.pyi:AdaLayerNormContinuous",
+   "type": "class",
+   "name": "AdaLayerNormContinuous",
+   "filePath": ".typings/mflux/models/flux/model/flux_transformer/ada_layer_norm_continuous.pyi",
+   "lineRange": [
+    8,
+    10
+   ],
+   "summary": "Class AdaLayerNormContinuous in .typings/mflux/models/flux/model/flux_transformer/ada_layer_norm_continuous.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mflux/models/flux/model/flux_transformer/ada_layer_norm_zero.pyi:AdaLayerNormZero",
+   "type": "class",
+   "name": "AdaLayerNormZero",
+   "filePath": ".typings/mflux/models/flux/model/flux_transformer/ada_layer_norm_zero.pyi",
+   "lineRange": [
+    8,
+    12
+   ],
+   "summary": "Class AdaLayerNormZero in .typings/mflux/models/flux/model/flux_transformer/ada_layer_norm_zero.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mflux/models/flux/model/flux_transformer/ada_layer_norm_zero_single.pyi:AdaLayerNormZeroSingle",
+   "type": "class",
+   "name": "AdaLayerNormZeroSingle",
+   "filePath": ".typings/mflux/models/flux/model/flux_transformer/ada_layer_norm_zero_single.pyi",
+   "lineRange": [
+    8,
+    12
+   ],
+   "summary": "Class AdaLayerNormZeroSingle in .typings/mflux/models/flux/model/flux_transformer/ada_layer_norm_zero_single.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:.typings/mflux/models/flux/model/flux_transformer/common/attention_utils.pyi:AttentionUtils",
+   "type": "class",
+   "name": "AttentionUtils",
+   "filePath": ".typings/mflux/models/flux/model/flux_transformer/common/attention_utils.pyi",
+   "lineRange": [
+    8,
+    41
+   ],
+   "summary": "Class AttentionUtils in .typings/mflux/models/flux/model/flux_transformer/common/attention_utils.pyi.",
+   "tags": [
+    "class"
+   ],
+   "complexity": "simple"
+  }
+ ],
+ "edges": [
+  {
+   "source": "file:.typings/mflux/models/flux/flux_initializer.pyi",
+   "target": "class:.typings/mflux/models/flux/flux_initializer.pyi:FluxInitializer",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mflux/models/flux/flux_initializer.pyi",
+   "target": "class:.typings/mflux/models/flux/flux_initializer.pyi:FluxInitializer",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mflux/models/flux/latent_creator/flux_latent_creator.pyi",
+   "target": "class:.typings/mflux/models/flux/latent_creator/flux_latent_creator.pyi:FluxLatentCreator",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mflux/models/flux/latent_creator/flux_latent_creator.pyi",
+   "target": "class:.typings/mflux/models/flux/latent_creator/flux_latent_creator.pyi:FluxLatentCreator",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mflux/models/flux/model/flux_text_encoder/clip_encoder/clip_embeddings.pyi",
+   "target": "class:.typings/mflux/models/flux/model/flux_text_encoder/clip_encoder/clip_embeddings.pyi:CLIPEmbeddings",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mflux/models/flux/model/flux_text_encoder/clip_encoder/clip_embeddings.pyi",
+   "target": "class:.typings/mflux/models/flux/model/flux_text_encoder/clip_encoder/clip_embeddings.pyi:CLIPEmbeddings",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mflux/models/flux/model/flux_text_encoder/clip_encoder/clip_encoder.pyi",
+   "target": "class:.typings/mflux/models/flux/model/flux_text_encoder/clip_encoder/clip_encoder.pyi:CLIPEncoder",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mflux/models/flux/model/flux_text_encoder/clip_encoder/clip_encoder.pyi",
+   "target": "class:.typings/mflux/models/flux/model/flux_text_encoder/clip_encoder/clip_encoder.pyi:CLIPEncoder",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mflux/models/flux/model/flux_text_encoder/clip_encoder/clip_encoder_layer.pyi",
+   "target": "class:.typings/mflux/models/flux/model/flux_text_encoder/clip_encoder/clip_encoder_layer.pyi:CLIPEncoderLayer",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mflux/models/flux/model/flux_text_encoder/clip_encoder/clip_encoder_layer.pyi",
+   "target": "class:.typings/mflux/models/flux/model/flux_text_encoder/clip_encoder/clip_encoder_layer.pyi:CLIPEncoderLayer",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mflux/models/flux/model/flux_text_encoder/clip_encoder/clip_mlp.pyi",
+   "target": "class:.typings/mflux/models/flux/model/flux_text_encoder/clip_encoder/clip_mlp.pyi:CLIPMLP",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mflux/models/flux/model/flux_text_encoder/clip_encoder/clip_mlp.pyi",
+   "target": "class:.typings/mflux/models/flux/model/flux_text_encoder/clip_encoder/clip_mlp.pyi:CLIPMLP",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mflux/models/flux/model/flux_text_encoder/clip_encoder/clip_sdpa_attention.pyi",
+   "target": "class:.typings/mflux/models/flux/model/flux_text_encoder/clip_encoder/clip_sdpa_attention.pyi:CLIPSdpaAttention",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mflux/models/flux/model/flux_text_encoder/clip_encoder/clip_sdpa_attention.pyi",
+   "target": "class:.typings/mflux/models/flux/model/flux_text_encoder/clip_encoder/clip_sdpa_attention.pyi:CLIPSdpaAttention",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mflux/models/flux/model/flux_text_encoder/clip_encoder/clip_text_model.pyi",
+   "target": "class:.typings/mflux/models/flux/model/flux_text_encoder/clip_encoder/clip_text_model.pyi:CLIPTextModel",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mflux/models/flux/model/flux_text_encoder/clip_encoder/clip_text_model.pyi",
+   "target": "class:.typings/mflux/models/flux/model/flux_text_encoder/clip_encoder/clip_text_model.pyi:CLIPTextModel",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mflux/models/flux/model/flux_text_encoder/clip_encoder/encoder_clip.pyi",
+   "target": "class:.typings/mflux/models/flux/model/flux_text_encoder/clip_encoder/encoder_clip.pyi:EncoderCLIP",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mflux/models/flux/model/flux_text_encoder/clip_encoder/encoder_clip.pyi",
+   "target": "class:.typings/mflux/models/flux/model/flux_text_encoder/clip_encoder/encoder_clip.pyi:EncoderCLIP",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mflux/models/flux/model/flux_text_encoder/prompt_encoder.pyi",
+   "target": "class:.typings/mflux/models/flux/model/flux_text_encoder/prompt_encoder.pyi:PromptEncoder",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mflux/models/flux/model/flux_text_encoder/prompt_encoder.pyi",
+   "target": "class:.typings/mflux/models/flux/model/flux_text_encoder/prompt_encoder.pyi:PromptEncoder",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mflux/models/flux/model/flux_text_encoder/t5_encoder/t5_attention.pyi",
+   "target": "class:.typings/mflux/models/flux/model/flux_text_encoder/t5_encoder/t5_attention.pyi:T5Attention",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mflux/models/flux/model/flux_text_encoder/t5_encoder/t5_attention.pyi",
+   "target": "class:.typings/mflux/models/flux/model/flux_text_encoder/t5_encoder/t5_attention.pyi:T5Attention",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mflux/models/flux/model/flux_text_encoder/t5_encoder/t5_block.pyi",
+   "target": "class:.typings/mflux/models/flux/model/flux_text_encoder/t5_encoder/t5_block.pyi:T5Block",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mflux/models/flux/model/flux_text_encoder/t5_encoder/t5_block.pyi",
+   "target": "class:.typings/mflux/models/flux/model/flux_text_encoder/t5_encoder/t5_block.pyi:T5Block",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mflux/models/flux/model/flux_text_encoder/t5_encoder/t5_dense_relu_dense.pyi",
+   "target": "class:.typings/mflux/models/flux/model/flux_text_encoder/t5_encoder/t5_dense_relu_dense.pyi:T5DenseReluDense",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mflux/models/flux/model/flux_text_encoder/t5_encoder/t5_dense_relu_dense.pyi",
+   "target": "class:.typings/mflux/models/flux/model/flux_text_encoder/t5_encoder/t5_dense_relu_dense.pyi:T5DenseReluDense",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mflux/models/flux/model/flux_text_encoder/t5_encoder/t5_encoder.pyi",
+   "target": "class:.typings/mflux/models/flux/model/flux_text_encoder/t5_encoder/t5_encoder.pyi:T5Encoder",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mflux/models/flux/model/flux_text_encoder/t5_encoder/t5_encoder.pyi",
+   "target": "class:.typings/mflux/models/flux/model/flux_text_encoder/t5_encoder/t5_encoder.pyi:T5Encoder",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mflux/models/flux/model/flux_text_encoder/t5_encoder/t5_feed_forward.pyi",
+   "target": "class:.typings/mflux/models/flux/model/flux_text_encoder/t5_encoder/t5_feed_forward.pyi:T5FeedForward",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mflux/models/flux/model/flux_text_encoder/t5_encoder/t5_feed_forward.pyi",
+   "target": "class:.typings/mflux/models/flux/model/flux_text_encoder/t5_encoder/t5_feed_forward.pyi:T5FeedForward",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mflux/models/flux/model/flux_text_encoder/t5_encoder/t5_layer_norm.pyi",
+   "target": "class:.typings/mflux/models/flux/model/flux_text_encoder/t5_encoder/t5_layer_norm.pyi:T5LayerNorm",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mflux/models/flux/model/flux_text_encoder/t5_encoder/t5_layer_norm.pyi",
+   "target": "class:.typings/mflux/models/flux/model/flux_text_encoder/t5_encoder/t5_layer_norm.pyi:T5LayerNorm",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mflux/models/flux/model/flux_text_encoder/t5_encoder/t5_self_attention.pyi",
+   "target": "class:.typings/mflux/models/flux/model/flux_text_encoder/t5_encoder/t5_self_attention.pyi:T5SelfAttention",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mflux/models/flux/model/flux_text_encoder/t5_encoder/t5_self_attention.pyi",
+   "target": "class:.typings/mflux/models/flux/model/flux_text_encoder/t5_encoder/t5_self_attention.pyi:T5SelfAttention",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mflux/models/flux/model/flux_transformer/ada_layer_norm_continuous.pyi",
+   "target": "class:.typings/mflux/models/flux/model/flux_transformer/ada_layer_norm_continuous.pyi:AdaLayerNormContinuous",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mflux/models/flux/model/flux_transformer/ada_layer_norm_continuous.pyi",
+   "target": "class:.typings/mflux/models/flux/model/flux_transformer/ada_layer_norm_continuous.pyi:AdaLayerNormContinuous",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mflux/models/flux/model/flux_transformer/ada_layer_norm_zero.pyi",
+   "target": "class:.typings/mflux/models/flux/model/flux_transformer/ada_layer_norm_zero.pyi:AdaLayerNormZero",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mflux/models/flux/model/flux_transformer/ada_layer_norm_zero.pyi",
+   "target": "class:.typings/mflux/models/flux/model/flux_transformer/ada_layer_norm_zero.pyi:AdaLayerNormZero",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mflux/models/flux/model/flux_transformer/ada_layer_norm_zero_single.pyi",
+   "target": "class:.typings/mflux/models/flux/model/flux_transformer/ada_layer_norm_zero_single.pyi:AdaLayerNormZeroSingle",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mflux/models/flux/model/flux_transformer/ada_layer_norm_zero_single.pyi",
+   "target": "class:.typings/mflux/models/flux/model/flux_transformer/ada_layer_norm_zero_single.pyi:AdaLayerNormZeroSingle",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:.typings/mflux/models/flux/model/flux_transformer/common/attention_utils.pyi",
+   "target": "class:.typings/mflux/models/flux/model/flux_transformer/common/attention_utils.pyi:AttentionUtils",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:.typings/mflux/models/flux/model/flux_transformer/common/attention_utils.pyi",
+   "target": "class:.typings/mflux/models/flux/model/flux_transformer/common/attention_utils.pyi:AttentionUtils",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  }
+ ]
+}

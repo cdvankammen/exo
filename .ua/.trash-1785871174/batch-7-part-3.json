@@ -1,0 +1,1307 @@
+{
+ "nodes": [
+  {
+   "id": "file:src/exo/worker/tests/unittests/test_mlx/conftest.py",
+   "type": "file",
+   "name": "conftest.py",
+   "filePath": "src/exo/worker/tests/unittests/test_mlx/conftest.py",
+   "summary": "Pytest fixtures for MLX engine tests: mock layer creation, hostfile generation, and multi-device GPT-OSS pipeline/tensor-parallel runner setup.",
+   "tags": [
+    "test",
+    "fixtures",
+    "mlx",
+    "parallelism"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:src/exo/worker/tests/unittests/test_mlx/conftest.py:create_hostfile",
+   "type": "function",
+   "name": "create_hostfile",
+   "filePath": "src/exo/worker/tests/unittests/test_mlx/conftest.py",
+   "lineRange": [
+    43,
+    50
+   ],
+   "summary": "Writes a distributed hostfile with the given host entries.",
+   "tags": [
+    "test",
+    "distributed"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/worker/tests/unittests/test_mlx/conftest.py:run_gpt_oss_pipeline_device",
+   "type": "function",
+   "name": "run_gpt_oss_pipeline_device",
+   "filePath": "src/exo/worker/tests/unittests/test_mlx/conftest.py",
+   "lineRange": [
+    66,
+    147
+   ],
+   "summary": "Runs a GPT-OSS model on a pipeline-parallel device setup for tests.",
+   "tags": [
+    "test",
+    "pipeline-parallel"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "function:src/exo/worker/tests/unittests/test_mlx/conftest.py:run_gpt_oss_tensor_parallel_device",
+   "type": "function",
+   "name": "run_gpt_oss_tensor_parallel_device",
+   "filePath": "src/exo/worker/tests/unittests/test_mlx/conftest.py",
+   "lineRange": [
+    150,
+    225
+   ],
+   "summary": "Runs a GPT-OSS model on a tensor-parallel device setup for tests.",
+   "tags": [
+    "test",
+    "tensor-parallel"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "class:src/exo/worker/tests/unittests/test_mlx/conftest.py:MockLayer",
+   "type": "class",
+   "name": "MockLayer",
+   "filePath": "src/exo/worker/tests/unittests/test_mlx/conftest.py",
+   "lineRange": [
+    25,
+    32
+   ],
+   "summary": "Minimal mock MLX layer for attribute-delegation tests.",
+   "tags": [
+    "test",
+    "mock"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/worker/tests/unittests/test_mlx/conftest.py:PipelineTestConfig",
+   "type": "class",
+   "name": "PipelineTestConfig",
+   "filePath": "src/exo/worker/tests/unittests/test_mlx/conftest.py",
+   "lineRange": [
+    36,
+    40
+   ],
+   "summary": "Simple config dataclass for pipeline-parallel test runs.",
+   "tags": [
+    "test",
+    "config"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "file:src/exo/worker/tests/unittests/test_mlx/test_auto_parallel.py",
+   "type": "file",
+   "name": "test_auto_parallel.py",
+   "filePath": "src/exo/worker/tests/unittests/test_mlx/test_auto_parallel.py",
+   "summary": "Tests attribute delegation and composition of custom MLX layer wrappers used by auto-parallel pipeline sharding.",
+   "tags": [
+    "test",
+    "auto-parallel",
+    "mlx",
+    "pipeline"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:src/exo/worker/tests/unittests/test_mlx/test_auto_parallel.py:run_pipeline_device",
+   "type": "function",
+   "name": "run_pipeline_device",
+   "filePath": "src/exo/worker/tests/unittests/test_mlx/test_auto_parallel.py",
+   "lineRange": [
+    20,
+    66
+   ],
+   "summary": "Builds composed layer wrappers on a pipeline device and verifies delegation and forward calls.",
+   "tags": [
+    "test",
+    "auto-parallel"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:src/exo/worker/tests/unittests/test_mlx/test_auto_parallel.py:test_single_wrapper_delegates_attributes",
+   "type": "function",
+   "name": "test_single_wrapper_delegates_attributes",
+   "filePath": "src/exo/worker/tests/unittests/test_mlx/test_auto_parallel.py",
+   "lineRange": [
+    69,
+    74
+   ],
+   "summary": "Verifies a single wrapper delegates attributes to the inner layer.",
+   "tags": [
+    "test",
+    "delegation"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/worker/tests/unittests/test_mlx/test_auto_parallel.py:test_composed_wrappers_delegate_attributes",
+   "type": "function",
+   "name": "test_composed_wrappers_delegate_attributes",
+   "filePath": "src/exo/worker/tests/unittests/test_mlx/test_auto_parallel.py",
+   "lineRange": [
+    77,
+    85
+   ],
+   "summary": "Verifies chained wrappers delegate attributes through the composition.",
+   "tags": [
+    "test",
+    "delegation"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/worker/tests/unittests/test_mlx/test_auto_parallel.py:test_missing_attribute_raises",
+   "type": "function",
+   "name": "test_missing_attribute_raises",
+   "filePath": "src/exo/worker/tests/unittests/test_mlx/test_auto_parallel.py",
+   "lineRange": [
+    88,
+    93
+   ],
+   "summary": "Verifies missing attributes raise the expected error.",
+   "tags": [
+    "test",
+    "error-handling"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/worker/tests/unittests/test_mlx/test_auto_parallel.py:test_composed_call_works",
+   "type": "function",
+   "name": "test_composed_call_works",
+   "filePath": "src/exo/worker/tests/unittests/test_mlx/test_auto_parallel.py",
+   "lineRange": [
+    96,
+    146
+   ],
+   "summary": "Verifies forward calls through composed wrappers produce correct output.",
+   "tags": [
+    "test",
+    "auto-parallel"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:src/exo/worker/tests/unittests/test_mlx/test_distributed_fix.py",
+   "type": "file",
+   "name": "test_distributed_fix.py",
+   "filePath": "src/exo/worker/tests/unittests/test_mlx/test_distributed_fix.py",
+   "summary": "Tests distributed pipeline/tensor-parallel fixes across split configurations and prefill step-size boundaries.",
+   "tags": [
+    "test",
+    "distributed",
+    "mlx",
+    "parallelism"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:src/exo/worker/tests/unittests/test_mlx/test_distributed_fix.py:run_distributed_test",
+   "type": "function",
+   "name": "run_distributed_test",
+   "filePath": "src/exo/worker/tests/unittests/test_mlx/test_distributed_fix.py",
+   "lineRange": [
+    42,
+    87
+   ],
+   "summary": "Runs a distributed test with a given configuration, returning pass/fail details.",
+   "tags": [
+    "test",
+    "distributed"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:src/exo/worker/tests/unittests/test_mlx/test_distributed_fix.py:run_pipeline_test",
+   "type": "function",
+   "name": "run_pipeline_test",
+   "filePath": "src/exo/worker/tests/unittests/test_mlx/test_distributed_fix.py",
+   "lineRange": [
+    90,
+    110
+   ],
+   "summary": "Runs a pipeline-parallel split test case.",
+   "tags": [
+    "test",
+    "pipeline-parallel"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:src/exo/worker/tests/unittests/test_mlx/test_distributed_fix.py:run_tensor_test",
+   "type": "function",
+   "name": "run_tensor_test",
+   "filePath": "src/exo/worker/tests/unittests/test_mlx/test_distributed_fix.py",
+   "lineRange": [
+    113,
+    131
+   ],
+   "summary": "Runs a tensor-parallel split test case.",
+   "tags": [
+    "test",
+    "tensor-parallel"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "class:src/exo/worker/tests/unittests/test_mlx/test_distributed_fix.py:DistributedTestResult",
+   "type": "class",
+   "name": "DistributedTestResult",
+   "filePath": "src/exo/worker/tests/unittests/test_mlx/test_distributed_fix.py",
+   "lineRange": [
+    30,
+    39
+   ],
+   "summary": "Records the outcome of a distributed test run.",
+   "tags": [
+    "test",
+    "type-definition"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/worker/tests/unittests/test_mlx/test_distributed_fix.py:TestPipelineParallelFix",
+   "type": "class",
+   "name": "TestPipelineParallelFix",
+   "filePath": "src/exo/worker/tests/unittests/test_mlx/test_distributed_fix.py",
+   "lineRange": [
+    134,
+    145
+   ],
+   "summary": "Verifies pipeline-parallel fixes behave correctly.",
+   "tags": [
+    "test",
+    "pipeline-parallel"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/worker/tests/unittests/test_mlx/test_distributed_fix.py:TestPipelineSplitConfigurations",
+   "type": "class",
+   "name": "TestPipelineSplitConfigurations",
+   "filePath": "src/exo/worker/tests/unittests/test_mlx/test_distributed_fix.py",
+   "lineRange": [
+    148,
+    169
+   ],
+   "summary": "Exercises multiple pipeline split configurations.",
+   "tags": [
+    "test",
+    "pipeline-parallel"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "class:src/exo/worker/tests/unittests/test_mlx/test_distributed_fix.py:TestPrefillStepSizeBoundaries",
+   "type": "class",
+   "name": "TestPrefillStepSizeBoundaries",
+   "filePath": "src/exo/worker/tests/unittests/test_mlx/test_distributed_fix.py",
+   "lineRange": [
+    172,
+    195
+   ],
+   "summary": "Exercises prefill step-size boundary values.",
+   "tags": [
+    "test",
+    "prefill"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "class:src/exo/worker/tests/unittests/test_mlx/test_distributed_fix.py:TestTensorParallelFix",
+   "type": "class",
+   "name": "TestTensorParallelFix",
+   "filePath": "src/exo/worker/tests/unittests/test_mlx/test_distributed_fix.py",
+   "lineRange": [
+    198,
+    206
+   ],
+   "summary": "Verifies tensor-parallel fixes behave correctly.",
+   "tags": [
+    "test",
+    "tensor-parallel"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/worker/tests/unittests/test_mlx/test_distributed_fix.py:TestTensorParallelBoundaries",
+   "type": "class",
+   "name": "TestTensorParallelBoundaries",
+   "filePath": "src/exo/worker/tests/unittests/test_mlx/test_distributed_fix.py",
+   "lineRange": [
+    209,
+    231
+   ],
+   "summary": "Exercises tensor-parallel boundary configurations.",
+   "tags": [
+    "test",
+    "tensor-parallel"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "file:src/exo/worker/tests/unittests/test_mlx/test_kv_prefix_cache.py",
+   "type": "file",
+   "name": "test_kv_prefix_cache.py",
+   "filePath": "src/exo/worker/tests/unittests/test_mlx/test_kv_prefix_cache.py",
+   "summary": "Tests KVPrefixCache prefix-length lookups and prefix-cache round trips against a loaded GPT-OSS model.",
+   "tags": [
+    "test",
+    "kv-cache",
+    "prefix-cache",
+    "mlx"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "function:src/exo/worker/tests/unittests/test_mlx/test_kv_prefix_cache.py:_load_gpt_oss",
+   "type": "function",
+   "name": "_load_gpt_oss",
+   "filePath": "src/exo/worker/tests/unittests/test_mlx/test_kv_prefix_cache.py",
+   "lineRange": [
+    109,
+    119
+   ],
+   "summary": "Loads a GPT-OSS model and tokenizer for prefix-cache tests.",
+   "tags": [
+    "test",
+    "setup"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/worker/tests/unittests/test_mlx/test_kv_prefix_cache.py:TestGetPrefixLength",
+   "type": "class",
+   "name": "TestGetPrefixLength",
+   "filePath": "src/exo/worker/tests/unittests/test_mlx/test_kv_prefix_cache.py",
+   "lineRange": [
+    33,
+    77
+   ],
+   "summary": "Tests prefix-length lookup across cache entry types and token positions.",
+   "tags": [
+    "test",
+    "prefix-cache"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "class:src/exo/worker/tests/unittests/test_mlx/test_kv_prefix_cache.py:TestKVPrefix",
+   "type": "class",
+   "name": "TestKVPrefix",
+   "filePath": "src/exo/worker/tests/unittests/test_mlx/test_kv_prefix_cache.py",
+   "lineRange": [
+    80,
+    106
+   ],
+   "summary": "Tests basic KV prefix cache behavior.",
+   "tags": [
+    "test",
+    "kv-cache"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "class:src/exo/worker/tests/unittests/test_mlx/test_kv_prefix_cache.py:TestKVPrefixCacheWithModel",
+   "type": "class",
+   "name": "TestKVPrefixCacheWithModel",
+   "filePath": "src/exo/worker/tests/unittests/test_mlx/test_kv_prefix_cache.py",
+   "lineRange": [
+    127,
+    602
+   ],
+   "summary": "Tests prefix-cache hit/miss behavior with a real GPT-OSS model and cache trimming.",
+   "tags": [
+    "test",
+    "kv-cache",
+    "model"
+   ],
+   "complexity": "complex"
+  },
+  {
+   "id": "file:src/exo/worker/tests/unittests/test_mlx/test_prefix_cache_architectures.py",
+   "type": "file",
+   "name": "test_prefix_cache_architectures.py",
+   "filePath": "src/exo/worker/tests/unittests/test_mlx/test_prefix_cache_architectures.py",
+   "summary": "Parameterized tests verifying prefix-cache compatibility across multiple model architectures using reduced configs and snapshots.",
+   "tags": [
+    "test",
+    "prefix-cache",
+    "architectures",
+    "mlx"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:src/exo/worker/tests/unittests/test_mlx/test_prefix_cache_architectures.py:_reduce_dict",
+   "type": "function",
+   "name": "_reduce_dict",
+   "filePath": "src/exo/worker/tests/unittests/test_mlx/test_prefix_cache_architectures.py",
+   "lineRange": [
+    54,
+    59
+   ],
+   "summary": "Reduces nested dict configs by slicing list values.",
+   "tags": [
+    "test",
+    "config"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/worker/tests/unittests/test_mlx/test_prefix_cache_architectures.py:_reduce_config",
+   "type": "function",
+   "name": "_reduce_config",
+   "filePath": "src/exo/worker/tests/unittests/test_mlx/test_prefix_cache_architectures.py",
+   "lineRange": [
+    62,
+    103
+   ],
+   "summary": "Builds a reduced model config for architecture tests.",
+   "tags": [
+    "test",
+    "config"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "function:src/exo/worker/tests/unittests/test_mlx/test_prefix_cache_architectures.py:_find_snapshot",
+   "type": "function",
+   "name": "_find_snapshot",
+   "filePath": "src/exo/worker/tests/unittests/test_mlx/test_prefix_cache_architectures.py",
+   "lineRange": [
+    109,
+    124
+   ],
+   "summary": "Locates the nearest cache snapshot for a token position.",
+   "tags": [
+    "test",
+    "prefix-cache"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/worker/tests/unittests/test_mlx/test_prefix_cache_architectures.py:_copy_tokenizer",
+   "type": "function",
+   "name": "_copy_tokenizer",
+   "filePath": "src/exo/worker/tests/unittests/test_mlx/test_prefix_cache_architectures.py",
+   "lineRange": [
+    127,
+    137
+   ],
+   "summary": "Copies a tokenizer to the test working directory.",
+   "tags": [
+    "test",
+    "tokenizer"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/worker/tests/unittests/test_mlx/test_prefix_cache_architectures.py:_build_model",
+   "type": "function",
+   "name": "_build_model",
+   "filePath": "src/exo/worker/tests/unittests/test_mlx/test_prefix_cache_architectures.py",
+   "lineRange": [
+    140,
+    150
+   ],
+   "summary": "Builds the test model from its reduced config.",
+   "tags": [
+    "test",
+    "setup"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/worker/tests/unittests/test_mlx/test_prefix_cache_architectures.py:_collect_tokens",
+   "type": "function",
+   "name": "_collect_tokens",
+   "filePath": "src/exo/worker/tests/unittests/test_mlx/test_prefix_cache_architectures.py",
+   "lineRange": [
+    153,
+    172
+   ],
+   "summary": "Collects generated tokens from a model run.",
+   "tags": [
+    "test",
+    "generation"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/worker/tests/unittests/test_mlx/test_prefix_cache_architectures.py:_has_chat_template",
+   "type": "function",
+   "name": "_has_chat_template",
+   "filePath": "src/exo/worker/tests/unittests/test_mlx/test_prefix_cache_architectures.py",
+   "lineRange": [
+    211,
+    222
+   ],
+   "summary": "Checks whether a tokenizer has a chat template.",
+   "tags": [
+    "test",
+    "tokenizer"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/worker/tests/unittests/test_mlx/test_prefix_cache_architectures.py:_arch_available",
+   "type": "function",
+   "name": "_arch_available",
+   "filePath": "src/exo/worker/tests/unittests/test_mlx/test_prefix_cache_architectures.py",
+   "lineRange": [
+    225,
+    235
+   ],
+   "summary": "Skips architectures unavailable in the current environment.",
+   "tags": [
+    "test",
+    "skip"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "function:src/exo/worker/tests/unittests/test_mlx/test_prefix_cache_architectures.py:_make_task",
+   "type": "function",
+   "name": "_make_task",
+   "filePath": "src/exo/worker/tests/unittests/test_mlx/test_prefix_cache_architectures.py",
+   "lineRange": [
+    238,
+    265
+   ],
+   "summary": "Builds a generation task for architecture tests.",
+   "tags": [
+    "test",
+    "task"
+   ],
+   "complexity": "moderate"
+  },
+  {
+   "id": "class:src/exo/worker/tests/unittests/test_mlx/test_prefix_cache_architectures.py:ArchSpec",
+   "type": "class",
+   "name": "ArchSpec",
+   "filePath": "src/exo/worker/tests/unittests/test_mlx/test_prefix_cache_architectures.py",
+   "lineRange": [
+    179,
+    183
+   ],
+   "summary": "Describes an architecture under test with config and model class.",
+   "tags": [
+    "test",
+    "type-definition"
+   ],
+   "complexity": "simple"
+  },
+  {
+   "id": "class:src/exo/worker/tests/unittests/test_mlx/test_prefix_cache_architectures.py:TestPrefixCacheArchitectures",
+   "type": "class",
+   "name": "TestPrefixCacheArchitectures",
+   "filePath": "src/exo/worker/tests/unittests/test_mlx/test_prefix_cache_architectures.py",
+   "lineRange": [
+    272,
+    339
+   ],
+   "summary": "Runs prefix-cache tests across supported model architectures.",
+   "tags": [
+    "test",
+    "prefix-cache"
+   ],
+   "complexity": "moderate"
+  }
+ ],
+ "edges": [
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_mlx/conftest.py",
+   "target": "function:src/exo/worker/tests/unittests/test_mlx/conftest.py:create_hostfile",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_mlx/conftest.py",
+   "target": "function:src/exo/worker/tests/unittests/test_mlx/conftest.py:create_hostfile",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_mlx/conftest.py",
+   "target": "function:src/exo/worker/tests/unittests/test_mlx/conftest.py:run_gpt_oss_pipeline_device",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_mlx/conftest.py",
+   "target": "function:src/exo/worker/tests/unittests/test_mlx/conftest.py:run_gpt_oss_pipeline_device",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_mlx/conftest.py",
+   "target": "function:src/exo/worker/tests/unittests/test_mlx/conftest.py:run_gpt_oss_tensor_parallel_device",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_mlx/conftest.py",
+   "target": "function:src/exo/worker/tests/unittests/test_mlx/conftest.py:run_gpt_oss_tensor_parallel_device",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_mlx/conftest.py",
+   "target": "class:src/exo/worker/tests/unittests/test_mlx/conftest.py:MockLayer",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_mlx/conftest.py",
+   "target": "class:src/exo/worker/tests/unittests/test_mlx/conftest.py:MockLayer",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_mlx/conftest.py",
+   "target": "class:src/exo/worker/tests/unittests/test_mlx/conftest.py:PipelineTestConfig",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_mlx/conftest.py",
+   "target": "class:src/exo/worker/tests/unittests/test_mlx/conftest.py:PipelineTestConfig",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_mlx/conftest.py",
+   "target": "file:src/exo/shared/constants.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_mlx/conftest.py",
+   "target": "file:src/exo/shared/models/model_cards.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_mlx/conftest.py",
+   "target": "file:src/exo/shared/types/backends.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_mlx/conftest.py",
+   "target": "file:src/exo/shared/types/common.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_mlx/conftest.py",
+   "target": "file:src/exo/shared/types/memory.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_mlx/conftest.py",
+   "target": "file:src/exo/shared/types/text_generation.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_mlx/conftest.py",
+   "target": "file:src/exo/shared/types/worker/shards.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_mlx/conftest.py",
+   "target": "file:src/exo/worker/engines/mlx/generator/generate.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_mlx/conftest.py",
+   "target": "file:src/exo/worker/engines/mlx/types.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_mlx/conftest.py",
+   "target": "file:src/exo/worker/engines/mlx/utils_mlx.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_mlx/test_auto_parallel.py",
+   "target": "function:src/exo/worker/tests/unittests/test_mlx/test_auto_parallel.py:run_pipeline_device",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_mlx/test_auto_parallel.py",
+   "target": "function:src/exo/worker/tests/unittests/test_mlx/test_auto_parallel.py:run_pipeline_device",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_mlx/test_auto_parallel.py",
+   "target": "function:src/exo/worker/tests/unittests/test_mlx/test_auto_parallel.py:test_single_wrapper_delegates_attributes",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_mlx/test_auto_parallel.py",
+   "target": "function:src/exo/worker/tests/unittests/test_mlx/test_auto_parallel.py:test_single_wrapper_delegates_attributes",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_mlx/test_auto_parallel.py",
+   "target": "function:src/exo/worker/tests/unittests/test_mlx/test_auto_parallel.py:test_composed_wrappers_delegate_attributes",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_mlx/test_auto_parallel.py",
+   "target": "function:src/exo/worker/tests/unittests/test_mlx/test_auto_parallel.py:test_composed_wrappers_delegate_attributes",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_mlx/test_auto_parallel.py",
+   "target": "function:src/exo/worker/tests/unittests/test_mlx/test_auto_parallel.py:test_missing_attribute_raises",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_mlx/test_auto_parallel.py",
+   "target": "function:src/exo/worker/tests/unittests/test_mlx/test_auto_parallel.py:test_missing_attribute_raises",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_mlx/test_auto_parallel.py",
+   "target": "function:src/exo/worker/tests/unittests/test_mlx/test_auto_parallel.py:test_composed_call_works",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_mlx/test_auto_parallel.py",
+   "target": "function:src/exo/worker/tests/unittests/test_mlx/test_auto_parallel.py:test_composed_call_works",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_mlx/test_auto_parallel.py",
+   "target": "file:src/exo/worker/engines/mlx/auto_parallel.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_mlx/test_auto_parallel.py",
+   "target": "file:src/exo/worker/tests/unittests/test_mlx/conftest.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_mlx/test_distributed_fix.py",
+   "target": "function:src/exo/worker/tests/unittests/test_mlx/test_distributed_fix.py:run_distributed_test",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_mlx/test_distributed_fix.py",
+   "target": "function:src/exo/worker/tests/unittests/test_mlx/test_distributed_fix.py:run_distributed_test",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_mlx/test_distributed_fix.py",
+   "target": "function:src/exo/worker/tests/unittests/test_mlx/test_distributed_fix.py:run_pipeline_test",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_mlx/test_distributed_fix.py",
+   "target": "function:src/exo/worker/tests/unittests/test_mlx/test_distributed_fix.py:run_pipeline_test",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_mlx/test_distributed_fix.py",
+   "target": "function:src/exo/worker/tests/unittests/test_mlx/test_distributed_fix.py:run_tensor_test",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_mlx/test_distributed_fix.py",
+   "target": "function:src/exo/worker/tests/unittests/test_mlx/test_distributed_fix.py:run_tensor_test",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_mlx/test_distributed_fix.py",
+   "target": "class:src/exo/worker/tests/unittests/test_mlx/test_distributed_fix.py:DistributedTestResult",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_mlx/test_distributed_fix.py",
+   "target": "class:src/exo/worker/tests/unittests/test_mlx/test_distributed_fix.py:DistributedTestResult",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_mlx/test_distributed_fix.py",
+   "target": "class:src/exo/worker/tests/unittests/test_mlx/test_distributed_fix.py:TestPipelineParallelFix",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_mlx/test_distributed_fix.py",
+   "target": "class:src/exo/worker/tests/unittests/test_mlx/test_distributed_fix.py:TestPipelineParallelFix",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_mlx/test_distributed_fix.py",
+   "target": "class:src/exo/worker/tests/unittests/test_mlx/test_distributed_fix.py:TestPipelineSplitConfigurations",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_mlx/test_distributed_fix.py",
+   "target": "class:src/exo/worker/tests/unittests/test_mlx/test_distributed_fix.py:TestPipelineSplitConfigurations",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_mlx/test_distributed_fix.py",
+   "target": "class:src/exo/worker/tests/unittests/test_mlx/test_distributed_fix.py:TestPrefillStepSizeBoundaries",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_mlx/test_distributed_fix.py",
+   "target": "class:src/exo/worker/tests/unittests/test_mlx/test_distributed_fix.py:TestPrefillStepSizeBoundaries",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_mlx/test_distributed_fix.py",
+   "target": "class:src/exo/worker/tests/unittests/test_mlx/test_distributed_fix.py:TestTensorParallelFix",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_mlx/test_distributed_fix.py",
+   "target": "class:src/exo/worker/tests/unittests/test_mlx/test_distributed_fix.py:TestTensorParallelFix",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_mlx/test_distributed_fix.py",
+   "target": "class:src/exo/worker/tests/unittests/test_mlx/test_distributed_fix.py:TestTensorParallelBoundaries",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_mlx/test_distributed_fix.py",
+   "target": "class:src/exo/worker/tests/unittests/test_mlx/test_distributed_fix.py:TestTensorParallelBoundaries",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_mlx/test_distributed_fix.py",
+   "target": "file:src/exo/worker/tests/unittests/test_mlx/conftest.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_mlx/test_kv_prefix_cache.py",
+   "target": "function:src/exo/worker/tests/unittests/test_mlx/test_kv_prefix_cache.py:_load_gpt_oss",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_mlx/test_kv_prefix_cache.py",
+   "target": "function:src/exo/worker/tests/unittests/test_mlx/test_kv_prefix_cache.py:_load_gpt_oss",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_mlx/test_kv_prefix_cache.py",
+   "target": "class:src/exo/worker/tests/unittests/test_mlx/test_kv_prefix_cache.py:TestGetPrefixLength",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_mlx/test_kv_prefix_cache.py",
+   "target": "class:src/exo/worker/tests/unittests/test_mlx/test_kv_prefix_cache.py:TestGetPrefixLength",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_mlx/test_kv_prefix_cache.py",
+   "target": "class:src/exo/worker/tests/unittests/test_mlx/test_kv_prefix_cache.py:TestKVPrefix",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_mlx/test_kv_prefix_cache.py",
+   "target": "class:src/exo/worker/tests/unittests/test_mlx/test_kv_prefix_cache.py:TestKVPrefix",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_mlx/test_kv_prefix_cache.py",
+   "target": "class:src/exo/worker/tests/unittests/test_mlx/test_kv_prefix_cache.py:TestKVPrefixCacheWithModel",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_mlx/test_kv_prefix_cache.py",
+   "target": "class:src/exo/worker/tests/unittests/test_mlx/test_kv_prefix_cache.py:TestKVPrefixCacheWithModel",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_mlx/test_kv_prefix_cache.py",
+   "target": "file:src/exo/shared/types/common.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_mlx/test_kv_prefix_cache.py",
+   "target": "file:src/exo/shared/types/text_generation.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_mlx/test_kv_prefix_cache.py",
+   "target": "file:src/exo/worker/engines/mlx/cache.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_mlx/test_kv_prefix_cache.py",
+   "target": "file:src/exo/worker/engines/mlx/generator/generate.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_mlx/test_kv_prefix_cache.py",
+   "target": "file:src/exo/worker/engines/mlx/types.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_mlx/test_kv_prefix_cache.py",
+   "target": "file:src/exo/worker/engines/mlx/utils_mlx.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_mlx/test_kv_prefix_cache.py",
+   "target": "file:src/exo/worker/tests/unittests/test_mlx/conftest.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "class:src/exo/worker/tests/unittests/test_mlx/test_kv_prefix_cache.py:TestKVPrefixCacheWithModel",
+   "target": "class:src/exo/worker/engines/mlx/cache.py:KVPrefixCache",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_mlx/test_prefix_cache_architectures.py",
+   "target": "function:src/exo/worker/tests/unittests/test_mlx/test_prefix_cache_architectures.py:_reduce_dict",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_mlx/test_prefix_cache_architectures.py",
+   "target": "function:src/exo/worker/tests/unittests/test_mlx/test_prefix_cache_architectures.py:_reduce_dict",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_mlx/test_prefix_cache_architectures.py",
+   "target": "function:src/exo/worker/tests/unittests/test_mlx/test_prefix_cache_architectures.py:_reduce_config",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_mlx/test_prefix_cache_architectures.py",
+   "target": "function:src/exo/worker/tests/unittests/test_mlx/test_prefix_cache_architectures.py:_reduce_config",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_mlx/test_prefix_cache_architectures.py",
+   "target": "function:src/exo/worker/tests/unittests/test_mlx/test_prefix_cache_architectures.py:_find_snapshot",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_mlx/test_prefix_cache_architectures.py",
+   "target": "function:src/exo/worker/tests/unittests/test_mlx/test_prefix_cache_architectures.py:_find_snapshot",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_mlx/test_prefix_cache_architectures.py",
+   "target": "function:src/exo/worker/tests/unittests/test_mlx/test_prefix_cache_architectures.py:_copy_tokenizer",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_mlx/test_prefix_cache_architectures.py",
+   "target": "function:src/exo/worker/tests/unittests/test_mlx/test_prefix_cache_architectures.py:_copy_tokenizer",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_mlx/test_prefix_cache_architectures.py",
+   "target": "function:src/exo/worker/tests/unittests/test_mlx/test_prefix_cache_architectures.py:_build_model",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_mlx/test_prefix_cache_architectures.py",
+   "target": "function:src/exo/worker/tests/unittests/test_mlx/test_prefix_cache_architectures.py:_build_model",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_mlx/test_prefix_cache_architectures.py",
+   "target": "function:src/exo/worker/tests/unittests/test_mlx/test_prefix_cache_architectures.py:_collect_tokens",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_mlx/test_prefix_cache_architectures.py",
+   "target": "function:src/exo/worker/tests/unittests/test_mlx/test_prefix_cache_architectures.py:_collect_tokens",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_mlx/test_prefix_cache_architectures.py",
+   "target": "function:src/exo/worker/tests/unittests/test_mlx/test_prefix_cache_architectures.py:_has_chat_template",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_mlx/test_prefix_cache_architectures.py",
+   "target": "function:src/exo/worker/tests/unittests/test_mlx/test_prefix_cache_architectures.py:_has_chat_template",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_mlx/test_prefix_cache_architectures.py",
+   "target": "function:src/exo/worker/tests/unittests/test_mlx/test_prefix_cache_architectures.py:_arch_available",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_mlx/test_prefix_cache_architectures.py",
+   "target": "function:src/exo/worker/tests/unittests/test_mlx/test_prefix_cache_architectures.py:_arch_available",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_mlx/test_prefix_cache_architectures.py",
+   "target": "function:src/exo/worker/tests/unittests/test_mlx/test_prefix_cache_architectures.py:_make_task",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_mlx/test_prefix_cache_architectures.py",
+   "target": "function:src/exo/worker/tests/unittests/test_mlx/test_prefix_cache_architectures.py:_make_task",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_mlx/test_prefix_cache_architectures.py",
+   "target": "class:src/exo/worker/tests/unittests/test_mlx/test_prefix_cache_architectures.py:ArchSpec",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_mlx/test_prefix_cache_architectures.py",
+   "target": "class:src/exo/worker/tests/unittests/test_mlx/test_prefix_cache_architectures.py:ArchSpec",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_mlx/test_prefix_cache_architectures.py",
+   "target": "class:src/exo/worker/tests/unittests/test_mlx/test_prefix_cache_architectures.py:TestPrefixCacheArchitectures",
+   "type": "contains",
+   "direction": "forward",
+   "weight": 1.0
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_mlx/test_prefix_cache_architectures.py",
+   "target": "class:src/exo/worker/tests/unittests/test_mlx/test_prefix_cache_architectures.py:TestPrefixCacheArchitectures",
+   "type": "exports",
+   "direction": "forward",
+   "weight": 0.8
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_mlx/test_prefix_cache_architectures.py",
+   "target": "file:src/exo/download/download_utils.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_mlx/test_prefix_cache_architectures.py",
+   "target": "file:src/exo/shared/constants.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_mlx/test_prefix_cache_architectures.py",
+   "target": "file:src/exo/shared/types/common.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_mlx/test_prefix_cache_architectures.py",
+   "target": "file:src/exo/shared/types/text_generation.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_mlx/test_prefix_cache_architectures.py",
+   "target": "file:src/exo/worker/engines/mlx/cache.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_mlx/test_prefix_cache_architectures.py",
+   "target": "file:src/exo/worker/engines/mlx/generator/generate.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_mlx/test_prefix_cache_architectures.py",
+   "target": "file:src/exo/worker/engines/mlx/types.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "file:src/exo/worker/tests/unittests/test_mlx/test_prefix_cache_architectures.py",
+   "target": "file:src/exo/worker/engines/mlx/utils_mlx.py",
+   "type": "imports",
+   "direction": "forward",
+   "weight": 0.7
+  },
+  {
+   "source": "function:src/exo/worker/tests/unittests/test_mlx/test_prefix_cache_architectures.py:_find_snapshot",
+   "target": "function:src/exo/worker/engines/mlx/cache.py:get_prefix_length",
+   "type": "calls",
+   "direction": "forward",
+   "weight": 0.8
+  }
+ ]
+}
