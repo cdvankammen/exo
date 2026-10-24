@@ -24,15 +24,32 @@ from anyio.streams.memory import (
 from anyio.streams.memory import (
     MemoryObjectSendStream as AnyioSender,
 )
+<<<<<<< HEAD
+=======
+
+>>>>>>> d7ddce85 (feat(logging): per-module log filters and default to DEBUG log levels)
 try:
     from anyio.streams.memory import (
         MemoryObjectStreamState,
     )
+<<<<<<< HEAD
 except ImportError:
     from anyio.streams.memory import (  # type: ignore[attr-defined]
         _MemoryObjectStreamState as MemoryObjectStreamState,
     )
 AnyioState = MemoryObjectStreamState
+=======
+    from anyio.streams.memory import (
+        MemoryObjectStreamState as AnyioState,
+    )
+except ImportError:
+
+    class MemoryObjectStreamState:  # type: ignore[no-redef]
+        def __class_getitem__(cls, item: object) -> object:
+            return cls
+
+    AnyioState = MemoryObjectStreamState  # type: ignore[misc, assignment]
+>>>>>>> d7ddce85 (feat(logging): per-module log filters and default to DEBUG log levels)
 
 
 @dataclass(eq=False)

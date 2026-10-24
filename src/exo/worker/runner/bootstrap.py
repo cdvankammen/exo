@@ -1,10 +1,18 @@
 import os
+<<<<<<< HEAD
 
 try:
     import resource
 except ImportError:
     resource = None
+=======
+>>>>>>> d7ddce85 (feat(logging): per-module log filters and default to DEBUG log levels)
 import traceback
+
+try:
+    import resource
+except ImportError:
+    resource = None  # type: ignore[assignment]
 from dataclasses import dataclass
 from typing import Self, cast
 
