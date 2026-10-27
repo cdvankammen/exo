@@ -30,6 +30,10 @@ class MemoryUsage(FrozenModel):
     swap_available: Memory
     pressure_level: MemoryPressureLevel = MemoryPressureLevel.NORMAL
     pressure_pct: float = 0.0
+    # The most memory a Mac's GPU should use (Metal's recommended working set, about 75% of
+    # the RAM). macOS keeps the rest for itself, so a model can't use all of a Mac's free
+    # memory. None where it isn't known.
+    gpu_working_set: Memory | None = None
 
     @classmethod
     def from_bytes(
@@ -41,6 +45,7 @@ class MemoryUsage(FrozenModel):
         swap_available: int,
         pressure_level: MemoryPressureLevel = MemoryPressureLevel.NORMAL,
         pressure_pct: float = 0.0,
+        gpu_working_set: Memory | None = None,
     ) -> Self:
         return cls(
             ram_total=Memory.from_bytes(ram_total),
@@ -49,6 +54,7 @@ class MemoryUsage(FrozenModel):
             swap_available=Memory.from_bytes(swap_available),
             pressure_level=pressure_level,
             pressure_pct=pressure_pct,
+            gpu_working_set=gpu_working_set,
         )
 
     @classmethod
@@ -58,6 +64,7 @@ class MemoryUsage(FrozenModel):
         override_memory: int | None,
         pressure_level: MemoryPressureLevel = MemoryPressureLevel.NORMAL,
         pressure_pct: float = 0.0,
+        gpu_working_set: Memory | None = None,
     ) -> Self:
         vm = psutil.virtual_memory()
         sm = psutil.swap_memory()
@@ -69,6 +76,7 @@ class MemoryUsage(FrozenModel):
             swap_available=sm.free,
             pressure_level=pressure_level,
             pressure_pct=pressure_pct,
+            gpu_working_set=gpu_working_set,
         )
 
 
