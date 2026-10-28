@@ -303,6 +303,11 @@ uv run --extra mlx-cpu exo
 
 This starts the exo dashboard and API at http://localhost:52415/
 
+The Linux `mlx-cpu` extra installs matching MLX and CPU runtime versions from
+the lockfile. Use `uv sync --locked --extra mlx-cpu` to restore this pair rather
+than upgrading `mlx` or `mlx-cpu` independently; mismatched native libraries can
+cause an undefined-symbol error when importing `mlx.core`.
+
 **Important note for Linux users:** Currently, exo runs on the MLX CPU backend on Linux. Large-model inference can be slow, and CPU core utilization depends on the model operations and backend. GPU support for Linux platforms is under development. If you'd like to see support for your specific Linux hardware, please [search for existing feature requests](https://github.com/exo-explore/exo/issues) or create a new one.
 
 **Configuration Options:**

@@ -1,0 +1,62 @@
+dashboard: get a new user from opening EXO to chatting sooner
+
+Port of upstream exo PR #2490 (commit 388f59ff) onto fork chain head
+30d94702 as commit on branch pr2490-dashboard-onboarding.
+
+The web onboarding made everyone sit through about 15 s of animation,
+including a made-up "Mac Studio (example)", before they could choose a
+model, then listed models largest first, so the small, quick model came
+last and a first-time user could easily start a download of 100 GB or
+more. Downloading and loading were two screens with no way back but
+Skip, and a Mac joining a cluster that already ran a model went through
+all of it again.
+
+- The first screen is "Pick a model to start". The recommended model
+  (Llama 3.2 3B, or the smallest text model that fits) comes first,
+  marked "Recommended", with its size and a rough download time ("1.7
+  GB · about 2 min to download", estimated for 100 Mbit/s; "downloaded"
+  when it is on disk). Four bigger models follow, smallest first, one
+  quantization per model, then "More models…".
+- The animated story is now "How EXO works", a link on the first two
+  screens, and plays over onboarding and goes back where it was opened,
+  so a download carries on while it plays. It no longer says
+  "supercomputer" or "Shard", and the example device is "Another Mac".
+- Downloading and loading are one step, "Getting <model> ready", with
+  one progress bar and a plain status line ("Downloading · 157 MB of
+  1.7 GB · less than a minute left", "Loading into memory · 18 of 28
+  layers", "Almost ready…"). "Pick a different model" stops the model
+  and goes back to the list. The master already pauses a download that
+  no running model needs, so nothing keeps downloading unnoticed; what
+  was downloaded stays on disk, and the list says so: "Stopped Llama
+  3.2 3B. Its download is paused: resume or delete it on the Downloads
+  page."
+- A device whose onboarding isn't done waits for the first cluster
+  state. If the cluster already runs a model it skips onboarding, marks
+  it done and says "This Mac joined your cluster (2 devices · 512 GB).
+  Llama 3.2 3B is ready." with a Chat button. Otherwise it shows the
+  model list. If no state arrives within 5 s, it shows the model list.
+- The server-side completion flag (/onboarding) and ?reset-onboarding
+  are kept; the reset shows the model list even when a model runs.
+- The stale "only for steps 1 and 5" comment is gone.
+
+Conflict resolution: three conflicts in dashboard/src/routes/+page.svelte.
+
+1. Lines 845-886: HEAD had fork's formatOnboardingLaunchError (from #2428
+   memory-fit rejection), incoming had upstream's new
+   onboardingLaunchGeneration + pickDifferentOnboardingModel. Kept both —
+   independent additions. formatOnboardingLaunchError is still called by
+   onboardingLaunchModel's catch block (line 1050+), so not dead code.
+
+2. Lines 5525-5571: HEAD had old flat model list loop with per-card
+   memory-fit checks; incoming had new "Recommended model + Bigger models"
+   structure that is the core of PR #2490. Took incoming.
+
+3. Lines 5601-5635: HEAD had closing of old flat list; incoming had
+   closing of new two-tier structure. Took incoming.
+
+Cherry-pick applied cleanly after resolution. No new imports needed —
+all symbols (onboardingRecommendedModel, onboardingOtherModels,
+describeOnboardingDownload, pickDifferentOnboardingModel) are defined
+earlier in the same file by upstream's commit.
+
+Co-Authored-By: Claude Opus 5.5 (1M context) <noreply@anthropic.com>
