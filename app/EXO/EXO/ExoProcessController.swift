@@ -4,7 +4,6 @@ import Foundation
 import os.log
 
 private let customNamespaceKey = "EXOCustomNamespace"
-private let hfTokenKey = "EXOHFToken"
 private let hfEndpointKey = "EXOHFEndpoint"
 private let enableImageModelsKey = "EXOEnableImageModels"
 private let offlineModeKey = "EXOOfflineMode"
@@ -65,11 +64,17 @@ final class ExoProcessController: ObservableObject {
         }
     }
     @Published var hfToken: String = {
-        return UserDefaults.standard.string(forKey: hfTokenKey) ?? ""
+        return HuggingFaceToken.load(from: HuggingFaceToken.keychain, migrating: UserDefaults.standard)
     }()
     {
         didSet {
-            UserDefaults.standard.set(hfToken, forKey: hfTokenKey)
+            do {
+                try HuggingFaceToken.save(hfToken, to: tokenKeychain)
+            } catch {
+                Self.logger.error(
+                    "Couldn't save the Hugging Face token: \(error.localizedDescription, privacy: .public)"
+                )
+            }
         }
     }
     @Published var hfEndpoint: String = {
@@ -164,6 +169,8 @@ final class ExoProcessController: ObservableObject {
     private var readinessTask: Task<Void, Never>?
     private let readinessProbe: () async -> Bool
     private let previousExoIsRunning: () -> Bool
+    /// Where the Hugging Face token is kept; see `HuggingFaceToken`.
+    private let tokenKeychain: KeychainPassword = HuggingFaceToken.keychain
 
     /// `readinessProbe` says whether a started exo is up yet. Until it does,
     /// the status is `.starting`. `previousExoIsRunning` says whether an exo

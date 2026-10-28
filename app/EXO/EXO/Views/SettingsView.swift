@@ -95,7 +95,7 @@ struct SettingsView: View {
                         .textFieldStyle(.roundedBorder)
                         .frame(width: 260)
                 }
-                Text("Required for gated models. Get yours at huggingface.co/settings/tokens")
+                Text("Required for gated models, and is kept in your keychain. Get yours at huggingface.co/settings/tokens")
                     .font(.caption)
                     .foregroundColor(.secondary)
             }

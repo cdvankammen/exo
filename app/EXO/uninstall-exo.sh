@@ -186,6 +186,26 @@ for app_path in "/Applications/EXO.app" "$HOME/Applications/EXO.app"; do
   fi
 done
 
+# Delete the Hugging Face token from the keychain
+echo_info "Removing Hugging Face token from keychain..."
+if security find-generic-password -s "exolabs.EXO" -a "huggingface" &>/dev/null; then
+  security delete-generic-password -s "exolabs.EXO" -a "huggingface" &>/dev/null &&
+    echo_info "Removed Hugging Face token from keychain" ||
+    echo_warn "Could not remove Hugging Face token from keychain"
+else
+  echo_warn "Hugging Face token not found in keychain (already removed?)"
+fi
+
+# Remove EXO's preferences domain
+echo_info "Removing EXO preferences..."
+if sudo -u "${SUDO_USER:-$USER}" defaults read io.exo.EXO &>/dev/null; then
+  sudo -S -p '' -u "${SUDO_USER:-$USER}" defaults delete io.exo.EXO &>/dev/null &&
+    echo_info "Removed EXO preferences" ||
+    echo_warn "Could not remove EXO preferences"
+else
+  echo_warn "EXO preferences not found (already removed?)"
+fi
+
 echo ""
 echo "========================================"
 echo_info "EXO uninstall complete!"
@@ -196,6 +216,8 @@ echo "  • Network setup LaunchDaemon"
 echo "  • Network configuration script"
 echo "  • Log files"
 echo "  • 'exo' network location"
+echo "  • Hugging Face token (from keychain)"
+echo "  • EXO preferences"
 case "$EXO_DIR_REMOVED" in
 full) echo "  • EXO data directory (~/.exo)" ;;
 kept_models) echo "  • EXO data directory (~/.exo, models preserved)" ;;
