@@ -364,6 +364,14 @@ class RunnerSupervisor:
             self._tg.cancel_tasks()
 
     async def start_task(self, task: Task):
+        """Send the task to the runner, without waiting for the runner to acknowledge it.
+
+        The caller is the worker's planning for every runner on this node, and a runner can
+        take minutes to pick up a generation task behind a long prompt, or never acknowledge a
+        task at all if it's stuck. Generation tasks are tracked by id in in_progress; until the
+        runner acknowledges any other task, awaiting_acknowledgement holds back the planning
+        that would send it again.
+        """
         if task.task_id in self.pending:
             logger.warning(
                 f"Skipping invalid task {task} as it has already been submitted"
@@ -375,8 +383,7 @@ class RunnerSupervisor:
             )
             return
         logger.info(f"Starting task {task}")
-        event = anyio.Event()
-        self.pending[task.task_id] = event
+        self.pending[task.task_id] = anyio.Event()
         self.in_progress[task.task_id] = task
         try:
             await self._task_sender.send_async(task)
@@ -408,29 +415,24 @@ class RunnerSupervisor:
                 )
             case _:
                 pass
-        # A runner that is generating only picks up new tasks between steps, so behind a
-        # long prompt the acknowledgement can take minutes, and the caller (the worker's
-        # planning for every runner on this node) would wait that long. Generation tasks
-        # are tracked by id in in_progress, so there's no need. Other tasks change the
-        # runner's status before it acknowledges them, and the worker plans from that
-        # status, so those still wait.
-        if isinstance(task, (TextGeneration, ImageGeneration, ImageEdits)):
-            return
-        try:
-            with anyio.fail_after(RUNNER_TASK_ACK_TIMEOUT):
-                await event.wait()
-        except TimeoutError:
-            self.in_progress.pop(task.task_id, None)
-            self.pending.pop(task.task_id, None)
-            logger.error(
-                f"Task {task.task_id} ({task.__class__.__name__}) not acknowledged by runner within {RUNNER_TASK_ACK_TIMEOUT}s"
+
+    @property
+    def awaiting_acknowledgement(self) -> bool:
+        """Whether the runner has yet to pick up a task that changes its status (any task but a
+        generation task). It changes its status as it picks the task up, so until then its
+        status is still the one from before the task: planning from it would send it again."""
+        return any(
+            not acknowledged.is_set()
+            and not isinstance(
+                self.in_progress.get(task_id),
+                (TextGeneration, ImageGeneration, ImageEdits),
             )
-            await self._check_runner(
-                TimeoutError(
-                    f"Runner failed to acknowledge task {task.task_id} within {RUNNER_TASK_ACK_TIMEOUT}s"
-                )
-            )
-            raise
+            for task_id, acknowledged in self.pending.items()
+        )
+
+    async def wait_for_acknowledgement(self, task_id: TaskId) -> None:
+        if (acknowledged := self.pending.get(task_id)) is not None:
+            await acknowledged.wait()
 
     async def cancel_task(self, task_id: TaskId):
         if task_id in self.completed:
