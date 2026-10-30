@@ -5,6 +5,7 @@ num_key_value_heads = 8
 supports_tensor = true
 tasks = ["TextGeneration"]
 family = "step"
+model_type = "step3p5"
 quantization = "4bit"
 base_model = "Step 3.5 Flash"
 capabilities = ["text", "thinking", "thinking_toggle"]
