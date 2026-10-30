@@ -65,6 +65,7 @@ from exo.worker.engines.mlx.models.gpt_oss.sharding import (
 from exo.worker.engines.mlx.models.laguna.sharding import (
     fix_pipeline_shard as laguna_fixup,
 )
+from exo.worker.engines.mlx.models.hy_v3.model import Model as HyV3Model
 from exo.worker.engines.mlx.models.nemotron_h.sharding import (
     fix_pipeline_shard as nemotron_h_fixup,
 )
@@ -112,6 +113,9 @@ def _main_tensor_strategy(model_class: type) -> str | None:
     # Changed on purpose: Laguna is new, and main had no strategy for it.
     elif issubclass(model_class, LagunaModel):
         return "LagunaShardingStrategy"
+    # Changed on purpose: Hy3 is new (exo's own port).
+    elif issubclass(model_class, HyV3Model):
+        return "HyV3ShardingStrategy"
     else:
         return None
 
@@ -162,6 +166,13 @@ def _main_loads_kimi_tokenizer(model_id: str) -> bool:
     return "kimi-k2" in model_id.lower()
 
 
+def _loads_hy3_tokenizer(model_id: str) -> bool:
+    # Changed on purpose: Hy3 is new, and its tokenizer needs its reasoning tags and
+    # tool-call parser.
+    name = model_id.rsplit("/", 1)[-1].lower()
+    return name == "hy3" or name.startswith(("hy3-", "hy3_"))
+
+
 # The pipeline fixups each checked isinstance on the inner model.
 _FIXUP_FOR_INNER_CLASS: list[tuple[type, PipelineShardFixup]] = [
     (GptOssMoeModel, gpt_oss_fixup),
@@ -187,7 +198,7 @@ def _mlx_lm_model_classes() -> dict[str, type]:
         if isinstance(model_class, type):
             classes[module_info.name] = model_class
     # Model types whose model a family ships itself, because mlx-lm has none
-    for model_type in ("deepseek_v4",):
+    for model_type in ("deepseek_v4", "hy_v3"):
         assert model_type not in classes
         classes[model_type] = registry.get_model_classes({"model_type": model_type})[0]
     return classes
@@ -205,6 +216,7 @@ _SUPPORTED_MODEL_TYPES = [
     "glm4_moe_lite",
     "glm_moe_dsa",
     "gpt_oss",
+    "hy_v3",
     "kimi_k25",
     "laguna",
     "llama",
@@ -380,7 +392,9 @@ def test_model_id_hooks_are_unchanged(model_id: str) -> None:
     assert len(hooks) == (1 if _main_prepares_gpt_oss_messages(model_id) else 0)
 
     loader = registry.tokenizer_loader_for(ModelId(model_id))
-    assert (loader is not None) == _main_loads_kimi_tokenizer(model_id)
+    assert (loader is not None) == (
+        _main_loads_kimi_tokenizer(model_id) or _loads_hy3_tokenizer(model_id)
+    )
 
 
 @pytest.mark.parametrize(

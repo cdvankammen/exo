@@ -21,12 +21,14 @@ from exo.worker.engines.mlx.models.family import (
     ModelClasses,
     ModelFamily,
     PromptEncoder,
+    ReasoningEffortHook,
     TemplateMessagesHook,
     TokenizerLoader,
 )
 from exo.worker.engines.mlx.models.gemma.family import FAMILY as GEMMA
 from exo.worker.engines.mlx.models.glm.family import FAMILY as GLM
 from exo.worker.engines.mlx.models.gpt_oss.family import FAMILY as GPT_OSS
+from exo.worker.engines.mlx.models.hy_v3.family import FAMILY as HY_V3
 from exo.worker.engines.mlx.models.kimi.family import FAMILY as KIMI
 from exo.worker.engines.mlx.models.laguna.family import FAMILY as LAGUNA
 from exo.worker.engines.mlx.models.llama.family import FAMILY as LLAMA
@@ -51,6 +53,7 @@ FAMILIES: tuple[ModelFamily, ...] = (
     NEMOTRON_H,
     STEP,
     LAGUNA,
+    HY_V3,
 )
 assert tuple(family.spec for family in FAMILIES) == FAMILY_SPECS
 
@@ -121,6 +124,16 @@ def template_messages_hooks_for(
         if (hook := family.template_messages_hook) is not None
         and hook.applies_to(task_params)
     ]
+
+
+def reasoning_effort_hook_for(
+    task_params: TextGenerationTaskParams,
+) -> ReasoningEffortHook | None:
+    for family in FAMILIES:
+        hook = family.reasoning_effort_hook
+        if hook is not None and hook.applies_to(task_params):
+            return hook
+    return None
 
 
 def tokenizer_loader_for(model_id: ModelId) -> TokenizerLoader | None:

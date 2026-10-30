@@ -10,6 +10,7 @@ from exo.worker.engines.mlx.models.deepseek_v4.spec import SPEC as DEEPSEEK_V4
 from exo.worker.engines.mlx.models.gemma.spec import SPEC as GEMMA
 from exo.worker.engines.mlx.models.glm.spec import SPEC as GLM
 from exo.worker.engines.mlx.models.gpt_oss.spec import SPEC as GPT_OSS
+from exo.worker.engines.mlx.models.hy_v3.spec import SPEC as HY_V3
 from exo.worker.engines.mlx.models.kimi.spec import SPEC as KIMI
 from exo.worker.engines.mlx.models.laguna.spec import SPEC as LAGUNA
 from exo.worker.engines.mlx.models.llama.spec import SPEC as LLAMA
@@ -35,6 +36,7 @@ FAMILY_SPECS: tuple[FamilySpec, ...] = (
     NEMOTRON_H,
     STEP,
     LAGUNA,
+    HY_V3,
 )
 
 
