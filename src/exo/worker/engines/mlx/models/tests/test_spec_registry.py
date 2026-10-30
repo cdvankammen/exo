@@ -44,6 +44,8 @@ _MAIN_TENSOR_ARCHITECTURES = [
     ["Gemma4ForConditionalGeneration"],
     # Changed on purpose: Flint is new.
     ["FlintForCausalLM"],
+    # Changed on purpose: Inkling is new.
+    ["InklingForConditionalGeneration"],
 ]
 
 _MAIN_MLX_VLM_MODEL_TYPE_ALIASES: dict[str, str] = {
@@ -81,6 +83,9 @@ def _main_eos_token_ids(model_id: str) -> list[int] | None:
     # Changed on purpose: Flint is new.
     elif "recursivesi/flint" in model_id_lower or "/flint-" in model_id_lower:
         return [150001, 150003, 150005, 150018]
+    # Changed on purpose: Inkling is new.
+    elif "inkling" in model_id_lower:
+        return [200006]
     return None
 
 
@@ -110,7 +115,7 @@ _CARDS = [card for _, card in _CARD_FILES]
 
 
 def test_there_are_builtin_cards() -> None:
-    assert len(_CARDS) == 128
+    assert len(_CARDS) == 130
 
 
 @pytest.mark.parametrize(
@@ -195,6 +200,7 @@ _EOS_FRAGMENTS = [
     "deepseek-v4",
     "llama",
     "flint",
+    "inkling",
 ]
 # Every card's id, plus ids that combine two families' rules, to check their precedence.
 _EOS_MODEL_IDS = (

@@ -11,6 +11,7 @@ from exo.worker.engines.mlx.models.flint.spec import SPEC as FLINT
 from exo.worker.engines.mlx.models.gemma.spec import SPEC as GEMMA
 from exo.worker.engines.mlx.models.glm.spec import SPEC as GLM
 from exo.worker.engines.mlx.models.gpt_oss.spec import SPEC as GPT_OSS
+from exo.worker.engines.mlx.models.inkling.spec import SPEC as INKLING
 from exo.worker.engines.mlx.models.kimi.spec import SPEC as KIMI
 from exo.worker.engines.mlx.models.llama.spec import SPEC as LLAMA
 from exo.worker.engines.mlx.models.minimax.spec import SPEC as MINIMAX
@@ -34,7 +35,11 @@ FAMILY_SPECS: tuple[FamilySpec, ...] = (
     MINIMAX,
     NEMOTRON_H,
     STEP,
+<<<<<<< HEAD
     FLINT,
+=======
+    INKLING,
+>>>>>>> 431a5194 (feat(models): Thinking Machines Inkling-Small)
 )
 
 
