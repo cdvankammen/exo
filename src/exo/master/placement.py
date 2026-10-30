@@ -47,6 +47,7 @@ from exo.shared.types.worker.instances import (
 )
 from exo.shared.types.worker.shards import Sharding
 from exo.utils.ports import random_ephemeral_port
+from exo.worker.engines.mlx.models.spec_registry import placement_rules_for_model_type
 
 INSTANCE_META_BACKENDS: dict[InstanceMeta, list[Backend]] = {
     InstanceMeta.MlxRing: [Backend.MlxMetal, Backend.MlxCuda, Backend.MlxCpu],
@@ -130,22 +131,20 @@ def place_instance(
     if len(cycles_with_sufficient_memory) == 0:
         raise ValueError("No cycles found with sufficient memory")
 
+    placement_rules = placement_rules_for_model_type(command.model_card.model_type)
     if command.sharding == Sharding.Tensor:
         if not command.model_card.supports_tensor:
             raise ValueError(
                 f"Requested Tensor sharding but this model does not support tensor parallelism: {command.model_card.model_id}"
             )
         # TODO: the condition here for tensor parallel is not correct, but it works good enough for now.
-        # DeepSeek V4 is MQA (num_key_value_heads=1) but its sharding strategy
-        # head-parallelises wq_b/wo_a and shards MoE experts instead of splitting
-        # KV heads, so the kv-head divisibility check doesn't apply.
-        is_deepseek_v4 = command.model_card.base_model.startswith("DeepSeek V4")
+        splits_kv_heads = placement_rules.tensor_parallel_splits_kv_heads
         kv_heads = command.model_card.num_key_value_heads
         cycles_with_sufficient_memory = [
             cycle
             for cycle in cycles_with_sufficient_memory
             if command.model_card.hidden_size % len(cycle) == 0
-            and (is_deepseek_v4 or kv_heads is None or kv_heads % len(cycle) == 0)
+            and (not splits_kv_heads or kv_heads is None or kv_heads % len(cycle) == 0)
         ]
         if not cycles_with_sufficient_memory:
             raise ValueError(
@@ -154,23 +153,37 @@ def place_instance(
                 f"{f', num_key_value_heads={kv_heads}' if kv_heads is not None else ''}"
                 f" across candidate cycles"
             )
-    if command.sharding == Sharding.Pipeline and command.model_card.model_id == ModelId(
-        "mlx-community/DeepSeek-V3.1-8bit"
-    ):
-        raise ValueError(
-            "Pipeline parallelism is not supported for DeepSeek V3.1 (8-bit)"
-        )
+        # Tensor sharding splits every layer evenly, so each node needs an equal share: enough
+        # memory between the nodes is no use if one of them can't hold its share
+        divisible_cycles = cycles_with_sufficient_memory
+        cycles_with_sufficient_memory = [
+            cycle
+            for cycle in divisible_cycles
+            if all(
+                node_memory[node].ram_available
+                >= command.model_card.storage_size // len(cycle)
+                for node in cycle
+            )
+        ]
+        if not cycles_with_sufficient_memory:
+            raise ValueError(
+                _tensor_share_too_large(
+                    command, divisible_cycles, node_memory, node_identities or {}
+                )
+            )
+    if command.sharding == Sharding.Pipeline:
+        for model_id, error in placement_rules.pipeline_unsupported_model_ids:
+            if command.model_card.model_id == ModelId(model_id):
+                raise ValueError(error)
     if (
         command.sharding == Sharding.Pipeline
-        and command.model_card.base_model.startswith("Gemma 4")
+        and placement_rules.multi_node_pipeline_error is not None
     ):
         cycles_with_sufficient_memory = [
             cycle for cycle in cycles_with_sufficient_memory if len(cycle) == 1
         ]
         if not cycles_with_sufficient_memory:
-            raise ValueError(
-                "Pipeline parallelism is not supported for Gemma 4; use tensor parallelism instead."
-            )
+            raise ValueError(placement_rules.multi_node_pipeline_error)
 
     smallest_cycles = get_smallest_cycles(cycles_with_sufficient_memory)
 
