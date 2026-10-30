@@ -456,6 +456,20 @@ def _clear_non_trimmable(c: ArraysCache | RotatingKVCache) -> None:
         c._idx = 0
 
 
+def is_non_trimmable_cache_entry(c: object) -> bool:
+    """Whether a cache entry is restored from a snapshot instead of trimmed.
+
+    ArraysCache, RotatingKVCache and DeepseekV4Cache hold state that cannot be rolled back
+    token-by-token (the compressor state in V4's case is a no-op to trim), so they are
+    restored from the snapshot taken during prefill. CacheList is non-trimmable when its
+    inner caches say so."""
+    if isinstance(c, (ArraysCache, RotatingKVCache, DeepseekV4Cache)):
+        return True
+    if isinstance(c, CacheList):
+        return not bool(c.is_trimmable())  # type: ignore[reportUnknownMemberType]
+    return False
+
+
 def trim_cache(
     cache: KVCacheType,
     num_tokens: int,
@@ -470,16 +484,17 @@ def trim_cache(
             assert restored is not None
             cache[i] = restored  # type: ignore
             continue
-        non_trimmable = isinstance(c, (ArraysCache, RotatingKVCache)) or (
-            isinstance(c, CacheList) and not bool(c.is_trimmable())  # type: ignore[reportUnknownMemberType]
-        )
-        if non_trimmable:
+        # DeepSeek V4's cache can't trim its compressor state (its trim() is a no-op), so it
+        # is restored from the snapshot like the other non-trimmable entries.
+        if is_non_trimmable_cache_entry(c):
             if snapshot is not None and snapshot.states[i] is not None:
                 restored = copy_snapshot_entry(snapshot.states[i])
                 if restored is not None:
                     cache[i] = restored  # type: ignore
             elif isinstance(c, (ArraysCache, RotatingKVCache)):
                 _clear_non_trimmable(c)
+            elif isinstance(c, DeepseekV4Cache):
+                cache[i] = DeepseekV4Cache(c.local.max_size)  # type: ignore
             else:
                 # CacheList without a snapshot — zero each inner cache's state
                 for inner in c:  # type: ignore[reportUnknownVariableType]
