@@ -732,18 +732,19 @@ class KVPrefixCache:
         # fails the flags are read locally, same as group is None.
         if not (hasattr(mx, "distributed") and hasattr(mx.distributed, "all_gather")):
             return over_budget or local_pressure > _MEMORY_THRESHOLD
-        flags = mx.distributed.all_gather(
+        gathered = mx.distributed.all_gather(
             mx.array([local_pressure, float(over_budget)], dtype=mx.float32),
             group=self._group,
-        ).reshape(-1, 2)
-        # Read the flags on the CPU. A GPU op on them (mx.max) waits for the
-        # slowest rank in a Metal fence, which hits the GPU timeout (or, with
-        # MLX builds whose fence gives up, reads stale flags, so ranks evict
-        # different entries and their collectives go out of step). Upstream's
-        # port used mx.max on the GPU; the fork's #2436 CPU read is kept.
-        rows = cast(list[list[float]], flags.tolist())
-        worst_pressure = max(pressure for pressure, _ in rows)
-        any_over_budget = max(over for _, over in rows)
+        )
+        # On the CPU before the GPU ops below (see PipelineLastLayer). The
+        # fork's earlier version did .reshape(-1, 2) on the GPU before .tolist(),
+        # which is the exact bug upstream #2510 fixes — the reshape waits on
+        # the slowest peer and hits the Metal timeout.
+        mx.eval(gathered)
+        # .tolist() evals.
+        worst_pressure, any_over_budget = cast(
+            list[float], mx.max(gathered.reshape(-1, 2), axis=0).tolist()
+        )
         return worst_pressure > _MEMORY_THRESHOLD or any_over_budget > 0
 
 
