@@ -29,6 +29,7 @@ from mlx_lm.models.laguna import LagunaModel as LagunaInnerModel
 from mlx_lm.models.laguna import Model as LagunaModel
 from mlx_lm.models.llama import Model as LlamaModel
 from mlx_lm.models.minimax import Model as MiniMaxModel
+from mlx_lm.models.minimax_m3_vl import Model as MiniMaxM3Model
 from mlx_lm.models.ministral3 import Model as Ministral3Model
 from mlx_lm.models.nemotron_h import Model as NemotronHModel
 from mlx_lm.models.nemotron_h import NemotronHModel as NemotronHInnerModel
@@ -66,6 +67,7 @@ from exo.worker.engines.mlx.models.laguna.sharding import (
     fix_pipeline_shard as laguna_fixup,
 )
 from exo.worker.engines.mlx.models.hy_v3.model import Model as HyV3Model
+from exo.worker.engines.mlx.models.minimax.parser import parse_minimax_m3
 from exo.worker.engines.mlx.models.nemotron_h.sharding import (
     fix_pipeline_shard as nemotron_h_fixup,
 )
@@ -116,6 +118,9 @@ def _main_tensor_strategy(model_class: type) -> str | None:
     # Changed on purpose: Hy3 is new (exo's own port).
     elif issubclass(model_class, HyV3Model):
         return "HyV3ShardingStrategy"
+    # Changed on purpose: MiniMax M3 is new, and main had no strategy for it.
+    elif issubclass(model_class, MiniMaxM3Model):
+        return "MiniMaxM3ShardingStrategy"
     else:
         return None
 
@@ -147,6 +152,9 @@ def _main_output_parser(
         return ("parse_deepseek_v32", True)
     elif issubclass(model_class, DeepseekV4Model) and "deepseek-v4" in normalized_id:
         return ("parse_deepseek_v4", True)
+    # Changed on purpose: MiniMax M3 is new.
+    elif issubclass(model_class, MiniMaxM3Model):
+        return ("parse_minimax_m3", False)
     return None
 
 
@@ -221,6 +229,7 @@ _SUPPORTED_MODEL_TYPES = [
     "laguna",
     "llama",
     "minimax",
+    "minimax_m3_vl",
     "ministral3",
     "nemotron_h",
     "qwen3",
@@ -282,6 +291,7 @@ def _parser_name(parse: object) -> str:
         ("parse_gpt_oss", parse_gpt_oss),
         ("parse_deepseek_v32", parse_deepseek_v32),
         ("parse_deepseek_v4", parse_deepseek_v4),
+        ("parse_minimax_m3", parse_minimax_m3),
     ):
         if parse is function:
             return name
