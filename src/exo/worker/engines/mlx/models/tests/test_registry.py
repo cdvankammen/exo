@@ -205,10 +205,12 @@ def _mlx_lm_model_classes() -> dict[str, type]:
         model_class = cast(object, getattr(module, "Model", None))
         if isinstance(model_class, type):
             classes[module_info.name] = model_class
-    # Model types whose model a family ships itself, because mlx-lm has none
-    for model_type in ("deepseek_v4", "hy_v3"):
-        assert model_type not in classes
-        classes[model_type] = registry.get_model_classes({"model_type": model_type})[0]
+    # Model types whose model a family ships itself: because mlx-lm has none, or as a
+    # subclass of mlx-lm's (which the main branch's checks below then recognise)
+    for model_type in ("deepseek_v4", "hy_v3", "minimax_m3_vl"):
+        shipped = registry.get_model_classes({"model_type": model_type})[0]
+        assert model_type not in classes or issubclass(shipped, classes[model_type])
+        classes[model_type] = shipped
     return classes
 
 
