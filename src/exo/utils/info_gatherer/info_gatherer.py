@@ -43,6 +43,10 @@ from .system_info import (
 
 IS_DARWIN = sys.platform == "darwin"
 
+# Timeout for macmon metric sends. If the send blocks longer than this,
+# the channel is full (backpressure) and we need to restart the stream.
+_MACMON_SEND_TIMEOUT = 60.0
+
 
 async def _get_thunderbolt_devices() -> set[str] | None:
     """Get Thunderbolt interface device names (e.g., en2, en3) from hardware ports.
@@ -599,6 +603,9 @@ class InfoGatherer:
         # Timeout: if macmon produces no output for this many seconds, restart it.
         # macmon writes every macmon_interval seconds, so 10x that is generous.
         read_timeout = max(macmon_interval * 10, 30)
+        # Send timeout: if the channel is full (backpressure), the send blocks
+        # and the pipe reader stops. Detect this and restart the stream.
+        send_timeout = _MACMON_SEND_TIMEOUT
         while True:
             try:
                 async with await open_process(
@@ -622,7 +629,19 @@ class InfoGatherer:
                             metrics = MacmonMetrics.from_raw_json(
                                 text, self._gpu_working_set
                             )
-                        await self.info_sender.send(metrics)
+                        # Send with a timeout to detect backpressure blocking the reader
+                        try:
+                            with fail_after(send_timeout):
+                                await self.info_sender.send(metrics)
+                        except TimeoutError:
+                            logger.warning(
+                                f"MacMon metrics send blocked for {send_timeout}s "
+                                f"(backpressure?), restarting macmon stream and "
+                                f"starting psutil memory fallback"
+                            )
+                            self._tg.start_soon(self._monitor_memory_usage, 1)
+                            # Break inner loop to restart the process
+                            break
             except TimeoutError:
                 logger.warning(
                     f"MacMon produced no output for {read_timeout}s, restarting"
