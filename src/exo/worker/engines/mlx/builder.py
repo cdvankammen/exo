@@ -39,6 +39,7 @@ class MlxBuilder(Builder):
     tokenizer: TokenizerWrapper | None = None
     group: mx.distributed.Group | None = None
     vision_processor: VisionProcessor | None = None
+    start_layer: int = 0
 
     def __post_init__(self) -> None:
         use_generation_stream_by_default()
@@ -47,6 +48,7 @@ class MlxBuilder(Builder):
         self.group = initialize_mlx(bound_instance)
 
     def load(self, bound_instance: BoundInstance) -> Generator[ModelLoadingResponse]:
+        self.start_layer = bound_instance.bound_shard.start_layer
         (
             self.inference_model,
             self.tokenizer,
@@ -100,6 +102,7 @@ class MlxBuilder(Builder):
                 cancel_receiver=self.cancel_receiver,
                 event_sender=self.event_sender,
                 vision_processor=vision_processor,
+                start_layer=self.start_layer,
             )
         else:
             logger.info("using BatchGenerator")
@@ -114,4 +117,5 @@ class MlxBuilder(Builder):
                 cancel_receiver=self.cancel_receiver,
                 event_sender=self.event_sender,
                 vision_processor=vision_processor,
+                start_layer=self.start_layer,
             )
