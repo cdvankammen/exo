@@ -40,6 +40,10 @@ class ModelArgs(BaseModelArgs):
     attention_bias: bool
     max_position_embeddings: int
 
+def _compressed_visibility(
+    batch: int, queries: int, offset: int | mx.array, compressed_len: int, ratio: int
+) -> mx.array: ...
+
 class DeepseekV4RoPE(nn.Module):
     dims: int
     freqs: mx.array

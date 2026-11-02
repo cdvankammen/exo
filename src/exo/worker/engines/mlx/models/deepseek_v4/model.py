@@ -1864,6 +1864,22 @@ def _build_window_mask(
     return win_visible[:, None, :, :]
 
 
+def _topk_selected(topk: mx.array, compressed_len: int) -> mx.array:
+    """exo fix: bool ``[B, S, compressed_len]``, True at the compressed rows each query's
+    ``topk [B, S, k]`` names. Indices outside ``[0, compressed_len)`` select nothing.
+
+    Built by a scatter into one spare column (where any out-of-range index lands) that is
+    then sliced off. It replaces ``(topk[..., None] == arange(compressed_len)).any(-2)``,
+    which gives the same mask but materialises ``[B, S, k, compressed_len]``: 5 GB per
+    ratio-4 layer for V4 Flash (k = 512) at a 1365-token prefill step and 28.8k tokens."""
+    B, S, _ = topk.shape
+    topk = topk.astype(mx.int32)
+    safe = mx.where((topk >= 0) & (topk < compressed_len), topk, compressed_len)
+    selected = mx.zeros((B, S, compressed_len + 1), dtype=mx.bool_)
+    selected = mx.put_along_axis(selected, safe, mx.array(True), axis=-1)
+    return selected[..., :compressed_len]
+
+
 def _compressed_visibility(
     B: int,
     S: int,
@@ -2218,11 +2234,9 @@ class V4Attention(nn.Module):
                     B, S, offset, compressed_len, self.compress_ratio
                 )
                 if indexer_topk is not None:
-                    k_range = mx.arange(compressed_len, dtype=mx.int32)
-                    selected = (
-                        indexer_topk[..., None] == k_range[None, None, None, :]
-                    ).any(axis=-2)[:, None, :, :]
-                    comp_mask = comp_mask & selected
+                    # exo fix: scatter, not a [B, S, k, compressed_len] comparison
+                    selected = _topk_selected(indexer_topk, compressed_len)
+                    comp_mask = comp_mask & selected[:, None, :, :]
                 mask = mx.concatenate([win_mask, comp_mask], axis=-1)
             else:
                 mask = win_mask
