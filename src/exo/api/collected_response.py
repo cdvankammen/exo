@@ -19,6 +19,7 @@ def request_error(message: str) -> ErrorInfo | None:
     return None
 
 
+
 class GenerationFailedError(ValueError):
     """A generation that ended with an error, and the stable code saying why"""
 
@@ -33,6 +34,7 @@ _STATUS_OF_CODE: dict[GenerationErrorCode, HTTPStatus] = {
     # No ready instance by the time the request reached the master
     "model_not_ready": HTTPStatus.SERVICE_UNAVAILABLE,
 }
+
 
 
 class CollectedResponse(StreamingResponse):

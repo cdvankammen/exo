@@ -64,6 +64,7 @@ MODEL_NOT_READY = "The model is not ready yet: "
 CONTEXT_LENGTH_EXCEEDED = "This model's maximum context length is "
 # Followed by what was wrong with the request
 INVALID_REQUEST = "This request can't be run on this model: "
+
 # Followed by the model's name: the master had no instance of the model for a request that the
 # API had sent because it saw one, so it had just been deleted
 NO_INSTANCE_FOR_MODEL = "No instance found for model "
