@@ -36,6 +36,7 @@ from exo.worker.engines.mlx.generator.generate import (
     mlx_generate,
     warmup_inference,
 )
+from exo.worker.engines.mlx.speculative import DraftModel
 from exo.worker.engines.mlx.types import Model
 from exo.worker.engines.mlx.utils_mlx import (
     apply_chat_template,
@@ -98,6 +99,8 @@ class SequentialGenerator(Engine):
     cancel_receiver: MpReceiver[TaskId]
     event_sender: MpSender[Event]
     vision_processor: VisionProcessor | None = None
+    # Speculative decoding (speculative.py): only this one-request-at-a-time engine drafts
+    draft: DraftModel | None = None
     check_for_cancel_every: int = 50
 
     _cancelled_tasks: set[TaskId] = field(default_factory=set, init=False)
@@ -124,6 +127,7 @@ class SequentialGenerator(Engine):
             tokenizer=self.tokenizer,
             group=self.group,
             model_id=self.model_id,
+            draft=self.draft,
         )
 
     def submit(
@@ -295,10 +299,11 @@ class SequentialGenerator(Engine):
             on_generation_token=on_generation_token,
             group=self.group,
             vision_processor=self.vision_processor,
+            draft=self.draft,
         )
 
     def close(self) -> None:
-        del self.model, self.tokenizer, self.group
+        del self.model, self.tokenizer, self.group, self.draft
 
     def serve_prefill(self, request: PrefillRequest, wfile: BinaryIO) -> None:
         cache = run_prefill_for_request(
