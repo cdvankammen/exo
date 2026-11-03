@@ -36,7 +36,6 @@ _STATUS_OF_CODE: dict[GenerationErrorCode, HTTPStatus] = {
 }
 
 
-
 class CollectedResponse(StreamingResponse):
     """A non-streaming response that sends nothing until its body is complete.
 

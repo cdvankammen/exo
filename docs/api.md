@@ -332,7 +332,6 @@ A request whose prompt, plus `max_tokens` if given, doesn't fit in the model's c
 ```
 
 A whole response gets it with a `400`. A stream gets it as its error event (with a `200`, as its response has started by then: only the model's runner can count the prompt's tokens), and so do the Claude (`invalid_request_error`) and Responses streams. The limit is the most that the model's card (`context_length` in `/models`) or its `config.json` says the model takes.
-
 **A model that isn't ready yet:**
 A request for a model with no instance gets `404`. A request for a model whose instance can't serve yet (it is downloading, loading or warming up) waits for it for up to 30 s and goes ahead as soon as it is ready. If it still isn't, the request gets `503 Service Unavailable`, with a `Retry-After` header (seconds) and a message saying what the model is doing:
 
