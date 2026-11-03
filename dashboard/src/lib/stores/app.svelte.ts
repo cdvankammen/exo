@@ -21,6 +21,7 @@ import {
   extractModelIdFromDownload,
   getDownloadTag,
 } from "$lib/utils/downloads";
+import { DeviceSilenceTracker } from "$lib/utils/instance_health";
 
 // UUID generation fallback for browsers without crypto.randomUUID
 function generateUUID(): string {
@@ -249,6 +250,8 @@ interface RawStateResponse {
   runners?: Record<string, unknown>;
   instanceLinks?: Record<string, RawInstanceLink>;
   downloads?: Record<string, unknown[]>;
+  // When each node last reported, stamped by the node's clock
+  lastSeen?: Record<string, string>;
   // New granular node state fields
   nodeIdentities?: Record<string, RawNodeIdentity>;
   nodeMemory?: Record<string, RawMemoryUsage>;
@@ -605,6 +608,9 @@ class AppStore {
   isLoadingPreviews = $state(false);
   previewNodeFilter = $state<Set<string>>(new Set());
   lastUpdate = $state<number | null>(null);
+  /** When each node was last heard from, on this browser's clock (ms) */
+  nodeHeardAt = $state<Record<string, number>>({});
+  private deviceSilence = new DeviceSilenceTracker();
   nodeIdentities = $state<Record<string, RawNodeIdentity>>({});
   thunderboltBridgeCycles = $state<string[][]>([]);
   nodeThunderbolt = $state<
@@ -1388,6 +1394,10 @@ class AppStore {
       if (data.nodeDisk) {
         this.nodeDisk = data.nodeDisk;
       }
+      this.nodeHeardAt = this.deviceSilence.observe(
+        data.lastSeen ?? {},
+        Date.now(),
+      );
       // Node identities (for OS version mismatch detection)
       this.nodeIdentities = data.nodeIdentities ?? {};
       // Thunderbolt identifiers per node
@@ -3655,6 +3665,8 @@ export const isConnected = () => appStore.isConnected;
 
 // Node identities (for OS version mismatch detection)
 export const nodeIdentities = () => appStore.nodeIdentities;
+// When each node was last heard from (browser clock, ms)
+export const nodeHeardAt = () => appStore.nodeHeardAt;
 
 // Whether each download in progress is moving, by downloadKey
 export const downloadActivity = () => appStore.downloadActivity;

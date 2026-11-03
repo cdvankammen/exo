@@ -66,6 +66,7 @@
     nodeThunderboltBridge,
     nodeIdentities,
     downloadActivity,
+    nodeHeardAt,
     type DownloadProgress,
     type NodeInfo,
     type PlacementPreview,
@@ -90,6 +91,11 @@
     estimateRemainingMs,
     isStalled,
   } from "$lib/utils/download_activity";
+  import {
+    DEVICE_SILENCE_MS,
+    checkInstanceHealth,
+    describeInstanceHealth,
+  } from "$lib/utils/instance_health";
   import type { ChatUploadedFile } from "$lib/types/files";
 
   const chatStarted = $derived(hasStartedChat());
@@ -114,6 +120,7 @@
   const rdmaCtlData = $derived(nodeRdmaCtl());
   const nodeFilter = $derived(previewNodeFilter());
   const downloadActivityData = $derived(downloadActivity());
+  const heardAtData = $derived(nodeHeardAt());
 
   // Aggregate active download progress across all instances for header indicator
   const activeDownloadSummary = $derived.by(() => {
@@ -2351,6 +2358,8 @@
     | "Downloading"
     | "Starting"
     | "Ready"
+    | "Unavailable"
+    | "Reconnecting"
     | "Failed"
     | "Stopping";
 
@@ -2367,6 +2376,10 @@
       case "SHUTDOWN":
       case "SHUTTING DOWN":
         return "Stopping";
+      case "UNAVAILABLE":
+        return "Unavailable";
+      case "RECONNECTING":
+        return "Reconnecting";
       default:
         // Every state before ready: PREPARING, INITIALIZING, LOADING, ...
         return "Starting";
@@ -2375,7 +2388,8 @@
 
   // One colour per status, the same everywhere a running model is shown and
   // always next to the status word: Downloading blue, Starting yellow, Ready
-  // green, Failed red, Stopping grey. Full class names, so Tailwind keeps them.
+  // green, Unavailable and Reconnecting orange, Failed red, Stopping grey.
+  // Full class names, so Tailwind keeps them.
   const STATUS_COLORS: Record<
     InstanceStatusLabel,
     {
@@ -2406,6 +2420,20 @@
       dot: "bg-green-400",
       corner: "border-green-500/50",
       card: "border-green-500/30 border-l-green-400 group-hover:border-green-500/50",
+    },
+    Unavailable: {
+      text: "text-orange-400",
+      badge: "bg-orange-500/15 text-orange-400",
+      dot: "bg-orange-400 animate-pulse",
+      corner: "border-orange-500/50",
+      card: "border-orange-500/30 border-l-orange-400 group-hover:border-orange-500/50",
+    },
+    Reconnecting: {
+      text: "text-orange-400",
+      badge: "bg-orange-500/15 text-orange-400",
+      dot: "bg-orange-400 animate-pulse",
+      corner: "border-orange-500/50",
+      card: "border-orange-500/30 border-l-orange-400 group-hover:border-orange-500/50",
     },
     Failed: {
       text: "text-red-400",
@@ -2523,6 +2551,53 @@
     return index === lines.length - 1 && runnerError.endsWith(")")
       ? runnerError.slice(0, -1).trimEnd()
       : runnerError;
+  }
+
+  // Statuses that come from the runners' last reports, which a device that
+  // froze, quit or crashed never updates. What /state says about the model's
+  // devices and runners can contradict them (see instance_health.ts).
+  const STATUSES_THE_CLUSTER_CAN_CONTRADICT = new Set([
+    "READY",
+    "LOADED",
+    "RUNNING",
+    "WARMING UP",
+    "LOADING",
+    "CONNECTING",
+    "CONNECTED",
+    "INITIALIZING",
+    "PREPARING",
+  ]);
+
+  // Why a model that its runners call ready (or starting) can't serve now:
+  // a device of it went quiet or left, part of it stopped, or this dashboard
+  // hears from no device at all. Null when nothing contradicts the runners.
+  function getInstanceHealthNote(
+    instanceWrapped: unknown,
+    statusText: string,
+  ): { statusText: "UNAVAILABLE" | "RECONNECTING"; message: string } | null {
+    if (!STATUSES_THE_CLUSTER_CAN_CONTRADICT.has(statusText)) return null;
+    const [, instance] = getTagged(instanceWrapped);
+    const nodeToRunner =
+      (
+        instance as {
+          shardAssignments?: { nodeToRunner?: Record<string, string> };
+        } | null
+      )?.shardAssignments?.nodeToRunner ?? {};
+    const health = checkInstanceHealth({
+      nodeToRunner,
+      runnerStatus: (runnerId) =>
+        getTagged(runnersData[runnerId])[0] ?? undefined,
+      clusterNodeIds: new Set(Object.keys(data?.nodes ?? {})),
+      heardAt: heardAtData,
+      now: Date.now(),
+    });
+    const message = describeInstanceHealth(health, getNodeName);
+    if (!message) return null;
+    return {
+      statusText:
+        health.kind === "cluster-silent" ? "RECONNECTING" : "UNAVAILABLE",
+      message,
+    };
   }
 
   function deriveInstanceStatus(instanceWrapped: unknown): {
@@ -3171,6 +3246,13 @@
   }
 
   const nodeCount = $derived(data ? Object.keys(data.nodes).length : 0);
+  // Devices still in the cluster that stopped reporting, until it removes them
+  const notRespondingCount = $derived(
+    Object.keys(data?.nodes ?? {}).filter((nodeId) => {
+      const heardAt = heardAtData[nodeId];
+      return heardAt !== undefined && Date.now() - heardAt >= DEVICE_SILENCE_MS;
+    }).length,
+  );
   const instanceCount = $derived(Object.keys(instanceData).length);
 
   // ── "Add a device" hint ──
@@ -6334,7 +6416,12 @@
                     id,
                     instance,
                   )}
-                  {@const statusText = downloadInfo.statusText}
+                  {@const healthNote = getInstanceHealthNote(
+                    instance,
+                    downloadInfo.statusText,
+                  )}
+                  {@const statusText =
+                    healthNote?.statusText ?? downloadInfo.statusText}
                   {@const statusLabel = getInstanceStatusLabel(statusText)}
                   {@const statusColors = STATUS_COLORS[statusLabel]}
                   {@const isLoading = statusText === "LOADING"}
@@ -6764,6 +6851,13 @@
                                 class="text-[11px] text-green-400/70 leading-relaxed"
                               >
                                 Ready to chat!
+                              </p>
+                            {:else if healthNote}
+                              <p
+                                class="text-[11px] text-orange-300/80 leading-relaxed"
+                                data-testid="instance-health"
+                              >
+                                {healthNote.message}
                               </p>
                             {/if}
                           </div>
@@ -7485,6 +7579,13 @@
                   >{nodeCount} {nodeCount === 1 ? "DEVICE" : "DEVICES"}</span
                 >
               </div>
+              {#if notRespondingCount > 0}
+                <div
+                  class="-mt-2 mb-2 text-right text-[11px] text-orange-400 tabular-nums"
+                >
+                  {notRespondingCount} not responding
+                </div>
+              {/if}
 
               <div
                 class="relative aspect-square bg-exo-dark-gray rounded-lg overflow-hidden pointer-events-none"
@@ -7523,7 +7624,12 @@
                       id,
                       instance,
                     )}
-                    {@const statusText = downloadInfo.statusText}
+                    {@const healthNote = getInstanceHealthNote(
+                      instance,
+                      downloadInfo.statusText,
+                    )}
+                    {@const statusText =
+                      healthNote?.statusText ?? downloadInfo.statusText}
                     {@const statusLabel = getInstanceStatusLabel(statusText)}
                     {@const statusColors = STATUS_COLORS[statusLabel]}
                     {@const isLoading = statusText === "LOADING"}
@@ -7961,6 +8067,13 @@
                                   class="text-[11px] text-green-400/70 leading-relaxed"
                                 >
                                   Ready to chat!
+                                </p>
+                              {:else if healthNote}
+                                <p
+                                  class="text-[11px] text-orange-300/80 leading-relaxed"
+                                  data-testid="instance-health"
+                                >
+                                  {healthNote.message}
                                 </p>
                               {/if}
                             </div>
