@@ -275,18 +275,9 @@ class Node:
                         f"Node {result.session_id.master_node_id} elected master"
                     )
                 if result.is_new_master:
+                    # Downloads carry on; the new master may lack their statuses
                     if self.download_coordinator:
-                        await self.download_coordinator.shutdown()
-                        self.download_coordinator = DownloadCoordinator(
-                            self.node_id,
-                            exo_shard_downloader(offline=self.offline),
-                            event_sender=self.event_router.sender(),
-                            download_command_receiver=self.router.receiver(
-                                topics.DOWNLOAD_COMMANDS
-                            ),
-                            offline=self.offline,
-                        )
-                        self._tg.start_soon(self.download_coordinator.run)
+                        await self.download_coordinator.reannounce()
                     if self.worker:
                         await self.worker.announce_to_master()
                     if self.api:

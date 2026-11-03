@@ -169,6 +169,20 @@ class DownloadCoordinator:
         self._tg.cancel_tasks()
         await self._stopped.wait()
 
+    async def reannounce(self) -> None:
+        """Send every known download status again, e.g. to a new master whose
+        state may lack them. The coordinator itself is kept across master
+        elections so in-flight downloads are not cancelled."""
+        for model_id, status in list(self.download_status.items()):
+            try:
+                await self.event_sender.send(
+                    NodeDownloadProgress(download_progress=status)
+                )
+            except (BrokenResourceError, ClosedResourceError):
+                logger.debug(
+                    f"Event stream closed while reannouncing {model_id}, skipping"
+                )
+
     async def _command_processor(self) -> None:
         with self.download_command_receiver as commands:
             async for cmd in commands:
