@@ -6,6 +6,7 @@ import random
 import re
 import time
 from collections.abc import AsyncGenerator, Awaitable, Callable, Iterable
+from dataclasses import dataclass, field
 from datetime import datetime, timezone
 from http import HTTPStatus
 from pathlib import Path
@@ -49,6 +50,9 @@ from exo.api.adapters.responses import (
     responses_request_to_text_generation,
 )
 from exo.api.auth import api_token_auth_middleware
+from exo.api.collected_response import CollectedResponse
+from exo.api.command_acceptance import ClusterCommand, command_applied
+from exo.api.finished_commands import RESEND_INTERVAL_SECONDS, finishes_to_resend
 from exo.api.keepalive import with_sse_keepalive
 from exo.api.types import (
     AddCustomModelParams,
@@ -164,7 +168,12 @@ from exo.shared.constants import (
     EXO_TRACING_CACHE_DIR,
     tools_enabled,
 )
-from exo.shared.election import ElectionMessage
+from exo.shared.election import (
+    DEFAULT_ELECTION_TIMEOUT,
+    HEARTBEAT_INTERVAL,
+    MASTER_SILENCE_TIMEOUT,
+    ElectionMessage,
+)
 from exo.shared.logging import InterceptLogger
 from exo.shared.models import model_cards
 from exo.shared.models.model_cards import (
@@ -360,6 +369,22 @@ def _parse_log_errors(content: str, source_log: str, context_lines: int = 5) -> 
         i = j
     return entries
 
+# A request that changes the cluster (launching or stopping a model, say) is answered once this
+# node's state shows the change. Until then its command is sent again this often: it can be
+# dropped under load, and the master can die before applying it.
+CLUSTER_COMMAND_RESEND_INTERVAL = 5.0
+# ...and the request fails after this long. It covers losing the master: followers notice a
+# silent master within MASTER_SILENCE_TIMEOUT plus one heartbeat check, elect a new one (a
+# round, and maybe a second if the first is interrupted) and catch up from its state, where
+# the command is sent again.
+CLUSTER_COMMAND_TIMEOUT = (
+    MASTER_SILENCE_TIMEOUT + HEARTBEAT_INTERVAL + 2 * DEFAULT_ELECTION_TIMEOUT + 5.0
+)
+_NOT_APPLIED_MESSAGE = (
+    "The cluster didn't confirm this change in time; the device coordinating it may have "
+    "been lost. Check the cluster's state and try again."
+)
+
 
 def _format_to_content_type(image_format: Literal["png", "jpeg", "webp"] | None) -> str:
     return f"image/{image_format or 'png'}"
@@ -474,6 +499,30 @@ def _require_disaggregation_enabled() -> None:
                 "Set ENABLE_DISAGGREGATION=true to enable."
             ),
         )
+
+
+@final
+class ModelNotReadyError(HTTPException):
+    """A 503 for a request whose model isn't ready to serve"""
+
+    code: GenerationErrorCode = "model_not_ready"
+
+    def __init__(self, not_ready: NotReady):
+        super().__init__(
+            status_code=HTTPStatus.SERVICE_UNAVAILABLE,
+            detail=not_ready.message,
+            headers={"Retry-After": str(not_ready.retry_after_seconds)},
+        )
+
+
+@dataclass
+class PendingClusterCommand:
+    """A command that changes the cluster, waiting to be seen applied."""
+
+    command: ClusterCommand
+    applied: bool = False
+    # Set when the command is seen applied, or should be sent again at once
+    wake: anyio.Event = field(default_factory=anyio.Event)
 
 
 class API:
@@ -705,23 +754,27 @@ class API:
             content=b"\0" * clamped, media_type="application/octet-stream"
         )
 
+
+
     async def place_instance(self, payload: PlaceInstanceParams):
-        command = PlaceInstance(
-            model_card=await ModelCard.load(payload.model_id),
-            sharding=payload.sharding,
-            instance_meta=payload.instance_meta,
-            min_nodes=payload.min_nodes,
-            force_override=payload.force_override,
-            memory_tolerance=payload.memory_tolerance,
-            node_layers=payload.node_layers,
-            node_ids=payload.node_ids,
+        # Refuse, with the reason, a placement the cluster can't hold. The master would
+        # reject the command too, but only in its own log, so the caller never found out.
+        placement = await self.get_placement(
+            payload.model_id,
+            payload.sharding,
+            payload.instance_meta,
+            payload.min_nodes,
         )
-        await self._send(command)
+        # The placement made here is launched as it is, rather than asking the master to
+        # place the model again: an instance with a known id can be sent again until it shows
+        # up (to a new master, say) without ever starting two.
+        command = CreateInstance(instance=placement)
+        await self._apply_cluster_command(command)
 
         return CreateInstanceResponse(
             message="Command received.",
             command_id=command.command_id,
-            model_card=command.model_card,
+            model_card=await ModelCard.load(payload.model_id),
         )
 
     async def create_instance(
@@ -742,7 +795,7 @@ class API:
         command = CreateInstance(
             instance=instance,
         )
-        await self._send(command)
+        await self._apply_cluster_command(command)
 
         return CreateInstanceResponse(
             message="Command received.",
@@ -1163,7 +1216,7 @@ class API:
         command = DeleteInstance(
             instance_id=instance_id,
         )
-        await self._send(command)
+        await self._apply_cluster_command(command)
         return DeleteInstanceResponse(
             message="Command received.",
             command_id=command.command_id,
@@ -1261,7 +1314,7 @@ class API:
             prefill_instances=list(body.prefill_instances),
             decode_instances=list(body.decode_instances),
         )
-        await self._send(command)
+        await self._apply_cluster_command(command)
         return InstanceLinkResponse(
             message="Command received.", command_id=command.command_id
         )
@@ -1271,7 +1324,7 @@ class API:
     ) -> InstanceLinkResponse:
         _require_disaggregation_enabled()
         command = DeleteInstanceLink(link_id=link_id)
-        await self._send(command)
+        await self._apply_cluster_command(command)
         return InstanceLinkResponse(
             message="Command received.", command_id=command.command_id
         )
@@ -2464,12 +2517,7 @@ class API:
                 status_code=400, detail=f"Failed to fetch model: {exc}"
             ) from exc
 
-        await self.command_sender.send(
-            ForwarderCommand(
-                origin=self._system_id,
-                command=AddCustomModelCard(model_card=card),
-            )
-        )
+        await self._apply_cluster_command(AddCustomModelCard(model_card=card))
 
         # Immediately update the local cache so the subsequent GET /models
         # returns the new model without waiting for the event round-trip.
@@ -2556,12 +2604,7 @@ class API:
                 error_code="MODEL_NOT_FOUND",
             )
 
-        await self.command_sender.send(
-            ForwarderCommand(
-                origin=self._system_id,
-                command=DeleteCustomModelCard(model_id=model_id),
-            )
-        )
+        await self._apply_cluster_command(DeleteCustomModelCard(model_id=model_id))
 
         return JSONResponse(
             {"message": "Model card deleted", "model_id": str(model_id)}
@@ -2671,8 +2714,16 @@ class API:
             async for i_event in events:
                 self._event_log.append(i_event.event)
                 self.state = apply(self.state, i_event)
+                self._note_applied_cluster_commands()
                 event = i_event.event
 
+                if isinstance(event, TaskCreated) and isinstance(
+                    event.task,
+                    (TextGenerationTask, ImageGenerationTask, ImageEditsTask),
+                ):
+                    self._mark_accepted(event.task.command_id)
+                    if event.task_id not in self.state.tasks:
+                        await self._end_request_not_started(event.task)
                 if isinstance(event, ChunkGenerated):
                     if queue := self._image_generation_queues.get(
                         event.command_id, None
@@ -2695,7 +2746,71 @@ class API:
                 if isinstance(event, TracesMerged):
                     self._save_merged_trace(event)
 
-    def _close_streams_for_instance(self, instance_id: InstanceId) -> None:
+    def _apply_snapshot(self, snapshot: StateSnapshot) -> None:
+        self.state = snapshot.state
+        self._note_applied_cluster_commands()
+        # A snapshot comes from a master that is up and answering: usually a new one, which
+        # never saw the commands sent to the old one. Send them again now rather than at the
+        # next resend.
+        for pending in self._pending_cluster_commands.values():
+            pending.wake.set()
+        # Output for in-flight requests may have been in the events we skipped
+        in_flight = [
+            *self._text_generation_queues.values(),
+            *self._image_generation_queues.values(),
+        ]
+        if in_flight:
+            logger.warning(
+                f"Ending {len(in_flight)} in-flight request(s) that may have missed "
+                "output while this node caught up from a state snapshot"
+            )
+        for sender in in_flight:
+            sender.close()
+        self._text_generation_queues.clear()
+        self._image_generation_queues.clear()
+
+    async def _end_request_not_started(
+        self, task: TextGenerationTask | ImageGenerationTask | ImageEditsTask
+    ) -> None:
+        """End a request whose task the cluster didn't add, its instance having been deleted
+        just before. The deletion ended the instance's requests before this one had a task,
+        and nothing else would end it."""
+        text_queue = self._text_generation_queues.get(task.command_id)
+        image_queue = self._image_generation_queues.get(task.command_id)
+        if text_queue is None and image_queue is None:
+            return  # sent through another node's API
+        logger.warning(
+            f"Ending request {task.command_id}: it reached instance {task.instance_id} "
+            "after the instance was deleted"
+        )
+        error = ErrorChunk(
+            model=ModelId(task.task_params.model),
+            error_message=INSTANCE_GONE_BEFORE_START,
+        )
+        with contextlib.suppress(BrokenResourceError, ClosedResourceError):
+            if text_queue is not None:
+                await text_queue.send(error)
+            if image_queue is not None:
+                await image_queue.send(error)
+
+    def _why_deleted(self, instance: Instance | None) -> str:
+        """Why an instance was deleted, as its requests are told. The master deletes an
+        instance as soon as one of its nodes is gone, after removing the node from the
+        topology if it timed out, so a node missing from the topology now means it left."""
+        if instance is None:
+            return INTERRUPTED
+        if any(
+            not self.state.topology.contains_node(node_id)
+            for node_id in instance.shard_assignments.node_to_runner
+        ):
+            return DEVICE_LEFT
+        return MODEL_STOPPED
+
+    def _close_streams_for_instance(
+        self,
+        instance_id: InstanceId,
+        reason: str = INTERRUPTED,
+    ) -> None:
         """Close any active generation streams for commands running on the given instance."""
         for task in self.state.tasks.values():
             if task.instance_id != instance_id:
@@ -2739,12 +2854,176 @@ class API:
             if removed > 0:
                 logger.debug(f"Cleaned up {removed} expired images")
 
+    @functools.cached_property
+    def _stream_end_reasons(self) -> dict[CommandId, str]:
+        """Why the API closed a request's stream before its generation finished, when it
+        knows: the message the request ends with."""
+        return {}
+
+    @functools.cached_property
+    def _awaiting_acceptance(self) -> dict[CommandId, anyio.Event]:
+        """Generation requests (chats and images) sent but not yet seen as a task."""
+        return {}
+
+    @functools.cached_property
+    def _request_inputs(self) -> dict[CommandId, list[SendInputChunk]]:
+        """The image chunks sent ahead of generation requests not yet seen as a task."""
+        return {}
+
+    @functools.cached_property
+    def _pending_cluster_commands(self) -> dict[CommandId, PendingClusterCommand]:
+        """Commands that change the cluster, sent but not yet seen applied."""
+        return {}
+
+    @functools.cached_property
+    def _finished_at(self) -> dict[CommandId, float]:
+        """When this API finished each request whose task may still need a TaskFinished. Kept
+        across resets: a change of master is when finishes get lost."""
+        return {}
+
+    async def _finish(self, command_id: CommandId) -> None:
+        self._finished_at[command_id] = time.monotonic()
+        await self._send_from_cleanup(TaskFinished(finished_command_id=command_id))
+
+    async def _resend_lost_finishes(self) -> None:
+        while True:
+            await anyio.sleep(RESEND_INTERVAL_SECONDS)
+            resend, forget = finishes_to_resend(
+                self._finished_at, self.state, time.monotonic()
+            )
+            for command_id in forget:
+                del self._finished_at[command_id]
+            for command_id in resend:
+                logger.info(
+                    f"Resending the finish of {command_id}: its task is still in state"
+                )
+                await self._send(TaskFinished(finished_command_id=command_id))
+
     async def _send(self, command: Command):
+        await self._forward(command)
+        match command:
+            case SendInputChunk(chunk=chunk):
+                self._request_inputs.setdefault(chunk.command_id, []).append(command)
+            case TextGeneration() | ImageGeneration() | ImageEdits() if (
+                command.command_id not in self._awaiting_acceptance
+                and self._tg.is_running()
+            ):
+                self._awaiting_acceptance[command.command_id] = anyio.Event()
+                self._tg.start_soon(self._resend_until_accepted, command)
+            case _:
+                pass
+
+    async def _forward(self, command: Command) -> None:
         while self.paused:
             await self.paused_ev.wait()
         await self.command_sender.send(
             ForwarderCommand(origin=self._system_id, command=command)
         )
+
+    async def _send_from_cleanup(self, command: Command) -> None:
+        # Stream cleanup runs after a client disconnect has cancelled the
+        # stream, so an unshielded send would be cancelled before it reaches
+        # the master. Skip _send's election pause too: a shielded wait on it
+        # could block shutdown forever.
+        with anyio.CancelScope(shield=True):
+            await self.command_sender.send(
+                ForwarderCommand(origin=self._system_id, command=command)
+            )
+
+    async def _resend_until_accepted(
+        self, command: TextGeneration | ImageGeneration | ImageEdits
+    ) -> None:
+        """Send a generation request (a chat or an image) again until the cluster has
+        accepted it.
+
+        A command can be lost on its way to the master: dropped under load, or sent just as
+        the master changed. The request would then wait forever for output that never comes.
+        The master ignores a command it has already processed, so sending it again can't
+        start the request twice.
+        """
+        command_id = command.command_id
+        accepted = self._awaiting_acceptance[command_id]
+        try:
+            for wait in REQUEST_RESEND_WAITS:
+                with anyio.move_on_after(wait):
+                    await accepted.wait()
+                    return
+                if (
+                    command_id not in self._text_generation_queues
+                    and command_id not in self._image_generation_queues
+                ):
+                    return  # the request has already ended
+                logger.warning(
+                    f"Request {command_id} not accepted after {wait:.0f}s; sending it again"
+                )
+                for chunk in self._request_inputs.get(command_id, []):
+                    await self._forward(chunk)
+                await self._forward(command)
+            not_accepted = ErrorChunk(
+                model=ModelId(command.task_params.model),
+                error_message=_NOT_ACCEPTED_MESSAGE,
+            )
+            text_queue = self._text_generation_queues.get(command_id)
+            image_queue = self._image_generation_queues.get(command_id)
+            if text_queue is not None or image_queue is not None:
+                logger.warning(f"Giving up on request {command_id}: never accepted")
+            with contextlib.suppress(BrokenResourceError, ClosedResourceError):
+                if text_queue is not None:
+                    await text_queue.send(not_accepted)
+                if image_queue is not None:
+                    await image_queue.send(not_accepted)
+        finally:
+            self._awaiting_acceptance.pop(command_id, None)
+            self._request_inputs.pop(command_id, None)
+
+    async def _apply_cluster_command(self, command: ClusterCommand) -> None:
+        """Send a command that changes the cluster, and return once this node's state shows
+        it applied.
+
+        The master publishes only the events a command leads to, so the effect in the state is
+        the only sign it arrived. The command is sent again whenever this node catches up from
+        a new master's state, and every CLUSTER_COMMAND_RESEND_INTERVAL otherwise: before,
+        a launch sent as the master died was answered as accepted and never happened.
+        Applying one of these commands twice changes nothing. Raises a 503 if the change isn't
+        seen within CLUSTER_COMMAND_TIMEOUT.
+        """
+        command_id = command.command_id
+        pending = PendingClusterCommand(command=command)
+        self._pending_cluster_commands[command_id] = pending
+        try:
+            with anyio.move_on_after(CLUSTER_COMMAND_TIMEOUT):
+                while not pending.applied:
+                    await self._forward(command)
+                    with anyio.move_on_after(CLUSTER_COMMAND_RESEND_INTERVAL):
+                        await pending.wake.wait()
+                    pending.wake = anyio.Event()
+                    if not pending.applied:
+                        logger.warning(
+                            f"{type(command).__name__} {command_id} not applied yet; "
+                            "sending it again"
+                        )
+            # One last look: the state may have caught up just as time ran out
+            if not pending.applied and not command_applied(command, self.state):
+                logger.warning(
+                    f"Giving up on {type(command).__name__} {command_id}: not applied "
+                    f"after {CLUSTER_COMMAND_TIMEOUT:.0f}s"
+                )
+                raise HTTPException(status_code=503, detail=_NOT_APPLIED_MESSAGE)
+        finally:
+            self._pending_cluster_commands.pop(command_id, None)
+
+    def _note_applied_cluster_commands(self) -> None:
+        """Mark the pending cluster commands the state now shows applied. Called after every
+        change to the state, so a change undone soon after (an instance created, then deleted
+        as its node is lost) still counts as applied."""
+        for pending in self._pending_cluster_commands.values():
+            if not pending.applied and command_applied(pending.command, self.state):
+                pending.applied = True
+                pending.wake.set()
+
+    def _mark_accepted(self, command_id: CommandId) -> None:
+        if (accepted := self._awaiting_acceptance.get(command_id)) is not None:
+            accepted.set()
 
     async def _send_download(self, command: DownloadCommand):
         await self.download_command_sender.send(
