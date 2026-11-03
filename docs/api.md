@@ -300,6 +300,50 @@ data: [DONE]
 **Cancellation:**
 You can cancel an active generation by closing the HTTP connection. The server detects the disconnection and stops processing.
 
+**Errors during generation:**
+A generation that fails after it started ends with an error event in a stream, or a `500` response otherwise. The message is one short sentence for the user (the details are in the node's log), and `code` says why. The Claude Messages and Responses endpoints report it their own way: a stream ends with an `error` event (Claude, with the code in `error.code`) or a `response.failed` event (Responses, with the code in `response.error.code`).
+
+```
+data: {"error":{"message":"A device serving this model disconnected before the reply finished.","type":"InternalServerError","code":"device_left"}}
+
+data: [DONE]
+```
+
+| `code` | Meaning |
+|---|---|
+| `device_left` | A device serving the model disconnected or left the cluster |
+| `model_stopped` | The model was stopped while the request was in flight |
+| `out_of_memory` | A device serving the model ran out of GPU memory |
+| `gpu_timeout` | The GPU of a device serving the model timed out |
+| `model_stalled` | The model stopped making progress and is being restarted |
+| `model_failed` | The model's process failed in some other way |
+| `interrupted` | The request ended for another reason, such as a change in the cluster |
+| `model_not_ready` | The model isn't ready to serve yet (with a `503`; see below) |
+| `context_length_exceeded` | The prompt and `max_tokens` don't fit in the model's context (see below) |
+| `invalid_request` | The request can't be run on this model, such as one its chat template can't render |
+
+Errors without a known cause have the HTTP status (`500`) as their `code`.
+
+**A request too long for the model:**
+A request whose prompt, plus `max_tokens` if given, doesn't fit in the model's context window is refused before any work is done on it, with OpenAI's error:
+
+```json
+{"error": {"message": "This model's maximum context length is 131072 tokens. However, your messages resulted in 160000 tokens. Please reduce the length of the messages.", "type": "invalid_request_error", "param": "messages", "code": "context_length_exceeded"}}
+```
+
+A whole response gets it with a `400`. A stream gets it as its error event (with a `200`, as its response has started by then: only the model's runner can count the prompt's tokens), and so do the Claude (`invalid_request_error`) and Responses streams. The limit is the most that the model's card (`context_length` in `/models`) or its `config.json` says the model takes.
+
+**A model that isn't ready yet:**
+A request for a model with no instance gets `404`. A request for a model whose instance can't serve yet (it is downloading, loading or warming up) waits for it for up to 30 s and goes ahead as soon as it is ready. If it still isn't, the request gets `503 Service Unavailable`, with a `Retry-After` header (seconds) and a message saying what the model is doing:
+
+```json
+{"error": {"message": "The model is not ready yet: downloading (42%, about 3 min left). Try again in 60 s.", "type": "Service Unavailable", "code": "model_not_ready"}}
+```
+
+A model that failed to start, or whose download failed, gets its `503` at once. The wait is set with the `EXO_MODEL_READY_WAIT_SECONDS` environment variable: `0` answers at once, and a larger value lets clients that would rather wait for a whole download do so (the OpenAI SDKs wait up to 600 s for a response by default).
+
+This applies to every inference endpoint (OpenAI, Claude, Responses, Ollama and image generation).
+
 ### Claude Messages API
 
 **POST** `/v1/messages`

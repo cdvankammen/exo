@@ -5,6 +5,34 @@ from starlette.responses import StreamingResponse
 from starlette.types import Send
 
 from exo.api.types import ErrorInfo, ErrorResponse
+from exo.shared.request_errors import GenerationErrorCode, generation_error_code
+
+
+def request_error(message: str) -> ErrorInfo | None:
+    """The error to answer with, the way OpenAI reports it, if a generation failed because of
+    the request itself (one the client has to fix); None for any other failure."""
+    code = generation_error_code(message)
+    if code in ("context_length_exceeded", "invalid_request"):
+        return ErrorInfo(
+            message=message, type="invalid_request_error", param="messages", code=code
+        )
+    return None
+
+
+class GenerationFailedError(ValueError):
+    """A generation that ended with an error, and the stable code saying why"""
+
+    def __init__(self, message: str):
+        super().__init__(message)
+        self.code: GenerationErrorCode | None = generation_error_code(message)
+
+
+# The HTTP status of a whole response whose generation failed, for the errors that aren't
+# the server's fault (500 otherwise)
+_STATUS_OF_CODE: dict[GenerationErrorCode, HTTPStatus] = {
+    # No ready instance by the time the request reached the master
+    "model_not_ready": HTTPStatus.SERVICE_UNAVAILABLE,
+}
 
 
 class CollectedResponse(StreamingResponse):
@@ -20,14 +48,26 @@ class CollectedResponse(StreamingResponse):
         try:
             body = "".join([chunk async for chunk in self._collect()])
         except ValueError as error:
-            self.status_code = HTTPStatus.INTERNAL_SERVER_ERROR
+            if (info := request_error(str(error))) is not None:
+                self.status_code = HTTPStatus.BAD_REQUEST
+                body = ErrorResponse(error=info).model_dump_json()
+                await self._send(send, body)
+                return
+            code = error.code if isinstance(error, GenerationFailedError) else None
+            status = (
+                _STATUS_OF_CODE.get(code, HTTPStatus.INTERNAL_SERVER_ERROR)
+                if code is not None
+                else HTTPStatus.INTERNAL_SERVER_ERROR
+            )
+            self.status_code = status
             body = ErrorResponse(
                 error=ErrorInfo(
-                    message=str(error),
-                    type=HTTPStatus.INTERNAL_SERVER_ERROR.phrase,
-                    code=HTTPStatus.INTERNAL_SERVER_ERROR,
+                    message=str(error), type=status.phrase, code=code or status
                 )
             ).model_dump_json()
+        await self._send(send, body)
+
+    async def _send(self, send: Send, body: str) -> None:
         content = body.encode(self.charset)
         await send(
             {
