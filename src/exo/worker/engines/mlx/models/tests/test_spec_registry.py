@@ -85,6 +85,13 @@ def _main_eos_token_ids(model_id: str) -> list[int] | None:
     # Changed on purpose: Laguna is new.
     elif "/laguna-" in model_id_lower:
         return [2, 24]
+    # Changed on purpose: Inkling is new.
+    elif "inkling" in model_id_lower:
+        return [200006]
+    # Changed on purpose: Llama 3.x stops at <|eom_id|> and <|end_of_text|> too, as its
+    # config.json says.
+    elif "llama-3." in model_id_lower or "llama-3-" in model_id_lower:
+        return [128001, 128008, 128009]
     return None
 
 

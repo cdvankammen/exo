@@ -67,6 +67,7 @@ from exo.worker.engines.mlx.models.laguna.sharding import (
     fix_pipeline_shard as laguna_fixup,
 )
 from exo.worker.engines.mlx.models.hy_v3.model import Model as HyV3Model
+from exo.worker.engines.mlx.models.llama.parser import parse_llama3
 from exo.worker.engines.mlx.models.minimax.parser import parse_minimax_m3
 from exo.worker.engines.mlx.models.nemotron_h.sharding import (
     fix_pipeline_shard as nemotron_h_fixup,
@@ -155,6 +156,10 @@ def _main_output_parser(
     # Changed on purpose: MiniMax M3 is new.
     elif issubclass(model_class, MiniMaxM3Model):
         return ("parse_minimax_m3", False)
+    # Changed on purpose: Llama 3's tool calls (only on prompts in its ipython
+    # environment, which applies_to_prompt checks).
+    elif issubclass(model_class, LlamaModel):
+        return ("parse_llama3", True)
     return None
 
 
@@ -292,6 +297,7 @@ def _parser_name(parse: object) -> str:
         ("parse_deepseek_v32", parse_deepseek_v32),
         ("parse_deepseek_v4", parse_deepseek_v4),
         ("parse_minimax_m3", parse_minimax_m3),
+        ("parse_llama3", parse_llama3),
     ):
         if parse is function:
             return name
@@ -399,7 +405,17 @@ def test_model_id_hooks_are_unchanged(model_id: str) -> None:
         assert encoder is families_with_encoders[family_name]
 
     hooks = registry.template_messages_hooks_for(task)
-    assert len(hooks) == (1 if _main_prepares_gpt_oss_messages(model_id) else 0)
+    # Changed on purpose: Inkling is new (its hook opens a text message for a prefill).
+    inkling = "inkling" in model_id.lower()
+    # Changed on purpose: Llama 3's hook splits parallel tool calls in the history (not
+    # for Nemotron Nano, whose template renders several calls in one message).
+    llama_3 = (
+        any(s in model_id.lower() for s in ("llama-3.", "llama-3-"))
+        and "nemotron-nano" not in model_id.lower()
+    )
+    assert len(hooks) == (
+        1 if _main_prepares_gpt_oss_messages(model_id) or inkling or llama_3 else 0
+    )
 
     loader = registry.tokenizer_loader_for(ModelId(model_id))
     assert (loader is not None) == (
