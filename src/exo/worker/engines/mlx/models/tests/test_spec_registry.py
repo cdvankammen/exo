@@ -92,6 +92,9 @@ def _main_eos_token_ids(model_id: str) -> list[int] | None:
     # config.json says.
     elif "llama-3." in model_id_lower or "llama-3-" in model_id_lower:
         return [128001, 128008, 128009]
+    # Changed on purpose: Muse Spark is new.
+    elif "muse-spark" in model_id_lower:
+        return [200001, 200008]
     return None
 
 
