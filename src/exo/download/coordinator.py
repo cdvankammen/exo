@@ -61,6 +61,9 @@ class DownloadCoordinator:
 
     _tg: TaskGroup = field(init=False, default_factory=TaskGroup)
     _stopped: anyio.Event = field(init=False, default_factory=anyio.Event)
+    # Cleared once the node announces it is leaving: a status applied after its departure
+    # would list it in the cluster's downloads again
+    _reporting: bool = field(init=False, default=True)
 
     # Per-model throttle for download progress events
     _last_progress_time: dict[ModelId, float] = field(default_factory=dict)
@@ -164,6 +167,18 @@ class DownloadCoordinator:
         self._tg.cancel_tasks()
         await self._stopped.wait()
 
+    def stop_reporting(self) -> None:
+        """Stop sending download statuses: this node is leaving the cluster."""
+        self._reporting = False
+
+    async def reannounce(self) -> None:
+        """Send every status again, e.g. to a new master whose state may lack them."""
+        for model in list(self._models.values()):
+            if model.status is not None:
+                await self._send(model.status)
+
+    # --- commands --------------------------------------------------------------------
+
     async def _command_processor(self) -> None:
         with self.download_command_receiver as commands:
             async for cmd in commands:
@@ -238,9 +253,36 @@ class DownloadCoordinator:
                 return
             return
 
-        # Emit pending status
-        progress = DownloadPending(
-            shard_metadata=shard,
+    # --- statuses ----------------------------------------------------------------------
+
+    async def _settle(self, model: _Model, status: DownloadProgress) -> None:
+        model.status = status
+        await self._send(status)
+
+    async def _send(self, status: DownloadProgress) -> None:
+        if not self._reporting:
+            return
+        try:
+            await self.event_sender.send(NodeDownloadProgress(download_progress=status))
+        except (BrokenResourceError, ClosedResourceError):
+            logger.debug("Event stream closed; dropping a download status")
+
+    def _directory(self, model: _Model) -> str:
+        running = model.running
+        if running is not None and running.progress.model_dir is not None:
+            return str(running.progress.model_dir)
+        if model.status is not None and model.status.model_directory:
+            return str(model.status.model_directory)
+        return str(store.default_dir() / model.shard.model_card.model_id.normalize())
+
+    def _completed(self, model: _Model, directory: Path) -> DownloadCompleted:
+        manifest = store.read_manifest(directory)
+        total = (
+            Memory.from_bytes(manifest.total)
+            if manifest is not None
+            else model.shard.model_card.storage_size
+        )
+        return DownloadCompleted(
             node_id=self.node_id,
             model_directory=self._default_model_dir(model_id),
         )

@@ -105,6 +105,19 @@ class Worker:
         )
         self._stopped: anyio.Event = anyio.Event()
 
+        # The latest information of each kind gathered about this node, so that a new
+        # master can be told all of it: some of it is only gathered once
+        self._gathered: dict[type[GatheredInfo], GatheredInfo] = {}
+        # After a change of master, the session whose state this worker waits for before
+        # acting on the cluster state again
+        self._awaiting_state_of: SessionId | None = None
+        # The session of the last state snapshot applied
+        self._snapshot_session: SessionId | None = None
+        # Cleared once the node announces it is leaving: what it reports about itself after
+        # that (its info, its connections, a model it found on disk) would add it back to the
+        # cluster's state
+        self._reporting = True
+
     async def run(self):
         logger.info("Starting Worker")
 
@@ -137,16 +150,28 @@ class Worker:
     async def _forward_info(self, recv: Receiver[GatheredInfo]):
         with recv as info_stream:
             async for info in info_stream:
-                try:
-                    await self.event_sender.send(
-                        NodeGatheredInfo(
-                            node_id=self.node_id,
-                            when=str(datetime.now(tz=timezone.utc)),
-                            info=info,
-                        )
-                    )
-                except (anyio.BrokenResourceError, anyio.ClosedResourceError):
-                    return
+                self._gathered[type(info)] = info
+                await self._send_info(info)
+
+    def stop_reporting(self) -> None:
+        """Stop telling the cluster about this node, which is leaving it."""
+        self._reporting = False
+
+    async def _report(
+        self, event: NodeGatheredInfo | TopologyEdgeCreated | NodeDownloadProgress
+    ) -> None:
+        """Send an event about this node, unless it is leaving the cluster."""
+        if self._reporting:
+            await self.event_sender.send(event)
+
+    async def _send_info(self, info: GatheredInfo) -> None:
+        await self._report(
+            NodeGatheredInfo(
+                node_id=self.node_id,
+                when=str(datetime.now(tz=timezone.utc)),
+                info=info,
+            )
+        )
 
     async def _event_applier(self):
         with self.event_receiver as events:
@@ -268,7 +293,7 @@ class Worker:
                     )
                     if found_path is not None:
                         logger.info(f"Model {model_id} found at {found_path}")
-                        await self.event_sender.send(
+                        await self._report(
                             NodeDownloadProgress(
                                 download_progress=DownloadCompleted(
                                     node_id=self.node_id,
@@ -447,7 +472,7 @@ class Worker:
                 old_conn = existing_edges.get(edge)
                 if old_conn is None:
                     logger.debug(f"ping discovered {edge=}")
-                    await self.event_sender.send(
+                    await self._report(
                         TopologyEdgeCreated(
                             conn=Connection(source=self.node_id, sink=nid, edge=edge)
                         )
