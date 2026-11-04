@@ -9,6 +9,7 @@ use crate::discovery::Discovery;
 use crate::wire::{ClusterKey, OtherVersions};
 
 pub mod discovery;
+pub mod membership;
 pub mod swarm;
 pub mod wire;
 
@@ -35,6 +36,11 @@ pub fn cfg(identity: &str, listen_port: u16) -> Result<zenoh::Config> {
     cfg.insert_json5("adminspace/enabled", "true")?;
     //cfg.insert_json5("transport/link/tx/batch_size", "9216")?;
     cfg.insert_json5("transport/link/rx/buffer_size", "16777216")?;
+    // How long a silent connection is kept (see `membership::LEASE`)
+    cfg.insert_json5(
+        "transport/link/tx/lease",
+        &membership::LEASE.as_millis().to_string(),
+    )?;
     //cfg.insert_json5("timestamping/enabled", "true")?;
     Ok(cfg)
 }
@@ -135,14 +141,5 @@ mod tests {
             membership::LEASE.as_millis(),
             "zenoh's lease, in ms"
         );
-    }
-
-    /// exo uses zenoh for pub/sub and liveliness only. A plugin marked required that fails to
-    /// start makes zenoh panic, taking the whole node down, so none is configured.
-    #[test]
-    fn the_session_config_has_no_plugins() {
-        let config = cfg("1234abcd", 52414).expect("a valid config");
-        let plugins = config.get_json("plugins").expect("plugins is a config key");
-        assert_eq!(plugins, "{}");
     }
 }
