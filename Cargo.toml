@@ -49,8 +49,6 @@ env_logger = "0.11.10"
 
 # networking
 zenoh = "=1.9.0"
-zenoh-plugin-storage-manager = { version = "=1.9.0", default-features = false }
-zenoh-plugin-trait = "=1.9.0"
 netwatcher = "0.6.0"
 bytemuck = "1.25.0"
 blake3 = "1.8.5"
@@ -78,7 +76,6 @@ zenoh-link-udp = { git = "https://github.com/evanev7/zenoh.git", branch = "exo" 
 zenoh-link-unixsock_stream = { git = "https://github.com/evanev7/zenoh.git", branch = "exo" }
 zenoh-link-ws = { git = "https://github.com/evanev7/zenoh.git", branch = "exo" }
 zenoh-macros = { git = "https://github.com/evanev7/zenoh.git", branch = "exo" }
-zenoh-plugin-trait = { git = "https://github.com/evanev7/zenoh.git", branch = "exo" }
 zenoh-protocol = { git = "https://github.com/evanev7/zenoh.git", branch = "exo" }
 zenoh-result = { git = "https://github.com/evanev7/zenoh.git", branch = "exo" }
 zenoh-runtime = { git = "https://github.com/evanev7/zenoh.git", branch = "exo" }
@@ -86,7 +83,6 @@ zenoh-sync = { git = "https://github.com/evanev7/zenoh.git", branch = "exo" }
 zenoh-task = { git = "https://github.com/evanev7/zenoh.git", branch = "exo" }
 zenoh-transport = { git = "https://github.com/evanev7/zenoh.git", branch = "exo" }
 zenoh-util = { git = "https://github.com/evanev7/zenoh.git", branch = "exo" }
-zenoh_backend_traits = { git = "https://github.com/evanev7/zenoh.git", branch = "exo" }
 
 [workspace.lints.rust]
 static_mut_refs = "warn"      # Or use "warn" instead of deny
