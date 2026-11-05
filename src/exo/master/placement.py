@@ -18,7 +18,6 @@ from exo.shared.types.backends import Backend
 from exo.shared.types.commands import (
     CancelDownload,
     CreateInstance,
-    DeleteInstance,
     DownloadCommand,
     PlaceInstance,
 )
@@ -27,6 +26,7 @@ from exo.shared.types.events import (
     Event,
     InstanceCreated,
     InstanceDeleted,
+    TaskStatusUpdated,
 )
 from exo.shared.types.memory import Memory
 from exo.shared.types.profiling import (
@@ -36,6 +36,7 @@ from exo.shared.types.profiling import (
     NodeRdmaCtlStatus,
 )
 from exo.shared.types.state import State
+from exo.shared.types.tasks import Task, TaskId, TaskStatus
 from exo.shared.types.worker.downloads import (
     DownloadCompleted,
     DownloadFailed,
@@ -47,6 +48,7 @@ from exo.shared.types.worker.instances import (
     Instance,
     InstanceId,
     InstanceMeta,
+    InstanceRemovalReason,
     MlxJacclInstance,
     MlxRingInstance,
 )
@@ -548,41 +550,32 @@ def place_instance(
     return target_instances
 
 
-def delete_instance(
-    command: DeleteInstance,
-    current_instances: Mapping[InstanceId, Instance],
-) -> dict[InstanceId, Instance]:
-    target_instances = dict(deepcopy(current_instances))
-    if command.instance_id in target_instances:
-        del target_instances[command.instance_id]
-        return target_instances
-    raise ValueError(f"Instance {command.instance_id} not found")
-
-
 def get_transition_events(
     current_instances: Mapping[InstanceId, Instance],
     target_instances: Mapping[InstanceId, Instance],
 ) -> Sequence[Event]:
-    events: list[Event] = []
+    """The events that create the instances a placement added. A placement only adds:
+    instances are removed with removal_events, which says why."""
+    return [
+        InstanceCreated(instance=instance)
+        for instance_id, instance in target_instances.items()
+        if instance_id not in current_instances
+    ]
 
-    # find instances to create
-    for instance_id, instance in target_instances.items():
-        if instance_id not in current_instances:
-            events.append(
-                InstanceCreated(
-                    instance=instance,
-                )
-            )
 
-    # find instances to delete: their requests end on the nodes serving them
-    for instance_id in current_instances:
-        if instance_id not in target_instances:
-            events.append(
-                InstanceDeleted(
-                    instance_id=instance_id,
-                )
-            )
-
+def removal_events(
+    instance_id: InstanceId,
+    reason: InstanceRemovalReason,
+    tasks: Mapping[TaskId, Task],
+) -> Sequence[Event]:
+    """Remove an instance, cancelling the requests it had not finished first."""
+    events: list[Event] = [
+        TaskStatusUpdated(task_status=TaskStatus.Cancelled, task_id=task.task_id)
+        for task in tasks.values()
+        if task.instance_id == instance_id
+        and task.task_status in (TaskStatus.Pending, TaskStatus.Running)
+    ]
+    events.append(InstanceDeleted(instance_id=instance_id, reason=reason))
     return events
 
 

@@ -176,12 +176,9 @@ class Node:
                 download_command_sender=router.sender(topics.DOWNLOAD_COMMANDS),
                 election_receiver=router.receiver(topics.ELECTION_MESSAGES),
                 membership=membership,
-<<<<<<< HEAD
-=======
                 devices_on_other_versions=router.devices_on_other_versions,
                 serving_host=worker.serving if worker is not None else None,
                 serving_reachability=serving_reachability,
->>>>>>> 6cbb23a1 (Serve requests without the master: each request streams over HTTP from the device that runs it)
             )
         else:
             api = None

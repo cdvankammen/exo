@@ -10,11 +10,8 @@ import anyio
 
 from exo.master.main import Master
 from exo.routing.router import get_node_zid
-<<<<<<< HEAD
 from exo.routing.tests.fake_membership import FakeMembership
 from exo.shared.types.chunks import InputImageChunk
-=======
->>>>>>> 6cbb23a1 (Serve requests without the master: each request streams over HTTP from the device that runs it)
 from exo.shared.types.commands import (
     ForwarderCommand,
     ForwarderDownloadCommand,

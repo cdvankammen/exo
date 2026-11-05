@@ -82,8 +82,6 @@ class TensorShardMetadata(BaseShardMetadata):
 ShardMetadata: TypeAlias = (
     PipelineShardMetadata | CfgShardMetadata | TensorShardMetadata
 )
-<<<<<<< HEAD
-=======
 
 
 def is_primary_output_shard(shard: ShardMetadata) -> bool:
@@ -108,4 +106,3 @@ def whole_model_shard(card: ModelCard) -> PipelineShardMetadata:
         end_layer=card.n_layers,
         n_layers=card.n_layers,
     )
->>>>>>> 6cbb23a1 (Serve requests without the master: each request streams over HTTP from the device that runs it)

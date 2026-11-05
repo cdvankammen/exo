@@ -9,9 +9,9 @@ from exo.master.placement import (
     InstanceDoesNotFitError,
     add_instance_to_placements,
     cancel_unnecessary_downloads,
-    delete_instance,
     get_transition_events,
     place_instance,
+    removal_events,
 )
 from exo.routing.event_router import (
     EventRouterBrokenResourceError,
@@ -25,7 +25,6 @@ from exo.routing.membership import (
     reachable_topology,
 )
 from exo.shared.apply import apply
->>>>>>> 6cbb23a1 (Serve requests without the master: each request streams over HTTP from the device that runs it)
 from exo.shared.types.commands import (
     AddCustomModelCard,
     CreateInstance,
@@ -35,6 +34,9 @@ from exo.shared.types.commands import (
     DownloadCommand,
     ForwarderCommand,
     ForwarderDownloadCommand,
+    ImageEdits,
+    ImageGeneration,
+    InstanceBroken,
     PlaceInstance,
     RequestEventLog,
     SetInstanceLink,
@@ -76,7 +78,6 @@ REPLAY_BATCH_SIZE = 1000
 PROCESSED_COMMANDS_KEPT = 100_000
 
 
-<<<<<<< HEAD
 def nodes_to_remove(listed: AbstractSet[NodeId], view: MembershipView) -> set[NodeId]:
     """The listed nodes the coordinator removes now, and whose instances it ends: those Gone in
     its own membership view (Suspect for the grace period, or listed and never seen for as
@@ -117,7 +118,6 @@ class NoInstanceForModelError(Exception):
         self.model = ModelId(model)
 
 
-=======
 class Master:
     def __init__(
         self,
@@ -225,16 +225,21 @@ class Master:
                                 f"Not deleting instance {command.instance_id}: already gone"
                             )
                         case DeleteInstance():
-                            placement = delete_instance(command, self.state.instances)
-                            transition_events = get_transition_events(
-                                self.state.instances, placement
-                            )
+                            remaining = {
+                                instance_id: instance
+                                for instance_id, instance in self.state.instances.items()
+                                if instance_id != command.instance_id
+                            }
                             download_commands.extend(
                                 cancel_unnecessary_downloads(
-                                    placement, self.state.downloads
+                                    remaining, self.state.downloads
                                 )
                             )
-                            generated_events.extend(transition_events)
+                            generated_events.extend(
+                                removal_events(
+                                    command.instance_id, "UserStopped", self.state.tasks
+                                )
+                            )
                         case PlaceInstance():
                             placement = place_instance(
                                 command,
@@ -281,6 +286,60 @@ class Master:
                                 self.state.instances, placement
                             )
                             generated_events.extend(transition_events)
+                        case InstanceBroken() if (
+                            command.instance_id not in self.state.instances
+                        ):
+                            # Already gone: a late request from a worker changes nothing
+                            logger.info(
+                                f"Instance {command.instance_id} ({command.reason}) is "
+                                "already gone"
+                            )
+                        case InstanceBroken():
+                            logger.warning(
+                                f"Removing instance {command.instance_id} ({command.reason})"
+                                + (f": {command.message}" if command.message else "")
+                            )
+                            generated_events.extend(
+                                removal_events(
+                                    command.instance_id,
+                                    command.reason,
+                                    self.state.tasks,
+                                )
+                            )
+                        case SendInputChunk(chunk=chunk):
+                            generated_events.append(
+                                InputChunkReceived(
+                                    command_id=chunk.command_id,
+                                    chunk=chunk,
+                                )
+                            )
+                        case TaskCancelled():
+                            if (
+                                task_id := task_for_command(
+                                    self.state, command.cancelled_command_id
+                                )
+                            ) is not None:
+                                generated_events.append(
+                                    TaskStatusUpdated(
+                                        task_status=TaskStatus.Cancelled,
+                                        task_id=task_id,
+                                    )
+                                )
+                            else:
+                                logger.warning(
+                                    f"Nonexistent command {command.cancelled_command_id} cancelled"
+                                )
+                        case TaskFinished():
+                            # The API resends a finish while the task is still in its state,
+                            # so a finish for a task already deleted is expected
+                            if (
+                                task_id := task_for_command(
+                                    self.state, command.finished_command_id
+                                )
+                            ) is not None:
+                                generated_events.append(TaskDeleted(task_id=task_id))
+
+
                         case AddCustomModelCard():
                             generated_events.append(
                                 CustomModelCardAdded(model_card=command.model_card)
@@ -326,69 +385,6 @@ class Master:
                 except Exception as e:
                     logger.opt(exception=e).warning("Error in command processor")
 
-<<<<<<< HEAD
-    def _least_busy_instance(
-        self, model: str, excluded: AbstractSet[InstanceId] = frozenset()
-    ) -> InstanceId:
-        """The ready instance of the model with the fewest requests in flight.
-
-        Instances with a node this node can't reach now, as its membership sees it, are left
-        out: their output can't arrive. The API that sent the request checked the same on its
-        own view; this is the backstop for views that differ. A request whose model has only
-        such instances ends at once.
-
-        So are instances that aren't ready (downloading, loading, failed): the API waits for
-        a model to be ready before sending a request, but with several instances of a model,
-        one may be ready and another not.
-        """
-        in_flight = {TaskStatus.Pending, TaskStatus.Running}
-        of_model = [
-            instance
-            for instance_id, instance in self.state.instances.items()
-            if instance.shard_assignments.model_id == model
-            and instance_id not in excluded
-        ]
-        if not of_model:
-            # The API sends a request only for a model it saw an instance of, so the instance
-            # was deleted (the model stopped, or a node lost) after the API looked
-            raise NoInstanceForModelError(model, INSTANCE_GONE_BEFORE_START)
-        reachable = [
-            instance
-            for instance in of_model
-            if instance_is_reachable(self.membership, instance)
-        ]
-        if not reachable:
-            raise NoInstanceForModelError(model, DEVICE_UNREACHABLE)
-        ready = [
-            instance.instance_id
-            for instance in reachable
-            if instance_is_ready(instance, self.state.runners)
-        ]
-        if not ready:
-            not_ready = [
-                status
-                for instance in reachable
-                if (status := instance_readiness(self.state, instance)) is not None
-            ]
-            raise NoInstanceForModelError(
-                model,
-                min(
-                    not_ready,
-                    key=lambda status: (status.failed, status.retry_after_seconds),
-                ).message,
-            )
-        task_counts: dict[InstanceId, int] = {
-            instance_id: sum(
-                1
-                for task in self.state.tasks.values()
-                if task.instance_id == instance_id and task.task_status in in_flight
-            )
-            for instance_id in ready
-        }
-        return min(task_counts, key=lambda instance_id: task_counts[instance_id])
-
-=======
->>>>>>> 6cbb23a1 (Serve requests without the master: each request streams over HTTP from the device that runs it)
     # These plan loops are the cracks showing in our event sourcing architecture - more things could be commands
     async def _plan(self) -> None:
         while True:
@@ -423,7 +419,7 @@ class Master:
                 node_id not in connected
                 for node_id in instance.shard_assignments.node_to_runner
             ):
-                self._index(InstanceDeleted(instance_id=instance_id))
+                self._index(InstanceDeleted(instance_id=instance_id, reason="NodeLost"))
 
     def _on_node_removed(self, node_id: NodeId) -> None:
         # Only for a removal a node sent: it announced it was leaving. The ones this master

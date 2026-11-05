@@ -185,11 +185,11 @@ from exo.shared.models.model_cards import (
     ModelTask,
 )
 from exo.shared.request_errors import (
-    DEVICE_DISCONNECTED,
     DEVICE_UNREACHABLE,
+    INSTANCE_GONE_BEFORE_START,
     INTERRUPTED,
-    MODEL_NOT_READY,
     GenerationErrorCode,
+    removal_message,
 )
 from exo.shared.serving import (
     NoInstanceForModelError,
@@ -222,6 +222,7 @@ from exo.shared.types.commands import (
 )
 from exo.shared.types.common import CommandId, Id, NodeId, SessionId, SystemId
 from exo.shared.types.events import (
+    InstanceDeleted,
     StateSnapshot,
     TraceEventData,
     TracesCollected,
@@ -2174,6 +2175,50 @@ class API:
                 self._note_applied_cluster_commands()
                 if isinstance(i_event.event, TracesCollected):
                     self._collect_traces(i_event.event)
+                event = i_event.event
+
+                if isinstance(event, TaskCreated) and isinstance(
+                    event.task,
+                    (TextGenerationTask, ImageGenerationTask, ImageEditsTask),
+                ):
+                    self._mark_accepted(event.task.command_id)
+                    if event.task_id not in self.state.tasks:
+                        await self._end_request_not_started(event.task)
+                    elif (
+                        instance := self.state.instances.get(event.task.instance_id)
+                    ) is not None and not instance_is_reachable(
+                        self.membership, instance
+                    ):
+                        # The master chose it on its own view; this node can't reach one of
+                        # its devices, so the output couldn't arrive
+                        self._close_streams_for_instance(
+                            instance.instance_id, DEVICE_UNREACHABLE
+                        )
+                if isinstance(event, ChunkGenerated):
+                    self._mark_accepted(event.command_id)
+                    if queue := self._image_generation_queues.get(
+                        event.command_id, None
+                    ):
+                        # Image runners report failures as ErrorChunks
+                        assert isinstance(event.chunk, (ImageChunk, ErrorChunk))
+                        try:
+                            await queue.send(event.chunk)
+                        except (BrokenResourceError, ClosedResourceError):
+                            self._image_generation_queues.pop(event.command_id, None)
+                    if queue := self._text_generation_queues.get(
+                        event.command_id, None
+                    ):
+                        assert not isinstance(event.chunk, ImageChunk)
+                        try:
+                            await queue.send(event.chunk)
+                        except (BrokenResourceError, ClosedResourceError):
+                            self._text_generation_queues.pop(event.command_id, None)
+                if isinstance(event, InstanceDeleted):
+                    self._close_streams_for_instance(
+                        event.instance_id, removal_message(event.reason)
+                    )
+                if isinstance(event, TracesMerged):
+                    self._save_merged_trace(event)
 
     def _apply_snapshot(self, snapshot: StateSnapshot) -> None:
         # Requests in flight carry on: their output doesn't come through here
@@ -2205,6 +2250,65 @@ class API:
             return
         del self._pending_traces[event.task_id]
         del self._trace_ranks[event.task_id]
+
+    async def _end_request_not_started(
+        self, task: TextGenerationTask | ImageGenerationTask | ImageEditsTask
+    ) -> None:
+        """End a request whose task the cluster didn't add, its instance having been deleted
+        just before. The deletion ended the instance's requests before this one had a task,
+        and nothing else would end it."""
+        text_queue = self._text_generation_queues.get(task.command_id)
+        image_queue = self._image_generation_queues.get(task.command_id)
+        if text_queue is None and image_queue is None:
+            return  # sent through another node's API
+        logger.warning(
+            f"Ending request {task.command_id}: it reached instance {task.instance_id} "
+            "after the instance was deleted"
+        )
+        error = ErrorChunk(
+            model=ModelId(task.task_params.model),
+            error_message=INSTANCE_GONE_BEFORE_START,
+        )
+        with contextlib.suppress(BrokenResourceError, ClosedResourceError):
+            if text_queue is not None:
+                await text_queue.send(error)
+            if image_queue is not None:
+                await image_queue.send(error)
+
+    def _close_streams_for_instance(
+        self,
+        instance_id: InstanceId,
+        reason: str = INTERRUPTED,
+    ) -> None:
+        """Close any active generation streams for commands running on the given instance."""
+        for task in self.state.tasks.values():
+            if task.instance_id != instance_id:
+                continue
+            if not isinstance(
+                task, (TextGenerationTask, ImageGenerationTask, ImageEditsTask)
+            ):
+                continue
+            if sender := self._text_generation_queues.pop(task.command_id, None):
+                self._stream_end_reasons[task.command_id] = reason
+                sender.close()
+            if sender := self._image_generation_queues.pop(task.command_id, None):
+                self._stream_end_reasons[task.command_id] = reason
+                sender.close()
+
+    async def _end_requests_on_unreachable_nodes(self) -> None:
+        """End the requests running on an instance with a device this node can no longer
+        reach (it left Alive in this node's membership view), at once: their output can't
+        arrive, and the device may be back within the grace period or be removed only after
+        it. New requests skip such instances (see _reachable_model_readiness)."""
+        with self.membership.watch() as unreachable_nodes:
+            async for node_id in unreachable_nodes:
+                for instance_id, instance in self.state.instances.items():
+                    if node_id in instance.shard_assignments.node_to_runner:
+                        self._close_streams_for_instance(
+                            instance_id, DEVICE_UNREACHABLE
+                        )
+
+    def _save_merged_trace(self, event: TracesMerged) -> None:
         traces = [
             TraceEvent(
                 name=trace.name,
