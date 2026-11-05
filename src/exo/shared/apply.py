@@ -1,16 +1,28 @@
 import copy
-from collections.abc import Mapping, Sequence
+from collections.abc import Callable, Mapping, Sequence
 from datetime import datetime
 
 from loguru import logger
 
 from exo.shared.models.model_cards import ModelCard
-from exo.shared.types.common import ModelId, NodeId
+from exo.shared.types.common import DeploymentId, ModelId, NodeId
+from exo.shared.types.deployments import (
+    CRASH_LOOP_WINDOW,
+    REMOVED_DEPLOYMENTS_KEPT,
+    Deployment,
+)
 from exo.shared.types.events import (
+    ChunkGenerated,
     CustomModelCardAdded,
     CustomModelCardDeleted,
+    DeploymentCreated,
+    DeploymentHeld,
+    DeploymentRemoved,
+    DeploymentResumed,
+    DeploymentStatus,
     Event,
     IndexedEvent,
+    InputChunkReceived,
     InstanceCreated,
     InstanceDeleted,
     InstanceLinkCreated,
@@ -28,6 +40,7 @@ from exo.shared.types.events import (
     TopologyEdgeCreated,
     TopologyEdgeDeleted,
     TracesCollected,
+    TracesMerged,
 )
 from exo.shared.types.instance_link import InstanceLink, InstanceLinkId
 from exo.shared.types.profiling import (
@@ -39,12 +52,15 @@ from exo.shared.types.profiling import (
 )
 from exo.shared.types.state import State
 from exo.shared.types.tasks import (
+    ImageEdits,
+    ImageGeneration,
     Task,
     TaskId,
     TaskStatus,
+    TextGeneration,
 )
 from exo.shared.types.topology import Connection, RDMAConnection
-from exo.shared.types.worker.downloads import DownloadProgress
+from exo.shared.types.worker.downloads import DownloadProgress, is_not_on_disk
 from exo.shared.types.worker.instances import Instance, InstanceId
 from exo.shared.types.worker.runners import (
     RunnerId,
@@ -84,7 +100,12 @@ def event_apply(event: Event, state: State) -> State:
     """Apply an event to state."""
     match event:
         case (
-            TestEvent() | TaskAcknowledged() | TracesCollected()
+            TestEvent()
+            | ChunkGenerated()
+            | TaskAcknowledged()
+            | InputChunkReceived()
+            | TracesCollected()
+            | TracesMerged()
         ):  # Pass-through events that don't modify state
             return state
         case CustomModelCardAdded():
@@ -95,6 +116,46 @@ def event_apply(event: Event, state: State) -> State:
             return apply_instance_created(event, state)
         case InstanceDeleted():
             return apply_instance_deleted(event, state)
+        case DeploymentCreated():
+            return apply_deployment_created(event, state)
+        case DeploymentRemoved():
+            return apply_deployment_removed(event, state)
+        case DeploymentHeld():
+            # A hold is the master's, not the user's: it leaves the revision as it is
+            return _update_deployment(
+                state,
+                event.deployment_id,
+                lambda deployment: {"hold": event.hold, "waiting": None},
+            )
+        case DeploymentResumed():
+            # A fresh start: what held it or made it wait, and the losses that count towards
+            # a crash loop, are cleared. One that failed to start isn't sent back to the
+            # nodes it failed on, and pins the user can't have now are dropped.
+            return _update_deployment(
+                state,
+                event.deployment_id,
+                lambda deployment: {
+                    "hold": None,
+                    "revision": deployment.revision + (1 if event.by_user else 0),
+                    "not_before": None,
+                    "losses": [],
+                    "waiting": None,
+                    "lost_at": event.at,
+                    "last_nodes": []
+                    if deployment.hold is not None
+                    and deployment.hold.kind == "StartFailed"
+                    else deployment.last_nodes,
+                    "spec": deployment.spec.model_copy(update={"pinned_nodes": []})
+                    if event.unpin
+                    else deployment.spec,
+                },
+            )
+        case DeploymentStatus():
+            return _update_deployment(
+                state,
+                event.deployment_id,
+                lambda _: {"waiting": event.waiting, "note": event.note},
+            )
         case NodeTimedOut():
             return apply_node_timed_out(event, state)
         case NodeDownloadProgress():
@@ -134,48 +195,61 @@ def apply(state: State, event: IndexedEvent) -> State:
 
 def apply_node_download_progress(event: NodeDownloadProgress, state: State) -> State:
     """
-    Update or add a node download progress to state.
+    Update or add a node download progress to state. A model that isn't on the node at
+    all (Pending with no bytes) is left out, and removed if it was listed.
     """
     dp = event.download_progress
     node_id = dp.node_id
 
     current = list(state.downloads.get(node_id, ()))
-
-    replaced = False
-    for i, existing_dp in enumerate(current):
-        # TODO(ciaran): deduplicate by model_id for now. Will need to use
-        # shard_metadata again when pipeline and tensor downloads differ.
-        # For now this is fine
-        if (
-            existing_dp.shard_metadata.model_card.model_id
+    # TODO(ciaran): deduplicate by model_id for now. Will need to use
+    # shard_metadata again when pipeline and tensor downloads differ.
+    # For now this is fine
+    listed = next(
+        (
+            i
+            for i, existing_dp in enumerate(current)
+            if existing_dp.shard_metadata.model_card.model_id
             == dp.shard_metadata.model_card.model_id
-        ):
-            current[i] = dp
-            replaced = True
-            break
-
-    if not replaced:
+        ),
+        None,
+    )
+    if is_not_on_disk(dp):
+        if listed is None:
+            return state
+        del current[listed]
+    elif listed is None:
         current.append(dp)
+    else:
+        current[listed] = dp
 
-    new_downloads: Mapping[NodeId, Sequence[DownloadProgress]] = {
-        **state.downloads,
-        node_id: current,
-    }
+    new_downloads: Mapping[NodeId, Sequence[DownloadProgress]] = (
+        {**state.downloads, node_id: current}
+        if current
+        else {key: value for key, value in state.downloads.items() if key != node_id}
+    )
     return state.model_copy(update={"downloads": new_downloads})
 
 
 def apply_task_created(event: TaskCreated, state: State) -> State:
     if event.task.instance_id not in state.instances:
-        # A worker's own task (stopping a runner, say) for an instance deleted just before: the
-        # deletion that removes an instance's tasks has already been applied, so only the
-        # worker's report that it finished would remove it, and a worker that stops first (its
-        # node quitting) never sends that. The worker carries the task out either way. Every
-        # normal stop leaves one of these (the Shutdown the worker plans because the instance
-        # left the state).
-        logger.debug(
+        # A task for an instance deleted just before. A request: nothing would ever run it,
+        # the deletion has already ended the instance's requests, and the API ends this one
+        # when it sees its task wasn't added. A worker's own task (cancelling a request,
+        # stopping a runner): the deletion that removes an instance's tasks has already been
+        # applied, so only the worker's report that it finished would remove it, and a worker
+        # that stops first (its node quitting) never sends that. The worker carries the task
+        # out either way. Every normal stop leaves one of these (the Shutdown the worker plans
+        # because the instance left the state), so only a request is worth a warning: it means
+        # a request raced the deletion of its instance.
+        message = (
             f"Not adding task {event.task_id}: its instance "
             f"{event.task.instance_id} no longer exists"
         )
+        if _is_generation(event.task):
+            logger.warning(message)
+        else:
+            logger.debug(message)
         return state
     new_tasks: Mapping[TaskId, Task] = {**state.tasks, event.task_id: event.task}
     return state.model_copy(update={"tasks": new_tasks})
@@ -188,16 +262,20 @@ def apply_task_deleted(event: TaskDeleted, state: State) -> State:
     return state.model_copy(update={"tasks": new_tasks})
 
 
+def _is_generation(task: Task) -> bool:
+    return isinstance(task, (TextGeneration, ImageGeneration, ImageEdits))
+
+
 def apply_task_status_updated(event: TaskStatusUpdated, state: State) -> State:
     if event.task_id not in state.tasks:
         # maybe should raise
         return state
 
     task = state.tasks[event.task_id]
-    if event.task_status == TaskStatus.Complete:
-        # A worker's own bookkeeping task (creating, loading or warming up a runner...) is
-        # of no further use once it completes, and nothing else removes it. (Requests are
-        # never in the state: exo.worker.serving.)
+    if event.task_status == TaskStatus.Complete and not _is_generation(task):
+        # A worker's own bookkeeping task (creating, loading or warming up a runner,
+        # cancelling a request...) is of no further use once it completes, and nothing
+        # else removes it. Generation tasks stay until their request is finished.
         new_tasks: Mapping[TaskId, Task] = {
             tid: t for tid, t in state.tasks.items() if tid != event.task_id
         }
@@ -233,7 +311,93 @@ def apply_instance_created(event: InstanceCreated, state: State) -> State:
         **state.instances,
         instance.instance_id: instance,
     }
-    return state.model_copy(update={"instances": new_instances})
+    state = state.model_copy(update={"instances": new_instances})
+    # Placed: nothing to wait for
+    return _update_deployment(
+        state,
+        instance.deployment_id,
+        lambda _: {
+            "not_before": None,
+            "waiting": None,
+            "lost_at": None,
+        },
+    )
+
+
+def apply_deployment_created(event: DeploymentCreated, state: State) -> State:
+    """A new deployment, or a node's record of one with a later change by the user (a resume):
+    that change wins, and clears what this master held it for. The master's own bookkeeping
+    (where it ran, losses) is kept. A stopped deployment never comes back."""
+    new = event.deployment
+    if new.deployment_id in state.removed_deployments:
+        return state
+    current = state.deployments.get(new.deployment_id)
+    if current is None:
+        return _with_deployments(state, {**state.deployments, new.deployment_id: new})
+    if new.revision <= current.revision:
+        return state
+    return _update_deployment(
+        state,
+        new.deployment_id,
+        lambda _: {
+            "revision": new.revision,
+            "spec": new.spec,
+            "model_card": new.model_card,
+            "hold": None,
+            "waiting": None,
+        },
+    )
+
+
+def apply_deployment_removed(event: DeploymentRemoved, state: State) -> State:
+    removed = sorted(
+        {**state.removed_deployments, event.deployment_id: event.at}.items(),
+        key=lambda item: item[1],
+    )[-REMOVED_DEPLOYMENTS_KEPT:]
+    return state.model_copy(
+        update={
+            "deployments": {
+                deployment_id: deployment
+                for deployment_id, deployment in state.deployments.items()
+                if deployment_id != event.deployment_id
+            },
+            "removed_deployments": dict(removed),
+        }
+    )
+
+
+def _with_deployments(
+    state: State, deployments: Mapping[DeploymentId, Deployment]
+) -> State:
+    return state.model_copy(update={"deployments": deployments})
+
+
+def _update_deployment(
+    state: State,
+    deployment_id: DeploymentId,
+    update: Callable[[Deployment], dict[str, object]],
+) -> State:
+    """The state with a deployment changed; unchanged if it doesn't have that deployment."""
+    deployment = state.deployments.get(deployment_id)
+    if deployment is None:
+        return state
+    return _with_deployments(
+        state,
+        {
+            **state.deployments,
+            deployment_id: deployment.model_copy(update=update(deployment)),
+        },
+    )
+
+
+def _losses_after(deployment: Deployment, event: InstanceDeleted) -> list[str]:
+    """The deployment's losses within CRASH_LOOP_WINDOW of this one, this one included."""
+    at = datetime.fromisoformat(event.at)
+    return [
+        loss
+        for loss in deployment.losses
+        if at - datetime.fromisoformat(loss) < CRASH_LOOP_WINDOW
+    ] + [event.at]
 
 
 def apply_instance_deleted(event: InstanceDeleted, state: State) -> State:
@@ -267,13 +431,13 @@ def apply_instance_deleted(event: InstanceDeleted, state: State) -> State:
                 update={"prefill_instances": prefill, "decode_instances": decode}
             )
     # The instance's bookkeeping tasks (e.g. a runner that failed to load) are of no use once
-    # it's gone
+    # it's gone. Its generation tasks stay: the API still looks them up to end their requests.
     new_tasks: Mapping[TaskId, Task] = {
         tid: task
         for tid, task in state.tasks.items()
-        if task.instance_id != event.instance_id
+        if task.instance_id != event.instance_id or _is_generation(task)
     }
-    return state.model_copy(
+    state = state.model_copy(
         update={
             "instances": new_instances,
             "instance_links": new_links,
@@ -281,6 +445,25 @@ def apply_instance_deleted(event: InstanceDeleted, state: State) -> State:
             "runners": new_runners,
             "prefill_server_ports": new_ports,
         }
+    )
+    if deleted is None:
+        return state
+    if event.reason == "Duplicate":
+        # Its deployment runs on as its other instance
+        return state
+    # Its deployment remembers where it ran, as a preference for its next placement. A lost
+    # node counts towards a crash loop: a model that takes its node down as it loads would
+    # otherwise be loaded again forever
+    return _update_deployment(
+        state,
+        deleted.deployment_id,
+        lambda deployment: {
+            "last_nodes": list(deleted.shard_assignments.node_to_runner),
+            "lost_at": event.at,
+            "losses": _losses_after(deployment, event)
+            if event.reason == "NodeLost"
+            else deployment.losses,
+        },
     )
 
 

@@ -3,7 +3,6 @@ was undone. A command that changed nothing (a launch onto a node outside the clu
 take effect when a copy comes."""
 
 from collections import deque
-from datetime import datetime, timezone
 
 import anyio
 import pytest
@@ -11,99 +10,35 @@ from loguru import logger
 
 import exo.master.main as master_main
 from exo.master.main import Master
-from exo.routing.router import get_node_zid
-from exo.shared.models.model_cards import ModelCard, ModelId, ModelTask
-from exo.shared.topology import Topology
-from exo.shared.types.backends import Backend
-from exo.shared.types.commands import (
-    CreateInstance,
-    DeleteInstance,
-    ForwarderCommand,
-    ForwarderDownloadCommand,
+from exo.master.tests.test_requests_to_deleted_instances import (
+    LOST_NODE,
+    NODE,
+    instance_on,
+    launch_of,
+    master_with,
 )
-from exo.shared.types.common import CommandId, NodeId, SessionId, SystemId
+from exo.routing.tests.fake_membership import FakeMembership
+from exo.shared.models.model_cards import ModelId
+from exo.shared.types.commands import DeleteDeployment, ForwarderCommand
+from exo.shared.types.common import CommandId, DeploymentId, SystemId
 from exo.shared.types.events import (
     Event,
     GlobalForwarderEvent,
     InstanceCreated,
     InstanceDeleted,
-    LocalForwarderEvent,
-    StateSnapshot,
 )
 from exo.shared.types.memory import Memory
 from exo.shared.types.profiling import MemoryUsage
 from exo.shared.types.state import State
-from exo.shared.types.worker.instances import InstanceId, MlxRingInstance
-from exo.shared.types.worker.runners import RunnerId, RunnerReady, ShardAssignments
-from exo.shared.types.worker.shards import PipelineShardMetadata
+from exo.shared.types.tasks import TaskId, TaskStatus
+from exo.shared.types.tasks import TextGeneration as TextGenerationTask
+from exo.shared.types.text_generation import (
+    InputMessage,
+    InputMessageContent,
+    TextGenerationTaskParams,
+)
+from exo.shared.types.worker.instances import InstanceId
 from exo.utils.channels import Receiver, channel
-
-MODEL = ModelId("test-model")
-NODE = NodeId("node")
-LOST_NODE = NodeId("lost-node")
-
-
-def instance_on(node: NodeId) -> MlxRingInstance:
-    card = ModelCard(
-        model_id=MODEL,
-        storage_size=Memory.from_mb(100),
-        n_layers=1,
-        hidden_size=64,
-        supports_tensor=False,
-        tasks=[ModelTask.TextGeneration],
-        backends=[Backend.MlxMetal],
-    )
-    runner = RunnerId()
-    return MlxRingInstance(
-        instance_id=InstanceId(),
-        shard_assignments=ShardAssignments(
-            model_id=MODEL,
-            runner_to_shard={
-                runner: PipelineShardMetadata(
-                    model_card=card,
-                    device_rank=0,
-                    world_size=1,
-                    start_layer=0,
-                    end_layer=1,
-                    n_layers=1,
-                )
-            },
-            node_to_runner={node: runner},
-        ),
-        hosts_by_node={},
-        ephemeral_port=50000,
-    )
-
-
-def master_with(
-    *instances: MlxRingInstance,
-) -> tuple[Master, Receiver[GlobalForwarderEvent]]:
-    """A master with the instances, ready, on a node it has just heard from, and what it
-    sends to every node."""
-    node_id = get_node_zid()
-    global_event_sender, broadcast = channel[GlobalForwarderEvent]()
-    topology = Topology()
-    topology.add_node(NODE)
-    master = Master(
-        node_id,
-        SessionId(master_node_id=node_id, election_clock=0),
-        command_receiver=channel[ForwarderCommand]()[1],
-        local_event_receiver=channel[LocalForwarderEvent]()[1],
-        global_event_sender=global_event_sender,
-        snapshot_sender=channel[StateSnapshot]()[0],
-        download_command_sender=channel[ForwarderDownloadCommand]()[0],
-        initial_state=State(
-            topology=topology,
-            last_seen={NODE: datetime.now(tz=timezone.utc)},
-            instances={instance.instance_id: instance for instance in instances},
-            runners={
-                runner: RunnerReady()
-                for instance in instances
-                for runner in instance.shard_assignments.runner_to_shard
-            },
-        ),
-    )
-    return master, broadcast
 
 
 def fresh_master() -> Master:
@@ -135,6 +70,30 @@ def test_only_recent_commands_are_remembered(monkeypatch: pytest.MonkeyPatch) ->
     assert not master._already_processed(oldest)  # pyright: ignore[reportPrivateUsage]
 
 
+def test_a_request_the_previous_master_accepted_is_not_processed_again() -> None:
+    master = fresh_master()
+    command_id = CommandId()
+    task_id = TaskId()
+    master.state = State(
+        tasks={
+            task_id: TextGenerationTask(
+                task_id=task_id,
+                command_id=command_id,
+                instance_id=InstanceId(),
+                task_status=TaskStatus.Running,
+                task_params=TextGenerationTaskParams(
+                    model=ModelId("test-model"),
+                    input=[
+                        InputMessage(role="user", content=InputMessageContent("hi"))
+                    ],
+                ),
+            )
+        }
+    )
+
+    assert master._already_processed(command_id)  # pyright: ignore[reportPrivateUsage]
+
+
 def master_with_room() -> tuple[Master, Receiver[GlobalForwarderEvent]]:
     """A master whose nodes, the dropped one included, have reported room for a launch."""
     master, broadcast = master_with()
@@ -160,12 +119,12 @@ async def next_event[T: Event](
             return event
 
 
-async def test_a_copy_of_a_launch_after_its_instance_was_stopped_is_ignored() -> None:
+async def test_a_copy_of_a_launch_after_its_model_was_stopped_is_ignored() -> None:
     """The API sends a launch again until its own node's state shows it, under the same id,
     so a node that lags sends copies after the master placed it. One arriving after the
-    instance was stopped (through another node) must not bring it back."""
+    model was stopped (through another node) must not bring it back."""
     master, events = master_with_room()
-    launch = CreateInstance(instance=instance_on(NODE))
+    launch = launch_of(instance_on(NODE))
     commands_sender, master.command_receiver = channel[ForwarderCommand]()
     async with anyio.create_task_group() as tg:
         tg.start_soon(master._command_processor)  # pyright: ignore[reportPrivateUsage]
@@ -173,7 +132,7 @@ async def test_a_copy_of_a_launch_after_its_instance_was_stopped_is_ignored() ->
         with anyio.fail_after(5):
             await next_event(events, InstanceCreated)
         # Stopped since, through another node
-        stop = DeleteInstance(instance_id=launch.instance.instance_id)
+        stop = DeleteDeployment(deployment_id=launch.deployment_id)
         await commands_sender.send(ForwarderCommand(origin=SystemId(), command=stop))
         with anyio.fail_after(5):
             await next_event(events, InstanceDeleted)
@@ -194,7 +153,7 @@ async def test_a_launch_on_a_node_the_master_dropped_waits_until_it_is_back() ->
     master, events = master_with_room()
     membership = FakeMembership(master.node_id, NODE)
     master.membership = membership
-    launch = CreateInstance(instance=instance_on(LOST_NODE))
+    launch = launch_of(instance_on(LOST_NODE))
     commands_sender, master.command_receiver = channel[ForwarderCommand]()
     async with anyio.create_task_group() as tg:
         tg.start_soon(master._command_processor)  # pyright: ignore[reportPrivateUsage]
@@ -212,11 +171,17 @@ async def test_a_launch_on_a_node_the_master_dropped_waits_until_it_is_back() ->
         tg.cancel_scope.cancel()
 
 
-async def test_a_stop_of_an_instance_already_gone_is_logged_in_one_line() -> None:
-    """The API sends a stop again until its node sees the instance go, so copies can reach a
-    master that deleted it already: nothing to do, and no error with a traceback."""
+async def test_a_stop_of_a_model_already_stopped_is_logged_in_one_line() -> None:
+    """The API sends a stop again until its node sees the model go, so copies can reach a
+    master that stopped it already (its tombstone is in the state): nothing to do, and no
+    error with a traceback."""
     master, events = master_with()
-    stop = DeleteInstance(instance_id=instance_on(NODE).instance_id)
+    stop = DeleteDeployment(deployment_id=DeploymentId())
+    master.state = master.state.model_copy(
+        update={
+            "removed_deployments": {stop.deployment_id: "2026-11-05T12:00:00+00:00"}
+        }
+    )
     commands_sender, master.command_receiver = channel[ForwarderCommand]()
     logged: list[str] = []
     sink = logger.add(logged.append, level="DEBUG", format="{level} {message}")
@@ -233,4 +198,4 @@ async def test_a_stop_of_an_instance_already_gone_is_logged_in_one_line() -> Non
 
     assert events.collect() == []
     assert not [line for line in logged if "Error in command processor" in line]
-    assert [line for line in logged if "already gone" in line]
+    assert [line for line in logged if "already stopped" in line]

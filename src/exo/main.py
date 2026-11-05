@@ -20,7 +20,6 @@ from pydantic import PositiveInt
 
 import exo.routing.topics as topics
 from exo import __version__
-from exo.api.cluster_routes import ClusterRoutesServer
 from exo.api.listening_socket import ApiPortInUseError, listen_on_api_port
 from exo.api.main import API
 from exo.download.coordinator import DownloadCoordinator
@@ -32,13 +31,14 @@ from exo.routing.router import Router, get_node_zid
 from exo.routing.wire import DEFAULT_CLUSTER_NAME, WIRE_VERSION, build_id
 from exo.shared.constants import (
     EXO_DEFAULT_MODELS_DIR,
+    EXO_DEPLOYMENTS_FILE,
     EXO_EVENT_LOG_DIR,
     EXO_LOG,
     EXO_PID_FILE,
 )
+from exo.shared.deployment_store import DeploymentKeeper
 from exo.shared.election import Election, ElectionResult
 from exo.shared.logging import logger_cleanup, logger_setup
-from exo.shared.serving import ServingReachability
 from exo.shared.types.common import NodeId, SessionId
 from exo.shared.types.events import NodeTimedOut
 from exo.shared.types.state import State
@@ -83,26 +83,20 @@ class Node:
     election_result_receiver: Receiver[ElectionResult]
     master: Master | None
     api: API | None
+    deployment_keeper: DeploymentKeeper
 
     node_id: NodeId
     offline: bool
     _api_port: int
-    # With --no-api, a worker's models are still served to the cluster through these routes
-    cluster_routes: ClusterRoutesServer | None = None
-    # Which nodes serving requests treats as reachable (the membership's, see the class)
-    serving_reachability: ServingReachability | None = None
     _tg: TaskGroup = field(init=False, default_factory=TaskGroup)
     # Set by the first quit signal, while the node announces its departure
     _leaving: bool = field(init=False, default=False)
 
     @classmethod
     async def create(cls, args: "Args") -> Self:
-        # Take the API's port before starting anything, so a port in use fails fast and clearly.
-        # A worker always needs it: other nodes send it the requests for its models there.
+        # Take the API's port before starting anything, so a port in use fails fast and clearly
         api_listening_socket = (
-            listen_on_api_port(args.api_port)
-            if args.spawn_api or not args.no_worker
-            else None
+            listen_on_api_port(args.api_port) if args.spawn_api else None
         )
         node_id = get_node_zid()
         session_id = SessionId(master_node_id=node_id, election_clock=0)
@@ -133,7 +127,6 @@ class Node:
             networking=router,
             cluster_events=event_router.receiver(),
         )
-        serving_reachability = ServingReachability(node_id, membership)
 
         logger.info(f"Starting node {node_id}")
 
@@ -152,21 +145,7 @@ class Node:
         else:
             download_coordinator = None
 
-        if not args.no_worker:
-            worker = Worker(
-                node_id,
-                event_receiver=event_router.receiver(),
-                event_sender=event_router.sender(),
-                command_sender=router.sender(topics.COMMANDS),
-                download_command_sender=router.sender(topics.DOWNLOAD_COMMANDS),
-                api_port=args.api_port,
-                reachability=serving_reachability,
-            )
-        else:
-            worker = None
-
-        cluster_routes: ClusterRoutesServer | None = None
-        if args.spawn_api and api_listening_socket is not None:
+        if api_listening_socket is not None:
             api = API(
                 node_id,
                 port=args.api_port,
@@ -176,23 +155,22 @@ class Node:
                 download_command_sender=router.sender(topics.DOWNLOAD_COMMANDS),
                 election_receiver=router.receiver(topics.ELECTION_MESSAGES),
                 membership=membership,
-<<<<<<< HEAD
-=======
                 devices_on_other_versions=router.devices_on_other_versions,
-                serving_host=worker.serving if worker is not None else None,
-                serving_reachability=serving_reachability,
->>>>>>> 6cbb23a1 (Serve requests without the master: each request streams over HTTP from the device that runs it)
             )
         else:
             api = None
-            if api_listening_socket is not None and worker is not None:
-                serving_worker = worker
-                cluster_routes = ClusterRoutesServer(
-                    node_id,
-                    listening_socket=api_listening_socket,
-                    state=lambda: serving_worker.state,
-                    host=serving_worker.serving,
-                )
+
+        if not args.no_worker:
+            worker = Worker(
+                node_id,
+                event_receiver=event_router.receiver(),
+                event_sender=event_router.sender(),
+                command_sender=router.sender(topics.COMMANDS),
+                download_command_sender=router.sender(topics.DOWNLOAD_COMMANDS),
+                api_port=args.api_port,
+            )
+        else:
+            worker = None
 
         # We start every node with a master
         master = Master(
@@ -220,6 +198,16 @@ class Node:
             election_result_sender=er_send,
         )
 
+        # Every node keeps the deployments it has seen, for each new master
+        state_view = worker or api
+        deployment_keeper = DeploymentKeeper(
+            EXO_DEPLOYMENTS_FILE,
+            state=(lambda: state_view.state)
+            if state_view is not None
+            else lambda: None,
+            command_sender=router.sender(topics.COMMANDS),
+        )
+
         return cls(
             router,
             event_router,
@@ -230,11 +218,10 @@ class Node:
             er_recv,
             master,
             api,
+            deployment_keeper,
             node_id,
             args.offline,
             args.api_port,
-            cluster_routes=cluster_routes,
-            serving_reachability=serving_reachability,
         )
 
     async def run(self):
@@ -247,8 +234,6 @@ class Node:
             tg.start_soon(self.router.run)
             tg.start_soon(self.event_router.run)
             tg.start_soon(self.membership.run)
-            if self.serving_reachability:
-                tg.start_soon(self.serving_reachability.run)
             tg.start_soon(self.election.run)
             if self.download_coordinator:
                 tg.start_soon(self.download_coordinator.run)
@@ -258,8 +243,7 @@ class Node:
                 tg.start_soon(self.master.run)
             if self.api:
                 tg.start_soon(self.api.run)
-            if self.cluster_routes:
-                tg.start_soon(self.cluster_routes.run)
+            tg.start_soon(self.deployment_keeper.run)
             tg.start_soon(self._elect_loop)
 
     def shutdown(self):
@@ -385,6 +369,7 @@ class Node:
                         await self.download_coordinator.reannounce()
                     if self.worker:
                         await self.worker.announce_to_master()
+                    self.deployment_keeper.follow_new_master()
                     if self.api:
                         self.api.follow_new_master(result.won_clock)
                 else:
@@ -578,8 +563,7 @@ class Args(FrozenModel):
             "--no-api",
             action="store_false",
             dest="spawn_api",
-            help="Don't serve the dashboard and API on this node (a node that runs models "
-            "still takes the cluster's requests for them on the API port)",
+            help="Don't serve the dashboard and API on this node",
         )
         parser.add_argument(
             "--api-port",

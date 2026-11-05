@@ -9,22 +9,24 @@ arrives twice (once at the old master, once at the new one) has the effect of on
 
 from exo.shared.types.commands import (
     AddCustomModelCard,
-    CreateInstance,
+    CreateDeployment,
     DeleteCustomModelCard,
-    DeleteInstance,
+    DeleteDeployment,
     DeleteInstanceLink,
+    ResumeDeployment,
     SetInstanceLink,
 )
-from exo.shared.types.common import ModelId
+from exo.shared.types.common import DeploymentId, ModelId
 from exo.shared.types.instance_link import InstanceLinkId
 from exo.shared.types.state import State
 from exo.shared.types.worker.instances import InstanceId
 
-# The commands a request that changes the cluster sends: launching or stopping a model,
-# linking instances, adding or removing a custom model card
+# The commands a request that changes the cluster sends: launching, stopping or resuming a
+# model, linking instances, adding or removing a custom model card
 type ClusterCommand = (
-    CreateInstance
-    | DeleteInstance
+    CreateDeployment
+    | DeleteDeployment
+    | ResumeDeployment
     | SetInstanceLink
     | DeleteInstanceLink
     | AddCustomModelCard
@@ -35,10 +37,22 @@ type ClusterCommand = (
 def command_applied(command: ClusterCommand, state: State) -> bool:
     """Whether the state shows the command's effect."""
     match command:
-        case CreateInstance(instance=instance):
-            return instance.instance_id in state.instances
-        case DeleteInstance(instance_id=instance_id):
-            return instance_id not in state.instances
+        case CreateDeployment(deployment_id=deployment_id, instance=instance):
+            # Or stopped already (a launch is never applied again after its stop), or its
+            # placement runs already, for a launch of it posted at the same time
+            return (
+                deployment_id in state.deployments
+                or deployment_id in state.removed_deployments
+                or instance.instance_id in state.instances
+            )
+        case DeleteDeployment(deployment_id=deployment_id):
+            # Its tombstone, not its absence: a new master that never saw the launch lacks
+            # the deployment too, and the stop must still reach it, or a node that has the
+            # deployment brings it back
+            return deployment_id in state.removed_deployments
+        case ResumeDeployment(deployment_id=deployment_id, revision=revision):
+            deployment = state.deployments.get(deployment_id)
+            return deployment is None or deployment.revision > revision
         case SetInstanceLink():
             link = state.instance_links.get(command.link_id)
             # The master keeps each instance once, in the order given
@@ -59,6 +73,19 @@ def command_applied(command: ClusterCommand, state: State) -> bool:
             return model_id not in state.custom_model_cards
 
 
+def command_in_effect(command: ClusterCommand, state: State) -> bool:
+    """Whether the state still shows the command's effect: a launch stopped since was
+    applied, but is no longer in effect, so it is no longer its request's to restore."""
+    match command:
+        case CreateDeployment(deployment_id=deployment_id, instance=instance):
+            return (
+                deployment_id in state.deployments
+                or instance.instance_id in state.instances
+            )
+        case _:
+            return command_applied(command, state)
+
+
 def command_already_applied(command: ClusterCommand, state: State) -> bool:
     """Whether sending the command now would change nothing, so a request repeating a change
     already made (stopping a model that is gone, setting a link as it is) is answered at
@@ -71,13 +98,22 @@ def command_already_applied(command: ClusterCommand, state: State) -> bool:
             return command_applied(command, state)
 
 
-def changed_by(command: ClusterCommand) -> InstanceId | InstanceLinkId | ModelId:
-    """What the command changes: the instance, link or model card it is about."""
+def changed_by(
+    command: ClusterCommand,
+) -> DeploymentId | InstanceId | InstanceLinkId | ModelId:
+    """What the command changes: the placement, deployment, link or model card it is about.
+
+    A launch of a placement is about that placement (its instance): each request for one
+    makes a new deployment, so a client trying the very same placement again after a 503
+    takes over from the failed request by it."""
     match command:
-        case CreateInstance(instance=instance):
+        case CreateDeployment(instance=instance):
             return instance.instance_id
-        case DeleteInstance(instance_id=instance_id):
-            return instance_id
+        case (
+            DeleteDeployment(deployment_id=deployment_id)
+            | ResumeDeployment(deployment_id=deployment_id)
+        ):
+            return deployment_id
         case SetInstanceLink(link_id=link_id) | DeleteInstanceLink(link_id=link_id):
             return link_id
         case AddCustomModelCard(model_card=model_card):
@@ -91,12 +127,12 @@ def undoing_command(command: ClusterCommand, state: State) -> ClusterCommand | N
     answered as failed; `state` is the state when it was sent.
 
     Only launches and new links are undone: a client trying again after the failure gets a
-    new instance or link, so a late copy of the first would be a second one. Applying any
+    new deployment or link, so a late copy of the first would be a second one. Applying any
     other of these commands late does what trying again does, so it is kept.
     """
     match command:
-        case CreateInstance(instance=instance):
-            return DeleteInstance(instance_id=instance.instance_id)
+        case CreateDeployment(deployment_id=deployment_id):
+            return DeleteDeployment(deployment_id=deployment_id)
         case SetInstanceLink(link_id=link_id) if link_id not in state.instance_links:
             return DeleteInstanceLink(link_id=link_id)
         case _:
