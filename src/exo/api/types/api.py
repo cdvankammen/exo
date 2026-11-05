@@ -75,7 +75,8 @@ ChatCompletionContentPart = ChatCompletionMessageText | ChatCompletionMessageIma
 class ToolCallItem(BaseModel):
     id: str = Field(default_factory=lambda: str(uuid4()))
     name: str
-    arguments: str
+    # What the model wrote for the call: kept out of repr, and so out of logs
+    arguments: str = Field(repr=False)
 
 
 class ToolCall(BaseModel):
@@ -360,12 +361,12 @@ class AdvancedImageParams(BaseModel):
     seed: Annotated[int, Field(ge=0)] | None = None
     num_inference_steps: Annotated[int, Field(ge=1, le=100)] | None = None
     guidance: Annotated[float, Field(ge=1.0, le=20.0)] | None = None
-    negative_prompt: str | None = None
+    negative_prompt: str | None = Field(default=None, repr=False)
     num_sync_steps: Annotated[int, Field(ge=1, le=100)] | None = None
 
 
 class ImageGenerationTaskParams(BaseModel):
-    prompt: str
+    prompt: str = Field(repr=False)
     background: str | None = None
     model: str
     moderation: str | None = None
@@ -397,7 +398,7 @@ class ImageEditsTaskParams(BaseModel):
     """Internal task params for image-editing requests."""
 
     image_data: str = ""  # Base64-encoded image, sent inline to the nodes that run it
-    prompt: str
+    prompt: str = Field(repr=False)
     model: str
     n: int | None = 1
     quality: Literal["high", "medium", "low"] | None = "medium"

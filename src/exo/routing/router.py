@@ -97,7 +97,7 @@ class TopicRouter[T: FrozenModel]:
             # A message this node can't read (from a buggy or different version of exo) is
             # dropped: letting the error out would stop the node's whole receive loop
             logger.opt(exception=error).error(
-                f"Dropping a message on {self.topic.topic} that couldn't be read: {data[:300]!r}"
+                f"Dropping a message on {self.topic.topic} that couldn't be read ({len(data)} bytes)"
             )
             return
         await self.publish(item)
@@ -243,10 +243,11 @@ class Router:
         try:
             while True:
                 from_swarm = await self._net.recv()
-                logger.debug(from_swarm)
                 match from_swarm:
                     case FromSwarm.Message(topic, data):
-                        logger.trace(f"Received message on {topic} with payload {data}")
+                        # Not the message itself: it can carry a request's text
+                        logger.debug(f"Received {len(data)} bytes on {topic}")
+                        logger.trace(f"Received message on {topic}, {len(data)} bytes")
                         if topic not in self.topic_routers:
                             logger.warning(
                                 f"Received message on unknown or inactive topic {topic}"
@@ -255,6 +256,7 @@ class Router:
                         router = self.topic_routers[topic]
                         await router.publish_bytes(data)
                     case FromSwarm.Membership():
+                        logger.debug(from_swarm)
                         member = Member.from_swarm(from_swarm)
                         logger.trace(f"Membership change: {member}")
                         if MEMBERSHIP.topic in self.topic_routers:
@@ -263,6 +265,7 @@ class Router:
                             router = cast(TopicRouter[Member], router)
                             await router.publish(member)
                     case _:
+                        logger.debug(from_swarm)
                         logger.critical(
                             "failed to exhaustively check FromSwarm messages - logic error"
                         )
@@ -275,7 +278,7 @@ class Router:
     async def _networking_publish(self):
         with self.networking_receiver as networked_items:
             async for topic, data in networked_items:
-                logger.trace(f"Sending message on {topic} with payload {data}")
+                logger.trace(f"Sending message on {topic}, {len(data)} bytes")
                 if len(data) > 1024 * 1024:
                     logger.warning(
                         "Sending overlarge payload, network performance may be temporarily degraded"
