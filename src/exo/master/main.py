@@ -1,17 +1,17 @@
 from collections import deque
-from datetime import datetime, timedelta, timezone
+from collections.abc import Hashable
+from collections.abc import Set as AbstractSet
+from datetime import datetime, timezone
 from itertools import islice
 
 import anyio
 from loguru import logger
 
+from exo.master.deployments import reconcile, resume_event
 from exo.master.placement import (
-    InstanceDoesNotFitError,
-    add_instance_to_placements,
     cancel_unnecessary_downloads,
-    delete_instance,
-    get_transition_events,
-    place_instance,
+    launch_refusal,
+    removal_events,
 )
 from exo.routing.event_router import (
     EventRouterBrokenResourceError,
@@ -22,31 +22,46 @@ from exo.routing.membership import (
     MembershipView,
     instance_is_reachable,
     listed_nodes,
-    reachable_topology,
 )
 from exo.shared.apply import apply
 >>>>>>> 6cbb23a1 (Serve requests without the master: each request streams over HTTP from the device that runs it)
 from exo.shared.types.commands import (
     AddCustomModelCard,
-    CreateInstance,
+    CreateDeployment,
     DeleteCustomModelCard,
-    DeleteInstance,
+    DeleteDeployment,
     DeleteInstanceLink,
     DownloadCommand,
     ForwarderCommand,
     ForwarderDownloadCommand,
-    PlaceInstance,
+    ImageEdits,
+    ImageGeneration,
+    InstanceBroken,
     RequestEventLog,
+    ResumeDeployment,
+    SendInputChunk,
     SetInstanceLink,
     TestCommand,
 )
-from exo.shared.types.common import CommandId, NodeId, SessionId, SystemId
+from exo.shared.types.common import (
+    CommandId,
+    DeploymentId,
+    NodeId,
+    SessionId,
+    SystemId,
+)
+from exo.shared.types.deployments import Deployment, Hold
 from exo.shared.types.events import (
     CustomModelCardAdded,
     CustomModelCardDeleted,
+    DeploymentCreated,
+    DeploymentHeld,
+    DeploymentRemoved,
     Event,
     GlobalForwarderEvent,
     IndexedEvent,
+    InputChunkReceived,
+    InstanceCreated,
     InstanceDeleted,
     InstanceLinkCreated,
     InstanceLinkDeleted,
@@ -57,6 +72,20 @@ from exo.shared.types.events import (
 )
 from exo.shared.types.instance_link import InstanceLink
 from exo.shared.types.state import State
+from exo.shared.types.tasks import (
+    ImageEdits as ImageEditsTask,
+)
+from exo.shared.types.tasks import (
+    ImageGeneration as ImageGenerationTask,
+)
+from exo.shared.types.tasks import (
+    TaskId,
+    TaskStatus,
+)
+from exo.shared.types.tasks import (
+    TextGeneration as TextGenerationTask,
+)
+from exo.shared.types.worker.instances import InstanceId, InstanceRemovalReason
 from exo.utils.channels import Receiver, Sender
 from exo.utils.event_buffer import MultiSourceBuffer
 from exo.utils.task_group import TaskGroup
@@ -76,48 +105,6 @@ REPLAY_BATCH_SIZE = 1000
 PROCESSED_COMMANDS_KEPT = 100_000
 
 
-<<<<<<< HEAD
-def nodes_to_remove(listed: AbstractSet[NodeId], view: MembershipView) -> set[NodeId]:
-    """The listed nodes the coordinator removes now, and whose instances it ends: those Gone in
-    its own membership view (Suspect for the grace period, or listed and never seen for as
-    long), as far as its quorum read allows. Never this node itself.
-
-    - Majority: all of them.
-    - Half (two nodes with one away, or an even split): none yet, and their instances stay. A
-      Mac whose lid closed for a minute or two then comes back to its models, if their ranks'
-      connections held; its requests fail fast meanwhile (every API checks reachability).
-      Once the node has been Gone for FORGET_AFTER (the split hold, SPLIT_HOLD) it stops
-      counting, the read is Majority, and it is removed. This is also where the models the
-      other side ran would be re-placed after SPLIT_HOLD, once exo re-places models itself.
-    - Minority: none. This node is most likely the one cut off, and the rest of the cluster
-      still runs what it can't see. Once the lost nodes have been Gone for FORGET_AFTER they
-      stop counting, the read is Majority of the nodes it reaches, and they are removed.
-
-    Suspect nodes are never removed: they may be back within the grace period.
-    """
-    if view.quorum != "Majority":
-        return set()
-    return {
-        member.node_id
-        for member in view.members
-        if member.state == "Gone"
-        and member.node_id in listed
-        and member.node_id != view.node_id
-    }
-
-
-class NoInstanceForModelError(Exception):
-    """A request for a model with no instance that can serve it: none at all (one deleted after
-    the API checked for it), or none ready. The request is ended with this error: dropping it
-    would leave it open forever, and sending it to an instance that isn't ready would leave it
-    waiting for as long as the instance takes, perhaps forever."""
-
-    def __init__(self, model: str, message: str):
-        super().__init__(message)
-        self.model = ModelId(model)
-
-
-=======
 class Master:
     def __init__(
         self,
@@ -154,9 +141,11 @@ class Master:
         self._multi_buffer = MultiSourceBuffer[SystemId, Event]()
         self._recent_events: deque[Event] = deque()
         self._replayable_events = REPLAYABLE_EVENTS
-        # Since when the master has been able to hear nodes, and when it last checked on them
-        self._listening_since = time.monotonic()
-        self._last_check: float | None = None
+        self._replayable_image_bytes = REPLAYABLE_IMAGE_BYTES
+        self._pending_traces: dict[TaskId, dict[int, list[TraceEventData]]] = {}
+        # Deployments that didn't fit, and what they were tried with: tried again only when
+        # that changes
+        self._unfit: dict[DeploymentId, Hashable] = {}
         # Set when a node is removed, so its instances are deleted at once rather than at the
         # next check (created by the plan loop, which waits on it)
         self._node_removed: anyio.Event | None = None
@@ -213,74 +202,223 @@ class Master:
 
                     generated_events: list[Event] = []
                     download_commands: list[DownloadCommand] = []
+                    # Cancel the downloads no instance needs any more, once a stop is applied
+                    cancel_downloads = False
                     command = forwarder_command.command
                     match command:
                         case TestCommand():
                             pass
-                        case DeleteInstance() if (
-                            command.instance_id not in self.state.instances
-                        ):
-                            # A copy sent before its node saw the instance go
-                            logger.debug(
-                                f"Not deleting instance {command.instance_id}: already gone"
+                        case TextGeneration():
+                            # set-difference => prefill-only nodes
+                            prefill_only: set[InstanceId] = set()
+                            for link in self.state.instance_links.values():
+                                prefill_only.update(link.prefill_instances)
+                            for link in self.state.instance_links.values():
+                                prefill_only.difference_update(link.decode_instances)
+
+                            decode_instance_id = self._least_busy_instance(
+                                command.task_params.model, excluded=prefill_only
                             )
-                        case DeleteInstance():
-                            placement = delete_instance(command, self.state.instances)
-                            transition_events = get_transition_events(
-                                self.state.instances, placement
+                            task_id = TaskId()
+                            params = command.task_params.model_copy(
+                                update={
+                                    "prefill_endpoint": _prefill_endpoint_for(
+                                        self.state, decode_instance_id
+                                    ),
+                                }
                             )
-                            download_commands.extend(
-                                cancel_unnecessary_downloads(
-                                    placement, self.state.downloads
+                            generated_events.append(
+                                TaskCreated(
+                                    task_id=task_id,
+                                    task=TextGenerationTask(
+                                        task_id=task_id,
+                                        command_id=command.command_id,
+                                        instance_id=decode_instance_id,
+                                        task_status=TaskStatus.Pending,
+                                        task_params=params,
+                                    ),
                                 )
                             )
-                            generated_events.extend(transition_events)
-                        case PlaceInstance():
-                            placement = place_instance(
-                                command,
-                                reachable_topology(
-                                    self.membership, self.state.topology
-                                ),
-                                self.state.instances,
-                                self.state.node_memory,
-                                self.state.node_network,
-                                self.state.node_backends,
-                                download_status=self.state.downloads,
-                                node_rdma_ctl=self.state.node_rdma_ctl,
-                                runners=self.state.runners,
-                                node_identities=self.state.node_identities,
+                        case ImageGeneration():
+                            task_id = TaskId()
+                            selected_instance_id = self._least_busy_instance(
+                                command.task_params.model
                             )
-                            transition_events = get_transition_events(
-                                self.state.instances, placement
+                            generated_events.append(
+                                TaskCreated(
+                                    task_id=task_id,
+                                    task=ImageGenerationTask(
+                                        task_id=task_id,
+                                        command_id=command.command_id,
+                                        instance_id=selected_instance_id,
+                                        task_status=TaskStatus.Pending,
+                                        task_params=command.task_params,
+                                    ),
+                                )
                             )
-                            generated_events.extend(transition_events)
-                        case CreateInstance() if not instance_is_reachable(
+
+                            if EXO_TRACING_ENABLED:
+                                selected_instance = self.state.instances.get(
+                                    selected_instance_id
+                                )
+                                if selected_instance:
+                                    ranks = set(
+                                        shard.device_rank
+                                        for shard in selected_instance.shard_assignments.runner_to_shard.values()
+                                    )
+                                    self._expected_ranks[task_id] = ranks
+                        case ImageEdits():
+                            task_id = TaskId()
+                            selected_instance_id = self._least_busy_instance(
+                                command.task_params.model
+                            )
+                            generated_events.append(
+                                TaskCreated(
+                                    task_id=task_id,
+                                    task=ImageEditsTask(
+                                        task_id=task_id,
+                                        command_id=command.command_id,
+                                        instance_id=selected_instance_id,
+                                        task_status=TaskStatus.Pending,
+                                        task_params=command.task_params,
+                                    ),
+                                )
+                            )
+
+                            if EXO_TRACING_ENABLED:
+                                selected_instance = self.state.instances.get(
+                                    selected_instance_id
+                                )
+                                if selected_instance:
+                                    ranks = set(
+                                        shard.device_rank
+                                        for shard in selected_instance.shard_assignments.runner_to_shard.values()
+                                    )
+                                    self._expected_ranks[task_id] = ranks
+                        case CreateDeployment() if (
+                            command.deployment_id in self.state.deployments
+                        ):
+                            logger.info(
+                                f"Deployment {command.deployment_id} is already launched"
+                            )
+                        case CreateDeployment() if (
+                            command.instance.instance_id in self.state.instances
+                        ):
+                            # The same placement posted again (a double click, a client's
+                            # retry): it runs already, so this launches nothing
+                            logger.info(
+                                f"Instance {command.instance.instance_id} is already running"
+                            )
+                        case CreateDeployment() if not instance_is_reachable(
                             self.membership, command.instance
                         ):
                             # Its model couldn't load, and it would be ended as soon as the
-                            # node is removed. Refused, as PlaceInstance leaves such a node out:
-                            # the API sends a launch again until it shows, by when the node may
-                            # be back, and calls it off after CLUSTER_COMMAND_TIMEOUT.
+                            # node is removed. Refused, as the API's placement leaves such a
+                            # node out: the API sends a launch again until it shows, by when the
+                            # node may be back, and calls it off after CLUSTER_COMMAND_TIMEOUT.
                             logger.warning(
-                                f"Not launching instance {command.instance.instance_id}: a "
-                                "node it needs can't be reached now"
+                                f"Not launching {command.spec.model_id}: a node it needs "
+                                "can't be reached now"
                             )
-                        case CreateInstance():
-                            try:
-                                placement = add_instance_to_placements(
-                                    command, self.state
+                        case CreateDeployment():
+                            generated_events.extend(self._create_deployment(command))
+                        case DeleteDeployment() if (
+                            command.deployment_id not in self.state.deployments
+                        ):
+                            logger.info(
+                                f"Deployment {command.deployment_id} to stop is already gone"
+                            )
+                        case DeleteDeployment():
+                            generated_events.extend(
+                                self._delete_deployment(command.deployment_id)
+                            )
+                            cancel_downloads = True
+                        case ResumeDeployment() if (
+                            command.deployment_id not in self.state.deployments
+                        ):
+                            logger.info(
+                                f"Deployment {command.deployment_id} to resume is gone"
+                            )
+                        case ResumeDeployment() if (
+                            self.state.deployments[command.deployment_id].revision
+                            != command.revision
+                        ):
+                            logger.info(
+                                f"Deployment {command.deployment_id} was resumed already"
+                            )
+                        case ResumeDeployment():
+                            generated_events.append(
+                                resume_event(
+                                    self.state.deployments[command.deployment_id],
+                                    self.state,
                                 )
-                            except InstanceDoesNotFitError as error:
-                                # Its request learns of it only as the launch not showing
+                            )
+                        case InstanceBroken() if (
+                            command.instance_id not in self.state.instances
+                        ):
+                            # Already gone: a late request from a worker changes nothing
+                            logger.info(
+                                f"Instance {command.instance_id} ({command.reason}) is "
+                                "already gone"
+                            )
+                        case InstanceBroken():
+                            logger.warning(
+                                f"Removing instance {command.instance_id} ({command.reason})"
+                                + (f": {command.message}" if command.message else "")
+                            )
+                            # Held first, so that nothing places it again in between:
+                            # starting it again would fail the same way, and the user sees why
+                            generated_events.append(
+                                DeploymentHeld(
+                                    deployment_id=self.state.instances[
+                                        command.instance_id
+                                    ].deployment_id,
+                                    hold=Hold(
+                                        kind="StartFailed", message=command.message
+                                    ),
+                                )
+                            )
+                            generated_events.extend(
+                                removal_events(
+                                    command.instance_id,
+                                    command.reason,
+                                    self.state.tasks,
+                                    datetime.now(tz=timezone.utc),
+                                )
+                            )
+                        case SendInputChunk(chunk=chunk):
+                            generated_events.append(
+                                InputChunkReceived(
+                                    command_id=chunk.command_id,
+                                    chunk=chunk,
+                                )
+                            )
+                        case TaskCancelled():
+                            if (
+                                task_id := task_for_command(
+                                    self.state, command.cancelled_command_id
+                                )
+                            ) is not None:
+                                generated_events.append(
+                                    TaskStatusUpdated(
+                                        task_status=TaskStatus.Cancelled,
+                                        task_id=task_id,
+                                    )
+                                )
+                            else:
                                 logger.warning(
-                                    f"Not launching instance "
-                                    f"{command.instance.instance_id}: {error}"
+                                    f"Nonexistent command {command.cancelled_command_id} cancelled"
                                 )
-                                placement = self.state.instances
-                            transition_events = get_transition_events(
-                                self.state.instances, placement
-                            )
-                            generated_events.extend(transition_events)
+                        case TaskFinished():
+                            # The API resends a finish while the task is still in its state,
+                            # so a finish for a task already deleted is expected
+                            if (
+                                task_id := task_for_command(
+                                    self.state, command.finished_command_id
+                                )
+                            ) is not None:
+                                generated_events.append(TaskDeleted(task_id=task_id))
+
                         case AddCustomModelCard():
                             generated_events.append(
                                 CustomModelCardAdded(model_card=command.model_card)
@@ -315,8 +453,15 @@ class Master:
                     # Applied before the next command is looked at, with nothing awaited since
                     # the state they were decided on was read: every decision sees the ones
                     # before it. All of a command's events apply, or none (see _index), and
-                    # its download commands are sent only once they have.
+                    # its download commands are sent only once they have: a stop's are
+                    # worked out from the state it left.
                     self._index(*generated_events)
+                    if cancel_downloads:
+                        download_commands.extend(
+                            cancel_unnecessary_downloads(
+                                self.state.instances, self.state.downloads
+                            )
+                        )
                     for download_command in download_commands:
                         await self.download_command_sender.send(
                             ForwarderDownloadCommand(
@@ -326,81 +471,118 @@ class Master:
                 except Exception as e:
                     logger.opt(exception=e).warning("Error in command processor")
 
-<<<<<<< HEAD
-    def _least_busy_instance(
-        self, model: str, excluded: AbstractSet[InstanceId] = frozenset()
-    ) -> InstanceId:
-        """The ready instance of the model with the fewest requests in flight.
-
-        Instances with a node this node can't reach now, as its membership sees it, are left
-        out: their output can't arrive. The API that sent the request checked the same on its
-        own view; this is the backstop for views that differ. A request whose model has only
-        such instances ends at once.
-
-        So are instances that aren't ready (downloading, loading, failed): the API waits for
-        a model to be ready before sending a request, but with several instances of a model,
-        one may be ready and another not.
-        """
-        in_flight = {TaskStatus.Pending, TaskStatus.Running}
-        of_model = [
-            instance
-            for instance_id, instance in self.state.instances.items()
-            if instance.shard_assignments.model_id == model
-            and instance_id not in excluded
-        ]
-        if not of_model:
-            # The API sends a request only for a model it saw an instance of, so the instance
-            # was deleted (the model stopped, or a node lost) after the API looked
-            raise NoInstanceForModelError(model, INSTANCE_GONE_BEFORE_START)
-        reachable = [
-            instance
-            for instance in of_model
-            if instance_is_reachable(self.membership, instance)
-        ]
-        if not reachable:
-            raise NoInstanceForModelError(model, DEVICE_UNREACHABLE)
-        ready = [
-            instance.instance_id
-            for instance in reachable
-            if instance_is_ready(instance, self.state.runners)
-        ]
-        if not ready:
-            not_ready = [
-                status
-                for instance in reachable
-                if (status := instance_readiness(self.state, instance)) is not None
-            ]
-            raise NoInstanceForModelError(
-                model,
-                min(
-                    not_ready,
-                    key=lambda status: (status.failed, status.retry_after_seconds),
-                ).message,
-            )
-        task_counts: dict[InstanceId, int] = {
-            instance_id: sum(
-                1
-                for task in self.state.tasks.values()
-                if task.instance_id == instance_id and task.task_status in in_flight
-            )
-            for instance_id in ready
-        }
-        return min(task_counts, key=lambda instance_id: task_counts[instance_id])
-
-=======
->>>>>>> 6cbb23a1 (Serve requests without the master: each request streams over HTTP from the device that runs it)
     # These plan loops are the cracks showing in our event sourcing architecture - more things could be commands
     async def _plan(self) -> None:
         while True:
             self._node_removed = anyio.Event()
             self._remove_silent_nodes_and_broken_instances()
+            self._reconcile_deployments()
             with anyio.move_on_after(PLAN_INTERVAL):
                 await self._node_removed.wait()
+
+    def _create_deployment(self, command: CreateDeployment) -> list[Event]:
+        """Launch a deployment, or refuse it (nothing is recorded) when it can't run.
+
+        A new launch of a model replaces that model's deployments without an instance this node
+        reaches. They wait to be placed again, are held, or are kept for a device that's gone:
+        the user's latest launch is what they want, and the older one would otherwise start a
+        second copy once it fits, or when the device's split hold ends."""
+        instance = command.instance.model_copy(
+            update={"deployment_id": command.deployment_id}
+        )
+        # Checked against the master's own state, which shows a launch the API's state may not
+        # yet: two launches at once (two tabs, two devices) were otherwise both placed in memory
+        # that holds one. Its request learns of it only as the launch not showing.
+        if (refusal := launch_refusal(instance, self.state)) is not None:
+            logger.warning(f"Not launching {command.spec.model_id}: {refusal}")
+            return []
+        reached = {
+            running.deployment_id
+            for running in self.state.instances.values()
+            if instance_is_reachable(self.membership, running)
+        }
+        replaced = [
+            deployment_id
+            for deployment_id, deployment in self.state.deployments.items()
+            if deployment.spec.model_id == command.spec.model_id
+            and deployment_id not in reached
+        ]
+        for deployment_id in replaced:
+            logger.info(f"Deployment {deployment_id} is replaced by a new launch")
+        return [
+            *(
+                event
+                for deployment_id in replaced
+                for event in self._delete_deployment(deployment_id)
+            ),
+            DeploymentCreated(
+                deployment=Deployment(
+                    deployment_id=command.deployment_id,
+                    spec=command.spec,
+                    model_card=command.model_card,
+                )
+            ),
+            InstanceCreated(instance=instance),
+        ]
+
+    def _delete_deployment(self, deployment_id: DeploymentId) -> list[Event]:
+        """A user's stop: the deployment goes, and its instances with it."""
+        now = datetime.now(tz=timezone.utc)
+        return [
+            *(
+                event
+                for instance_id, instance in self.state.instances.items()
+                if instance.deployment_id == deployment_id
+                for event in removal_events(
+                    instance_id, "UserStopped", self.state.tasks, now
+                )
+            ),
+            DeploymentRemoved(deployment_id=deployment_id),
+        ]
+
+    def _reconcile_deployments(self) -> None:
+        """Place again the deployments that lost their instance, or say why they wait.
+
+        Nothing is placed while this node is Resuming after it was stopped (frozen, or its Mac
+        asleep): its peers are still reconnecting, and a model placed then would leave out
+        nodes that are about to be back."""
+        decisions = reconcile(
+            self.state,
+            now=datetime.now(tz=timezone.utc),
+            settled=self.membership.view().self_state != "Resuming",
+            reachable=self._reachable(),
+            unfit=self._unfit,
+        )
+        self._unfit = decisions.unfit
+        for event in decisions.events:
+            match event:
+                case InstanceCreated(instance=instance):
+                    logger.info(
+                        f"Placing deployment {instance.deployment_id} "
+                        f"({instance.shard_assignments.model_id}) again"
+                    )
+                case DeploymentHeld(deployment_id=deployment_id, hold=hold):
+                    logger.warning(
+                        f"Holding deployment {deployment_id}: {hold.kind} {hold.message}"
+                    )
+                case _:
+                    pass
+            self._index(event)
+
+    def _reachable(self) -> set[NodeId]:
+        """The connected nodes this node reaches now, as its membership sees them: the only
+        ones a model is placed on"""
+        return {
+            node_id
+            for node_id in self.state.topology.list_nodes()
+            if self.membership.is_reachable(node_id)
+        }
 
     def _remove_silent_nodes_and_broken_instances(self) -> None:
         # Gone in this node's membership view, as far as its quorum read allows: a node that
         # was stopped itself (frozen, or its Mac asleep) is Resuming for a while, and doesn't
         # time the peers it lost meanwhile toward Gone, so it doesn't blame them for its stall
+        now = datetime.now(tz=timezone.utc)
         view = self.membership.view()
         listed = listed_nodes(self.state)
         gone = nodes_to_remove(listed, view)
@@ -416,14 +598,36 @@ class Master:
             )
             self._index(NodeTimedOut(node_id=node_id))
 
-        # An instance that lost a node can't serve anything, so delete it straight away
+        # An instance that lost a node can't serve anything, so delete it straight away. Its
+        # deployment is placed again by the reconciler, on the nodes this node reaches. While
+        # the quorum read holds a gone node listed (an even split, or this node cut off), its
+        # instances stay, so their deployments count as placed and nothing moves until it is
+        # removed (after the split hold, if it doesn't come back)
         connected = set(self.state.topology.list_nodes())
         for instance_id, instance in list(self.state.instances.items()):
             if any(
                 node_id not in connected
                 for node_id in instance.shard_assignments.node_to_runner
             ):
-                self._index(InstanceDeleted(instance_id=instance_id))
+                self._index(
+                    InstanceDeleted(
+                        instance_id=instance_id, reason="NodeLost", at=now.isoformat()
+                    )
+                )
+        # An instance whose deployment a user stopped (or a second instance of one)
+        placed: set[DeploymentId] = set()
+        for instance_id, instance in list(self.state.instances.items()):
+            deployment_id = instance.deployment_id
+            if deployment_id not in self.state.deployments:
+                reason: InstanceRemovalReason | None = "UserStopped"
+            elif deployment_id in placed:
+                reason = "Duplicate"
+            else:
+                reason = None
+            placed.add(deployment_id)
+            if reason is not None:
+                for event in removal_events(instance_id, reason, self.state.tasks, now):
+                    self._index(event)
 
     def _on_node_removed(self, node_id: NodeId) -> None:
         # Only for a removal a node sent: it announced it was leaving. The ones this master

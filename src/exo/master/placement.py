@@ -1,6 +1,8 @@
 from collections import defaultdict
 from collections.abc import Mapping
+from collections.abc import Set as AbstractSet
 from copy import deepcopy
+from datetime import datetime
 from typing import Sequence
 
 from exo.master.placement_utils import (
@@ -17,15 +19,12 @@ from exo.shared.topology import Topology
 from exo.shared.types.backends import Backend
 from exo.shared.types.commands import (
     CancelDownload,
-    CreateInstance,
-    DeleteInstance,
     DownloadCommand,
     PlaceInstance,
 )
 from exo.shared.types.common import NodeId
 from exo.shared.types.events import (
     Event,
-    InstanceCreated,
     InstanceDeleted,
 )
 from exo.shared.types.memory import Memory
@@ -76,42 +75,31 @@ INSTANCE_META_BACKENDS: dict[InstanceMeta, list[Backend]] = {
 }
 
 
-class InstanceDoesNotFitError(ValueError):
-    """A launch a node can't hold its shard of, besides the instances already there, or with a
-    node outside the cluster."""
+def launch_refusal(instance: Instance, state: State) -> str | None:
+    """Why the master refuses to launch the instance, if it does: a node isn't in the cluster,
+    or can't hold its shard besides the instances already there (some perhaps still loading).
 
-
-def add_instance_to_placements(
-    command: CreateInstance, state: State
-) -> Mapping[InstanceId, Instance]:
-    """The instances once the command's instance is added. An instance already there makes it
-    a repeat, which changes nothing.
-
-    Refused (InstanceDoesNotFitError) when a node isn't in the cluster, and, like a
-    PlaceInstance, when a node can't hold its shard besides the instances already there, some
-    of them perhaps still loading: two launches sent at the same time were otherwise both
-    placed in memory that holds one. The API checks a launch the same way before sending it,
-    but against its own state, which may not show the other launch yet.
-    """
-    if command.instance.instance_id in state.instances:
-        return state.instances
+    A node outside the cluster: the master's next check would delete the instance at once, as
+    one that lost a node. Refused instead: the API sends a launch again until it shows, by when
+    a node that is coming back (a split healing, say) is in the cluster again. Memory: two
+    launches sent at the same time were otherwise both placed in memory that holds one. The
+    API checks a launch the same way before sending it, but against its own state, which may
+    not show the other launch yet."""
     if outside := [
         node_id
-        for node_id in command.instance.shard_assignments.node_to_runner
+        for node_id in instance.shard_assignments.node_to_runner
         if not state.topology.contains_node(node_id)
     ]:
-        # The master's next check would delete it at once, as an instance that lost a node.
-        # Refused instead: the API sends a launch again until it shows, by when a node that is
-        # coming back (a split healing, say) is in the cluster again.
-        raise InstanceDoesNotFitError(f"node(s) {outside} aren't in the cluster")
-    if (shortfall := instance_beyond_memory(command.instance, state)) is not None:
-        raise InstanceDoesNotFitError(shortfall)
-    return {**state.instances, command.instance.instance_id: command.instance}
+        return f"node(s) {outside} aren't in the cluster"
+    return instance_beyond_memory(instance, state)
 
 
 def instance_beyond_memory(instance: Instance, state: State) -> str | None:
     """Why a node can't hold its shard of the instance besides the instances in the state (some
-    of them perhaps still loading), or None if every node can."""
+    of them perhaps still loading), or None if every node can. The master checks a launch
+    with it against its own state: two launches sent at the same time were otherwise both
+    placed in memory that holds one. The API checks a launch the same way before sending it,
+    but against its own state, which may not show the other launch yet."""
     return shard_beyond_memory(
         instance.shard_assignments,
         usable_memory(
@@ -316,17 +304,24 @@ def place_instance(
     node_rdma_ctl: Mapping[NodeId, NodeRdmaCtlStatus] | None = None,
     runners: Mapping[RunnerId, RunnerStatus] | None = None,
     node_identities: Mapping[NodeId, NodeIdentity] | None = None,
+    allowed_nodes: AbstractSet[NodeId] | None = None,
+    cycles: Sequence[Cycle] | None = None,
 ) -> dict[InstanceId, Instance]:
     """Place an instance of the command's model on the best group of nodes.
 
     Pass the cluster's `runners` so that memory taken by instances that haven't loaded yet is
     counted as used; without them every instance is assumed loaded. `node_identities` name the
-    nodes in errors.
+    nodes in errors. With `allowed_nodes`, only groups of those nodes are considered.
+    `cycles` are the topology's, if the caller has them: finding them is the costly part, and
+    grows quickly with the number of nodes.
     """
     if runners is not None:
         node_memory = memory_once_loaded(node_memory, current_instances, runners)
     node_memory = usable_memory(node_memory)
-    cycles = topology.get_cycles()
+    if cycles is None:
+        cycles = topology.get_cycles()
+    if allowed_nodes is not None:
+        cycles = [cycle for cycle in cycles if set(cycle.node_ids) <= allowed_nodes]
     if not cycles:
         raise ValueError("No nodes are available")
     candidate_cycles = list(filter(lambda it: len(it) >= command.min_nodes, cycles))
@@ -548,41 +543,22 @@ def place_instance(
     return target_instances
 
 
-def delete_instance(
-    command: DeleteInstance,
-    current_instances: Mapping[InstanceId, Instance],
-) -> dict[InstanceId, Instance]:
-    target_instances = dict(deepcopy(current_instances))
-    if command.instance_id in target_instances:
-        del target_instances[command.instance_id]
-        return target_instances
-    raise ValueError(f"Instance {command.instance_id} not found")
-
-
-def get_transition_events(
-    current_instances: Mapping[InstanceId, Instance],
-    target_instances: Mapping[InstanceId, Instance],
+def removal_events(
+    instance_id: InstanceId,
+    reason: InstanceRemovalReason,
+    tasks: Mapping[TaskId, Task],
+    at: datetime,
 ) -> Sequence[Event]:
-    events: list[Event] = []
-
-    # find instances to create
-    for instance_id, instance in target_instances.items():
-        if instance_id not in current_instances:
-            events.append(
-                InstanceCreated(
-                    instance=instance,
-                )
-            )
-
-    # find instances to delete: their requests end on the nodes serving them
-    for instance_id in current_instances:
-        if instance_id not in target_instances:
-            events.append(
-                InstanceDeleted(
-                    instance_id=instance_id,
-                )
-            )
-
+    """Remove an instance, cancelling the requests it had not finished first."""
+    events: list[Event] = [
+        TaskStatusUpdated(task_status=TaskStatus.Cancelled, task_id=task.task_id)
+        for task in tasks.values()
+        if task.instance_id == instance_id
+        and task.task_status in (TaskStatus.Pending, TaskStatus.Running)
+    ]
+    events.append(
+        InstanceDeleted(instance_id=instance_id, reason=reason, at=at.isoformat())
+    )
     return events
 
 
