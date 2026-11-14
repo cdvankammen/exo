@@ -11,6 +11,7 @@ opt-level = 1
 debug = true
 
 [profile.release]
+strip = "none"
 opt-level = 3
 
 # Common shared dependendencies configured once at the workspace
