@@ -406,6 +406,7 @@ class InfoGatherer:
     _tg: TaskGroup = field(init=False, default_factory=TaskGroup)
     _psutil_enabled: bool = field(init=False, default=False)
     _gpu_working_set: Memory | None = field(init=False, default=None)
+    _override_memory: int | None = field(init=False, default=None)
 
     async def _can_read_macmon_metrics(self, macmon_path: str) -> bool:
         try:
@@ -448,6 +449,14 @@ class InfoGatherer:
             self._gpu_working_set = await to_thread.run_sync(get_gpu_working_set)
         except Exception as e:
             logger.opt(exception=e).warning("Error reading the GPU's working set")
+        override_memory_env = os.getenv("OVERRIDE_MEMORY_MB")
+        if override_memory_env:
+            try:
+                self._override_memory = Memory.from_mb(int(override_memory_env)).in_bytes
+            except (ValueError, TypeError) as e:
+                logger.warning(
+                    f"Invalid OVERRIDE_MEMORY_MB value '{override_memory_env}': {e}"
+                )
         async with self._tg as tg:
             if IS_DARWIN:
                 tg.start_soon(self._monitor_macmon, 1)
@@ -518,17 +527,11 @@ class InfoGatherer:
         if self._psutil_enabled:
             return
         self._psutil_enabled = True
-        override_memory_env = os.getenv("OVERRIDE_MEMORY_MB")
-        override_memory: int | None = (
-            Memory.from_mb(int(override_memory_env)).in_bytes
-            if override_memory_env
-            else None
-        )
         while True:
             try:
                 await self.info_sender.send(
                     MemoryUsage.from_psutil(
-                        override_memory=override_memory,
+                        override_memory=self._override_memory,
                         gpu_working_set=self._gpu_working_set,
                     )
                 )
@@ -620,7 +623,7 @@ class InfoGatherer:
                             )
                             text = data.decode("utf-8", errors="replace").strip()
                             metrics = MacmonMetrics.from_raw_json(
-                                text, self._gpu_working_set
+                                text, self._gpu_working_set, self._override_memory
                             )
                         await self.info_sender.send(metrics)
             except TimeoutError:
